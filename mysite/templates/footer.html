@@ -1,0 +1,153 @@
+<footer class="footer text-white pt-5 pb-4">
+    <div class="container">
+        <div class="row">
+            <!-- Лого и описание -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="footer-brand mb-3">
+                    <h3 class="text-primary fw-bold">
+                        <a class="navbar-brand" href="{% url 'main:home' %}">
+                            {% if site_settings and site_settings.logo %}
+                                <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_title }}" height="40">
+                                {{ request.get_host }}
+                            {% else %}
+                                {{ site_settings.site_title|default:"DPIT-CMS" }}
+                            {% endif %}
+                        </a>
+                    </h3>
+                </div>
+                <p class="text-muted mb-4">
+                    {{ site_settings.meta_description|safe }}
+                </p>
+                <div class="social-links">
+                    <a href="#" class="btn btn-outline-light btn-sm me-2 mb-2">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-sm me-2 mb-2">
+                        <i class="bi bi-twitter"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-sm me-2 mb-2">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-sm me-2 mb-2">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-sm me-2 mb-2">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Быстрые ссылки -->
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h5 class="text-primary mb-3">Навигация</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{% url 'news:list' %}" class="text-muted text-decoration-none">Новости</a></li>
+                    <li class="mb-2"><a href="{% url 'portfolio:list' %}" class="text-muted text-decoration-none">Портфолио</a></li>
+                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">О нас</a></li>
+                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Контакты</a></li>
+                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Услуги</a></li>
+                </ul>
+            </div>
+
+            <!-- Категории -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="text-primary mb-3">Категории</h5>
+                <ul class="list-unstyled">
+                    {% for category in categories|slice:":5" %}
+                    <li class="mb-2">
+                        <a href="{% url 'news:by_category' category.slug %}" class="text-muted text-decoration-none">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Контакты -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="text-primary mb-3">Контакты</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <i class="bi bi-geo-alt text-primary me-2"></i>
+                        <span class="text-muted">г. Москва, ул. Примерная, 123</span>
+                    </li>
+                    <li class="mb-3">
+                        <i class="bi bi-phone text-primary me-2"></i>
+                        <a href="tel:+79991234567" class="text-muted text-decoration-none">+7 (999) 123-45-67</a>
+                    </li>
+                    <li class="mb-3">
+                        <i class="bi bi-envelope text-primary me-2"></i>
+                        <a href="mailto:info@example.com" class="text-muted text-decoration-none">info@example.com</a>
+                    </li>
+                    <li class="mb-3">
+                        <i class="bi bi-clock text-primary me-2"></i>
+                        <span class="text-muted">Пн-Пт: 9:00-18:00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="my-4 bg-secondary">
+
+        <!-- Нижняя часть -->
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="text-muted mb-0">
+                    &copy; 2024 YourCompany. Все права защищены.
+                </p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <div class="footer-links">
+                    <a href="#" class="text-muted text-decoration-none me-3 small">Политика конфиденциальности</a>
+                    <a href="#" class="text-muted text-decoration-none small">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+.footer {
+    background-color: var(--color-fon-1);
+    color: var(--color-text-2);
+    margin-top: auto;
+}
+
+.footer a {
+    transition: all 0.3s ease;
+}
+
+.footer a:hover {
+    color: #ffffff !important;
+    transform: translateX(5px);
+}
+
+.social-links .btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.social-links .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.footer-brand {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        text-align: center;
+    }
+    
+    .footer .row > div {
+        margin-bottom: 2rem;
+    }
+}
+</style>

@@ -1,0 +1,295 @@
+{% extends 'base.html' %}
+{% load news_extras %}
+
+{% block title %}
+    {% if current_category %}{{ current_category.name }} - {% endif %}Новости
+{% endblock %}
+
+{% block extra_css %}
+<style type="text/css">
+.news-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.news-image {
+    height: 220px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.news-category-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.news-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.news-excerpt {
+    color: #6c757d;
+    line-height: 1.5;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.news-meta {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.pagination {
+    margin-top: 2rem;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.pagination .page-link {
+    color: #007bff;
+    border-radius: 8px;
+    margin: 0 3px;
+    border: 1px solid #dee2e6;
+    padding: 0.5rem 0.75rem;
+}
+
+.pagination .page-link:hover {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    color: #0056b3;
+}
+
+.category-filter {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.category-btn {
+    text-align: center;
+    border-radius: 8px;
+    margin: 0.25rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #dee2e6;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    color: #495057;
+    background: white;
+}
+
+.category-btn:hover {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    transform: translateY(-2px);
+}
+
+.category-btn.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.badge-count {
+    font-size: 0.7rem;
+    margin-left: 0.3rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.4rem;
+    border-radius: 10px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+    color: #6c757d;
+}
+
+.empty-state h4 {
+    color: #495057;
+    margin-bottom: 1rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .category-btn {
+        width: calc(50% - 0.5rem);
+        margin: 0.25rem;
+    }
+    
+    .news-title {
+        font-size: 1rem;
+    }
+    
+    .news-image {
+        height: 180px;
+    }
+    
+    .category-filter {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .category-btn {
+        width: 100%;
+        margin: 0.25rem 0;
+    }
+    
+    .news-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .display-5 {
+        font-size: 2rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <!-- Основной контент -->
+        <div class="col-12">
+            <div class="mb-4">
+                <h1 class="display-5 fw-bold text-primary mb-3">
+                    {% if current_category %}{{ current_category.name }}{% else %}Новости{% endif %}
+                </h1>
+                
+                {% if current_category and current_category.content %}
+                <div class="alert alert-info border-0 rounded-3">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <p class="mb-0">{{ current_category.content|safe }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Категории -->
+            {% if categories %}
+            <div class="category-filter">
+                <h5 class="fw-semibold mb-12">Фильтр по категориям:</h5><hr>
+                <div class="d-flex flex-wrap">
+                    <a href="{% url 'news:list' %}" 
+                       class="category-btn {% if not current_category %}active{% endif %}">
+                        Все новости
+                    </a>
+                    {% for category in categories %}
+                    <a href="{% url 'news:by_category' category.slug %}" 
+                       class="category-btn {% if current_category and current_category.slug == category.slug %}active{% endif %}">
+                        {{ category.name }}
+                        <span class="badge badge-count">{{ category.news_count }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Список новостей -->
+            <div class="row">
+                {% for news in news_list %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card news-card h-100">
+                        {% if news.image %}
+                        <img src="{{ news.image.url }}" class="news-image" alt="{{ news.title }}">
+                        {% else %}
+                        <div class="news-image bg-light d-flex align-items-center justify-content-center">
+                            <i class="bi bi-newspaper fs-1 text-muted"></i>
+                        </div>
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge news-category-badge bg-primary mb-2">{{ news.category.name }}</span>
+                            <h5 class="news-title">{{ news.title }}</h5>
+                            <p class="news-excerpt flex-grow-1">{{ news.meta_description|truncatewords:15 }}</p>
+                            <div class="mt-auto">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <small class="news-meta">{{ news.created_at|date:"d.m.Y" }}</small>
+                                    <small class="news-meta">👁️ {{ news.views }}</small>
+                                </div>
+                                <a href="{% url 'news:detail' news.slug %}" class="btn btn-primary w-100">
+                                    Читать далее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="empty-state">
+                        <i class="bi bi-newspaper"></i>
+                        <h4>Новостей пока нет</h4>
+                        <p class="text-muted">В этой категории еще не опубликовано новостей.</p>
+                        <a href="{% url 'news:list' %}" class="btn btn-primary mt-2">
+                            Вернуться ко всем новостям
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Пагинация -->
+            {% if news_list.has_other_pages %}
+            <nav aria-label="Page navigation" class="mt-5">
+                <ul class="pagination justify-content-center">
+                    {% if news_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news_list.previous_page_number }}" aria-label="Previous">
+                            &laquo;
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for num in news_list.paginator.page_range %}
+                        {% if news_list.number == num %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if news_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news_list.next_page_number }}" aria-label="Next">
+                            &raquo;
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

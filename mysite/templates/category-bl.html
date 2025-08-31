@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-md-4 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Новости</h5>
+                    <p class="card-text">Последние новости и события</p>
+                    <a href="{% url 'news:list' %}" class="btn btn-primary">Читать новости</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Портфолио</h5>
+                    <p class="card-text">Наши работы и проекты</p>
+                    <a href="{% url 'portfolio:list' %}" class="btn btn-primary">Смотреть работы</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Отзывы</h5>
+                    <p class="card-text">Что говорят наши клиенты</p>
+                    <a href="{% url 'reviews:list' %}" class="btn btn-primary">Читать отзывы</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
