@@ -1,0 +1,79 @@
+<!-- templates/main/index.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Hero Section -->
+    <section class="hero-section bg-light py-5 rounded mb-5">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="display-4 fw-bold">{{ site_settings.logo_text }}</h1>
+                    <p class="lead">{{ site_settings.motto }}</p>
+                    <p>{{ site_settings.short_description }}</p>
+                    <div class="mt-4">
+                        <a href="{% url 'portfolio:list' %}" class="btn btn-primary btn-lg me-3">Наше портфолио</a>
+                        <a href="{% url 'reviews:add' %}" class="btn btn-outline-secondary btn-lg">Оставить отзыв</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    {% if site_settings.logo %}
+                        <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" class="img-fluid rounded">
+                    {% else %}
+                        <img src="{% static 'images/placeholder.jpg' %}" alt="Placeholder" class="img-fluid rounded">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News -->
+    <section class="mb-5">
+        <h2 class="text-center mb-4">Последние новости</h2>
+        <div class="row">
+            {% for news in latest_news %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ news.image.url }}" class="card-img-top" alt="{{ news.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ news.title }}</h5>
+                        <p class="card-text">{{ news.short_description|truncatewords:20 }}</p>
+                        <a href="{% url 'news:detail' news.slug %}" class="btn btn-primary">Читать далее</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-3">
+            <a href="{% url 'news:list' %}" class="btn btn-outline-primary">Все новости</a>
+        </div>
+    </section>
+
+    <!-- Featured Portfolio -->
+    <section class="mb-5">
+        <h2 class="text-center mb-4">Избранные работы</h2>
+        <div class="row">
+            {% for portfolio in featured_portfolio %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ portfolio.image.url }}" class="card-img-top" alt="{{ portfolio.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ portfolio.title }}</h5>
+                        <p class="card-text">{{ portfolio.short_description|truncatewords:20 }}</p>
+                        {% if portfolio.price %}
+                            <p class="fw-bold">Цена: {{ portfolio.price }} руб.</p>
+                        {% endif %}
+                        <a href="{% url 'portfolio:detail' portfolio.slug %}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-3">
+            <a href="{% url 'portfolio:list' %}" class="btn btn-outline-primary">Все работы</a>
+        </div>
+    </section>
+</div>
+{% endblock %}

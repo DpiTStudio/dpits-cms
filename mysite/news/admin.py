@@ -1,89 +1,45 @@
 from django.contrib import admin
-from .models import News, NewsCategory
-from .forms import NewsCategoryForm, NewsForm
+
+# Register your models here.
+# news/admin.py
+
+from django.contrib import admin
+from .models import NewsCategory, News
 
 
+@admin.register(NewsCategory)
 class NewsCategoryAdmin(admin.ModelAdmin):
-    form = NewsCategoryForm
-    list_display = [
-        "name",
-        "is_active",
-        "order",
-    ]
-    list_editable = [
-        "order",
-        "is_active",
-    ]
+    list_display = ["name", "slug", "show_in_menu", "order", "is_active"]
+    list_editable = ["show_in_menu", "order", "is_active"]
     prepopulated_fields = {"slug": ("name",)}
-    list_filter = ["is_active"]
-    search_fields = ["name"]
-
-    class Meta:
-        verbose_name = "Категория новостей"
-        verbose_name_plural = "Категории новостей"
+    fieldsets = (
+        ("Основная информация", {"fields": ("name", "slug", "image", "description")}),
+        ("Настройки отображения", {"fields": ("show_in_menu", "order", "is_active")}),
+    )
 
 
+@admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    form = NewsForm
-    list_display = [
-        "title",
-        "category",
-        "is_active",
-        "created_at",
-        "views",
-    ]
+    list_display = ["title", "category", "views", "is_active", "created_at"]
+    list_filter = ["category", "is_active", "created_at"]
     list_editable = ["is_active"]
     prepopulated_fields = {"slug": ("title",)}
-    list_filter = [
-        "category",
-        "is_active",
-        "created_at",
-    ]
-    search_fields = [
-        "title",
-        "content",
-    ]
-    date_hierarchy = "created_at"
-
-    # Поля для отображения в админке
+    readonly_fields = ["views", "created_at", "updated_at"]
     fieldsets = (
         (
-            None,
+            "Основная информация",
             {
                 "fields": (
                     "title",
                     "slug",
                     "category",
                     "image",
+                    "short_description",
                     "content",
-                    "views",
                 )
             },
         ),
-        (
-            "SEO настройки",
-            {
-                "fields": (
-                    "meta_title",
-                    "meta_keywords",
-                    "meta_description",
-                ),
-                "classes": ("collapse",),
-            },
-        ),
-        (
-            "Дополнительно",
-            {
-                "fields": ("is_active",),
-                "classes": ("collapse",),
-            },
-        ),
+        ("Статистика", {"fields": ("views", "created_at", "updated_at")}),
+        ("SEO настройки", {"fields": ("seo_title", "seo_keywords", "seo_description")}),
+        ("Статус", {"fields": ("is_active",)}),
     )
-
-    class Meta:
-        verbose_name = "Новость"
-        verbose_name_plural = "Новости"
-
-
-admin.site.register(NewsCategory, NewsCategoryAdmin)
-admin.site.register(News, NewsAdmin)
