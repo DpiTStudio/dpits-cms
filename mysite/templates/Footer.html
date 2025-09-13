@@ -1,0 +1,37 @@
+<!-- Footer -->
+<footer class="bg-dark text-white py-4 mt-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>{{ site_settings.logo_text }}</h5>
+                <p>{{ site_settings.motto }}</p>
+                <p>{{ site_settings.short_description }}</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Контакты</h5>
+                {% if site_settings.phone1 %}
+                    <p><i class="fas fa-phone me-2"></i> {{ site_settings.phone1 }}</p>
+                {% endif %}
+                {% if site_settings.phone2 %}
+                    <p><i class="fas fa-phone me-2"></i> {{ site_settings.phone2 }}</p>
+                {% endif %}
+                {% if site_settings.email %}
+                    <p><i class="fas fa-envelope me-2"></i> {{ site_settings.email }}</p>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                <h5>Быстрые ссылки</h5>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'main:index' %}" class="text-white">Главная</a></li>
+                    <li><a href="{% url 'news:list' %}" class="text-white">Новости</a></li>
+                    <li><a href="{% url 'portfolio:list' %}" class="text-white">Портфолио</a></li>
+                    <li><a href="{% url 'reviews:list' %}" class="text-white">Отзывы</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="text-center">
+            <p>&copy; 2024 {{ site_settings.logo_text }}. Все права защищены.</p>
+        </div>
+    </div>
+</footer>

@@ -1,8 +1,9 @@
 /* static/css/style.css */
 
-/* Custom styles */
+/* Custom styles fon1.jpg */
 .hero-section { 
     /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+    background-image: url('images/fon1.jpg');
     color: white;
     height: 100vh;
     display: flex;
@@ -10,7 +11,10 @@
     justify-content: left;
     text-align: left;
 }
-
+.cms_logo {
+    max-width: 20%;
+    height: auto;
+}
 .card {
     transition: transform 0.3s ease;
 }

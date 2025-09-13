@@ -13,16 +13,16 @@
                     <h1 class="display-4 fw-bold">{{ site_settings.logo_text }}</h1>
                     <p class="lead">{{ site_settings.motto }}</p>
                     <p>{{ site_settings.short_description }}</p>
-                    <div class="mt-4">
+                    <div class="mt-12">
                         <a href="{% url 'portfolio:list' %}" class="btn btn-primary btn-lg me-3">Наше портфолио</a>
                         <a href="{% url 'reviews:add' %}" class="btn btn-outline-secondary btn-lg">Оставить отзыв</a>
                     </div>
                 </div>
                 <div class="col-md-6">
                     {% if site_settings.logo %}
-                        <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" class="img-fluid rounded">
+                        <img class='cms_logo' src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" class="img-fluid rounded">
                     {% else %}
-                        <img src="{% static 'images/placeholder.jpg' %}" alt="Placeholder" class="img-fluid rounded">
+                        <img class='cms_logo' src="{% static 'images/cms_logo.png' %}" alt="Placeholder" class="img-fluid rounded">
                     {% endif %}
                 </div>
             </div>
