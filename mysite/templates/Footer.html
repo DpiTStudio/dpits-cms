@@ -1,37 +1,79 @@
-<!-- Footer -->
-<footer class="bg-dark text-white py-4 mt-5">
-    <div class="container-fluid">
+<!-- Footer.html -->
+<footer class="bg-dark text-white py-5 mt-auto">
+    <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <h5>{{ site_settings.logo_text }}</h5>
-                <p>{{ site_settings.motto }}</p>
-                <p>{{ site_settings.short_description }}</p>
+            <!-- Brand Info -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="fw-bold mb-3">{{ site_settings.logo_text }}</h5>
+                <p class="text-muted">{{ site_settings.motto }}</p>
+                <p class="text-muted">{{ site_settings.short_description }}</p>
             </div>
-            <div class="col-md-4">
-                <h5>Контакты</h5>
-                {% if site_settings.phone1 %}
-                    <p><i class="fas fa-phone me-2"></i> {{ site_settings.phone1 }}</p>
-                {% endif %}
-                {% if site_settings.phone2 %}
-                    <p><i class="fas fa-phone me-2"></i> {{ site_settings.phone2 }}</p>
-                {% endif %}
-                {% if site_settings.email %}
-                    <p><i class="fas fa-envelope me-2"></i> {{ site_settings.email }}</p>
-                {% endif %}
+            
+            <!-- Contacts -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="fw-bold mb-3">Контакты</h5>
+                <div class="d-flex flex-column gap-2">
+                    {% if site_settings.phone1 %}
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-phone me-2 text-primary"></i>
+                            <a href="tel:{{ site_settings.phone1 }}" class="text-white text-decoration-none">
+                                {{ site_settings.phone1 }}
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if site_settings.phone2 %}
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-phone me-2 text-primary"></i>
+                            <a href="tel:{{ site_settings.phone2 }}" class="text-white text-decoration-none">
+                                {{ site_settings.phone2 }}
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if site_settings.email %}
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-envelope me-2 text-primary"></i>
+                            <a href="mailto:{{ site_settings.email }}" class="text-white text-decoration-none">
+                                {{ site_settings.email }}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-            <div class="col-md-4">
-                <h5>Быстрые ссылки</h5>
+            
+            <!-- Quick Links -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="fw-bold mb-3">Быстрые ссылки</h5>
                 <ul class="list-unstyled">
-                    <li><a href="{% url 'main:index' %}" class="text-white">Главная</a></li>
-                    <li><a href="{% url 'news:list' %}" class="text-white">Новости</a></li>
-                    <li><a href="{% url 'portfolio:list' %}" class="text-white">Портфолио</a></li>
-                    <li><a href="{% url 'reviews:list' %}" class="text-white">Отзывы</a></li>
+                    <li class="mb-2">
+                        <a href="{% url 'main:index' %}" class="text-white text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-home me-2 text-primary"></i>Главная
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'news:list' %}" class="text-white text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-newspaper me-2 text-primary"></i>Новости
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'portfolio:list' %}" class="text-white text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-briefcase me-2 text-primary"></i>Портфолио
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'reviews:list' %}" class="text-white text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-star me-2 text-primary"></i>Отзывы
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
-        <hr>
+        
+        <hr class="my-4">
+        
         <div class="text-center">
-            <p>&copy; 2024 {{ site_settings.logo_text }}. Все права защищены.</p>
+            <p class="mb-0 text-muted">
+                &copy; 2024 {{ site_settings.logo_text }}. Все права защищены.
+            </p>
         </div>
     </div>
 </footer>

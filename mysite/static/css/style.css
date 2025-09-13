@@ -1,13 +1,18 @@
 /* static/css/style.css */
-
-/* Custom styles fon1.jpg */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Custom styles */
 .hero-section { 
     /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
     background-image: url('../images/fon1.jpg');
     padding: 0px;
     margin: 0px;
-    color: white;
-    height: 100vh;
+    color: #ffffff;
+    height: 300px !important;
+    width: auto;
 }
 .cms_logo {
     max-width: 20%;

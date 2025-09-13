@@ -1,0 +1,17 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    {% include 'Hero.html' %}
+    
+    <!-- Additional content sections can be added here -->
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <h2 class="mb-4">Добро пожаловать!</h2>
+            <p class="lead">Здесь будет основной контент новостного блока проекта</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
