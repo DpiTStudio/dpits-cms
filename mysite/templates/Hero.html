@@ -1,0 +1,16 @@
+<!-- Hero Section -->
+<section class="hero-section bg-light py-1 mb-5">
+    <div class="container-fluid">
+        <div class="row align-items-left">
+            <div class="col-md-6">
+                <h1 class="display-4 fw-bold">{{ site_settings.logo_text }}</h1>
+                <p class="lead">{{ site_settings.motto }}</p>
+                <p>{{ site_settings.short_description }}</p>
+                <div class="mt-12">
+                    <a href="{% url 'portfolio:list' %}" class="btn btn-primary btn-lg me-3">Наше портфолио</a>
+                    <a href="{% url 'reviews:add' %}" class="btn btn-outline-secondary btn-lg">Оставить отзыв</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
