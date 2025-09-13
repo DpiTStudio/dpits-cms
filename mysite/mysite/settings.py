@@ -119,11 +119,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = "ru"
-
 TIME_ZONE = "Europe/Moscow"
-
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -173,13 +170,15 @@ TINYMCE_DEFAULT_CONFIG = {
 
 # Jazzmin Configuration
 JAZZMIN_SETTINGS = {
-    "site_title": "MySite Admin",
-    "site_header": "MySite",
-    "site_brand": "MySite",
+    "site_title": "DPITS-CMS Admin",
+    "site_header": "DPITS-CMS",
+    "site_brand": "DPITS-CMS",
+    "site_logo": "images/cms_logo.png",
     "welcome_sign": "Добро пожаловать в админ-панель",
-    "copyright": "MySite",
+    "copyright": "DPITS-CMS",
     "search_model": ["auth.User", "news.News"],
     "topmenu_links": [
+        {"name": "Домой", "url": "admin:index", "permissions": ["auth.view_user"]},
         {"name": "Главная", "url": "admin:index", "permissions": ["auth.view_user"]},
         {"model": "auth.User"},
         {"app": "news"},
