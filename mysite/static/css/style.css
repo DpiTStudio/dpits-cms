@@ -6,7 +6,7 @@
 }
 /* Custom styles */
 .hero-section { 
-    /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     background-image: url('../images/fon1.jpg');
     padding: 0px;
     margin: 0px;
