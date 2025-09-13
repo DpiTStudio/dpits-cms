@@ -37,13 +37,13 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     "jazzmin",
+    "tinymce",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "tinymce",
     "django_cleanup",
     "main",
     "news",
@@ -128,17 +128,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# TinyMCE Configuration
+# Настройки TinyMCE
 TINYMCE_DEFAULT_CONFIG = {
     "height": 360,
     "width": "100%",
@@ -147,61 +149,24 @@ TINYMCE_DEFAULT_CONFIG = {
     "selector": "textarea",
     "theme": "modern",
     "plugins": """
-        textcolor save link image media preview codesample contextmenu
-        table code lists fullscreen  insertdatetime nonbreaking
-        contextmenu directionality searchreplace wordcount visualblocks
-        visualchars code fullscreen autolink lists charmap print hr
-        anchor pagebreak
-    """,
+            textcolor save link image media preview codesample contextmenu
+            table code lists fullscreen  insertdatetime nonbreaking
+            contextmenu directionality searchreplace wordcount visualblocks
+            visualchars code fullscreen autolink lists charmap print  hr
+            anchor pagebreak
+            """,
     "toolbar1": """
-        fullscreen preview bold italic underline | fontselect,
-        fontsizeselect  | forecolor backcolor | alignleft alignright |
-        aligncenter alignjustify | indent outdent | bullist numlist table |
-        | link image media | codesample |
-    """,
+            fullscreen preview bold italic underline | fontselect,
+            fontsizeselect  | forecolor backcolor | alignleft alignright |
+            aligncenter alignjustify | indent outdent | bullist numlist table |
+            | link image media | codesample |
+            """,
     "toolbar2": """
-        visualblocks visualchars |
-        charmap hr pagebreak nonbreaking anchor |  code |
-    """,
+            visualblocks visualchars |
+            charmap hr pagebreak nonbreaking anchor |  code |
+            """,
     "contextmenu": "formats | link image",
     "menubar": True,
     "statusbar": True,
-}
-
-# Jazzmin Configuration
-JAZZMIN_SETTINGS = {
-    "site_title": "DPITS-CMS Admin",
-    "site_header": "DPITS-CMS",
-    "site_brand": "DPITS-CMS",
-    "site_logo": "images/cms_logo.png",
-    "welcome_sign": "Добро пожаловать в админ-панель",
-    "copyright": "DPITS-CMS",
-    "search_model": ["auth.User", "news.News"],
-    "topmenu_links": [
-        {"name": "Домой", "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "Главная", "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"model": "auth.User"},
-        {"app": "news"},
-    ],
-    "show_sidebar": True,
-    "navigation_expanded": True,
-    "hide_apps": [],
-    "hide_models": [],
-    "order_with_respect_to": ["auth", "main", "news", "portfolio", "reviews"],
-    "icons": {
-        "auth": "fas fa-users-cog",
-        "auth.user": "fas fa-user",
-        "auth.Group": "fas fa-users",
-        "main.SiteSettings": "fas fa-cog",
-        "main.Page": "fas fa-file",
-        "news.NewsCategory": "fas fa-folder",
-        "news.News": "fas fa-newspaper",
-        "portfolio.PortfolioCategory": "fas fa-folder",
-        "portfolio.Portfolio": "fas fa-briefcase",
-        "reviews.Review": "fas fa-star",
-        "accounts.UserProfile": "fas fa-user-circle",
-        "accounts.Ticket": "fas fa-ticket-alt",
-    },
-    "default_icon_parents": "fas fa-chevron-circle-right",
-    "default_icon_children": "fas fa-circle",
+    "language": "ru",
 }
