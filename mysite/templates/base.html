@@ -1,4 +1,4 @@
-<!-- templates/base.html -->
+<!-- base.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
@@ -19,7 +19,48 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container-fluid {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        
+        .full-width-section {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 0;
+            width: 100%;
+        }
+        
+        .content-section {
+            padding: 60px 15px;
+            width: 100%;
+        }
+        
+        /* Адаптивные отступы для контента */
+        @media (min-width: 1200px) {
+            .content-section {
+                padding: 80px 50px;
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .content-section {
+                padding: 100px 100px;
+            }
+        }
+    </style>
     
     {% block extra_css %}{% endblock %}
 </head>
@@ -28,11 +69,10 @@
     {% include "Header.html" %}
 
     <!-- Content -->
-    <div class="container-fluid col-12 text-left">
-        <!-- Main Content Area -->
-            {% block content %}
-            {% endblock %}
-    </div>
+    <main class="flex-grow-1">
+        {% block content %}
+        {% endblock %}
+    </main>
 
     <!-- Footer -->
     {% include "Footer.html" %}

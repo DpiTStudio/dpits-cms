@@ -3,15 +3,60 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid">
-    {% include 'Hero.html' %}
-    
-    <!-- Additional content sections can be added here -->
-    <div class="row mt-1">
-        <div class="col-12 text-left">
-            <h2 class="mb-4">Добро пожаловать!</h2>
-            <p class="lead">Здесь будет основной контент главной страницы</p>
+<!-- Hero Section - на всю ширину -->
+{% include 'Hero.html' %}
+
+<!-- Content Section - на всю ширину -->
+<section class="full-width-section content-section bg-light">
+    <div class="container-fluid px-0">
+        <div class="row mx-0">
+            <div class="col-12 px-4 px-lg-5">
+                <h2 class="display-5 fw-bold mb-4">Добро пожаловать!</h2>
+                <p class="lead fs-4 mb-4">Здесь будет основной контент главной страницы</p>
+                <p class="fs-5">Мы создаем современные и функциональные решения для вашего бизнеса. 
+                Наша команда профессионалов готова реализовать любые ваши идеи.</p>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- Дополнительные секции могут быть добавлены здесь -->
+<section class="full-width-section content-section">
+    <div class="container-fluid px-0">
+        <div class="row mx-0">
+            <div class="col-12 px-4 px-lg-5">
+                <h3 class="fw-bold mb-4">Наши преимущества</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-rocket fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title">Скорость</h5>
+                                <p class="card-text">Быстрая реализация проектов любой сложности</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-medal fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title">Качество</h5>
+                                <p class="card-text">Высокое качество исполнения и внимание к деталям</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body text-center">
+                                <i class="fas fa-headset fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title">Поддержка</h5>
+                                <p class="card-text">Круглосуточная техническая поддержка</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
