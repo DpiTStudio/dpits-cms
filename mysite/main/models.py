@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class SiteSettings(models.Model):
@@ -38,7 +39,7 @@ class SiteSettings(models.Model):
 class Page(models.Model):
     title = models.CharField(_("Заголовок"), max_length=200)
     slug = models.SlugField(_("URL"), unique=True)
-    content = models.TextField(_("Содержание"), blank=True)
+    content = CKEditor5Field(_("Содержание"), blank=True, config_name="extends")
     show_in_menu = models.BooleanField(_("Показывать в меню"), default=True)
     show_on_site = models.BooleanField(_("Показывать на сайте"), default=True)
     order = models.IntegerField(_("Порядок"), default=0)

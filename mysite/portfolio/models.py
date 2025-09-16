@@ -3,8 +3,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-from tinymce.models import HTMLField
 from django.utils.text import slugify
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class PortfolioCategory(models.Model):
@@ -43,7 +43,7 @@ class Portfolio(models.Model):
     )
     image = models.ImageField(_("Изображение"), upload_to="portfolio/")
     short_description = models.TextField(_("Краткое описание"))
-    content = HTMLField(_("Содержание"))
+    content = CKEditor5Field(_("Содержание"), blank=True, config_name="extends")
     price = models.DecimalField(
         _("Цена"), max_digits=10, decimal_places=2, blank=True, null=True
     )

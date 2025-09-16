@@ -141,6 +141,31 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# jazzmin настройки
+JAZZMIN_SETTINGS = {
+    "site_title": "Админ панель",
+    "site_header": "Админ панель",
+    "site_brand": "Админ панель",
+    "site_logo": "images/logo.png",
+    "site_icon": "images/logo.png",
+    "welcome_sign": "Добро пожаловать в админ панель",
+    "show_ui_builder": False,
+    "site_brand_small_icon": "images/logo.png",
+    "site_brand_small_text": "Админ панель",
+    "site_logo_classes": "img-circle",
+    "site_brand_classes": "img-circle",
+    "site_icon_classes": "img-circle",
+    "site_header_classes": "img-circle",
+    "site_footer_classes": "img-circle",
+}
+
+# JAZZMIN_UI_TWEAKS = {
+#     "theme": "",
+#     "dark_mode_theme": "darkly",
+#     "navbar_small_text": False,
+# }
+
+
 # Настройки CKEditor 5
 CKEDITOR_5_CONFIGS = {
     "default": {

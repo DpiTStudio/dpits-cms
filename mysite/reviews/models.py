@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Review(models.Model):
@@ -14,7 +15,7 @@ class Review(models.Model):
     full_name = models.CharField(_("ФИО"), max_length=100)
     phone = models.CharField(_("Телефон"), max_length=20)
     email = models.EmailField(_("Email"))
-    message = models.TextField(_("Сообщение"))
+    message = CKEditor5Field(_("Сообщение"), blank=True, config_name="extends")
     status = models.CharField(
         _("Статус"), max_length=10, choices=STATUS_CHOICES, default="pending"
     )
