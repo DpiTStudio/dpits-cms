@@ -3,8 +3,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-from tinymce.models import HTMLField
 from django.utils.text import slugify
+from django_ckeditor_5.fields import CKEditor5Field
+# from tinymce.models import HTMLField
 
 
 class NewsCategory(models.Model):
@@ -43,7 +44,7 @@ class News(models.Model):
     )
     image = models.ImageField(_("Изображение"), upload_to="news/")
     short_description = models.TextField(_("Краткое описание"))
-    content = HTMLField(_("Содержание"))
+    content = CKEditor5Field(_("Содержание"), blank=True, config_name="extends")
     views = models.PositiveIntegerField(_("Просмотры"), default=0)
     is_active = models.BooleanField(_("Активно"), default=True)
     seo_title = models.CharField(_("SEO заголовок"), max_length=200, blank=True)
