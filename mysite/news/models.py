@@ -43,13 +43,15 @@ class News(models.Model):
         NewsCategory, on_delete=models.CASCADE, verbose_name=_("Категория")
     )
     image = models.ImageField(_("Изображение"), upload_to="news/")
-    short_description = models.TextField(_("Краткое описание"))
-    content = CKEditor5Field(_("Содержание"), blank=True, config_name="extends")
-    views = models.PositiveIntegerField(_("Просмотры"), default=0)
     is_active = models.BooleanField(_("Активно"), default=True)
     seo_title = models.CharField(_("SEO заголовок"), max_length=200, blank=True)
     seo_keywords = models.CharField(_("SEO ключевые слова"), max_length=200, blank=True)
     seo_description = models.CharField(_("SEO описание"), max_length=255, blank=True)
+    short_description = CKEditor5Field(
+        _("Краткое описание"), blank=True, config_name="extends"
+    )
+    content = CKEditor5Field(_("Содержание"), blank=True, config_name="extends")
+    views = models.PositiveIntegerField(_("Просмотры"), default=0)
     created_at = models.DateTimeField(_("Создано"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Обновлено"), auto_now=True)
 
