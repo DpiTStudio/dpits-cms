@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("tinymce/", include("tinymce.urls")),
+    path("ckeditor5/", include("django_ckeditor_5.urls")),
     path("", include("main.urls")),
     path("news/", include("news.urls")),
     path("portfolio/", include("portfolio.urls")),

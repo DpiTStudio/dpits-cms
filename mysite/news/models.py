@@ -14,7 +14,7 @@ class NewsCategory(models.Model):
     image = models.ImageField(
         _("Изображение"), upload_to="news/categories/", blank=True
     )
-    description = models.TextField(_("Описание"), blank=True)
+    description = CKEditor5Field(_("Описание"), blank=True, config_name="extends")
     show_in_menu = models.BooleanField(_("Показывать в меню"), default=True)
     order = models.IntegerField(_("Порядок"), default=0)
     is_active = models.BooleanField(_("Активно"), default=True)
