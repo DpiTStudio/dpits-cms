@@ -1,13 +1,25 @@
-<!-- list.html -->
+<!-- news/category.html -->
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
-{% include 'Hero.html' %}
-<div class="container">
-    <div class="row mt-5">
+<div class="container mt-5">
+    <div class="row">
         <div class="col-12">
-            <h2 class="mb-4 text-center">Новости</h2>
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'news:list' %}">Новости</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+                </ol>
+            </nav>
+            
+            <h2 class="mb-4">Новости категории: {{ category.name }}</h2>
+            
+            {% if category.description %}
+            <div class="alert alert-light mb-4">
+                {{ category.description|safe }}
+            </div>
+            {% endif %}
             
             <div class="row">
                 {% for news_item in news_list %}
@@ -28,12 +40,12 @@
                 </div>
                 {% empty %}
                 <div class="col-12 text-center">
-                    <p>Новости пока отсутствуют</p>
+                    <p>В этой категории пока нет новостей</p>
                 </div>
                 {% endfor %}
             </div>
             
-            <!-- Пагинация -->
+            <!-- Пагинация (аналогичная list.html) -->
             {% if news_list.has_other_pages %}
             <nav aria-label="Page navigation" class="mt-4">
                 <ul class="pagination justify-content-center">

@@ -78,6 +78,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "main.context_processors.site_settings",
                 "main.context_processors.menu_items",
+                "news.context_processors.latest_news",
             ],
         },
     },
