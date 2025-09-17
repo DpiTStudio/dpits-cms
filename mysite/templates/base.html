@@ -19,49 +19,50 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!--  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        
-        .container-fluid {
-            padding-left: 0;
-            padding-right: 0;
-        }
-        
-        .full-width-section {
-            width: 100%;
-            margin-left: 0;
-            margin-right: 0;
-        }
-        
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 80px 0;
-            width: 100%;
-        }
-        
+
+<!-- Custom CSS -->
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    
+    .container-fluid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .full-width-section {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 80px 0;
+        width: 100%;
+    }
+    
+    .content-section {
+        padding: 60px 15px;
+        width: 100%;
+    }
+    
+    /* Адаптивные отступы для контента */
+    @media (min-width: 1200px) {
         .content-section {
-            padding: 60px 15px;
-            width: 100%;
+            padding: 80px 50px;
         }
-        
-        /* Адаптивные отступы для контента */
-        @media (min-width: 1200px) {
-            .content-section {
-                padding: 80px 50px;
-            }
+    }
+    
+    @media (min-width: 1400px) {
+        .content-section {
+            padding: 100px 100px;
         }
-        
-        @media (min-width: 1400px) {
-            .content-section {
-                padding: 100px 100px;
-            }
-        }
-    </style>
+    }
+</style>
     
     {% block extra_css %}{% endblock %}
 </head>
