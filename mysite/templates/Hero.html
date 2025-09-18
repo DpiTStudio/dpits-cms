@@ -3,17 +3,21 @@
     <div class="container-fluid px-4 px-lg-5">
         <div class="row align-items-center min-vh-50">
             <div class="col-lg-8 col-md-10">
-                <h1 class="display-3 fw-bold text-white mb-3">{{ site_settings.logo_text }}</h1>
+                <h1 class="display-3 fw-bold text-white mb-3">
+                    {{ site_settings.logo_text }}
+                </h1>
                 <p class="text_motto">{{ site_settings.motto|safe }}</p>
                 <p>{{ site_settings.vk }}</p>
                 <p>{{ site_settings.ok }}</p>
                 
                 <div class="d-flex flex-wrap gap-3 mt-4">
                     <a href="{% url 'portfolio:list' %}" class="btn btn-primary btn-lg px-4 py-3">
-                        <i class="fas fa-briefcase me-2"></i>Наше портфолио
+                        <i class="fas fa-briefcase me-2"></i>
+                        Наше портфолио
                     </a>
                     <a href="{% url 'reviews:add' %}" class="btn btn-outline-light btn-lg px-4 py-3">
-                        <i class="fas fa-star me-2"></i>Оставить отзыв
+                        <i class="fas fa-star me-2"></i>
+                        Оставить отзыв
                     </a>
                 </div>
             </div>
