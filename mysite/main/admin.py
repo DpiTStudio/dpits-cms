@@ -11,6 +11,22 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         ("Контакты", {"fields": ("phone1", "phone2", "email")}),
         ("Логотип и текст", {"fields": ("logo", "logo_text", "slogan")}),
         ("Информация о сайте", {"fields": ("motto", "short_description")}),
+        (
+            "Социальные сети",
+            {
+                "fields": (
+                    "facebook",
+                    "instagram",
+                    "youtube",
+                    "rutube",
+                    "vk_video",
+                    "telegram",
+                    "vk",
+                    "ok",
+                )
+            },
+        ),
+        ("Описание", {"fields": ("content", "address")}),
         ("Статус сайта", {"fields": ("site_closed", "closure_message")}),
     )
 

@@ -12,9 +12,10 @@
         <div class="row mx-0">
             <div class="col-12 px-4 px-lg-5">
                 <h2 class="display-5 fw-bold mb-4">Добро пожаловать!</h2>
-                <p class="lead fs-4 mb-4">Здесь будет основной контент главной страницы</p>
-                <p class="fs-5">Мы создаем современные и функциональные решения для вашего бизнеса. 
-                Наша команда профессионалов готова реализовать любые ваши идеи.</p>
+                <p class="lead fs-4 mb-4">
+                    {{ site_settings.content|safe }}
+                </p>
+                <p class="fs-5"></p>
             </div>
         </div>
     </div>
