@@ -4,8 +4,8 @@
         <div class="row align-items-center min-vh-50">
             <div class="col-lg-8 col-md-10">
                 <h1 class="display-3 fw-bold text-white mb-3">{{ site_settings.logo_text }}</h1>
-                <p class="lead text-light mb-4 fs-4">{{ site_settings.motto }}</p>
-                <p class="text-light mb-4 fs-5">{{ site_settings.short_description }}</p>
+                <p class="text_motto">{{ site_settings.motto|safe }}</p>
+                <p>{{ site_settings.vk }}</p>
                 
                 <div class="d-flex flex-wrap gap-3 mt-4">
                     <a href="{% url 'portfolio:list' %}" class="btn btn-primary btn-lg px-4 py-3">
