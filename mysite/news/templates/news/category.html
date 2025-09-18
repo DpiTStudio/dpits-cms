@@ -1,0 +1,79 @@
+<!-- news/category.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'news:list' %}">Новости</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+                </ol>
+            </nav>
+            
+            <h2 class="mb-4">Новости категории: {{ category.name }}</h2>
+            
+            {% if category.description %}
+            <div class="alert alert-light mb-4">
+                {{ category.description|safe }}
+            </div>
+            {% endif %}
+            
+            <div class="row">
+                {% for news_item in news_list %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 news-card">
+                        {% if news_item.image %}
+                        <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ news_item.title }}</h5>
+                            <p class="card-text">{{ news_item.short_description|safe|truncatewords:30 }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">{{ news_item.created_at|date:"d.m.Y" }}</small>
+                                <a href="{% url 'news:detail' news_item.slug %}" class="btn btn-sm btn-outline-primary">Читать далее</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p>В этой категории пока нет новостей</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Пагинация (аналогичная list.html) -->
+            {% if news_list.has_other_pages %}
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if news_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news_list.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    
+                    {% for i in news_list.paginator.page_range %}
+                    <li class="page-item {% if news_list.number == i %}active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                    {% endfor %}
+                    
+                    {% if news_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news_list.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

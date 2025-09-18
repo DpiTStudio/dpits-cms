@@ -1,0 +1,76 @@
+<!-- news/detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'news:list' %}">Новости</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'news:category' news.category.slug %}">{{ news.category.name }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ news.title }}</li>
+                </ol>
+            </nav>
+            
+            <article>
+                <h1 class="mb-3">{{ news.title }}</h1>
+                
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <span class="badge bg-primary">{{ news.category.name }}</span>
+                        <span class="text-muted ms-2"><i class="far fa-calendar-alt me-1"></i>{{ news.created_at|date:"d.m.Y" }}</span>
+                        <span class="text-muted ms-3"><i class="far fa-eye me-1"></i>{{ news.views }}</span>
+                    </div>
+                </div>
+                
+                {% if news.image %}
+                <img src="{{ news.image.url }}" class="img-fluid rounded mb-4" alt="{{ news.title }}">
+                {% endif %}
+                
+                <div class="news-content">
+                    {{ news.content|safe }}
+                </div>
+            </article>
+        </div>
+        
+        <div class="col-lg-4">
+            <!-- Блок похожих новостей -->
+            {% if similar_news %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Похожие новости</h5>
+                </div>
+                <div class="card-body">
+                    {% for similar in similar_news %}
+                    <div class="mb-3 {% if not forloop.last %}border-bottom pb-3{% endif %}">
+                        <h6><a href="{% url 'news:detail' similar.slug %}">{{ similar.title }}</a></h6>
+                        <small class="text-muted">{{ similar.created_at|date:"d.m.Y" }}</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Блок категорий -->
+            <div class="card">
+                <div class="card-header">
+                    <h5>Категории</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        {% for category in categories %}
+                        <li class="mb-2">
+                            <a href="{% url 'news:category' category.slug %}" class="text-decoration-none">
+                                <i class="fas fa-folder me-2"></i>{{ category.name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
