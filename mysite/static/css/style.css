@@ -1,6 +1,9 @@
 /* Custom CSS for improvements */
 .hero-section {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-size: cover;
+    padding: 80px 0;
+    width: 100%;
 }
 
 .min-vh-50 {
@@ -90,4 +93,7 @@
     font-size: 0.8rem;
     color: #6c757d;
     margin-top: 0.2rem;
+}
+.text-muted {
+    color: #fafafa !important;
 }
