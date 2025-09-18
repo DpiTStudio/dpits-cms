@@ -11,8 +11,20 @@ class SiteSettings(models.Model):
     logo = models.ImageField(_("Логотип"), upload_to="logos/", blank=True)
     logo_text = models.CharField(_("Текст логотипа"), max_length=100, blank=True)
     slogan = models.CharField(_("Слоган в шапке"), max_length=255, blank=True)
-    motto = models.CharField(_("Девиз сайта"), max_length=255, blank=True)
-    short_description = models.TextField(_("Краткое описание"), blank=True)
+    motto = CKEditor5Field(_("Девиз сайта"), blank=True, config_name="extends")
+    short_description = CKEditor5Field(
+        _("Краткое описание"), blank=True, config_name="extends"
+    )
+    content = CKEditor5Field(_("Описание"), blank=True, config_name="extends")
+    address = models.CharField(_("Адрес"), max_length=255, blank=True)
+    facebook = models.URLField(_("Facebook"), blank=True)
+    instagram = models.URLField(_("Instagram"), blank=True)
+    youtube = models.URLField(_("Youtube"), blank=True)
+    rutube = models.URLField(_("Rutube"), blank=True)
+    vk_video = models.URLField(_("VK видео"), blank=True)
+    telegram = models.URLField(_("Telegram"), blank=True)
+    vk = models.URLField(_("VK"), blank=True)
+    ok = models.URLField(_("OK"), blank=True)
     site_closed = models.BooleanField(_("Сайт закрыт"), default=False)
     closure_message = models.TextField(_("Сообщение при закрытии"), blank=True)
 
