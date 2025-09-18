@@ -1,5 +1,4 @@
 # news/views.py
-
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import News, NewsCategory
@@ -9,8 +8,8 @@ def news_list(request):
     news_list = News.objects.filter(is_active=True).order_by("-created_at")
     categories = NewsCategory.objects.filter(is_active=True, show_in_menu=True)
 
-    # Пагинация
-    paginator = Paginator(news_list, 9)  # 9 новостей на страницу
+    # Пагинация - теперь 20 новостей на страницу
+    paginator = Paginator(news_list, 20)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
@@ -25,6 +24,8 @@ def news_detail(request, slug):
     news = get_object_or_404(News, slug=slug, is_active=True)
     news.increment_views()
 
+    categories = NewsCategory.objects.filter(is_active=True, show_in_menu=True)
+
     # Похожие новости
     similar_news = (
         News.objects.filter(category=news.category, is_active=True)
@@ -35,6 +36,7 @@ def news_detail(request, slug):
     context = {
         "news": news,
         "similar_news": similar_news,
+        "categories": categories,
     }
     return render(request, "news/detail.html", context)
 
@@ -46,7 +48,7 @@ def news_by_category(request, slug):
     )
     categories = NewsCategory.objects.filter(is_active=True, show_in_menu=True)
 
-    paginator = Paginator(news_list, 9)
+    paginator = Paginator(news_list, 20)  # 20 новостей на страницу
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 

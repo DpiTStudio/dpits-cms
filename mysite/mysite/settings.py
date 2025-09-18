@@ -26,6 +26,7 @@ SECRET_KEY = "django-insecure-gg&b-34chy82xwd424vn41_=i=nr$2mrxm5_-xj(ev6ed#h+_=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = [
     "*",
     "127.0.0.1",
@@ -37,7 +38,6 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     "jazzmin",
-    # "ckeditor",
     "django_ckeditor_5",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -46,11 +46,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_cleanup",
-    "main",
-    "news",
-    "portfolio",
-    "reviews",
-    "accounts",
+    "main.apps.MainConfig",
+    "news.apps.NewsConfig",
+    "portfolio.apps.PortfolioConfig",
+    "reviews.apps.ReviewsConfig",
+    "accounts.apps.AccountsConfig",
 ]
 
 MIDDLEWARE = [
@@ -78,6 +78,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "main.context_processors.site_settings",
                 "main.context_processors.menu_items",
+                "news.context_processors.latest_news",
             ],
         },
     },

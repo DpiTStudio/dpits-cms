@@ -1,16 +1,186 @@
-<!-- index.html -->
+<!-- list.html -->
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
 {% include 'Hero.html' %}
 <div class="container">
-    <!-- Additional content sections can be added here -->
+    <!-- Блок категорий с картинками -->
     <div class="row mt-5">
-        <div class="col-12 text-center">
-            <h2 class="mb-4">Добро пожаловать!</h2>
-            <p class="lead">Здесь будет основной контент новостного блока проекта</p>
+        <div class="col-12">
+            <h2 class="mb-4 text-left">Категории новостей</h2>
+            <div class="row">
+                {% for category in categories %}
+                <div class="col-md-4 col-lg-3 mb-4">
+                    <div class="category-card card h-100 shadow-sm">
+                        <a href="{% url 'news:category' category.slug %}" class="text-decoration-none text-dark">
+                            {% if category.image %}
+                            <img src="{{ category.image.url }}" class="card-img-top category-image" alt="{{ category.name }}" style="height: 180px; object-fit: cover;">
+                            {% else %}
+                            <div class="category-placeholder bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
+                                <i class="fas fa-newspaper fa-3x text-muted"></i>
+                            </div>
+                            {% endif %}
+                            <div class="card-body text-center">
+                                <h5 class="card-title mb-0">{{ category.name }}</h5>
+                                {% if category.description %}
+                                <p class="card-text small text-muted mt-2">
+                                    {{ category.description|striptags|truncatewords:10 }}
+                                </p>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p>Категории пока отсутствуют</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Блок новостей -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="mb-4 text-center">Последние новости</h2>
+            
+            <div class="row">
+                {% for news_item in news_list %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 news-card shadow-sm">
+                        {% if news_item.image %}
+                        <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-2">{{ news_item.category.name }}</span>
+                            <h5 class="card-title">{{ news_item.title }}</h5>
+                            <p class="card-text">{{ news_item.short_description|safe|truncatewords:30 }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">{{ news_item.created_at|date:"d.m.Y" }}</small>
+                                <a href="{% url 'news:detail' news_item.slug %}" class="btn btn-sm btn-outline-primary">Читать далее</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p>Новости пока отсутствуют</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Пагинация -->
+            {% if news_list.has_other_pages %}
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if news_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news_list.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    
+                    {% for i in news_list.paginator.page_range %}
+                    {% if news_list.number == i %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ i }}</span>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    
+                    {% if news_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news_list.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.category-card {
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.category-card:hover .category-image {
+    transform: scale(1.05);
+}
+
+.category-image {
+    transition: transform 0.3s ease;
+}
+
+.category-placeholder {
+    border-radius: 12px 12px 0 0;
+}
+
+.news-card {
+    transition: transform 0.3s ease;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.news-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.card-title {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.pagination .page-link {
+    color: #007bff;
+    border-radius: 8px;
+    margin: 0 3px;
+    border: 1px solid #dee2e6;
+}
+
+.pagination .page-link:hover {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.category-card a:hover {
+    text-decoration: none;
+}
+
+.category-card .card-body {
+    padding: 1.25rem;
+}
+</style>
 {% endblock %}
