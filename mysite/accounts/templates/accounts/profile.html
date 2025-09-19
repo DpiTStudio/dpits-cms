@@ -1,28 +1,41 @@
-<!-- accounts/profile.html -->
+<!-- accounts/templates/accounts/profile.html -->
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Профиль пользователя - {{ site_settings.logo_text }}{% endblock %}
+{% block title %}Профиль - {{ site_settings.logo_text }}{% endblock %}
 
 {% block extra_css %}
 <style>
     .profile-section {
         padding: 60px 0;
+        background: #f8f9fa;
+        min-height: 100vh;
     }
     
     .profile-card {
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        border: none;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         overflow: hidden;
     }
     
     .profile-header {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        padding: 30px;
+        padding: 40px;
         text-align: center;
         position: relative;
+    }
+    
+    .profile-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('{% static "images/pattern.png" %}') repeat;
+        opacity: 0.1;
     }
     
     .profile-avatar {
@@ -31,13 +44,8 @@
         border-radius: 50%;
         border: 4px solid white;
         margin: 0 auto 20px;
-        background: #f8f9fa;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3rem;
-        color: #667eea;
         overflow: hidden;
+        background: #f8f9fa;
     }
     
     .profile-avatar img {
@@ -47,110 +55,126 @@
     }
     
     .profile-body {
-        padding: 30px;
+        padding: 40px;
     }
     
-    .info-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-        padding: 15px;
-        background: #f8f9fa;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-    }
-    
-    .info-item:hover {
-        background: #e9ecef;
-        transform: translateX(5px);
-    }
-    
-    .info-icon {
-        width: 45px;
-        height: 45px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        margin-right: 15px;
-        flex-shrink: 0;
-    }
-    
-    .info-content {
-        flex-grow: 1;
-    }
-    
-    .stats-grid {
+    .profile-stats {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 20px;
-        margin-top: 30px;
+        margin-bottom: 30px;
     }
     
     .stat-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 25px;
+        background: #f8f9fa;
         border-radius: 15px;
+        padding: 25px;
         text-align: center;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease;
     }
     
     .stat-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
     }
     
     .stat-number {
         font-size: 2.5rem;
-        font-weight: bold;
+        font-weight: 700;
+        color: #667eea;
         margin-bottom: 5px;
     }
     
-    .action-buttons {
+    .stat-label {
+        color: #6c757d;
+        font-weight: 500;
+    }
+    
+    .profile-info {
+        margin-bottom: 30px;
+    }
+    
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .info-item:last-child {
+        border-bottom: none;
+    }
+    
+    .info-label {
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .info-value {
+        color: #6c757d;
+    }
+    
+    .profile-actions {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 15px;
         margin-top: 30px;
     }
     
-    .btn-action {
+    .btn-profile {
         padding: 15px;
-        border-radius: 10px;
+        border-radius: 12px;
+        font-weight: 600;
         text-align: center;
         text-decoration: none;
         transition: all 0.3s ease;
         border: none;
-        font-weight: 600;
+        cursor: pointer;
     }
     
-    .btn-primary-custom {
+    .btn-edit {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
     }
     
-    .btn-primary-custom:hover {
+    .btn-edit:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-password {
+        background: #28a745;
         color: white;
     }
     
-    .btn-outline-custom {
-        border: 2px solid #667eea;
-        color: #667eea;
-        background: transparent;
+    .btn-password:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
     }
     
-    .btn-outline-custom:hover {
-        background: #667eea;
+    .btn-tickets {
+        background: #17a2b8;
         color: white;
     }
     
-    .empty-field {
+    .btn-tickets:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(23, 162, 184, 0.3);
+    }
+    
+    .welcome-message {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .welcome-message h3 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+    
+    .welcome-message p {
         color: #6c757d;
-        font-style: italic;
+        font-size: 1.1rem;
     }
 </style>
 {% endblock %}
@@ -159,180 +183,82 @@
 <section class="profile-section">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="card profile-card">
+            <div class="col-lg-8">
+                <div class="profile-card">
                     <!-- Заголовок профиля -->
                     <div class="profile-header">
                         <div class="profile-avatar">
                             {% if user.userprofile.avatar %}
-                                <img src="{{ user.userprofile.avatar.url }}" alt="Аватар {{ user.username }}">
+                                <img src="{{ user.userprofile.avatar.url }}" alt="Аватар">
                             {% else %}
-                                <i class="fas fa-user"></i>
+                                <i class="fas fa-user fa-3x" style="color: #667eea; line-height: 120px;"></i>
                             {% endif %}
                         </div>
-                        <h2 class="mb-2">{{ user.get_full_name|default:user.username }}</h2>
-                        <p class="mb-0">Добро пожаловать в ваш профиль</p>
+                        <h2>{{ user.get_full_name|default:user.username }}</h2>
+                        <p>@{{ user.username }}</p>
                     </div>
                     
                     <!-- Тело профиля -->
                     <div class="profile-body">
-                        <!-- Основная информация -->
-                        <h4 class="mb-4 fw-bold text-primary">Основная информация</h4>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="info-content">
-                                <strong>Имя пользователя:</strong>
-                                <span class="ms-2">{{ user.username }}</span>
-                            </div>
+                        <div class="welcome-message">
+                            <h3>Добро пожаловать в ваш профиль!</h3>
+                            <p>Здесь вы можете управлять своими данными и настройками</p>
                         </div>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="info-content">
-                                <strong>Email:</strong>
-                                <span class="ms-2">{{ user.email }}</span>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-signature"></i>
-                            </div>
-                            <div class="info-content">
-                                <strong>Имя:</strong>
-                                <span class="ms-2">
-                                    {% if user.first_name %}
-                                        {{ user.first_name }}
-                                    {% else %}
-                                        <span class="empty-field">Не указано</span>
-                                    {% endif %}
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-signature"></i>
-                            </div>
-                            <div class="info-content">
-                                <strong>Фамилия:</strong>
-                                <span class="ms-2">
-                                    {% if user.last_name %}
-                                        {{ user.last_name }}
-                                    {% else %}
-                                        <span class="empty-field">Не указано</span>
-                                    {% endif %}
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="info-content">
-                                <strong>Телефон:</strong>
-                                <span class="ms-2">
-                                    {% if user.userprofile.phone %}
-                                        {{ user.userprofile.phone }}
-                                    {% else %}
-                                        <span class="empty-field">Не указан</span>
-                                    {% endif %}
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                            <div class="info-content">
-                                <strong>Дата регистрации:</strong>
-                                <span class="ms-2">{{ user.date_joined|date:"d.m.Y H:i" }}</span>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="info-content">
-                                <strong>Последний вход:</strong>
-                                <span class="ms-2">
-                                    {% if user.last_login %}
-                                        {{ user.last_login|date:"d.m.Y H:i" }}
-                                    {% else %}
-                                        <span class="empty-field">Никогда</span>
-                                    {% endif %}
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <!-- О себе -->
-                        {% if user.userprofile.bio %}
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-info-circle"></i>
-                            </div>
-                            <div class="info-content">
-                                <strong>О себе:</strong>
-                                <p class="mb-0 mt-2">{{ user.userprofile.bio }}</p>
-                            </div>
-                        </div>
-                        {% endif %}
                         
                         <!-- Статистика -->
-                        <h4 class="mb-4 mt-5 fw-bold text-primary">Статистика активности</h4>
-                        
-                        <div class="stats-grid">
+                        <div class="profile-stats">
                             <div class="stat-card">
-                                <div class="stat-number">{{ tickets_count|default:0 }}</div>
-                                <div class="stat-label">Тикетов создано</div>
+                                <div class="stat-number">{{ tickets_count }}</div>
+                                <div class="stat-label">Тикетов</div>
                             </div>
-                            
                             <div class="stat-card">
-                                <div class="stat-number">{{ reviews_count|default:0 }}</div>
-                                <div class="stat-label">Отзывов оставлено</div>
+                                <div class="stat-number">{{ reviews_count }}</div>
+                                <div class="stat-label">Отзывов</div>
                             </div>
-                            
                             <div class="stat-card">
-                                <div class="stat-number">{{ comments_count|default:0 }}</div>
+                                <div class="stat-number">{{ comments_count }}</div>
                                 <div class="stat-label">Комментариев</div>
                             </div>
                         </div>
                         
-                        <!-- Действия -->
-                        <h4 class="mb-4 mt-5 fw-bold text-primary">Действия</h4>
+                        <!-- Информация о пользователе -->
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-label">Имя пользователя:</span>
+                                <span class="info-value">{{ user.username }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Email:</span>
+                                <span class="info-value">{{ user.email|default:"Не указан" }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Имя:</span>
+                                <span class="info-value">{{ user.first_name|default:"Не указано" }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Фамилия:</span>
+                                <span class="info-value">{{ user.last_name|default:"Не указана" }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Телефон:</span>
+                                <span class="info-value">{{ user.userprofile.phone|default:"Не указан" }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Дата регистрации:</span>
+                                <span class="info-value">{{ user.date_joined|date:"d.m.Y H:i" }}</span>
+                            </div>
+                        </div>
                         
-                        <div class="action-buttons">
-                            <a href="{% url 'accounts:ticket_list' %}" class="btn btn-action btn-primary-custom">
-                                <i class="fas fa-ticket-alt me-2"></i>
-                                Мои тикеты
+                        <!-- Действия -->
+                        <div class="profile-actions">
+                            <a href="{% url 'accounts:profile_edit' %}" class="btn-profile btn-edit">
+                                <i class="fas fa-edit me-2"></i>Редактировать профиль
                             </a>
-                            
-                            <a href="{% url 'reviews:list' %}" class="btn btn-action btn-outline-custom">
-                                <i class="fas fa-star me-2"></i>
-                                Все отзывы
+                            <a href="{% url 'accounts:password_change' %}" class="btn-profile btn-password">
+                                <i class="fas fa-key me-2"></i>Сменить пароль
                             </a>
-                            
-                            <a href="{% url 'accounts:profile_edit' %}" class="btn btn-action btn-primary-custom">
-                                <i class="fas fa-edit me-2"></i>
-                                Редактировать профиль
-                            </a>
-                            
-                            <a href="{% url 'accounts:password_change' %}" class="btn btn-action btn-outline-custom">
-                                <i class="fas fa-key me-2"></i>
-                                Сменить пароль
-                            </a>
-                            
-                            <a href="{% url 'accounts:logout' %}" class="btn btn-action btn-danger">
-                                <i class="fas fa-sign-out-alt me-2"></i>
-                                Выйти
+                            <a href="{% url 'accounts:ticket_list' %}" class="btn-profile btn-tickets">
+                                <i class="fas fa-ticket-alt me-2"></i>Мои тикеты
                             </a>
                         </div>
                     </div>
@@ -341,4 +267,23 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Анимация появления элементов
+        const elements = document.querySelectorAll('.stat-card, .info-item, .btn-profile');
+        elements.forEach((element, index) => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'all 0.6s ease';
+            
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, 100 + index * 100);
+        });
+    });
+</script>
 {% endblock %}
