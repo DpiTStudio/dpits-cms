@@ -11,12 +11,6 @@
             <div class="col-lg-4 col-md-6 mb-4">
                 <h5 class="fw-bold mb-3">Контакты</h5>
                 <div class="d-flex flex-column gap-2">
-                    {% if site_settings.vk %}
-                        <a href="{{ site_settings.vk }}"><i class="fa-brands fa-vk me-2 text-primary"></i></a>
-                    {% endif %}
-                    {% if site_settings.ok %}
-                        <p>{{ site_settings.ok }}</p>
-                    {% endif %}
                     {% if site_settings.phone1 %}
                         <div class="d-flex align-items-center">
                             <i class="fas fa-phone me-2 text-primary"></i>
@@ -77,14 +71,30 @@
             <p>Подписывайтесь на наши социальные сети, чтобы быть в курсе последних новостей и событий.</p>
             
             <div class="social-links">
-                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
-                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="#" title="Rutube"><i class="fas fa-play-circle"></i></a>
-                <a href="#" title="VK Видео"><i class="fab fa-vk"></i></a>
-                <a href="#" title="VK"><i class="fab fa-vk"></i></a>
-                <a href="#" title="OK"><i class="fab fa-odnoklassniki"></i></a>
+                {% if site_settings.vk %}
+                        <a href="{{ site_settings.vk }}"><i class="fa-brands fa-vk me-2 text-primary"></i></a>
+                {% endif %}
+                {% if site_settings.ok %}
+                        <a href="{{ site_settings.ok }}"><i class="fab fa-odnoklassniki"></i></a>
+                {% endif %}
+                {% if site_settings.vk_video %}
+                        <a href="{{ site_settings.vk_video }}"><i class="fab fa-vk"></i></a>
+                {% endif %}
+                {% if site_settings.youtube %}
+                        <a href="{{ site_settings.youtube }}"><i class="fab fa-youtube"></i></a>
+                {% endif %}
+                {% if site_settings.rutube %}
+                        <a href="{{ site_settings.rutube }}"><i class="fas fa-play-circle"></i></a>
+                {% endif %}
+                {% if site_settings.facebook %}
+                        <a href="{{ site_settings.facebook }}"><i class="fab fa-facebook-f"></i></a>
+                {% endif %}
+                {% if site_settings.instagram %}
+                        <a href="{{ site_settings.instagram }}"><i class="fab fa-instagram"></i></a>
+                {% endif %}
+                {% if site_settings.telegram %}
+                        <a href="{{ site_settings.telegram }}"><i class="fab fa-telegram"></i></a>
+                {% endif %}
             </div>
         </div>
         <hr class="my-4">
