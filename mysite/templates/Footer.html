@@ -7,17 +7,16 @@
                 <h5 class="fw-bold mb-3">{{ site_settings.logo_text }}</h5>
                 <p class="text-short_description">{{ site_settings.short_description|safe }}</p>
             </div>
-            
             <!-- Contacts -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <h5 class="fw-bold mb-3">Контакты</h5>
                 <div class="d-flex flex-column gap-2">
                     {% if site_settings.vk %}
-                        <p>{{ site_settings.vk }}</p>
-                    {% entif %}
+                        <a href="{{ site_settings.vk }}"><i class="fa-brands fa-vk me-2 text-primary"></i></a>
+                    {% endif %}
                     {% if site_settings.ok %}
                         <p>{{ site_settings.ok }}</p>
-                    {% entif %}
+                    {% endif %}
                     {% if site_settings.phone1 %}
                         <div class="d-flex align-items-center">
                             <i class="fas fa-phone me-2 text-primary"></i>
@@ -72,7 +71,22 @@
                 </ul>
             </div>
         </div>
-        
+        <!-- Социальные сети -->
+        <div class="footer-section">
+            <h3>Мы в соцсетях</h3>
+            <p>Подписывайтесь на наши социальные сети, чтобы быть в курсе последних новостей и событий.</p>
+            
+            <div class="social-links">
+                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" title="Rutube"><i class="fas fa-play-circle"></i></a>
+                <a href="#" title="VK Видео"><i class="fab fa-vk"></i></a>
+                <a href="#" title="VK"><i class="fab fa-vk"></i></a>
+                <a href="#" title="OK"><i class="fab fa-odnoklassniki"></i></a>
+            </div>
+        </div>
         <hr class="my-4">
         
         <div class="text-left">
