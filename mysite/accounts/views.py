@@ -1,5 +1,4 @@
 # accounts/views.py
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
@@ -16,6 +15,15 @@ from .forms import (
     CustomPasswordChangeForm,
 )
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import logout as auth_logout
+
+
+def custom_logout(request):
+    if request.method == "POST":
+        auth_logout(request)
+        messages.success(request, "Вы успешно вышли из системы!")
+        return redirect("home")  # или на страницу входа
+    return render(request, "accounts/logout.html")
 
 
 def register(request):

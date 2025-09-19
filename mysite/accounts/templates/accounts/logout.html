@@ -1,0 +1,128 @@
+<!-- accounts/templates/accounts/logout.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Выход - {{ site_settings.logo_text }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .logout-section {
+        padding: 100px 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .logout-card {
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+        max-width: 500px;
+        width: 100%;
+    }
+    
+    .logout-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px;
+        text-align: center;
+        position: relative;
+    }
+    
+    .logout-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('{% static "images/pattern.png" %}') repeat;
+        opacity: 0.1;
+    }
+    
+    .logout-body {
+        padding: 40px;
+        text-align: center;
+    }
+    
+    .logout-icon {
+        font-size: 4rem;
+        color: #667eea;
+        margin-bottom: 20px;
+    }
+    
+    .btn-logout {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 12px;
+        padding: 12px 30px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-right: 10px;
+    }
+    
+    .btn-logout:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-cancel {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 12px;
+        padding: 12px 30px;
+        color: #6c757d;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-cancel:hover {
+        background: #e9ecef;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="logout-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card logout-card">
+                    <!-- Заголовок -->
+                    <div class="logout-header">
+                        <h2 class="mb-3">Выход из системы</h2>
+                        <p class="mb-0 opacity-75">Вы уверены, что хотите выйти?</p>
+                    </div>
+                    
+                    <!-- Тело -->
+                    <div class="card-body logout-body">
+                        <div class="logout-icon">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        
+                        <h4 class="mb-4">До свидания, {{ user.username }}!</h4>
+                        <p class="mb-4">Мы будем рады видеть вас снова. Надеемся, вам было комфортно пользоваться нашим сервисом.</p>
+                        
+                        <form method="post" action="{% url 'accounts:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-logout">
+                                <i class="fas fa-sign-out-alt me-2"></i>
+                                Да, выйти
+                            </button>
+                            <a href="{% url 'accounts:profile' %}" class="btn btn-cancel">
+                                <i class="fas fa-times me-2"></i>
+                                Отмена
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
