@@ -12,6 +12,12 @@
             <div class="col-lg-4 col-md-6 mb-4">
                 <h5 class="fw-bold mb-3">Контакты</h5>
                 <div class="d-flex flex-column gap-2">
+                    {% if site_settings.vk %}
+                        <p>{{ site_settings.vk }}</p>
+                    {% entif %}
+                    {% if site_settings.ok %}
+                        <p>{{ site_settings.ok }}</p>
+                    {% entif %}
                     {% if site_settings.phone1 %}
                         <div class="d-flex align-items-center">
                             <i class="fas fa-phone me-2 text-primary"></i>
