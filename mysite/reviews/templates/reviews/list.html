@@ -1,16 +1,38 @@
-<!-- index.html -->
+<!-- reviews/templates/reviews/list.html -->
 {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
-{% include 'Hero.html' %}
-<div class="container">
-    <!-- Additional content sections can be added here -->
-    <div class="row mt-5">
-        <div class="col-12 text-center">
-            <h2 class="mb-4">Добро пожаловать!</h2>
-            <p class="lead">Здесь будет что-то но чуть позднее</p>
+<div class="container mt-5">
+    <h1 class="mb-4">Отзывы наших клиентов</h1>
+    
+    <div class="row mb-4">
+        <div class="col-12 text-end">
+            <a href="{% url 'reviews:add' %}" class="btn btn-primary">Добавить отзыв</a>
         </div>
     </div>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% for review in reviews %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ review.full_name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ review.created_at|date:"d.m.Y H:i" }}</h6>
+                <p class="card-text">{{ review.message }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-info">
+            Пока нет отзывов. Будьте первым!
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}
