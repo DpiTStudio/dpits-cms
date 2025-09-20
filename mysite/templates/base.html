@@ -13,57 +13,60 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
+    
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!--  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- Custom CSS -->
-<style>
-    body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-    
-    .container-fluid {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    
-    .full-width-section {
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-    }
-    
-    .hero-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 80px 0;
-        width: 100%;
-    }
-    
-    .content-section {
-        padding: 60px 15px;
-        width: 100%;
-    }
-    
-    /* Адаптивные отступы для контента */
-    @media (min-width: 1200px) {
-        .content-section {
-            padding: 80px 50px;
+    <!-- Custom CSS -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-    }
-    
-    @media (min-width: 1400px) {
-        .content-section {
-            padding: 100px 100px;
+        
+        .container-fluid {
+            padding-left: 0;
+            padding-right: 0;
         }
-    }
-</style>
+        
+        .full-width-section {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 0;
+            width: 100%;
+        }
+        
+        .content-section {
+            padding: 60px 15px;
+            width: 100%;
+        }
+        
+        /* Адаптивные отступы для контента */
+        @media (min-width: 1200px) {
+            .content-section {
+                padding: 80px 50px;
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .content-section {
+                padding: 100px 100px;
+            }
+        }
+        
+        main {
+            flex: 1;
+        }
+    </style>
     
     {% block extra_css %}{% endblock %}
 </head>
@@ -72,17 +75,16 @@
     {% include "Header.html" %}
 
     <!-- Content -->
-    <main class="flex-grow-1">
+    <main>
         {% block content %}
         {% endblock %}
     </main>
-    {% include 'Content-Section.html' %}
+
     <!-- Footer -->
     {% include "Footer.html" %}
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static 'django_ckeditor_5/ckeditor5/ckeditor.js' %}"></script>
     <!-- Custom JS -->
     <script src="{% static 'js/script.js' %}"></script>
     

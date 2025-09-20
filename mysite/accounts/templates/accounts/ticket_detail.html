@@ -1,0 +1,229 @@
+<!-- accounts/ticket_detail.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Тикет #{{ ticket.id }} - {{ site_settings.logo_text }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .ticket-detail-section {
+        padding: 60px 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+    }
+    
+    .ticket-detail-card {
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+    }
+    
+    .ticket-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+    }
+    
+    .ticket-status {
+        font-size: 0.9rem;
+        padding: 6px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+    }
+    
+    .status-open {
+        background-color: #ffc107;
+        color: #000;
+    }
+    
+    .status-in_progress {
+        background-color: #17a2b8;
+        color: #fff;
+    }
+    
+    .status-closed {
+        background-color: #28a745;
+        color: #fff;
+    }
+    
+    .message-bubble {
+        border-radius: 18px;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        max-width: 80%;
+        position: relative;
+    }
+    
+    .user-message {
+        background: #e3f2fd;
+        margin-left: auto;
+        border-bottom-right-radius: 5px;
+    }
+    
+    .admin-message {
+        background: #f1f8e9;
+        margin-right: auto;
+        border-bottom-left-radius: 5px;
+    }
+    
+    .message-time {
+        font-size: 0.75rem;
+        color: #6c757d;
+        margin-top: 5px;
+    }
+    
+    .btn-send {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 12px;
+        padding: 10px 20px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-send:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="ticket-detail-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <div class="card ticket-detail-card">
+                    <!-- Заголовок тикета -->
+                    <div class="ticket-header">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h4 class="mb-2">{{ ticket.subject }}</h4>
+                                <p class="mb-1 opacity-75">
+                                    <i class="far fa-clock me-1"></i>
+                                    Создан: {{ ticket.created_at|date:"d.m.Y H:i" }}
+                                </p>
+                                <p class="mb-0 opacity-75">
+                                    <i class="fas fa-sync-alt me-1"></i>
+                                    Обновлен: {{ ticket.updated_at|date:"d.m.Y H:i" }}
+                                </p>
+                            </div>
+                            <span class="ticket-status {% if ticket.status == 'open' %}status-open{% elif ticket.status == 'in_progress' %}status-in_progress{% else %}status-closed{% endif %}">
+                                {{ ticket.get_status_display }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Тело тикета -->
+                    <div class="card-body p-4">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} me-2"></i>
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <!-- Сообщения -->
+                        <div class="mb-4">
+                            <h5 class="mb-3">Переписка:</h5>
+                            
+                            <!-- Исходное сообщение -->
+                            <div class="message-bubble user-message">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <strong>{{ ticket.user.username }}</strong>
+                                    <small class="message-time">{{ ticket.created_at|date:"H:i" }}</small>
+                                </div>
+                                <p class="mb-0">{{ ticket.message }}</p>
+                            </div>
+                            
+                            <!-- Ответы -->
+                            {% for response in responses %}
+                                <div class="message-bubble {% if response.is_admin_response %}admin-message{% else %}user-message{% endif %}">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <strong>
+                                            {% if response.is_admin_response %}
+                                                <i class="fas fa-shield-alt me-1"></i>Администрация
+                                            {% else %}
+                                                {{ response.user.username }}
+                                            {% endif %}
+                                        </strong>
+                                        <small class="message-time">{{ response.created_at|date:"H:i" }}</small>
+                                    </div>
+                                    <p class="mb-0">{{ response.message }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Форма ответа -->
+                        {% if ticket.status != 'closed' %}
+                            <div class="response-form">
+                                <h5 class="mb-3">Добавить ответ:</h5>
+                                <form method="post" novalidate>
+                                    {% csrf_token %}
+                                    
+                                    <div class="form-group mb-3">
+                                        {{ form.message }}
+                                        {% if form.message.errors %}
+                                            <div class="text-danger mt-2">
+                                                <i class="fas fa-exclamation-circle me-2"></i>
+                                                {{ form.message.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a href="{% url 'accounts:ticket_list' %}" class="btn btn-outline-secondary">
+                                            <i class="fas fa-arrow-left me-2"></i>
+                                            Назад к списку
+                                        </a>
+                                        <button type="submit" class="btn btn-send">
+                                            <i class="fas fa-paper-plane me-2"></i>
+                                            Отправить ответ
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info text-center">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Этот тикет закрыт. Новые ответы не принимаются.
+                            </div>
+                            <div class="text-center">
+                                <a href="{% url 'accounts:ticket_list' %}" class="btn btn-primary">
+                                    <i class="fas fa-arrow-left me-2"></i>
+                                    Назад к списку тикетов
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Добавляем класс form-control к полю сообщения
+        const messageField = document.getElementById('{{ form.message.id_for_label }}');
+        if (messageField) {
+            messageField.classList.add('form-control');
+            messageField.setAttribute('rows', '4');
+            messageField.setAttribute('placeholder', 'Введите ваш ответ...');
+        }
+        
+        // Автопрокрутка к последнему сообщению
+        const messages = document.querySelectorAll('.message-bubble');
+        if (messages.length > 0) {
+            messages[messages.length - 1].scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+</script>
+{% endblock %}

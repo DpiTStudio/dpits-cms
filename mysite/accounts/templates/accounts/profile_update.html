@@ -1,0 +1,234 @@
+<!-- accounts/profile_update.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Расширенные настройки профиля - {{ site_settings.logo_text }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-update-section {
+        padding: 60px 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+    }
+    
+    .profile-update-card {
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+    }
+    
+    .profile-update-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px;
+        text-align: center;
+        position: relative;
+    }
+    
+    .form-group {
+        margin-bottom: 25px;
+    }
+    
+    .form-label {
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 8px;
+    }
+    
+    .form-control {
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 15px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .btn-save {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 12px;
+        padding: 15px 30px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .avatar-preview {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #e2e8f0;
+        margin-bottom: 15px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="profile-update-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+                <div class="card profile-update-card">
+                    <div class="profile-update-header">
+                        <h2 class="mb-3">Расширенные настройки профиля</h2>
+                        <p class="mb-0 opacity-75">Обновите дополнительную информацию о себе</p>
+                    </div>
+                    
+                    <div class="card-body p-5">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} me-2"></i>
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <form method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            
+                            <!-- Аватар -->
+                            <div class="text-center mb-4">
+                                {% if user.userprofile.avatar %}
+                                    <img src="{{ user.userprofile.avatar.url }}" alt="Аватар" class="avatar-preview" id="avatarPreview">
+                                {% else %}
+                                    <div class="avatar-preview d-flex align-items-center justify-content-center bg-light">
+                                        <i class="fas fa-user fa-3x text-secondary"></i>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="form-group">
+                                    <label for="{{ p_form.avatar.id_for_label }}" class="form-label">Аватар</label>
+                                    {{ p_form.avatar }}
+                                    {% if p_form.avatar.errors %}
+                                        <div class="text-danger mt-2">
+                                            <i class="fas fa-exclamation-circle me-2"></i>
+                                            {{ p_form.avatar.errors.0 }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <!-- Пользовательская форма -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ u_form.first_name.id_for_label }}" class="form-label">Имя</label>
+                                        {{ u_form.first_name }}
+                                        {% if u_form.first_name.errors %}
+                                            <div class="text-danger mt-2">
+                                                <i class="fas fa-exclamation-circle me-2"></i>
+                                                {{ u_form.first_name.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ u_form.last_name.id_for_label }}" class="form-label">Фамилия</label>
+                                        {{ u_form.last_name }}
+                                        {% if u_form.last_name.errors %}
+                                            <div class="text-danger mt-2">
+                                                <i class="fas fa-exclamation-circle me-2"></i>
+                                                {{ u_form.last_name.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="{{ u_form.email.id_for_label }}" class="form-label">Email</label>
+                                {{ u_form.email }}
+                                {% if u_form.email.errors %}
+                                    <div class="text-danger mt-2">
+                                        <i class="fas fa-exclamation-circle me-2"></i>
+                                        {{ u_form.email.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Профильная форма -->
+                            <div class="form-group">
+                                <label for="{{ p_form.phone.id_for_label }}" class="form-label">Телефон</label>
+                                {{ p_form.phone }}
+                                {% if p_form.phone.errors %}
+                                    <div class="text-danger mt-2">
+                                        <i class="fas fa-exclamation-circle me-2"></i>
+                                        {{ p_form.phone.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="{{ p_form.bio.id_for_label }}" class="form-label">О себе</label>
+                                {{ p_form.bio }}
+                                {% if p_form.bio.errors %}
+                                    <div class="text-danger mt-2">
+                                        <i class="fas fa-exclamation-circle me-2"></i>
+                                        {{ p_form.bio.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                                <button type="submit" class="btn btn-save me-md-2">
+                                    <i class="fas fa-save me-2"></i>
+                                    Сохранить изменения
+                                </button>
+                                <a href="{% url 'accounts:profile' %}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-times me-2"></i>
+                                    Отмена
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Добавляем класс form-control ко всем полям
+        const formFields = document.querySelectorAll('input, textarea, select');
+        formFields.forEach(field => {
+            field.classList.add('form-control');
+        });
+        
+        // Превью аватара
+        const avatarInput = document.getElementById('{{ p_form.avatar.id_for_label }}');
+        const avatarPreview = document.getElementById('avatarPreview');
+        
+        if (avatarInput && avatarPreview) {
+            avatarInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarPreview.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

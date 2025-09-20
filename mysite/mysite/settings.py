@@ -124,8 +124,12 @@ LANGUAGE_CODE = "ru"
 TIME_ZONE = "Europe/Moscow"
 USE_I18N = True
 USE_TZ = True
-
-
+# Настройки аутентификации
+LOGIN_REDIRECT_URL = "/accounts/profile/"
+LOGIN_URL = "/accounts/login/"
+LOGOUT_REDIRECT_URL = "/"
+# Настройки сообщений
+MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
