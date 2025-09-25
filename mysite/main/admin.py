@@ -6,7 +6,7 @@ from .models import SiteSettings, Page
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
-    list_display = ["phone1", "phone2", "email", "site_closed"]
+    list_display = ["slogan", "phone1", "phone2", "email", "site_closed"]
     fieldsets = (
         ("Контакты", {"fields": ("phone1", "phone2", "email")}),
         ("Логотип и текст", {"fields": ("logo", "logo_text", "slogan")}),
