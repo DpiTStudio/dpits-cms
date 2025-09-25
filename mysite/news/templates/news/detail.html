@@ -11,7 +11,9 @@
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'news:list' %}">Новости</a></li>
+                    {% if news.category and news.category.slug %}
                     <li class="breadcrumb-item"><a href="{% url 'news:category' news.category.slug %}">{{ news.category.name }}</a></li>
+                    {% endif %}
                     <li class="breadcrumb-item active" aria-current="page">{{ news.title }}</li>
                 </ol>
             </nav>
@@ -21,7 +23,9 @@
                 
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
+                        {% if news.category and news.category.slug %}
                         <span class="badge bg-primary">{{ news.category.name }}</span>
+                        {% endif %}
                         <span class="text-muted ms-2"><i class="far fa-calendar-alt me-1"></i>{{ news.created_at|date:"d.m.Y" }}</span>
                         <span class="text-muted ms-3"><i class="far fa-eye me-1"></i>{{ news.views }}</span>
                     </div>
@@ -64,9 +68,15 @@
                     <ul class="list-unstyled mb-0">
                         {% for category in categories %}
                         <li class="mb-2">
+                            {% if category.slug %}
                             <a href="{% url 'news:category' category.slug %}" class="text-decoration-none">
                                 <i class="fas fa-folder me-2"></i>{{ category.name }}
                             </a>
+                            {% else %}
+                            <span class="text-decoration-none text-muted">
+                                <i class="fas fa-folder me-2"></i>{{ category.name }}
+                            </span>
+                            {% endif %}
                         </li>
                         {% endfor %}
                     </ul>
