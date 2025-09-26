@@ -8,6 +8,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-12">
+            <!-- Хлебные крошки -->
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'news:list' %}">Новости</a></li>
@@ -15,18 +16,22 @@
                 </ol>
             </nav>
             
+            <!-- Заголовок категории -->
             <h2 class="mb-4">Новости категории: {{ category.name }}</h2>
             
+            <!-- Описание категории (если есть) -->
             {% if category.description %}
             <div class="alert alert-light mb-4">
                 {{ category.description|safe }}
             </div>
             {% endif %}
             
+            <!-- Список новостей -->
             <div class="row">
                 {% for news_item in news_list %}
                 <div class="col-md-6 mb-4">
                     <div class="card h-100 news-card">
+                        <!-- Изображение новости -->
                         {% if news_item.image %}
                         <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}" style="height: 200px; object-fit: cover;">
                         {% endif %}
@@ -41,35 +46,53 @@
                     </div>
                 </div>
                 {% empty %}
+                <!-- Сообщение если новостей нет -->
                 <div class="col-12 text-center">
                     <p>В этой категории пока нет новостей</p>
                 </div>
                 {% endfor %}
             </div>
             
-            <!-- Пагинация (аналогичная list.html) -->
+            <!-- Пагинация (исправленная версия) -->
             {% if news_list.has_other_pages %}
             <nav aria-label="Page navigation" class="mt-4">
                 <ul class="pagination justify-content-center">
+                    <!-- Кнопка "Назад" -->
                     {% if news_list.has_previous %}
                     <li class="page-item">
                         <a class="page-link" href="?page={{ news_list.previous_page_number }}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
                     {% endif %}
                     
+                    <!-- Номера страниц -->
                     {% for i in news_list.paginator.page_range %}
-                    <li class="page-item {% if news_list.number == i %}active{% endif %}">
-                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                    </li>
+                        {% if news_list.number == i %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ i }}</span>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                        {% endif %}
                     {% endfor %}
                     
+                    <!-- Кнопка "Вперед" -->
                     {% if news_list.has_next %}
                     <li class="page-item">
                         <a class="page-link" href="?page={{ news_list.next_page_number }}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;</span>
                     </li>
                     {% endif %}
                 </ul>
