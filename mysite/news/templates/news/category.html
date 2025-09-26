@@ -17,11 +17,11 @@
             </nav>
             
             <!-- Заголовок категории -->
-            <h2 class="mb-4">Новости категории: {{ category.name }}</h2>
+            <h2 class="mb-3">Новости категории: {{ category.name }}</h2>
             
-            <!-- Описание категории (если есть) -->
+            <!-- Описание категории (если есть) alert alert-light -->
             {% if category.description %}
-            <div class="alert alert-light mb-4">
+            <div class="mb-4">
                 {{ category.description|safe }}
             </div>
             {% endif %}
