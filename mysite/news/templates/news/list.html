@@ -2,14 +2,14 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{% endblock %}
+{% block title %} - {{ site_settings.logo_text }}{% endblock %}
 
 {% block content %}
 <!-- Hero Section  -->
 {% include 'Hero.html' %}
 <div class="container">
     <!-- Блок категорий с картинками -->
-    <div class="row mt-5">
+    <div class="row">
         <div class="col-12">
             <h2 class="mb-4 text-left">Категории новостей</h2>
             <div class="row">

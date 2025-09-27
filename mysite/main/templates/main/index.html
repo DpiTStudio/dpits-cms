@@ -2,7 +2,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ site_settings }} - {{ site_settings.logo_text }}{% endblock %}
+{% block title %}
+{{ site_settings }} - {{ site_settings.logo_text }}
+{% endblock %}
 
 
 {% block content %}
@@ -10,12 +12,12 @@
 {% include 'Hero.html' %}
 
 <!-- Content Section - на всю ширину -->
-<section class="full-width-section content-section bg-light">
-    <div class="container-fluid px-0">
-        <div class="row mx-0">
-            <div class="col-12 px-4 px-lg-5">
-                <h2 class="display-5 fw-bold mb-4">Добро пожаловать!</h2>
-                <p class="lead fs-4 mb-4">
+<section class="bg-light">
+    <div class="container-fluid">
+        <div class="row m-5">
+            <div class="col-12">
+                <h2 class="display-5 fw-bold">Добро пожаловать!</h2>
+                <p class="lead">
                     {{ site_settings.content|safe }}
                 </p>
                 <p class="fs-5"></p>
