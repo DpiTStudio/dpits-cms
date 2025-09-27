@@ -166,14 +166,27 @@ JAZZMIN_SETTINGS = {
     "site_icon_classes": "img-circle",
     "site_header_classes": "img-circle",
     "site_footer_classes": "img-circle",
+    "menu": [
+        {"app": "main", "label": "Главная"},
+        {"app": "news", "label": "Новости"},
+        {"app": "portfolio", "label": "Портфолио"},
+        {"app": "reviews", "label": "Отзывы"},
+        {"app": "accounts", "label": "Аккаунты"},
+    ],
+    "changelist": {
+        "show_delete_link": True,
+        "show_full_result_count": False,
+    },
+    "ui": {
+        "theme": "darkly",
+        "dark_mode_theme": "darkly",
+        "navbar_small_text": True,
+        "footer_small_text": False,
+        "body_small_text": True,
+        "brand_small_text": True,
+        "sidebar_nav_small_text": True,
+    },
 }
-
-# JAZZMIN_UI_TWEAKS = {
-#     "theme": "",
-#     "dark_mode_theme": "darkly",
-#     "navbar_small_text": False,
-# }
-
 
 # Настройки CKEditor 5
 CKEDITOR_5_CONFIGS = {
