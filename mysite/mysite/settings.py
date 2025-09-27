@@ -128,6 +128,10 @@ USE_TZ = True
 LOGIN_REDIRECT_URL = "/accounts/profile/"
 LOGIN_URL = "/accounts/login/"
 LOGOUT_REDIRECT_URL = "/"
+# Настройки аутентификации
+LOGIN_REDIRECT_URL = "portfolio:client_dashboard"
+LOGOUT_REDIRECT_URL = "portfolio:list"
+LOGIN_URL = "accounts:login"
 # Настройки сообщений
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 # Static files (CSS, JavaScript, Images)
