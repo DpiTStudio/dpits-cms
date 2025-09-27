@@ -2,6 +2,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}{{ site_settings }} - {{ site_settings.logo_text }}{% endblock %}
+
+
 {% block content %}
 <!-- Hero Section  -->
 {% include 'Hero.html' %}
