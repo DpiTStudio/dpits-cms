@@ -26,11 +26,12 @@ SECRET_KEY = "django-insecure-gg&b-34chy82xwd424vn41_=i=nr$2mrxm5_-xj(ev6ed#h+_=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 ALLOWED_HOSTS = [
     "*",
-    "127.0.0.1",
+    "www.dpits-cms.ru",
+    "dpits-cms.ru",
     "localhost",
+    "127.0.0.1",
 ]
 
 

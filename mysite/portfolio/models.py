@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.text import slugify
 from django_ckeditor_5.fields import CKEditor5Field
+from .utils import custom_upload_to
 
 
 class Client(models.Model):
@@ -38,7 +39,7 @@ class PortfolioCategory(models.Model):
     name = models.CharField(_("Название"), max_length=100)
     image = models.ImageField(
         _("Изображение"),
-        upload_to="portfolio/categories/",
+        upload_to=custom_upload_to,
         default="portfolio/default-category.png",
     )
     slug = models.SlugField(_("URL"), unique=True)
@@ -101,7 +102,8 @@ class PortfolioItem(models.Model):
         verbose_name=_("Клиент"),
     )
     images = models.ImageField(
-        _("Главное изображение"), upload_to="portfolio/%Y/%m/%d/"
+        _("Главное изображение"),
+        upload_to=custom_upload_to,
     )
     short_description = models.TextField(_("Краткое описание"), max_length=300)
     content = CKEditor5Field(_("Содержание"), config_name="extends")
@@ -122,6 +124,7 @@ class PortfolioItem(models.Model):
     )
     seo_title = models.CharField(_("SEO заголовок"), max_length=200, blank=True)
     seo_description = models.CharField(_("SEO описание"), max_length=300, blank=True)
+    seo_keywords = models.CharField(_("SEO ключевые слова"), max_length=200, blank=True)
 
     # Системные поля
     views = models.PositiveIntegerField(_("Просмотры"), default=0)
@@ -182,7 +185,7 @@ class Order(models.Model):
 
     # Файлы и доп. информация
     requirements_file = models.FileField(
-        _("Файл требований"), upload_to="orders/requirements/", blank=True
+        _("Файл требований"), upload_to=custom_upload_to, blank=True
     )
     additional_notes = models.TextField(_("Дополнительные заметки"), blank=True)
 
@@ -215,7 +218,12 @@ class OrderMessage(models.Model):
         User, on_delete=models.CASCADE, verbose_name=_("Пользователь")
     )
     message = models.TextField(_("Сообщение"))
-    file = models.FileField(_("Файл"), upload_to="orders/messages/", blank=True)
+    file = models.FileField(
+        _("Файл"),
+        upload_to=custom_upload_to,
+        blank=True,
+    )
+    #
     is_admin_message = models.BooleanField(_("Сообщение администратора"), default=False)
     created_at = models.DateTimeField(_("Создано"), auto_now_add=True)
 
