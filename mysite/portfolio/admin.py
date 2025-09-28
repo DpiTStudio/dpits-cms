@@ -20,9 +20,13 @@ class PortfolioCategoryAdmin(admin.ModelAdmin):
     list_display_links = ["name"]
     prepopulated_fields = {"slug": ("name",)}
     fieldsets = (
-        ("Основная информация", {"fields": ("name", "slug", "description")}),
+        (
+            "Основная информация",
+            {"fields": ("name", "slug", "description", "images")},
+        ),
         ("Настройки отображения", {"fields": ("order", "is_active")}),
         ("SEO", {"fields": ("seo_title", "seo_description", "seo_keywords")}),
+        ("Дополнительная информация", {"fields": ("images")}),
     )
 
 
