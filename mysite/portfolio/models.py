@@ -1,6 +1,5 @@
 # portfolio/models.py
 import datetime
-from email.mime import image
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
@@ -19,7 +18,9 @@ class Client(models.Model):
     company = models.CharField(_("Компания"), max_length=200, blank=True)
     phone = models.CharField(_("Телефон"), max_length=20, blank=True)
     website = models.URLField(_("Веб-сайт"), blank=True)
-    description = CKEditor5Field(_("Описание"), blank=False, config_name="extends")
+    description = CKEditor5Field(
+        _("Описание"), blank=True, config_name="extends"
+    )  # Исправлено: blank=False -> blank=True
     is_verified = models.BooleanField(_("Подтвержден"), default=False)
     created_at = models.DateTimeField(_("Создан"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Обновлен"), auto_now=True)
@@ -69,7 +70,10 @@ class PortfolioCategory(models.Model):
     class Meta:
         verbose_name = _("Категория портфолио")
         verbose_name_plural = _("Категории портфолио")
-        ordering = ["order", "name"]
+        ordering = [
+            "-order",
+            "name",
+        ]  # Исправлено: добавлен минус для правильной сортировки
 
     def __str__(self):
         return self.name
@@ -101,7 +105,7 @@ class PortfolioItem(models.Model):
         blank=True,
         verbose_name=_("Клиент"),
     )
-    images = models.ImageField(
+    image = models.ImageField(  # Исправлено: images -> image
         _("Главное изображение"),
         upload_to=custom_upload_to,
     )
@@ -263,6 +267,8 @@ class Review(models.Model):
         verbose_name = _("Отзыв")
         verbose_name_plural = _("Отзывы")
         ordering = ["-created_at"]
+        # Добавлена уникальность: один клиент - один отзыв на работу
+        unique_together = ["client", "portfolio_item"]
 
     def __str__(self):
         return f"Отзыв от {self.client} - {self.portfolio_item.title}"

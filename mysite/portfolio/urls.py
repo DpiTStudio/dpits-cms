@@ -5,10 +5,9 @@ from . import views
 app_name = "portfolio"
 
 urlpatterns = [
-    # Публичные страницы портфолио
     path("", views.portfolio_list, name="list"),
+    path("categories/", views.portfolio_categories, name="categories"),
     path("item/<slug:slug>/", views.portfolio_detail, name="detail"),
-    # Личный кабинет клиента
     path("dashboard/", views.client_dashboard, name="client_dashboard"),
     path("profile/", views.client_profile, name="client_profile"),
     path("orders/", views.order_list, name="order_list"),

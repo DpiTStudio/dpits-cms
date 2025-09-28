@@ -22,11 +22,10 @@ class PortfolioCategoryAdmin(admin.ModelAdmin):
     fieldsets = (
         (
             "Основная информация",
-            {"fields": ("name", "slug", "description", "images")},
+            {"fields": ("name", "slug", "description", "image")},
         ),
         ("Настройки отображения", {"fields": ("order", "is_active")}),
         ("SEO", {"fields": ("seo_title", "seo_description", "seo_keywords")}),
-        ("Дополнительная информация", {"fields": ("images")}),
     )
 
 

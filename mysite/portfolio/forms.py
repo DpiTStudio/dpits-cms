@@ -67,6 +67,13 @@ class ReviewForm(forms.ModelForm):
             "content": forms.Textarea(attrs={"rows": 4}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Ограничиваем выбор работ только опубликованными
+        self.fields["portfolio_item"].queryset = PortfolioItem.objects.filter(
+            status="published"
+        )
+
 
 class ClientProfileForm(forms.ModelForm):
     class Meta:
@@ -83,7 +90,7 @@ class PortfolioItemForm(forms.ModelForm):
         fields = [
             "title",
             "category",
-            "images",
+            "image",  # Исправлено: images -> image
             "short_description",
             "content",
             "technologies",
