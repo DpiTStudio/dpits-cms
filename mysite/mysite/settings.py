@@ -151,33 +151,36 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# jazzmin настройки
+
+# Jazzmin настройки для админ-панели Django
 JAZZMIN_SETTINGS = {
+    # === Основные настройки сайта ===
     "site_title": "Админ панель",
     "site_header": "Админ панель",
     "site_brand": "Админ панель",
+    "welcome_sign": "Добро пожаловать в админ панель",
+    # === Настройки логотипа и иконок ===
     "site_logo": "images/logo.png",
     "site_icon": "images/logo.png",
-    "welcome_sign": "Добро пожаловать в админ панель",
-    "show_ui_builder": False,
-    "site_brand_small_icon": "images/logo.png",
-    "site_brand_small_text": "Админ панель",
     "site_logo_classes": "img-circle",
-    "site_brand_classes": "img-circle",
-    "site_icon_classes": "img-circle",
-    "site_header_classes": "img-circle",
-    "site_footer_classes": "img-circle",
+    "site_brand_small_icon": "images/logo.png",
+    "site_brand_small_text": "Админ",
+    # === Функциональность ===
+    "show_ui_builder": False,  # Отключить UI builder для продакшена
+    # === Настройки меню ===
     "menu": [
-        {"app": "main", "label": "Главная"},
-        {"app": "news", "label": "Новости"},
-        {"app": "portfolio", "label": "Портфолио"},
-        {"app": "reviews", "label": "Отзывы"},
-        {"app": "accounts", "label": "Аккаунты"},
+        {"app": "main", "label": "Главная", "icon": "fas fa-home"},
+        {"app": "news", "label": "Новости", "icon": "fas fa-newspaper"},
+        {"app": "portfolio", "label": "Портфолио", "icon": "fas fa-briefcase"},
+        {"app": "reviews", "label": "Отзывы", "icon": "fas fa-star"},
+        {"app": "accounts", "label": "Аккаунты", "icon": "fas fa-users"},
     ],
+    # === Настройки списков изменений ===
     "changelist": {
         "show_delete_link": True,
         "show_full_result_count": False,
     },
+    # === Внешний вид и темы ===
     "ui": {
         "theme": "darkly",
         "dark_mode_theme": "darkly",
@@ -187,8 +190,65 @@ JAZZMIN_SETTINGS = {
         "brand_small_text": True,
         "sidebar_nav_small_text": True,
     },
+    # === Дополнительные улучшения (опционально) ===
+    "search_model": ["auth.User", "main.Profile"],  # Модели для поиска в хедере
+    "topmenu_links": [
+        {"name": "Вернуться на сайт", "url": "/", "new_window": False},
+    ],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "hide_apps": [],  # Приложения для скрытия
+    "hide_models": [],  # Модели для скрытия
+    "order_with_respect_to": ["main", "news", "portfolio", "reviews", "accounts"],
 }
 
+# Альтернативный вариант с светлой темой
+JAZZMIN_SETTINGS_LIGHT = {
+    **JAZZMIN_SETTINGS,
+    "ui": {
+        "theme": "flatly",  # Светлая тема
+        "dark_mode_theme": "darkly",
+        "navbar_small_text": False,
+        "footer_small_text": False,
+        "body_small_text": False,
+        "brand_small_text": False,
+        "sidebar_nav_small_text": False,
+    },
+}
+
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": True,
+    "brand_small_text": False,
+    "brand_colour": False,
+    "accent": "accent-primary",
+    "navbar": "navbar-white navbar-light",
+    "no_navbar_border": False,
+    "navbar_fixed": True,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": True,
+    "sidebar_nav_legacy_style": True,
+    "sidebar_nav_flat_style": True,
+    "theme": "default",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success",
+    },
+    "actions_sticky_top": False,
+}
 # Настройки CKEditor 5
 CKEDITOR_5_CONFIGS = {
     "default": {
