@@ -2,7 +2,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} - {{ site_settings.logo_text }}{% endblock %}
+{% block title %}
+{{ site_settings.logo_text }} 
+- Новости категории -
+ {{ category.name }}
+{% endblock %}
+
 
 {% block content %}
 <!-- Hero Section  -->
