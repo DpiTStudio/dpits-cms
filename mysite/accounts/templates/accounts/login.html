@@ -4,7 +4,12 @@
 
 {% block title %}Вход - {{ site_settings.logo_text }}{% endblock %}
 
+{% block header %}
+    {% include "accounts/login_header.html" %}
+{% endblock %}
+
 {% block extra_css %}
+<!-- Остальной CSS -->
 <style>
     .login-section {
         min-height: 100vh;
@@ -14,6 +19,7 @@
         justify-content: center;
         padding: 20px 0;
     }
+    
     
     .login-card {
         background: white;
