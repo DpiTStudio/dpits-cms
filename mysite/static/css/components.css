@@ -6,6 +6,9 @@
 }
 
 .nav-link {
+    position: relative;
+    top: -5px; 
+    padding: 0.5rem 1rem;
     font-weight: 500;
     transition: var(--transition);
 }
