@@ -1,4 +1,3 @@
-<!-- base.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
@@ -6,73 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ site_settings.logo_text }}{% endblock %}</title>
-
-    <!-- Фавикон -->
+    
+    <!-- Favicon -->
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <!-- Custom CSS -->
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        
-        .container-fluid {
-            padding-left: 0;
-            padding-right: 0;
-        }
-        
-        .full-width-section {
-            width: 100%;
-            margin-left: 0;
-            margin-right: 0;
-        }
-        
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 80px 0;
-            width: 100%;
-        }
-        
-        .content-section {
-            padding: 60px 15px;
-            width: 100%;
-        }
-        
-        /* Адаптивные отступы для контента */
-        @media (min-width: 1200px) {
-            .content-section {
-                padding: 80px 50px;
-            }
-        }
-        
-        @media (min-width: 1400px) {
-            .content-section {
-                padding: 100px 100px;
-            }
-        }
-        
-        main {
-            flex: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <!-- Header -->
+    {% block header %}
     {% include "Header.html" %}
+    {% endblock %}
 
     <!-- Content -->
     <main>
@@ -80,16 +35,12 @@
         {% endblock %}
     </main>
 
-    <!-- Content-Section -->
-    {% include "Content-Section.html" %}
-    
     <!-- Footer -->
     {% include "Footer.html" %}
 
-    <!-- Bootstrap 5 JS -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     
     {% block extra_js %}{% endblock %}
 </body>

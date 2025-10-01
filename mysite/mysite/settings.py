@@ -193,7 +193,10 @@ JAZZMIN_SETTINGS = {
     # === Дополнительные улучшения (опционально) ===
     "search_model": ["auth.User", "main.Profile"],  # Модели для поиска в хедере
     "topmenu_links": [
-        {"name": "Вернуться на сайт", "url": "/", "new_window": False},
+        {"name": "На сайт", "url": "/", "new_tab": False},
+        # {"name": "Контакты", "url": "/contacts/", "new_tab": False},
+        # {"name": "О нас", "url": "/about/", "new_tab": False},
+        # {"name": "FAQ", "url": "/faq/", "new_tab": False},
     ],
     "show_sidebar": True,
     "navigation_expanded": True,
