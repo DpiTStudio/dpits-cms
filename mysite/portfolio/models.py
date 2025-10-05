@@ -108,6 +108,7 @@ class PortfolioItem(models.Model):
     image = models.ImageField(  # Исправлено: images -> image
         _("Главное изображение"),
         upload_to=custom_upload_to,
+        default="portfolio/default-category.png",
     )
     short_description = models.TextField(_("Краткое описание"), max_length=300)
     content = CKEditor5Field(_("Содержание"), config_name="extends")
