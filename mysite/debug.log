@@ -219,3 +219,9 @@ Watching for file changes with StatReloader
 G:\Python\Projects\dpits-cms\mysite\reviews\models.py changed, reloading.
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 24091
+"GET /static/accounts/css/accounts.css HTTP/1.1" 304 0
+"GET /accounts/tickets/ HTTP/1.1" 200 16128
+"GET /static/accounts/css/tickets.css HTTP/1.1" 304 0
+"GET /accounts/profile/ HTTP/1.1" 200 17032
+"GET /static/accounts/css/profile.css HTTP/1.1" 304 0
