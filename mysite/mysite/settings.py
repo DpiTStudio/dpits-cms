@@ -403,13 +403,13 @@ CACHES = {
 
 # Настройки сессий (без Redis)
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
+
 # Настройки сессий
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 SESSION_COOKIE_AGE = 1209600  # 2 недели
 
 CKEDITOR_5_ALLOW_ALL_TAGS = True
 CKEDITOR_5_FILE_UPLOAD_PERMISSIONS = 0o644
-
 
 
 # Email настройки (для уведомлений)
