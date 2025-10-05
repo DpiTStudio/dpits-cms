@@ -1,0 +1,221 @@
+"GET /reviews/ HTTP/1.1" 200 12599
+"GET / HTTP/1.1" 200 23917
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23923
+"GET / HTTP/1.1" 200 23923
+"GET / HTTP/1.1" 200 23923
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23923
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23923
+"GET / HTTP/1.1" 200 23923
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23923
+"GET / HTTP/1.1" 200 23923
+"GET / HTTP/1.1" 200 23923
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23917
+"GET / HTTP/1.1" 200 23917
+"GET / HTTP/1.1" 200 23914
+"GET / HTTP/1.1" 200 23914
+"GET / HTTP/1.1" 200 23914
+"GET / HTTP/1.1" 200 23914
+"GET / HTTP/1.1" 200 23914
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23914
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23914
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23915
+"GET / HTTP/1.1" 200 23915
+"GET / HTTP/1.1" 200 23915
+"GET / HTTP/1.1" 200 23915
+"GET / HTTP/1.1" 200 23915
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23885
+"GET / HTTP/1.1" 200 23885
+"GET / HTTP/1.1" 200 23885
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 22816
+"GET / HTTP/1.1" 200 22816
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23891
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23886
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23876
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23986
+"GET / HTTP/1.1" 200 23986
+"GET / HTTP/1.1" 200 23986
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23986
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23986
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23986
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23986
+"GET / HTTP/1.1" 200 23986
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23976
+"GET / HTTP/1.1" 200 23976
+"GET / HTTP/1.1" 200 23976
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 24037
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 24037
+"GET / HTTP/1.1" 200 24037
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 24037
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 24037
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 24034
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 24022
+"GET / HTTP/1.1" 200 24022
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+Watching for file changes with StatReloader
+"GET /accounts/profile/ HTTP/1.1" 200 17032
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /static/accounts/css/profile.css HTTP/1.1" 200 1613
+"GET /accounts/profile/ HTTP/1.1" 200 17032
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET /accounts/profile/ HTTP/1.1" 200 17032
+"GET /portfolio/ HTTP/1.1" 200 14865
+"GET /accounts/profile/ HTTP/1.1" 200 17032
+"GET /accounts/tickets/ HTTP/1.1" 200 16128
+"GET /static/accounts/css/tickets.css HTTP/1.1" 200 1775
+"GET /accounts/tickets/create/ HTTP/1.1" 200 15313
+"GET /accounts/tickets/1/ HTTP/1.1" 200 17152
+"GET /accounts/tickets/1/ HTTP/1.1" 200 17152
+"GET /static/accounts/css/accounts.css HTTP/1.1" 304 0
+"GET /static/accounts/css/tickets.css HTTP/1.1" 304 0
+"GET /accounts/tickets/ HTTP/1.1" 200 16128
+"GET /accounts/profile/ HTTP/1.1" 200 17032
+"GET /static/accounts/css/profile.css HTTP/1.1" 304 0
+G:\Python\Projects\dpits-cms\mysite\reviews\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\reviews\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
