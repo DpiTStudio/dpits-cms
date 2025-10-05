@@ -279,3 +279,156 @@ django.db.utils.OperationalError: no such column: main_sitesettings.created_at
 "GET /media/news/categories/cat_logo_8.png HTTP/1.1" 200 42428
 "GET /media/news/categories/cat_logo_9.png HTTP/1.1" 200 42221
 "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET / HTTP/1.1" 200 24055
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 24055
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET /news/ HTTP/1.1" 200 23601
+"GET /portfolio/ HTTP/1.1" 200 14796
+"GET / HTTP/1.1" 200 24055
+"GET / HTTP/1.1" 200 24055
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 24055
+"GET / HTTP/1.1" 200 24055
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET /reviews/ HTTP/1.1" 200 12599
+"GET /admin/ HTTP/1.1" 200 46229
+"GET /admin/main/page/ HTTP/1.1" 200 29523
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 24155
+"GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+Internal Server Error: /admin/main/sitesettings/1/change/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 1987, in change_view
+    return self.changeform_view(request, object_id, form_url, extra_context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 1840, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 1953, in _changeform_view
+    "subtitle": str(obj) if obj else None,
+TypeError: __str__ returned non-string (type __proxy__)
+"GET /admin/main/sitesettings/1/change/ HTTP/1.1" 500 146076
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4861
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 24155
+"GET /static/images/logo.png HTTP/1.1" 200 100655
+Internal Server Error: /admin/main/sitesettings/1/change/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 1987, in change_view
+    return self.changeform_view(request, object_id, form_url, extra_context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 1840, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 1953, in _changeform_view
+    "subtitle": str(obj) if obj else None,
+TypeError: __str__ returned non-string (type __proxy__)
+"GET /admin/main/sitesettings/1/change/ HTTP/1.1" 500 146076
+G:\Python\Projects\dpits-cms\mysite\main\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\main\admin.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\main\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 46388
+"GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+"GET /static/images/logo.png HTTP/1.1" 200 100655
+"GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+"GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+"GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+"GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+"GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+"GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+"GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+"GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+"GET /admin/main/page/ HTTP/1.1" 200 29714
+"GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+"GET /static/admin/js/core.js HTTP/1.1" 200 6208
+"GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+"GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+"GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+"GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+"GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+"GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+"GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+"GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+"GET /admin/main/page/1/change/ HTTP/1.1" 200 36952
+"GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+"GET /static/django_ckeditor_5/dist/styles.css HTTP/1.1" 200 213809
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+"GET /static/django_ckeditor_5/dist/bundle.js HTTP/1.1" 200 1275904
+"GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 23730
+"GET / HTTP/1.1" 200 23917
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 23730
+"GET /reviews/ HTTP/1.1" 200 12599
+"GET /page/o-nas/ HTTP/1.1" 200 12818

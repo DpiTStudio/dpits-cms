@@ -8,7 +8,6 @@ from django_ckeditor_5.fields import CKEditor5Field
 class SingletonModel(models.Model):
     """
     Абстрактная модель для создания singleton-объектов (только одна запись).
-    Наследуется другими моделями, которые должны иметь только один экземпляр.
     """
 
     class Meta:
@@ -75,7 +74,7 @@ class SiteSettings(SingletonModel):
         help_text=_("Сообщение, которое увидят пользователи при закрытии сайта"),
     )
 
-    # Временные метки
+    # Временные метки (раскомментируйте после применения миграций)
     created_at = models.DateTimeField(_("Создано"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Обновлено"), auto_now=True)
 
@@ -84,11 +83,10 @@ class SiteSettings(SingletonModel):
 
         verbose_name = _("Настройки сайта")
         verbose_name_plural = _("Настройки сайта")
-        ordering = ["-updated_at"]
 
     def __str__(self):
         """Строковое представление объекта."""
-        return _("Настройки сайта")
+        return str(_("Настройки сайта"))  # Явное преобразование в строку
 
     def clean(self):
         """
@@ -156,14 +154,10 @@ class Page(models.Model):
         verbose_name = _("Страница")
         verbose_name_plural = _("Страницы")
         ordering = ["order", "title"]
-        indexes = [
-            models.Index(fields=["slug", "show_on_site"]),
-            models.Index(fields=["show_in_menu", "show_on_site", "order"]),
-        ]
 
     def __str__(self):
         """Строковое представление - заголовок страницы."""
-        return self.title
+        return self.title  # Здесь строка, поэтому str() не нужен
 
     def get_absolute_url(self):
         """

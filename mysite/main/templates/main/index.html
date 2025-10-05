@@ -46,9 +46,9 @@
             <div class="col-lg-6">
                 {% if site_settings.logo %}
                 <div class="text-center">
-                    <img src="{{ site_settings.logo.url }}" 
+                    {% comment %} <img src="{{ site_settings.logo.url }}" 
                          alt="{{ site_settings.logo_text }}" 
-                         class="img-fluid rounded shadow">
+                         class="img-fluid rounded shadow"> {% endcomment %}
                 </div>
                 {% endif %}
             </div>

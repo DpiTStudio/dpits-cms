@@ -112,10 +112,3 @@ class PageAdmin(admin.ModelAdmin):
         """
 
         css = {"all": ("admin/css/pages.css",)}
-
-    def has_add_permission(self, request):
-        """
-        Запрещает создание дополнительных записей страниц.
-        Разрешает создание только если записей еще нет.
-        """
-        return not Page.objects.exists()
