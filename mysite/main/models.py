@@ -1,159 +1,189 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
 
 
-class SiteSettings(models.Model):
-    """Модель для хранения глобальных настроек сайта.
-
-    Attributes:
-        phone1 (CharField): Первый телефонный номер сайта.
-        phone2 (CharField): Второй телефонный номер сайта.
-        email (EmailField): Электронная почта сайта.
-        logo (ImageField): Логотип сайта, загружаемый как изображение.
-        logo_text (CharField): Текст, связанный с логотипом.
-        slogan (CharField): Слоган, отображаемый в шапке сайта.
-        motto (CKEditor5Field): Девиз сайта, редактируемый через CKEditor.
-        short_description (CKEditor5Field): Краткое описание сайта.
-        content (CKEditor5Field): Полное описание сайта.
-        address (CharField): Адрес сайта.
-        facebook (URLField): Ссылка на Facebook.
-        instagram (URLField): Ссылка на Instagram.
-        youtube (URLField): Ссылка на YouTube.
-        rutube (URLField): Ссылка на Rutube.
-        vk_video (URLField): Ссылка на видео в VK.
-        telegram (URLField): Ссылка на Telegram.
-        vk (URLField): Ссылка на ВКонтакте.
-        ok (URLField): Ссылка на Одноклассники.
-        site_closed (BooleanField): Флаг закрытия сайта.
-        closure_message (TextField): Сообщение при закрытии сайта.
-
-    Meta:
-        verbose_name (str): Имя модели в единственном числе.
-        verbose_name_plural (str): Имя модели во множественном числе.
-
-    Methods:
-        __str__: Возвращает строковое представление объекта.
-        save(*args, **kwargs): Переопределённый метод сохранения, разрешающий только одну запись.
-        load(): Классовый метод для получения или создания экземпляра настроек.
+class SingletonModel(models.Model):
+    """
+    Абстрактная модель для создания singleton-объектов (только одна запись).
+    Наследуется другими моделями, которые должны иметь только один экземпляр.
     """
 
-    phone1 = models.CharField(_("Телефон 1"), max_length=20, blank=True)
-    phone2 = models.CharField(_("Телефон 2"), max_length=20, blank=True)
-    email = models.EmailField(_("Email"), max_length=255, blank=True)
-    logo = models.ImageField(_("Логотип"), upload_to="logos/", blank=True)
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        """
+        Переопределяет сохранение, разрешая только одну запись.
+        """
+        self.pk = 1  # Всегда устанавливаем первичный ключ = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls):
+        """
+        Возвращает единственный экземпляр модели, создавая его при необходимости.
+        """
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class SiteSettings(SingletonModel):
+    """
+    Модель для хранения глобальных настроек сайта.
+    Наследует SingletonModel для гарантии единственного экземпляра.
+    """
+
+    # Контактная информация
+    phone1 = models.CharField(_("Основной телефон"), max_length=20, blank=True)
+    phone2 = models.CharField(_("Дополнительный телефон"), max_length=20, blank=True)
+    email = models.EmailField(_("Электронная почта"), max_length=255, blank=True)
+    address = models.CharField(_("Адрес"), max_length=255, blank=True)
+
+    # Брендинг и контент
+    logo = models.ImageField(
+        _("Логотип"),
+        upload_to="logos/",
+        blank=True,
+        help_text=_("Рекомендуемый размер: 200x60 пикселей"),
+    )
     logo_text = models.CharField(_("Текст логотипа"), max_length=100, blank=True)
-    slogan = models.CharField(_("Слоган в шапке"), max_length=255, blank=True)
+    slogan = models.CharField(_("Слоган"), max_length=255, blank=True)
     motto = CKEditor5Field(_("Девиз сайта"), blank=True, config_name="extends")
     short_description = CKEditor5Field(
         _("Краткое описание"), blank=True, config_name="extends"
     )
-    content = CKEditor5Field(_("Описание"), blank=True, config_name="extends")
-    address = models.CharField(_("Адрес"), max_length=255, blank=True)
+    content = CKEditor5Field(_("Основной контент"), blank=True, config_name="extends")
+
+    # Социальные сети
     facebook = models.URLField(_("Facebook"), blank=True)
     instagram = models.URLField(_("Instagram"), blank=True)
-    youtube = models.URLField(_("Youtube"), blank=True)
+    youtube = models.URLField(_("YouTube"), blank=True)
     rutube = models.URLField(_("Rutube"), blank=True)
-    vk_video = models.URLField(_("VK видео"), blank=True)
+    vk_video = models.URLField(_("VK Видео"), blank=True)
     telegram = models.URLField(_("Telegram"), blank=True)
-    vk = models.URLField(_("VK"), blank=True)
-    ok = models.URLField(_("OK"), blank=True)
+    vk = models.URLField(_("ВКонтакте"), blank=True)
+    ok = models.URLField(_("Одноклассники"), blank=True)
+
+    # Статус сайта
     site_closed = models.BooleanField(_("Сайт закрыт"), default=False)
-    closure_message = models.TextField(_("Сообщение при закрытии"), blank=True)
+    closure_message = models.TextField(
+        _("Сообщение при закрытии"),
+        blank=True,
+        help_text=_("Сообщение, которое увидят пользователи при закрытии сайта"),
+    )
+
+    # Временные метки
+    created_at = models.DateTimeField(_("Создано"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Обновлено"), auto_now=True)
 
     class Meta:
         """Метаданные модели."""
 
         verbose_name = _("Настройки сайта")
         verbose_name_plural = _("Настройки сайта")
+        ordering = ["-updated_at"]
 
     def __str__(self):
-        """Возвращает строковое представление объекта."""
-        return "Настройки сайта"
+        """Строковое представление объекта."""
+        return _("Настройки сайта")
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         """
-        Переопределённый метод сохранения.
-
-        Разрешает создавать только одну запись настроек. Если запись уже существует,
-        вызывается ошибка ValidationError.
-
-        Args:
-            *args: Дополнительные аргументы.
-            **kwargs: Дополнительные ключевые аргументы.
-
-        Raises:
-            ValidationError: Если попытаться создать вторую запись настроек.
+        Валидация данных перед сохранением.
         """
-        # Разрешаем создавать только одну запись настроек
-        if not self.pk and SiteSettings.objects.exists():
-            raise ValidationError("Может существовать только одна запись настроек")
-        return super().save(*args, **kwargs)
-
-    @classmethod
-    def load(cls):
-        """
-        Классовый метод для получения или создания экземпляра настроек.
-
-        Всегда возвращает единственный экземпляр модели с первичным ключом 1.
-
-        Returns:
-            SiteSettings: Единственный экземпляр настроек.
-        """
-        # Метод для загрузки единственной записи настроек
-        obj, created = cls.objects.get_or_create(pk=1)
-        return obj
+        super().clean()
+        if self.site_closed and not self.closure_message:
+            raise ValidationError(
+                {
+                    "closure_message": _(
+                        "Необходимо указать сообщение при закрытии сайта, "
+                        "если сайт помечен как закрытый"
+                    )
+                }
+            )
 
 
 class Page(models.Model):
-    """Модель страницы сайта, представляющая структуру данных для пользовательских страниц.
-
-    Атрибуты:
-        title (CharField): Заголовок страницы (обязательное поле, максимум 200 символов).
-        slug (SlugField): Уникальный URL-идентификатор страницы.
-        content (CKEditor5Field): Содержание страницы с поддержкой расширенного редактора.
-        show_in_menu (BooleanField): Флаг отображения страницы в меню сайта.
-        show_on_site (BooleanField): Флаг отображения страницы на сайте.
-        order (IntegerField): Позиция для сортировки страниц.
-        seo_title (CharField): SEO-заголовок для оптимизации в поисковых системах.
-        seo_keywords (CharField): SEO-ключевые слова.
-        seo_description (CharField): SEO-описание страницы.
-        created_at (DateTimeField): Дата и время создания страницы.
-        updated_at (DateTimeField): Дата и время последнего обновления страницы.
-
-    Meta:
-        verbose_name (str): Человекочитаемое имя модели (единительное число).
-        verbose_name_plural (str): Человекочитаемое имя модели (множественное число).
-        ordering (list): Порядок сортировки записей по умолчанию.
-
-    Методы:
-        __str__: Возвращает строковое представление объекта (заголовок страницы).
+    """
+    Модель для пользовательских страниц сайта.
+    Поддерживает SEO, управление видимостью и порядком отображения.
     """
 
-    title = models.CharField(_("Заголовок"), max_length=200)
-    slug = models.SlugField(_("URL"), unique=True)
-    content = CKEditor5Field(_("Содержание"), blank=True, config_name="extends")
+    # Основное содержимое
+    title = models.CharField(_("Заголовок страницы"), max_length=200)
+    slug = models.SlugField(_("URL-адрес"), unique=True, max_length=200)
+    content = CKEditor5Field(_("Содержание"), config_name="extends")
+
+    # Управление отображением
     show_in_menu = models.BooleanField(_("Показывать в меню"), default=True)
     show_on_site = models.BooleanField(_("Показывать на сайте"), default=True)
-    order = models.IntegerField(_("Порядок"), default=0)
-    seo_title = models.CharField(_("SEO заголовок"), max_length=200, blank=True)
-    seo_keywords = models.CharField(_("SEO ключевые слова"), max_length=200, blank=True)
-    seo_description = models.CharField(_("SEO описание"), max_length=255, blank=True)
-    created_at = models.DateTimeField(_("Создано"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("Обновлено"), auto_now=True)
+    order = models.IntegerField(
+        _("Порядок отображения"),
+        default=0,
+        help_text=_("Чем меньше число, тем выше в списке"),
+    )
+
+    # SEO оптимизация
+    seo_title = models.CharField(
+        _("SEO заголовок (title)"),
+        max_length=200,
+        blank=True,
+        help_text=_("Если не указан, используется заголовок страницы"),
+    )
+    seo_keywords = models.CharField(
+        _("SEO ключевые слова"),
+        max_length=200,
+        blank=True,
+        help_text=_("Ключевые слова через запятую"),
+    )
+    seo_description = models.CharField(
+        _("SEO описание (description)"),
+        max_length=255,
+        blank=True,
+        help_text=_("Краткое описание для поисковых систем"),
+    )
+
+    # Временные метки
+    created_at = models.DateTimeField(_("Дата создания"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Дата обновления"), auto_now=True)
 
     class Meta:
-        """
-        Конфигурация метаданных модели.
-        """
+        """Метаданные модели страниц."""
 
         verbose_name = _("Страница")
         verbose_name_plural = _("Страницы")
         ordering = ["order", "title"]
+        indexes = [
+            models.Index(fields=["slug", "show_on_site"]),
+            models.Index(fields=["show_in_menu", "show_on_site", "order"]),
+        ]
 
     def __str__(self):
-        """
-        Возвращает строковое представление объекта - заголовок страницы.
-        """
+        """Строковое представление - заголовок страницы."""
         return self.title
+
+    def get_absolute_url(self):
+        """
+        Возвращает абсолютный URL страницы.
+        Используется в админке и шаблонах.
+        """
+        return reverse("main:page_detail", kwargs={"slug": self.slug})
+
+    @property
+    def display_title(self):
+        """
+        Возвращает заголовок для отображения.
+        Если SEO заголовок не задан, использует обычный заголовок.
+        """
+        return self.seo_title or self.title
+
+    def clean(self):
+        """
+        Валидация данных страницы.
+        """
+        super().clean()
+        if self.slug == "admin":
+            raise ValidationError({"slug": _("Этот URL-адрес зарезервирован системой")})

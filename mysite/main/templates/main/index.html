@@ -1,28 +1,184 @@
-<!-- index.html -->
+<!-- main/templates/main/index.html -->
 {% extends 'base.html' %}
 {% load static %}
 
 {% block title %}
-    {{ seo_title }} - {{ site_settings.logo_text }}
+    {% if site_settings.seo_title %}
+        {{ site_settings.seo_title }}
+    {% else %}
+        {{ site_settings.logo_text|default:"Главная страница" }}
+    {% endif %}
 {% endblock %}
 
+{% block meta_description %}
+    {{ site_settings.short_description|striptags|truncatewords:20 }}
+{% endblock %}
+
+{% block extra_head %}
+    <!-- Дополнительные мета-теги для главной страницы -->
+    <meta property="og:title" content="{{ site_settings.logo_text }}">
+    <meta property="og:description" content="{{ site_settings.short_description|striptags|truncatewords:20 }}">
+    {% if site_settings.logo %}
+    <meta property="og:image" content="{{ site_settings.logo.url }}">
+    {% endif %}
+{% endblock %}
 
 {% block content %}
-<!-- Hero Section  -->
-{% include 'Hero.html' %}
-
-<!-- Content Section - на всю ширину -->
-<section class="bg-light">
-    <div class="container-fluid">
-        <div class="row m-5">
-            <div class="col-12">
-                <h2 class="display-5 fw-bold">Добро пожаловать!</h2>
-                <p class="lead">
-                    {{ site_settings.content|safe }}
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">
+                    {{ site_settings.logo_text|default:"Добро пожаловать" }}
+                </h1>
+                {% if site_settings.slogan %}
+                <p class="lead mb-4">
+                    {{ site_settings.slogan }}
                 </p>
-                <p class="fs-5"></p>
+                {% endif %}
+                {% if site_settings.motto %}
+                <div class="motto-content">
+                    {{ site_settings.motto|safe }}
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-6">
+                {% if site_settings.logo %}
+                <div class="text-center">
+                    <img src="{{ site_settings.logo.url }}" 
+                         alt="{{ site_settings.logo_text }}" 
+                         class="img-fluid rounded shadow">
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </section>
+
+<!-- Основной контент -->
+<section class="main-content py-5">
+    <div class="container">
+        {% if site_settings.content %}
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <article class="content-article">
+                    {{ site_settings.content|safe }}
+                </article>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Featured Pages -->
+        {% if featured_pages %}
+        <div class="row mt-5">
+            <div class="col-12">
+                <h2 class="text-center mb-4">Наши страницы</h2>
+                <div class="row">
+                    {% for page in featured_pages %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ page.title }}</h5>
+                                <p class="card-text">
+                                    {{ page.content|striptags|truncatewords:30 }}
+                                </p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="{{ page.get_absolute_url }}" 
+                                   class="btn btn-primary btn-sm">
+                                    Читать далее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Контактная информация -->
+{% if site_settings.phone1 or site_settings.email %}
+<section class="contact-info bg-light py-5">
+    <div class="container">
+        <div class="row text-center">
+            {% if site_settings.phone1 %}
+            <div class="col-md-4 mb-3">
+                <div class="contact-item">
+                    <i class="fas fa-phone fa-2x text-primary mb-3"></i>
+                    <h5>Телефон</h5>
+                    <p class="mb-0">{{ site_settings.phone1 }}</p>
+                    {% if site_settings.phone2 %}
+                    <p class="mb-0">{{ site_settings.phone2 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if site_settings.email %}
+            <div class="col-md-4 mb-3">
+                <div class="contact-item">
+                    <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                    <h5>Email</h5>
+                    <p class="mb-0">
+                        <a href="mailto:{{ site_settings.email }}" class="text-decoration-none">
+                            {{ site_settings.email }}
+                        </a>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if site_settings.address %}
+            <div class="col-md-4 mb-3">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
+                    <h5>Адрес</h5>
+                    <p class="mb-0">{{ site_settings.address }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.hero-section {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
+
+.motto-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.content-article {
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.contact-item {
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateY(-5px);
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+</style>
 {% endblock %}

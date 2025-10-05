@@ -1,11 +1,27 @@
 # main/urls.py
-
 from django.urls import path
+from django.views.generic import TemplateView
 from . import views
 
 app_name = "main"
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("page/<slug:slug>/", views.page_detail, name="page_detail"),
+    # Главная страница
+    path("", views.IndexView.as_view(), name="index"),
+    # Детальная страница
+    path("page/<slug:slug>/", views.PageDetailView.as_view(), name="page_detail"),
+    # Статические страницы (пример)
+    path("contacts/", views.ContactView.as_view(), name="contacts"),
+    path("about/", views.AboutView.as_view(), name="about"),
+    # Обработка ошибок (для кастомных страниц ошибок)
+    path(
+        "error/404/",
+        TemplateView.as_view(template_name="main/404.html"),
+        name="error_404",
+    ),
+    path(
+        "error/500/",
+        TemplateView.as_view(template_name="main/500.html"),
+        name="error_500",
+    ),
 ]
