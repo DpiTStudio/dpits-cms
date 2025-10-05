@@ -2,135 +2,135 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q, Count
 from django.core.paginator import Paginator
-from django.db.models import Q
-from .models import *
-from .forms import *
+from django.http import JsonResponse
+from django.utils import timezone
+from .models import (
+    PortfolioItem,
+    PortfolioCategory,
+    Client,
+    Order,
+    OrderMessage,
+    Review,
+)
+from .forms import (
+    OrderForm,
+    OrderMessageForm,
+    ReviewForm,
+    ClientProfileForm,
+    PortfolioSearchForm,
+)
 
 
 def portfolio_list(request):
-    """Список работ портфолио"""
-    # Получаем только опубликованные работы, отсортированные по дате проекта
-    portfolio_items = PortfolioItem.objects.filter(status="published").order_by(
-        "-project_date"
-    )
-    categories = PortfolioCategory.objects.filter(is_active=True)
+    """Список работ портфолио с фильтрацией и поиском"""
+    # Получаем параметры фильтрации
+    category_slug = request.GET.get("category")
+    search_query = request.GET.get("search")
+    sort_by = request.GET.get("sort", "-project_date")
+
+    # Базовый queryset только опубликованных работ
+    portfolio_items = PortfolioItem.objects.filter(status="published")
 
     # Фильтрация по категории
-    category_slug = request.GET.get("category")
     if category_slug:
         portfolio_items = portfolio_items.filter(category__slug=category_slug)
 
-    # Поиск по названию, описанию и технологиям
-    search_query = request.GET.get("q")
+    # Поиск
     if search_query:
         portfolio_items = portfolio_items.filter(
             Q(title__icontains=search_query)
             | Q(short_description__icontains=search_query)
+            | Q(content__icontains=search_query)
             | Q(technologies__icontains=search_query)
-        ).distinct()  # Добавлен distinct для исключения дубликатов
+        )
 
-    # Пагинация - 9 элементов на страницу
-    paginator = Paginator(portfolio_items, 9)
+    # Сортировка
+    valid_sort_fields = [
+        "-project_date",
+        "project_date",
+        "-created_at",
+        "created_at",
+        "-views",
+        "title",
+    ]
+    if sort_by in valid_sort_fields:
+        portfolio_items = portfolio_items.order_by(sort_by)
+    else:
+        portfolio_items = portfolio_items.order_by("-project_date")
+
+    # Пагинация
+    paginator = Paginator(portfolio_items, 9)  # 9 элементов на страницу
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
+    # Получаем все категории для фильтра
+    categories = PortfolioCategory.objects.filter(is_active=True).annotate(
+        works_count=Count("portfolioitem")
+    )
+
+    # Форма поиска
+    search_form = PortfolioSearchForm(request.GET or None)
+
     context = {
-        "portfolio_items": page_obj,
+        "page_obj": page_obj,
         "categories": categories,
-        "selected_category": category_slug,
-        "search_query": search_query or "",
+        "search_form": search_form,
+        "current_category": category_slug,
+        "search_query": search_query,
+        "sort_by": sort_by,
+        "total_count": portfolio_items.count(),
     }
+
     return render(request, "portfolio/list.html", context)
 
 
-def portfolio_categories(request):
-    """Страница всех категорий портфолио"""
-    # Получаем все активные категории, отсортированные по порядку
-    categories = PortfolioCategory.objects.filter(is_active=True).order_by(
-        "-order", "name"
-    )
-
-    # Для каждой категории получаем количество работ и последние работы
-    for category in categories:
-        category.works_count = PortfolioItem.objects.filter(
-            category=category, status="published"
-        ).count()
-        category.recent_works = PortfolioItem.objects.filter(
-            category=category, status="published"
-        ).order_by("-project_date")[:3]  # Последние 3 работы
-
-    context = {
-        "categories": categories,
-    }
-    return render(request, "portfolio/categories.html", context)
-
-
 def portfolio_detail(request, slug):
-    """Детальная страница работы"""
-    # Получаем работу или возвращаем 404
-    item = get_object_or_404(PortfolioItem, slug=slug, status="published")
+    """Детальная страница работы портфолио"""
+    # Получаем объект или 404
+    item = get_object_or_404(
+        PortfolioItem.objects.select_related("category", "client").prefetch_related(
+            "review_set"
+        ),
+        slug=slug,
+        status="published",
+    )
 
     # Увеличиваем счетчик просмотров
     item.views += 1
     item.save(update_fields=["views"])
 
-    # Похожие работы из той же категории
-    similar_items = (
-        PortfolioItem.objects.filter(category=item.category, status="published")
-        .exclude(id=item.id)
-        .order_by("-views")[:4]
-    )
+    # Получаем похожие работы из той же категории
+    similar_items = PortfolioItem.objects.filter(
+        category=item.category, status="published"
+    ).exclude(id=item.id)[:3]
 
-    # Одобренные отзывы для этой работы
-    reviews = Review.objects.filter(portfolio_item=item, is_approved=True)
+    # Получаем одобренные отзывы для этой работы
+    reviews = Review.objects.filter(
+        portfolio_item=item, is_approved=True
+    ).select_related("client__user")
 
     context = {
         "item": item,
         "similar_items": similar_items,
         "reviews": reviews,
     }
+
     return render(request, "portfolio/detail.html", context)
-
-
-@login_required
-def client_dashboard(request):
-    """Личный кабинет клиента"""
-    try:
-        # Получаем клиента или создаем нового
-        client = Client.objects.get(user=request.user)
-    except Client.DoesNotExist:
-        client = Client.objects.create(user=request.user)
-        messages.info(request, "Профиль клиента создан автоматически.")
-
-    # Заказы и отзывы клиента
-    orders = Order.objects.filter(client=client).order_by("-created_at")
-    reviews = Review.objects.filter(client=client)
-
-    # Статистика для дашборда
-    orders_count = orders.count()
-    completed_orders = orders.filter(status="completed").count()
-    active_orders = orders.exclude(status__in=["completed", "cancelled"]).count()
-
-    context = {
-        "client": client,
-        "orders": orders[:5],  # Последние 5 заказов
-        "reviews": reviews[:3],  # Последние 3 отзыва
-        "orders_count": orders_count,
-        "completed_orders": completed_orders,
-        "active_orders": active_orders,
-    }
-    return render(request, "portfolio/client_dashboard.html", context)
 
 
 @login_required
 def create_order(request):
     """Создание нового заказа"""
+    # Проверяем, есть ли у пользователя профиль клиента
     try:
-        client = Client.objects.get(user=request.user)
+        client = request.user.client
     except Client.DoesNotExist:
-        client = Client.objects.create(user=request.user)
-        messages.info(request, "Профиль клиента создан автоматически.")
+        messages.error(
+            request, "У вас нет профиля клиента. Пожалуйста, заполните профиль."
+        )
+        return redirect("portfolio:client_profile")
 
     if request.method == "POST":
         form = OrderForm(request.POST, request.FILES)
@@ -148,19 +148,24 @@ def create_order(request):
     else:
         form = OrderForm()
 
-    context = {"form": form}
+    context = {"form": form, "title": "Создание заказа"}
+
     return render(request, "portfolio/create_order.html", context)
 
 
 @login_required
 def order_detail(request, pk):
     """Детальная страница заказа"""
-    order = get_object_or_404(Order, pk=pk)
+    # Получаем заказ или 404
+    order = get_object_or_404(Order.objects.select_related("client__user"), pk=pk)
 
-    # Проверяем права доступа к заказу
+    # Проверяем права доступа
     if order.client.user != request.user and not request.user.is_staff:
         messages.error(request, "У вас нет доступа к этому заказу.")
-        return redirect("portfolio:client_dashboard")
+        return redirect("portfolio:order_list")
+
+    # Получаем сообщения заказа
+    order_messages = order.messages.select_related("user").all()
 
     if request.method == "POST":
         form = OrderMessageForm(request.POST, request.FILES)
@@ -171,73 +176,121 @@ def order_detail(request, pk):
             message.is_admin_message = request.user.is_staff
             message.save()
 
-            # Обновляем статус заказа если отвечает клиент
-            if not request.user.is_staff and order.status == "new":
-                order.status = "in_progress"
-                order.save(update_fields=["status"])
+            # Обновляем время заказа
+            order.updated_at = timezone.now()
+            order.save(update_fields=["updated_at"])
 
-            messages.success(request, "Сообщение отправлено!")
+            messages.success(request, "Сообщение успешно отправлено!")
             return redirect("portfolio:order_detail", pk=order.pk)
-        else:
-            messages.error(request, "Ошибка при отправке сообщения.")
     else:
         form = OrderMessageForm()
 
-    # Все сообщения заказа
-    messages_list = order.messages.all().order_by("created_at")
-
     context = {
         "order": order,
-        "messages": messages_list,
+        "messages": order_messages,
         "form": form,
     }
+
     return render(request, "portfolio/order_detail.html", context)
 
 
 @login_required
 def order_list(request):
-    """Список заказов клиента"""
+    """Список заказов пользователя"""
     try:
-        client = Client.objects.get(user=request.user)
+        client = request.user.client
+        orders = Order.objects.filter(client=client).order_by("-created_at")
     except Client.DoesNotExist:
-        client = Client.objects.create(user=request.user)
-        messages.info(request, "Профиль клиента создан автоматически.")
-
-    orders = Order.objects.filter(client=client).order_by("-created_at")
-
-    # Фильтрация по статусу
-    status_filter = request.GET.get("status")
-    if status_filter:
-        orders = orders.filter(status=status_filter)
-
-    # Пагинация - 10 заказов на страницу
-    paginator = Paginator(orders, 10)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
+        orders = Order.objects.none()
+        messages.info(request, "У вас пока нет заказов.")
 
     context = {
-        "orders": page_obj,
-        "status_filter": status_filter or "",
+        "orders": orders,
     }
+
     return render(request, "portfolio/order_list.html", context)
 
 
 @login_required
-def create_review(request, item_slug):
-    """Создание отзыва для работы"""
-    portfolio_item = get_object_or_404(
-        PortfolioItem, slug=item_slug, status="published"
-    )
-    client = get_object_or_404(Client, user=request.user)
+def client_dashboard(request):
+    """Дашборд клиента"""
+    try:
+        client = request.user.client
+    except Client.DoesNotExist:
+        messages.error(request, "Пожалуйста, заполните профиль клиента.")
+        return redirect("portfolio:client_profile")
 
-    # Проверяем существующий отзыв
+    # Статистика заказов
+    orders = Order.objects.filter(client=client)
+    total_orders = orders.count()
+    active_orders = orders.filter(status__in=["new", "in_progress"]).count()
+    completed_orders = orders.filter(status="completed").count()
+
+    # Последние заказы
+    recent_orders = orders[:5]
+
+    context = {
+        "client": client,
+        "total_orders": total_orders,
+        "active_orders": active_orders,
+        "completed_orders": completed_orders,
+        "recent_orders": recent_orders,
+    }
+
+    return render(request, "portfolio/client_dashboard.html", context)
+
+
+@login_required
+def client_profile(request):
+    """Профиль клиента"""
+    try:
+        client = request.user.client
+    except Client.DoesNotExist:
+        client = None
+
+    if request.method == "POST":
+        form = ClientProfileForm(request.POST, request.FILES, instance=client)
+        if form.is_valid():
+            client_profile = form.save(commit=False)
+            if not client:
+                client_profile.user = request.user
+            client_profile.save()
+
+            messages.success(request, "Профиль успешно обновлен!")
+            return redirect("portfolio:client_profile")
+    else:
+        form = ClientProfileForm(instance=client)
+
+    context = {
+        "form": form,
+        "client": client,
+    }
+
+    return render(request, "portfolio/client_profile.html", context)
+
+
+@login_required
+def create_review(request, slug):
+    """Создание отзыва для работы портфолио"""
+    portfolio_item = get_object_or_404(PortfolioItem, slug=slug, status="published")
+
+    # Проверяем, есть ли у пользователя профиль клиента
+    try:
+        client = request.user.client
+    except Client.DoesNotExist:
+        messages.error(request, "У вас нет профиля клиента для оставления отзывов.")
+        return redirect("portfolio:client_profile")
+
+    # Проверяем, не оставлял ли уже пользователь отзыв для этой работы
     existing_review = Review.objects.filter(
         client=client, portfolio_item=portfolio_item
     ).first()
+    if existing_review:
+        messages.info(request, "Вы уже оставляли отзыв для этой работы.")
+        return redirect("portfolio:detail", slug=slug)
 
     if request.method == "POST":
-        # Если есть существующий отзыв, редактируем его, иначе создаем новый
-        form = ReviewForm(request.POST, instance=existing_review)
+        form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
             review.client = client
@@ -245,39 +298,62 @@ def create_review(request, item_slug):
             review.save()
 
             messages.success(
-                request, "Отзыв успешно отправлен! Он будет опубликован после проверки."
+                request, "Отзыв успешно отправлен! Он появится после модерации."
             )
-            return redirect("portfolio:detail", slug=item_slug)
-        else:
-            messages.error(request, "Пожалуйста, исправьте ошибки в форме.")
+            return redirect("portfolio:detail", slug=slug)
     else:
-        form = ReviewForm(
-            instance=existing_review, initial={"portfolio_item": portfolio_item}
-        )
+        form = ReviewForm()
 
     context = {
         "form": form,
         "portfolio_item": portfolio_item,
-        "existing_review": existing_review,
     }
+
     return render(request, "portfolio/create_review.html", context)
 
 
-@login_required
-def client_profile(request):
-    """Редактирование профиля клиента"""
-    client = get_object_or_404(Client, user=request.user)
+def portfolio_categories(request):
+    """Страница с категориями портфолио"""
+    categories = (
+        PortfolioCategory.objects.filter(is_active=True)
+        .annotate(works_count=Count("portfolioitem"))
+        .order_by("-order", "name")
+    )
 
-    if request.method == "POST":
-        form = ClientProfileForm(request.POST, instance=client)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Профиль успешно обновлен!")
-            return redirect("portfolio:client_dashboard")
-        else:
-            messages.error(request, "Пожалуйста, исправьте ошибки в форме.")
-    else:
-        form = ClientProfileForm(instance=client)
+    context = {
+        "categories": categories,
+    }
 
-    context = {"form": form, "client": client}
-    return render(request, "portfolio/client_profile.html", context)
+    return render(request, "portfolio/categories.html", context)
+
+
+# API views для AJAX запросов
+def api_portfolio_items(request):
+    """API для получения работ портфолио (для AJAX)"""
+    category_slug = request.GET.get("category")
+    limit = int(request.GET.get("limit", 6))
+
+    items = PortfolioItem.objects.filter(status="published")
+
+    if category_slug:
+        items = items.filter(category__slug=category_slug)
+
+    items = items.select_related("category")[:limit]
+
+    data = {
+        "items": [
+            {
+                "id": item.id,
+                "title": item.title,
+                "slug": item.slug,
+                "image_url": item.image.url,
+                "short_description": item.short_description,
+                "category_name": item.category.name,
+                "project_date": item.project_date.strftime("%d.%m.%Y"),
+                "url": item.get_absolute_url(),
+            }
+            for item in items
+        ]
+    }
+
+    return JsonResponse(data)

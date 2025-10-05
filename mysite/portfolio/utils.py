@@ -1,37 +1,76 @@
 # portfolio/utils.py
 import os
+import uuid
+from django.utils.text import slugify
 from django.utils import timezone
-from urllib.parse import urlparse
-from django.conf import settings
 
 
 def custom_upload_to(instance, filename):
     """
-    Генерирует путь для загрузки файла в формате: domain/YYYY/MM/DD/domain_YYYYMMDD_HHMMSS_original_name
+    Генерирует путь для загрузки файлов с уникальным именем
     """
-    # Получаем домен из настроек
-    domain = "localhost"  # значение по умолчанию
-
-    if hasattr(settings, "ALLOWED_HOSTS") and settings.ALLOWED_HOSTS:
-        # Берем первый домен из ALLOWED_HOSTS, исключая wildcard
-        for host in settings.ALLOWED_HOSTS:
-            if host != "*" and "." in host:
-                domain = host
-                break
-
-    # Очищаем домен от недопустимых символов для имени файла
-    domain_clean = domain.replace(".", "_").replace("-", "_")
-
-    # Получаем текущую дату и время
-    now = timezone.now()
-    date_str = now.strftime("%Y%m%d")
-    time_str = now.strftime("%H%M%S")
-
     # Получаем расширение файла
-    name, ext = os.path.splitext(filename)
+    ext = filename.split(".")[-1]
 
-    # Генерируем новое имя файла
-    new_filename = f"{domain_clean}_{date_str}_{time_str}_{name}{ext}"
+    # Генерируем уникальное имя файла
+    unique_filename = f"{uuid.uuid4().hex}.{ext}"
 
-    # Формируем путь с годом и месяцем для организации файлов
-    return f"{domain_clean}/{now.year}/{now.month:02d}/{new_filename}"
+    # Определяем базовую папку в зависимости от типа модели
+    if hasattr(instance, "_meta"):
+        model_name = instance._meta.model_name
+    else:
+        model_name = "unknown"
+
+    # Создаем путь: media/{model_name}/{year}/{month}/{filename}
+    year = timezone.now().strftime("%Y")
+    month = timezone.now().strftime("%m")
+
+    return os.path.join(model_name, year, month, unique_filename)
+
+
+def generate_slug(instance, slug_field="slug", title_field="title"):
+    """
+    Генерирует уникальный slug на основе названия
+    """
+    if not getattr(instance, slug_field):
+        base_slug = slugify(getattr(instance, title_field))
+        slug = base_slug
+        counter = 1
+
+        # Проверяем уникальность slug
+        model_class = instance.__class__
+        while model_class.objects.filter(**{slug_field: slug}).exists():
+            slug = f"{base_slug}-{counter}"
+            counter += 1
+
+        setattr(instance, slug_field, slug)
+
+    return getattr(instance, slug_field)
+
+
+def get_client_ip(request):
+    """
+    Получает IP адрес клиента
+    """
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(",")[0]
+    else:
+        ip = request.META.get("REMOTE_ADDR")
+    return ip
+
+
+def format_file_size(size_bytes):
+    """
+    Форматирует размер файла в читаемый вид
+    """
+    if size_bytes == 0:
+        return "0 B"
+
+    size_names = ["B", "KB", "MB", "GB"]
+    i = 0
+    while size_bytes >= 1024 and i < len(size_names) - 1:
+        size_bytes /= 1024.0
+        i += 1
+
+    return f"{size_bytes:.1f} {size_names[i]}"

@@ -1,0 +1,255 @@
+<!-- portfolio/templates/portfolio/order_detail.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Заказ #{{ order.id }} - {{ order.title }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Информация о заказе -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Заказ #{{ order.id }} - {{ order.title }}</h4>
+                    <div>
+                        <span class="badge bg-light text-dark me-2">{{ order.get_priority_display }}</span>
+                        <span class="badge 
+                            {% if order.status == 'new' %}bg-secondary
+                            {% elif order.status == 'in_progress' %}bg-primary
+                            {% elif order.status == 'completed' %}bg-success
+                            {% else %}bg-danger{% endif %}">
+                            {{ order.get_status_display }}
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Основная информация -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6><strong>Дата создания:</strong></h6>
+                            <p class="text-muted">{{ order.created_at|date:"d.m.Y H:i" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><strong>Последнее обновление:</strong></h6>
+                            <p class="text-muted">{{ order.updated_at|date:"d.m.Y H:i" }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Бюджет и сроки -->
+                    <div class="row mb-4">
+                        {% if order.budget %}
+                        <div class="col-md-6">
+                            <h6><strong>Бюджет:</strong></h6>
+                            <p class="text-muted">{{ order.budget }} ₽</p>
+                        </div>
+                        {% endif %}
+                        {% if order.deadline %}
+                        <div class="col-md-6">
+                            <h6><strong>Срок выполнения:</strong></h6>
+                            <p class="text-muted">{{ order.deadline|date:"d.m.Y" }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Описание -->
+                    <div class="mb-4">
+                        <h6><strong>Описание проекта:</strong></h6>
+                        <div class="border rounded p-3 bg-light">
+                            {{ order.description|linebreaks }}
+                        </div>
+                    </div>
+
+                    <!-- Дополнительные заметки -->
+                    {% if order.additional_notes %}
+                    <div class="mb-4">
+                        <h6><strong>Дополнительные заметки:</strong></h6>
+                        <div class="border rounded p-3 bg-light">
+                            {{ order.additional_notes|linebreaks }}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Файл требований -->
+                    {% if order.requirements_file %}
+                    <div>
+                        <h6><strong>Файл требований:</strong></h6>
+                        <a href="{{ order.requirements_file.url }}" class="btn btn-outline-primary btn-sm" download>
+                            <i class="fas fa-download me-2"></i>Скачать файл
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Сообщения -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Обсуждение заказа</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Список сообщений -->
+                    <div class="messages-container mb-4" style="max-height: 400px; overflow-y: auto;">
+                        {% for message in messages %}
+                        <div class="message-item mb-3 {% if message.is_admin_message %}text-end{% endif %}">
+                            <div class="d-flex {% if message.is_admin_message %}justify-content-end{% endif %}">
+                                <div class="message-bubble {% if message.is_admin_message %}bg-primary text-white{% else %}bg-light{% endif %} rounded p-3 shadow-sm"
+                                     style="max-width: 70%;">
+                                    <div class="message-header d-flex justify-content-between align-items-center mb-2">
+                                        <strong class="{% if message.is_admin_message %}text-white{% endif %}">
+                                            {% if message.is_admin_message %}
+                                            <i class="fas fa-user-shield me-1"></i>Администратор
+                                            {% else %}
+                                            <i class="fas fa-user me-1"></i>{{ message.user.get_full_name|default:message.user.username }}
+                                            {% endif %}
+                                        </strong>
+                                        <small class="{% if message.is_admin_message %}text-white-50{% else %}text-muted{% endif %}">
+                                            {{ message.created_at|date:"d.m.Y H:i" }}
+                                        </small>
+                                    </div>
+                                    <div class="message-content">
+                                        {{ message.message|linebreaks }}
+                                    </div>
+                                    {% if message.file %}
+                                    <div class="message-file mt-2">
+                                        <a href="{{ message.file.url }}" class="btn btn-sm {% if message.is_admin_message %}btn-light{% else %}btn-outline-primary{% endif %}" download>
+                                            <i class="fas fa-paperclip me-1"></i>Скачать файл
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="text-center text-muted py-4">
+                            <i class="fas fa-comments fa-3x mb-3"></i>
+                            <p>Обсуждение пока пусто</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Форма нового сообщения -->
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="{{ form.message.id_for_label }}" class="form-label"><strong>Новое сообщение:</strong></label>
+                            {{ form.message }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.file.id_for_label }}" class="form-label"><strong>Прикрепить файл:</strong></label>
+                            {{ form.file }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-2"></i>Отправить сообщение
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Боковая панель -->
+        <div class="col-lg-4">
+            <!-- Действия -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Действия</h5>
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'portfolio:order_list' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i>К списку заказов
+                        </a>
+                        <a href="{% url 'portfolio:client_dashboard' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-tachometer-alt me-2"></i>В дашборд
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Статус заказа -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Статус заказа</h5>
+                    <div class="progress mb-3" style="height: 8px;">
+                        <div class="progress-bar 
+                            {% if order.status == 'new' %}bg-secondary w-25
+                            {% elif order.status == 'in_progress' %}bg-primary w-50
+                            {% elif order.status == 'completed' %}bg-success w-100
+                            {% else %}bg-danger w-100{% endif %}" 
+                            role="progressbar">
+                        </div>
+                    </div>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-circle text-{% if order.status == 'new' %}secondary{% else %}muted{% endif %} me-2"></i>
+                            <span class="{% if order.status == 'new' %}fw-bold{% endif %}">Новый</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-circle text-{% if order.status == 'in_progress' %}primary{% else %}muted{% endif %} me-2"></i>
+                            <span class="{% if order.status == 'in_progress' %}fw-bold{% endif %}">В работе</span>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-circle text-{% if order.status == 'completed' %}success{% else %}muted{% endif %} me-2"></i>
+                            <span class="{% if order.status == 'completed' %}fw-bold{% endif %}">Завершен</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-circle text-{% if order.status == 'cancelled' %}danger{% else %}muted{% endif %} me-2"></i>
+                            <span class="{% if order.status == 'cancelled' %}fw-bold{% endif %}">Отменен</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Контакты -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Контакты</h5>
+                    <p class="text-muted">По вопросам по заказу обращайтесь:</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-envelope text-primary me-2"></i>
+                            <a href="mailto:support@example.com">support@example.com</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-phone text-primary me-2"></i>
+                            <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock text-primary me-2"></i>
+                            Пн-Пт: 9:00-18:00
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Автопрокрутка к последним сообщениям
+document.addEventListener('DOMContentLoaded', function() {
+    const messagesContainer = document.querySelector('.messages-container');
+    if (messagesContainer) {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+});
+</script>
+
+<style>
+.message-bubble {
+    word-wrap: break-word;
+}
+
+.messages-container {
+    scroll-behavior: smooth;
+}
+
+.progress {
+    border-radius: 10px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+</style>
+{% endblock %}

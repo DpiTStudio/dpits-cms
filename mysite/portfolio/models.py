@@ -18,9 +18,7 @@ class Client(models.Model):
     company = models.CharField(_("Компания"), max_length=200, blank=True)
     phone = models.CharField(_("Телефон"), max_length=20, blank=True)
     website = models.URLField(_("Веб-сайт"), blank=True)
-    description = CKEditor5Field(
-        _("Описание"), blank=True, config_name="extends"
-    )  # Исправлено: blank=False -> blank=True
+    description = CKEditor5Field(_("Описание"), blank=True, config_name="extends")
     is_verified = models.BooleanField(_("Подтвержден"), default=False)
     created_at = models.DateTimeField(_("Создан"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Обновлен"), auto_now=True)
@@ -32,6 +30,9 @@ class Client(models.Model):
 
     def __str__(self):
         return self.user.get_full_name() or self.user.username
+
+    def get_absolute_url(self):
+        return reverse("portfolio:client_profile")
 
 
 class PortfolioCategory(models.Model):
@@ -45,7 +46,8 @@ class PortfolioCategory(models.Model):
     )
     slug = models.SlugField(_("URL"), unique=True)
     description = CKEditor5Field(_("Описание"), blank=True, config_name="extends")
-    # SEO
+
+    # SEO поля
     seo_title = models.CharField(
         _("SEO заголовок"), max_length=200, blank=True, default=""
     )
@@ -56,7 +58,7 @@ class PortfolioCategory(models.Model):
         _("SEO ключевые слова"), max_length=200, blank=True, default=""
     )
 
-    # Порядок
+    # Порядок отображения
     order = models.IntegerField(
         _("Порядок"), default=0, help_text=_("Чем больше, тем выше")
     )
@@ -64,16 +66,14 @@ class PortfolioCategory(models.Model):
     # Системные поля
     created_at = models.DateTimeField(_("Создан"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Обновлен"), auto_now=True)
+
     # Публикация
     is_active = models.BooleanField(_("Активно"), default=True)
 
     class Meta:
         verbose_name = _("Категория портфолио")
         verbose_name_plural = _("Категории портфолио")
-        ordering = [
-            "-order",
-            "name",
-        ]  # Исправлено: добавлен минус для правильной сортировки
+        ordering = ["-order", "name"]
 
     def __str__(self):
         return self.name
@@ -82,6 +82,9 @@ class PortfolioCategory(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("portfolio:list") + f"?category={self.slug}"
 
 
 class PortfolioItem(models.Model):
@@ -105,7 +108,7 @@ class PortfolioItem(models.Model):
         blank=True,
         verbose_name=_("Клиент"),
     )
-    image = models.ImageField(  # Исправлено: images -> image
+    image = models.ImageField(
         _("Главное изображение"),
         upload_to=custom_upload_to,
         default="portfolio/default-category.png",
@@ -151,6 +154,12 @@ class PortfolioItem(models.Model):
 
     def get_absolute_url(self):
         return reverse("portfolio:detail", kwargs={"slug": self.slug})
+
+    def get_technologies_list(self):
+        """Возвращает список технологий"""
+        if self.technologies:
+            return [tech.strip() for tech in self.technologies.split(",")]
+        return []
 
 
 class Order(models.Model):
@@ -228,7 +237,7 @@ class OrderMessage(models.Model):
         upload_to=custom_upload_to,
         blank=True,
     )
-    #
+
     is_admin_message = models.BooleanField(_("Сообщение администратора"), default=False)
     created_at = models.DateTimeField(_("Создано"), auto_now_add=True)
 
@@ -268,8 +277,17 @@ class Review(models.Model):
         verbose_name = _("Отзыв")
         verbose_name_plural = _("Отзывы")
         ordering = ["-created_at"]
-        # Добавлена уникальность: один клиент - один отзыв на работу
         unique_together = ["client", "portfolio_item"]
 
     def __str__(self):
         return f"Отзыв от {self.client} - {self.portfolio_item.title}"
+
+    def get_star_rating(self):
+        """Возвращает HTML для отображения звезд рейтинга"""
+        stars = ""
+        for i in range(1, 6):
+            if i <= self.rating:
+                stars += '<i class="fas fa-star text-warning"></i>'
+            else:
+                stars += '<i class="far fa-star text-muted"></i>'
+        return stars

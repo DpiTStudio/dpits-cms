@@ -252,7 +252,8 @@ JAZZMIN_UI_TWEAKS = {
     },
     "actions_sticky_top": False,
 }
-# Настройки CKEditor 5
+
+# CKEditor 5 настройки
 CKEDITOR_5_CONFIGS = {
     "default": {
         "toolbar": [
@@ -265,6 +266,10 @@ CKEDITOR_5_CONFIGS = {
             "numberedList",
             "blockQuote",
             "imageUpload",
+            "mediaEmbed",
+            "insertTable",
+            "undo",
+            "redo",
         ],
     },
     "extends": {
@@ -278,6 +283,7 @@ CKEDITOR_5_CONFIGS = {
             "numberedList",
             "|",
             "blockQuote",
+            "imageUpload",
         ],
         "toolbar": [
             "heading",
@@ -323,13 +329,7 @@ CKEDITOR_5_CONFIGS = {
                 "imageStyle:side",
                 "|",
             ],
-            "styles": [
-                "full",
-                "side",
-                "alignLeft",
-                "alignRight",
-                "alignCenter",
-            ],
+            "styles": ["full", "side", "alignLeft", "alignRight", "alignCenter"],
         },
         "table": {
             "contentToolbar": [
@@ -339,15 +339,109 @@ CKEDITOR_5_CONFIGS = {
                 "tableProperties",
                 "tableCellProperties",
             ],
-            "tableProperties": {"borderColors": "custom", "backgroundColors": "custom"},
-            "tableCellProperties": {
-                "borderColors": "custom",
-                "backgroundColors": "custom",
+            "tableProperties": {
+                "borderColors": [
+                    {"color": "#ccc"},
+                    {"color": "#999"},
+                    {"color": "#666"},
+                    {"color": "#333"},
+                    {"color": "#000"},
+                ],
+                "backgroundColors": [
+                    {"color": "#fff"},
+                    {"color": "#f8f9fa"},
+                    {"color": "#e9ecef"},
+                    {"color": "#dee2e6"},
+                    {"color": "#ced4da"},
+                ],
             },
         },
-        "language": "ru",
+        "heading": {
+            "options": [
+                {
+                    "model": "paragraph",
+                    "title": "Paragraph",
+                    "class": "ck-heading_paragraph",
+                },
+                {
+                    "model": "heading1",
+                    "view": "h1",
+                    "title": "Heading 1",
+                    "class": "ck-heading_heading1",
+                },
+                {
+                    "model": "heading2",
+                    "view": "h2",
+                    "title": "Heading 2",
+                    "class": "ck-heading_heading2",
+                },
+                {
+                    "model": "heading3",
+                    "view": "h3",
+                    "title": "Heading 3",
+                    "class": "ck-heading_heading3",
+                },
+            ]
+        },
+    },
+    "list": {
+        "properties": {
+            "styles": "true",
+            "startIndex": "true",
+            "reversed": "true",
+        }
     },
 }
 
+# Настройки кеширования (простая версия для разработки)
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    }
+}
+
+# Настройки сессий (без Redis)
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+# Настройки сессий
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+SESSION_COOKIE_AGE = 1209600  # 2 недели
+
 CKEDITOR_5_ALLOW_ALL_TAGS = True
 CKEDITOR_5_FILE_UPLOAD_PERMISSIONS = 0o644
+
+
+
+# Email настройки (для уведомлений)
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.yandex.ru"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "noreply@yourdomain.com"
+EMAIL_HOST_PASSWORD = "your_password"
+DEFAULT_FROM_EMAIL = "noreply@yourdomain.com"
+
+# Логирование
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "debug.log"),
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "portfolio": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}

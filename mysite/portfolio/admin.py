@@ -1,64 +1,87 @@
 # portfolio/admin.py
 from django.contrib import admin
-from .models import *
-
-
-@admin.register(Client)
-class ClientAdmin(admin.ModelAdmin):
-    list_display = ["user", "company", "phone", "is_verified", "created_at"]
-    list_filter = ["is_verified", "created_at"]
-    list_editable = ["is_verified"]
-    search_fields = ["user__username", "user__email", "company"]
-    readonly_fields = ["created_at", "updated_at"]
+from django.utils.html import format_html
+from .models import (
+    PortfolioCategory,
+    PortfolioItem,
+    Client,
+    Order,
+    OrderMessage,
+    Review,
+)
 
 
 @admin.register(PortfolioCategory)
 class PortfolioCategoryAdmin(admin.ModelAdmin):
-    list_display = ["name", "slug", "order", "is_active"]
-    list_editable = ["order", "is_active"]
-    list_filter = ["is_active"]
-    list_display_links = ["name"]
+    list_display = ["name", "slug", "order", "is_active", "works_count", "created_at"]
+    list_filter = ["is_active", "created_at"]
+    search_fields = ["name", "description"]
     prepopulated_fields = {"slug": ("name",)}
-    fieldsets = (
-        (
-            "Основная информация",
-            {"fields": ("name", "slug", "description", "image")},
-        ),
-        ("Настройки отображения", {"fields": ("order", "is_active")}),
-        ("SEO", {"fields": ("seo_title", "seo_description", "seo_keywords")}),
-    )
+    readonly_fields = ["created_at", "updated_at"]
+
+    def works_count(self, obj):
+        return obj.portfolioitem_set.count()
+
+    works_count.short_description = "Количество работ"
 
 
 @admin.register(PortfolioItem)
 class PortfolioItemAdmin(admin.ModelAdmin):
-    list_display = ["title", "category", "client", "status", "project_date", "views"]
-    list_filter = ["category", "status", "project_date"]
-    list_editable = ["status"]
+    list_display = [
+        "title",
+        "category",
+        "status",
+        "project_date",
+        "views",
+        "created_at",
+    ]
+    list_filter = ["status", "category", "project_date", "created_at"]
+    search_fields = ["title", "short_description", "content"]
     prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ["views", "created_at", "updated_at"]
-    search_fields = ["title", "short_description"]
     date_hierarchy = "project_date"
+
+
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
+    list_display = ["user", "company", "is_verified", "created_at"]
+    list_filter = ["is_verified", "created_at"]
+    search_fields = ["user__username", "user__email", "company"]
+    readonly_fields = ["created_at", "updated_at"]
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ["id", "client", "title", "status", "priority", "budget", "deadline"]
+    list_display = [
+        "id",
+        "client",
+        "title",
+        "status",
+        "priority",
+        "budget",
+        "created_at",
+    ]
     list_filter = ["status", "priority", "created_at"]
-    list_editable = ["status", "priority"]
+    search_fields = ["title", "description", "client__user__username"]
     readonly_fields = ["created_at", "updated_at"]
-    search_fields = ["title", "client__user__username"]
 
 
 @admin.register(OrderMessage)
 class OrderMessageAdmin(admin.ModelAdmin):
     list_display = ["order", "user", "is_admin_message", "created_at"]
     list_filter = ["is_admin_message", "created_at"]
+    search_fields = ["message", "order__title", "user__username"]
     readonly_fields = ["created_at"]
 
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ["client", "portfolio_item", "rating", "is_approved", "created_at"]
+    list_display = ["portfolio_item", "client", "rating", "is_approved", "created_at"]
     list_filter = ["rating", "is_approved", "created_at"]
-    list_editable = ["is_approved"]
+    search_fields = [
+        "title",
+        "content",
+        "client__user__username",
+        "portfolio_item__title",
+    ]
     readonly_fields = ["created_at"]
