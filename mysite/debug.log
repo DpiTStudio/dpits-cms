@@ -550,3 +550,4 @@ Watching for file changes with StatReloader
 "GET /page/o-nas/ HTTP/1.1" 200 12272
 "GET / HTTP/1.1" 200 23470
 "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 22315
