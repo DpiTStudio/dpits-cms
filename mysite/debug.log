@@ -252,3 +252,4 @@ Watching for file changes with StatReloader
 "GET /static/css/responsive.css HTTP/1.1" 200 2540
 "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
 "GET /static/js/main.js HTTP/1.1" 200 4464
+Watching for file changes with StatReloader
