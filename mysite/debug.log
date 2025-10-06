@@ -518,3 +518,5 @@ Watching for file changes with StatReloader
 "GET /admin/main/sitesettings/ HTTP/1.1" 200 24635
 G:\Python\Projects\dpits-cms\mysite\main\views.py changed, reloading.
 Watching for file changes with StatReloader
+"GET /accounts/profile/ HTTP/1.1" 200 17032
+"GET /static/accounts/css/profile.css HTTP/1.1" 200 1613
