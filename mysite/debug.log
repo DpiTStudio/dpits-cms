@@ -568,3 +568,5 @@ Watching for file changes with StatReloader
 "GET /accounts/profile/ HTTP/1.1" 200 17032
 "GET /static/accounts/css/profile.css HTTP/1.1" 200 1613
 "GET /accounts/profile/ HTTP/1.1" 200 17032
+"GET /page/o-nas/ HTTP/1.1" 200 12272
+"GET /reviews/ HTTP/1.1" 200 12668
