@@ -570,3 +570,9 @@ Watching for file changes with StatReloader
 "GET /accounts/profile/ HTTP/1.1" 200 17032
 "GET /page/o-nas/ HTTP/1.1" 200 12272
 "GET /reviews/ HTTP/1.1" 200 12668
+"GET /news/ HTTP/1.1" 200 21885
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/ HTTP/1.1" 200 14340
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
