@@ -253,3 +253,141 @@ Watching for file changes with StatReloader
 "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
 "GET /static/js/main.js HTTP/1.1" 200 4464
 Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23472
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23472
+"GET / HTTP/1.1" 200 23472
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23472
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23472
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23473
+"GET / HTTP/1.1" 200 23473
+"GET / HTTP/1.1" 200 23473
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET /page/o-nas/ HTTP/1.1" 200 12272
+"GET / HTTP/1.1" 200 23472
+"GET / HTTP/1.1" 200 23472
+"GET / HTTP/1.1" 200 23472
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23472
+"GET / HTTP/1.1" 200 23472
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23461
+"GET / HTTP/1.1" 200 23461
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23461
+G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23376
+"GET / HTTP/1.1" 200 23376
+"GET / HTTP/1.1" 200 23376
+"GET / HTTP/1.1" 200 23376
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23470
+"GET / HTTP/1.1" 200 23470
+"GET / HTTP/1.1" 200 23470
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23473
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23473
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23473
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 23473
+"GET / HTTP/1.1" 200 23473
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 1539
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 23470
+"GET / HTTP/1.1" 200 23470
+"GET / HTTP/1.1" 200 23470
+G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+Watching for file changes with StatReloader

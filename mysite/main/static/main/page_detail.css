@@ -1,0 +1,106 @@
+/* page_detail.css - Стили для страницы с детальным контентом */
+
+/* Page Content Styles */
+.page-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.content-body {
+    max-width: 100%;
+}
+
+.content-body h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.content-body h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #34495e;
+    font-weight: 600;
+}
+
+.content-body p {
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+.content-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 1.5rem 0;
+}
+
+.content-body blockquote {
+    border-left: 4px solid #007bff;
+    padding-left: 1.5rem;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    color: #6c757d;
+    background-color: #f8f9fa;
+    padding: 1rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Breadcrumb Styles */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+.breadcrumb-item a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}
+
+/* Page Header Styles */
+.display-4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.text-muted small {
+    font-size: 0.875rem;
+}
+
+/* Navigation Buttons */
+.btn-outline-primary {
+    border-color: #007bff;
+    color: #007bff;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.border-top {
+    border-top: 1px solid #e9ecef !important;
+}
