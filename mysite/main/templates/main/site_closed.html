@@ -13,140 +13,140 @@
 {% block header %}
 <!-- Упрощенная шапка для страницы закрытия -->
 <header class="bg-dark text-white py-3">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
-                {% if site_settings.logo %}
-                <img src="{{ site_settings.logo.url }}" 
-                     alt="{{ site_settings.logo_text }}" 
-                     height="40" 
-                     class="me-3">
-                {% endif %}
-                <span class="fw-bold fs-4">{{ site_settings.logo_text }}</span>
-            </div>
-            <div class="text-end">
-                {% if site_settings.phone1 %}
-                <small class="d-block">
-                    <i class="fas fa-phone me-1"></i>
-                    {{ site_settings.phone1 }}
-                </small>
-                {% endif %}
-            </div>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            {% if site_settings.logo %}
+            <img src="{{ site_settings.logo.url }}" 
+                  alt="{{ site_settings.logo_text }}" 
+                  height="40" 
+                  class="me-3">
+            {% endif %}
+            <span class="fw-bold fs-4">{{ site_settings.logo_text }}</span>
+        </div>
+        <div class="text-end">
+            {% if site_settings.phone1 %}
+            <small class="d-block">
+                <i class="fas fa-phone me-1"></i>
+                {{ site_settings.phone1 }}
+            </small>
+            {% endif %}
         </div>
     </div>
-</header>
-{% endblock %}
+  </div>
+  </header>
+  {% endblock %}
 
-{% block content %}
-<div class="container-fluid min-vh-100 bg-light">
-    <div class="row justify-content-center align-items-center min-vh-100">
-        <div class="col-lg-6 col-md-8 col-sm-10">
-            <div class="card border-0 shadow-lg rounded-3">
-                <div class="card-body p-5 text-center">
-                    <!-- Иконка и заголовок -->
-                    <div class="mb-4">
-                        <i class="fas fa-tools fa-4x text-warning mb-4"></i>
-                        <h1 class="display-5 fw-bold text-dark mb-3">
-                            Сайт временно недоступен
-                        </h1>
-                    </div>
-                    
-                    <!-- Основное сообщение -->
-                    <div class="mb-4">
-                        {% if site_settings.closure_message %}
-                        <div class="alert alert-info border-0 rounded-3">
-                            <p class="mb-0 fs-5">
-                                {{ site_settings.closure_message|linebreaksbr }}
-                            </p>
-                        </div>
-                        {% else %}
-                        <p class="lead text-muted mb-4 fs-5">
-                            В настоящее время на сайте проводятся плановые технические работы. 
-                            Мы работаем над улучшением сервиса для вашего удобства.
-                        </p>
-                        {% endif %}
-                    </div>
-                    
-                    <!-- Контактная информация -->
-                    <div class="row mt-4">
-                        {% if site_settings.phone1 %}
-                        <div class="col-md-6 mb-3">
-                            <div class="card bg-white border-0 rounded-3 h-100">
-                                <div class="card-body py-4">
-                                    <i class="fas fa-phone fa-2x text-primary mb-3"></i>
-                                    <h5 class="fw-bold">Телефон</h5>
-                                    <p class="mb-1">{{ site_settings.phone1 }}</p>
-                                    {% if site_settings.phone2 %}
-                                    <p class="mb-0">{{ site_settings.phone2 }}</p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                        
-                        {% if site_settings.email %}
-                        <div class="col-md-6 mb-3">
-                            <div class="card bg-white border-0 rounded-3 h-100">
-                                <div class="card-body py-4">
-                                    <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
-                                    <h5 class="fw-bold">Электронная почта</h5>
-                                    <p class="mb-0">
-                                        <a href="mailto:{{ site_settings.email }}" 
-                                           class="text-decoration-none">
-                                            {{ site_settings.email }}
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                    
-                    <!-- Социальные сети -->
-                    {% if site_settings.vk or site_settings.telegram %}
-                    <div class="mt-5 pt-4 border-top">
-                        <p class="text-muted mb-3">
-                            Следите за обновлениями в наших социальных сетях:
-                        </p>
-                        <div class="social-links d-flex justify-content-center gap-3">
-                            {% if site_settings.vk %}
-                            <a href="{{ site_settings.vk }}" 
-                               class="text-decoration-none social-link"
-                               target="_blank"
-                               rel="noopener noreferrer">
-                                <i class="fab fa-vk fa-2x text-primary"></i>
-                            </a>
-                            {% endif %}
-                            {% if site_settings.telegram %}
-                            <a href="{{ site_settings.telegram }}" 
-                               class="text-decoration-none social-link"
-                               target="_blank"
-                               rel="noopener noreferrer">
-                                <i class="fab fa-telegram fa-2x text-primary"></i>
-                            </a>
-                            {% endif %}
-                            {% if site_settings.instagram %}
-                            <a href="{{ site_settings.instagram }}" 
-                               class="text-decoration-none social-link"
-                               target="_blank"
-                               rel="noopener noreferrer">
-                                <i class="fab fa-instagram fa-2x text-primary"></i>
-                            </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% endif %}
-                    
-                    <!-- Копирайт -->
-                    <div class="mt-4 pt-3">
-                        <p class="text-muted small mb-0">
-                            &copy; {% now "Y" %} {{ site_settings.logo_text }}. Все права защищены.
-                        </p>
-                    </div>
-                </div>
-            </div>
+  {% block content %}
+  <div class="container-fluid min-vh-100 bg-light">
+  <div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <div class="card border-0 shadow-lg rounded-3">
+        <div class="card-body p-5 text-center">
+          <!-- Иконка и заголовок -->
+          <div class="mb-4">
+              <i class="fas fa-tools fa-4x text-warning mb-4"></i>
+              <h1 class="display-5 fw-bold text-dark mb-3">
+                  Сайт временно недоступен
+              </h1>
+          </div>
+            
+          <!-- Основное сообщение -->
+          <div class="mb-4">
+              {% if site_settings.closure_message %}
+              <div class="alert alert-info border-0 rounded-3">
+                  <p class="mb-0 fs-5">
+                      {{ site_settings.closure_message|linebreaksbr }}
+                  </p>
+              </div>
+              {% else %}
+              <p class="lead text-muted mb-4 fs-5">
+                  В настоящее время на сайте проводятся плановые технические работы. 
+                  Мы работаем над улучшением сервиса для вашего удобства.
+              </p>
+              {% endif %}
+          </div>
+            
+          <!-- Контактная информация -->
+          <div class="row mt-4">
+              {% if site_settings.phone1 %}
+              <div class="col-md-6 mb-3">
+                  <div class="card bg-white border-0 rounded-3 h-100">
+                      <div class="card-body py-4">
+                          <i class="fas fa-phone fa-2x text-primary mb-3"></i>
+                          <h5 class="fw-bold">Телефон</h5>
+                          <p class="mb-1">{{ site_settings.phone1 }}</p>
+                          {% if site_settings.phone2 %}
+                          <p class="mb-0">{{ site_settings.phone2 }}</p>
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+              {% endif %}
+              
+              {% if site_settings.email %}
+              <div class="col-md-6 mb-3">
+                  <div class="card bg-white border-0 rounded-3 h-100">
+                      <div class="card-body py-4">
+                          <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                          <h5 class="fw-bold">Электронная почта</h5>
+                          <p class="mb-0">
+                              <a href="mailto:{{ site_settings.email }}" 
+                                  class="text-decoration-none">
+                                  {{ site_settings.email }}
+                              </a>
+                          </p>
+                      </div>
+                  </div>
+              </div>
+              {% endif %}
+          </div>
+            
+          <!-- Социальные сети -->
+          {% if site_settings.vk or site_settings.telegram %}
+          <div class="mt-5 pt-4 border-top">
+              <p class="text-muted mb-3">
+                  Следите за обновлениями в наших социальных сетях:
+              </p>
+              <div class="social-links d-flex justify-content-center gap-3">
+                  {% if site_settings.vk %}
+                  <a href="{{ site_settings.vk }}" 
+                      class="text-decoration-none social-link"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <i class="fab fa-vk fa-2x text-primary"></i>
+                  </a>
+                  {% endif %}
+                  {% if site_settings.telegram %}
+                  <a href="{{ site_settings.telegram }}" 
+                      class="text-decoration-none social-link"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <i class="fab fa-telegram fa-2x text-primary"></i>
+                  </a>
+                  {% endif %}
+                  {% if site_settings.instagram %}
+                  <a href="{{ site_settings.instagram }}" 
+                      class="text-decoration-none social-link"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <i class="fab fa-instagram fa-2x text-primary"></i>
+                  </a>
+                  {% endif %}
+              </div>
+          </div>
+          {% endif %}
+            
+          <!-- Копирайт -->
+          <div class="mt-4 pt-3">
+              <p class="text-muted small mb-0">
+                  &copy; {% now "Y" %} {{ site_settings.logo_text }}. Все права защищены.
+              </p>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
 
