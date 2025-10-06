@@ -8,6 +8,10 @@ from django.core.cache import cache
 from .models import SiteSettings, Page
 
 
+def profile_view(request):
+    return render(request, "profile.html")
+
+
 class BaseView:
     """
     Базовый класс для всех представлений.
