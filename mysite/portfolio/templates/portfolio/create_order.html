@@ -1,8 +1,11 @@
-<!-- portfolio/templates/portfolio/create_order.html -->
 {% extends "base.html" %}
 {% load static %}
 
 {% block title %}Создание заказа{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="container py-5">
@@ -153,25 +156,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block extra_css %}
-<style>
-.form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.card {
-    border-radius: 15px;
-}
-
-.card-header {
-    border-radius: 15px 15px 0 0 !important;
-}
-
-.btn {
-    border-radius: 8px;
-}
-</style>
 {% endblock %}

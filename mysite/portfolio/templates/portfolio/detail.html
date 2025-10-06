@@ -1,8 +1,11 @@
-<!-- portfolio/templates/portfolio/detail.html -->
 {% extends "base.html" %}
 {% load static %}
 
 {% block title %}{{ item.title }} - Портфолио{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/portfolio_detail.css' %}">
+{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -229,32 +232,4 @@
     </div>
 </section>
 {% endif %}
-{% endblock %}
-
-{% block extra_css %}
-<style>
-.hero-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.portfolio-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin: 1rem 0;
-}
-
-.portfolio-content p {
-    line-height: 1.7;
-    margin-bottom: 1rem;
-}
-
-.portfolio-content h1,
-.portfolio-content h2,
-.portfolio-content h3,
-.portfolio-content h4 {
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-}
-</style>
 {% endblock %}

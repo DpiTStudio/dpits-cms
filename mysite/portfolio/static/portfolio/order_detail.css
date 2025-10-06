@@ -1,0 +1,16 @@
+/* Стили для детальной страницы заказа */
+.message-bubble {
+    word-wrap: break-word;
+}
+
+.messages-container {
+    scroll-behavior: smooth;
+}
+
+.progress {
+    border-radius: 10px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
