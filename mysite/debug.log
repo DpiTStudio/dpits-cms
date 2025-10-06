@@ -546,3 +546,7 @@ Watching for file changes with StatReloader
 "GET /static/css/news-categories.css HTTP/1.1" 404 1996
 "GET /static/css/pagination.css HTTP/1.1" 404 1981
 "GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /portfolio/ HTTP/1.1" 200 14865
+"GET /page/o-nas/ HTTP/1.1" 200 12272
+"GET / HTTP/1.1" 200 23470
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
