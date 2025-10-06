@@ -679,3 +679,12 @@ Watching for file changes with StatReloader
 "GET /admin/news/newscategory/ HTTP/1.1" 200 32123
 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
 "GET /static/images/logo.png HTTP/1.1" 200 100655
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /admin/news/newscategory/ HTTP/1.1" 200 32123
+"GET /admin/ HTTP/1.1" 200 46806
