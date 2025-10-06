@@ -2,8 +2,16 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ site_settings.logo_text }} - Новости детиали - {% endblock %}
+{% block title %}
+    {{ site_settings.logo_text }} 
+    - Новости детиали - 
+    {{ news.title }}
+{% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/news-common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+{% endblock %}
 
 {% block content %}
 <!-- Hero Section  -->
@@ -47,13 +55,13 @@
         <div class="col-lg-4">
             <!-- Блок похожих новостей -->
             {% if similar_news %}
-            <div class="card mb-4">
+            <div class="card sidebar-card">
                 <div class="card-header">
                     <h5>Похожие новости</h5>
                 </div>
                 <div class="card-body">
                     {% for similar in similar_news %}
-                    <div class="mb-3 {% if not forloop.last %}border-bottom pb-3{% endif %}">
+                    <div class="sidebar-news-item">
                         <h6><a href="{% url 'news:detail' similar.slug %}">{{ similar.title }}</a></h6>
                         <small class="text-muted">{{ similar.created_at|date:"d.m.Y" }}</small>
                     </div>
@@ -63,20 +71,20 @@
             {% endif %}
             
             <!-- Блок категорий -->
-            <div class="card">
+            <div class="card sidebar-card">
                 <div class="card-header">
                     <h5>Категории</h5>
                 </div>
                 <div class="card-body">
-                    <ul class="list-unstyled mb-0">
+                    <ul class="category-list">
                         {% for category in categories %}
-                        <li class="mb-2">
+                        <li>
                             {% if category.slug %}
-                            <a href="{% url 'news:category' category.slug %}" class="text-decoration-none">
+                            <a href="{% url 'news:category' category.slug %}">
                                 <i class="fas fa-folder me-2"></i>{{ category.name }}
                             </a>
                             {% else %}
-                            <span class="text-decoration-none text-muted">
+                            <span class="text-muted">
                                 <i class="fas fa-folder me-2"></i>{{ category.name }}
                             </span>
                             {% endif %}

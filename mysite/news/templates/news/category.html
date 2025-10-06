@@ -3,11 +3,16 @@
 {% load static %}
 
 {% block title %}
-{{ site_settings.logo_text }} 
-- Новости категории -
- {{ category.name }}
+    {{ site_settings.logo_text }} 
+    - Новости категории -
+    {{ category.name }}
 {% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/news-cards.css' %}">
+    <link rel="stylesheet" href="{% static 'css/news-common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+{% endblock %}
 
 {% block content %}
 <!-- Hero Section  -->
@@ -26,7 +31,7 @@
             <!-- Заголовок категории -->
             <h2 class="mb-3">Новости категории: {{ category.name }}</h2>
             
-            <!-- Описание категории (если есть) alert alert-light -->
+            <!-- Описание категории (если есть) -->
             {% if category.description %}
             <div class="mb-4">
                 {{ category.description|safe }}
@@ -40,12 +45,16 @@
                     <div class="card h-100 news-card">
                         <!-- Изображение новости -->
                         {% if news_item.image %}
-                        <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}" style="height: 200px; object-fit: cover;">
+                        <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}">
+                        {% else %}
+                        <div class="news-image-placeholder">
+                            <i class="fas fa-image fa-2x text-muted"></i>
+                        </div>
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ news_item.title }}</h5>
                             <p class="card-text">{{ news_item.short_description|safe|truncatewords:30 }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <small class="text-muted">{{ news_item.created_at|date:"d.m.Y" }}</small>
                                 <a href="{% url 'news:detail' news_item.slug %}" class="btn btn-sm btn-outline-primary">Читать далее</a>
                             </div>
@@ -60,7 +69,7 @@
                 {% endfor %}
             </div>
             
-            <!-- Пагинация (исправленная версия) -->
+            <!-- Пагинация -->
             {% if news_list.has_other_pages %}
             <nav aria-label="Page navigation" class="mt-4">
                 <ul class="pagination justify-content-center">
