@@ -242,12 +242,12 @@ JAZZMIN_SETTINGS = {
             "new_tab": True,  # Открывать в новой вкладке
             "icon": "fas fa-external-link-alt",
         },
-        {
-            "name": "Документация",
-            "url": "https://docs.djangoproject.com/",
-            "new_tab": True,
-            "icon": "fas fa-book",
-        },
+        # {
+        #     "name": "Документация",
+        #     "url": "https://docs.djangoproject.com/",
+        #     "new_tab": True,
+        #     "icon": "fas fa-book",
+        # },
     ],
     "show_sidebar": True,  # Показывать боковую панель
     "order_with_respect_to": [  # Порядок приложений в меню

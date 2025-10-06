@@ -643,3 +643,39 @@ Watching for file changes with StatReloader
 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
 "GET /admin/accounts/ticketresponse/ HTTP/1.1" 200 22691
 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 47085
+"GET /static/images/logo.png HTTP/1.1" 200 100655
+Watching for file changes with StatReloader
+"GET /accounts/tickets/ HTTP/1.1" 200 16128
+"GET /static/accounts/css/accounts.css HTTP/1.1" 304 0
+"GET /static/accounts/css/tickets.css HTTP/1.1" 200 1775
+"GET /accounts/profile/ HTTP/1.1" 200 17097
+"GET /static/accounts/css/profile.css HTTP/1.1" 200 1613
+"GET /admin/accounts/ticket/ HTTP/1.1" 200 28898
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/ HTTP/1.1" 200 47083
+"GET /admin/reviews/review/ HTTP/1.1" 200 23000
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/news/newscategory/ HTTP/1.1" 200 32400
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/news/news/ HTTP/1.1" 200 29512
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/news/news/1/change/ HTTP/1.1" 200 41801
+"GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/django_ckeditor_5/dist/styles.css HTTP/1.1" 200 213809
+"GET /static/django_ckeditor_5/dist/bundle.js HTTP/1.1" 200 1275904
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+"GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+"GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+"GET /admin/news/newscategory/ HTTP/1.1" 200 32400
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/news/newscategory/ HTTP/1.1" 200 32123
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/images/logo.png HTTP/1.1" 200 100655
