@@ -617,3 +617,29 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 22315
 "GET /static/css/base.css HTTP/1.1" 304 0
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 22315
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /accounts/profile/ HTTP/1.1" 200 17032
+"GET /static/accounts/css/profile.css HTTP/1.1" 200 1613
+"GET /accounts/tickets/ HTTP/1.1" 200 16128
+"GET /static/accounts/css/tickets.css HTTP/1.1" 200 1775
+"GET /admin/accounts/ticket/ HTTP/1.1" 200 28898
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/accounts/ticket/1/change/ HTTP/1.1" 200 29566
+"GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+"GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+"GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+"GET /admin/accounts/ticketresponse/ HTTP/1.1" 200 22691
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
