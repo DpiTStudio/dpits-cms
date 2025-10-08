@@ -1,6 +1,7 @@
 # accounts/urls.py
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.views.generic import RedirectView
 from . import views
 
 app_name = "accounts"
@@ -13,6 +14,7 @@ urlpatterns = [
         auth_views.LoginView.as_view(
             template_name="accounts/login.html",
             redirect_authenticated_user=True,
+            next_page="accounts:profile",
         ),
         name="login",
     ),
@@ -23,7 +25,10 @@ urlpatterns = [
     ),
     path("logout/confirm/", views.logout_confirmation, name="logout_confirm"),
     # Профиль пользователя
-    path("profile/", views.profile, name="profile"),
+    path(
+        "profile/",
+        RedirectView.as_view(pattern_name="accounts:profile", permanent=False),
+    ),
     path(
         "profile/edit/", views.profile_edit, name="profile_edit"
     ),  # ДОБАВЛЕНО: недостающий маршрут

@@ -77,7 +77,7 @@ def profile(request):
     except Exception as e:
         logger.error(f"Ошибка загрузки профиля: {e}")
         messages.error(request, "❌ Ошибка загрузки профиля")
-        return redirect("main:index")
+        return redirect("accounts:profile")  # ИСПРАВЛЕНО: было main:index
 
 
 def get_reviews_count(user):
@@ -284,7 +284,7 @@ def custom_logout(request):
         return redirect(
             settings.LOGOUT_REDIRECT_URL
             if hasattr(settings, "LOGOUT_REDIRECT_URL")
-            else "main:index"
+            else "main:index"  # Или 'accounts:login' если хотите на страницу логина
         )
     except Exception as e:
         logger.error(f"Ошибка выхода: {e}")

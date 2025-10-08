@@ -155,7 +155,7 @@ USE_TZ = True  # Использование часовых поясов
 # =============================================================================
 
 # URL перенаправления после входа/выхода
-LOGIN_REDIRECT_URL = "portfolio:client_dashboard"  # После успешного входа
+LOGIN_REDIRECT_URL = "accounts:profile"
 LOGOUT_REDIRECT_URL = "portfolio:list"  # После выхода
 LOGIN_URL = "accounts:login"  # URL для входа
 
