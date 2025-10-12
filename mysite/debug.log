@@ -639,3 +639,4 @@ Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 22315
 "GET /admin/ HTTP/1.1" 200 47051
 G:\Python\Projects\dpits-cms\mysite\accounts\models.py changed, reloading.
+Watching for file changes with StatReloader
