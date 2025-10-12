@@ -638,3 +638,4 @@ Watching for file changes with StatReloader
 "GET /media/news/categories/cat_logo_9.png HTTP/1.1" 200 42221
 "GET / HTTP/1.1" 200 22315
 "GET /admin/ HTTP/1.1" 200 47051
+G:\Python\Projects\dpits-cms\mysite\accounts\models.py changed, reloading.
