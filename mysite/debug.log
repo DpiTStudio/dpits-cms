@@ -651,3 +651,5 @@ Watching for file changes with StatReloader
 "GET /reviews/ HTTP/1.1" 200 12668
 "GET /reviews/ HTTP/1.1" 200 12668
 "GET / HTTP/1.1" 200 22315
+G:\Python\Projects\dpits-cms\mysite\accounts\urls.py changed, reloading.
+Watching for file changes with StatReloader
