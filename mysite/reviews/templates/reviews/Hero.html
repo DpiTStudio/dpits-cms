@@ -1,24 +1,29 @@
 <!-- Hero.html -->
-<section class="hero-section py-5">
-    <div class="container-fluid px-4 px-lg-5">
-        <div class="row align-items-center min-vh-50">
-            <div class="col-lg-8 col-md-10">
-                <h1 class="display-3 fw-bold text-white mb-3">
-                    {{ site_settings.logo_text }}
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-left">
+            <div class="col-lg-5">
+                <h1 class="display-4 fw-bold mb-1">
+                    {{ site_settings.logo_text|default:"Добро пожаловать" }}
                 </h1>
-                <strong class="text_motto">
+                {% if site_settings.slogan %}
+                <p class="lead mb-4">
+                    {{ site_settings.slogan }}
+                </p>
+                {% endif %}
+                {% if site_settings.motto %}
+                <div class="motto-content">
                     {{ site_settings.motto|safe }}
-                </strong>
-                <div class="d-flex flex-wrap gap-3 mt-4">
-                    <a href="{% url 'portfolio:list' %}" class="btn btn-primary btn-lg px-4 py-3">
-                        <i class="fas fa-briefcase me-2"></i>
-                        Наше портфолио
-                    </a>
-                    <a href="{% url 'reviews:add' %}" class="btn btn-outline-light btn-lg px-4 py-3">
-                        <i class="fas fa-star me-2"></i>
-                        Оставить отзыв
-                    </a>
                 </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-2">
+                {% if site_settings.logo %}
+                <div class="text-left">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" class="img_hero rounded shadow">
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
