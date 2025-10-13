@@ -1747,3 +1747,190 @@ Traceback (most recent call last):
     raise new from exc
 django.template.exceptions.TemplateDoesNotExist: Hero-List.html
 "GET /portfolio/ HTTP/1.1" 500 201258
+Internal Server Error: /portfolio/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 199, in render
+    template = context.template.engine.select_template(template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\engine.py", line 214, in select_template
+    raise TemplateDoesNotExist(", ".join(not_found))
+django.template.exceptions.TemplateDoesNotExist: Hero-List.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\Python\Projects\dpits-cms\mysite\portfolio\views.py", line 86, in portfolio_list
+    return render(request, "portfolio/list.html", context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: Hero-List.html
+"GET /portfolio/ HTTP/1.1" 500 201395
+Internal Server Error: /portfolio/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 199, in render
+    template = context.template.engine.select_template(template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\engine.py", line 214, in select_template
+    raise TemplateDoesNotExist(", ".join(not_found))
+django.template.exceptions.TemplateDoesNotExist: Hero-List.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\Python\Projects\dpits-cms\mysite\portfolio\views.py", line 86, in portfolio_list
+    return render(request, "portfolio/list.html", context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: Hero-List.html
+"GET /portfolio/ HTTP/1.1" 500 201395
+"GET /portfolio/ HTTP/1.1" 200 13226
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+Internal Server Error: /portfolio/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 199, in render
+    template = context.template.engine.select_template(template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\engine.py", line 214, in select_template
+    raise TemplateDoesNotExist(", ".join(not_found))
+django.template.exceptions.TemplateDoesNotExist: /portfolio/templates/portfolio/Hero-List.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\Python\Projects\dpits-cms\mysite\portfolio\views.py", line 86, in portfolio_list
+    return render(request, "portfolio/list.html", context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: /portfolio/templates/portfolio/Hero-List.html
+"GET /portfolio/ HTTP/1.1" 500 202077
+"GET /portfolio/ HTTP/1.1" 200 14340
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/categories/ HTTP/1.1" 200 18898
+Not Found: /media/portfolio/default-category.png
+"GET /static/css/categories.css HTTP/1.1" 404 1981
+"GET /media/portfolio/default-category.png HTTP/1.1" 404 5011
+"GET /media/www_dpits_cms_ru/2025/09/www_dpits_cms_ru_20250928_183513_cat_logo_8.png HTTP/1.1" 200 42428
