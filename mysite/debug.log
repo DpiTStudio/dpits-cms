@@ -2602,3 +2602,61 @@ Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 22414
 "GET /accounts/tickets/ HTTP/1.1" 200 18524
 "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1775
+"GET /accounts/tickets/ HTTP/1.1" 200 16107
+Watching for file changes with StatReloader
+"GET /accounts/profile/ HTTP/1.1" 200 17080
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET /static/css/pages.css HTTP/1.1" 304 0
+"GET /static/accounts/css/profile.css HTTP/1.1" 200 1613
+"GET /media/avatars/avatar_user_1.png HTTP/1.1" 200 372188
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 22414
+"GET /static/accounts/css/accounts.css HTTP/1.1" 304 0
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/pages.css HTTP/1.1" 304 0
+"GET /news/ HTTP/1.1" 200 21859
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/ HTTP/1.1" 200 21859
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/ HTTP/1.1" 200 15149
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 15149
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 15149
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /reviews/ HTTP/1.1" 200 12568
+"GET /page/o-nas/ HTTP/1.1" 200 14050
+"GET /reviews/ HTTP/1.1" 200 12568
+"GET /news/ HTTP/1.1" 200 21953
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/ HTTP/1.1" 200 21886
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/ HTTP/1.1" 200 15122
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 15122
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+Watching for file changes with StatReloader
+"GET /portfolio/ HTTP/1.1" 200 15122
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 15122
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/orders/create/ HTTP/1.1" 200 17123
+"GET /static/css/forms.css HTTP/1.1" 404 1966
+"GET /reviews/ HTTP/1.1" 200 12568
+"GET /portfolio/ HTTP/1.1" 200 15122
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/categories/ HTTP/1.1" 200 20519
+"GET /static/css/categories.css HTTP/1.1" 404 1981
+Not Found: /media/portfolio/default-category.png
+"GET /media/portfolio/default-category.png HTTP/1.1" 404 5011
+Watching for file changes with StatReloader
