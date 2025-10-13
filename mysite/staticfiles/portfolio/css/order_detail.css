@@ -10,7 +10,14 @@
 .progress {
     border-radius: 10px;
 }
-
+.img_hero {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 .progress-bar {
     border-radius: 10px;
 }

@@ -84,7 +84,14 @@
     font-size: 1.2rem;
     opacity: 0.9;
 }
-
+.img_hero {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 /* Footer */
 footer {
     background-color: var(--dark-color);
