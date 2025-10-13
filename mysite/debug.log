@@ -894,3 +894,274 @@ Forbidden (CSRF token from POST incorrect.): /accounts/login/
 Watching for file changes with StatReloader
 G:\Python\Projects\dpits-cms\mysite\accounts\migrations\0005_alter_ticket_user_alter_userprofile_avatar_and_more.py changed, reloading.
 Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 46776
+"GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+"GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+"GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+"GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+"GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+"GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+"GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+"GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+"GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+"GET /admin/ HTTP/1.1" 200 46776
+"GET /admin/news/newscategory/ HTTP/1.1" 200 32123
+"GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+"GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+"GET /static/admin/js/core.js HTTP/1.1" 200 6208
+"GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+"GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+"GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+"GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+"GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+"GET /admin/ HTTP/1.1" 200 46776
+Internal Server Error: /page/o-nas/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 210, in render
+    return template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 173, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'profile' not found. 'profile' is not a valid view function or pattern name.
+"GET /page/o-nas/ HTTP/1.1" 500 239913
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4861
+Internal Server Error: /portfolio/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\Python\Projects\dpits-cms\mysite\portfolio\views.py", line 86, in portfolio_list
+    return render(request, "portfolio/list.html", context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 210, in render
+    return template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 173, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'profile' not found. 'profile' is not a valid view function or pattern name.
+"GET /portfolio/ HTTP/1.1" 500 249558
+Internal Server Error: /news/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\Python\Projects\dpits-cms\mysite\news\views.py", line 33, in news_list
+    return render(request, "news/list.html", context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 210, in render
+    return template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 173, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'profile' not found. 'profile' is not a valid view function or pattern name.
+"GET /news/ HTTP/1.1" 500 246829
+G:\Python\Projects\dpits-cms\mysite\accounts\views.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\accounts\urls.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\accounts\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /news/ HTTP/1.1" 200 21885
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET / HTTP/1.1" 200 22315
+"GET /news/ HTTP/1.1" 200 21885
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/ HTTP/1.1" 200 14340
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /reviews/ HTTP/1.1" 200 12668
+"GET /page/o-nas/ HTTP/1.1" 200 12272
+"GET /admin/ HTTP/1.1" 200 46776
+"GET /admin/ HTTP/1.1" 200 46776
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 23738
+"GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+"GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 62362
+"GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+"GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+"GET /admin/main/page/ HTTP/1.1" 200 29722
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+"GET /admin/main/page/1/change/ HTTP/1.1" 200 36960
+"GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/ HTTP/1.1" 200 46776

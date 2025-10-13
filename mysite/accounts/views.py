@@ -10,13 +10,13 @@ import logging
 
 from .models import Ticket, TicketResponse, UserProfile
 from .forms import (
-    UserRegisterForm,  # ИСПРАВЛЕНО: CustomUserCreationForm -> UserRegisterForm
+    UserRegisterForm,
     UserUpdateForm,
     ProfileUpdateForm,
     TicketForm,
     TicketResponseForm,
     CustomPasswordChangeForm,
-    ProfileEditForm,  # ДОБАВЛЕНО: недостающий импорт
+    ProfileEditForm,
 )
 
 logger = logging.getLogger(__name__)
@@ -49,35 +49,35 @@ def register(request):
                 request, "❌ Произошла ошибка при регистрации. Попробуйте позже."
             )
     else:
-        form = UserRegisterForm()  # ИСПРАВЛЕНО
+        form = UserRegisterForm()
 
     return render(request, "accounts/register.html", {"form": form})
 
 
-@login_required
-def profile(request):
-    """
-    Отображение профиля пользователя со статистикой
-    """
-    try:
-        user = request.user
-        tickets_count = Ticket.objects.filter(user=user).count()
+# @login_required
+# def profile(request):
+#     """
+#     Отображение профиля пользователя со статистикой
+#     """
+#     try:
+#         user = request.user
+#         tickets_count = Ticket.objects.filter(user=user).count()
 
-        # Статистика из других приложений (с обработкой ошибок)
-        reviews_count = get_reviews_count(user)
-        comments_count = get_comments_count(user)
+#         # Статистика из других приложений (с обработкой ошибок)
+#         reviews_count = get_reviews_count(user)
+#         comments_count = get_comments_count(user)
 
-        context = {
-            "tickets_count": tickets_count,
-            "reviews_count": reviews_count,
-            "comments_count": comments_count,
-        }
-        return render(request, "accounts/profile.html", context)
+#         context = {
+#             "tickets_count": tickets_count,
+#             "reviews_count": reviews_count,
+#             "comments_count": comments_count,
+#         }
+#         return render(request, "accounts/profile.html", context)
 
-    except Exception as e:
-        logger.error(f"Ошибка загрузки профиля: {e}")
-        messages.error(request, "❌ Ошибка загрузки профиля")
-        return redirect("accounts:profile")  # ИСПРАВЛЕНО: было main:index
+#     except Exception as e:
+#         logger.error(f"Ошибка загрузки профиля: {e}")
+#         messages.error(request, "❌ Ошибка загрузки профиля")
+#         return redirect("accounts:profile")
 
 
 def get_reviews_count(user):
@@ -284,9 +284,35 @@ def custom_logout(request):
         return redirect(
             settings.LOGOUT_REDIRECT_URL
             if hasattr(settings, "LOGOUT_REDIRECT_URL")
-            else "main:index"  # Или 'accounts:login' если хотите на страницу логина
+            else "main:index"
         )
     except Exception as e:
         logger.error(f"Ошибка выхода: {e}")
         messages.error(request, "❌ Ошибка при выходе из системы")
+        return redirect("main:index")
+
+
+@login_required
+def profile_view(request):
+    """
+    Основное представление профиля пользователя
+    """
+    try:
+        user = request.user
+        tickets_count = Ticket.objects.filter(user=user).count()
+
+        # Статистика из других приложений (с обработкой ошибок)
+        reviews_count = get_reviews_count(user)
+        comments_count = get_comments_count(user)
+
+        context = {
+            "tickets_count": tickets_count,
+            "reviews_count": reviews_count,
+            "comments_count": comments_count,
+        }
+        return render(request, "accounts/profile.html", context)
+
+    except Exception as e:
+        logger.error(f"Ошибка загрузки профиля: {e}")
+        messages.error(request, "❌ Ошибка загрузки профиля")
         return redirect("main:index")

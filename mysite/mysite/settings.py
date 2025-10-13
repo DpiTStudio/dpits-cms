@@ -156,7 +156,7 @@ USE_TZ = True  # Использование часовых поясов
 
 # URL перенаправления после входа/выхода
 LOGIN_REDIRECT_URL = "accounts:profile"
-LOGOUT_REDIRECT_URL = "portfolio:list"  # После выхода
+LOGOUT_REDIRECT_URL = "main:index"
 LOGIN_URL = "accounts:login"  # URL для входа
 
 # Хранилище сообщений (использует сессии)
