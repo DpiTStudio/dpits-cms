@@ -640,3 +640,11 @@ Watching for file changes with StatReloader
 "GET /admin/ HTTP/1.1" 200 47051
 G:\Python\Projects\dpits-cms\mysite\accounts\models.py changed, reloading.
 Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /portfolio/ HTTP/1.1" 200 14340
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/orders/create/ HTTP/1.1" 200 17123
+"GET /static/css/forms.css HTTP/1.1" 404 1966
+"GET /page/o-nas/ HTTP/1.1" 200 12272
