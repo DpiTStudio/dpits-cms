@@ -892,3 +892,5 @@ Forbidden (CSRF token from POST incorrect.): /accounts/login/
 "POST /accounts/login/ HTTP/1.1" 403 2545
 >>>>>>> 1b44295df6222dd17ec8ca5dde2cbe1d722b96fb
 Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\accounts\migrations\0005_alter_ticket_user_alter_userprofile_avatar_and_more.py changed, reloading.
+Watching for file changes with StatReloader
