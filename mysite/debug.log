@@ -648,3 +648,6 @@ Watching for file changes with StatReloader
 "GET /portfolio/orders/create/ HTTP/1.1" 200 17123
 "GET /static/css/forms.css HTTP/1.1" 404 1966
 "GET /page/o-nas/ HTTP/1.1" 200 12272
+"GET /reviews/ HTTP/1.1" 200 12668
+"GET /reviews/ HTTP/1.1" 200 12668
+"GET / HTTP/1.1" 200 22315
