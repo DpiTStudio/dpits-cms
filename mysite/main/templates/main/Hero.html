@@ -1,0 +1,29 @@
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-left">
+            <div class="col-lg-5">
+                <h1 class="display-4 fw-bold mb-1">
+                    {{ site_settings.logo_text|default:"Добро пожаловать" }}
+                </h1>
+                {% if site_settings.slogan %}
+                <p class="lead mb-4">
+                    {{ site_settings.slogan }}
+                </p>
+                {% endif %}
+                {% if site_settings.motto %}
+                <div class="motto-content">
+                    {{ site_settings.motto|safe }}
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-2">
+                {% if site_settings.logo %}
+                <div class="text-left">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" class="img_hero rounded shadow">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
