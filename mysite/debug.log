@@ -2866,3 +2866,24 @@ Watching for file changes with StatReloader
 "GET /static/css/news-cards.css HTTP/1.1" 404 1981
 "GET /static/css/news-categories.css HTTP/1.1" 404 1996
 "GET /static/css/pagination.css HTTP/1.1" 404 1981
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /portfolio/ HTTP/1.1" 200 15122
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /static/css/base.css HTTP/1.1" 200 1680
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/components.css HTTP/1.1" 200 2213
+"GET /static/css/pages.css HTTP/1.1" 200 3083
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET /news/ HTTP/1.1" 200 21886
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET / HTTP/1.1" 200 24736
+"GET /accounts/profile/ HTTP/1.1" 200 19403
+"GET /static/accounts/css/profile.css HTTP/1.1" 200 1613
+"GET /media/avatars/avatar_user_1.png HTTP/1.1" 200 372188
+"GET /accounts/tickets/ HTTP/1.1" 200 18446
