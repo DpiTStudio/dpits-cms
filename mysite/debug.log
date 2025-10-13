@@ -1205,3 +1205,14 @@ Watching for file changes with StatReloader
 "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
 "GET /admin/ HTTP/1.1" 200 46596
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 46596
+"GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+"GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+G:\Python\Projects\dpits-cms\mysite\main\urls.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\mysite\urls.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\accounts\urls.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 46600

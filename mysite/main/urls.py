@@ -13,8 +13,7 @@ urlpatterns = [
     # Статические страницы
     path("contacts/", views.ContactView.as_view(), name="contacts"),
     path("about/", views.AboutView.as_view(), name="about"),
-    # Профиль пользователя
-    path("profile/", views.profile_view, name="profile"),
+    # УДАЛЕН маршрут профиля, так как он уже есть в accounts
     # Обработка ошибок
     path(
         "error/404/",
