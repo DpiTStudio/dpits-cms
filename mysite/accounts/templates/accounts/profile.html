@@ -23,8 +23,8 @@
                     <!-- Заголовок профиля -->
                     <div class="profile-header">
                         <div class="profile-avatar">
-                            {% if user.userprofile.avatar %}
-                                <img src="{{ user.userprofile.avatar.url }}" alt="Аватар" class="img-fluid">
+                            {% if user.profile.avatar %}
+                                <img src="{{ user.profile.avatar.url }}" alt="Аватар" class="img-fluid">
                             {% else %}
                                 <i class="fas fa-user fa-3x" style="color: #667eea; line-height: 120px;"></i>
                             {% endif %}
@@ -76,7 +76,7 @@
                             </div>
                             <div class="info-item">
                                 <span class="info-label">Телефон:</span>
-                                <span class="info-value">{{ user.userprofile.phone|default:"Не указан" }}</span>
+                                <span class="info-value">{{ user.profile.phone|default:"Не указан" }}</span>
                             </div>
                             <div class="info-item">
                                 <span class="info-label">Дата регистрации:</span>

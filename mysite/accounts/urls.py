@@ -18,8 +18,8 @@ urlpatterns = [
     ),
     path("logout/", views.custom_logout, name="logout"),
     path("logout/confirm/", views.logout_confirmation, name="logout_confirm"),
-    # Профиль пользователя - ИСПРАВЛЕННЫЕ МАРШРУТЫ
-    path("profile/", views.profile_view, name="profile"),  # Прямой маршрут
+    # Профиль пользователя
+    path("profile/", views.profile_view, name="profile"),
     path("profile/edit/", views.profile_edit, name="profile_edit"),
     path("profile/update/", views.profile_update, name="profile_update"),
     path("password/change/", views.password_change, name="password_change"),

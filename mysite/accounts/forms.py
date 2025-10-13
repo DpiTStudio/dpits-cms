@@ -12,7 +12,7 @@ import re
 from .models import UserProfile, Ticket, TicketResponse
 
 
-class UserRegisterForm(UserCreationForm):  # ВОЗВРАЩАЕМ старое имя для совместимости
+class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(
@@ -233,8 +233,13 @@ class CustomPasswordChangeForm(PasswordChangeForm):
                 field.widget.attrs["placeholder"] = "Повторите новый пароль"
 
 
-class ProfileEditForm(UserChangeForm):
-    password = None  # Убираем поле пароля
+class ProfileEditForm(forms.ModelForm):  # Изменено с UserChangeForm на ModelForm
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(
+            attrs={"class": "form-control", "placeholder": "Введите email"}
+        ),
+    )
 
     class Meta:
         model = User
@@ -245,9 +250,6 @@ class ProfileEditForm(UserChangeForm):
                     "class": "form-control",
                     "placeholder": "Введите имя пользователя",
                 }
-            ),
-            "email": forms.EmailInput(
-                attrs={"class": "form-control", "placeholder": "Введите email"}
             ),
             "first_name": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Введите имя"}

@@ -20,7 +20,7 @@ class UserProfile(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name=_("Пользователь"),
-        related_name="userprofile",
+        related_name="profile",  # Изменено для совместимости
     )
     phone = models.CharField(_("Телефон"), max_length=20, blank=True, null=True)
     avatar = models.ImageField(
@@ -56,9 +56,11 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
     else:
-        # Сохраняем профиль, если он существует
-        if hasattr(instance, "userprofile"):
-            instance.userprofile.save()
+        # Используем try/except для обработки случая, когда профиля еще нет
+        try:
+            instance.profile.save()
+        except UserProfile.DoesNotExist:
+            UserProfile.objects.create(user=instance)
 
 
 class Ticket(models.Model):

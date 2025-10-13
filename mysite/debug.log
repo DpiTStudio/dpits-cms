@@ -2709,3 +2709,11 @@ Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 24738
 Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 24736
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 46632
+"GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+"GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+"GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+"GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+Watching for file changes with StatReloader
