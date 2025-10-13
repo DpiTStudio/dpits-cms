@@ -1,7 +1,7 @@
 # portfolio/forms.py
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from .models import Order, OrderMessage, Review, Client
+from .models import Order, OrderMessage, PortfolioReview, Client
 
 
 class OrderForm(forms.ModelForm):
@@ -98,7 +98,7 @@ class ReviewForm(forms.ModelForm):
     """Форма отзыва"""
 
     class Meta:
-        model = Review
+        model = PortfolioReview  # Исправлено: PortfolioReview вместо Review
         fields = ["rating", "title", "content"]
         widgets = {
             "rating": forms.Select(attrs={"class": "form-select"}),

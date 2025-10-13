@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
+from django.core.exceptions import ValidationError
 
 
 class SingletonModel(models.Model):
@@ -102,6 +103,26 @@ class SiteSettings(SingletonModel):
                     )
                 }
             )
+
+
+def clean(self):
+    """
+    Валидация данных перед сохранением.
+    """
+    super().clean()
+    if self.site_closed and not self.closure_message:
+        raise ValidationError(
+            {
+                "closure_message": _(
+                    "Необходимо указать сообщение при закрытии сайта, "
+                    "если сайт помечен как закрытый"
+                )
+            }
+        )
+
+    # Валидация email
+    if self.email and "@" not in self.email:
+        raise ValidationError({"email": _("Введите корректный email адрес")})
 
 
 class Page(models.Model):

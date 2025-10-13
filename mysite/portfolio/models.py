@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.text import slugify
+from django.utils.html import format_html  # Добавлен импорт
 from django_ckeditor_5.fields import CKEditor5Field
 from .utils import custom_upload_to
 
@@ -62,13 +63,11 @@ class PortfolioCategory(models.Model):
     order = models.IntegerField(
         _("Порядок"), default=0, help_text=_("Чем больше, тем выше")
     )
+    is_active = models.BooleanField(_("Активно"), default=True)
 
     # Системные поля
     created_at = models.DateTimeField(_("Создан"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Обновлен"), auto_now=True)
-
-    # Публикация
-    is_active = models.BooleanField(_("Активно"), default=True)
 
     class Meta:
         verbose_name = _("Категория портфолио")
@@ -85,6 +84,10 @@ class PortfolioCategory(models.Model):
 
     def get_absolute_url(self):
         return reverse("portfolio:list") + f"?category={self.slug}"
+
+    def works_count(self):
+        """Количество работ в категории"""
+        return self.portfolioitem_set.count()
 
 
 class PortfolioItem(models.Model):
@@ -161,6 +164,11 @@ class PortfolioItem(models.Model):
             return [tech.strip() for tech in self.technologies.split(",")]
         return []
 
+    def increment_views(self):
+        """Увеличивает счетчик просмотров на 1"""
+        self.views += 1
+        self.save(update_fields=["views"])
+
 
 class Order(models.Model):
     """Модель заказа"""
@@ -218,6 +226,23 @@ class Order(models.Model):
     def get_absolute_url(self):
         return reverse("portfolio:order_detail", kwargs={"pk": self.pk})
 
+    @property
+    def is_overdue(self):
+        """Проверяет, просрочен ли заказ"""
+        from django.utils import timezone
+
+        return self.deadline and self.deadline < timezone.now().date()
+
+    def get_progress_percentage(self):
+        """Возвращает процент выполнения заказа"""
+        status_progress = {
+            "new": 25,
+            "in_progress": 50,
+            "completed": 100,
+            "cancelled": 0,
+        }
+        return status_progress.get(self.status, 0)
+
 
 class OrderMessage(models.Model):
     """Сообщения в заказе"""
@@ -249,9 +274,15 @@ class OrderMessage(models.Model):
     def __str__(self):
         return f"Сообщение для заказа #{self.order.id}"
 
+    def save(self, *args, **kwargs):
+        """Автоматически помечает сообщения от админов"""
+        if self.user.is_staff:
+            self.is_admin_message = True
+        super().save(*args, **kwargs)
 
-class Review(models.Model):
-    """Отзывы клиентов"""
+
+class PortfolioReview(models.Model):
+    """Отзывы клиентов о работах портфолио"""
 
     RATING_CHOICES = (
         (1, "1 - Ужасно"),
@@ -274,8 +305,8 @@ class Review(models.Model):
     created_at = models.DateTimeField(_("Создан"), auto_now_add=True)
 
     class Meta:
-        verbose_name = _("Отзыв")
-        verbose_name_plural = _("Отзывы")
+        verbose_name = _("Отзыв о работе")
+        verbose_name_plural = _("Отзывы о работах")
         ordering = ["-created_at"]
         unique_together = ["client", "portfolio_item"]
 
@@ -290,4 +321,4 @@ class Review(models.Model):
                 stars += '<i class="fas fa-star text-warning"></i>'
             else:
                 stars += '<i class="far fa-star text-muted"></i>'
-        return stars
+        return format_html(stars)  # Исправлено: добавлен format_html

@@ -5,19 +5,26 @@ from . import views
 app_name = "portfolio"
 
 urlpatterns = [
-    # Основные страницы портфолио
-    path("", views.portfolio_list, name="list"),
-    path("categories/", views.portfolio_categories, name="categories"),
-    path("<slug:slug>/", views.portfolio_detail, name="detail"),
-    # Отзывы
-    path("<slug:slug>/review/", views.create_review, name="create_review"),
-    # Заказы
-    path("orders/create/", views.create_order, name="create_order"),
-    path("orders/", views.order_list, name="order_list"),
-    path("orders/<int:pk>/", views.order_detail, name="order_detail"),
+    # Список всех работ
+    path("", views.PortfolioListView.as_view(), name="list"),
+    # Детальная страница работы
+    path("work/<slug:slug>/", views.PortfolioDetailView.as_view(), name="detail"),
+    # Детальная страница категории
+    path(
+        "category/<slug:slug>/",
+        views.CategoryDetailView.as_view(),
+        name="category_detail",
+    ),
+    # Список категорий
+    path("categories/", views.categories_view, name="categories"),
     # Профиль клиента
-    path("client/dashboard/", views.client_dashboard, name="client_dashboard"),
-    path("client/profile/", views.client_profile, name="client_profile"),
-    # API endpoints
-    path("api/items/", views.api_portfolio_items, name="api_items"),
+    path("client-profile/", views.client_profile, name="client_profile"),
+    # Личный кабинет клиента
+    path("client-dashboard/", views.client_dashboard, name="client_dashboard"),
+    # Детальная страница заказа
+    path("order/<int:pk>/", views.order_detail, name="order_detail"),
+    # Создание заказа
+    path("create-order/", views.create_order, name="create_order"),
+    # Создание отзыва
+    path("create-review/<slug:slug>/", views.create_review, name="create_review"),
 ]
