@@ -155,7 +155,7 @@ USE_TZ = True  # Использование часовых поясов
 # =============================================================================
 
 # URL перенаправления после входа/выхода
-LOGIN_REDIRECT_URL = "portfolio:client_dashboard"  # После успешного входа
+LOGIN_REDIRECT_URL = "accounts:profile"
 LOGOUT_REDIRECT_URL = "portfolio:list"  # После выхода
 LOGIN_URL = "accounts:login"  # URL для входа
 
@@ -242,12 +242,12 @@ JAZZMIN_SETTINGS = {
             "new_tab": True,  # Открывать в новой вкладке
             "icon": "fas fa-external-link-alt",
         },
-        {
-            "name": "Документация",
-            "url": "https://docs.djangoproject.com/",
-            "new_tab": True,
-            "icon": "fas fa-book",
-        },
+        # {
+        #     "name": "Документация",
+        #     "url": "https://docs.djangoproject.com/",
+        #     "new_tab": True,
+        #     "icon": "fas fa-book",
+        # },
     ],
     "show_sidebar": True,  # Показывать боковую панель
     "order_with_respect_to": [  # Порядок приложений в меню

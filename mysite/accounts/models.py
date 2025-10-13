@@ -5,14 +5,30 @@ from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
+import os
+
+
+def avatar_upload_path(instance, filename):
+    """Генерация пути для загрузки аватара"""
+    ext = filename.split(".")[-1]
+    filename = f"avatar_user_{instance.user.id}.{ext}"
+    return os.path.join("avatars", filename)
 
 
 class UserProfile(models.Model):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, verbose_name=_("Пользователь")
+        User,
+        on_delete=models.CASCADE,
+        verbose_name=_("Пользователь"),
+        related_name="userprofile",
     )
-    phone = models.CharField(_("Телефон"), max_length=20, blank=True)
-    avatar = models.ImageField(_("Аватар"), upload_to="avatars/", blank=True, null=True)
+    phone = models.CharField(_("Телефон"), max_length=20, blank=True, null=True)
+    avatar = models.ImageField(
+        _("Аватар"),
+        upload_to=avatar_upload_path,
+        blank=True,
+        null=True,
+    )
     bio = models.TextField(_("О себе"), blank=True)
     created_at = models.DateTimeField(_("Создано"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Обновлено"), auto_now=True)
@@ -22,43 +38,50 @@ class UserProfile(models.Model):
         verbose_name_plural = _("Профили пользователей")
 
     def __str__(self):
-        return self.user.get_full_name() or self.user.username
+        return f"Профиль {self.user.username}"
 
     @property
     def get_avatar_url(self):
+        """Получение URL аватара с fallback"""
         if self.avatar and hasattr(self.avatar, "url"):
             return self.avatar.url
-        return "/static/images/default-avatar.png"
+        return "/static/accounts/images/default-avatar.png"
 
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    """
+    Сигнал для автоматического создания/обновления профиля пользователя
+    """
     if created:
         UserProfile.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    if hasattr(instance, "userprofile"):
-        instance.userprofile.save()
     else:
-        UserProfile.objects.create(user=instance)
+        # Сохраняем профиль, если он существует
+        if hasattr(instance, "userprofile"):
+            instance.userprofile.save()
 
 
 class Ticket(models.Model):
+    STATUS_OPEN = "open"
+    STATUS_IN_PROGRESS = "in_progress"
+    STATUS_CLOSED = "closed"
+
     STATUS_CHOICES = (
-        ("open", "Открыт"),
-        ("in_progress", "В обработке"),
-        ("closed", "Закрыт"),
+        (STATUS_OPEN, "Открыт"),
+        (STATUS_IN_PROGRESS, "В обработке"),
+        (STATUS_CLOSED, "Закрыт"),
     )
 
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name=_("Пользователь")
+        User,
+        on_delete=models.CASCADE,
+        verbose_name=_("Пользователь"),
+        related_name="tickets",
     )
     subject = models.CharField(_("Тема"), max_length=200)
     message = models.TextField(_("Сообщение"))
     status = models.CharField(
-        _("Статус"), max_length=20, choices=STATUS_CHOICES, default="open"
+        _("Статус"), max_length=20, choices=STATUS_CHOICES, default=STATUS_OPEN
     )
     created_at = models.DateTimeField(_("Создано"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Обновлено"), auto_now=True)
@@ -73,6 +96,14 @@ class Ticket(models.Model):
 
     def get_absolute_url(self):
         return reverse("accounts:ticket_detail", kwargs={"pk": self.pk})
+
+    @property
+    def is_open(self):
+        return self.status == self.STATUS_OPEN
+
+    @property
+    def is_closed(self):
+        return self.status == self.STATUS_CLOSED
 
 
 class TicketResponse(models.Model):
@@ -96,3 +127,9 @@ class TicketResponse(models.Model):
 
     def __str__(self):
         return f"Ответ на тикет #{self.ticket.id}"
+
+    def save(self, *args, **kwargs):
+        """Автоматическая установка is_admin_response"""
+        if self.user.is_staff:
+            self.is_admin_response = True
+        super().save(*args, **kwargs)

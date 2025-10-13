@@ -7,13 +7,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+<<<<<<< HEAD
     dependencies = [
         ("accounts", "0004_alter_userprofile_avatar"),
+=======
+
+    dependencies = [
+        ('accounts', '0004_alter_userprofile_avatar'),
+>>>>>>> 1b44295df6222dd17ec8ca5dde2cbe1d722b96fb
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
+<<<<<<< HEAD
             model_name="ticket",
             name="user",
             field=models.ForeignKey(
@@ -39,5 +46,25 @@ class Migration(migrations.Migration):
                 to=settings.AUTH_USER_MODEL,
                 verbose_name="Пользователь",
             ),
+=======
+            model_name='ticket',
+            name='user',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tickets', to=settings.AUTH_USER_MODEL, verbose_name='Пользователь'),
+        ),
+        migrations.AlterField(
+            model_name='userprofile',
+            name='avatar',
+            field=models.ImageField(blank=True, null=True, upload_to=accounts.models.avatar_upload_path, verbose_name='Аватар'),
+        ),
+        migrations.AlterField(
+            model_name='userprofile',
+            name='phone',
+            field=models.CharField(blank=True, max_length=20, null=True, verbose_name='Телефон'),
+        ),
+        migrations.AlterField(
+            model_name='userprofile',
+            name='user',
+            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='userprofile', to=settings.AUTH_USER_MODEL, verbose_name='Пользователь'),
+>>>>>>> 1b44295df6222dd17ec8ca5dde2cbe1d722b96fb
         ),
     ]
