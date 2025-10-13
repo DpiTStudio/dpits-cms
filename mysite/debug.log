@@ -1165,3 +1165,13 @@ Watching for file changes with StatReloader
 "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
 "GET /admin/ HTTP/1.1" 200 46776
+G:\Python\Projects\dpits-cms\mysite\main\urls.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\main\views.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\main\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\main\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 46776

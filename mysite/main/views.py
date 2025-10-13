@@ -8,8 +8,39 @@ from django.core.cache import cache
 from .models import SiteSettings, Page
 
 
+# main/views.py - добавьте этот класс
+class ProfileView(TemplateView):
+    """
+    Представление для страницы профиля пользователя.
+    """
+
+    template_name = "main/profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "page_title": "Профиль",
+                "meta_description": "Профиль пользователя",
+            }
+        )
+        return context
+
+
 def profile_view(request):
-    return render(request, "profile.html")
+    """
+    Функциональное представление для профиля.
+    """
+    site_settings = SiteSettings.load()
+    return render(
+        request,
+        "main/profile.html",
+        {
+            "site_settings": site_settings,
+            "page_title": "Профиль",
+            "meta_description": "Профиль пользователя",
+        },
+    )
 
 
 class BaseView:

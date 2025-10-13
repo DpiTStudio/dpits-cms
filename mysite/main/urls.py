@@ -10,10 +10,12 @@ urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     # Детальная страница
     path("page/<slug:slug>/", views.PageDetailView.as_view(), name="page_detail"),
-    # Статические страницы (пример)
+    # Статические страницы
     path("contacts/", views.ContactView.as_view(), name="contacts"),
     path("about/", views.AboutView.as_view(), name="about"),
-    # Обработка ошибок (для кастомных страниц ошибок)
+    # Профиль пользователя
+    path("profile/", views.profile_view, name="profile"),
+    # Обработка ошибок
     path(
         "error/404/",
         TemplateView.as_view(template_name="main/404.html"),
