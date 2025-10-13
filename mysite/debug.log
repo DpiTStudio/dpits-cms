@@ -1934,3 +1934,240 @@ Not Found: /media/portfolio/default-category.png
 "GET /static/css/categories.css HTTP/1.1" 404 1981
 "GET /media/portfolio/default-category.png HTTP/1.1" 404 5011
 "GET /media/www_dpits_cms_ru/2025/09/www_dpits_cms_ru_20250928_183513_cat_logo_8.png HTTP/1.1" 200 42428
+"GET /portfolio/ HTTP/1.1" 200 14024
+"GET /static/accounts/css/accounts.css HTTP/1.1" 304 0
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/?category=gotovye-resheniya-sistemy-upravleniya-sajtom HTTP/1.1" 200 14024
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/? HTTP/1.1" 200 14024
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/?category=makety-dlya-sajtov HTTP/1.1" 200 14024
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/orders/create/ HTTP/1.1" 200 17123
+"GET /static/css/forms.css HTTP/1.1" 404 1966
+"GET /reviews/ HTTP/1.1" 200 12668
+"GET /page/o-nas/ HTTP/1.1" 200 14070
+"GET / HTTP/1.1" 200 22434
+"GET /portfolio/ HTTP/1.1" 200 14024
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /news/ HTTP/1.1" 200 21885
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /media/news/categories/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /media/news/categories/cat_logo_4.png HTTP/1.1" 200 41202
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /media/news/categories/cat_logo_6.png HTTP/1.1" 200 41978
+"GET /media/news/categories/cat_logo_3.png HTTP/1.1" 200 41846
+"GET /media/news/categories/cat_logo_7.png HTTP/1.1" 200 42026
+"GET /media/news/categories/cat_logo_8.png HTTP/1.1" 200 42428
+"GET /media/news/categories/cat_logo_9.png HTTP/1.1" 200 42221
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /portfolio/ HTTP/1.1" 200 14024
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /reviews/ HTTP/1.1" 200 12668
+"GET /page/o-nas/ HTTP/1.1" 200 14070
+"GET /news/ HTTP/1.1" 200 21885
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET / HTTP/1.1" 200 22434
+Internal Server Error: /news/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 199, in render
+    template = context.template.engine.select_template(template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\engine.py", line 214, in select_template
+    raise TemplateDoesNotExist(", ".join(not_found))
+django.template.exceptions.TemplateDoesNotExist: Hero.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\Python\Projects\dpits-cms\mysite\news\views.py", line 33, in news_list
+    return render(request, "news/list.html", context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: Hero.html
+"GET /news/ HTTP/1.1" 500 199245
+Watching for file changes with StatReloader
+Internal Server Error: /news/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 199, in render
+    template = context.template.engine.select_template(template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\engine.py", line 214, in select_template
+    raise TemplateDoesNotExist(", ".join(not_found))
+django.template.exceptions.TemplateDoesNotExist: Hero.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\Python\Projects\dpits-cms\mysite\news\views.py", line 33, in news_list
+    return render(request, "news/list.html", context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: Hero.html
+"GET /news/ HTTP/1.1" 500 199382
+"GET /portfolio/ HTTP/1.1" 200 14024
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 14031
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET / HTTP/1.1" 200 22322
+"GET /portfolio/ HTTP/1.1" 200 14024
+"GET /static/accounts/css/accounts.css HTTP/1.1" 304 0
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 14024
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 15705
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 16181
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 16265
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 15149
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 15149
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 15149
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET /portfolio/ HTTP/1.1" 200 15149
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/ HTTP/1.1" 200 15149
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET /portfolio/ HTTP/1.1" 200 15064
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/base.css HTTP/1.1" 200 1498
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /static/css/components.css HTTP/1.1" 200 2033
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET /portfolio/?category=makety-dlya-sajtov HTTP/1.1" 200 15149
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/?category=gotovye-resheniya-sistemy-upravleniya-sajtom HTTP/1.1" 200 15149
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/?category=gotovye-resheniya-sistemy-upravleniya-sajtom HTTP/1.1" 200 15149
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/orders/create/ HTTP/1.1" 200 17123
+"GET /static/css/forms.css HTTP/1.1" 404 1966
+"GET / HTTP/1.1" 200 22315
+"GET /portfolio/ HTTP/1.1" 200 15149
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /portfolio/categories/ HTTP/1.1" 200 18898
+"GET /static/css/categories.css HTTP/1.1" 404 1981
+Not Found: /media/portfolio/default-category.png
+"GET /media/portfolio/default-category.png HTTP/1.1" 404 5011
+"GET /media/www_dpits_cms_ru/2025/09/www_dpits_cms_ru_20250928_183513_cat_logo_8.png HTTP/1.1" 200 42428
+"GET /portfolio/categories/ HTTP/1.1" 200 20505
+"GET /static/css/categories.css HTTP/1.1" 404 1981
+Not Found: /media/portfolio/default-category.png
+"GET /media/portfolio/default-category.png HTTP/1.1" 404 5011
+"GET /portfolio/categories/ HTTP/1.1" 200 20485
+"GET /static/css/categories.css HTTP/1.1" 404 1981
+Not Found: /media/portfolio/default-category.png
+"GET /media/portfolio/default-category.png HTTP/1.1" 404 5011
+"GET /portfolio/categories/ HTTP/1.1" 200 20502
+Not Found: /media/portfolio/default-category.png
+"GET /media/portfolio/default-category.png HTTP/1.1" 404 5011
+"GET /static/css/categories.css HTTP/1.1" 404 1981
+"GET /portfolio/categories/ HTTP/1.1" 200 20519
+"GET /static/css/categories.css HTTP/1.1" 404 1981
+Not Found: /media/portfolio/default-category.png
+"GET /media/portfolio/default-category.png HTTP/1.1" 404 5011
+"GET /portfolio/orders/create/ HTTP/1.1" 200 17123
+"GET /static/css/forms.css HTTP/1.1" 404 1966
