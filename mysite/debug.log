@@ -2957,3 +2957,32 @@ Not Found: /media/portfolio/default-category.png
 "GET /reviews/ HTTP/1.1" 200 14891
 "GET /accounts/tickets/ HTTP/1.1" 200 18446
 "GET /accounts/tickets/1/ HTTP/1.1" 200 20228
+Watching for file changes with StatReloader
+"GET /portfolio/ HTTP/1.1" 200 17444
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 24736
+"GET /page/o-nas/ HTTP/1.1" 200 16373
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/pages.css HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 24736
+"GET /news/ HTTP/1.1" 200 24209
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET / HTTP/1.1" 200 24736
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 24741
+"GET / HTTP/1.1" 200 24741
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 24747
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 10362
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 24750
+"GET / HTTP/1.1" 200 24750

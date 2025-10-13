@@ -29,7 +29,7 @@
 {% include 'Content-Section.html' %}
 <!-- Основной контент -->
 <section class="main-content">
-    <div class="container">
+    <div class="container py-5">
         {% if site_settings.content %}
         <div class="row justify-content-left">
             <div class="col-lg-10">
@@ -42,9 +42,9 @@
         
         <!-- Featured Pages -->
         {% if featured_pages %}
-        <div class="row">
+        <div class="row py-5">
             <div class="col-12">
-                <h2 class="text-center mb-4">Наши страницы</h2>
+                <h2 class="text-left mb-4">Наши страницы</h2>
                 <div class="row">
                     {% for page in featured_pages %}
                     <div class="col-md-4 mb-4">
