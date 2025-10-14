@@ -2996,3 +2996,41 @@ Watching for file changes with StatReloader
 "GET /static/css/base.css HTTP/1.1" 304 0
 "GET /static/css/pages.css HTTP/1.1" 304 0
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /portfolio/ HTTP/1.1" 200 17450
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET / HTTP/1.1" 200 24750
+"GET /reviews/ HTTP/1.1" 200 14897
+"GET /static/css/pages.css HTTP/1.1" 304 0
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET /reviews/add/ HTTP/1.1" 200 16378
+"POST /reviews/add/ HTTP/1.1" 302 0
+"GET /reviews/ HTTP/1.1" 200 15229
+"GET /admin/reviews/review/ HTTP/1.1" 200 27735
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/reviews/review/1/change/ HTTP/1.1" 200 29978
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"POST /admin/reviews/review/1/change/ HTTP/1.1" 302 0
+"GET /admin/reviews/review/ HTTP/1.1" 200 28379
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /reviews/ HTTP/1.1" 200 15104
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 23765
+"GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 62389
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"POST /admin/main/sitesettings/1/change/ HTTP/1.1" 302 0
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 24386
+"GET / HTTP/1.1" 200 12422
+"GET /static/accounts/css/accounts.css HTTP/1.1" 304 0
+"GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 62398
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"POST /admin/main/sitesettings/1/change/ HTTP/1.1" 302 0
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 24386
+"GET / HTTP/1.1" 200 12422
+"GET / HTTP/1.1" 200 12422
+"GET / HTTP/1.1" 200 12422
+"GET / HTTP/1.1" 200 12422
+"GET / HTTP/1.1" 200 12422
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 24750
