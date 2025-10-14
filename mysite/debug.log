@@ -2986,3 +2986,12 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 24750
 "GET / HTTP/1.1" 200 24750
+"GET /admin/ HTTP/1.1" 200 46939
+"GET /admin/ HTTP/1.1" 200 46939
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET / HTTP/1.1" 200 24750
+"GET /static/accounts/css/accounts.css HTTP/1.1" 304 0
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/pages.css HTTP/1.1" 304 0
