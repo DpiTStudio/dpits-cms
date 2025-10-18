@@ -3063,3 +3063,21 @@ Watching for file changes with StatReloader
 "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 24750
+"GET /static/css/base.css HTTP/1.1" 200 1680
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/pages.css HTTP/1.1" 200 3083
+"GET /static/css/components.css HTTP/1.1" 200 2213
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 24750
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /static/css/base.css HTTP/1.1" 200 1680
+"GET /static/css/components.css HTTP/1.1" 200 2219
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/pages.css HTTP/1.1" 200 3083
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
