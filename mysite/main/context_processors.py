@@ -1,4 +1,5 @@
-# main/context_processors.py
+# context_processors.py
+# Контекстные процессоры для добавления данных в шаблоны
 from django.core.cache import cache
 from django.utils.translation import gettext_lazy as _
 from .models import SiteSettings, Page
@@ -38,9 +39,11 @@ def menu_items(request):
 
         if pages:
             # Кэшируем на 10 минут (600 секунд)
-            cache.set(cache_key, pages, 600)
+            cache.set(cache_key, list(pages), 600)
+        else:
+            pages = []
 
-    return {"menu_pages": pages or []}
+    return {"menu_pages": pages}
 
 
 def seo_context(request):

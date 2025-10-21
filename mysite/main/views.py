@@ -1,6 +1,7 @@
-# main/views.py
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView, DetailView, ListView
+# views.py
+# Представления (контроллеры) для приложения main
+from django.shortcuts import render
+from django.views.generic import TemplateView, DetailView
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_cookie
@@ -8,15 +9,18 @@ from django.core.cache import cache
 from .models import SiteSettings, Page
 
 
-# main/views.py - добавьте этот класс
 class ProfileView(TemplateView):
     """
     Представление для страницы профиля пользователя.
+    Отображает шаблон профиля с базовым контекстом.
     """
 
     template_name = "main/profile.html"
 
     def get_context_data(self, **kwargs):
+        """
+        Добавляет данные контекста для страницы профиля.
+        """
         context = super().get_context_data(**kwargs)
         context.update(
             {
@@ -25,22 +29,6 @@ class ProfileView(TemplateView):
             }
         )
         return context
-
-
-def profile_view(request):
-    """
-    Функциональное представление для профиля.
-    """
-    site_settings = SiteSettings.load()
-    return render(
-        request,
-        "main/profile.html",
-        {
-            "site_settings": site_settings,
-            "page_title": "Профиль",
-            "meta_description": "Профиль пользователя",
-        },
-    )
 
 
 class BaseView:
@@ -52,16 +40,18 @@ class BaseView:
     def get_context_data(self, **kwargs):
         """
         Добавляет общие данные контекста для всех страниц.
+        Включает настройки сайта и проверку статуса обслуживания.
         """
         context = super().get_context_data(**kwargs)
 
-        # Получаем настройки сайта (с кэшированием на уровне представления)
+        # Получаем настройки сайта с кэшированием
         cache_key = f"site_settings_{self.__class__.__name__}"
         site_settings = cache.get(cache_key)
 
         if not site_settings:
             site_settings = SiteSettings.load()
-            cache.set(cache_key, site_settings, 300)  # Кэш на 5 минут
+            if site_settings:
+                cache.set(cache_key, site_settings, 300)  # Кэш на 5 минут
 
         context["site_settings"] = site_settings
 
@@ -77,6 +67,7 @@ class BaseView:
 class MaintenanceMixin:
     """
     Миксин для проверки статуса обслуживания сайта.
+    Перенаправляет на страницу закрытия, если сайт недоступен.
     """
 
     def dispatch(self, request, *args, **kwargs):
@@ -85,7 +76,7 @@ class MaintenanceMixin:
         """
         site_settings = SiteSettings.load()
 
-        if site_settings.site_closed and not request.user.is_staff:
+        if site_settings and site_settings.site_closed and not request.user.is_staff:
             # Для закрытого сайта показываем специальную страницу
             return render(
                 request, "main/site_closed.html", {"site_settings": site_settings}
@@ -105,10 +96,11 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
     def get_context_data(self, **kwargs):
         """
         Расширяет контекст данными для главной страницы.
+        Включает рекомендуемые страницы и SEO-данные.
         """
         context = super().get_context_data(**kwargs)
 
-        # Получаем featured страницы для главной
+        # Получаем рекомендуемые страницы для главной
         featured_pages = Page.objects.filter(show_on_site=True).order_by(
             "order", "title"
         )[:6]  # Ограничиваем количество
@@ -126,7 +118,7 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
         return context
 
     @method_decorator(cache_page(60 * 15))  # Кэшируем на 15 минут
-    @method_decorator(vary_on_cookie)
+    @method_decorator(vary_on_cookie)  # Учитываем куки пользователя
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
@@ -155,7 +147,7 @@ class PageDetailView(MaintenanceMixin, BaseView, DetailView):
         context = super().get_context_data(**kwargs)
         page = self.object
 
-        # SEO-данные
+        # SEO-данные страницы
         context.update(
             {
                 "page_title": page.display_title,
@@ -167,7 +159,7 @@ class PageDetailView(MaintenanceMixin, BaseView, DetailView):
         return context
 
     @method_decorator(cache_page(60 * 10))  # Кэшируем на 10 минут
-    @method_decorator(vary_on_cookie)
+    @method_decorator(vary_on_cookie)  # Учитываем куки пользователя
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 

@@ -1,9 +1,10 @@
-# main/urls.py
+# urls.py
+# Маршруты URL для приложения main
 from django.urls import path
 from django.views.generic import TemplateView
 from . import views
 
-app_name = "main"
+app_name = "main"  # Пространство имен приложения
 
 urlpatterns = [
     # Главная страница
@@ -13,7 +14,8 @@ urlpatterns = [
     # Статические страницы
     path("contacts/", views.ContactView.as_view(), name="contacts"),
     path("about/", views.AboutView.as_view(), name="about"),
-    # УДАЛЕН маршрут профиля, так как он уже есть в accounts
+    # Страница профиля пользователя
+    path("profile/", views.ProfileView.as_view(), name="profile"),
     # Обработка ошибок
     path(
         "error/404/",

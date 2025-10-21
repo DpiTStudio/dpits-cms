@@ -1,14 +1,16 @@
+# models.py
+# Модели базы данных для приложения main
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
-from django.core.exceptions import ValidationError
 
 
 class SingletonModel(models.Model):
     """
     Абстрактная модель для создания singleton-объектов (только одна запись).
+    Гарантирует, что в базе данных будет только один экземпляр модели.
     """
 
     class Meta:
@@ -17,8 +19,9 @@ class SingletonModel(models.Model):
     def save(self, *args, **kwargs):
         """
         Переопределяет сохранение, разрешая только одну запись.
+        Всегда устанавливает первичный ключ = 1.
         """
-        self.pk = 1  # Всегда устанавливаем первичный ключ = 1
+        self.pk = 1
         super().save(*args, **kwargs)
 
     @classmethod
@@ -75,25 +78,28 @@ class SiteSettings(SingletonModel):
         help_text=_("Сообщение, которое увидят пользователи при закрытии сайта"),
     )
 
-    # Временные метки (раскомментируйте после применения миграций)
+    # Временные метки
     created_at = models.DateTimeField(_("Создано"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Обновлено"), auto_now=True)
 
     class Meta:
-        """Метаданные модели."""
+        """Метаданные модели настроек сайта."""
 
         verbose_name = _("Настройки сайта")
         verbose_name_plural = _("Настройки сайта")
 
     def __str__(self):
         """Строковое представление объекта."""
-        return str(_("Настройки сайта"))  # Явное преобразование в строку
+        return _("Настройки сайта")
 
     def clean(self):
         """
         Валидация данных перед сохранением.
+        Проверяет корректность email и наличие сообщения при закрытии сайта.
         """
         super().clean()
+
+        # Проверка наличия сообщения при закрытии сайта
         if self.site_closed and not self.closure_message:
             raise ValidationError(
                 {
@@ -104,25 +110,9 @@ class SiteSettings(SingletonModel):
                 }
             )
 
-
-def clean(self):
-    """
-    Валидация данных перед сохранением.
-    """
-    super().clean()
-    if self.site_closed and not self.closure_message:
-        raise ValidationError(
-            {
-                "closure_message": _(
-                    "Необходимо указать сообщение при закрытии сайта, "
-                    "если сайт помечен как закрытый"
-                )
-            }
-        )
-
-    # Валидация email
-    if self.email and "@" not in self.email:
-        raise ValidationError({"email": _("Введите корректный email адрес")})
+        # Валидация email
+        if self.email and "@" not in self.email:
+            raise ValidationError({"email": _("Введите корректный email адрес")})
 
 
 class Page(models.Model):
@@ -174,11 +164,11 @@ class Page(models.Model):
 
         verbose_name = _("Страница")
         verbose_name_plural = _("Страницы")
-        ordering = ["order", "title"]
+        ordering = ["order", "title"]  # Сортировка по умолчанию
 
     def __str__(self):
         """Строковое представление - заголовок страницы."""
-        return self.title  # Здесь строка, поэтому str() не нужен
+        return self.title
 
     def get_absolute_url(self):
         """
@@ -198,7 +188,11 @@ class Page(models.Model):
     def clean(self):
         """
         Валидация данных страницы.
+        Проверяет, что slug не зарезервирован системой.
         """
         super().clean()
-        if self.slug == "admin":
+
+        # Запрет использования зарезервированных URL
+        reserved_slugs = ["admin", "login", "logout", "password"]
+        if self.slug in reserved_slugs:
             raise ValidationError({"slug": _("Этот URL-адрес зарезервирован системой")})

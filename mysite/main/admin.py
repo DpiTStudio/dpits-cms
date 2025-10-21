@@ -1,4 +1,5 @@
-# main/admin.py
+# admin.py
+# Админ-панель для моделей приложения main
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from .models import SiteSettings, Page
@@ -8,14 +9,15 @@ from .models import SiteSettings, Page
 class SiteSettingsAdmin(admin.ModelAdmin):
     """
     Админ-панель для настроек сайта.
-    Обеспечивает удобное управление всеми настройками через fieldsets.
+    Обеспечивает singleton-режим (только одна запись настроек).
     """
 
+    # Поля для отображения в списке записей
     list_display = ["slogan", "phone1", "email", "site_closed", "updated_at"]
-    list_filter = ["site_closed"]
-    readonly_fields = ["updated_at"]
+    list_filter = ["site_closed"]  # Фильтры в правой панели
+    readonly_fields = ["updated_at"]  # Только для чтения
 
-    # Группировка полей для лучшей организации в админке
+    # Группировка полей по секциям
     fieldsets = (
         (
             _("Основная информация"),
@@ -69,9 +71,10 @@ class SiteSettingsAdmin(admin.ModelAdmin):
 class PageAdmin(admin.ModelAdmin):
     """
     Админ-панель для страниц сайта.
-    Предоставляет удобное управление страницами с SEO-настройками.
+    Предоставляет управление страницами с SEO-настройками.
     """
 
+    # Поля для отображения в списке
     list_display = [
         "title",
         "slug",
@@ -80,13 +83,17 @@ class PageAdmin(admin.ModelAdmin):
         "order",
         "updated_at",
     ]
-    list_editable = ["show_in_menu", "show_on_site", "order"]
-    list_filter = ["show_in_menu", "show_on_site", "created_at"]
-    search_fields = ["title", "slug", "content"]
-    readonly_fields = ["created_at", "updated_at"]
-    prepopulated_fields = {"slug": ("title",)}
+    list_editable = [
+        "show_in_menu",
+        "show_on_site",
+        "order",
+    ]  # Редактируемые поля в списке
+    list_filter = ["show_in_menu", "show_on_site", "created_at"]  # Фильтры
+    search_fields = ["title", "slug", "content"]  # Поля для поиска
+    readonly_fields = ["created_at", "updated_at"]  # Только для чтения
+    prepopulated_fields = {"slug": ("title",)}  # Автозаполнение slug из title
 
-    # Организация полей в логические группы
+    # Группировка полей
     fieldsets = (
         (_("Основное содержимое"), {"fields": ("title", "slug", "content")}),
         (
@@ -97,7 +104,7 @@ class PageAdmin(admin.ModelAdmin):
             _("SEO оптимизация"),
             {
                 "fields": ("seo_title", "seo_keywords", "seo_description"),
-                "classes": ("collapse",),
+                "classes": ("collapse",),  # Сворачиваемая секция
             },
         ),
         (
@@ -108,7 +115,7 @@ class PageAdmin(admin.ModelAdmin):
 
     class Media:
         """
-        Добавляет CSS для улучшения внешнего вида админки.
+        Дополнительные CSS стили для админки.
         """
 
         css = {"all": ("admin/css/pages.css",)}

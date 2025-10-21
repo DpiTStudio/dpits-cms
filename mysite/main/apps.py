@@ -1,3 +1,5 @@
+# apps.py
+# Конфигурация приложения main
 from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
@@ -11,7 +13,7 @@ class MainConfig(AppConfig):
     # Автоматически создаваемый первичный ключ для моделей
     default_auto_field = "django.db.models.BigAutoField"
 
-    # Имя приложения (обязательное поле)
+    # Имя приложения
     name = "main"
 
     # Человекочитаемое имя для отображения в админке
@@ -20,7 +22,11 @@ class MainConfig(AppConfig):
     def ready(self):
         """
         Вызывается когда приложение готово к работе.
-        Можно использовать для регистрации сигналов и т.д.
+        Используется для регистрации сигналов.
         """
         # Импорт здесь чтобы избежать циклических импортов
-        from . import signals
+        try:
+            from . import signals
+        except ImportError:
+            # Если сигналы не определены, игнорируем ошибку
+            pass

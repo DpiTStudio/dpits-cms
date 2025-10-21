@@ -1,31 +1,39 @@
-<!-- main/templates/main/page_detail.html -->
+<!-- page_detail.html -->
+<!-- Шаблон детальной страницы -->
 {% extends 'base.html' %}
 {% load static %}
 
 {% block title %}
+    <!-- Заголовок страницы для браузера и SEO -->
     {{ page.display_title }} - {{ site_settings.logo_text }}
 {% endblock %}
 
 {% block meta_description %}
+    <!-- Мета-описание из SEO настроек или усеченный контент -->
     {{ page.seo_description|default:page.content|striptags|truncatewords:20 }}
 {% endblock %}
 
 {% block meta_keywords %}
+    <!-- Ключевые слова для SEO -->
     {{ page.seo_keywords }}
 {% endblock %}
 
 {% block extra_head %}
+    <!-- Подключение CSS стилей -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/page_detail.css' %}">
 {% endblock %}
 
 {% block content %}
+<!-- Включение общих секций -->
 {% include 'main/Hero.html' %}
-{% include 'Content-Section.html' %}
+
+<!-- Основной контент страницы -->
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            <!-- Хлебные крошки -->
+            
+            <!-- Навигационная цепочка (хлебные крошки) -->
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
@@ -38,6 +46,8 @@
             <!-- Заголовок страницы -->
             <header class="mb-4">
                 <h1 class="display-4 fw-bold text-primary">{{ page.title }}</h1>
+                
+                <!-- Информация о датах создания и обновления -->
                 {% if page.created_at or page.updated_at %}
                 <div class="text-muted small mt-2">
                     {% if page.created_at %}
@@ -56,7 +66,7 @@
                 {% endif %}
             </header>
             
-            <!-- Основной контент -->
+            <!-- Основной контент страницы -->
             <article class="page-content">
                 <div class="content-body">
                     {{ page.content|safe }}
@@ -66,6 +76,7 @@
             <!-- Навигация между страницами -->
             <div class="mt-5 pt-4 border-top">
                 <div class="row">
+                    <!-- Ссылка на предыдущую страницу -->
                     <div class="col-6">
                         {% with prev_page=page.get_previous_by_created_at %}
                             {% if prev_page and prev_page.show_on_site %}
@@ -77,6 +88,8 @@
                             {% endif %}
                         {% endwith %}
                     </div>
+                    
+                    <!-- Ссылка на следующую страницу -->
                     <div class="col-6 text-end">
                         {% with next_page=page.get_next_by_created_at %}
                             {% if next_page and next_page.show_on_site %}

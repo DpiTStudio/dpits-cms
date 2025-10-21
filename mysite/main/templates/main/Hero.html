@@ -1,36 +1,50 @@
-<!-- Hero Section -->
+<!-- Hero.html -->
+<!-- Секция героя (верхняя часть страницы) -->
 <section class="hero-section bg-primary text-white">
     <div class="container">
-        <div class="row align-items-left">
+        <div class="row align-items-center">
+            <!-- Левая колонка с текстовым контентом -->
             <div class="col-lg-8">
+                <!-- Основной заголовок сайта -->
                 <h1 class="display-5 fw-bold mb-3">{{ site_settings.title }}</h1>
+                
+                <!-- Текст логотипа или приветствие -->
                 <h2 class="display-4 fw-bold mb-1">
                     {{ site_settings.logo_text|default:"Добро пожаловать" }}
                 </h2>
+                
+                <!-- Слоган сайта (если задан) -->
                 {% if site_settings.slogan %}
                 <p class="lead mb-4">
                     {{ site_settings.slogan }}
                 </p>
                 {% endif %}
+                
+                <!-- Девиз сайта (если задан) -->
                 {% if site_settings.motto %}
                 <div class="motto-content">
                     {{ site_settings.motto|safe }}
                 </div>
                 {% endif %}
-            </div>
-            <div class="col-lg-2">
-                {% if site_settings.logo %}
-                <div class="text-left">
-                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" class="img_hero rounded shadow">
-                </div>
-                {% endif %}
-            </div>
-            <hr>
-                <div class="d-flex flex-wrap gap-2">
+                
+                <!-- Бейджи с тегами услуг -->
+                <div class="d-flex flex-wrap gap-2 mt-3">
                     <span class="badge bg-light text-primary fs-6">Веб-разработка</span>
                     <span class="badge bg-light text-primary fs-6">Дизайн</span>
                     <span class="badge bg-light text-primary fs-6">E-commerce</span>
                 </div>
+            </div>
+            
+            <!-- Правая колонка с логотипом -->
+            <div class="col-lg-4 text-center">
+                {% if site_settings.logo %}
+                <div class="logo-container">
+                    <img src="{{ site_settings.logo.url }}" 
+                         alt="{{ site_settings.logo_text }}" 
+                         class="img_hero rounded shadow">
+                </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 </section>

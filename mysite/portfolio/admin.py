@@ -8,7 +8,7 @@ from .models import (
     Client,
     Order,
     OrderMessage,
-    PortfolioReview,  # Исправлено: PortfolioReview вместо Review
+    PortfolioReview,
 )
 
 

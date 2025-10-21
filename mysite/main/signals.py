@@ -1,4 +1,5 @@
-# main/signals.py
+# signals.py
+# Сигналы для очистки кэша при изменениях в моделях
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.core.cache import cache
@@ -9,6 +10,7 @@ from .models import SiteSettings, Page
 def clear_site_settings_cache(sender, **kwargs):
     """
     Очищает кэш настроек сайта при сохранении или удалении.
+    Вызывается автоматически при изменениях в модели SiteSettings.
     """
     cache_keys = [
         "site_settings",
@@ -23,5 +25,8 @@ def clear_site_settings_cache(sender, **kwargs):
 def clear_pages_cache(sender, **kwargs):
     """
     Очищает кэш страниц при сохранении или удалении.
+    Вызывается автоматически при изменениях в модели Page.
     """
-    cache.delete("menu_pages")
+    cache_keys = ["menu_pages", "featured_pages"]
+    for key in cache_keys:
+        cache.delete(key)
