@@ -3306,3 +3306,8 @@ Watching for file changes with StatReloader
 "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 25049
+"GET /static/css/pages.css HTTP/1.1" 304 0
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/components.css HTTP/1.1" 304 0
