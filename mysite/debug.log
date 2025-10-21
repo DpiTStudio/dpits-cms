@@ -3311,3 +3311,6 @@ Watching for file changes with StatReloader
 "GET /static/css/pages.css HTTP/1.1" 304 0
 "GET /static/css/base.css HTTP/1.1" 304 0
 "GET /static/css/components.css HTTP/1.1" 304 0
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 25075
+Watching for file changes with StatReloader
