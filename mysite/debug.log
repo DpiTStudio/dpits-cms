@@ -3456,3 +3456,4 @@ Watching for file changes with StatReloader
 "GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 62390
 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
 "GET / HTTP/1.1" 200 26028
+Watching for file changes with StatReloader
