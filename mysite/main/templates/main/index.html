@@ -4,11 +4,10 @@
 {% load static %}
 
 {% block title %}
-    <!-- SEO заголовок страницы -->
     {% if site_settings.seo_title %}
-        {{ site_settings.seo_title }}
+        {{ site_settings.seo_title }} - {{ site_settings.slogan }}
     {% else %}
-        {{ site_settings.logo_text|default:"Главная страница" }}
+        {{ site_settings.logo_text|default:"Главная страница" }} - {{ site_settings.slogan }}
     {% endif %}
 {% endblock %}
 
@@ -33,9 +32,10 @@
 <!-- Включение секции героя -->
 {% include 'main/Hero.html' %}
 
+{% include 'Content-Section.html' %}
 <!-- Основной контент страницы -->
 <section class="main-content">
-    <div class="container py-5">
+    <div class="container-fluid py-5">
         
         <!-- Основной контент сайта -->
         {% if site_settings.content %}
