@@ -3457,3 +3457,86 @@ Watching for file changes with StatReloader
 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
 "GET / HTTP/1.1" 200 26028
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26072
+"GET / HTTP/1.1" 200 26072
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26063
+"GET / HTTP/1.1" 200 26063
+"GET / HTTP/1.1" 200 26063
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26063
+"GET / HTTP/1.1" 200 26063
+"GET /static/css/base.css HTTP/1.1" 200 1686
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/components.css HTTP/1.1" 200 2219
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 26063
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 28026
+"GET / HTTP/1.1" 200 28026
+"GET / HTTP/1.1" 200 28026
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 27716
+"GET / HTTP/1.1" 200 27716
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26072
+"GET / HTTP/1.1" 200 26072
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26126
+"GET /page/o-nas/ HTTP/1.1" 200 15782
+G:\Python\Projects\dpits-cms\mysite\main\models.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 62390
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/main/page/ HTTP/1.1" 200 29749
+"GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 23766
+"GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 62390
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 23766
+Watching for file changes with StatReloader
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 23766
+"GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 62390
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+G:\Python\Projects\dpits-cms\mysite\main\models.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/main/page/ HTTP/1.1" 200 29749
+"GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+G:\Python\Projects\dpits-cms\mysite\main\models.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\main\models.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 47121
+G:\Python\Projects\dpits-cms\mysite\main\models.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\main\admin.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\main\admin.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 23766
+"GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 66225
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+"GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+"GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+"POST /admin/main/sitesettings/1/change/ HTTP/1.1" 302 0
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 24386
+"GET /page/o-nas/ HTTP/1.1" 200 15782
+"GET / HTTP/1.1" 200 26120
+"GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 66260
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"POST /admin/main/sitesettings/1/change/ HTTP/1.1" 302 0
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 24386
+"GET / HTTP/1.1" 200 26120
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26163
+"GET / HTTP/1.1" 200 26163
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26175

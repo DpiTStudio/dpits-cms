@@ -51,6 +51,13 @@ class SiteSettingsAdmin(admin.ModelAdmin):
             _("Дополнительный контент"),
             {"fields": ("content",), "classes": ("collapse",)},
         ),
+        (
+            _("SEO оптимизация"),
+            {
+                "fields": ("seo_title", "seo_keywords", "seo_description"),
+                "classes": ("collapse",),  # Сворачиваемая секция
+            },
+        ),
     )
 
     def has_add_permission(self, request):

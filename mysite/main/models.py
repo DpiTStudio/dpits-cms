@@ -70,6 +70,26 @@ class SiteSettings(SingletonModel):
     vk = models.URLField(_("ВКонтакте"), blank=True)
     ok = models.URLField(_("Одноклассники"), blank=True)
 
+    # SEO оптимизация
+    seo_title = models.CharField(
+        _("SEO заголовок (title)"),
+        max_length=200,
+        blank=True,
+        help_text=_("Если не указан, используется заголовок страницы"),
+    )
+    seo_keywords = models.CharField(
+        _("SEO ключевые слова"),
+        max_length=200,
+        blank=True,
+        help_text=_("Ключевые слова через запятую"),
+    )
+    seo_description = models.CharField(
+        _("SEO описание (description)"),
+        max_length=255,
+        blank=True,
+        help_text=_("Краткое описание для поисковых систем"),
+    )
+
     # Статус сайта
     site_closed = models.BooleanField(_("Сайт закрыт"), default=False)
     closure_message = models.TextField(

@@ -5,7 +5,7 @@
 
 {% block title %}
     {% if site_settings.seo_title %}
-        {{ site_settings.seo_title }} - {{ site_settings.slogan }}
+        {{ site_settings.seo_title }} - {{ site_settings.logo_text }} - {{ site_settings.slogan }}
     {% else %}
         {{ site_settings.logo_text|default:"Главная страница" }} - {{ site_settings.slogan }}
     {% endif %}
