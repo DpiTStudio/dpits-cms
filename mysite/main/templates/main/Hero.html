@@ -7,11 +7,10 @@
             <div class="col-lg-8">
                 <!-- Основной заголовок сайта -->
                 <h1 class="display-5 fw-bold mb-3">{{ site_settings.title }}</h1>
-                {{ site_settings.logo_text|safe }}
+                <u>{{ site_settings.logo_text|safe }}</u>
                 <!-- Текст логотипа или приветствие -->
                 <h2 class="display-4 fw-bold mb-1">
-                    {% comment %} {{ site_settings.logo_text|default:"Добро пожаловать" }} {% endcomment %}
-                    Главная страница сайта
+                    {{ site_settings.seo_title|default:"Добро пожаловать" }}
                 </h2>
                 
                 <!-- Слоган сайта (если задан) -->
@@ -28,16 +27,11 @@
                 </div>
                 {% endif %}
                 
-                <!-- Бейджи с тегами услуг -->
-                <div class="d-flex flex-wrap gap-2 mt-3">
-                    <span class="badge bg-light text-primary fs-6">Веб-разработка</span>
-                    <span class="badge bg-light text-primary fs-6">Дизайн</span>
-                    <span class="badge bg-light text-primary fs-6">E-commerce</span>
-                </div>
+                {% include "bg1.html" %}
             </div>
             
             <!-- Правая колонка с логотипом -->
-            <div class="col-lg-4 text-center">
+            <div class="col-lg-4 text-left">
                 {% if site_settings.logo %}
                 <div class="logo-container">
                     <img src="{{ site_settings.logo.url }}" 
