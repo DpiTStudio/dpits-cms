@@ -5,9 +5,12 @@
 
 {% block title %}
     {% if site_settings.seo_title %}
-        {{ site_settings.seo_title }} - {{ site_settings.logo_text }} - {{ site_settings.slogan }}
+        {{ site_settings.logo_text }} 
+        - {{ site_settings.seo_title }} 
+        - {{ site_settings.slogan }}
     {% else %}
-        {{ site_settings.logo_text|default:"Главная страница" }} - {{ site_settings.slogan }}
+        {{ site_settings.logo_text|default:"Главная страница" }} 
+        - {{ site_settings.slogan }}
     {% endif %}
 {% endblock %}
 
@@ -31,15 +34,15 @@
 {% block content %}
 <!-- Включение секции героя -->
 {% include 'main/Hero.html' %}
-
 {% include 'Content-Section.html' %}
+
 <!-- Основной контент страницы -->
 <section class="main-content">
     <div class="container-fluid py-5">
         
         <!-- Основной контент сайта -->
         {% if site_settings.content %}
-        <div class="row justify-content-center">
+        <div class="row justify-content-left">
             <div class="col-lg-10">
                 <article class="content-article">
                     {{ site_settings.content|safe }}
@@ -52,7 +55,7 @@
         {% if featured_pages %}
         <div class="row py-5">
             <div class="col-12">
-                <h2 class="text-center mb-4">Наши страницы</h2>
+                <h2 class="text-left mb-4">Наши страницы</h2>
                 <div class="row">
                     {% for page in featured_pages %}
                     <div class="col-md-4 mb-4">
@@ -65,7 +68,7 @@
                             </div>
                             <div class="card-footer bg-transparent">
                                 <a href="{{ page.get_absolute_url }}" class="btn btn-primary btn-sm">
-                                    Читать далее
+                                    Детали о проекте
                                 </a>
                             </div>
                         </div>
