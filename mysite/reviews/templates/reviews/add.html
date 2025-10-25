@@ -2,6 +2,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}
+{{ site_settings.logo_text }} -  
+Добавить отзыв
+{% endblock %}
+
 {% block content %}
 <!-- Hero Section  -->
 {% include 'reviews/Hero.html' %}

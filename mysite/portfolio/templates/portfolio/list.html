@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Портфолио{% endblock %}
+{% block title %}
+{{ site_settings.logo_text }}
+- Портфолио
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/portfolio_list.css' %}">

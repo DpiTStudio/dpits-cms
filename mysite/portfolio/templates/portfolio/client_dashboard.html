@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Личный кабинет{% endblock %}
+{% block title %}
+{{ site_settings.logo_text }} 
+- Личный кабинет
+{% endblock %}
 
 {% block content %}
 <!-- Hero Section  -->

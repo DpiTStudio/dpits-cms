@@ -2,7 +2,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Мои тикеты - {{ site_settings.logo_text }}{% endblock %}
+{% block title %}
+{{ site_settings.logo_text }} - Мои тикеты
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'accounts/css/tickets.css' %}">

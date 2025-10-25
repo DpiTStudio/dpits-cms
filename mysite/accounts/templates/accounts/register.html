@@ -2,7 +2,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Регистрация - {{ site_settings.logo_text }}{% endblock %}
+{% block title %}
+{{ site_settings.logo_text }} - Регистрация
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'accounts/css/register.css' %}">

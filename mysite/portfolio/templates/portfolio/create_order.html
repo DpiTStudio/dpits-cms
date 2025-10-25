@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Создание заказа{% endblock %}
+{% block title %}
+{{ site_settings.logo_text }}
+- Создание заказа
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/forms.css' %}">

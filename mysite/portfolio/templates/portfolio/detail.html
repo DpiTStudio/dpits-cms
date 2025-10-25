@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ item.title }} - Портфолио{% endblock %}
+{% block title %}
+{{ site_settings.logo_text }}
+- Портфолио  
+- {{ item.title }}
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/portfolio_detail.css' %}">

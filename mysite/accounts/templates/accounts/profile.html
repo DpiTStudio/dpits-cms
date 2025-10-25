@@ -2,7 +2,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Профиль - {{ site_settings.logo_text }}{% endblock %}
+{% block title %}
+{{ site_settings.logo_text }} - Профиль 
+{% endblock %}
 
 {% block header %}
     {% include "accounts/profile_header.html" %}

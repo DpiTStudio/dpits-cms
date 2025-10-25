@@ -2,7 +2,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ site_settings.logo_text }} - Новости{% endblock %}
+{% block title %}
+{{ site_settings.logo_text }} - Новости
+{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/news-categories.css' %}">

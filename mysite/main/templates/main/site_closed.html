@@ -3,7 +3,8 @@
 {% load static %}
 
 {% block title %}
-    Сайт временно недоступен - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
+    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} 
+    - Сайт временно недоступен
 {% endblock %}
 
 {% block meta_description %}
