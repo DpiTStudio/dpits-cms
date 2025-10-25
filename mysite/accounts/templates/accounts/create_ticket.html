@@ -13,85 +13,85 @@
 <!-- Hero Section  -->
 {% include 'accounts/Hero.html' %}
 <div class="container mt-4 mb-5">
-    <div class="ticket-form-container">
-        <div class="ticket-header">
-            <h2><i class="fas fa-ticket-alt me-2"></i>Создание тикета поддержки</h2>
-            <p>Опишите вашу проблему как можно подробнее, и мы постараемся помочь вам в кратчайшие сроки</p>
+  <div class="ticket-form-container">
+    <div class="ticket-header">
+        <h2><i class="fas fa-ticket-alt me-2"></i>Создание тикета поддержки</h2>
+        <p>Опишите вашу проблему как можно подробнее, и мы постараемся помочь вам в кратчайшие сроки</p>
+    </div>
+      
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+      
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="mb-4">
+            <label for="{{ form.subject.id_for_label }}" class="form-label">{{ form.subject.label }}</label>
+            {{ form.subject }}
+            {% if form.subject.errors %}
+                <div class="text-danger mt-1">
+                    {% for error in form.subject.errors %}
+                        <small>{{ error }}</small>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
         
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="mb-4">
+            <label for="{{ form.message.id_for_label }}" class="form-label">{{ form.message.label }}</label>
+            {{ form.message }}
+            {% if form.message.errors %}
+                <div class="text-danger mt-1">
+                    {% for error in form.message.errors %}
+                        <small>{{ error }}</small>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        {% endif %}
+            {% endif %}
+        </div>
         
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            
-            <div class="mb-4">
-                <label for="{{ form.subject.id_for_label }}" class="form-label">{{ form.subject.label }}</label>
-                {{ form.subject }}
-                {% if form.subject.errors %}
-                    <div class="text-danger mt-1">
-                        {% for error in form.subject.errors %}
-                            <small>{{ error }}</small>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            
-            <div class="mb-4">
-                <label for="{{ form.message.id_for_label }}" class="form-label">{{ form.message.label }}</label>
-                {{ form.message }}
-                {% if form.message.errors %}
-                    <div class="text-danger mt-1">
-                        {% for error in form.message.errors %}
-                            <small>{{ error }}</small>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            
-            <div class="support-info">
-                <h5><i class="fas fa-info-circle me-2"></i>Полезные советы</h5>
-                <ul class="mb-0">
-                    <li>Опишите проблему максимально подробно</li>
-                    <li>Укажите шаги, которые привели к возникновению проблемы</li>
-                    <li>Если есть ошибки, приведите их точный текст</li>
-                    <li>Укажите, когда именно возникла проблема</li>
-                </ul>
-            </div>
-            
-            <div class="d-flex justify-content-between align-items-center mt-4">
-                <a href="{% url 'accounts:ticket_list' %}" class="btn btn-outline-secondary">
-                    <i class="fas fa-arrow-left me-2"></i>Назад к списку тикетов
-                </a>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-paper-plane me-2"></i>Отправить тикет
-                </button>
-            </div>
-        </form>
-    </div>
+        <div class="support-info">
+            <h5><i class="fas fa-info-circle me-2"></i>Полезные советы</h5>
+            <ul class="mb-0">
+                <li>Опишите проблему максимально подробно</li>
+                <li>Укажите шаги, которые привели к возникновению проблемы</li>
+                <li>Если есть ошибки, приведите их точный текст</li>
+                <li>Укажите, когда именно возникла проблема</li>
+            </ul>
+        </div>
+        
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <a href="{% url 'accounts:ticket_list' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Назад к списку тикетов
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-paper-plane me-2"></i>Отправить тикет
+            </button>
+        </div>
+    </form>
+  </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    // Добавляем класс form-control ко всем полям формы
-    document.addEventListener('DOMContentLoaded', function() {
-        const subjectInput = document.getElementById('{{ form.subject.id_for_label }}');
-        const messageTextarea = document.getElementById('{{ form.message.id_for_label }}');
-        
-        if (subjectInput) {
-            subjectInput.classList.add('form-control');
-        }
-        
-        if (messageTextarea) {
-            messageTextarea.classList.add('form-control');
-        }
-    });
+// Добавляем класс form-control ко всем полям формы
+document.addEventListener('DOMContentLoaded', function() {
+    const subjectInput = document.getElementById('{{ form.subject.id_for_label }}');
+    const messageTextarea = document.getElementById('{{ form.message.id_for_label }}');
+    
+    if (subjectInput) {
+        subjectInput.classList.add('form-control');
+    }
+    
+    if (messageTextarea) {
+        messageTextarea.classList.add('form-control');
+    }
+});
 </script>
 {% endblock %}
