@@ -1,4 +1,9 @@
 /* accounts/static/accounts/css/profile.css */
+.profile-body {
+    padding: 30px;
+    margin: 30px;
+}
+
 .profile-avatar {
     width: 120px;
     height: 120px;

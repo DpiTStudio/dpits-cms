@@ -321,4 +321,4 @@ class PortfolioReview(models.Model):
                 stars += '<i class="fas fa-star text-warning"></i>'
             else:
                 stars += '<i class="far fa-star text-muted"></i>'
-        return format_html(stars)  # Исправлено: добавлен format_html
+        return format_html(stars)
