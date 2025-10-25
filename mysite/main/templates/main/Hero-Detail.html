@@ -10,7 +10,7 @@
                 <u>{{ site_settings.logo_text|safe }}</u>
                 <!-- Текст логотипа или приветствие -->
                 <h2 class="display-4 fw-bold mb-1">
-                    {{ site_settings.seo_title|default:"Добро пожаловать" }}
+                    {{ page.display_title|default:"Добро пожаловать" }}
                 </h2>
                 
                 <!-- Слоган сайта (если задан) -->

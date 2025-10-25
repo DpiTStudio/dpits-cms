@@ -4278,3 +4278,45 @@ Watching for file changes with StatReloader
 "GET /static/css/components.css HTTP/1.1" 304 0
 Watching for file changes with StatReloader
 "GET /page/o-nas/ HTTP/1.1" 200 15578
+"GET /page/o-nas/ HTTP/1.1" 200 15578
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET /page/o-nas/ HTTP/1.1" 200 15578
+Watching for file changes with StatReloader
+"GET /page/o-nas/ HTTP/1.1" 200 15541
+"GET /accounts/tickets/ HTTP/1.1" 200 19478
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+"GET /accounts/tickets/ HTTP/1.1" 200 19478
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 45846
+"GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+"GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+"GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET /page/o-nas/ HTTP/1.1" 200 15541
+"GET /news/ HTTP/1.1" 200 25301
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/ HTTP/1.1" 200 18396
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /reviews/ HTTP/1.1" 200 15102
+"GET /portfolio/ HTTP/1.1" 200 18396
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /reviews/ HTTP/1.1" 200 15102
+"GET /reviews/ HTTP/1.1" 200 15102
+"POST /admin/logout/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 25200
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET /accounts/login/ HTTP/1.1" 200 21055
+"GET /static/accounts/css/login.css HTTP/1.1" 200 1992
+"POST /accounts/login/ HTTP/1.1" 302 0
+"GET /accounts/profile/ HTTP/1.1" 200 20436
+"GET /static/accounts/css/profile.css HTTP/1.1" 200 1674
+"GET /media/avatars/avatar_user_1.png HTTP/1.1" 200 372188
+"GET /accounts/logout/confirm/ HTTP/1.1" 200 14941
+"POST /accounts/logout/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 25200
+"GET /accounts/login/ HTTP/1.1" 200 21251
+"POST /accounts/login/ HTTP/1.1" 302 0
+"GET /accounts/profile/ HTTP/1.1" 200 20436
