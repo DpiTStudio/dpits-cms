@@ -234,7 +234,7 @@ JAZZMIN_SETTINGS = {
         "dark_mode_theme": "darkly",  # Темная тема для темного режима
     },
     # === ДОПОЛНИТЕЛЬНЫЕ УЛУЧШЕНИЯ ===
-    "search_model": ["auth.User", "main.Profile"],  # Модели для поиска в хедере
+    # "search_model": ["auth.User", "main.Profile"],  # Модели для поиска в хедере
     "topmenu_links": [
         {
             "name": "На сайт",

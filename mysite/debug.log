@@ -3707,3 +3707,40 @@ Watching for file changes with StatReloader
 "GET /media/news/categories/cat_logo_8.png HTTP/1.1" 200 42428
 "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
 "GET /media/news/categories/cat_logo_7.png HTTP/1.1" 200 42026
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26084
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/base.css HTTP/1.1" 200 1686
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/components.css HTTP/1.1" 200 2219
+"GET /admin/ HTTP/1.1" 200 47260
+"GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+"GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+"GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 45838
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 22344
+"GET /static/admin/js/core.js HTTP/1.1" 200 6208
+"GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+"GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+"GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+"GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+"GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+"GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+"GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+"GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+"GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+"GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+"GET /admin/main/page/ HTTP/1.1" 200 28327
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+"GET /admin/news/newscategory/ HTTP/1.1" 200 30728
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/main/sitesettings/ HTTP/1.1" 200 22344
+"GET /admin/ HTTP/1.1" 200 45838
