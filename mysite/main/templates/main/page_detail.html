@@ -3,29 +3,29 @@
 {% extends 'base.html' %}
 {% load static %}
 
+<!-- Заголовок страницы для браузера и SEO -->
 {% block title %}
-    <!-- Заголовок страницы для браузера и SEO -->
-    {{ page.display_title }} - {{ site_settings.logo_text }}
+    {{ page.display_title }} - {{ site_settings.logo_text }} -  {{ site_settings.logo_text }}
 {% endblock %}
 
+<!-- Мета-описание из SEO настроек или усеченный контент -->
 {% block meta_description %}
-    <!-- Мета-описание из SEO настроек или усеченный контент -->
     {{ page.seo_description|default:page.content|striptags|truncatewords:20 }}
 {% endblock %}
 
+<!-- Ключевые слова для SEO -->
 {% block meta_keywords %}
-    <!-- Ключевые слова для SEO -->
     {{ page.seo_keywords }}
 {% endblock %}
 
+<!-- Подключение CSS стилей -->
 {% block extra_head %}
-    <!-- Подключение CSS стилей -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/page_detail.css' %}">
 {% endblock %}
 
-{% block content %}
 <!-- Включение общих секций -->
+{% block content %}
 {% include 'main/Hero.html' %}
 
 <!-- Основной контент страницы -->
