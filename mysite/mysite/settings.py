@@ -263,7 +263,7 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
-        "main.Profile": "fas fa-address-card",
+        # "main.Profile": "fas fa-address-card",
         "news.News": "fas fa-newspaper",
         "portfolio.Project": "fas fa-briefcase",
         "reviews.Review": "fas fa-star",
