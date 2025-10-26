@@ -4340,3 +4340,12 @@ Watching for file changes with StatReloader
 "GET /static/css/news-cards.css HTTP/1.1" 404 1981
 "GET /portfolio/ HTTP/1.1" 200 18396
 "GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26108
+"GET /news/ HTTP/1.1" 200 25301
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /portfolio/ HTTP/1.1" 200 18396
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /reviews/ HTTP/1.1" 200 15102
