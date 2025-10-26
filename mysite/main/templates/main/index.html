@@ -2,7 +2,7 @@
 <!-- Главная страница сайта -->
 {% extends 'base.html' %}
 {% load static %}
-
+<!--  -->
 {% block title %}
     {% if site_settings.seo_title %}
         {{ site_settings.logo_text }} 
@@ -13,9 +13,8 @@
         - {{ site_settings.slogan }}
     {% endif %}
 {% endblock %}
-
-{% block meta_description %}
-    <!-- Мета-описание для поисковых систем -->
+<!-- Мета-описание для поисковых систем -->
+{% block meta_description %}    
     {{ site_settings.short_description|striptags|truncatewords:20 }}
 {% endblock %}
 
@@ -30,54 +29,51 @@
     <!-- Подключение CSS стилей -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock %}
-
-{% block content %}
 <!-- Включение секции героя -->
-{% include 'main/Hero.html' %}
+{% block content %}
+
 {% include 'Content-Section.html' %}
 
 <!-- Основной контент страницы -->
 <section class="main-content">
-    <div class="container-fluid py-5">
-        
-        <!-- Основной контент сайта -->
-        {% if site_settings.content %}
-        <div class="row justify-content-left">
-            <div class="col-lg-10">
-                <article class="content-article">
-                    {{ site_settings.content|safe }}
-                </article>
-            </div>
+  <div class="container-fluid py-5">
+    <!-- Основной контент сайта -->
+    {% if site_settings.content %}
+    <div class="row justify-content-left">
+        <div class="col-lg-10">
+            <article class="content-article">
+                {{ site_settings.content|safe }}
+            </article>
         </div>
-        {% endif %}
-        
-        <!-- Рекомендуемые страницы -->
-        {% if featured_pages %}
-        <div class="row py-5">
-            <div class="col-12">
-                <h2 class="text-left mb-4">Наши страницы</h2>
-                <div class="row">
-                    {% for page in featured_pages %}
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ page.title }}</h5>
-                                <p class="card-text">
-                                    {{ page.content|striptags|truncatewords:30 }}
-                                </p>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                <a href="{{ page.get_absolute_url }}" class="btn btn-primary btn-sm">
-                                    Детали о проекте
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        {% endif %}
     </div>
+    {% endif %}
+    <!-- Рекомендуемые страницы -->
+    {% if featured_pages %}
+    <div class="row py-5">
+      <div class="col-12">
+          <h2 class="text-left mb-4">Наши страницы</h2>
+          <div class="row">
+              {% for page in featured_pages %}
+              <div class="col-md-4 mb-4">
+                  <div class="card h-100 shadow-sm">
+                      <div class="card-body">
+                          <h5 class="card-title">{{ page.title }}</h5>
+                          <p class="card-text">
+                              {{ page.content|striptags|truncatewords:30 }}
+                          </p>
+                      </div>
+                      <div class="card-footer bg-transparent">
+                          <a href="{{ page.get_absolute_url }}" class="btn btn-primary btn-sm">
+                              Детали о проекте
+                          </a>
+                      </div>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
 </section>
 {% endblock %}

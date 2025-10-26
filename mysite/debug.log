@@ -4349,3 +4349,57 @@ Watching for file changes with StatReloader
 "GET /portfolio/ HTTP/1.1" 200 18396
 "GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
 "GET /reviews/ HTTP/1.1" 200 15102
+"GET /reviews/ HTTP/1.1" 200 16210
+Watching for file changes with StatReloader
+"GET /reviews/ HTTP/1.1" 200 16210
+"GET /reviews/ HTTP/1.1" 200 16210
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26462
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 26462
+"GET / HTTP/1.1" 200 26462
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26462
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26315
+"GET / HTTP/1.1" 200 26315
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 29133
+"GET / HTTP/1.1" 200 29133
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/base.css HTTP/1.1" 200 1686
+"GET /static/css/components.css HTTP/1.1" 200 2230
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 29133
+"GET / HTTP/1.1" 200 29133
+"GET /static/css/base.css HTTP/1.1" 200 1686
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/components.css HTTP/1.1" 200 2230
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 31939
+"GET / HTTP/1.1" 200 31939
+"GET / HTTP/1.1" 200 31939
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 29127
+"GET / HTTP/1.1" 200 29127
+"GET / HTTP/1.1" 200 29127
+"GET /static/accounts/css/accounts.css HTTP/1.1" 200 4045
+"GET /static/css/pages.css HTTP/1.1" 200 2901
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/base.css HTTP/1.1" 200 1686
+"GET /static/css/responsive.css HTTP/1.1" 200 2540
+"GET /static/css/components.css HTTP/1.1" 200 2230
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26314
