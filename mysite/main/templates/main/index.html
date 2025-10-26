@@ -16,8 +16,8 @@
     {{ site_settings.short_description|striptags|truncatewords:20 }}
 {% endblock %}
 
+<!-- Дополнительные мета-теги для социальных сетей -->
 {% block extra_head %}
-    <!-- Дополнительные мета-теги для социальных сетей -->
     <meta property="og:title" content="{{ site_settings.logo_text }}">
     <meta property="og:description" content="{{ site_settings.short_description|striptags|truncatewords:20 }}">
     {% if site_settings.logo %}
@@ -25,18 +25,10 @@
     {% endif %}
 {% endblock %}
 
-{% block hero_section %}
-<!-- Используем кастомную hero секцию для главной страницы -->
-{% include 'main/Hero.html' %}
-{% endblock %}
-
 {% block content %}
 <!-- Основной контент страницы -->
 <section class="main-content">
   <div class="container-fluid py-5">
-    
-    {% include 'Content-Section.html' %}
-    
     <!-- Основной контент сайта -->
     {% if site_settings.content %}
     <div class="row justify-content-center mt-5">
@@ -52,7 +44,7 @@
     {% if featured_pages %}
     <div class="row py-5">
       <div class="col-12">
-          <h2 class="text-center mb-4">Наши страницы</h2>
+          <h2 class="text-left mb-4">Наши страницы</h2>
           <div class="row">
               {% for page in featured_pages %}
               <div class="col-md-4 mb-4">
