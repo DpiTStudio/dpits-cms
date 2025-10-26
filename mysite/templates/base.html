@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block title %}
-        {{ page.title }}
-        {{ site_settings.logo_text }}
+        {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
         {% endblock %}
     </title>
+    
+    <!-- Meta Description -->
+    <meta name="description" content="{% block meta_description %}{{ site_settings.short_description|striptags|truncatewords:20 }}{% endblock %}">
     
     <!-- Favicon -->
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
@@ -21,35 +23,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'accounts/css/accounts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components.css' %}">
-    <link rel="stylesheet" href="{% static 'css/pages.css' %}">
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     
+    {% block extra_head %}{% endblock %}
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!-- Header -->
     {% block header %}
     {% include "Header.html" %}
     {% endblock %}
 
-    <!-- Content -->
-
-    <main>
-      {% include 'main/Hero.html' %}
-    </main>
-    <div class="container-fluid py-0">
-      <div class="row">
-        <div class="col-12"></div>
-        <div class="col-8">
-        {% block content %}
+    <!-- Main Content -->
+    <main class="flex-grow-1">
+        {% block hero_section %}
+        {% include 'main/Hero.html' %}
         {% endblock %}
-        </div>
-        <div class="col-4"></div>
-      </div>
-    </div>
+        
+        {% block content %}
+        <!-- Default content will be overridden by child templates -->
+        {% endblock %}
+    </main>
 
     <!-- Footer -->
     {% include "Footer.html" %}
