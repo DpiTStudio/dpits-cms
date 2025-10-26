@@ -4670,3 +4670,4 @@ django.template.exceptions.TemplateDoesNotExist: bg4.html
 "GET /portfolio/ HTTP/1.1" 500 225248
 "GET /portfolio/ HTTP/1.1" 200 18066
 "GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+Watching for file changes with StatReloader
