@@ -38,19 +38,25 @@
     <!-- Content -->
 
     <main>
-      {% include 'main/Hero.html' %}
-    </main>
-    <div class="container-fluid py-0">
-      <div class="row">
-        <div class="col-12"></div>
-        <div class="col-8">
-        {% block content %}
-        {% endblock %}
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            {% include 'Hero.html' %}
+          </div>
+          <div class="col-8">
+          {% block content %}
+          {% endblock %}
+          </div>
+          <div class="col-4">
+            Новости 
+            <hr>
+            Акции
+            <hr>
+            Работы
+          </div>
         </div>
-        <div class="col-4"></div>
       </div>
-    </div>
-
+    </main>
     <!-- Footer -->
     {% include "Footer.html" %}
 
