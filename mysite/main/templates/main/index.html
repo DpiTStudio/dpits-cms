@@ -2,18 +2,16 @@
 <!-- Главная страница сайта -->
 {% extends 'base.html' %}
 {% load static %}
-<!--  -->
+
 {% block title %}
     {% if site_settings.seo_title %}
         {{ site_settings.logo_text }} 
-        - {{ site_settings.seo_title }} 
-        - {{ site_settings.slogan }}
+        - {{ site_settings.seo_title }}
     {% else %}
-        {{ site_settings.logo_text|default:"Главная страница" }} 
-        - {{ site_settings.slogan }}
+        {{ site_settings.logo_text|default:"Главная страница" }}
     {% endif %}
 {% endblock %}
-<!-- Мета-описание для поисковых систем -->
+
 {% block meta_description %}    
     {{ site_settings.short_description|striptags|truncatewords:20 }}
 {% endblock %}
@@ -25,18 +23,23 @@
     {% if site_settings.logo %}
     <meta property="og:image" content="{{ site_settings.logo.url }}">
     {% endif %}
-    
-    <!-- Подключение CSS стилей -->
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock %}
-<!-- Включение секции героя -->
+
+{% block hero_section %}
+<!-- Используем кастомную hero секцию для главной страницы -->
+{% include 'main/Hero.html' %}
+{% endblock %}
+
 {% block content %}
 <!-- Основной контент страницы -->
 <section class="main-content">
   <div class="container-fluid py-5">
+    
+    {% include 'Content-Section.html' %}
+    
     <!-- Основной контент сайта -->
     {% if site_settings.content %}
-    <div class="row justify-content-left">
+    <div class="row justify-content-center mt-5">
         <div class="col-lg-10">
             <article class="content-article">
                 {{ site_settings.content|safe }}
@@ -44,11 +47,12 @@
         </div>
     </div>
     {% endif %}
+    
     <!-- Рекомендуемые страницы -->
     {% if featured_pages %}
     <div class="row py-5">
       <div class="col-12">
-          <h2 class="text-left mb-4">Наши страницы</h2>
+          <h2 class="text-center mb-4">Наши страницы</h2>
           <div class="row">
               {% for page in featured_pages %}
               <div class="col-md-4 mb-4">
