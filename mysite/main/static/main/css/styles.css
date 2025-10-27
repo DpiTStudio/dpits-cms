@@ -1,25 +1,26 @@
 /* styles.css - Основные стили для всего сайта */
-
-/* Общие стили */
-/* * {
-    padding: 0px;
-    margin: 0;
-    box-sizing: border-box;
-} */
-
-/* Hero Section Styles */
+/* Hero секция */
 .hero-section {
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-    padding: 2rem 0 !important;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  padding: 2rem 0 !important;
+}
+.hero-section h1 {
+    font-weight: 700;
+    margin-bottom: 1rem;
 }
 
-.img_hero {
-    width: 200px !important;
-    height: 200px !important;
-    object-fit: cover;
-    border-radius: 1px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+.hero-section .text_motto {
+    font-size: 1.2rem;
+    opacity: 0.9;
 }
+.img_hero {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+} 
 
 .motto-content {
     font-size: 1.1rem;

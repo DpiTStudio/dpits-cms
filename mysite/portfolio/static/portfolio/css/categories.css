@@ -55,18 +55,7 @@
     border-radius: 2px;
 }
 
-.hero-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 2rem 0 !important;
-}
-.img_hero {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+
 .empty-state {
     padding: 3rem 1rem;
 }
