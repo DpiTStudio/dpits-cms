@@ -2,10 +2,8 @@
 
 /* Hero Section Styles */
 .hero-section {
-    background: linear-gradient(135deg, #007bff75 0%, #032346 100%);
+    background: linear-gradient(135deg, #ffffff75 0%, #b16c0a 100%);
     padding: 3rem 0 !important;
-    position: relative;
-    overflow: hidden;
 }
 
 .img_hero {
@@ -124,7 +122,8 @@
 }
 
 .bg-primary {
-    background-color: #007bff !important;
+    /* background-color: #007bff !important; */
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
 }
 
 .text-primary {

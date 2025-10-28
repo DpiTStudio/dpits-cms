@@ -32,8 +32,6 @@ main {
 }
 
 .container-fluid {
-    /* padding-left: 0;
-    padding-right: 0; */
 }
 
 .full-width-section {
@@ -55,7 +53,6 @@ main {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     border: none;
     border-radius: var(--border-radius);
     transition: var(--transition);
