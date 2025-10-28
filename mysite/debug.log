@@ -5128,3 +5128,10 @@ Watching for file changes with StatReloader
 "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
 "GET /static/js/main.js HTTP/1.1" 200 4464
 "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 27107
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 27107
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 27107
+"GET /static/css/styles.css HTTP/1.1" 404 1969
