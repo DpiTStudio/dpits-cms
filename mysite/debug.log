@@ -5867,3 +5867,5 @@ Watching for file changes with StatReloader
 "GET /static/css/styles.css HTTP/1.1" 404 1969
 Watching for file changes with StatReloader
 "GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26468
+"GET /static/css/styles.css HTTP/1.1" 404 1969
