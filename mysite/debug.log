@@ -5287,3 +5287,14 @@ Watching for file changes with StatReloader
 "GET /static1/css/pagination.css HTTP/1.1" 404 1983
 "GET / HTTP/1.1" 200 27111
 "GET /static1/css/styles.css HTTP/1.1" 404 1971
+"GET /portfolio/ HTTP/1.1" 200 18934
+"GET /static1/css/styles.css HTTP/1.1" 404 1971
+"GET /static1/css/portfolio_list.css HTTP/1.1" 404 1995
+"GET /reviews/ HTTP/1.1" 200 17069
+"GET /static1/css/styles.css HTTP/1.1" 404 1971
+"GET /news/ HTTP/1.1" 200 26082
+"GET /static1/css/news-cards.css HTTP/1.1" 404 1983
+"GET /static1/css/styles.css HTTP/1.1" 404 1971
+"GET /static1/css/news-categories.css HTTP/1.1" 404 1998
+"GET /static1/css/pagination.css HTTP/1.1" 404 1983
+Watching for file changes with StatReloader
