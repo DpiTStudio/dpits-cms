@@ -60,7 +60,7 @@ class UserProfile(models.Model):
         """Получение URL аватара с fallback"""
         if self.avatar and hasattr(self.avatar, "url"):
             return self.avatar.url
-        return "/static/accounts/images/default-avatar.png"
+        return "/static1/accounts/images/default-avatar.png"
 
     def clean(self):
         """Валидация данных профиля"""

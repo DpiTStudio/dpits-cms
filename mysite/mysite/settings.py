@@ -167,10 +167,10 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 # =============================================================================
 
 # Настройки статических файлов (CSS, JavaScript, изображения)
-STATIC_URL = "/static/"  # URL префикс для статических файлов
+STATIC_URL = "/static1/"  # URL префикс для статических файлов
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Директория для collectstatic
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),  # Дополнительные директории со статикой
+    os.path.join(BASE_DIR, "static1"),  # Дополнительные директории со статикой
 ]
 
 # Настройки медиа файлов (загружаемые пользователями)

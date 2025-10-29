@@ -3,6 +3,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+<!-- Title -->
 {% block title %}
     {% if site_settings.seo_title %}
         {{ site_settings.logo_text }} 
@@ -12,6 +13,7 @@
     {% endif %}
 {% endblock %}
 
+<!-- Meta description -->
 {% block meta_description %}    
     {{ site_settings.short_description|striptags|truncatewords:20 }}
 {% endblock %}
