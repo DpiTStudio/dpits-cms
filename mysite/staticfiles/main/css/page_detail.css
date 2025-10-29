@@ -1,0 +1,186 @@
+/* page_detail.css */
+/* Стили для страницы с детальным контентом */
+
+/* Основные стили контента страницы */
+.page-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.content-body {
+    max-width: 100%;
+}
+
+/* Стили заголовков */
+.content-body h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.content-body h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #34495e;
+    font-weight: 600;
+}
+
+/* Стили параграфов */
+.content-body p {
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+/* Стили изображений */
+.content-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 1.5rem 0;
+}
+
+/* Стили цитат */
+.content-body blockquote {
+    border-left: 4px solid #007bff;
+    padding-left: 1.5rem;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    color: #6c757d;
+    background-color: #f8f9fa;
+    padding: 1rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Стили хлебных крошек */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+.breadcrumb-item a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}
+
+/* Стили заголовка страницы */
+.display-4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.text-muted small {
+    font-size: 0.875rem;
+}
+
+/* Стили кнопок навигации */
+.btn-outline-primary {
+    border-color: #007bff;
+    color: #007bff;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .page-content {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .content-body img {
+        margin: 1rem 0;
+    }
+}
+
+/* Стили для таблиц */
+.content-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.content-body th,
+.content-body td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.content-body th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+}
+
+.content-body tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Стили для списков */
+.content-body ul,
+.content-body ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.content-body li {
+    margin-bottom: 0.5rem;
+}
+
+/* Стили для кода */
+.content-body code {
+    background-color: #f8f9fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    color: #e83e8c;
+}
+
+.content-body pre {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-left: 4px solid #007bff;
+}
+
+.content-body pre code {
+    background-color: transparent;
+    padding: 0;
+    color: #333;
+}
