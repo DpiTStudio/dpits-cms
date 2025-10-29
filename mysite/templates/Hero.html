@@ -1,5 +1,6 @@
 <!-- Hero.html -->
 <!-- Секция героя (верхняя часть страницы) -->
+{% block hero_section %}
 <section class="hero-section bg-primary text-white">
     <div class="container-fluid">
         <div class="row align-items-left">
@@ -39,6 +40,16 @@
                 </div>
                 {% endif %}
             </div>
+            {% if request.resolver_match.url_name == 'portfolio' %}
+              {% include "bg_cont/bg1.html" %}
+            {% elif request.resolver_match.url_name == 'news' %}
+              {% include "bg_cont/bg2.html" %}
+            {% elif request.resolver_match.url_name == 'clients' %}
+              {% include "bg_cont/bg3.html" %}
+            {% else %}
+              {% include "bg_cont/bg4.html" %}
+            {% endif %}
         </div>
     </div>
 </section>
+{% endblock %}

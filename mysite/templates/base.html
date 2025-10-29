@@ -4,14 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        {% block title %}
-        {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
-        {% endblock %}
-    </title>
+    <title>{% block title %}{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}{% endblock %}</title>
     
     <!-- Meta Description -->
     <meta name="description" content="{% block meta_description %}{{ site_settings.short_description|striptags|truncatewords:20 }}{% endblock %}">
+
+    <!-- Meta meta_keywords -->
+    <meta name="keywords" content="{% block meta_keywords %}{{ site_settings.meta_keywords }}{% endblock %}">
     
     <!-- Favicon -->
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
