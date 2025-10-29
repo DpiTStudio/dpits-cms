@@ -33,16 +33,32 @@ main {
 
 .container-fluid {
 }
-
 .full-width-section {
     width: 100%;
     margin-left: 0;
     margin-right: 0;
 }
 
-/* Общие классы */
-.gradient-bg {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+/* Hero секция */
+.hero-section {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  padding: 2rem 0 !important;
+}
+.hero-section h1 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.hero-section .text_motto {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+.img_hero {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .card {
@@ -61,12 +77,4 @@ main {
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-}
-.img_hero {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
