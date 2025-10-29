@@ -1,4 +1,4 @@
-// static/js/script.js
+// static1/js/script.js
 
 // Initialize tooltips
 document.addEventListener('DOMContentLoaded', function() {
