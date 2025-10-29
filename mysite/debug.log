@@ -5841,3 +5841,29 @@ Watching for file changes with StatReloader
 "GET /static/css/news-categories.css HTTP/1.1" 404 1996
 "GET /static/css/pagination.css HTTP/1.1" 404 1981
 "GET /static/css/news-cards.css HTTP/1.1" 404 1981
+Watching for file changes with StatReloader
+"GET /portfolio/ HTTP/1.1" 200 18290
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /news/ HTTP/1.1" 200 25436
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /page/o-nas/ HTTP/1.1" 200 17698
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/page_detail.css HTTP/1.1" 404 1984
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /reviews/ HTTP/1.1" 200 16426
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /portfolio/ HTTP/1.1" 200 18290
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /news/ HTTP/1.1" 200 25436
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET /static/css/styles.css HTTP/1.1" 404 1969

@@ -40,15 +40,7 @@
                 </div>
                 {% endif %}
             </div>
-            {% if request.resolver_match.url_name == 'portfolio' %}
-              {% include "bg_cont/bg1.html" %}
-            {% elif request.resolver_match.url_name == 'news' %}
-              {% include "bg_cont/bg2.html" %}
-            {% elif request.resolver_match.url_name == 'clients' %}
-              {% include "bg_cont/bg3.html" %}
-            {% else %}
-              {% include "bg_cont/bg4.html" %}
-            {% endif %}
+
         </div>
     </div>
 </section>
