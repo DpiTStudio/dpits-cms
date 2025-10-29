@@ -2,14 +2,16 @@
 
 /* Навигация */
 .navbar-brand {
-    font-weight: 800;
+    font-weight: 900;
+    transition: var(--transition);
 }
 
 .nav-link {
+    color: red !important;
     position: relative;
     top: -5px; 
     padding: 0.5rem 1rem;
-    font-weight: 500;
+    font-weight: 900;
     transition: var(--transition);
 }
 
