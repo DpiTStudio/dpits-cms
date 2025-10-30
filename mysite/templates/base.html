@@ -41,26 +41,8 @@
         {% endblock %}
     </main>
 <div class="container-fluid">
-  <!-- Основной контент сайта -->
-  <div class="container-fluid py-5">
-    <div class="row">
-      <div class="col-12">
-        <h5 class="title_page">{{ site_settings.logo_text }} - {{ site_settings.seo_title|default:"DPITS-CMS.RU" }}</h5>
-      </div>
-      <div class="col-9">
-        {{ site_settings.content|safe }}
-      </div>
-      <div class="col-3">
-        <hr>
-        Новости
-        <hr>
-        Акции
-        <hr>
-        Работы
-        <hr>
-      </div>
-    </div>
-  </div>
+  {% block content %}
+  {% endblock %}
     <!-- Рекомендуемые страницы -->
     {% if featured_pages %}
     <div class="row py-5">
