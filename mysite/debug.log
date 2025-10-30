@@ -6305,3 +6305,25 @@ Watching for file changes with StatReloader
 "GET /media/news/categories/cat_logo_7.png HTTP/1.1" 200 42026
 "GET / HTTP/1.1" 200 26754
 "GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET /news/ HTTP/1.1" 200 25444
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /media/news/categories/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /static/css/base.css HTTP/1.1" 200 1785
+"GET /media/news/categories/cat_logo_3.png HTTP/1.1" 200 41846
+"GET /media/news/categories/cat_logo_4.png HTTP/1.1" 200 41202
+"GET /media/news/categories/cat_logo_6.png HTTP/1.1" 200 41978
+"GET /media/news/categories/cat_logo_9.png HTTP/1.1" 200 42221
+"GET /media/news/categories/cat_logo_7.png HTTP/1.1" 200 42026
+"GET /media/news/categories/cat_logo_8.png HTTP/1.1" 200 42428
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET / HTTP/1.1" 200 26754
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26754
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1779
