@@ -6111,3 +6111,197 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 26717
 "GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET /news/ HTTP/1.1" 200 25444
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /media/news/categories/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /media/news/categories/cat_logo_4.png HTTP/1.1" 200 41202
+"GET /media/news/categories/cat_logo_3.png HTTP/1.1" 200 41846
+"GET /media/news/categories/cat_logo_8.png HTTP/1.1" 200 42428
+"GET /media/news/categories/cat_logo_9.png HTTP/1.1" 200 42221
+"GET /media/news/categories/cat_logo_7.png HTTP/1.1" 200 42026
+"GET /media/news/categories/cat_logo_6.png HTTP/1.1" 200 41978
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET / HTTP/1.1" 200 26695
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26695
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26695
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26705
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26705
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 26705
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26705
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 26705
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26705
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 26705
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26705
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 26705
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26708
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26708
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26708
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET / HTTP/1.1" 200 26708
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 26708
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26708
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/base.css HTTP/1.1" 200 1779
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 26708
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1779
+"GET / HTTP/1.1" 200 26708
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1780
+"GET / HTTP/1.1" 200 26708
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1779
+"GET / HTTP/1.1" 200 26708
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 26708
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+Internal Server Error: /
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'title' appears more than once
+"GET / HTTP/1.1" 500 211505
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 5118
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26717
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26717
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 304 0
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26754
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26754
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1779
+"GET /portfolio/ HTTP/1.1" 200 18298
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /news/ HTTP/1.1" 200 25444
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /media/news/categories/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /media/news/categories/cat_logo_4.png HTTP/1.1" 200 41202
+"GET /media/news/categories/cat_logo_3.png HTTP/1.1" 200 41846
+"GET /media/news/categories/cat_logo_6.png HTTP/1.1" 200 41978
+"GET /media/news/categories/cat_logo_9.png HTTP/1.1" 200 42221
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /media/news/categories/cat_logo_8.png HTTP/1.1" 200 42428
+"GET /media/news/categories/cat_logo_7.png HTTP/1.1" 200 42026
+"GET / HTTP/1.1" 200 26754
+"GET /static/css/styles.css HTTP/1.1" 404 1969

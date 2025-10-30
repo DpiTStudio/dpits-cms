@@ -124,7 +124,6 @@
 .bg-primary {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
 }
-
 .text-primary {
     color: #007bff !important;
 }

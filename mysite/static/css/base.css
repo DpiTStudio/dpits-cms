@@ -30,7 +30,10 @@ body {
 main {
     flex: 1;
 }
-
+.title_page {
+    color: #007bff !important;
+    font-size: 7ch;
+}
 .container-fluid {
 }
 .full-width-section {
