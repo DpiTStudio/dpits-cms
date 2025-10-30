@@ -6058,3 +6058,56 @@ Watching for file changes with StatReloader
 "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
 "GET /static/images/favicon.ico HTTP/1.1" 200 15406
 Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26721
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26721
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26721
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26711
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 26711
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26685
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26685
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26676
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26676
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1710
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 26676
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26711
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26717
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26717
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26717
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 26717
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 26717
+"GET /static/css/styles.css HTTP/1.1" 404 1969

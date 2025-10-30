@@ -30,15 +30,14 @@
 {% block content %}
 <!-- Основной контент страницы -->
 <section class="main-content">
-  <div class="container-fluid py-5">
+  <div class="container-fluid">
     <!-- Основной контент сайта -->
-    {% if site_settings.content %}
-      <div class="container">
+      <div class="container-fluid py-5">
         <div class="row">
           <div class="col-12">
             <h5 class="">{{ site_settings.logo_text }}</h5>
           </div>
-          <div class="col-7">
+          <div class="col-9">
             {{ site_settings.content|safe }}
           </div>
           <div class="col-3">
@@ -52,33 +51,6 @@
           </div>
         </div>
       </div>
-  
-      {% comment %} <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <h5 class="">{{ site_settings.logo_text }}</h5>
-          </div>
-          <div class="col-8">
-            {{ site_settings.content|safe }}
-          </div>
-          <div class="col-4">
-            <hr>
-            Новости
-            <hr>
-            Акции
-            <hr>
-            Работы
-            <hr>
-          </div>
-        </div>
-      </div> {% endcomment %}
-      {% comment %} <div class="col-lg-10">
-          <article class="content-article">
-              {{ site_settings.content|safe }}
-          </article>
-      </div> {% endcomment %}
-    {% endif %}
-    
     <!-- Рекомендуемые страницы -->
     {% if featured_pages %}
     <div class="row py-5">
