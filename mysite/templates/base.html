@@ -39,12 +39,34 @@
         {% block hero_section %}
         {% include 'Hero.html' %}
         {% endblock %}
-        
-        {% block content %}
-        <!-- Default content will be overridden by child templates -->
-        {% endblock %}
-    </main>
+      
+      
+      {% comment %} <div class="row justify-content-left mt-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-11">
+              <h5 class="">{{ site_settings.logo_text }}</h5>
+            </div>
+            <div class="col-7">
+              {{ site_settings.content|safe }}
+            </div>
+            <div class="col-3">
+              <hr>
+              Новости
+              <hr>
+              Акции
+              <hr>
+              Работы
+              <hr>
+            </div>
+          </div>
+        </div> 
+      </div> {% endcomment %}
 
+    </main>
+    {% block content %}
+    <!-- Default content will be overridden by child templates -->
+    {% endblock %}
     {% include "Content-Section.html" %}
     <!-- Footer -->
     {% include "Footer.html" %}
