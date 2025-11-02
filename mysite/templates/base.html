@@ -46,32 +46,7 @@
             {% endblock %}
 
             <!-- Рекомендуемые страницы -->
-            {% if featured_pages %}
-            <div class="row py-5">
-                <div class="col-12">
-                    <h2 class="text-left mb-4">Наши страницы</h2>
-                    <div class="row">
-                        {% for page in featured_pages %}
-                        <div class="col-md-4 mb-4">
-                            <div class="card h-100 shadow-sm">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ page.title }}</h5>
-                                    <p class="card-text">
-                                        {{ page.content|striptags|truncatewords:30 }}
-                                    </p>
-                                </div>
-                                <div class="card-footer bg-transparent">
-                                    <a href="{{ page.get_absolute_url }}" class="btn btn-primary btn-sm">
-                                        Детали о проекте
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            {% endif %}
+            {% include 'featured_pages.html' %}
         </div>
 
         {% block content_section %}
