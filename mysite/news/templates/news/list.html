@@ -29,7 +29,9 @@
                 <!-- Блок новостей -->
                 <div class="row">
                     <div class="col-12">
+                      {% if category and category.name %}
                         <h2 class="mb-4">Новости категории "{{ category.name }}"</h2>
+                      {% endif %}
 
                         <!-- Список новостей -->
                         <div class="row">
