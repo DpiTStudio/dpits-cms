@@ -23,12 +23,20 @@ def news_list(request):
     # Пагинация - 20 новостей на страницу
     paginator = Paginator(news_list, 20)
     page_number = request.GET.get("page")  # Получение номера страницы из GET-параметра
-    page_obj = paginator.get_page(page_number)  # Получение объекта страницы
+    try:
+        page_obj = paginator.get_page(page_number)  # Получение объекта страницы
+    except Exception:
+        page_obj = paginator.get_page(1)  # Если страница не найдена, возвращаем первую
+
+    # Получение последних новостей для сайдбара
+    recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[:5]
 
     # Формирование контекста для шаблона
     context = {
         "news_list": page_obj,  # Новости текущей страницы
         "categories": categories,  # Список категорий для меню
+        "recent_news_list": recent_news_list,  # Последние новости для сайдбара
+        "category": None,  # Категория не выбрана на главной странице новостей
     }
     return render(request, "news/list.html", context)
 
@@ -59,11 +67,15 @@ def news_detail(request, slug):
         .order_by("-created_at")[:4]  # 4 последние новости из категории
     )
 
+    # Получение последних новостей для сайдбара
+    recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[:5]
+
     # Формирование контекста для шаблона
     context = {
         "news": news,  # Текущая новость
         "similar_news": similar_news,  # Похожие новости для сайдбара
         "categories": categories,  # Категории для сайдбара
+        "recent_news_list": recent_news_list,  # Последние новости для сайдбара
     }
     return render(request, "news/detail.html", context)
 
@@ -93,12 +105,19 @@ def news_by_category(request, slug):
     # Пагинация - 20 новостей на страницу
     paginator = Paginator(news_list, 20)
     page_number = request.GET.get("page")  # Получение номера страницы из GET-параметра
-    page_obj = paginator.get_page(page_number)  # Получение объекта страницы
+    try:
+        page_obj = paginator.get_page(page_number)  # Получение объекта страницы
+    except Exception:
+        page_obj = paginator.get_page(1)  # Если страница не найдена, возвращаем первую
+
+    # Получение последних новостей для сайдбара
+    recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[:5]
 
     # Формирование контекста для шаблона
     context = {
         "category": category,  # Текущая категория
         "news_list": page_obj,  # Новости категории текущей страницы
         "categories": categories,  # Список категорий для меню
+        "recent_news_list": recent_news_list,  # Последние новости для сайдбара
     }
     return render(request, "news/category.html", context)

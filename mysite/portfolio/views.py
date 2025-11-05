@@ -32,7 +32,7 @@ class PortfolioListView(ListView):
         if category_slug:
             queryset = queryset.filter(category__slug=category_slug)
 
-        return queryset.select_related("category", "client")
+        return queryset.select_related("category", "client").order_by("-created_at")
 
     def get_context_data(self, **kwargs):
         """Добавление категорий в контекст"""
@@ -67,7 +67,7 @@ class PortfolioDetailView(DetailView):
         # Похожие работы из той же категории
         context["related_works"] = PortfolioItem.objects.filter(
             category=self.object.category, status="published"
-        ).exclude(id=self.object.id)[:4]
+        ).exclude(id=self.object.id).order_by("-created_at")[:4]
 
         # Увеличиваем счетчик просмотров
         self.object.increment_views()
@@ -89,7 +89,7 @@ class CategoryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["portfolio_items"] = PortfolioItem.objects.filter(
             category=self.object, status="published"
-        )
+        ).order_by("-created_at")
         return context
 
 

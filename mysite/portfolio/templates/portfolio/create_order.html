@@ -2,8 +2,7 @@
 {% load static %}
 
 {% block title %}
-{{ site_settings.logo_text }}
-- Создание заказа
+{% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}Создание заказа
 {% endblock %}
 
 {% block extra_css %}
@@ -21,7 +20,7 @@
                 <div class="card-body p-4">
                     <form method="post" enctype="multipart/form-data" novalidate>
                         {% csrf_token %}
-                        
+
                         {% if form.non_field_errors %}
                         <div class="alert alert-danger">
                             {% for error in form.non_field_errors %}
@@ -112,7 +111,8 @@
                                 {% endfor %}
                             </div>
                             {% endif %}
-                            <div class="form-text">Загрузите файл с дополнительными требованиями (техническое задание, макеты и т.д.)</div>
+                            <div class="form-text">Загрузите файл с дополнительными требованиями (техническое задание,
+                                макеты и т.д.)</div>
                         </div>
 
                         <!-- Дополнительные заметки -->
@@ -147,12 +147,17 @@
             <!-- Подсказки -->
             <div class="card border-0 shadow-sm mt-4">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-lightbulb me-2 text-warning"></i>Советы по оформлению заказа</h5>
+                    <h5 class="card-title"><i class="fas fa-lightbulb me-2 text-warning"></i>Советы по оформлению заказа
+                    </h5>
                     <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Будьте максимально подробны в описании</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Укажите реальные сроки и бюджет</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Приложите все необходимые материалы</li>
-                        <li class="mb-0"><i class="fas fa-check text-success me-2"></i>Мы свяжемся с вами в течение 24 часов</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Будьте максимально подробны в
+                            описании</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Укажите реальные сроки и бюджет
+                        </li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Приложите все необходимые
+                            материалы</li>
+                        <li class="mb-0"><i class="fas fa-check text-success me-2"></i>Мы свяжемся с вами в течение 24
+                            часов</li>
                     </ul>
                 </div>
             </div>

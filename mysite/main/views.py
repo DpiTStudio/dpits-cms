@@ -31,7 +31,7 @@ class ProfileView(TemplateView):
         return context
 
 
-class BaseView:
+class BaseView(TemplateView):
     """
     Базовый класс для всех представлений.
     Содержит общую логику для наследования.
