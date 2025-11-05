@@ -159,26 +159,26 @@
             <!-- Боковая панель -->
             <div class="col-lg-3">
                 <div class="sidebar-sticky">
-                    <!-- Блок последних новостей -->
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-header bg-primary text-white">
-                            <h6 class="mb-0"><i class="fas fa-newspaper me-2"></i>Последние новости</h6>
-                        </div>
-                        <div class="card-body">
-                            {% for recent_news in recent_news_list|slice:":5" %}
-                            <div class="mb-3 pb-3 border-bottom">
-                                <h6 class="mb-1">
-                                    <a href="{% url 'news:detail' recent_news.slug %}" class="text-decoration-none">
-                                        {{ recent_news.title|truncatewords:6 }}
-                                    </a>
-                                </h6>
-                                <small class="text-muted">{{ recent_news.created_at|date:"d.m.Y" }}</small>
-                            </div>
-                            {% empty %}
-                            <p class="text-muted small">Новостей пока нет</p>
-                            {% endfor %}
-                        </div>
-                    </div>
+<!-- Блок последних новостей -->
+<div class="card mb-4 shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h6 class="mb-0"><i class="fas fa-newspaper me-2"></i>Последние новости</h6>
+    </div>
+    <div class="card-body">
+        {% for recent_news in recent_news_list|slice:":3" %}
+        <div class="mb-3 pb-3 border-bottom">
+            <h6 class="mb-1">
+                <a href="{% url 'news:detail' recent_news.slug %}" class="text-decoration-none">
+                    {{ recent_news.title|truncatewords:6 }}
+                </a>
+            </h6>
+            <small class="text-muted">{{ recent_news.created_at|date:"d.m.Y" }}</small>
+        </div>
+        {% empty %}
+        <p class="text-muted small">Новостей пока нет</p>
+        {% endfor %}
+    </div>
+</div>
 
                     <!-- Блок акций -->
                     <div class="card mb-4 shadow-sm">
