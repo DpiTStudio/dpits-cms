@@ -2,13 +2,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}
 <!-- Заголовок страницы -->
+{% block title %}
 {% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}Новости
 {% endblock %}
 
-{% block extra_css %}
 <!-- Дополнительные стили -->
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/news-cards.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}

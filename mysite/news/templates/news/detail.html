@@ -2,19 +2,19 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}
 <!-- Заголовок страницы в браузере -->
+{% block title %}
 {% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}{{ news.title }}
-{% endblock %}
 
-{% block extra_css %}
+{% endblock %}
 <!-- Дополнительные CSS файлы -->
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/news-common.css' %}">
 <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
 {% endblock %}
 
-{% block content %}
 <!-- Основное содержимое страницы -->
+{% block content %}
 <section class="main-content">
     <div class="container-fluid py-5">
         <div class="row">
