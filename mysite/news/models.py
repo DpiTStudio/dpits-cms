@@ -14,6 +14,11 @@ class NewsCategory(models.Model):
     image = models.ImageField("Изображение", upload_to="news/categories/", blank=True)
     description = CKEditor5Field("Описание", blank=True, config_name="extends")
 
+    # СЕО поля
+    seo_title = models.CharField("SEO заголовок", max_length=200, blank=True)
+    seo_keywords = models.CharField("SEO ключевые слова", max_length=200, blank=True)
+    seo_description = models.CharField("SEO описание", max_length=255, blank=True)
+
     # Настройки отображения
     show_in_menu = models.BooleanField("Показывать в меню", default=True)
     order = models.IntegerField("Порядок", default=0)

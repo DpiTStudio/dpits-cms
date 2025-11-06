@@ -1,5 +1,4 @@
 # news/admin.py
-
 from django.contrib import admin
 from .models import NewsCategory, News
 
@@ -12,6 +11,10 @@ class NewsCategoryAdmin(admin.ModelAdmin):
     fieldsets = (
         ("Основная информация", {"fields": ("name", "slug", "image", "description")}),
         ("Настройки отображения", {"fields": ("show_in_menu", "order", "is_active")}),
+        (
+            "SEO оптимизация",
+            {"fields": ("seo_title", "seo_keywords", "seo_description")},
+        ),
     )
 
 

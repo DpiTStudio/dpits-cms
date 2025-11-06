@@ -7569,3 +7569,217 @@ Watching for file changes with StatReloader
 "GET /static/css/styles.css HTTP/1.1" 404 1969
 "GET /static/css/news-cards.css HTTP/1.1" 404 1981
 "GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/pervaya-novost/ HTTP/1.1" 200 21465
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+Watching for file changes with StatReloader
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20811
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+Watching for file changes with StatReloader
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20708
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+Watching for file changes with StatReloader
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20834
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+Watching for file changes with StatReloader
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20829
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20829
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /static/css/base.css HTTP/1.1" 200 1889
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20829
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/base.css HTTP/1.1" 200 1889
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20686
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+G:\Python\Projects\dpits-cms\mysite\news\admin.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 45826
+"GET /static/images/logo.png HTTP/1.1" 200 100655
+"GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+"GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+"GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+"GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+"GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+"GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+"GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+"GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+"GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+"GET /admin/news/newscategory/ HTTP/1.1" 200 30728
+"GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+"GET /static/admin/js/core.js HTTP/1.1" 200 6208
+"GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+"GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+"GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+"GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+"GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+"GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+"GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+Internal Server Error: /admin/news/newscategory/1/change/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 840, in get_form
+    return modelform_factory(self.model, **defaults)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\forms\models.py", line 654, in modelform_factory
+    return type(form)(class_name, (form,), form_class_attrs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\forms\models.py", line 334, in __new__
+    raise FieldError(message)
+django.core.exceptions.FieldError: Unknown field(s) (seo_title, seo_keywords, seo_description) specified for NewsCategory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 1987, in change_view
+    return self.changeform_view(request, object_id, form_url, extra_context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 1840, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 1878, in _changeform_view
+    ModelForm = self.get_form(
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\contrib\admin\options.py", line 842, in get_form
+    raise FieldError(
+django.core.exceptions.FieldError: Unknown field(s) (seo_title, seo_keywords, seo_description) specified for NewsCategory. Check fields/fieldsets/exclude attributes of class NewsCategoryAdmin.
+"GET /admin/news/newscategory/1/change/ HTTP/1.1" 500 168655
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 5118
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\admin.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /admin/news/newscategory/1/change/ HTTP/1.1" 200 34069
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/django_ckeditor_5/dist/styles.css HTTP/1.1" 200 213809
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+"GET /static/django_ckeditor_5/dist/bundle.js HTTP/1.1" 200 1275904
+"GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+"GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+"POST /admin/news/newscategory/1/change/ HTTP/1.1" 302 0
+"GET /admin/news/newscategory/ HTTP/1.1" 200 31354
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20686
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20686
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+Watching for file changes with StatReloader
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20829
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20829
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+Watching for file changes with StatReloader
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20829
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 1889
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20819
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+Watching for file changes with StatReloader
+"GET /news/pervaya-novost/ HTTP/1.1" 200 20819
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/base.css HTTP/1.1" 200 1889
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET /news/ HTTP/1.1" 200 20970
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /admin/news/news/ HTTP/1.1" 200 27841
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"POST /admin/news/news/ HTTP/1.1" 302 0
+"GET /admin/news/news/ HTTP/1.1" 200 27841
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/news/news/add/ HTTP/1.1" 200 38881
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+"GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+"POST /admin/news/news/add/ HTTP/1.1" 302 0
+"GET /admin/news/news/ HTTP/1.1" 200 29215
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /news/ HTTP/1.1" 200 22786
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+"GET /news/ HTTP/1.1" 200 22786
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 304 0
+"GET /news/ HTTP/1.1" 200 22786
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 304 0
+"GET /news/pervaya-akciya/ HTTP/1.1" 200 21168
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 304 0

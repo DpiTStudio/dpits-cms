@@ -43,3 +43,8 @@
     justify-content: center;
     background-color: #f8f9fa;
 }
+.news-image-detail {
+    height: 100px !important;
+    width: 100px !important;
+    /* object-fit: cover; */
+}
