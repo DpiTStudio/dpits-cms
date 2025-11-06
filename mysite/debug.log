@@ -7557,3 +7557,15 @@ Watching for file changes with StatReloader
 "GET /static/css/styles.css HTTP/1.1" 404 1969
 "GET /static/css/news-common.css HTTP/1.1" 404 1984
 "GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /news/category/glavnye-novosti/ HTTP/1.1" 200 19561
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/ HTTP/1.1" 200 21546
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/category/glavnye-novosti/ HTTP/1.1" 200 19561
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
