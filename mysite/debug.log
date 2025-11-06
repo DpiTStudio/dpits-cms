@@ -7451,3 +7451,4 @@ Watching for file changes with StatReloader
 "GET /static/css/pagination.css HTTP/1.1" 404 1981
 "GET /static/css/news-cards.css HTTP/1.1" 404 1981
 "GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
