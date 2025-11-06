@@ -38,13 +38,22 @@
 
 .news-image-placeholder {
     height: 200px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    background-color: #f8f9fa;
+}
+
+.news-image-detail {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.default-image {
+    background-color: #f8f9fa;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f8f9fa;
-}
-.news-image-detail {
-    height: 100px !important;
-    width: 100px !important;
-    /* object-fit: cover; */
+    border-radius: 8px;
 }

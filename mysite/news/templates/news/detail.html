@@ -44,11 +44,12 @@
               {% endif %}
           </div>
 
-          <!-- Изображение новости -->
+          <!-- Изображение новости rounded -->
           {% if news.image %}
-          <img src="{{ news.image.url }}" class="news-image-detail rounded mb-4" alt="{{ news.title }}">
+              <img src="{{ news.image.url }}" class="news-image-detail mb-4" alt="{{ news.title }}">
+          {% else %}
+              <img src="{% static 'images/default-category.png' %}" class="news-image-detail mb-4" alt="{{ news.title }}">
           {% endif %}
-
           <!-- Содержание новости -->
           <div class="news-content">
               {{ news.content|safe }}
