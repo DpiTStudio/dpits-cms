@@ -7500,3 +7500,33 @@ Watching for file changes with StatReloader
 "GET /static/css/sidebar.css HTTP/1.1" 404 1972
 G:\Python\Projects\dpits-cms\mysite\news\views.py changed, reloading.
 Watching for file changes with StatReloader
+"GET /news/ HTTP/1.1" 200 29850
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/ HTTP/1.1" 200 29858
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/ HTTP/1.1" 200 29858
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /portfolio/ HTTP/1.1" 200 18479
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /news/ HTTP/1.1" 200 29858
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-categories.css HTTP/1.1" 404 1996
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader

@@ -3,13 +3,13 @@
 {% load static %}
 
 {% block title %}
-{% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}Новости
+  {% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}Новости
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/news-categories.css' %}">
-<link rel="stylesheet" href="{% static 'css/news-cards.css' %}">
-<link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+  <link rel="stylesheet" href="{% static 'css/news-categories.css' %}">
+  <link rel="stylesheet" href="{% static 'css/news-cards.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}
 
 {% block content %}

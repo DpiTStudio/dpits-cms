@@ -5,6 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.text import slugify
 from django_ckeditor_5.fields import CKEditor5Field
+import uuid
+
 
 class NewsCategory(models.Model):
     """Модель категории новостей"""
