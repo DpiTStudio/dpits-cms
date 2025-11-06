@@ -1,50 +1,38 @@
 # news/models.py
-
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.text import slugify
 from django_ckeditor_5.fields import CKEditor5Field
-import uuid
 
 
 class NewsCategory(models.Model):
-    """Модель категории новостей"""
+    """Категория новостей"""
 
     # Основные поля
-    name = models.CharField(_("Название"), max_length=100)  # Название категории
-    slug = models.SlugField(_("URL"), unique=True)  # URL-идентификатор для ЧПУ
-    image = models.ImageField(
-        _("Изображение"), upload_to="news/categories/", blank=True
-    )  # Изображение категории
-    description = CKEditor5Field(
-        _("Описание"), blank=True, config_name="extends"
-    )  # Описание с WYSIWYG редактором
-    show_in_menu = models.BooleanField(
-        _("Показывать в меню"), default=True
-    )  # Показывать в меню навигации
-    order = models.IntegerField(_("Порядок"), default=0)  # Порядок сортировки
-    is_active = models.BooleanField(_("Активно"), default=True)  # Активна ли категория
+    name = models.CharField("Название", max_length=100)
+    slug = models.SlugField("URL", unique=True)
+    image = models.ImageField("Изображение", upload_to="news/categories/", blank=True)
+    description = CKEditor5Field("Описание", blank=True, config_name="extends")
+
+    # Настройки отображения
+    show_in_menu = models.BooleanField("Показывать в меню", default=True)
+    order = models.IntegerField("Порядок", default=0)
+    is_active = models.BooleanField("Активно", default=True)
 
     class Meta:
-        verbose_name = _(
-            "Категория новостей"
-        )  # Человекочитаемое имя в единственном числе
-        verbose_name_plural = _(
-            "Категории новостей"
-        )  # Человекочитаемое имя во множественном числе
+        verbose_name = "Категория новостей"
+        verbose_name_plural = "Категории новостей"
         ordering = ["order", "name"]  # Сортировка по порядку и имени
 
     def __str__(self):
-        """Строковое представление объекта"""
         return self.name
 
     def save(self, *args, **kwargs):
-        """Автоматическое создание slug при сохранении"""
+        """Создаем slug из названия, если он не задан"""
         if not self.slug:
             base_slug = slugify(self.name)
             self.slug = base_slug
-            # Проверяем уникальность slug
+            # Убеждаемся, что slug уникален
             counter = 1
             while NewsCategory.objects.filter(slug=self.slug).exists():
                 self.slug = f"{base_slug}-{counter}"
@@ -52,63 +40,52 @@ class NewsCategory(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        """Получение абсолютного URL для категории"""
+        """URL для категории"""
         return reverse("news:category", kwargs={"slug": self.slug})
 
 
 class News(models.Model):
-    """Модель новости"""
+    """Новость"""
 
     # Основные поля
-    title = models.CharField(_("Заголовок"), max_length=200)  # Заголовок новости
-    slug = models.SlugField(_("URL"), unique=True)  # URL-идентификатор
+    title = models.CharField("Заголовок", max_length=200)
+    slug = models.SlugField("URL", unique=True)
     category = models.ForeignKey(
-        NewsCategory, on_delete=models.CASCADE, verbose_name=_("Категория")
-    )  # Связь с категорией (удаление каскадом)
-    image = models.ImageField(
-        _("Изображение"), upload_to="news/"
-    )  # Главное изображение
-    is_active = models.BooleanField(_("Активно"), default=True)  # Активна ли новость
+        NewsCategory, on_delete=models.CASCADE, verbose_name="Категория"
+    )
+    image = models.ImageField("Изображение", upload_to="news/")
+    is_active = models.BooleanField("Активно", default=True)
 
     # SEO поля
-    seo_title = models.CharField(_("SEO заголовок"), max_length=200, blank=True)
-    seo_keywords = models.CharField(_("SEO ключевые слова"), max_length=200, blank=True)
-    seo_description = models.CharField(_("SEO описание"), max_length=255, blank=True)
+    seo_title = models.CharField("SEO заголовок", max_length=200, blank=True)
+    seo_keywords = models.CharField("SEO ключевые слова", max_length=200, blank=True)
+    seo_description = models.CharField("SEO описание", max_length=255, blank=True)
 
-    # Контентные поля
+    # Контент
     short_description = CKEditor5Field(
-        _("Краткое описание"), blank=True, config_name="extends"
-    )  # Краткое описание с редактором
-    content = CKEditor5Field(
-        _("Содержание"), blank=True, config_name="extends"
-    )  # Полное содержание
+        "Краткое описание", blank=True, config_name="extends"
+    )
+    content = CKEditor5Field("Содержание", blank=True, config_name="extends")
 
     # Системные поля
-    views = models.PositiveIntegerField(_("Просмотры"), default=0)  # Счетчик просмотров
-    created_at = models.DateTimeField(
-        _("Создано"), auto_now_add=True
-    )  # Дата создания (только при создании)
-    updated_at = models.DateTimeField(
-        _("Обновлено"), auto_now=True
-    )  # Дата обновления (при каждом сохранении)
+    views = models.PositiveIntegerField("Просмотры", default=0)
+    created_at = models.DateTimeField("Создано", auto_now_add=True)
+    updated_at = models.DateTimeField("Обновлено", auto_now=True)
 
     class Meta:
-        verbose_name = _("Новость")  # Человекочитаемое имя в единственном числе
-        verbose_name_plural = _(
-            "Новости"
-        )  # Человекочитаемое имя во множественном числе
-        ordering = ["-created_at"]  # Сортировка по дате создания (новые сначала)
+        verbose_name = "Новость"
+        verbose_name_plural = "Новости"
+        ordering = ["-created_at"]  # Новые сверху
 
     def __str__(self):
-        """Строковое представление объекта"""
         return self.title
 
     def save(self, *args, **kwargs):
-        """Автоматическое создание slug при сохранении"""
+        """Создаем slug из заголовка, если он не задан"""
         if not self.slug:
             base_slug = slugify(self.title)
             self.slug = base_slug
-            # Проверяем уникальность slug
+            # Убеждаемся, что slug уникален
             counter = 1
             while News.objects.filter(slug=self.slug).exists():
                 self.slug = f"{base_slug}-{counter}"
@@ -116,12 +93,10 @@ class News(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        """Получение абсолютного URL для новости"""
+        """URL для новости"""
         return reverse("news:detail", kwargs={"slug": self.slug})
 
     def increment_views(self):
-        """Увеличение счетчика просмотров на 1"""
+        """Увеличиваем счетчик просмотров"""
         self.views += 1
-        self.save(
-            update_fields=["views"]
-        )  # Сохранение только поля views для оптимизации
+        self.save(update_fields=["views"])  # Сохраняем только поле views

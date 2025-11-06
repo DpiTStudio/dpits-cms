@@ -5,67 +5,56 @@ from .models import News, NewsCategory
 
 
 def news_list(request):
-    """Представление для отображения списка всех активных новостей
-    и категорий в меню.
-
-    Args:
-        request: HTTP-запрос
-
-    Returns:
-        HttpResponse: Отрендеренный шаблон со списком новостей
-    """
-    # Получение всех активных новостей, отсортированных по дате (новые сначала)
+    """Отображение списка всех активных новостей"""
+    # Получаем активные новости, отсортированные по дате (новые сверху)
     news_list = News.objects.filter(is_active=True).order_by("-created_at")
 
-    # Получение активных категорий для отображения в меню
+    # Получаем активные категории для меню
     categories = NewsCategory.objects.filter(is_active=True, show_in_menu=True)
 
-    # Пагинация - 20 новостей на страницу
+    # Разбиваем на страницы по 20 новостей
     paginator = Paginator(news_list, 20)
-    page_number = request.GET.get("page")  # Получение номера страницы из GET-параметра
-    try:
-        page_obj = paginator.get_page(page_number)  # Получение объекта страницы
-    except Exception:
-        page_obj = paginator.get_page(1)  # Если страница не найдена, возвращаем первую
+    page_number = request.GET.get("page", 1)  # Получаем номер страницы, по умолчанию 1
+    page_obj = paginator.get_page(page_number)  # Получаем объект страницы
 
-    # Получение последних новостей для сайдбара
+    # Последние новости для сайдбара
     recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[:5]
 
-    # Формирование контекста для шаблона
+    # Формируем данные для шаблона
     context = {
-        "news_list": page_obj,  # Новости текущей страницы
-        "categories": categories,  # Список категорий для меню
-        "recent_news_list": recent_news_list,  # Последние новости для сайдбара
-        "category": None,  # Категория не выбрана на главной странице новостей
+        "news_list": page_obj,
+        "categories": categories,
+        "recent_news_list": recent_news_list,
+        "category": None,  # На главной странице категория не выбрана
     }
     return render(request, "news/list.html", context)
 
 
 def news_detail(request, slug):
-    """Представление для отображения детальной страницы новости."""
-    # Получение новости по slug или 404 ошибка если не найдена
+    """Отображение детальной страницы новости"""
+    # Получаем новость или показываем ошибку 404
     news = get_object_or_404(News, slug=slug, is_active=True)
 
-    # Увеличение счетчика просмотров
+    # Увеличиваем счетчик просмотров
     news.increment_views()
 
-    # Получение активных категорий для сайдбара
+    # Получаем активные категории
     categories = NewsCategory.objects.filter(is_active=True, show_in_menu=True)
 
-    # Получение похожих новостей (из той же категории, исключая текущую)
+    # Похожие новости (из той же категории)
     similar_news = (
         News.objects.filter(category=news.category, is_active=True)
-        .exclude(id=news.id)
-        .order_by("-created_at")[:4]
+        .exclude(id=news.id)  # Исключаем текущую новость
+        .order_by("-created_at")[:4]  # 4 последние новости
     )
 
-    # Получение последних новостей для сайдбара
+    # Последние новости для сайдбара
     recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[:5]
 
-    # Формирование контекста для шаблона
+    # Формируем данные для шаблона
     context = {
         "news": news,
-        "similar_news": similar_news,  # Исправлено: было news_list, должно быть similar_news
+        "similar_news": similar_news,  # Исправлено: было news_list
         "categories": categories,
         "recent_news_list": recent_news_list,
     }
@@ -73,68 +62,59 @@ def news_detail(request, slug):
 
 
 def news_by_category(request, slug):
-    """
-    Представление для отображения новостей, относящихся к определённой категории.
-
-    Функция получает категорию по её slug, извлекает активные новости этой категории,
-    разбивает их на страницы с помощью пагинации, а также подготавливает дополнительные
-    данные для отображения в шаблоне: список активных категорий для меню и последние
-    публикации для сайдбара.
-
-    Параметр `is_active` используется для фильтрации только активных (опубликованных)
-    новостей и категорий. Если запрошенная категория не найдена или не активна,
-    возвращается ошибка 404.
-
-    Аргументы:
-        request (HttpRequest): Объект HTTP-запроса, содержащий данные о запросе,
-            включая GET-параметры (например, номер страницы).
-        slug (str): Уникальный URL-идентификатор категории (slug), используемый
-            для поиска соответствующей категории в базе данных.
-
-    Возвращает:
-        HttpResponse: Ответ с отрендеренным HTML-шаблоном 'news/category.html',
-        содержащим новости выбранной категории, разбитые на страницы, а также
-        дополнительные данные — список категорий для меню и последние новости.
-
-    Используемые компоненты:
-        - get_object_or_404: Получает объект категории или возвращает ошибку 404.
-        - News.objects.filter: Фильтрует активные новости по категории.
-        - Paginator: Разбивает список новостей на страницы (по 20 новостей на страницу).
-        - render: Отображает шаблон с переданным контекстом.
-
-    Контекст шаблона:
-        category (NewsCategory): Текущая выбранная категория.
-        news_list (Page): Объект страницы с новостями текущей категории.
-        categories (QuerySet): Список активных категорий, отображаемых в меню.
-        recent_news_list (QuerySet): Последние 5 опубликованных новостей для сайдбара.
-    """
-    # Получение категории по slug или 404 ошибка если не найдена
+    """Отображение новостей определенной категории"""
+    # Получаем категорию или показываем ошибку 404
     category = get_object_or_404(NewsCategory, slug=slug, is_active=True)
 
-    # Получение активных новостей данной категории
+    # Новости этой категории
     news_list = News.objects.filter(category=category, is_active=True).order_by(
         "-created_at"
     )
 
-    # Получение активных категорий для меню
+    # Все активные категории для меню
     categories = NewsCategory.objects.filter(is_active=True, show_in_menu=True)
 
-    # Пагинация - 20 новостей на страницу
+    # Разбиваем на страницы
     paginator = Paginator(news_list, 20)
-    page_number = request.GET.get("page")  # Получение номера страницы из GET-параметра
-    try:
-        page_obj = paginator.get_page(page_number)  # Получение объекта страницы
-    except Exception:
-        page_obj = paginator.get_page(1)  # Если страница не найдена, возвращаем первую
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
 
-    # Получение последних новостей для сайдбара
+    # Последние новости для сайдбара
     recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[:5]
 
-    # Формирование контекста для шаблона
+    # Формируем данные для шаблона
     context = {
-        "category": category,  # Текущая категория
-        "news_list": page_obj,  # Новости категории текущей страницы
-        "categories": categories,  # Список категорий для меню
-        "recent_news_list": recent_news_list,  # Последние новости для сайдбара
+        "category": category,
+        "news_list": page_obj,
+        "categories": categories,
+        "recent_news_list": recent_news_list,
     }
     return render(request, "news/category.html", context)
+
+
+def news_search(request):
+    """Поиск новостей"""
+    query = request.GET.get("q", "")
+    news_list = News.objects.filter(title__icontains=query, is_active=True)
+    categories = NewsCategory.objects.filter(is_active=True, show_in_menu=True)
+    recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[:5]
+    context = {
+        "news_list": news_list,
+        "categories": categories,
+        "recent_news_list": recent_news_list,
+        "query": query,
+    }
+    return render(request, "news/search.html", context)
+
+
+def news_by_tag(request, tag):
+    news_list = News.objects.filter(tags__name=tag, is_active=True)
+    categories = NewsCategory.objects.filter(is_active=True, show_in_menu=True)
+    recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[:5]
+    context = {
+        "news_list": news_list,
+        "categories": categories,
+        "recent_news_list": recent_news_list,
+        "tag": tag,
+    }
+    return render(request, "news/tag.html", context)
