@@ -7380,3 +7380,17 @@ Watching for file changes with StatReloader
 "GET /media/news/categories/cat_logo_6.png HTTP/1.1" 200 41978
 "GET /media/news/categories/cat_logo_8.png HTTP/1.1" 200 42428
 "GET /media/news/categories/cat_logo_7.png HTTP/1.1" 200 42026
+"GET /news/category/glavnye-novosti/ HTTP/1.1" 200 31346
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/pervaya-novost/ HTTP/1.1" 200 29359
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+G:\Python\Projects\dpits-cms\mysite\news\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 28307
+"GET /static/css/styles.css HTTP/1.1" 404 1969
