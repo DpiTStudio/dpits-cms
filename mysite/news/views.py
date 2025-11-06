@@ -43,40 +43,32 @@ def news_list(request):
 
 def news_detail(request, slug):
     """Представление для отображения детальной страницы новости."""
-    # Получаем новость по slug, проверяя активность
+    # Получение новости по slug или 404 ошибка если не найдена
     news = get_object_or_404(News, slug=slug, is_active=True)
 
-    # Увеличиваем счётчик просмотров (операция на уровне БД, потокобезопасно)
+    # Увеличение счетчика просмотров
     news.increment_views()
 
-    # Оптимизация: используем select_related для категорий, чтобы избежать N+1 запросов
-    categories = NewsCategory.objects.filter(is_active=True, show_in_menu=True).only(
-        "id", "name", "slug"
-    )
+    # Получение активных категорий для сайдбара
+    categories = NewsCategory.objects.filter(is_active=True, show_in_menu=True)
 
-    # Используем prefetch и ограничиваем количество похожих новостей
+    # Получение похожих новостей (из той же категории, исключая текущую)
     similar_news = (
         News.objects.filter(category=news.category, is_active=True)
         .exclude(id=news.id)
-        .select_related("category")
-        .only("id", "title", "slug", "created_at", "preview_image")
         .order_by("-created_at")[:4]
     )
 
-    # Последние новости — также ограничиваем поля и используем кэширование на уровне БД
-    recent_news_list = (
-        News.objects.filter(is_active=True)
-        .only("id", "title", "slug", "created_at")
-        .order_by("-created_at")[:5]
-    )
+    # Получение последних новостей для сайдбара
+    recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[:5]
 
+    # Формирование контекста для шаблона
     context = {
         "news": news,
-        "similar_news": similar_news,
+        "news_list": news_list,  # Исправлено: было news_list, должно быть similar_news
         "categories": categories,
         "recent_news_list": recent_news_list,
     }
-
     return render(request, "news/detail.html", context)
 
 

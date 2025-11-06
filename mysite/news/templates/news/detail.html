@@ -24,7 +24,7 @@
               {% if site_settings.logo_text %}
               {{ site_settings.logo_text }} - {{ news.title }}
               {% else %}
-              {{ news.title }}
+              {{ news.title|default:"Добро пожаловать" }}
               {% endif %}
           </h1>
       </div>
