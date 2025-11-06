@@ -41,7 +41,11 @@ main {
     margin-left: 0;
     margin-right: 0;
 }
-
+.img_news_detail {
+    border: 1px solid #ccc;
+    width: 20%;
+    height: auto;
+}
 /* Hero секция */
 .hero-section {
   background: linear-gradient(

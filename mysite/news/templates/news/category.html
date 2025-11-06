@@ -3,13 +3,13 @@
 {% load static %}
 
 {% block title %}
-{{ site_settings.logo_text }} - Новости категории - {{ category.name }}
+{% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}Новости категории - {{ category.name }}
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/news-cards.css' %}">
-    <link rel="stylesheet" href="{% static 'css/news-common.css' %}">
-    <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+<link rel="stylesheet" href="{% static 'css/news-cards.css' %}">
+<link rel="stylesheet" href="{% static 'css/news-common.css' %}">
+<link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,13 @@
         <div class="row">
             <div class="col-12">
                 <!-- Заголовок категории -->
-                <h1 class="title_page">{{ site_settings.logo_text }} - {{ category.name }}</h1>
+                <h1 class="title_page">
+                    {% if site_settings.logo_text %}
+                    {{ site_settings.logo_text }} - {{ category.name }}
+                    {% else %}
+                    {{ category.name }}
+                    {% endif %}
+                </h1>
                 <hr>
             </div>
         </div>
@@ -44,7 +50,8 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100 news-card shadow-sm">
                                     {% if news_item.image %}
-                                    <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}">
+                                    <img src="{{ news_item.image.url }}" class="card-img-top"
+                                        alt="{{ news_item.title }}">
                                     {% else %}
                                     <div class="news-image-placeholder">
                                         <i class="fas fa-image fa-2x text-muted"></i>
@@ -52,13 +59,16 @@
                                     {% endif %}
                                     <div class="card-body d-flex flex-column">
                                         {% if news_item.category and news_item.category.slug %}
-                                        <span class="badge bg-primary mb-2 align-self-start">{{ news_item.category.name }}</span>
+                                        <span class="badge bg-primary mb-2 align-self-start">{{ news_item.category.name
+                                            }}</span>
                                         {% endif %}
                                         <h5 class="card-title">{{ news_item.title }}</h5>
-                                        <p class="card-text flex-grow-1">{{ news_item.short_description|striptags|truncatewords:30 }}</p>
+                                        <p class="card-text flex-grow-1">{{
+                                            news_item.short_description|striptags|truncatewords:30 }}</p>
                                         <div class="d-flex justify-content-between align-items-center mt-auto">
                                             <small class="text-muted">{{ news_item.created_at|date:"d.m.Y" }}</small>
-                                            <a href="{% url 'news:detail' news_item.slug %}" class="btn btn-sm btn-outline-primary">Читать далее</a>
+                                            <a href="{% url 'news:detail' news_item.slug %}"
+                                                class="btn btn-sm btn-outline-primary">Читать далее</a>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +86,8 @@
                             <ul class="pagination justify-content-center">
                                 {% if news_list.has_previous %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?page={{ news_list.previous_page_number }}" aria-label="Previous">
+                                    <a class="page-link" href="?page={{ news_list.previous_page_number }}"
+                                        aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -87,20 +98,21 @@
                                 {% endif %}
 
                                 {% for i in news_list.paginator.page_range %}
-                                    {% if news_list.number == i %}
-                                    <li class="page-item active">
-                                        <span class="page-link">{{ i }}</span>
-                                    </li>
-                                    {% else %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                                    </li>
-                                    {% endif %}
+                                {% if news_list.number == i %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ i }}</span>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                </li>
+                                {% endif %}
                                 {% endfor %}
 
                                 {% if news_list.has_next %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?page={{ news_list.next_page_number }}" aria-label="Next">
+                                    <a class="page-link" href="?page={{ news_list.next_page_number }}"
+                                        aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -124,26 +136,27 @@
                             <div class="col-md-4 col-lg-3 mb-4">
                                 <div class="category-card card h-100 shadow-sm">
                                     {% if cat.slug %}
-                                        <a href="{% url 'news:category' cat.slug %}" class="text-decoration-none text-dark">
-                                    {% else %}
-                                        <a href="#" class="text-decoration-none text-dark">
-                                    {% endif %}
-                                        {% if cat.image %}
-                                            <img src="{{ cat.image.url }}" class="card-img-top category-image" alt="{{ cat.name }}">
+                                    <a href="{% url 'news:category' cat.slug %}" class="text-decoration-none text-dark">
                                         {% else %}
+                                        <a href="#" class="text-decoration-none text-dark">
+                                            {% endif %}
+                                            {% if cat.image %}
+                                            <img src="{{ cat.image.url }}" class="card-img-top category-image"
+                                                alt="{{ cat.name }}">
+                                            {% else %}
                                             <div class="category-placeholder">
                                                 <i class="fas fa-newspaper fa-3x text-muted"></i>
                                             </div>
-                                        {% endif %}
-                                        <div class="card-body d-flex flex-column">
-                                            <h5 class="card-title mb-2">{{ cat.name }}</h5>
-                                            {% if cat.description %}
-                                            <p class="card-text small text-muted flex-grow-1">
-                                                {{ cat.description|striptags|truncatewords:10 }}
-                                            </p>
                                             {% endif %}
-                                        </div>
-                                    </a>
+                                            <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title mb-2">{{ cat.name }}</h5>
+                                                {% if cat.description %}
+                                                <p class="card-text small text-muted flex-grow-1">
+                                                    {{ cat.description|striptags|truncatewords:10 }}
+                                                </p>
+                                                {% endif %}
+                                            </div>
+                                        </a>
                                 </div>
                             </div>
                             {% empty %}
@@ -165,7 +178,7 @@
                             <h6 class="mb-0"><i class="fas fa-newspaper me-2"></i>Последние новости</h6>
                         </div>
                         <div class="card-body">
-                            {% for recent_news in recent_news_list|slice:":5" %}
+                            {% for recent_news in recent_news_list|slice:":3" %}
                             <div class="mb-3 pb-3 border-bottom">
                                 <h6 class="mb-1">
                                     <a href="{% url 'news:detail' recent_news.slug %}" class="text-decoration-none">
@@ -180,43 +193,6 @@
                         </div>
                     </div>
 
-                    <!-- Блок акций -->
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-header bg-success text-white">
-                            <h6 class="mb-0"><i class="fas fa-tag me-2"></i>Акции</h6>
-                        </div>
-                        <div class="card-body">
-                            {% for promotion in promotions|slice:":3" %}
-                            <div class="mb-3 pb-3 border-bottom">
-                                <h6 class="mb-1">{{ promotion.title }}</h6>
-                                <p class="small text-muted mb-1">{{ promotion.description|truncatewords:8 }}</p>
-                                <small class="text-muted">{{ promotion.end_date|date:"до d.m.Y" }}</small>
-                            </div>
-                            {% empty %}
-                            <p class="text-muted small">Акций пока нет</p>
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                    <!-- Блок работ -->
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-header bg-warning text-dark">
-                            <h6 class="mb-0"><i class="fas fa-briefcase me-2"></i>Наши работы</h6>
-                        </div>
-                        <div class="card-body">
-                            {% for work in works|slice:":3" %}
-                            <div class="mb-3 pb-3 border-bottom">
-                                <h6 class="mb-1">{{ work.title }}</h6>
-                                <p class="small text-muted mb-1">{{ work.description|truncatewords:8 }}</p>
-                                {% if work.image %}
-                                <img src="{{ work.image.url }}" class="img-fluid rounded" alt="{{ work.title }}" style="max-height: 80px;">
-                                {% endif %}
-                            </div>
-                            {% empty %}
-                            <p class="text-muted small">Работы пока не добавлены</p>
-                            {% endfor %}
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -235,17 +211,17 @@
                     <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
                 </ol>
             </nav>
-            
+
             <!-- Заголовок категории -->
             <h2 class="mb-3">Новости категории: {{ category.name }}</h2>
-            
+
             <!-- Описание категории (если есть) -->
             {% if category.description %}
             <div class="mb-4">
                 {{ category.description|safe }}
             </div>
             {% endif %}
-            
+
             <!-- Список новостей -->
             <div class="row">
                 {% for news_item in news_list %}
@@ -264,7 +240,8 @@
                             <p class="card-text">{{ news_item.short_description|safe|truncatewords:30 }}</p>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <small class="text-muted">{{ news_item.created_at|date:"d.m.Y" }}</small>
-                                <a href="{% url 'news:detail' news_item.slug %}" class="btn btn-sm btn-outline-primary">Читать далее</a>
+                                <a href="{% url 'news:detail' news_item.slug %}"
+                                    class="btn btn-sm btn-outline-primary">Читать далее</a>
                             </div>
                         </div>
                     </div>
@@ -276,7 +253,7 @@
                 </div>
                 {% endfor %}
             </div>
-            
+
             <!-- Пагинация -->
             {% if news_list.has_other_pages %}
             <nav aria-label="Page navigation" class="mt-4">
@@ -293,20 +270,20 @@
                         <span class="page-link">&laquo;</span>
                     </li>
                     {% endif %}
-                    
+
                     <!-- Номера страниц -->
                     {% for i in news_list.paginator.page_range %}
-                        {% if news_list.number == i %}
-                        <li class="page-item active">
-                            <span class="page-link">{{ i }}</span>
-                        </li>
-                        {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                        </li>
-                        {% endif %}
+                    {% if news_list.number == i %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ i }}</span>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                    {% endif %}
                     {% endfor %}
-                    
+
                     <!-- Кнопка "Вперед" -->
                     {% if news_list.has_next %}
                     <li class="page-item">
