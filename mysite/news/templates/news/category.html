@@ -216,9 +216,9 @@
             <h2 class="mb-3">Новости категории: {{ category.name }}</h2>
 
             <!-- Описание категории (если есть) -->
-            {% if category.description %}
+            {% if news.category.description %}
             <div class="mb-4">
-                {{ category.description|safe }}
+                {{ news.category.description|safe }}
             </div>
             {% endif %}
 
