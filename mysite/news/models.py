@@ -112,16 +112,6 @@ class News(models.Model):
             while News.objects.filter(slug=self.slug).exists():
                 self.slug = f"{base_slug}-{counter}"
                 counter += 1
-        super().save(*args, **kwargs)    def save(self, *args, **kwargs):
-        """Автоматическое создание slug при сохранении"""
-        if not self.slug:
-            base_slug = slugify(self.title)
-            self.slug = base_slug
-            # Проверяем уникальность slug
-            counter = 1
-            while News.objects.filter(slug=self.slug).exists():
-                self.slug = f"{base_slug}-{counter}"
-                counter += 1
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
