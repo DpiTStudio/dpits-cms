@@ -41,7 +41,13 @@ class NewsCategory(models.Model):
     def save(self, *args, **kwargs):
         """Автоматическое создание slug при сохранении"""
         if not self.slug:
-            self.slug = slugify(self.name)  # Генерация slug из названия
+            base_slug = slugify(self.name)
+            self.slug = base_slug
+            # Проверяем уникальность slug
+            counter = 1
+            while NewsCategory.objects.filter(slug=self.slug).exists():
+                self.slug = f"{base_slug}-{counter}"
+                counter += 1
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -99,7 +105,23 @@ class News(models.Model):
     def save(self, *args, **kwargs):
         """Автоматическое создание slug при сохранении"""
         if not self.slug:
-            self.slug = slugify(self.title)  # Генерация slug из заголовка
+            base_slug = slugify(self.title)
+            self.slug = base_slug
+            # Проверяем уникальность slug
+            counter = 1
+            while News.objects.filter(slug=self.slug).exists():
+                self.slug = f"{base_slug}-{counter}"
+                counter += 1
+        super().save(*args, **kwargs)    def save(self, *args, **kwargs):
+        """Автоматическое создание slug при сохранении"""
+        if not self.slug:
+            base_slug = slugify(self.title)
+            self.slug = base_slug
+            # Проверяем уникальность slug
+            counter = 1
+            while News.objects.filter(slug=self.slug).exists():
+                self.slug = f"{base_slug}-{counter}"
+                counter += 1
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
