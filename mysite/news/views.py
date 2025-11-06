@@ -65,7 +65,7 @@ def news_detail(request, slug):
     # Формирование контекста для шаблона
     context = {
         "news": news,
-        "news_list": news_list,  # Исправлено: было news_list, должно быть similar_news
+        "similar_news": similar_news,  # Исправлено: было news_list, должно быть similar_news
         "categories": categories,
         "recent_news_list": recent_news_list,
     }

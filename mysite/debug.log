@@ -7498,3 +7498,5 @@ Watching for file changes with StatReloader
 "GET /static/css/styles.css HTTP/1.1" 404 1969
 "GET /static/css/news-common.css HTTP/1.1" 404 1984
 "GET /static/css/sidebar.css HTTP/1.1" 404 1972
+G:\Python\Projects\dpits-cms\mysite\news\views.py changed, reloading.
+Watching for file changes with StatReloader
