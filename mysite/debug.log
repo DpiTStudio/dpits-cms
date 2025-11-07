@@ -7851,3 +7851,104 @@ Watching for file changes with StatReloader
 "GET /static/css/pagination.css HTTP/1.1" 404 1981
 "GET /static/css/news-cards.css HTTP/1.1" 404 1981
 "GET /static/css/styles.css HTTP/1.1" 404 1969
+Watching for file changes with StatReloader
+"GET /news/ HTTP/1.1" 200 22786
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/base.css HTTP/1.1" 200 1889
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 304 0
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /news/pervaya-akciya/ HTTP/1.1" 200 21171
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 304 0
+"GET /static/css/base.css HTTP/1.1" 200 1889
+"GET /news/ HTTP/1.1" 200 22786
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/ HTTP/1.1" 200 22786
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/pervaya-akciya/ HTTP/1.1" 200 21171
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /news/category/akcii/ HTTP/1.1" 200 23198
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 304 0
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/category/sozdannye-vizitki/ HTTP/1.1" 200 21463
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/category/sozdannye-proekty/ HTTP/1.1" 200 20312
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/category/sozdannye-proekty/ HTTP/1.1" 200 20312
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /news/category/sozdannye-makety/ HTTP/1.1" 200 20306
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/category/akcii/ HTTP/1.1" 200 23198
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 304 0
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/category/glavnye-novosti/ HTTP/1.1" 200 21620
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /admin/news/news/add/ HTTP/1.1" 200 38881
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+"GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+"POST /admin/news/news/add/ HTTP/1.1" 200 39713
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\models.py changed, reloading.
+Watching for file changes with StatReloader
+"POST /admin/news/news/add/ HTTP/1.1" 302 0
+"GET /admin/news/news/ HTTP/1.1" 200 30169
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/news/news/3/change/ HTTP/1.1" 200 40391
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /media/news/default-category.png HTTP/1.1" 200 41704
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 5118
+"GET /admin/news/news/3/change/ HTTP/1.1" 200 40391
+"GET /news/category/glavnye-novosti/ HTTP/1.1" 200 22092
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /news/ HTTP/1.1" 200 24863
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969

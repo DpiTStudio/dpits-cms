@@ -58,7 +58,9 @@ class News(models.Model):
     category = models.ForeignKey(
         NewsCategory, on_delete=models.CASCADE, verbose_name="Категория"
     )
-    image = models.ImageField("Изображение", upload_to="news/")
+    image = models.ImageField(
+        "Изображение", upload_to="news/", default="news/default-category.png"
+    )
     is_active = models.BooleanField("Активно", default=True)
 
     # SEO поля
