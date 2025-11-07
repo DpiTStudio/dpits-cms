@@ -21,9 +21,9 @@
             <!-- Главный заголовок -->
             <h1 class="mb-4">
                 {% if site_settings.logo_text %}
-                {{ site_settings.logo_text }} - Новости
+                  {{ site_settings.logo_text }} - Новости
                 {% else %}
-                Новости
+                  Новости
                 {% endif %}
             </h1>
         </div>
@@ -39,7 +39,7 @@
                     <div class="card h-100 news-card">
                         {% if news_item.image %}
                         <img src="{{ news_item.image.url }}" class="card-img-top" 
-                              alt="{{ news_item.title }}" style="height: 200px; object-fit: cover;">
+                              alt="{{ news_item.title }}" style="height: auto;">
                         {% endif %}
                         <div class="card-body d-flex flex-column">
                             <!-- Категория -->
