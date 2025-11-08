@@ -133,7 +133,7 @@
                 <div class="card-body">
                     {% for category in categories %}
                     <div class="mb-2">
-                        <a href="{% url 'news:category' category.slug %}">
+                        <a class="cart-" href="{% url 'news:category' category.slug %}">
                             {{ category.name }}
                         </a>
                     </div>
