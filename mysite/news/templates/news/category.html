@@ -16,6 +16,25 @@
 {% block content %}
 <section class="main-content">
   <div class="container-fluid py-5">
+    <!-- Блок категорий под шапкой -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="categories-header">
+          <h6 class="mb-3">Категории новостей:</h6>
+          <div class="d-flex flex-wrap gap-2">
+            {% for cat in categories %}
+            <a href="{% url 'news:category' cat.slug %}" 
+               class="btn btn-outline-primary btn-sm {% if cat.slug == category.slug %}active{% endif %}">
+              {{ cat.name }}
+            </a>
+            {% empty %}
+            <span class="text-muted">Категорий пока нет</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
         <!-- Основной контент -->
         <div class="col-lg-9">
@@ -131,10 +150,10 @@
                     <h6 class="mb-0">Категории</h6>
                 </div>
                 <div class="card-body">
-                    {% for category in categories %}
+                    {% for cat in categories %}
                     <div class="mb-2">
-                        <a class="cart-" href="{% url 'news:category' category.slug %}">
-                            {{ category.name }}
+                        <a href="{% url 'news:category' cat.slug %}">
+                            {{ cat.name }}
                         </a>
                     </div>
                     {% empty %}

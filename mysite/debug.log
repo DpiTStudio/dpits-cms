@@ -8010,3 +8010,43 @@ Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
 Watching for file changes with StatReloader
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/base.css HTTP/1.1" 200 1889
+"GET /media/news/default-category.png HTTP/1.1" 200 41704
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 28307
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /news/ HTTP/1.1" 200 26424
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/category/sozdannye-raboty/ HTTP/1.1" 200 25111
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/category/akcii/ HTTP/1.1" 200 25302
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/category/glavnye-novosti/ HTTP/1.1" 200 23724
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /news/category/sozdannye-vizitki/ HTTP/1.1" 200 23567
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/category/sozdannye-makety/ HTTP/1.1" 200 22410
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/category/sozdannye-proekty/ HTTP/1.1" 200 22416
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+Watching for file changes with StatReloader
