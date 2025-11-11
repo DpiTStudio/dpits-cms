@@ -1,7 +1,9 @@
-.venv
-.vscode
-.idea
-.gigaide
+# Виртуальные окружения и IDE
+.venv/
+.vscode/
+.idea/
+.gigaide/
 
-prompts
-work_filer
+# Прочие директории
+prompts/
+work_filer/
