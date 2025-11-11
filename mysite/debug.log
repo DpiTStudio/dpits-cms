@@ -8050,3 +8050,75 @@ Watching for file changes with StatReloader
 "GET /static/css/styles.css HTTP/1.1" 404 1969
 "GET /static/css/pagination.css HTTP/1.1" 404 1981
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\urls.py changed, reloading.
+G:\Python\Projects\dpits-cms\mysite\news\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\urls.py changed, reloading.
+G:\Python\Projects\dpits-cms\mysite\news\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\urls.py changed, reloading.
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\urls.py changed, reloading.
+G:\Python\Projects\dpits-cms\mysite\news\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\admin.py changed, reloading.
+G:\Python\Projects\dpits-cms\mysite\news\admin.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\admin.py changed, reloading.
+G:\Python\Projects\dpits-cms\mysite\news\admin.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /news/category/glavnye-novosti/ HTTP/1.1" 200 23724
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /news/pervaya-novost/ HTTP/1.1" 200 23332
+"GET /static/css/news-common.css HTTP/1.1" 404 1984
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/sidebar.css HTTP/1.1" 404 1972
+"GET /admin/news/newscategory/ HTTP/1.1" 200 30728
+"GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+"GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+"GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+"GET /static/admin/js/core.js HTTP/1.1" 200 6208
+"GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+"GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+"GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+"GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+"GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+"GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+"GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+"GET /static/images/logo.png HTTP/1.1" 200 100655
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+"GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+"GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+"GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+"GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+"GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+"GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+"GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+"GET /admin/news/newscategory/1/change/ HTTP/1.1" 200 34615
+"GET /static/django_ckeditor_5/dist/styles.css HTTP/1.1" 200 213809
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+"GET /static/django_ckeditor_5/dist/bundle.js HTTP/1.1" 200 1275904
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+"GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+"GET /admin/news/newscategory/ HTTP/1.1" 200 30728
+"GET /admin/jsi18n/ HTTP/1.1" 200 17546
+"GET /admin/ HTTP/1.1" 200 45606
+G:\Python\Projects\dpits-cms\mysite\news\admin.py changed, reloading.
+G:\Python\Projects\dpits-cms\mysite\news\admin.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+G:\Python\Projects\dpits-cms\mysite\news\admin.py changed, reloading.
+Watching for file changes with StatReloader

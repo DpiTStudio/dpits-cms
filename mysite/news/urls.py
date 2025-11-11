@@ -9,4 +9,5 @@ urlpatterns = [
     path("", views.news_list, name="list"),
     path("category/<slug:slug>/", views.news_by_category, name="category"),
     path("<slug:slug>/", views.news_detail, name="detail"),
+    # path("search/", views.news_search, name="search"),
 ]
