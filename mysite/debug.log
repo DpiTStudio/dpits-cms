@@ -8158,3 +8158,13 @@ Watching for file changes with StatReloader
 "GET /portfolio/ HTTP/1.1" 200 18479
 "GET /static/css/styles.css HTTP/1.1" 404 1969
 "GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /accounts/profile/ HTTP/1.1" 200 20567
+"GET /static/accounts/css/profile.css HTTP/1.1" 200 1674
+"GET /media/avatars/avatar_user_1.png HTTP/1.1" 200 372188
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /accounts/tickets/ HTTP/1.1" 200 19881
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+"GET /portfolio/ HTTP/1.1" 200 18479
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
