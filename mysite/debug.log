@@ -8606,3 +8606,13 @@ Watching for file changes with StatReloader
 "GET /static/css/news-cards.css HTTP/1.1" 404 1981
 "GET /static/css/styles.css HTTP/1.1" 404 1969
 "GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/ HTTP/1.1" 200 19377
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /reviews/ HTTP/1.1" 200 16410
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /portfolio/ HTTP/1.1" 200 19377
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
