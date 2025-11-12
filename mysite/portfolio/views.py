@@ -169,7 +169,7 @@ def order_detail(request, pk):
     if request.method == "POST":
         if "message" in request.POST:
             # Обработка нового сообщения
-            message_content = request.POST.get("content")
+            message_content = request.POST.get("message")
             if message_content:
                 OrderMessage.objects.create(
                     order=order, user=request.user, message=message_content
