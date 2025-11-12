@@ -8616,3 +8616,132 @@ Watching for file changes with StatReloader
 "GET /static/css/styles.css HTTP/1.1" 404 1969
 "GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
 "GET /static/css/pagination.css HTTP/1.1" 404 1981
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /portfolio/ HTTP/1.1" 200 19436
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+Watching for file changes with StatReloader
+Internal Server Error: /portfolio/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 210, in render
+    return template.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 173, in render
+    return self._render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader_tags.py", line 199, in render
+    template = context.template.engine.select_template(template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\engine.py", line 214, in select_template
+    raise TemplateDoesNotExist(", ".join(not_found))
+django.template.exceptions.TemplateDoesNotExist: botton_hero.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: botton_hero.html
+"GET /portfolio/ HTTP/1.1" 500 267614
+"GET /portfolio/ HTTP/1.1" 200 20033
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/ HTTP/1.1" 200 26875
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/create-order/ HTTP/1.1" 200 23996
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/forms.css HTTP/1.1" 404 1966
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET / HTTP/1.1" 200 27304
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /portfolio/ HTTP/1.1" 200 19413
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /portfolio/ HTTP/1.1" 200 19413
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /news/ HTTP/1.1" 200 26255
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/ HTTP/1.1" 200 19413
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 27304
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /portfolio/ HTTP/1.1" 200 19413
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
