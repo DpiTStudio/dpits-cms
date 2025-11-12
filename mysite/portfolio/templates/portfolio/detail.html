@@ -2,25 +2,55 @@
 {% load static %}
 
 {% block title %}
-{{ site_settings.logo_text }}
-- Портфолио  
-- {{ item.title }}
+{{ site_settings.logo_text }} - Портфолио - {{ item.title }}
 {% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/portfolio_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}
 
 {% block content %}
-<!-- Детали проекта -->
-<section class="py-5">
-    <div class="container">
+<section class="main-content">
+    <div class="container-fluid py-5">
+        <!-- Блок категорий под шапкой -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="categories-header">
+                    <h6 class="mb-3">Категории работ:</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for category in categories %}
+                        <a href="{% url 'portfolio:list' %}?category={{ category.slug }}" 
+                           class="btn btn-outline-primary btn-sm {% if selected_category == category.slug %}active{% endif %}">
+                            {{ category.name }}
+                        </a>
+                        {% empty %}
+                        <span class="text-muted">Категорий пока нет</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'portfolio:list' %}">Портфолио</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'portfolio:list' %}?category={{ item.category.slug }}">{{ item.category.name }}</a></li>
+                        <li class="breadcrumb-item active">{{ item.title }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
         <div class="row">
             <!-- Основной контент -->
             <div class="col-lg-8">
+                <!-- Детали проекта -->
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body">
-                        <h3 class="card-title mb-4">О проекте</h3>
+                        <h1 class="card-title mb-4">{{ item.title }}</h1>
                         <div class="portfolio-content">
                             {{ item.content|safe }}
                         </div>
@@ -95,7 +125,7 @@
                         <ul class="list-unstyled">
                             <li class="mb-2">
                                 <strong>Категория:</strong>
-                                <a href="?category={{ item.category.slug }}" class="ms-1">{{ item.category.name }}</a>
+                                <a href="{% url 'portfolio:list' %}?category={{ item.category.slug }}" class="ms-1">{{ item.category.name }}</a>
                             </li>
                             <li class="mb-2">
                                 <strong>Дата:</strong>
@@ -119,7 +149,7 @@
                 <div class="card border-0 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Категория</h5>
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center mb-3">
                             <img src="{{ item.category.image.url }}" alt="{{ item.category.name }}" 
                                  class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
                             <div>
@@ -127,13 +157,50 @@
                                 <small class="text-muted">{{ item.category.works_count }} работ</small>
                             </div>
                         </div>
-                        <a href="?category={{ item.category.slug }}" class="btn btn-outline-primary btn-sm w-100 mt-3">
+                        <a href="{% url 'portfolio:list' %}?category={{ item.category.slug }}" class="btn btn-outline-primary btn-sm w-100">
                             Все работы категории
                         </a>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Отзывы -->
+        {% if reviews %}
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h3 class="mb-0">Отзывы о проекте</h3>
+                        <p class="text-muted mb-0">Что говорят клиенты о нашей работе</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% for review in reviews %}
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-0 h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <div>
+                                                <h5 class="card-title mb-1">{{ review.title }}</h5>
+                                                <p class="text-muted mb-0">от {{ review.client }}</p>
+                                            </div>
+                                            <div class="text-warning">
+                                                {{ review.get_star_rating|safe }}
+                                            </div>
+                                        </div>
+                                        <p class="card-text">{{ review.content }}</p>
+                                        <small class="text-muted">{{ review.created_at|date:"d.m.Y" }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
 
         <!-- Похожие работы -->
         {% if similar_items %}
@@ -143,7 +210,7 @@
                 <div class="row">
                     {% for similar in similar_items %}
                     <div class="col-md-4 mb-4">
-                        <div class="card border-0 shadow-sm h-100">
+                        <div class="card border-0 shadow-sm h-100 hover-lift">
                             <img src="{{ similar.image.url }}" class="card-img-top" alt="{{ similar.title }}" 
                                  style="height: 200px; object-fit: cover;">
                             <div class="card-body d-flex flex-column">
@@ -160,39 +227,4 @@
         {% endif %}
     </div>
 </section>
-
-<!-- Отзывы -->
-{% if reviews %}
-<section class="bg-light py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center mb-4">
-                <h2>Отзывы о проекте</h2>
-                <p class="text-muted">Что говорят клиенты о нашей работе</p>
-            </div>
-        </div>
-        <div class="row">
-            {% for review in reviews %}
-            <div class="col-md-6 mb-4">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <h5 class="card-title mb-1">{{ review.title }}</h5>
-                                <p class="text-muted mb-0">от {{ review.client }}</p>
-                            </div>
-                            <div class="text-warning">
-                                {{ review.get_star_rating|safe }}
-                            </div>
-                        </div>
-                        <p class="card-text">{{ review.content }}</p>
-                        <small class="text-muted">{{ review.created_at|date:"d.m.Y" }}</small>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% endif %}
 {% endblock %}

@@ -8168,3 +8168,58 @@ Watching for file changes with StatReloader
 "GET /portfolio/ HTTP/1.1" 200 18479
 "GET /static/css/styles.css HTTP/1.1" 404 1969
 "GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /news/ HTTP/1.1" 200 26424
+- Broken pipe from ('127.0.0.1', 57184)
+"GET /news/ HTTP/1.1" 200 26424
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /portfolio/ HTTP/1.1" 200 18479
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+Watching for file changes with StatReloader
+"GET /portfolio/ HTTP/1.1" 200 19582
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET /portfolio/?category=makety-dlya-sajtov HTTP/1.1" 200 19608
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/?category=gotovye-resheniya-sistemy-upravleniya-sajtom HTTP/1.1" 200 19608
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/categories/ HTTP/1.1" 200 23467
+"GET /static/css/categories.css HTTP/1.1" 404 1981
+Not Found: /media/portfolio/default-category.png
+"GET /media/portfolio/default-category.png HTTP/1.1" 404 5268
+"GET /media/www_dpits_cms_ru/2025/09/www_dpits_cms_ru_20250928_183513_cat_logo_8.png HTTP/1.1" 200 42428
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /portfolio/ HTTP/1.1" 200 19582
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/?category=gotovye-resheniya-sistemy-upravleniya-sajtom HTTP/1.1" 200 19608
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/?category=makety-dlya-sajtov HTTP/1.1" 200 19608
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /portfolio/ HTTP/1.1" 200 19582
+"GET /static/css/base.css HTTP/1.1" 200 2291
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /portfolio/ HTTP/1.1" 200 19582
+"GET /static/css/base.css HTTP/1.1" 200 2291
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
