@@ -41,6 +41,19 @@
                 {% endif %}
             </div>
         </div>
+        <div>
+          {% if '/news/' in request.path or '/news/' in request.path %}
+              {% include 'bg_cont/news_bg.html' %}
+          {% elif '/portfolio/' in request.path %}
+              {% include 'bg_cont/portfolio_bg.html' %}
+          {% elif '/reviews/' in request.path %}
+              {% include 'bg_cont/reviews_bg.html' %}
+          {% elif request.path == '/' %}
+              {% include 'bg_cont/home_bg.html' %}
+          {% else %}
+              {% include 'bg_cont/home_bg.html' %}
+          {% endif %}
+        </div>
     </div>
 </section>
 {% endblock %}

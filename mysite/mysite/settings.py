@@ -99,6 +99,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+
                 # Пользовательские процессоры контекста
                 "main.context_processors.site_settings",  # Настройки сайта
                 "main.context_processors.menu_items",  # Пункты меню
