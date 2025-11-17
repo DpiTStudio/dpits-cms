@@ -88,9 +88,7 @@ ROOT_URLCONF = "mysite.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [
-            os.path.join(BASE_DIR, "templates")
-        ],  # Дополнительные директории шаблонов
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         "APP_DIRS": True,  # Поиск шаблонов в папках templates приложений
         "OPTIONS": {
             "context_processors": [
