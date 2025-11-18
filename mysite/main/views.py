@@ -105,9 +105,17 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
             "order", "title"
         )[:6]  # Ограничиваем количество
 
+        # Получаем три последние новости
+        from news.models import News  # Импортируем модель новостей
+
+        recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[
+            :3
+        ]
+
         context.update(
             {
                 "featured_pages": featured_pages,
+                "recent_news_list": recent_news_list,  # Добавляем новости в контекст
                 "page_title": "Главная",
                 "meta_description": getattr(
                     context.get("site_settings"), "short_description", ""
