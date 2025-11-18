@@ -30,11 +30,15 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     <!-- Header -->
+    {% block header %}
     {% include "header.html" %}
+    {% endblock %}
 
     <!-- Main Content -->
     <main class="flex-grow-1">
+        {% block hero_section %}
         {% include 'hero.html' %}
+        {% endblock %}
 
         <div class="container-fluid">
             {% block content %}
