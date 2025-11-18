@@ -8973,3 +8973,23 @@ Watching for file changes with StatReloader
 "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
 "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 27629
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/base.css HTTP/1.1" 200 2291
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /news/ HTTP/1.1" 200 26642
+"GET /static/css/news-cards.css HTTP/1.1" 404 1981
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /media/news/default-category.png HTTP/1.1" 200 41704
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /portfolio/ HTTP/1.1" 200 20084
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+"GET /static/css/pagination.css HTTP/1.1" 404 1981
+"GET /reviews/ HTTP/1.1" 200 16756
+"GET /static/css/styles.css HTTP/1.1" 404 1969
+"GET /static/css/styles.css HTTP/1.1" 404 1969
