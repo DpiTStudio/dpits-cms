@@ -1,19 +1,16 @@
-<!-- Hero.html -->
-<!-- Секция героя (верхняя часть страницы) -->
+<!-- hero_section -->
 {% block hero_section %}
 <section class="hero-section bg-primary text-white">
     <div class="container-fluid">
-        <div class="row align-items-left">
+        <div class="row align-items-center">
             <!-- Левая колонка с текстовым контентом -->
             <div class="col-lg-8">
                 <!-- Основной заголовок сайта -->
-                <h1 class="display-5 fw-bold mb-3">{{ site_settings.title }}</h1>
-                <u>{{ site_settings.logo_text|safe }}</u>
-                <!-- Текст логотипа или приветствие -->
-                <h2 class="display-4 fw-bold mb-1">
-                    {{ news.title }}
-                    {{ category.title|default:"Добро пожаловать" }}
-                </h2>
+                <h1 class="display-5 fw-bold mb-3">{{ site_settings.title|default:"Добро пожаловать" }}</h1>
+                
+                {% if site_settings.logo_text %}
+                <u class="h4">{{ site_settings.logo_text|safe }}</u>
+                {% endif %}
                 
                 <!-- Слоган сайта (если задан) -->
                 {% if site_settings.slogan %}
@@ -31,28 +28,28 @@
             </div>
             
             <!-- Правая колонка с логотипом -->
-            <div class="col-lg-4 text-left">
+            <div class="col-lg-4 text-center">
                 {% if site_settings.logo %}
                 <div class="logo-container">
                     <img src="{{ site_settings.logo.url }}" 
                          alt="{{ site_settings.logo_text }}" 
-                         class="img_hero rounded shadow">
+                         class="img-fluid rounded shadow" style="max-height: 200px;">
                 </div>
                 {% endif %}
             </div>
         </div>
-        <div>
-          {% if '/news/' in request.path or '/news/' in request.path %}
-              {% include 'bg_cont/news_bg.html' %}
-          {% elif '/portfolio/' in request.path %}
-              {% include 'bg_cont/portfolio_bg.html' %}
-          {% elif '/reviews/' in request.path %}
-              {% include 'bg_cont/reviews_bg.html' %}
-          {% elif request.path == '/' %}
-              {% include 'bg_cont/home_bg.html' %}
-          {% else %}
-              {% include 'bg_cont/home_bg.html' %}
-          {% endif %}
+        
+        <!-- Фоновая секция -->
+        <div class="mt-4">
+            {% if '/news/' in request.path %}
+                {% include 'bg_cont/news_bg.html' %}
+            {% elif '/portfolio/' in request.path %}
+                {% include 'bg_cont/portfolio_bg.html' %}
+            {% elif '/reviews/' in request.path %}
+                {% include 'bg_cont/reviews_bg.html' %}
+            {% else %}
+                {% include 'bg_cont/home_bg.html' %}
+            {% endif %}
         </div>
     </div>
 </section>

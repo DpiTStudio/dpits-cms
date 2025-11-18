@@ -88,7 +88,7 @@ ROOT_URLCONF = "mysite.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,  # Поиск шаблонов в папках templates приложений
         "OPTIONS": {
             "context_processors": [
@@ -97,7 +97,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-
                 # Пользовательские процессоры контекста
                 "main.context_processors.site_settings",  # Настройки сайта
                 "main.context_processors.menu_items",  # Пункты меню
@@ -485,26 +484,26 @@ SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Использован
 # НАСТРОЙКИ ЛОГИРОВАНИЯ
 # =============================================================================
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,  # Не отключать существующие логгеры
-    "handlers": {
-        "file": {
-            "level": "INFO",  # Уровень логирования
-            "class": "logging.FileHandler",  # Обработчик - файл
-            "filename": os.path.join(BASE_DIR, "debug.log"),  # Файл лога
-        },
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["file"],
-            "level": "INFO",  # Уровень для Django
-            "propagate": True,  # Распространение логов
-        },
-        "portfolio": {
-            "handlers": ["file"],
-            "level": "INFO",  # Уровень для приложения portfolio
-            "propagate": False,  # Не распространять логи
-        },
-    },
-}
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,  # Не отключать существующие логгеры
+#     "handlers": {
+#         "file": {
+#             "level": "INFO",  # Уровень логирования
+#             "class": "logging.FileHandler",  # Обработчик - файл
+#             "filename": os.path.join(BASE_DIR, "debug.log"),  # Файл лога
+#         },
+#     },
+#     "loggers": {
+#         "django": {
+#             "handlers": ["file"],
+#             "level": "INFO",  # Уровень для Django
+#             "propagate": True,  # Распространение логов
+#         },
+#         "portfolio": {
+#             "handlers": ["file"],
+#             "level": "INFO",  # Уровень для приложения portfolio
+#             "propagate": False,  # Не распространять логи
+#         },
+#     },
+# }

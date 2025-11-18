@@ -1,12 +1,14 @@
 <!-- Footer.html -->
+{% block footer %}
 <footer class="bg-dark text-white py-5 mt-auto">
     <div class="container-fluid px-4 px-lg-5">
         <div class="row">
             <!-- Brand Info -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <h5 class="fw-bold mb-3">{{ site_settings.logo_text }}</h5>
-                <p class="text-short_description">{{ site_settings.short_description|safe }}</p>
+                <p class="text-muted">{{ site_settings.short_description|safe }}</p>
             </div>
+            
             <!-- Contacts -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <h5 class="fw-bold mb-3">Контакты</h5>
@@ -65,45 +67,41 @@
                 </ul>
             </div>
         </div>
+        
         <!-- Социальные сети -->
-        <div class="footer-section">
-            <h3>Мы в соцсетях</h3>
-            <p>Подписывайтесь на наши социальные сети, чтобы быть в курсе последних новостей и событий.</p>
-            
-            <div class="social-links">
-                {% if site_settings.vk %}
-                        <a href="{{ site_settings.vk }}"><i class="fa-brands fa-vk me-2 text-primary"></i></a>
-                {% endif %}
-                {% if site_settings.ok %}
-                        <a href="{{ site_settings.ok }}"><i class="fab fa-odnoklassniki"></i></a>
-                {% endif %}
-                {% if site_settings.vk_video %}
-                        <a href="{{ site_settings.vk_video }}"><i class="fab fa-vk"></i></a>
-                {% endif %}
-                {% if site_settings.youtube %}
-                        <a href="{{ site_settings.youtube }}"><i class="fab fa-youtube"></i></a>
-                {% endif %}
-                {% if site_settings.rutube %}
-                        <a href="{{ site_settings.rutube }}"><i class="fas fa-play-circle"></i></a>
-                {% endif %}
-                {% if site_settings.facebook %}
-                        <a href="{{ site_settings.facebook }}"><i class="fab fa-facebook-f"></i></a>
-                {% endif %}
-                {% if site_settings.instagram %}
-                        <a href="{{ site_settings.instagram }}"><i class="fab fa-instagram"></i></a>
-                {% endif %}
-                {% if site_settings.telegram %}
-                        <a href="{{ site_settings.telegram }}"><i class="fab fa-telegram"></i></a>
-                {% endif %}
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5 class="fw-bold mb-3">Мы в соцсетях</h5>
+                <p class="text-muted mb-3">Подписывайтесь на наши социальные сети, чтобы быть в курсе последних новостей и событий.</p>
+                
+                <div class="social-links d-flex gap-3">
+                    {% if site_settings.vk %}
+                        <a href="{{ site_settings.vk }}" class="text-white fs-4"><i class="fab fa-vk"></i></a>
+                    {% endif %}
+                    {% if site_settings.ok %}
+                        <a href="{{ site_settings.ok }}" class="text-white fs-4"><i class="fab fa-odnoklassniki"></i></a>
+                    {% endif %}
+                    {% if site_settings.youtube %}
+                        <a href="{{ site_settings.youtube }}" class="text-white fs-4"><i class="fab fa-youtube"></i></a>
+                    {% endif %}
+                    {% if site_settings.telegram %}
+                        <a href="{{ site_settings.telegram }}" class="text-white fs-4"><i class="fab fa-telegram"></i></a>
+                    {% endif %}
+                    {% if site_settings.instagram %}
+                        <a href="{{ site_settings.instagram }}" class="text-white fs-4"><i class="fab fa-instagram"></i></a>
+                    {% endif %}
+                </div>
             </div>
         </div>
+        
         <hr class="my-4">
         
-        <div class="text-left">
-            <p class="mb-0 text_muted">
+        <div class="text-center">
+            <p class="mb-0 text-muted">
                 &copy; {% now "Y" %} {{ site_settings.logo_text }}.<br> 
                 <i>Все права защищены.</i>
             </p>
         </div>
     </div>
 </footer>
+{% endblock %}
