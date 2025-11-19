@@ -115,7 +115,7 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
         context.update(
             {
                 "featured_pages": featured_pages,
-                "recent_news_list": recent_news_list,  # Добавляем новости в контекст
+                "recent_news_list": recent_news_list, 
                 "page_title": "Главная",
                 "meta_description": getattr(
                     context.get("site_settings"), "short_description", ""
