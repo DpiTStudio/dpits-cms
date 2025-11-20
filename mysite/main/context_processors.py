@@ -15,7 +15,7 @@ def site_settings(request):
 
     if not settings:
         # Получаем настройки из базы, если нет в кэше
-        settings = SiteSettings.objects.first()
+        settings = SiteSettings.load()
         if settings:
             # Кэшируем на 5 минут (300 секунд)
             cache.set(cache_key, settings, 300)
@@ -51,7 +51,7 @@ def seo_context(request):
     Контекстный процессор для базовых SEO-данных.
     Предоставляет общие SEO-настройки для всех страниц.
     """
-    settings = SiteSettings.objects.first()
+    settings = SiteSettings.load()
     return {
         "default_seo_title": getattr(settings, "seo_title", ""),
         "default_seo_description": getattr(settings, "seo_description", ""),

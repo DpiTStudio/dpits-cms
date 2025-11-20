@@ -8,6 +8,12 @@ from django.views.decorators.vary import vary_on_cookie
 from django.core.cache import cache
 from .models import SiteSettings, Page
 
+# Импорт модели новостей (если приложение news установлено)
+try:
+    from news.models import News
+except ImportError:
+    News = None
+
 
 class ProfileView(TemplateView):
     """
@@ -106,11 +112,11 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
         )[:6]  # Ограничиваем количество
 
         # Получаем три последние новости
-        from news.models import News  # Импортируем модель новостей
-
-        recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[
-            :3
-        ]
+        recent_news_list = []
+        if News:
+            recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[
+                :3
+            ]
 
         context.update(
             {
