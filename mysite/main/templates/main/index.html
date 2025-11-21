@@ -28,42 +28,6 @@
             <!-- Основной контент -->
             <div class="col-lg-9">
                 <div class="row">
-                    <!-- Заголовок и логотип -->
-                    <div class="col-12 mb-4">
-                        {% if site_settings.logo %}
-                        <div class="text-center mb-3">
-                            <img src="{{ site_settings.logo.url }}" 
-                                 alt="{{ site_settings.logo_text|default:'Логотип' }}" 
-                                 class="img-fluid"
-                                 style="max-height: 120px;">
-                        </div>
-                        {% endif %}
-                        {% if site_settings.logo_text %}
-                        <h1 class="display-5 fw-bold text-primary text-center mb-3">
-                            {{ site_settings.logo_text }}
-                        </h1>
-                        {% endif %}
-                        {% if site_settings.slogan %}
-                        <p class="lead text-muted text-center mb-4">
-                            {{ site_settings.slogan }}
-                        </p>
-                        {% endif %}
-                    </div>
-
-                    <!-- Девиз сайта -->
-                    {% if site_settings.motto %}
-                    <div class="col-12 mb-4">
-                        <div class="card shadow-sm border-0 rounded-3 bg-primary text-white">
-                            <div class="card-body p-4 text-center">
-                                <i class="fas fa-quote-left fa-2x mb-3 opacity-75"></i>
-                                <div class="motto-content">
-                                    {{ site_settings.motto|safe }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-
                     <!-- Краткое описание -->
                     {% if site_settings.short_description %}
                     <div class="col-12 mb-4">
@@ -207,17 +171,4 @@
         </div>
     </div>
 </section>
-
-<style>
-    .motto-content {
-        font-size: 1.1rem;
-        line-height: 1.8;
-    }
-    .card {
-        transition: transform 0.3s ease;
-    }
-    .card:hover {
-        transform: translateY(-3px);
-    }
-</style>
 {% endblock %}

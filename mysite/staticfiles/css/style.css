@@ -21,9 +21,17 @@
 
 .motto-content {
     font-size: 1.1rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.9);
-    margin-top: 1rem;
+    line-height: 1.8;
+}
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Content Styles */
@@ -39,18 +47,6 @@
 }
 
 /* Card Styles */
-.card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: none;
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-}
-
 .card-body {
     padding: 1.5rem;
 }
@@ -184,3 +180,4 @@
         padding: 1rem;
     }
 }
+
