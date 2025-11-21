@@ -16,6 +16,8 @@ def clear_site_settings_cache(sender, **kwargs):
         "site_settings",
         "site_settings_IndexView",
         "site_settings_PageDetailView",
+        "menu_pages",
+        "featured_pages",
     ]
     for key in cache_keys:
         cache.delete(key)

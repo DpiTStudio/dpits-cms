@@ -1,11 +1,14 @@
 # views.py
 # Представления (контроллеры) для приложения main
-from django.shortcuts import render
+import re
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, DetailView
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_cookie
 from django.core.cache import cache
+from django.http import Http404
+from django.db.models import Q
 from .models import SiteSettings, Page
 
 # Импорт модели новостей (если приложение news установлено)
@@ -13,61 +16,6 @@ try:
     from news.models import News
 except ImportError:
     News = None
-
-
-class ProfileView(TemplateView):
-    """
-    Представление для страницы профиля пользователя.
-    Отображает шаблон профиля с базовым контекстом.
-    """
-
-    template_name = "main/profile.html"
-
-    def get_context_data(self, **kwargs):
-        """
-        Добавляет данные контекста для страницы профиля.
-        """
-        context = super().get_context_data(**kwargs)
-        context.update(
-            {
-                "page_title": "Профиль",
-                "meta_description": "Профиль пользователя",
-            }
-        )
-        return context
-
-
-class BaseView(TemplateView):
-    """
-    Базовый класс для всех представлений.
-    Содержит общую логику для наследования.
-    """
-
-    def get_context_data(self, **kwargs):
-        """
-        Добавляет общие данные контекста для всех страниц.
-        Включает настройки сайта и проверку статуса обслуживания.
-        """
-        context = super().get_context_data(**kwargs)
-
-        # Получаем настройки сайта с кэшированием
-        cache_key = f"site_settings_{self.__class__.__name__}"
-        site_settings = cache.get(cache_key)
-
-        if not site_settings:
-            site_settings = SiteSettings.load()
-            if site_settings:
-                cache.set(cache_key, site_settings, 300)  # Кэш на 5 минут
-
-        context["site_settings"] = site_settings
-
-        # Проверяем, закрыт ли сайт
-        if site_settings and site_settings.site_closed:
-            # Для закрытого сайта используем специальный шаблон
-            self.template_name = "main/site_closed.html"
-            context["closure_message"] = site_settings.closure_message
-
-        return context
 
 
 class MaintenanceMixin:
@@ -91,6 +39,75 @@ class MaintenanceMixin:
         return super().dispatch(request, *args, **kwargs)
 
 
+class BaseView(TemplateView):
+    """
+    Базовый класс для всех представлений.
+    Содержит общую логику для наследования.
+    """
+
+    def get_context_data(self, **kwargs):
+        """
+        Добавляет общие данные контекста для всех страниц.
+        Включает настройки сайта и проверку статуса обслуживания.
+        """
+        context = super().get_context_data(**kwargs)
+
+        # Получаем настройки сайта с кэшированием
+        cache_key = "site_settings"
+        site_settings = cache.get(cache_key)
+
+        if not site_settings:
+            site_settings = SiteSettings.load()
+            if site_settings:
+                cache.set(cache_key, site_settings, 300)  # Кэш на 5 минут
+
+        context["site_settings"] = site_settings
+
+        # Добавляем базовые SEO данные
+        context.setdefault("page_title", getattr(site_settings, "logo_text", "DPITS-CMS.RU") if site_settings else "DPITS-CMS.RU")
+        context.setdefault("meta_description", getattr(site_settings, "seo_description", "") if site_settings else "")
+        context.setdefault("meta_keywords", getattr(site_settings, "seo_keywords", "") if site_settings else "")
+
+        return context
+
+
+class ProfileView(MaintenanceMixin, BaseView, TemplateView):
+    """
+    Представление для страницы профиля пользователя.
+    Отображает шаблон профиля с базовым контекстом.
+    Требует аутентификации пользователя.
+    """
+
+    template_name = "main/profile.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Проверяет, аутентифицирован ли пользователь.
+        """
+        if not request.user.is_authenticated:
+            from django.contrib.auth.views import redirect_to_login
+            from django.shortcuts import resolve_url
+            return redirect_to_login(
+                request.get_full_path(),
+                login_url=resolve_url("accounts:login")
+            )
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """
+        Добавляет данные контекста для страницы профиля.
+        """
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "page_title": "Профиль",
+                "meta_description": "Профиль пользователя",
+                "user": self.request.user,
+            }
+        )
+        return context
+
+
 class IndexView(MaintenanceMixin, BaseView, TemplateView):
     """
     Представление для главной страницы сайта.
@@ -105,27 +122,60 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
         Включает рекомендуемые страницы и SEO-данные.
         """
         context = super().get_context_data(**kwargs)
+        site_settings = context.get("site_settings")
 
         # Получаем рекомендуемые страницы для главной
-        featured_pages = Page.objects.filter(show_on_site=True).order_by(
-            "order", "title"
-        )[:6]  # Ограничиваем количество
+        cache_key = "featured_pages"
+        featured_pages = cache.get(cache_key)
+        
+        if not featured_pages:
+            featured_pages = list(
+                Page.objects.filter(show_on_site=True)
+                .order_by("order", "title")[:6]
+            )
+            if featured_pages:
+                cache.set(cache_key, featured_pages, 600)  # Кэш на 10 минут
 
         # Получаем три последние новости
         recent_news_list = []
         if News:
-            recent_news_list = News.objects.filter(is_active=True).order_by("-created_at")[
-                :3
-            ]
+            try:
+                recent_news_list = list(
+                    News.objects.filter(is_active=True)
+                    .order_by("-created_at")[:3]
+                )
+            except Exception:
+                # Если модель News не имеет поля is_active, используем другой фильтр
+                try:
+                    recent_news_list = list(
+                        News.objects.all().order_by("-created_at")[:3]
+                    )
+                except Exception:
+                    recent_news_list = []
+
+        # SEO данные
+        page_title = "Главная"
+        if site_settings:
+            if site_settings.seo_title:
+                page_title = f"{site_settings.logo_text} - {site_settings.seo_title}" if site_settings.logo_text else site_settings.seo_title
+            elif site_settings.logo_text:
+                page_title = site_settings.logo_text
+
+        meta_description = ""
+        if site_settings:
+            if site_settings.short_description:
+                # Убираем HTML теги и ограничиваем длину
+                meta_description = re.sub(r'<[^>]+>', '', str(site_settings.short_description))
+                meta_description = meta_description[:160] if len(meta_description) > 160 else meta_description
+            elif site_settings.seo_description:
+                meta_description = site_settings.seo_description
 
         context.update(
             {
                 "featured_pages": featured_pages,
-                "recent_news_list": recent_news_list, 
-                "page_title": "Главная",
-                "meta_description": getattr(
-                    context.get("site_settings"), "short_description", ""
-                ),
+                "recent_news_list": recent_news_list,
+                "page_title": page_title,
+                "meta_description": meta_description,
             }
         )
 
@@ -154,19 +204,89 @@ class PageDetailView(MaintenanceMixin, BaseView, DetailView):
         """
         return Page.objects.filter(show_on_site=True)
 
+    def get_object(self, queryset=None):
+        """
+        Получает объект страницы или выбрасывает 404.
+        """
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        queryset = self.get_queryset()
+        try:
+            page = queryset.get(slug=slug)
+            return page
+        except Page.DoesNotExist:
+            raise Http404("Страница не найдена")
+
     def get_context_data(self, **kwargs):
         """
         Добавляет SEO-данные и связанный контент.
         """
         context = super().get_context_data(**kwargs)
         page = self.object
+        site_settings = context.get("site_settings")
+
+        # Получаем предыдущую и следующую страницы
+        prev_page = None
+        next_page = None
+        try:
+            prev_page = (
+                Page.objects.filter(
+                    show_on_site=True,
+                    order__lt=page.order
+                )
+                .order_by("-order", "-created_at")
+                .first()
+            )
+            if not prev_page:
+                prev_page = (
+                    Page.objects.filter(
+                        show_on_site=True,
+                        created_at__lt=page.created_at
+                    )
+                    .order_by("-created_at")
+                    .first()
+                )
+        except Exception:
+            pass
+
+        try:
+            next_page = (
+                Page.objects.filter(
+                    show_on_site=True,
+                    order__gt=page.order
+                )
+                .order_by("order", "created_at")
+                .first()
+            )
+            if not next_page:
+                next_page = (
+                    Page.objects.filter(
+                        show_on_site=True,
+                        created_at__gt=page.created_at
+                    )
+                    .order_by("created_at")
+                    .first()
+                )
+        except Exception:
+            pass
 
         # SEO-данные страницы
+        page_title = page.display_title
+        if site_settings and site_settings.logo_text:
+            page_title = f"{page.display_title} - {site_settings.logo_text}"
+
+        # Мета-описание
+        meta_description = page.seo_description
+        if not meta_description and page.content:
+            meta_description = re.sub(r'<[^>]+>', '', str(page.content))
+            meta_description = meta_description[:160] if len(meta_description) > 160 else meta_description
+
         context.update(
             {
-                "page_title": page.display_title,
-                "meta_description": page.seo_description or page.content[:160],
+                "page_title": page_title,
+                "meta_description": meta_description,
                 "meta_keywords": page.seo_keywords,
+                "prev_page": prev_page,
+                "next_page": next_page,
             }
         )
 
@@ -187,10 +307,20 @@ class ContactView(MaintenanceMixin, BaseView, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        site_settings = context.get("site_settings")
+
+        page_title = "Контакты"
+        if site_settings and site_settings.logo_text:
+            page_title = f"Контакты - {site_settings.logo_text}"
+
+        meta_description = "Контактная информация и способы связи"
+        if site_settings and site_settings.seo_description:
+            meta_description = site_settings.seo_description
+
         context.update(
             {
-                "page_title": "Контакты",
-                "meta_description": "Контактная информация и способы связи",
+                "page_title": page_title,
+                "meta_description": meta_description,
             }
         )
         return context
@@ -205,10 +335,24 @@ class AboutView(MaintenanceMixin, BaseView, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        site_settings = context.get("site_settings")
+
+        page_title = "О нас"
+        if site_settings and site_settings.logo_text:
+            page_title = f"О нас - {site_settings.logo_text}"
+
+        meta_description = "Информация о нашей компании и услугах"
+        if site_settings:
+            if site_settings.short_description:
+                meta_description = re.sub(r'<[^>]+>', '', str(site_settings.short_description))
+                meta_description = meta_description[:160] if len(meta_description) > 160 else meta_description
+            elif site_settings.seo_description:
+                meta_description = site_settings.seo_description
+
         context.update(
             {
-                "page_title": "О нас",
-                "meta_description": "Информация о нашей компании и услугах",
+                "page_title": page_title,
+                "meta_description": meta_description,
             }
         )
         return context
@@ -219,10 +363,16 @@ def custom_404_view(request, exception):
     Кастомная страница 404 ошибки.
     """
     site_settings = SiteSettings.load()
+    context = {
+        "site_settings": site_settings,
+        "exception": exception,
+        "page_title": "Страница не найдена (404)",
+        "meta_description": "Запрашиваемая страница не найдена",
+    }
     return render(
         request,
         "main/404.html",
-        {"site_settings": site_settings, "exception": exception},
+        context,
         status=404,
     )
 
@@ -232,6 +382,14 @@ def custom_500_view(request):
     Кастомная страница 500 ошибки.
     """
     site_settings = SiteSettings.load()
+    context = {
+        "site_settings": site_settings,
+        "page_title": "Ошибка сервера (500)",
+        "meta_description": "Произошла внутренняя ошибка сервера",
+    }
     return render(
-        request, "main/500.html", {"site_settings": site_settings}, status=500
+        request,
+        "main/500.html",
+        context,
+        status=500,
     )

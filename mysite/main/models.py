@@ -200,6 +200,58 @@ class Page(models.Model):
         """
         return reverse("main:page_detail", kwargs={"slug": self.slug})
 
+    def get_previous_page(self):
+        """
+        Возвращает предыдущую страницу по порядку или дате создания.
+        """
+        try:
+            prev_page = (
+                Page.objects.filter(
+                    show_on_site=True,
+                    order__lt=self.order
+                )
+                .order_by("-order", "-created_at")
+                .first()
+            )
+            if not prev_page:
+                prev_page = (
+                    Page.objects.filter(
+                        show_on_site=True,
+                        created_at__lt=self.created_at
+                    )
+                    .order_by("-created_at")
+                    .first()
+                )
+            return prev_page
+        except Exception:
+            return None
+
+    def get_next_page(self):
+        """
+        Возвращает следующую страницу по порядку или дате создания.
+        """
+        try:
+            next_page = (
+                Page.objects.filter(
+                    show_on_site=True,
+                    order__gt=self.order
+                )
+                .order_by("order", "created_at")
+                .first()
+            )
+            if not next_page:
+                next_page = (
+                    Page.objects.filter(
+                        show_on_site=True,
+                        created_at__gt=self.created_at
+                    )
+                    .order_by("created_at")
+                    .first()
+                )
+            return next_page
+        except Exception:
+            return None
+
     @property
     def display_title(self):
         """

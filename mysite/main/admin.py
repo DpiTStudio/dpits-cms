@@ -73,6 +73,17 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         """
         return False
 
+    def save_model(self, request, obj, form, change):
+        """
+        Переопределяет сохранение для очистки кэша.
+        """
+        super().save_model(request, obj, form, change)
+        # Очищаем кэш при сохранении
+        from django.core.cache import cache
+        cache.delete("site_settings")
+        cache.delete("menu_pages")
+        cache.delete("featured_pages")
+
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
@@ -126,3 +137,20 @@ class PageAdmin(admin.ModelAdmin):
         """
 
         css = {"all": ("admin/css/pages.css",)}
+
+    def get_queryset(self, request):
+        """
+        Оптимизирует запросы к базе данных.
+        """
+        qs = super().get_queryset(request)
+        return qs.select_related()
+
+    def save_model(self, request, obj, form, change):
+        """
+        Переопределяет сохранение для логирования изменений.
+        """
+        super().save_model(request, obj, form, change)
+        # Очищаем кэш при сохранении
+        from django.core.cache import cache
+        cache.delete("menu_pages")
+        cache.delete("featured_pages")
