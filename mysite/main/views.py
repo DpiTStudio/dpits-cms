@@ -64,9 +64,20 @@ class BaseView(TemplateView):
         context["site_settings"] = site_settings
 
         # Добавляем базовые SEO данные
-        context.setdefault("page_title", getattr(site_settings, "logo_text", "DPITS-CMS.RU") if site_settings else "DPITS-CMS.RU")
-        context.setdefault("meta_description", getattr(site_settings, "seo_description", "") if site_settings else "")
-        context.setdefault("meta_keywords", getattr(site_settings, "seo_keywords", "") if site_settings else "")
+        context.setdefault(
+            "page_title",
+            getattr(site_settings, "logo_text", "DPITS-CMS.RU")
+            if site_settings
+            else "DPITS-CMS.RU",
+        )
+        context.setdefault(
+            "meta_description",
+            getattr(site_settings, "seo_description", "") if site_settings else "",
+        )
+        context.setdefault(
+            "meta_keywords",
+            getattr(site_settings, "seo_keywords", "") if site_settings else "",
+        )
 
         return context
 
@@ -87,9 +98,9 @@ class ProfileView(MaintenanceMixin, BaseView, TemplateView):
         if not request.user.is_authenticated:
             from django.contrib.auth.views import redirect_to_login
             from django.shortcuts import resolve_url
+
             return redirect_to_login(
-                request.get_full_path(),
-                login_url=resolve_url("accounts:login")
+                request.get_full_path(), login_url=resolve_url("accounts:login")
             )
         return super().dispatch(request, *args, **kwargs)
 
@@ -127,11 +138,10 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
         # Получаем рекомендуемые страницы для главной
         cache_key = "featured_pages"
         featured_pages = cache.get(cache_key)
-        
+
         if not featured_pages:
             featured_pages = list(
-                Page.objects.filter(show_on_site=True)
-                .order_by("order", "title")[:6]
+                Page.objects.filter(show_on_site=True).order_by("order", "title")[:6]
             )
             if featured_pages:
                 cache.set(cache_key, featured_pages, 600)  # Кэш на 10 минут
@@ -141,8 +151,7 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
         if News:
             try:
                 recent_news_list = list(
-                    News.objects.filter(is_active=True)
-                    .order_by("-created_at")[:3]
+                    News.objects.filter(is_active=True).order_by("-created_at")[:3]
                 )
             except Exception:
                 # Если модель News не имеет поля is_active, используем другой фильтр
@@ -157,7 +166,11 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
         page_title = "Главная"
         if site_settings:
             if site_settings.seo_title:
-                page_title = f"{site_settings.logo_text} - {site_settings.seo_title}" if site_settings.logo_text else site_settings.seo_title
+                page_title = (
+                    f"{site_settings.logo_text} - {site_settings.seo_title}"
+                    if site_settings.logo_text
+                    else site_settings.seo_title
+                )
             elif site_settings.logo_text:
                 page_title = site_settings.logo_text
 
@@ -165,8 +178,14 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
         if site_settings:
             if site_settings.short_description:
                 # Убираем HTML теги и ограничиваем длину
-                meta_description = re.sub(r'<[^>]+>', '', str(site_settings.short_description))
-                meta_description = meta_description[:160] if len(meta_description) > 160 else meta_description
+                meta_description = re.sub(
+                    r"<[^>]+>", "", str(site_settings.short_description)
+                )
+                meta_description = (
+                    meta_description[:160]
+                    if len(meta_description) > 160
+                    else meta_description
+                )
             elif site_settings.seo_description:
                 meta_description = site_settings.seo_description
 
@@ -187,7 +206,7 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
         return super().dispatch(*args, **kwargs)
 
 
-class PageDetailView(MaintenanceMixin, BaseView, DetailView):
+class PageDetailView(MaintenanceMixin, DetailView):
     """
     Представление для отображения детальной информации о странице.
     """
@@ -204,70 +223,17 @@ class PageDetailView(MaintenanceMixin, BaseView, DetailView):
         """
         return Page.objects.filter(show_on_site=True)
 
-    def get_object(self, queryset=None):
-        """
-        Получает объект страницы или выбрасывает 404.
-        """
-        slug = self.kwargs.get(self.slug_url_kwarg)
-        queryset = self.get_queryset()
-        try:
-            page = queryset.get(slug=slug)
-            return page
-        except Page.DoesNotExist:
-            raise Http404("Страница не найдена")
-
     def get_context_data(self, **kwargs):
         """
         Добавляет SEO-данные и связанный контент.
         """
         context = super().get_context_data(**kwargs)
         page = self.object
-        site_settings = context.get("site_settings")
+        site_settings = SiteSettings.load()
 
         # Получаем предыдущую и следующую страницы
-        prev_page = None
-        next_page = None
-        try:
-            prev_page = (
-                Page.objects.filter(
-                    show_on_site=True,
-                    order__lt=page.order
-                )
-                .order_by("-order", "-created_at")
-                .first()
-            )
-            if not prev_page:
-                prev_page = (
-                    Page.objects.filter(
-                        show_on_site=True,
-                        created_at__lt=page.created_at
-                    )
-                    .order_by("-created_at")
-                    .first()
-                )
-        except Exception:
-            pass
-
-        try:
-            next_page = (
-                Page.objects.filter(
-                    show_on_site=True,
-                    order__gt=page.order
-                )
-                .order_by("order", "created_at")
-                .first()
-            )
-            if not next_page:
-                next_page = (
-                    Page.objects.filter(
-                        show_on_site=True,
-                        created_at__gt=page.created_at
-                    )
-                    .order_by("created_at")
-                    .first()
-                )
-        except Exception:
-            pass
+        prev_page = page.get_previous_page()
+        next_page = page.get_next_page()
 
         # SEO-данные страницы
         page_title = page.display_title
@@ -277,11 +243,16 @@ class PageDetailView(MaintenanceMixin, BaseView, DetailView):
         # Мета-описание
         meta_description = page.seo_description
         if not meta_description and page.content:
-            meta_description = re.sub(r'<[^>]+>', '', str(page.content))
-            meta_description = meta_description[:160] if len(meta_description) > 160 else meta_description
+            meta_description = re.sub(r"<[^>]+>", "", str(page.content))
+            meta_description = (
+                meta_description[:160]
+                if len(meta_description) > 160
+                else meta_description
+            )
 
         context.update(
             {
+                "site_settings": site_settings,
                 "page_title": page_title,
                 "meta_description": meta_description,
                 "meta_keywords": page.seo_keywords,
@@ -298,7 +269,7 @@ class PageDetailView(MaintenanceMixin, BaseView, DetailView):
         return super().dispatch(*args, **kwargs)
 
 
-class ContactView(MaintenanceMixin, BaseView, TemplateView):
+class ContactView(MaintenanceMixin, TemplateView):
     """
     Представление для страницы контактов.
     """
@@ -307,7 +278,7 @@ class ContactView(MaintenanceMixin, BaseView, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        site_settings = context.get("site_settings")
+        site_settings = SiteSettings.load()
 
         page_title = "Контакты"
         if site_settings and site_settings.logo_text:
@@ -319,6 +290,7 @@ class ContactView(MaintenanceMixin, BaseView, TemplateView):
 
         context.update(
             {
+                "site_settings": site_settings,
                 "page_title": page_title,
                 "meta_description": meta_description,
             }
@@ -326,7 +298,7 @@ class ContactView(MaintenanceMixin, BaseView, TemplateView):
         return context
 
 
-class AboutView(MaintenanceMixin, BaseView, TemplateView):
+class AboutView(MaintenanceMixin, TemplateView):
     """
     Представление для страницы "О нас".
     """
@@ -335,7 +307,7 @@ class AboutView(MaintenanceMixin, BaseView, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        site_settings = context.get("site_settings")
+        site_settings = SiteSettings.load()
 
         page_title = "О нас"
         if site_settings and site_settings.logo_text:
@@ -344,13 +316,20 @@ class AboutView(MaintenanceMixin, BaseView, TemplateView):
         meta_description = "Информация о нашей компании и услугах"
         if site_settings:
             if site_settings.short_description:
-                meta_description = re.sub(r'<[^>]+>', '', str(site_settings.short_description))
-                meta_description = meta_description[:160] if len(meta_description) > 160 else meta_description
+                meta_description = re.sub(
+                    r"<[^>]+>", "", str(site_settings.short_description)
+                )
+                meta_description = (
+                    meta_description[:160]
+                    if len(meta_description) > 160
+                    else meta_description
+                )
             elif site_settings.seo_description:
                 meta_description = site_settings.seo_description
 
         context.update(
             {
+                "site_settings": site_settings,
                 "page_title": page_title,
                 "meta_description": meta_description,
             }
