@@ -14,6 +14,12 @@ from .models import (
 )
 from .forms import OrderForm, ReviewForm, ClientProfileForm
 
+# Импорт модели новостей (если приложение news установлено)
+try:
+    from news.models import News
+except ImportError:
+    News = None
+
 
 class PortfolioListView(ListView):
     """Список всех работ портфолио"""
@@ -65,9 +71,13 @@ class PortfolioDetailView(DetailView):
         ).select_related("client")
 
         # Похожие работы из той же категории
-        context["related_works"] = PortfolioItem.objects.filter(
-            category=self.object.category, status="published"
-        ).exclude(id=self.object.id).order_by("-created_at")[:4]
+        context["related_works"] = (
+            PortfolioItem.objects.filter(
+                category=self.object.category, status="published"
+            )
+            .exclude(id=self.object.id)
+            .order_by("-created_at")[:4]
+        )
 
         # Увеличиваем счетчик просмотров
         self.object.increment_views()
