@@ -1,1 +1,16 @@
 Watching for file changes with StatReloader
+"GET /news/ HTTP/1.1" 200 27141
+"GET /static/css/pagination.css HTTP/1.1" 404 1868
+"GET /static/css/news-cards.css HTTP/1.1" 404 1868
+"GET /news/pervaya-novost/ HTTP/1.1" 200 26950
+"GET /static/css/news-common.css HTTP/1.1" 404 1871
+"GET /static/css/sidebar.css HTTP/1.1" 404 1859
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 36161
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 43280
+"GET / HTTP/1.1" 200 43280
+"GET /static/css/base.css HTTP/1.1" 304 0
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 43280
+"GET /static/css/styles.css HTTP/1.1" 304 0

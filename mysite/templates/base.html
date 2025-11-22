@@ -52,7 +52,7 @@
                     {% endblock %}
 
                     <!-- Блок последних новостей на главной -->
-                    {% comment %} {% block home_news_section %}
+                    {% block home_news_section %}
                     {% if recent_news_list %}
                     <div class="col-12 mt-5">
                         <div class="card shadow-sm">
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     {% endif %}
-                    {% endblock %} {% endcomment %}
+                    {% endblock %} 
 
                     <!-- Рекомендуемые страницы -->
                     {% block featured_pages %}
