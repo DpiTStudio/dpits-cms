@@ -1,40 +1,38 @@
 """
-URL configuration for mysite project.
+Конфигурация URL для проекта mysite.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+Список `urlpatterns` маршрутизирует URL к представлениям (views).
+Для получения дополнительной информации см.:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # mysite/urls.py
+# Главный файл конфигурации URL для проекта
 
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+from django.contrib import admin  # Импорт админ-панели Django
+from django.urls import path, include  # Импорт функций для работы с URL
+from django.conf import settings  # Импорт настроек Django
+from django.conf.urls.static import static  # Импорт функции для обслуживания статических файлов
 
+# Основные маршруты URL проекта
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("ckeditor5/", include("django_ckeditor_5.urls")),
-    path("", include("main.urls")),
-    path("news/", include("news.urls")),
-    path("portfolio/", include("portfolio.urls")),
-    path("reviews/", include("reviews.urls")),
-    path("accounts/", include("accounts.urls")),
+    path("admin/", admin.site.urls),  # Маршрут для админ-панели
+    path("ckeditor5/", include("django_ckeditor_5.urls")),  # Маршруты для CKEditor 5
+    path("", include("main.urls")),  # Главная страница и основные маршруты
+    path("news/", include("news.urls")),  # Маршруты для новостей
+    path("portfolio/", include("portfolio.urls")),  # Маршруты для портфолио
+    path("reviews/", include("reviews.urls")),  # Маршруты для отзывов
+    path("accounts/", include("accounts.urls")),  # Маршруты для аккаунтов пользователей
 ]
 
+# В режиме отладки (DEBUG) добавляем обслуживание медиа файлов
 if settings.DEBUG:
+    # Обслуживание медиа файлов (загружаемые пользователями файлы: изображения, документы и т.д.)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    # ИСПРАВЛЕНО: Убрана строка со статическими файлами, так как в DEBUG режиме
+    # Django автоматически обслуживает статические файлы через runserver.
+    # В продакшене статические файлы должны обслуживаться веб-сервером (nginx, apache)
+    # после выполнения команды collectstatic
 
-# Обработчики ошибок (только для продакшена, в DEBUG Django использует свои)
-handler404 = "main.views.custom_404_view"
-handler500 = "main.views.custom_500_view"
+# Обработчики ошибок (используются только в продакшене, в DEBUG Django использует свои)
+handler404 = "main.views.custom_404_view"  # Обработчик ошибки 404 (страница не найдена)
+handler500 = "main.views.custom_500_view"  # Обработчик ошибки 500 (внутренняя ошибка сервера)

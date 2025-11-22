@@ -172,6 +172,51 @@ def client_dashboard(request):
 
 
 @login_required
+def order_list(request):
+    """Список всех заказов клиента"""
+    try:
+        client = Client.objects.get(user=request.user)
+        orders = Order.objects.filter(client=client).order_by("-created_at")
+        
+        # Фильтрация по статусу
+        status_filter = request.GET.get("status")
+        if status_filter:
+            orders = orders.filter(status=status_filter)
+        
+        # Статистика
+        orders_count = Order.objects.filter(client=client).count()
+        completed_orders = Order.objects.filter(
+            client=client, status="completed"
+        ).count()
+        active_orders = Order.objects.filter(
+            client=client, status="in_progress"
+        ).count()
+        
+    except Client.DoesNotExist:
+        client = None
+        orders = []
+        orders_count = 0
+        completed_orders = 0
+        active_orders = 0
+        status_filter = None
+        messages.error(request, "Сначала заполните профиль клиента!")
+        return redirect("portfolio:client_profile")
+    
+    return render(
+        request,
+        "portfolio/order_list.html",
+        {
+            "client": client,
+            "orders": orders,
+            "orders_count": orders_count,
+            "completed_orders": completed_orders,
+            "active_orders": active_orders,
+            "status_filter": status_filter,
+        },
+    )
+
+
+@login_required
 def order_detail(request, pk):
     """Детальная страница заказа"""
     order = get_object_or_404(Order, pk=pk, client__user=request.user)

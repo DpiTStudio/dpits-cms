@@ -78,9 +78,26 @@ class PortfolioCategory(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        """
+        Создаем slug из названия, если он не задан.
+        ИСПРАВЛЕНО: Добавлена проверка уникальности slug с исключением текущего объекта.
+        """
         if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
+            base_slug = slugify(self.name)  # Преобразуем название в slug
+            self.slug = base_slug  # Устанавливаем базовый slug
+            # Убеждаемся, что slug уникален (исключаем текущий объект при обновлении)
+            counter = 1
+            # ИСПРАВЛЕНО: Добавлен фильтр для исключения текущего объекта при проверке уникальности
+            queryset = PortfolioCategory.objects.filter(slug=self.slug)
+            if self.pk:  # Если объект уже существует (обновление)
+                queryset = queryset.exclude(pk=self.pk)  # Исключаем текущий объект
+            while queryset.exists():  # Пока slug не уникален
+                self.slug = f"{base_slug}-{counter}"  # Добавляем номер к slug
+                queryset = PortfolioCategory.objects.filter(slug=self.slug)
+                if self.pk:  # Если объект уже существует
+                    queryset = queryset.exclude(pk=self.pk)  # Исключаем текущий объект
+                counter += 1  # Увеличиваем счетчик
+        super().save(*args, **kwargs)  # Вызываем метод save родительского класса
 
     def get_absolute_url(self):
         return reverse("portfolio:list") + f"?category={self.slug}"
@@ -151,9 +168,26 @@ class PortfolioItem(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        """
+        Создаем slug из заголовка, если он не задан.
+        ИСПРАВЛЕНО: Добавлена проверка уникальности slug с исключением текущего объекта.
+        """
         if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+            base_slug = slugify(self.title)  # Преобразуем заголовок в slug
+            self.slug = base_slug  # Устанавливаем базовый slug
+            # Убеждаемся, что slug уникален (исключаем текущий объект при обновлении)
+            counter = 1
+            # ИСПРАВЛЕНО: Добавлен фильтр для исключения текущего объекта при проверке уникальности
+            queryset = PortfolioItem.objects.filter(slug=self.slug)
+            if self.pk:  # Если объект уже существует (обновление)
+                queryset = queryset.exclude(pk=self.pk)  # Исключаем текущий объект
+            while queryset.exists():  # Пока slug не уникален
+                self.slug = f"{base_slug}-{counter}"  # Добавляем номер к slug
+                queryset = PortfolioItem.objects.filter(slug=self.slug)
+                if self.pk:  # Если объект уже существует
+                    queryset = queryset.exclude(pk=self.pk)  # Исключаем текущий объект
+                counter += 1  # Увеличиваем счетчик
+        super().save(*args, **kwargs)  # Вызываем метод save родительского класса
 
     def get_absolute_url(self):
         return reverse("portfolio:detail", kwargs={"slug": self.slug})

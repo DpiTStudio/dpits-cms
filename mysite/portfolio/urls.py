@@ -21,6 +21,8 @@ urlpatterns = [
     path("client-profile/", views.client_profile, name="client_profile"),
     # Личный кабинет клиента
     path("client-dashboard/", views.client_dashboard, name="client_dashboard"),
+    # Список заказов клиента
+    path("orders/", views.order_list, name="order_list"),
     # Детальная страница заказа
     path("order/<int:pk>/", views.order_detail, name="order_detail"),
     # Создание заказа
