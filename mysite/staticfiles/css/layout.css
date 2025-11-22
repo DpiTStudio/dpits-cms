@@ -1,0 +1,226 @@
+/* ============================================
+   ФАЙЛ: layout.css
+   ОПИСАНИЕ: Стили для основных элементов макета (header, footer, навигация)
+   ============================================ */
+
+/* ========== HEADER (Шапка сайта) ========== */
+
+/* Контейнер шапки */
+header {
+    background-color: var(--dark-color);     /* Темный фон шапки */
+    color: var(--text-white);                /* Белый текст */
+    box-shadow: var(--box-shadow-sm);        /* Маленькая тень для глубины */
+    position: sticky;                         /* Липкая позиция при прокрутке */
+    top: 0;                                   /* Прилипание к верху страницы */
+    z-index: var(--z-index-sticky);          /* Слой выше обычного контента */
+    width: 100%;                              /* Полная ширина */
+}
+
+/* Навигационная панель */
+.navbar {
+    padding: var(--spacing-sm) 0;            /* Вертикальные отступы */
+}
+
+/* Бренд/логотип в навигации */
+.navbar-brand {
+    font-weight: var(--font-weight-extrabold); /* Очень жирный шрифт для бренда */
+    font-size: var(--font-size-xl);          /* Увеличенный размер шрифта */
+    color: var(--text-white) !important;    /* Белый цвет текста */
+    text-decoration: none;                   /* Убираем подчеркивание */
+    transition: var(--transition);           /* Плавный переход */
+    display: flex;                            /* Flexbox для выравнивания */
+    align-items: center;                      /* Вертикальное выравнивание по центру */
+    gap: var(--spacing-sm);                  /* Отступ между логотипом и текстом */
+}
+
+/* Состояние наведения на бренд */
+.navbar-brand:hover {
+    color: var(--primary-color) !important;   /* Основной цвет при наведении */
+    transform: scale(1.05);                  /* Небольшое увеличение */
+}
+
+/* Изображение логотипа в навигации */
+.navbar-brand img {
+    height: 40px;                            /* Высота логотипа */
+    width: auto;                             /* Автоматическая ширина */
+    border-radius: var(--border-radius-sm);  /* Скругление углов */
+    object-fit: contain;                      /* Сохранение пропорций */
+}
+
+/* Ссылки навигации */
+.nav-link {
+    color: var(--text-white) !important;     /* Белый цвет ссылок */
+    position: relative;                       /* Относительное позиционирование для псевдоэлементов */
+    padding: var(--spacing-sm) var(--spacing-md); /* Внутренние отступы */
+    font-weight: var(--font-weight-extrabold); /* Очень жирный шрифт */
+    transition: var(--transition);           /* Плавный переход */
+    text-decoration: none;                   /* Убираем подчеркивание */
+    display: inline-block;                   /* Блочно-строчный элемент */
+}
+
+/* Состояние наведения на ссылку навигации */
+.nav-link:hover {
+    color: var(--primary-color) !important;   /* Основной цвет при наведении */
+    transform: translateY(-2px);             /* Небольшое смещение вверх */
+}
+
+/* Активная ссылка навигации */
+.nav-link.active {
+    color: var(--primary-color) !important;   /* Основной цвет для активной ссылки */
+    font-weight: var(--font-weight-bold);    /* Жирный шрифт */
+}
+
+/* Подчеркивание активной ссылки */
+.nav-link.active::after {
+    content: '';                             /* Пустой контент для псевдоэлемента */
+    position: absolute;                       /* Абсолютное позиционирование */
+    bottom: 0;                                /* Позиция снизу */
+    left: var(--spacing-sm);                  /* Отступ слева */
+    right: var(--spacing-sm);                 /* Отступ справа */
+    height: 2px;                            /* Высота линии */
+    background-color: var(--primary-color);  /* Цвет линии */
+    border-radius: var(--border-radius-full); /* Полное скругление */
+}
+
+/* Кнопка переключения мобильного меню */
+.navbar-toggler {
+    border: var(--border-width) solid var(--text-white); /* Белая граница */
+    border-radius: var(--border-radius-sm);  /* Скругление углов */
+    padding: var(--spacing-xs) var(--spacing-sm); /* Внутренние отступы */
+    background-color: transparent;           /* Прозрачный фон */
+    color: var(--text-white);                /* Белый цвет иконки */
+}
+
+/* Состояние наведения на кнопку переключения */
+.navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Полупрозрачный белый фон */
+}
+
+/* Иконка переключения меню */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* SVG иконка гамбургера */
+}
+
+/* Выпадающее меню */
+.dropdown-menu {
+    background-color: var(--text-white);     /* Белый фон меню */
+    border: var(--border-width-thin) solid #dee2e6; /* Серая граница */
+    border-radius: var(--border-radius);     /* Скругление углов */
+    box-shadow: var(--box-shadow-md);       /* Средняя тень */
+    padding: var(--spacing-sm);              /* Внутренние отступы */
+    min-width: 200px;                        /* Минимальная ширина */
+}
+
+/* Элемент выпадающего меню */
+.dropdown-item {
+    color: var(--text-color);                 /* Цвет текста */
+    padding: var(--spacing-sm) var(--spacing-md); /* Внутренние отступы */
+    border-radius: var(--border-radius-sm);  /* Скругление углов */
+    transition: var(--transition);           /* Плавный переход */
+    display: flex;                            /* Flexbox для выравнивания */
+    align-items: center;                      /* Вертикальное выравнивание */
+    gap: var(--spacing-sm);                  /* Отступ между иконкой и текстом */
+}
+
+/* Состояние наведения на элемент меню */
+.dropdown-item:hover {
+    background-color: var(--light-color);    /* Светлый фон при наведении */
+    color: var(--primary-color);             /* Основной цвет текста */
+}
+
+/* Разделитель в выпадающем меню */
+.dropdown-divider {
+    border-top: var(--border-width-thin) solid #dee2e6; /* Верхняя граница */
+    margin: var(--spacing-sm) 0;             /* Вертикальные отступы */
+}
+
+/* ========== FOOTER (Подвал сайта) ========== */
+
+/* Контейнер подвала */
+footer {
+    background-color: var(--dark-color);     /* Темный фон подвала */
+    color: var(--text-white);                /* Белый текст */
+    padding: var(--spacing-xxl) 0;           /* Большие вертикальные отступы */
+    margin-top: auto;                         /* Автоматический верхний отступ для прижатия к низу */
+    width: 100%;                              /* Полная ширина */
+}
+
+/* Заголовки в подвале */
+footer h5 {
+    color: var(--text-white);                /* Белый цвет заголовков */
+    font-weight: var(--font-weight-bold);    /* Жирный шрифт */
+    margin-bottom: var(--spacing-lg);        /* Отступ снизу */
+    font-size: var(--font-size-lg);          /* Увеличенный размер */
+}
+
+/* Параграфы в подвале */
+footer p {
+    color: var(--text-muted);                /* Приглушенный цвет текста */
+    margin-bottom: var(--spacing-md);        /* Отступ снизу */
+    line-height: var(--line-height-relaxed); /* Расслабленная высота строки */
+}
+
+/* Ссылки в подвале */
+footer a {
+    color: var(--text-white);                /* Белый цвет ссылок */
+    text-decoration: none;                   /* Убираем подчеркивание */
+    transition: var(--transition);           /* Плавный переход */
+    display: flex;                            /* Flexbox для выравнивания */
+    align-items: center;                      /* Вертикальное выравнивание */
+    gap: var(--spacing-sm);                  /* Отступ между иконкой и текстом */
+}
+
+/* Состояние наведения на ссылку в подвале */
+footer a:hover {
+    color: var(--primary-color);             /* Основной цвет при наведении */
+    text-decoration: underline;              /* Подчеркивание при наведении */
+}
+
+/* Текст копирайта в подвале */
+.footer-text-copy {
+    color: #e8eaec;                          /* Светло-серый цвет для копирайта */
+    font-size: var(--font-size-sm);          /* Маленький размер шрифта */
+    margin-top: var(--spacing-lg);           /* Отступ сверху */
+}
+
+/* Социальные ссылки */
+.social-links {
+    display: flex;                            /* Flexbox для горизонтального расположения */
+    gap: var(--spacing-md);                  /* Отступ между иконками */
+    flex-wrap: wrap;                          /* Перенос на новую строку при необходимости */
+}
+
+/* Ссылка социальной сети */
+.social-links a {
+    display: inline-block;                   /* Блочно-строчный элемент */
+    font-size: var(--font-size-xxl);         /* Большой размер иконки */
+    color: var(--text-white);                /* Белый цвет иконки */
+    transition: var(--transition);           /* Плавный переход */
+    padding: var(--spacing-sm);              /* Внутренние отступы */
+    border-radius: var(--border-radius-sm);  /* Скругление углов */
+}
+
+/* Состояние наведения на социальную ссылку */
+.social-links a:hover {
+    color: var(--primary-color);             /* Основной цвет при наведении */
+    transform: scale(1.2) translateY(-3px); /* Увеличение и смещение вверх */
+    background-color: rgba(255, 255, 255, 0.1); /* Полупрозрачный белый фон */
+}
+
+/* Список без маркеров в подвале */
+footer .list-unstyled {
+    list-style: none;                        /* Убираем маркеры списка */
+    padding-left: 0;                         /* Убираем отступ слева */
+}
+
+/* Элемент списка в подвале */
+footer .list-unstyled li {
+    margin-bottom: var(--spacing-sm);       /* Отступ между элементами */
+}
+
+/* Горизонтальная линия в подвале */
+footer hr {
+    border-color: rgba(255, 255, 255, 0.2);  /* Полупрозрачная белая граница */
+    margin: var(--spacing-xl) 0;             /* Вертикальные отступы */
+}
+

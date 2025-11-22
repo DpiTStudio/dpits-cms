@@ -23,9 +23,25 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Custom CSS - Структурированные файлы -->
+    <!-- CSS переменные (должен быть первым) -->
+    <link rel="stylesheet" href="{% static 'css/variables.css' %}">
+    <!-- Базовые стили -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <!-- Стили макета (header, footer) -->
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    <!-- Компоненты (карточки, кнопки, формы) -->
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <!-- Hero секция -->
+    <link rel="stylesheet" href="{% static 'css/hero.css' %}">
+    <!-- Сайдбар -->
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <!-- Контент -->
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+    <!-- Утилитарные классы -->
+    <link rel="stylesheet" href="{% static 'css/utilities.css' %}">
+    <!-- Адаптивные стили (должен быть последним) -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 
     {% block extra_head %}{% endblock %}
     {% block extra_css %}{% endblock %}
@@ -66,10 +82,10 @@
                                         <div class="card h-100 news-card">
                                             {% if recent_news.image %}
                                             <img src="{{ recent_news.image.url }}" class="card-img-top"
-                                                alt="{{ recent_news.title }}" style="height: 180px; object-fit: cover;">
+                                                alt="{{ recent_news.title }}">
                                             {% else %}
                                             <img src="{% static 'images/default-news.jpg' %}" class="card-img-top"
-                                                alt="{{ recent_news.title }}" style="height: 180px; object-fit: cover;">
+                                                alt="{{ recent_news.title }}">
                                             {% endif %}
                                             <div class="card-body d-flex flex-column">
                                                 {% if recent_news.category %}
@@ -109,7 +125,7 @@
                         </div>
                     </div>
                     {% endif %}
-                    {% endblock %} 
+                    {% endblock %}
 
                     <!-- Рекомендуемые страницы -->
                     {% block featured_pages %}

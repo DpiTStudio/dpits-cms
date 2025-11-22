@@ -47,9 +47,8 @@
             <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
                 {% if portfolio_item.image %}
                 <img src="{{ portfolio_item.image.url }}" 
-                     class="img-fluid rounded mb-2" 
-                     alt="{{ portfolio_item.title }}"
-                     style="max-height: 100px; width: 100%; object-fit: cover;">
+                     class="img-fluid rounded mb-2 sidebar-portfolio-image" 
+                     alt="{{ portfolio_item.title }}">
                 {% endif %}
                 <h6 class="mb-1">
                     <a href="{% url 'portfolio:detail' portfolio_item.slug %}" 
