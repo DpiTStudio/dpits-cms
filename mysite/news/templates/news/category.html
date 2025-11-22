@@ -123,27 +123,6 @@
 
         <!-- Сайдбар -->
         <div class="col-lg-3">
-            <!-- Последние новости -->
-            <div class="card mb-4">
-                <div class="card-header bg-primary text-white">
-                    <h6 class="mb-0">Последние новости</h6>
-                </div>
-                <div class="card-body">
-                    {% for recent_news in recent_news_list %}
-                    <div class="mb-3 pb-3 border-bottom">
-                        <h6 class="mb-1">
-                            <a href="{% url 'news:detail' recent_news.slug %}">
-                                {{ recent_news.title|truncatewords:6 }}
-                            </a>
-                        </h6>
-                        <small class="text-muted">{{ recent_news.created_at|date:"d.m.Y" }}</small>
-                    </div>
-                    {% empty %}
-                    <p class="text-muted small">Новостей пока нет</p>
-                    {% endfor %}
-                </div>
-            </div>
-
             <!-- Категории -->
             <div class="card">
                 <div class="card-header bg-secondary text-white">

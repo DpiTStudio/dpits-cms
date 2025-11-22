@@ -26,7 +26,7 @@
     <div class="container-fluid py-5">
         <div class="row">
             <!-- Основной контент -->
-            <div class="col-lg-9">
+            <div class="col-lg-10">
                 <div class="row">
                     <!-- Краткое описание -->
                     {% if site_settings.short_description %}
@@ -94,75 +94,6 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            
-            <!-- Боковая панель -->
-            <div class="col-lg-3">
-                <div class="sidebar-sticky">
-                    <!-- Блок последних новостей в сайдбаре -->
-                    {% if recent_news_list %}
-                    <div class="card mb-4 shadow-sm border-0 rounded-3">
-                        <div class="card-header bg-primary text-white">
-                            <h6 class="mb-0">
-                                <i class="fas fa-newspaper me-2"></i>Последние новости
-                            </h6>
-                        </div>
-                        <div class="card-body">
-                            {% for recent_news in recent_news_list|slice:":5" %}
-                            <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
-                                <h6 class="mb-1">
-                                    <a href="{% url 'news:detail' recent_news.slug %}" 
-                                       class="text-decoration-none text-dark">
-                                        {{ recent_news.title|truncatewords:6 }}
-                                    </a>
-                                </h6>
-                                <small class="text-muted">
-                                    <i class="fas fa-calendar me-1"></i>
-                                    {{ recent_news.created_at|date:"d.m.Y" }}
-                                </small>
-                            </div>
-                            {% endfor %}
-                            <div class="text-center mt-3">
-                                <a href="{% url 'news:list' %}" 
-                                   class="btn btn-sm btn-outline-primary">
-                                    Все новости <i class="fas fa-arrow-right ms-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    <!-- Контактная информация -->
-                    {% if site_settings.phone1 or site_settings.email %}
-                    <div class="card mb-4 shadow-sm border-0 rounded-3">
-                        <div class="card-header bg-primary text-white">
-                            <h6 class="mb-0">
-                                <i class="fas fa-phone me-2"></i>Контакты
-                            </h6>
-                        </div>
-                        <div class="card-body">
-                            {% if site_settings.phone1 %}
-                            <p class="mb-2">
-                                <a href="tel:{{ site_settings.phone1 }}" 
-                                   class="text-decoration-none text-dark">
-                                    <i class="fas fa-phone-alt me-2 text-primary"></i>
-                                    {{ site_settings.phone1 }}
-                                </a>
-                            </p>
-                            {% endif %}
-                            {% if site_settings.email %}
-                            <p class="mb-0">
-                                <a href="mailto:{{ site_settings.email }}" 
-                                   class="text-decoration-none text-dark">
-                                    <i class="fas fa-envelope me-2 text-primary"></i>
-                                    {{ site_settings.email }}
-                                </a>
-                            </p>
-                            {% endif %}
                         </div>
                     </div>
                     {% endif %}
