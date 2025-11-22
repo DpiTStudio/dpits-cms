@@ -1,13 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}{% endblock %}</title>
-    
+
     <!-- Meta Description -->
-    <meta name="description" content="{% block meta_description %}{{ site_settings.short_description|striptags|truncatewords:20 }}{% endblock %}">
+    <meta name="description"
+        content="{% block meta_description %}{{ site_settings.short_description|striptags|truncatewords:20 }}{% endblock %}">
 
     <!-- Meta Keywords -->
     <meta name="keywords" content="{% block meta_keywords %}{{ site_settings.meta_keywords }}{% endblock %}">
@@ -28,6 +30,7 @@
     {% block extra_head %}{% endblock %}
     {% block extra_css %}{% endblock %}
 </head>
+
 <body class="d-flex flex-column min-vh-100">
     <!-- Header -->
     {% block header %}
@@ -41,67 +44,84 @@
         {% endblock %}
 
         <div class="container-fluid">
-            {% block content %}
-            <!-- Основной контент будет здесь -->
-            {% endblock %}
+            <div class="row">
+                <!-- Основной контент -->
+                <div class="col-lg-9">
+                    {% block content %}
+                    <!-- Основной контент будет здесь -->
+                    {% endblock %}
 
-            <!-- Блок последних новостей на главной -->
-            <div class="col-12 mt-5">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0"><i class="fas fa-newspaper me-2"></i>Последние новости</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            {% for recent_news in recent_news_list %}
-                            <div class="col-md-4 mb-3">
-                                <div class="card h-100 news-card">
-                                    {% if recent_news.image %}
-                                    <img src="{{ recent_news.image.url }}" class="card-img-top" 
-                                          alt="{{ recent_news.title }}" style="height: 180px; object-fit: cover;">
-                                    {% else %}
-                                    <img src="{% static 'images/default-news.jpg' %}" class="card-img-top" 
-                                          alt="{{ recent_news.title }}" style="height: 180px; object-fit: cover;">
-                                    {% endif %}
-                                    <div class="card-body d-flex flex-column">
-                                        {% if recent_news.category %}
-                                        <span class="badge bg-secondary mb-2 align-self-start">
-                                            {{ recent_news.category.name }}
-                                        </span>
-                                        {% endif %}
-                                        <h6 class="card-title">{{ recent_news.title|truncatewords:8 }}</h6>
-                                        <p class="card-text flex-grow-1 small">
-                                            {{ recent_news.short_description|striptags|truncatewords:12 }}
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center mt-auto">
-                                            <small class="text-muted">{{ recent_news.created_at|date:"d.m.Y" }}</small>
-                                            <a href="{% url 'news:detail' recent_news.slug %}" 
-                                                class="btn btn-sm btn-outline-primary">Читать</a>
+                    <!-- Блок последних новостей на главной -->
+                    {% block home_news_section %}
+                    {% if recent_news_list %}
+                    <div class="col-12 mt-5">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0"><i class="fas fa-newspaper me-2"></i>Последние новости</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    {% for recent_news in recent_news_list %}
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card h-100 news-card">
+                                            {% if recent_news.image %}
+                                            <img src="{{ recent_news.image.url }}" class="card-img-top"
+                                                alt="{{ recent_news.title }}" style="height: 180px; object-fit: cover;">
+                                            {% else %}
+                                            <img src="{% static 'images/default-news.jpg' %}" class="card-img-top"
+                                                alt="{{ recent_news.title }}" style="height: 180px; object-fit: cover;">
+                                            {% endif %}
+                                            <div class="card-body d-flex flex-column">
+                                                {% if recent_news.category %}
+                                                <span class="badge bg-secondary mb-2 align-self-start">
+                                                    {{ recent_news.category.name }}
+                                                </span>
+                                                {% endif %}
+                                                <h6 class="card-title">{{ recent_news.title|truncatewords:8 }}</h6>
+                                                <p class="card-text flex-grow-1 small">
+                                                    {{ recent_news.short_description|striptags|truncatewords:12 }}
+                                                </p>
+                                                <div class="d-flex justify-content-between align-items-center mt-auto">
+                                                    <small class="text-muted">{{ recent_news.created_at|date:"d.m.Y"
+                                                        }}</small>
+                                                    <a href="{% url 'news:detail' recent_news.slug %}"
+                                                        class="btn btn-sm btn-outline-primary">Читать</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    {% empty %}
+                                    <div class="col-12 text-center py-4">
+                                        <p class="text-muted">Новостей пока нет</p>
+                                    </div>
+                                    {% endfor %}
                                 </div>
-                            </div>
-                            {% empty %}
-                            <div class="col-12 text-center py-4">
-                                <p class="text-muted">Новостей пока нет</p>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        
-                        <!-- Ссылка на все новости -->
-                        {% if recent_news_list %}
-                        <div class="text-center mt-3">
-                            <a href="{% url 'news:list' %}" class="btn btn-primary">
-                                Все новости <i class="fas fa-arrow-right ms-2"></i>
-                            </a>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
 
-            <!-- Рекомендуемые страницы -->
-            {% include 'featured_pages.html' %}
+                                <!-- Ссылка на все новости -->
+                                {% if recent_news_list %}
+                                <div class="text-center mt-3">
+                                    <a href="{% url 'news:list' %}" class="btn btn-primary">
+                                        Все новости <i class="fas fa-arrow-right ms-2"></i>
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endblock %}
+
+                    <!-- Рекомендуемые страницы -->
+                    {% block featured_pages %}
+                    {% include 'featured_pages.html' %}
+                    {% endblock %}
+                </div>
+
+                <!-- Сайдбар -->
+                {% block sidebar %}
+                {% include 'sidebar.html' %}
+                {% endblock %}
+            </div>
         </div>
 
         {% block content_section %}
@@ -117,7 +137,8 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
-    
+
     {% block extra_js %}{% endblock %}
 </body>
+
 </html>

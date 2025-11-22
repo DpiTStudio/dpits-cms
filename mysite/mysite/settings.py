@@ -100,6 +100,7 @@ TEMPLATES = [
                 # Пользовательские процессоры контекста
                 "main.context_processors.site_settings",  # Настройки сайта
                 "main.context_processors.menu_items",  # Пункты меню
+                "main.context_processors.sidebar_data",  # Данные сайдбара
                 "news.context_processors.latest_news",  # Последние новости
             ],
         },
