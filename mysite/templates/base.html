@@ -1,135 +1,185 @@
+<!-- ============================================
+     ФАЙЛ: base.html
+     ОПИСАНИЕ: Базовый шаблон для всех страниц сайта
+     ============================================ -->
+
+<!-- Загрузка статических файлов Django -->
 {% load static %}
+<!-- Объявление типа документа HTML5 -->
 <!DOCTYPE html>
+<!-- Открывающий тег HTML с указанием языка интерфейса -->
 <html lang="ru">
 
+<!-- Секция заголовка документа -->
 <head>
+    <!-- Кодировка символов UTF-8 для поддержки всех языков -->
     <meta charset="UTF-8">
+    <!-- Мета-тег для адаптивности на мобильных устройствах -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Динамический заголовок страницы с блоком для переопределения -->
     <title>{% block title %}{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}{% endblock %}</title>
 
-    <!-- Meta Description -->
+    <!-- Мета-описание страницы для поисковых систем -->
     <meta name="description"
         content="{% block meta_description %}{{ site_settings.short_description|striptags|truncatewords:20 }}{% endblock %}">
 
-    <!-- Meta Keywords -->
+    <!-- Мета-ключевые слова для поисковых систем -->
     <meta name="keywords" content="{% block meta_keywords %}{{ site_settings.meta_keywords }}{% endblock %}">
 
-    <!-- Favicon -->
+    <!-- Иконка сайта (favicon) -->
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
 
-    <!-- Bootstrap 5 CSS -->
+    <!-- Подключение Bootstrap 5 CSS фреймворка из CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Font Awesome -->
+    <!-- Подключение Font Awesome иконок из CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Custom CSS - Структурированные файлы -->
-    <!-- CSS переменные (должен быть первым) -->
+    <!-- Подключение пользовательских CSS файлов в правильном порядке -->
+    <!-- CSS переменные (должен быть первым для использования в других файлах) -->
     <link rel="stylesheet" href="{% static 'css/variables.css' %}">
-    <!-- Базовые стили -->
+    <!-- Базовые стили для всех элементов -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <!-- Стили макета (header, footer) -->
+    <!-- Стили макета (header, footer, навигация) -->
     <link rel="stylesheet" href="{% static 'css/layout.css' %}">
-    <!-- Компоненты (карточки, кнопки, формы) -->
+    <!-- Стили компонентов (карточки, кнопки, формы) -->
     <link rel="stylesheet" href="{% static 'css/components.css' %}">
-    <!-- Hero секция -->
+    <!-- Стили для hero секции (главный баннер) -->
     <link rel="stylesheet" href="{% static 'css/hero.css' %}">
-    <!-- Сайдбар -->
+    <!-- Стили для боковой панели (сайдбара) -->
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-    <!-- Контент -->
+    <!-- Стили для контентных секций -->
     <link rel="stylesheet" href="{% static 'css/content.css' %}">
-    <!-- Утилитарные классы -->
+    <!-- Утилитарные классы для быстрой стилизации -->
     <link rel="stylesheet" href="{% static 'css/utilities.css' %}">
-    <!-- Адаптивные стили (должен быть последним) -->
+    <!-- Адаптивные стили (должен быть последним для переопределения) -->
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 
+    <!-- Блок для дополнительных элементов в head (переопределяется в дочерних шаблонах) -->
     {% block extra_head %}{% endblock %}
+    <!-- Блок для дополнительных CSS файлов (переопределяется в дочерних шаблонах) -->
     {% block extra_css %}{% endblock %}
 </head>
 
+<!-- Тело документа с flexbox макетом для прижатия футера к низу -->
 <body class="d-flex flex-column min-vh-100">
-    <!-- Header -->
+    <!-- Блок шапки сайта (переопределяется в дочерних шаблонах) -->
     {% block header %}
+    <!-- Подключение шаблона шапки -->
     {% include "header.html" %}
     {% endblock %}
 
-    <!-- Main Content -->
+    <!-- Основной контент страницы с растягиванием на всю доступную высоту -->
     <main class="flex-grow-1">
+        <!-- Блок hero секции (переопределяется в дочерних шаблонах) -->
         {% block hero_section %}
+        <!-- Подключение шаблона hero секции -->
         {% include 'hero.html' %}
         {% endblock %}
 
+        <!-- Контейнер с полной шириной для основного контента -->
         <div class="container-fluid">
+            <!-- Строка Bootstrap для сетки -->
             <div class="row">
-                <!-- Основной контент -->
+                <!-- Основной контент - занимает 9 колонок из 12 на больших экранах -->
                 <div class="col-lg-9">
+                    <!-- Блок основного контента (переопределяется в дочерних шаблонах) -->
                     {% block content %}
                     <!-- Основной контент будет здесь -->
                     {% endblock %}
 
-                    <!-- Рекомендуемые страницы -->
+                    <!-- Блок рекомендуемых страниц (переопределяется в дочерних шаблонах) -->
                     {% block featured_pages %}
+                    <!-- Подключение шаблона рекомендуемых страниц -->
                     {% include 'featured_pages.html' %}
                     {% endblock %}
                 </div>
 
-                <!-- Сайдбар -->
+                <!-- Блок сайдбара (переопределяется в дочерних шаблонах) -->
                 {% block sidebar %}
+                <!-- Подключение шаблона сайдбара -->
                 {% include 'sidebar.html' %}
                 {% endblock %}
             </div>
         </div>
 
-        <!-- Блок последних новостей на главной -->
+        <!-- Блок последних новостей на главной странице -->
         {% block home_news_section %}
+        <!-- Условная проверка наличия списка последних новостей -->
         {% if recent_news_list %}
+        <!-- Контейнер с полной шириной для секции новостей -->
         <div class="container-fluid">
+            <!-- Строка с центрированием контента -->
             <div class="row justify-content-center">
+                <!-- Колонка на всю ширину на мобильных, 10 колонок на больших экранах -->
                 <div class="col-12 col-lg-10">
+                    <!-- Карточка с тенью и отступом сверху -->
                     <div class="card shadow-sm mt-4">
+                        <!-- Заголовок карточки с основным цветом и белым текстом -->
                         <div class="card-header bg-primary text-white">
+                            <!-- Заголовок с иконкой газеты -->
                             <h4 class="mb-0"><i class="fas fa-newspaper me-2"></i>Последние новости</h4>
                         </div>
+                        <!-- Тело карточки -->
                         <div class="card-body">
+                            <!-- Строка для сетки карточек новостей -->
                             <div class="row">
+                                <!-- Цикл по списку последних новостей -->
                                 {% for recent_news in recent_news_list %}
+                                <!-- Колонка для карточки новости - 4 колонки на средних экранах -->
                                 <div class="col-md-4 mb-3">
+                                    <!-- Карточка новости с полной высотой -->
                                     <div class="card h-100 news-card">
+                                        <!-- Условная проверка наличия изображения у новости -->
                                         {% if recent_news.image %}
+                                        <!-- Изображение новости из базы данных -->
                                         <img src="{{ recent_news.image.url }}" class="card-img-top"
                                             alt="{{ recent_news.title }}">
                                         {% else %}
+                                        <!-- Изображение по умолчанию, если у новости нет изображения -->
                                         <img src="{% static 'images/default-news.jpg' %}" class="card-img-top"
                                             alt="{{ recent_news.title }}">
                                         {% endif %}
+                                        <!-- Тело карточки с flexbox для выравнивания -->
                                         <div class="card-body d-flex flex-column">
+                                            <!-- Условная проверка наличия категории у новости -->
                                             {% if recent_news.category %}
+                                            <!-- Бейдж категории с выравниванием по левому краю -->
                                             <span class="badge bg-secondary mb-2 align-self-start">
                                                 {{ recent_news.category.name }}
                                             </span>
                                             {% endif %}
+                                            <!-- Заголовок новости с ограничением количества слов -->
                                             <h6 class="card-title">{{ recent_news.title|truncatewords:8 }}</h6>
+                                            <!-- Текст новости с растягиванием и ограничением количества слов -->
                                             <p class="card-text flex-grow-1 small">
                                                 {{ recent_news.short_description|striptags|truncatewords:12 }}
                                             </p>
+                                            <!-- Футер карточки с датой и кнопкой -->
                                             <div class="d-flex justify-content-between align-items-center mt-auto">
+                                                <!-- Дата создания новости в формате день.месяц.год -->
                                                 <small class="text-muted">{{recent_news.created_at|date:"d.m.Y"}}</small>
+                                                <!-- Ссылка на детальную страницу новости -->
                                                 <a href="{% url 'news:detail' recent_news.slug %}"
                                                     class="btn btn-sm btn-outline-primary">Читать</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Обработка случая, когда новостей нет -->
                                 {% empty %}
+                                <!-- Сообщение об отсутствии новостей с центрированием -->
                                 <div class="col-12 text-center py-4">
                                     <p class="text-muted">Новостей пока нет</p>
                                 </div>
                                 {% endfor %}
                             </div>
 
-                            <!-- Ссылка на все новости -->
+                            <!-- Ссылка на страницу со всеми новостями -->
                             {% if recent_news_list %}
+                            <!-- Контейнер с центрированием и отступом сверху -->
                             <div class="text-center mt-3">
+                                <!-- Кнопка-ссылка на список всех новостей -->
                                 <a href="{% url 'news:list' %}" class="btn btn-primary">
                                     Все новости <i class="fas fa-arrow-right ms-2"></i>
                                 </a>
@@ -143,20 +193,26 @@
         {% endif %}
         {% endblock %}
 
+        <!-- Блок контентной секции (переопределяется в дочерних шаблонах) -->
         {% block content_section %}
+        <!-- Подключение шаблона контентной секции -->
         {% include "content-section.html" %}
         {% endblock %}
     </main>
 
-    <!-- Footer -->
+    <!-- Блок футера (переопределяется в дочерних шаблонах) -->
     {% block footer %}
+    <!-- Подключение шаблона футера -->
     {% include "footer.html" %}
     {% endblock %}
 
-    <!-- Scripts -->
+    <!-- Подключение JavaScript библиотек -->
+    <!-- Bootstrap 5 JavaScript bundle из CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Пользовательский JavaScript файл -->
     <script src="{% static 'js/main.js' %}"></script>
 
+    <!-- Блок для дополнительных JavaScript файлов (переопределяется в дочерних шаблонах) -->
     {% block extra_js %}{% endblock %}
 </body>
 
