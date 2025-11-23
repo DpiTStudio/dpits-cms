@@ -1,0 +1,377 @@
+/* ============================================
+   ФАЙЛ: utilities.css
+   ОПИСАНИЕ: Утилитарные классы для быстрого применения стилей
+   ============================================ */
+
+/* ========== ЦВЕТА ТЕКСТА ========== */
+
+/* Основной цвет текста */
+.text-primary {
+    color: var(--primary-color) !important;   /* Основной цвет с приоритетом */
+}
+
+/* Вторичный цвет текста */
+.text-secondary {
+    color: var(--secondary-color) !important; /* Вторичный цвет с приоритетом */
+}
+
+/* Темный цвет текста */
+.text-dark {
+    color: var(--dark-color) !important;     /* Темный цвет с приоритетом */
+}
+
+/* Белый цвет текста */
+.text-white {
+    color: var(--text-white) !important;     /* Белый цвет с приоритетом */
+}
+
+/* Приглушенный цвет текста */
+.text-muted {
+    color: var(--text-muted) !important;     /* Приглушенный цвет с приоритетом */
+}
+
+/* Успешный цвет текста */
+.text-success {
+    color: var(--success-color) !important;  /* Зеленый цвет с приоритетом */
+}
+
+/* Цвет предупреждения */
+.text-warning {
+    color: var(--warning-color) !important;  /* Желтый цвет с приоритетом */
+}
+
+/* Цвет ошибки */
+.text-danger {
+    color: var(--danger-color) !important;   /* Красный цвет с приоритетом */
+}
+
+/* Информационный цвет текста */
+.text-info {
+    color: var(--info-color) !important;     /* Голубой цвет с приоритетом */
+}
+
+/* ========== ЦВЕТА ФОНА ========== */
+
+/* Светлый фон */
+.bg-light {
+    background-color: var(--light-color) !important; /* Светлый фон с приоритетом */
+}
+
+/* Основной фон */
+.bg-primary {
+    background: var(--primary-gradient) !important; /* Градиентный фон с приоритетом */
+}
+
+/* Темный фон */
+.bg-dark {
+    background-color: var(--dark-color) !important; /* Темный фон с приоритетом */
+}
+
+/* Успешный фон */
+.bg-success {
+    background-color: var(--success-color) !important; /* Зеленый фон с приоритетом */
+}
+
+/* Фон предупреждения */
+.bg-warning {
+    background-color: var(--warning-color) !important; /* Желтый фон с приоритетом */
+}
+
+/* Фон ошибки */
+.bg-danger {
+    background-color: var(--danger-color) !important; /* Красный фон с приоритетом */
+}
+
+/* Информационный фон */
+.bg-info {
+    background-color: var(--info-color) !important; /* Голубой фон с приоритетом */
+}
+
+/* ========== ТЕНИ ========== */
+
+/* Маленькая тень */
+.shadow-sm {
+    box-shadow: var(--box-shadow-sm) !important; /* Маленькая тень с приоритетом */
+}
+
+/* Стандартная тень */
+.shadow {
+    box-shadow: var(--box-shadow) !important; /* Стандартная тень с приоритетом */
+}
+
+/* Средняя тень */
+.shadow-md {
+    box-shadow: var(--box-shadow-md) !important; /* Средняя тень с приоритетом */
+}
+
+/* Большая тень */
+.shadow-lg {
+    box-shadow: var(--box-shadow-lg) !important; /* Большая тень с приоритетом */
+}
+
+/* Очень большая тень */
+.shadow-xl {
+    box-shadow: var(--box-shadow-xl) !important; /* Очень большая тень с приоритетом */
+}
+
+/* Без тени */
+.shadow-none {
+    box-shadow: none !important;             /* Убираем тень с приоритетом */
+}
+
+/* ========== СКРУГЛЕНИЕ УГЛОВ ========== */
+
+/* Без скругления */
+.rounded-0 {
+    border-radius: 0 !important;             /* Убираем скругление с приоритетом */
+}
+
+/* Маленькое скругление */
+.rounded-sm {
+    border-radius: var(--border-radius-sm) !important; /* Маленькое скругление с приоритетом */
+}
+
+/* Стандартное скругление */
+.rounded {
+    border-radius: var(--border-radius) !important; /* Стандартное скругление с приоритетом */
+}
+
+/* Среднее скругление */
+.rounded-md {
+    border-radius: var(--border-radius-md) !important; /* Среднее скругление с приоритетом */
+}
+
+/* Большое скругление */
+.rounded-lg {
+    border-radius: var(--border-radius-lg) !important; /* Большое скругление с приоритетом */
+}
+
+/* Полное скругление (круг) */
+.rounded-full {
+    border-radius: var(--border-radius-full) !important; /* Полное скругление с приоритетом */
+}
+
+/* Скругление только верхних углов */
+.rounded-top {
+    border-top-left-radius: var(--border-radius) !important; /* Верхний левый угол */
+    border-top-right-radius: var(--border-radius) !important; /* Верхний правый угол */
+}
+
+/* Скругление только нижних углов */
+.rounded-bottom {
+    border-bottom-left-radius: var(--border-radius) !important; /* Нижний левый угол */
+    border-bottom-right-radius: var(--border-radius) !important; /* Нижний правый угол */
+}
+
+/* ========== ОТСТУПЫ ========== */
+
+/* Убираем отступы */
+.no-padding {
+    padding: 0 !important;                   /* Убираем все отступы с приоритетом */
+}
+
+/* Убираем внешние отступы */
+.no-margin {
+    margin: 0 !important;                     /* Убираем все внешние отступы с приоритетом */
+}
+
+/* ========== ТЕКСТ ========== */
+
+/* Убираем подчеркивание */
+.text-decoration-none {
+    text-decoration: none !important;        /* Убираем подчеркивание с приоритетом */
+}
+
+/* Подчеркивание */
+.text-decoration-underline {
+    text-decoration: underline !important;   /* Добавляем подчеркивание с приоритетом */
+}
+
+/* Жирный шрифт */
+.fw-bold {
+    font-weight: var(--font-weight-bold) !important; /* Жирный шрифт с приоритетом */
+}
+
+/* Полужирный шрифт */
+.fw-semibold {
+    font-weight: var(--font-weight-semibold) !important; /* Полужирный шрифт с приоритетом */
+}
+
+/* Средний вес шрифта */
+.fw-medium {
+    font-weight: var(--font-weight-medium) !important; /* Средний вес шрифта с приоритетом */
+}
+
+/* Обычный вес шрифта */
+.fw-normal {
+    font-weight: var(--font-weight-normal) !important; /* Обычный вес шрифта с приоритетом */
+}
+
+/* ========== ВЫРАВНИВАНИЕ ========== */
+
+/* Выравнивание по центру */
+.text-center {
+    text-align: center !important;           /* Центрирование текста с приоритетом */
+}
+
+/* Выравнивание слева */
+.text-left {
+    text-align: left !important;             /* Выравнивание слева с приоритетом */
+}
+
+/* Выравнивание справа */
+.text-right {
+    text-align: right !important;            /* Выравнивание справа с приоритетом */
+}
+
+/* Выравнивание по ширине */
+.text-justify {
+    text-align: justify !important;          /* Выравнивание по ширине с приоритетом */
+}
+
+/* ========== ПОЗИЦИОНИРОВАНИЕ ========== */
+
+/* Липкий элемент */
+.sticky-top {
+    position: sticky !important;             /* Липкое позиционирование с приоритетом */
+    top: 0;                                   /* Позиция сверху */
+    z-index: var(--z-index-sticky);          /* Слой для липких элементов */
+}
+
+/* Фиксированный элемент */
+.fixed-top {
+    position: fixed !important;              /* Фиксированное позиционирование с приоритетом */
+    top: 0;                                   /* Позиция сверху */
+    z-index: var(--z-index-fixed);            /* Слой для фиксированных элементов */
+}
+
+/* ========== ПЕРЕХОДЫ ========== */
+
+/* Плавный переход для всех свойств */
+.transition-all {
+    transition: var(--transition) !important; /* Плавный переход с приоритетом */
+}
+
+/* Быстрый переход */
+.transition-fast {
+    transition: var(--transition-fast) !important; /* Быстрый переход с приоритетом */
+}
+
+/* Медленный переход */
+.transition-slow {
+    transition: var(--transition-slow) !important; /* Медленный переход с приоритетом */
+}
+
+/* ========== ЭФФЕКТЫ НАВЕДЕНИЯ ========== */
+
+/* Эффект поднятия при наведении */
+.hover-lift:hover {
+    transform: translateY(-5px) !important;  /* Смещение вверх при наведении с приоритетом */
+    box-shadow: var(--box-shadow-lg) !important; /* Большая тень с приоритетом */
+}
+
+/* Эффект увеличения при наведении */
+.hover-scale:hover {
+    transform: scale(1.05) !important;       /* Увеличение при наведении с приоритетом */
+}
+
+/* Эффект затемнения при наведении */
+.hover-opacity:hover {
+    opacity: 0.8 !important;                 /* Уменьшение прозрачности при наведении с приоритетом */
+}
+
+/* ========== ОТОБРАЖЕНИЕ ========== */
+
+/* Скрытый элемент */
+.d-none {
+    display: none !important;                /* Скрываем элемент с приоритетом */
+}
+
+/* Блочный элемент */
+.d-block {
+    display: block !important;               /* Блочный элемент с приоритетом */
+}
+
+/* Строчный элемент */
+.d-inline {
+    display: inline !important;              /* Строчный элемент с приоритетом */
+}
+
+/* Блочно-строчный элемент */
+.d-inline-block {
+    display: inline-block !important;        /* Блочно-строчный элемент с приоритетом */
+}
+
+/* Flex контейнер */
+.d-flex {
+    display: flex !important;                /* Flex контейнер с приоритетом */
+}
+
+/* ========== FLEXBOX ========== */
+
+/* Направление колонка */
+.flex-column {
+    flex-direction: column !important;        /* Вертикальное направление с приоритетом */
+}
+
+/* Выравнивание по центру */
+.align-items-center {
+    align-items: center !important;          /* Вертикальное выравнивание по центру с приоритетом */
+}
+
+/* Выравнивание по началу */
+.align-items-start {
+    align-items: flex-start !important;      /* Вертикальное выравнивание по началу с приоритетом */
+}
+
+/* Выравнивание по концу */
+.align-items-end {
+    align-items: flex-end !important;         /* Вертикальное выравнивание по концу с приоритетом */
+}
+
+/* Выравнивание по центру (горизонтальное) */
+.justify-content-center {
+    justify-content: center !important;       /* Горизонтальное выравнивание по центру с приоритетом */
+}
+
+/* Выравнивание между элементами */
+.justify-content-between {
+    justify-content: space-between !important; /* Распределение пространства между элементами с приоритетом */
+}
+
+/* Выравнивание вокруг элементов */
+.justify-content-around {
+    justify-content: space-around !important;  /* Распределение пространства вокруг элементов с приоритетом */
+}
+
+/* Растягивание элемента */
+.flex-grow-1 {
+    flex-grow: 1 !important;                 /* Элемент растягивается с приоритетом */
+}
+
+/* ========== ОБРЕЗКА ТЕКСТА ========== */
+
+/* Обрезка текста с многоточием */
+.text-truncate {
+    overflow: hidden !important;             /* Скрываем переполнение с приоритетом */
+    text-overflow: ellipsis !important;      /* Многоточие при обрезке с приоритетом */
+    white-space: nowrap !important;          /* Запрещаем перенос строк с приоритетом */
+}
+
+/* ========== ПОЛНАЯ ШИРИНА/ВЫСОТА ========== */
+
+/* Полная ширина */
+.w-100 {
+    width: 100% !important;                   /* Полная ширина с приоритетом */
+}
+
+/* Полная высота */
+.h-100 {
+    height: 100% !important;                 /* Полная высота с приоритетом */
+}
+
+/* Минимальная высота на весь экран */
+.min-vh-100 {
+    min-height: 100vh !important;            /* Минимальная высота на весь экран с приоритетом */
+}
+

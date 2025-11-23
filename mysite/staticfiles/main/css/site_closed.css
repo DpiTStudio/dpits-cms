@@ -1,0 +1,137 @@
+/* site_closed.css - Стили для страницы технического обслуживания */
+
+/* Layout Styles */
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+/* Card Styles for Closed Page */
+.card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.card-body {
+    padding: 3rem;
+}
+
+.rounded-3 {
+    border-radius: 1rem !important;
+}
+
+.border-0 {
+    border: none !important;
+}
+
+.shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+/* Icon and Header Styles */
+.fa-tools {
+    color: #ffc107;
+}
+
+.display-5 {
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.lead {
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+/* Alert Styles */
+.alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.alert-info p {
+    margin-bottom: 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* Contact Cards Styles */
+.bg-white {
+    background-color: #fff !important;
+}
+
+.contact-card {
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    height: 100%;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Social Links Styles */
+.social-links {
+    gap: 1.5rem;
+}
+
+.social-link {
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.social-link:hover {
+    transform: scale(1.2);
+}
+
+.social-link i {
+    transition: color 0.3s ease;
+}
+
+.social-link:hover i {
+    color: #0056b3 !important;
+}
+
+/* Header Styles for Closed Page */
+.bg-dark {
+    background-color: #343a40 !important;
+}
+
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+.fs-4 {
+    font-size: 1.5rem !important;
+}
+
+/* Text Styles */
+.text-dark {
+    color: #343a40 !important;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.small {
+    font-size: 0.875rem;
+}
+
+/* Button and Link Styles */
+.text-decoration-none {
+    text-decoration: none !important;
+}
+
+.btn {
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}

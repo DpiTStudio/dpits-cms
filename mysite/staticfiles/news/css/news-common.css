@@ -1,0 +1,41 @@
+/* Общие стили для страниц новостей */
+.news-content {
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.news-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+.img_news_detail {
+    width: 20%;
+    height: 20%;
+    object-fit: cover;
+}
+/* Стили для бейджей категорий */
+.badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Стили для хлебных крошек */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0.75rem 0;
+}
+
+.breadcrumb-item a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #495057;
+}
