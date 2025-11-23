@@ -31,7 +31,7 @@ header {
 
 /* Элемент навигации */
 .nav-item {
-    display: flex;                           /* Flexbox для выравнивания */
+    display: flexbox !important;                           /* Flexbox для выравнивания */
     align-items: center;                     /* Вертикальное выравнивание по центру */
     height: 100%;                            /* Полная высота для выравнивания */
 }
