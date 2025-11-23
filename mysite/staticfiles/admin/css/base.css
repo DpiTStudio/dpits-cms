@@ -134,7 +134,7 @@ a.section:focus, a.section:hover {
 /* GLOBAL DEFAULTS */
 
 p, ol, ul, dl {
-    margin: 0;
+    margin: .2em 0 .8em 0;
 }
 
 p {
@@ -186,7 +186,7 @@ h5 {
 
 ul > li {
     list-style-type: square;
-    /* padding: 1px 0; */
+    padding: 1px 0;
 }
 
 li ul {
@@ -195,7 +195,7 @@ li ul {
 
 li, dt, dd {
     font-size: 0.8125rem;
-    /* line-height: 1.25rem; */
+    line-height: 1.25rem;
 }
 
 dt {

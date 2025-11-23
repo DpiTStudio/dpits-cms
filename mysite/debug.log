@@ -653,3 +653,270 @@ Not Found: /media/logos/cms_logo.png
 "GET /media/logos/cms_logo.png HTTP/1.1" 404 52993
 Not Found: /static/js/main.js
 "GET /static/js/main.js HTTP/1.1" 404 52993
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 78357
+Not Found: /static/css/layout.css
+Not Found: /static/css/sidebar.css
+Not Found: /static/css/base.css
+Not Found: /static/css/hero.css
+Not Found: /static/css/variables.css
+Not Found: /static/css/utilities.css
+"GET /static/css/base.css HTTP/1.1" 404 52993
+"GET /static/css/layout.css HTTP/1.1" 404 52993
+"GET /static/css/hero.css HTTP/1.1" 404 52993
+"GET /static/css/variables.css HTTP/1.1" 404 52993
+"GET /static/css/sidebar.css HTTP/1.1" 404 52993
+"GET /static/css/utilities.css HTTP/1.1" 404 52993
+Not Found: /static/css/components.css
+Not Found: /media/logos/cms_logo.png
+Not Found: /static/css/responsive.css
+Not Found: /static/css/content.css
+"GET /static/css/responsive.css HTTP/1.1" 404 52993
+"GET /static/css/components.css HTTP/1.1" 404 52993
+"GET /static/css/content.css HTTP/1.1" 404 52993
+Not Found: /media/news/default-category.png
+"GET /media/logos/cms_logo.png HTTP/1.1" 404 52993
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+Not Found: /media/news/default-category_kswkSuL.png
+Not Found: /static/css/base.css
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 404 53181
+Not Found: /static/js/main.js
+Not Found: /static/css/variables.css
+Not Found: /static/css/layout.css
+"GET /static/css/base.css HTTP/1.1" 404 52993
+Not Found: /static/css/hero.css
+"GET /static/js/main.js HTTP/1.1" 404 52993
+"GET /static/css/variables.css HTTP/1.1" 404 52993
+"GET /static/css/layout.css HTTP/1.1" 404 52993
+"GET /static/css/hero.css HTTP/1.1" 404 52993
+- Broken pipe from ('127.0.0.1', 56029)
+Not Found: /static/css/components.css
+"GET /static/css/components.css HTTP/1.1" 404 52993
+Not Found: /static/css/utilities.css
+"GET /static/css/utilities.css HTTP/1.1" 404 52993
+Not Found: /media/logos/cms_logo.png
+Not Found: /static/css/sidebar.css
+Not Found: /static/css/content.css
+"GET /media/logos/cms_logo.png HTTP/1.1" 404 52993
+"GET /static/css/sidebar.css HTTP/1.1" 404 52993
+"GET /static/css/content.css HTTP/1.1" 404 52993
+- Broken pipe from ('127.0.0.1', 56027)
+Not Found: /static/css/responsive.css
+Not Found: /media/news/default-category.png
+"GET /static/css/responsive.css HTTP/1.1" 404 52993
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+"GET /news/ HTTP/1.1" 200 72031
+Not Found: /static/css/base.css
+Not Found: /static/css/layout.css
+"GET /static/css/base.css HTTP/1.1" 404 52993
+Not Found: /static/css/hero.css
+Not Found: /static/css/sidebar.css
+Not Found: /static/css/variables.css
+"GET /static/css/layout.css HTTP/1.1" 404 52993
+"GET /static/css/hero.css HTTP/1.1" 404 52993
+"GET /static/css/sidebar.css HTTP/1.1" 404 52993
+Not Found: /static/css/components.css
+"GET /static/css/variables.css HTTP/1.1" 404 52993
+Not Found: /static/css/responsive.css
+Not Found: /static/css/content.css
+"GET /static/css/components.css HTTP/1.1" 404 52993
+"GET /static/css/content.css HTTP/1.1" 404 52993
+"GET /static/css/responsive.css HTTP/1.1" 404 52993
+Not Found: /static/css/news-cards.css
+Not Found: /static/css/utilities.css
+"GET /static/css/utilities.css HTTP/1.1" 404 52993
+Not Found: /static/css/pagination.css
+"GET /static/css/news-cards.css HTTP/1.1" 404 52993
+"GET /static/css/pagination.css HTTP/1.1" 404 52993
+Not Found: /media/news/default-category.png
+Not Found: /media/logos/cms_logo.png
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+"GET /media/logos/cms_logo.png HTTP/1.1" 404 52993
+Not Found: /static/css/base.css
+Not Found: /static/js/main.js
+Not Found: /media/news/cat_logo_1.png
+"GET /static/js/main.js HTTP/1.1" 404 52993
+"GET /static/css/base.css HTTP/1.1" 404 52993
+Not Found: /media/news/default-category.png
+"GET /media/news/cat_logo_1.png HTTP/1.1" 404 53181
+Not Found: /media/news/default-category_kswkSuL.png
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 404 53181
+"GET /news/ HTTP/1.1" 200 72031
+Not Found: /static/css/sidebar.css
+"GET /static/css/sidebar.css HTTP/1.1" 404 52993
+Not Found: /static/css/layout.css
+"GET /static/css/layout.css HTTP/1.1" 404 52993
+Not Found: /static/css/components.css
+"GET /static/css/components.css HTTP/1.1" 404 52993
+Not Found: /static/css/hero.css
+Not Found: /static/css/variables.css
+"GET /static/css/hero.css HTTP/1.1" 404 52993
+"GET /static/css/variables.css HTTP/1.1" 404 52993
+Not Found: /static/css/base.css
+"GET /static/css/base.css HTTP/1.1" 404 52993
+Not Found: /static/css/content.css
+"GET /static/css/content.css HTTP/1.1" 404 52993
+Not Found: /static/css/responsive.css
+Not Found: /static/css/utilities.css
+"GET /static/css/utilities.css HTTP/1.1" 404 52993
+"GET /static/css/responsive.css HTTP/1.1" 404 52993
+Not Found: /static/css/news-cards.css
+Not Found: /static/css/pagination.css
+Not Found: /media/news/default-category_kswkSuL.png
+"GET /static/css/news-cards.css HTTP/1.1" 404 52993
+"GET /static/css/pagination.css HTTP/1.1" 404 52993
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 404 53181
+Not Found: /static/js/main.js
+Not Found: /media/news/default-category.png
+"GET /static/js/main.js HTTP/1.1" 404 52993
+Not Found: /media/logos/cms_logo.png
+"GET /media/logos/cms_logo.png HTTP/1.1" 404 52993
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+Not Found: /media/news/cat_logo_1.png
+"GET /media/news/cat_logo_1.png HTTP/1.1" 404 53181
+Watching for file changes with StatReloader
+"GET /news/ HTTP/1.1" 200 72031
+Not Found: /static/css/variables.css
+"GET /static/css/variables.css HTTP/1.1" 404 52993
+Not Found: /static/css/base.css
+Not Found: /static/css/sidebar.css
+"GET /static/css/sidebar.css HTTP/1.1" 404 52993
+Not Found: /static/css/hero.css
+Not Found: /static/css/components.css
+"GET /static/css/base.css HTTP/1.1" 404 52993
+"GET /static/css/hero.css HTTP/1.1" 404 52993
+"GET /static/css/components.css HTTP/1.1" 404 52993
+Not Found: /static/css/layout.css
+"GET /static/css/layout.css HTTP/1.1" 404 52993
+Not Found: /static/css/content.css
+"GET /static/css/content.css HTTP/1.1" 404 52993
+Not Found: /static/css/responsive.css
+"GET /static/css/responsive.css HTTP/1.1" 404 52993
+Not Found: /static/css/news-cards.css
+"GET /static/css/news-cards.css HTTP/1.1" 404 52993
+Not Found: /media/logos/cms_logo.png
+"GET /media/logos/cms_logo.png HTTP/1.1" 404 52993
+Not Found: /static/css/utilities.css
+Not Found: /static/css/pagination.css
+"GET /static/css/pagination.css HTTP/1.1" 404 52993
+Not Found: /media/news/default-category.png
+"GET /static/css/utilities.css HTTP/1.1" 404 52993
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+Not Found: /media/news/default-category_kswkSuL.png
+Not Found: /static/js/main.js
+Not Found: /media/news/cat_logo_1.png
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 404 53181
+Not Found: /media/news/default-category.png
+"GET /static/js/main.js HTTP/1.1" 404 52993
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+"GET /media/news/cat_logo_1.png HTTP/1.1" 404 53181
+Not Found: /static/images/favicon.ico
+"GET /static/images/favicon.ico HTTP/1.1" 404 52993
+"GET / HTTP/1.1" 200 78357
+Not Found: /static/css/variables.css
+"GET /static/css/variables.css HTTP/1.1" 404 52993
+Not Found: /static/css/base.css
+Not Found: /static/css/hero.css
+"GET /static/css/base.css HTTP/1.1" 404 52993
+Not Found: /static/css/sidebar.css
+Not Found: /static/css/layout.css
+"GET /static/css/hero.css HTTP/1.1" 404 52993
+"GET /static/css/sidebar.css HTTP/1.1" 404 52993
+Not Found: /static/css/components.css
+Not Found: /static/css/content.css
+"GET /static/css/components.css HTTP/1.1" 404 52993
+"GET /static/css/layout.css HTTP/1.1" 404 52993
+"GET /static/css/content.css HTTP/1.1" 404 52993
+Not Found: /static/css/utilities.css
+"GET /static/css/utilities.css HTTP/1.1" 404 52993
+Not Found: /media/logos/cms_logo.png
+"GET /media/logos/cms_logo.png HTTP/1.1" 404 52993
+Not Found: /media/news/default-category.png
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+Not Found: /static/css/responsive.css
+"GET /static/css/responsive.css HTTP/1.1" 404 52993
+Not Found: /static/css/variables.css
+Not Found: /media/news/default-category.png
+Not Found: /media/news/default-category_kswkSuL.png
+Not Found: /static/js/main.js
+"GET /static/css/variables.css HTTP/1.1" 404 52993
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 404 53181
+"GET /static/js/main.js HTTP/1.1" 404 52993
+"GET / HTTP/1.1" 200 78357
+Not Found: /static/css/base.css
+Not Found: /static/css/layout.css
+Not Found: /static/css/components.css
+"GET /static/css/layout.css HTTP/1.1" 404 52993
+"GET /static/css/base.css HTTP/1.1" 404 52993
+"GET /static/css/components.css HTTP/1.1" 404 52993
+Not Found: /static/css/variables.css
+"GET /static/css/variables.css HTTP/1.1" 404 52993
+Not Found: /static/css/sidebar.css
+Not Found: /static/css/hero.css
+"GET /static/css/sidebar.css HTTP/1.1" 404 52993
+"GET /static/css/hero.css HTTP/1.1" 404 52993
+Not Found: /static/css/utilities.css
+"GET /static/css/utilities.css HTTP/1.1" 404 52993
+Not Found: /static/css/content.css
+"GET /static/css/content.css HTTP/1.1" 404 52993
+Not Found: /static/css/responsive.css
+"GET /static/css/responsive.css HTTP/1.1" 404 52993
+Not Found: /media/logos/cms_logo.png
+"GET /media/logos/cms_logo.png HTTP/1.1" 404 52993
+Not Found: /media/news/default-category.png
+Not Found: /media/news/default-category_kswkSuL.png
+Not Found: /static/js/main.js
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+"GET /static/js/main.js HTTP/1.1" 404 52993
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 404 53181
+"GET / HTTP/1.1" 200 78357
+Not Found: /static/css/sidebar.css
+"GET /static/css/sidebar.css HTTP/1.1" 404 52993
+Not Found: /static/css/layout.css
+"GET /static/css/layout.css HTTP/1.1" 404 52993
+Not Found: /static/css/components.css
+Not Found: /static/css/variables.css
+"GET /static/css/components.css HTTP/1.1" 404 52993
+Not Found: /static/css/hero.css
+"GET /static/css/variables.css HTTP/1.1" 404 52993
+Not Found: /static/css/base.css
+"GET /static/css/hero.css HTTP/1.1" 404 52993
+"GET /static/css/base.css HTTP/1.1" 404 52993
+Not Found: /static/css/content.css
+"GET /static/css/content.css HTTP/1.1" 404 52993
+Not Found: /static/css/responsive.css
+"GET /static/css/responsive.css HTTP/1.1" 404 52993
+Not Found: /static/css/utilities.css
+Not Found: /media/logos/cms_logo.png
+Not Found: /media/news/default-category.png
+"GET /static/css/utilities.css HTTP/1.1" 404 52993
+"GET /media/logos/cms_logo.png HTTP/1.1" 404 52993
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+Not Found: /media/news/default-category_kswkSuL.png
+Not Found: /media/news/default-category.png
+"GET /media/news/default-category.png HTTP/1.1" 404 53181
+Not Found: /static/js/main.js
+Not Found: /media/logos/cms_logo.png
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 404 53181
+"GET /static/js/main.js HTTP/1.1" 404 52993
+"GET /media/logos/cms_logo.png HTTP/1.1" 404 52993
+Not Found: /static/images/favicon.ico
+"GET /static/images/favicon.ico HTTP/1.1" 404 52993
+G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 78357
+"GET /static/css/variables.css HTTP/1.1" 200 6676
+"GET /static/css/base.css HTTP/1.1" 200 7885
+"GET /static/css/content.css HTTP/1.1" 200 13610
+"GET /static/css/utilities.css HTTP/1.1" 200 14324
+"GET /static/css/responsive.css HTTP/1.1" 200 15397
+"GET /static/css/sidebar.css HTTP/1.1" 200 9355
+"GET /media/news/default-category.png HTTP/1.1" 200 41704
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/hero.css HTTP/1.1" 200 8722
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+"GET /static/css/components.css HTTP/1.1" 200 17559
+"GET /static/css/layout.css HTTP/1.1" 200 14070

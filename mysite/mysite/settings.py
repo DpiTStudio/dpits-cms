@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-gg&b-34chy82xwd424vn41_=i=nr$2mrxm5_-xj(ev6ed#h+_="
 
 # РЕЖИМ ОТЛАДКИ: В продакшене должно быть False!
-DEBUG = False
+DEBUG = True
 
 # РАЗРЕШЕННЫЕ ХОСТЫ: Список доменов/хостов, которые может обслуживать Django
 ALLOWED_HOSTS = [
