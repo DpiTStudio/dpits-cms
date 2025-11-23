@@ -89,3 +89,104 @@ Watching for file changes with StatReloader
 "GET /static/css/sidebar.css HTTP/1.1" 304 0
 "GET /static/css/content.css HTTP/1.1" 304 0
 "GET /reviews/ HTTP/1.1" 200 22836
+"GET / HTTP/1.1" 200 44084
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET /static/css/variables.css HTTP/1.1" 304 0
+"GET /static/css/layout.css HTTP/1.1" 304 0
+"GET /static/css/utilities.css HTTP/1.1" 304 0
+"GET /static/css/hero.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/css/responsive.css HTTP/1.1" 304 0
+"GET /static/css/content.css HTTP/1.1" 304 0
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 44081
+"GET / HTTP/1.1" 200 44081
+"GET /static/css/hero.css HTTP/1.1" 200 8722
+"GET /static/css/variables.css HTTP/1.1" 200 6676
+"GET /static/css/content.css HTTP/1.1" 200 13610
+"GET /static/css/base.css HTTP/1.1" 200 7885
+"GET /static/css/utilities.css HTTP/1.1" 200 14324
+"GET /static/css/layout.css HTTP/1.1" 200 12717
+"GET /static/css/components.css HTTP/1.1" 200 17559
+"GET /static/css/sidebar.css HTTP/1.1" 200 9355
+"GET /static/css/responsive.css HTTP/1.1" 200 15397
+"GET /media/news/default-category.png HTTP/1.1" 200 41704
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 41757
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 44084
+"GET /static/css/layout.css HTTP/1.1" 200 12717
+"GET /static/css/content.css HTTP/1.1" 200 13610
+"GET /static/css/sidebar.css HTTP/1.1" 200 9355
+"GET /static/css/utilities.css HTTP/1.1" 200 14324
+"GET /static/css/responsive.css HTTP/1.1" 200 15397
+"GET /static/css/variables.css HTTP/1.1" 200 6676
+"GET /media/news/default-category.png HTTP/1.1" 200 41704
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/css/hero.css HTTP/1.1" 200 8722
+"GET /static/css/components.css HTTP/1.1" 200 17559
+"GET /static/css/base.css HTTP/1.1" 200 7885
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET /portfolio/ HTTP/1.1" 200 26233
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1880
+"GET /static/css/pagination.css HTTP/1.1" 404 1868
+"GET /news/ HTTP/1.1" 200 35064
+"GET /static/css/news-cards.css HTTP/1.1" 404 1868
+"GET /static/css/pagination.css HTTP/1.1" 404 1868
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 34849
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 44084
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 44084
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 42848
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 42848
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 42623
+"GET /static/css/variables.css HTTP/1.1" 304 0
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/layout.css HTTP/1.1" 304 0
+"GET /static/css/content.css HTTP/1.1" 304 0
+"GET /static/css/responsive.css HTTP/1.1" 304 0
+"GET /static/css/utilities.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/css/hero.css HTTP/1.1" 304 0
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 42623
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 42630
+"GET / HTTP/1.1" 200 42630
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 43512
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 43518
+"GET /static/css/hero.css HTTP/1.1" 200 8722
+"GET /static/css/content.css HTTP/1.1" 200 13610
+"GET /static/css/variables.css HTTP/1.1" 200 6676
+"GET /static/css/utilities.css HTTP/1.1" 200 14324
+"GET /static/css/layout.css HTTP/1.1" 200 12717
+"GET /static/css/responsive.css HTTP/1.1" 200 15397
+"GET /static/css/base.css HTTP/1.1" 200 7885
+"GET /static/css/sidebar.css HTTP/1.1" 200 9355
+"GET /static/css/components.css HTTP/1.1" 200 17559
+"GET /media/news/default-category.png HTTP/1.1" 200 41704
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET /accounts/profile/ HTTP/1.1" 200 26755
+"GET /static/accounts/css/profile.css HTTP/1.1" 200 1674
+"GET /media/avatars/avatar_user_1.png HTTP/1.1" 200 372188
+"GET /accounts/tickets/ HTTP/1.1" 200 26069
+"GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
