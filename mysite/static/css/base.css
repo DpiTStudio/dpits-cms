@@ -103,7 +103,7 @@ img {
 
 /* Списки */
 ul, ol {
-    list-style-position: inside;             /* Маркеры списка внутри элемента */
+    /* list-style-position: unset;             Маркеры списка внутри элемента */
     padding-left: var(--spacing-lg);         /* Отступ слева для списков */
 }
 

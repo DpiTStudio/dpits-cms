@@ -920,3 +920,68 @@ Watching for file changes with StatReloader
 "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
 "GET /static/css/components.css HTTP/1.1" 200 17559
 "GET /static/css/layout.css HTTP/1.1" 200 14070
+"GET /news/ HTTP/1.1" 200 72031
+"GET /static/css/news-cards.css HTTP/1.1" 404 1868
+"GET /static/css/pagination.css HTTP/1.1" 404 1868
+"GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+Watching for file changes with StatReloader
+"GET /news/ HTTP/1.1" 200 71809
+"GET /static/css/pagination.css HTTP/1.1" 404 1868
+"GET /static/css/news-cards.css HTTP/1.1" 404 1868
+"GET /portfolio/ HTTP/1.1" 200 51995
+"GET /static/css/portfolio_list.css HTTP/1.1" 404 1880
+"GET /static/css/pagination.css HTTP/1.1" 404 1868
+"GET /portfolio/create-order/ HTTP/1.1" 200 55889
+"GET /static/css/forms.css HTTP/1.1" 404 1853
+Watching for file changes with StatReloader
+"GET /static/css/responsive.css HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 78135
+"GET / HTTP/1.1" 200 78135
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5059
+- Broken pipe from ('127.0.0.1', 54352)
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 78135
+"GET /static/css/responsive.css HTTP/1.1" 304 0
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 78135
+"GET /static/css/variables.css HTTP/1.1" 200 6676
+"GET /static/css/base.css HTTP/1.1" 200 7884
+"GET /static/css/layout.css HTTP/1.1" 200 14070
+"GET /static/css/content.css HTTP/1.1" 200 13610
+"GET /static/css/utilities.css HTTP/1.1" 200 14324
+"GET /static/css/responsive.css HTTP/1.1" 200 15397
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /media/news/default-category.png HTTP/1.1" 200 41704
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+"GET /static/css/components.css HTTP/1.1" 200 17559
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET /static/css/hero.css HTTP/1.1" 200 8722
+"GET /static/css/sidebar.css HTTP/1.1" 200 9355
+"GET /static/images/favicon.ico HTTP/1.1" 200 15406
+"GET / HTTP/1.1" 200 78135
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/layout.css HTTP/1.1" 304 0
+"GET /static/css/hero.css HTTP/1.1" 304 0
+"GET /static/css/responsive.css HTTP/1.1" 304 0
+"GET /page/o-nas/ HTTP/1.1" 200 50985
+"GET /static/css/styles.css HTTP/1.1" 304 0
+"GET /page/o-nas/ HTTP/1.1" 200 50985
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/responsive.css HTTP/1.1" 304 0
+"GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+"GET /static/js/main.js HTTP/1.1" 200 4464
+"GET / HTTP/1.1" 200 78135
+"GET /static/css/variables.css HTTP/1.1" 304 0
+"GET /static/css/base.css HTTP/1.1" 304 0
+"GET /static/css/utilities.css HTTP/1.1" 304 0
+"GET /static/css/content.css HTTP/1.1" 304 0
+"GET /static/css/sidebar.css HTTP/1.1" 304 0
+"GET /static/css/responsive.css HTTP/1.1" 304 0
+"GET /media/news/default-category.png HTTP/1.1" 200 41704
+"GET /static/css/hero.css HTTP/1.1" 304 0
+"GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+"GET /static/css/components.css HTTP/1.1" 304 0
+"GET /static/css/layout.css HTTP/1.1" 304 0

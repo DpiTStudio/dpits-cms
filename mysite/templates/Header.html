@@ -33,11 +33,11 @@
                 <!-- Список навигационных элементов с автоматическим отступом справа -->
                 <ul class="navbar-nav me-auto d-flex align-items-center">
                     <!-- Пункт меню "Главная" с иконкой на мобильных устройствах -->
-                    <li class="nav-item">
+                    {% comment %} <li class="nav-item">
                         <a class="nav-link active" href="{% url 'main:index' %}">
                             <i class="fas fa-home me-1 d-lg-none"></i>Главная
                         </a>
-                    </li>
+                    </li> {% endcomment %}
                     <!-- Пункт меню "Новости" с иконкой на мобильных устройствах -->
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center" href="{% url 'news:list' %}">
