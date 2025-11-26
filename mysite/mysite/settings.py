@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+from datetime import datetime
 from pathlib import Path
 
 # =============================================================================
@@ -487,24 +488,64 @@ SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Использован
 
 LOGGING = {
     "version": 1,
-    "disable_existing_loggers": False,  # Не отключать существующие логгеры
+    "disable_existing_loggers": False,
+    "formatters": {
+        "detailed": {
+            "format": (
+                "%(asctime)s [%(levelname)s] %(name)s:%(lineno)d "
+                "%(funcName)s() | %(message)s"
+            ),
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+        },
+        "simple": {
+            "format": "%(asctime)s [%(levelname)s] %(message)s",
+            "datefmt": "%H:%M:%S",
+        },
+    },
     "handlers": {
         "file": {
-            "level": "INFO",  # Уровень логирования
-            "class": "logging.FileHandler",  # Обработчик - файл
-            "filename": os.path.join(BASE_DIR, "debug.log"),  # Файл лога
+            "level": "INFO",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": os.path.join(BASE_DIR, "logs", "debug.log"),
+            "maxBytes": 10 * 1024 * 1024,
+            "backupCount": 5,
+            "encoding": "utf-8",
+            "formatter": "detailed",
+        },
+        "error_file": {
+            "level": "ERROR",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": os.path.join(BASE_DIR, "logs", "error.log"),
+            "maxBytes": 10 * 1024 * 1024,
+            "backupCount": 3,
+            "encoding": "utf-8",
+            "formatter": "detailed",
+        },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
         },
     },
     "loggers": {
         "django": {
-            "handlers": ["file"],
-            "level": "INFO",  # Уровень для Django
-            "propagate": True,  # Распространение логов
+            "handlers": ["file", "error_file", "console"],
+            "level": "INFO",
+            "propagate": True,
         },
         "portfolio": {
-            "handlers": ["file"],
-            "level": "INFO",  # Уровень для приложения portfolio
-            "propagate": False,  # Не распространять логи
+            "handlers": ["file", "error_file"],  # УБРАТЬ "json_file"
+            "level": "DEBUG",
+            "propagate": False,
         },
+        "security": {
+            "handlers": ["error_file"],  # УБРАТЬ "json_file"
+            "level": "WARNING",
+            "propagate": False,
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
     },
 }

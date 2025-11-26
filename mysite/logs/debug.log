@@ -1,0 +1,5 @@
+2025-11-26 18:03:56 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-11-26 18:04:34 [INFO] django.utils.autoreload:265 trigger_reload() | G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-11-26 18:04:41 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-11-26 18:04:51 [INFO] django.utils.autoreload:265 trigger_reload() | G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-11-26 18:05:01 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
