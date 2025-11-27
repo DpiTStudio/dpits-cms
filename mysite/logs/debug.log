@@ -48,3 +48,4 @@
 2025-11-27 12:21:31 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78434
 2025-11-27 12:21:31 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 304 0
 2025-11-27 12:21:31 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-11-27 13:01:33 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
