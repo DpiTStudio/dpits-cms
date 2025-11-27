@@ -31,10 +31,6 @@ if settings.DEBUG:
     # Обслуживание медиа файлов (загружаемые пользователями файлы: изображения, документы и т.д.)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    # ИСПРАВЛЕНО: Убрана строка со статическими файлами, так как в DEBUG режиме
-    # Django автоматически обслуживает статические файлы через runserver.
-    # В продакшене статические файлы должны обслуживаться веб-сервером (nginx, apache)
-    # после выполнения команды collectstatic
 
 # Обработчики ошибок (используются только в продакшене, в DEBUG Django использует свои)
 handler404 = "main.views.custom_404_view"  # Обработчик ошибки 404 (страница не найдена)
