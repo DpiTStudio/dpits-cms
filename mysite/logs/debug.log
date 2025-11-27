@@ -80,3 +80,14 @@
 2025-11-27 18:11:39 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
 2025-11-27 18:12:50 [INFO] django.utils.autoreload:265 trigger_reload() | G:\Python\Projects\dpits-cms\mysite\mysite\urls.py changed, reloading.
 2025-11-27 18:12:57 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-11-27 18:17:05 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-11-27 18:17:24 [INFO] django.server:213 log_message() | "GET /admin/news/news/add/ HTTP/1.1" 200 38872
+2025-11-27 18:17:24 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-11-27 18:17:25 [INFO] django.server:213 log_message() | "GET /static/django_ckeditor_5/dist/styles.css HTTP/1.1" 200 213809
+2025-11-27 18:17:25 [INFO] django.server:213 log_message() | "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+2025-11-27 18:17:25 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+2025-11-27 18:17:25 [INFO] django.server:213 log_message() | "GET /static/django_ckeditor_5/dist/bundle.js HTTP/1.1" 200 1275904
+2025-11-27 18:17:26 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+2025-11-27 18:17:26 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+2025-11-27 18:17:26 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+2025-11-27 18:17:26 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
