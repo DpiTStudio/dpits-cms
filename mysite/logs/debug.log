@@ -49,3 +49,6 @@
 2025-11-27 12:21:31 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 304 0
 2025-11-27 12:21:31 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
 2025-11-27 13:01:33 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-11-27 15:50:40 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-11-27 15:51:12 [INFO] django.utils.autoreload:265 trigger_reload() | G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-11-27 15:57:25 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader

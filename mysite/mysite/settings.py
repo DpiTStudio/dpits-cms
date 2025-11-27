@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
-from datetime import datetime
 from pathlib import Path
+from datetime import datetime
 
 # =============================================================================
 # БАЗОВЫЕ ПУТИ ПРОЕКТА
@@ -89,7 +89,7 @@ ROOT_URLCONF = "mysite.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,  # Поиск шаблонов в папках templates приложений
         "OPTIONS": {
             "context_processors": [
@@ -168,14 +168,14 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 # Настройки статических файлов (CSS, JavaScript, изображения)
 STATIC_URL = "/static/"  # URL префикс для статических файлов
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Директория для collectstatic
+STATIC_ROOT = BASE_DIR / "staticfiles"  # Директория для collectstatic
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),  # Дополнительные директории со статикой
+    BASE_DIR / "static",  # Дополнительные директории со статикой
 ]
 
 # Настройки медиа файлов (загружаемые пользователями)
 MEDIA_URL = "/media/"  # URL префикс для медиа файлов
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # Директория для хранения медиа
+MEDIA_ROOT = BASE_DIR / "media"  # Директория для хранения медиа
 
 # =============================================================================
 # ПРОЧИЕ НАСТРОЙКИ DJANGO
@@ -242,12 +242,6 @@ JAZZMIN_SETTINGS = {
             "new_tab": True,  # Открывать в новой вкладке
             "icon": "fas fa-external-link-alt",
         },
-        # {
-        #     "name": "Документация",
-        #     "url": "https://docs.djangoproject.com/",
-        #     "new_tab": True,
-        #     "icon": "fas fa-book",
-        # },
     ],
     "show_sidebar": True,  # Показывать боковую панель
     "order_with_respect_to": [  # Порядок приложений в меню
@@ -263,7 +257,6 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
-        # "main.Profile": "fas fa-address-card",
         "news.News": "fas fa-newspaper",
         "portfolio.Project": "fas fa-briefcase",
         "reviews.Review": "fas fa-star",
@@ -486,6 +479,10 @@ SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Использован
 # НАСТРОЙКИ ЛОГИРОВАНИЯ
 # =============================================================================
 
+# Создаем папку для логов если её нет
+LOG_DIR = BASE_DIR / "logs"
+LOG_DIR.mkdir(exist_ok=True)
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -506,7 +503,7 @@ LOGGING = {
         "file": {
             "level": "INFO",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": os.path.join(BASE_DIR, "logs", "debug.log"),
+            "filename": LOG_DIR / "debug.log",
             "maxBytes": 10 * 1024 * 1024,
             "backupCount": 5,
             "encoding": "utf-8",
@@ -515,7 +512,7 @@ LOGGING = {
         "error_file": {
             "level": "ERROR",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": os.path.join(BASE_DIR, "logs", "error.log"),
+            "filename": LOG_DIR / "error.log",
             "maxBytes": 10 * 1024 * 1024,
             "backupCount": 3,
             "encoding": "utf-8",
@@ -534,12 +531,12 @@ LOGGING = {
             "propagate": True,
         },
         "portfolio": {
-            "handlers": ["file", "error_file"],  # УБРАТЬ "json_file"
+            "handlers": ["file", "error_file"],
             "level": "DEBUG",
             "propagate": False,
         },
         "security": {
-            "handlers": ["error_file"],  # УБРАТЬ "json_file"
+            "handlers": ["error_file"],
             "level": "WARNING",
             "propagate": False,
         },
@@ -549,3 +546,23 @@ LOGGING = {
         "level": "WARNING",
     },
 }
+
+# =============================================================================
+# НАСТРОЙКИ СЕКУРЫ
+# =============================================================================
+
+# Для разработки
+# SECURE_SSL_REDIRECT = False
+# SECURE_HSTS_SECONDS = 0
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+# SECURE_HSTS_PRELOAD = False
+# SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False
+
+# Для продакшена
+# SECURE_SSL_REDIRECT = True
+# SECURE_HSTS_SECONDS = 3600
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
