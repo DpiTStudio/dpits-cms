@@ -138,3 +138,5 @@
 2025-11-27 18:24:42 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1981
 2025-11-27 18:31:57 [INFO] django.utils.autoreload:265 trigger_reload() | G:\Python\Projects\dpits-cms\mysite\mysite\urls.py changed, reloading.
 2025-11-27 18:32:08 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-11-27 22:01:08 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-11-27 22:04:51 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
