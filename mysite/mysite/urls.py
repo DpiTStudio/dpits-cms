@@ -11,7 +11,9 @@
 from django.contrib import admin  # Импорт админ-панели Django
 from django.urls import path, include  # Импорт функций для работы с URL
 from django.conf import settings  # Импорт настроек Django
-from django.conf.urls.static import static  # Импорт функции для обслуживания статических файлов
+from django.conf.urls.static import (
+    static,
+)  # Импорт функции для обслуживания статических файлов
 
 # Основные маршруты URL проекта
 urlpatterns = [
@@ -27,6 +29,7 @@ urlpatterns = [
 # В режиме отладки (DEBUG) добавляем обслуживание медиа файлов
 if settings.DEBUG:
     # Обслуживание медиа файлов (загружаемые пользователями файлы: изображения, документы и т.д.)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # ИСПРАВЛЕНО: Убрана строка со статическими файлами, так как в DEBUG режиме
     # Django автоматически обслуживает статические файлы через runserver.
@@ -35,4 +38,6 @@ if settings.DEBUG:
 
 # Обработчики ошибок (используются только в продакшене, в DEBUG Django использует свои)
 handler404 = "main.views.custom_404_view"  # Обработчик ошибки 404 (страница не найдена)
-handler500 = "main.views.custom_500_view"  # Обработчик ошибки 500 (внутренняя ошибка сервера)
+handler500 = (
+    "main.views.custom_500_view"  # Обработчик ошибки 500 (внутренняя ошибка сервера)
+)
