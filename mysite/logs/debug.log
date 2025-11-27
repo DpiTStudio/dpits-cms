@@ -27,3 +27,24 @@
 2025-11-26 20:36:21 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1868
 2025-11-26 20:36:22 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
 2025-11-26 20:36:22 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-11-26 22:27:04 [INFO] django.server:213 log_message() | "GET /reviews/ HTTP/1.1" 200 48602
+2025-11-26 22:27:11 [INFO] django.server:213 log_message() | "GET /reviews/add/ HTTP/1.1" 200 49782
+2025-11-26 22:27:28 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78434
+2025-11-27 04:29:38 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-11-27 04:30:00 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78434
+2025-11-27 04:30:00 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 304 0
+2025-11-27 04:30:00 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-11-27 04:30:00 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-11-27 04:30:01 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 304 0
+2025-11-27 04:30:01 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 304 0
+2025-11-27 04:30:01 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-11-27 04:30:01 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 304 0
+2025-11-27 04:30:01 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 304 0
+2025-11-27 04:30:01 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 304 0
+2025-11-27 04:30:03 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-11-27 12:20:31 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-11-27 12:21:17 [INFO] django.utils.autoreload:265 trigger_reload() | G:\Python\Projects\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-11-27 12:21:22 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-11-27 12:21:31 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78434
+2025-11-27 12:21:31 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 304 0
+2025-11-27 12:21:31 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
