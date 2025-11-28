@@ -28,11 +28,13 @@
     /* Цвета текста */
     --text-color: #333;                    
     /* Основной цвет текста */
-    --text-muted: lab(100% 0.01 -0.01);                 
+    --text-muted: lab(21.83% 6.01 -30.09);                 
     /* Приглушенный цвет текста */
     --text-white: #ffffff;                 
     /* Белый цвет текста */
-    
+    --text-footer: #d2d0d0;
+    /* Цвет текста в подвале */
+
     /* Градиенты */
     --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);  /* Основной градиент */
     --hero-gradient: linear-gradient(135deg, #ffffff75 0%, #b16c0a 100%);  /* Градиент для hero секции */
@@ -112,30 +114,49 @@
     /* Огромный шрифт (24px) */
     
     /* Веса шрифтов */
-    --font-weight-normal: 400;              /* Обычный вес шрифта */
-    --font-weight-medium: 500;               /* Средний вес шрифта */
-    --font-weight-semibold: 600;             /* Полужирный шрифт */
-    --font-weight-bold: 700;                 /* Жирный шрифт */
-    --font-weight-extrabold: 900;            /* Очень жирный шрифт */
+    --font-weight-normal: 400;              
+    /* Обычный вес шрифта */
+    --font-weight-medium: 500;               
+    /* Средний вес шрифта */
+    --font-weight-semibold: 600;             
+    /* Полужирный шрифт */
+    --font-weight-bold: 700;                 
+    /* Жирный шрифт */
+    --font-weight-extrabold: 900;            
+    /* Очень жирный шрифт */
     
     /* Высота строк */
-    --line-height-tight: 1.25;               /* Плотная высота строки */
-    --line-height-normal: 1.5;               /* Нормальная высота строки */
-    --line-height-relaxed: 1.75;             /* Расслабленная высота строки */
-    --line-height-loose: 2;                  /* Свободная высота строки */
+    --line-height-tight: 1.25;               
+    /* Плотная высота строки */
+    --line-height-normal: 1.5;               
+    /* Нормальная высота строки */
+    --line-height-relaxed: 1.75;             
+    /* Расслабленная высота строки */
+    --line-height-loose: 2;                  
+    /* Свободная высота строки */
     
     /* Ширины границ */
-    --border-width-thin: 1px;               /* Тонкая граница */
-    --border-width: 2px;                     /* Стандартная граница */
-    --border-width-thick: 3px;               /* Толстая граница */
+    --border-width-thin: 1px;               
+    /* Тонкая граница */
+    --border-width: 2px;                     
+    /* Стандартная граница */
+    --border-width-thick: 3px;               
+    /* Толстая граница */
     
     /* Z-index слои */
-    --z-index-dropdown: 1000;                /* Слой для выпадающих меню */
-    --z-index-sticky: 1020;                   /* Слой для липких элементов */
-    --z-index-fixed: 1030;                    /* Слой для фиксированных элементов */
-    --z-index-modal-backdrop: 1040;          /* Слой для фона модальных окон */
-    --z-index-modal: 1050;                    /* Слой для модальных окон */
-    --z-index-popover: 1060;                  /* Слой для всплывающих подсказок */
-    --z-index-tooltip: 1070;                  /* Слой для тултипов */
+    --z-index-dropdown: 1000;                
+    /* Слой для выпадающих меню */
+    --z-index-sticky: 1020;                   
+    /* Слой для липких элементов */
+    --z-index-fixed: 1030;                    
+    /* Слой для фиксированных элементов */
+    --z-index-modal-backdrop: 1040;          
+    /* Слой для фона модальных окон */
+    --z-index-modal: 1050;                    
+    /* Слой для модальных окон */
+    --z-index-popover: 1060;                  
+    /* Слой для всплывающих подсказок */
+    --z-index-tooltip: 1070;                  
+    /* Слой для тултипов */
 }
 
