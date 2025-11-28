@@ -14,9 +14,13 @@
             <!-- Колонка с информацией о бренде - 4 колонки на больших экранах, 6 на средних -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <!-- Заголовок с названием бренда и жирным шрифтом -->
-                <h5 class="fw-bold mb-3">{{ site_settings.logo_text }}</h5>
+                <h5 class="text-muted fw-bold mb-3">
+                  {{ site_settings.logo_text }}
+                </h5>
                 <!-- Краткое описание сайта с безопасным выводом HTML -->
-                <p class="text-muted">{{ site_settings.short_description|safe }}</p>
+                <p class="text-muted">
+                  {{ site_settings.short_description|safe }}
+                </p>
             </div>
             
             <!-- Колонка с контактами - 4 колонки на больших экранах, 6 на средних -->
