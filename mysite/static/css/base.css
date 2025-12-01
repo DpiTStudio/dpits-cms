@@ -170,7 +170,7 @@ hr {
     /* Вертикальные отступы */
 }
 
-.footer-content-1 {
+.footercontent {
     color: var(--text-footer);               
     /* Цвет текста */
     font-size: var(--font-size-md);          
