@@ -1,0 +1,135 @@
+<!-- templates/admin/main/managedfile_change_form.html -->
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls %}
+
+{% block after_field_sets %}
+<div class="module aligned">
+    <h2>Быстрые действия</h2>
+    
+    <div class="form-row" style="display: flex; gap: 10px; flex-wrap: wrap; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+        {% if original %}
+            <!-- Кнопка просмотра файла -->
+            {% if original.exists %}
+            <div>
+                <a href="file://{{ original.file_path }}" 
+                   class="button" 
+                   target="_blank"
+                   style="background: #17a2b8; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-weight: bold;">
+                   👁️ Открыть файл
+                </a>
+            </div>
+            {% endif %}
+            
+            <!-- Кнопка обновления информации -->
+            <div>
+                <a href="{% url 'admin:main_managedfile_refresh' original.pk %}" 
+                   class="button" 
+                   style="background: #007bff; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-weight: bold;">
+                   🔄 Обновить информацию
+                </a>
+            </div>
+            
+            <!-- Кнопка резервного копирования -->
+            <div>
+                <a href="{% url 'admin:main_managedfile_backup' original.pk %}" 
+                   class="button" 
+                   style="background: #ffc107; color: #212529; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-weight: bold;">
+                   💾 Создать резервную копию
+                </a>
+            </div>
+            
+            <!-- Кнопка очистки -->
+            <div>
+                <a href="{% url 'admin:main_managedfile_clear' original.pk %}" 
+                   class="button" 
+                   style="background: #dc3545; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-weight: bold;"
+                   onclick="return confirm('Очистить содержимое файла?\\nЭто действие нельзя отменить.');">
+                   🗑️ Очистить файл
+                </a>
+            </div>
+            
+            <!-- Кнопка удаления -->
+            <div>
+                <a href="{% url 'admin:main_managedfile_delete_from_disk' original.pk %}" 
+                   class="button" 
+                   style="background: #343a40; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-weight: bold;"
+                   onclick="return confirm('Удалить файл с диска?\\nЭто действие нельзя отменить!');">
+                   ❌ Удалить файл
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if original and original.content %}
+<div class="module aligned">
+    <h2>Статистика содержимого</h2>
+    
+    <div class="form-row" style="background: #e9ecef; padding: 15px; border-radius: 5px;">
+        <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+            <div>
+                <strong>Строк:</strong> {{ original.content|linebreaksbr|linebreaks|length }}
+            </div>
+            <div>
+                <strong>Символов:</strong> {{ original.content|length }}
+            </div>
+            <div>
+                <strong>Слов:</strong> {{ original.content|wordcount }}
+            </div>
+            <div>
+                <strong>Размер:</strong> {{ original.human_readable_size }}
+            </div>
+            {% if original.exists %}
+            <div>
+                <strong>Последнее изменение:</strong> {{ original.file_mtime|date:"d.m.Y H:i:s" }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block admin_change_form_document_ready %}
+{{ block.super }}
+<script>
+// Добавляем подсветку синтаксиса для некоторых типов файлов
+(function($) {
+    $(document).ready(function() {
+        var filePath = '{{ original.file_path|default:"" }}';
+        
+        if (filePath) {
+            // Определяем тип файла по расширению
+            var extension = filePath.split('.').pop().toLowerCase();
+            var textareas = $('textarea');
+            
+            if (textareas.length > 0) {
+                var textarea = textareas[0];
+                
+                // Для конфигурационных файлов показываем подсказку
+                if (['conf', 'ini', 'cfg', 'env', 'json', 'yml', 'yaml'].includes(extension)) {
+                    $(textarea).css({
+                        'font-family': 'Monaco, Consolas, monospace',
+                        'font-size': '12px'
+                    });
+                    
+                    // Добавляем подсказку
+                    $('<div class="help" style="margin-top: 10px; color: #6c757d;">')
+                        .html('Это конфигурационный файл. Будьте осторожны при редактировании!')
+                        .insertAfter($(textarea).parent());
+                }
+                
+                // Для лог-файлов
+                if (extension === 'log') {
+                    $(textarea).css({
+                        'font-family': 'Monaco, Consolas, monospace',
+                        'font-size': '11px',
+                        'background-color': '#f8f9fa'
+                    });
+                }
+            }
+        }
+    });
+})(django.jQuery);
+</script>
+{% endblock %}

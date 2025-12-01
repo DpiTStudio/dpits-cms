@@ -1,172 +1,19 @@
-# admin.py
-# Админ-панель для моделей приложения main
+# main/admin_files.py
 import os
-from django.contrib import admin
-from django.utils.translation import gettext_lazy as _
-from .models import SiteSettings, Page
+from pathlib import Path
+from datetime import datetime
 from django.urls import path, reverse
 from django.http import HttpResponseRedirect
-from django.contrib import messages
+from django.contrib import admin, messages
 from django.utils.html import format_html, mark_safe
-from django.core.exceptions import PermissionDenied
-from datetime import datetime
-from .admin_files import *
+from django.utils import timezone
+from django.conf import settings
+
+from .models import ManagedFile
 
 
-@admin.register(SiteSettings)
-class SiteSettingsAdmin(admin.ModelAdmin):
-    """
-    Админ-панель для настроек сайта.
-    Обеспечивает singleton-режим (только одна запись настроек).
-    """
-
-    # Поля для отображения в списке записей
-    list_display = ["slogan", "phone1", "email", "site_closed", "updated_at"]
-    list_filter = ["site_closed"]  # Фильтры в правой панели
-    readonly_fields = ["updated_at"]  # Только для чтения
-
-    # Группировка полей по секциям
-    fieldsets = (
-        (
-            _("Основная информация"),
-            {"fields": ("logo", "logo_text", "slogan", "motto", "short_description")},
-        ),
-        (
-            _("Контактная информация"),
-            {"fields": ("phone1", "phone2", "email", "address")},
-        ),
-        (
-            _("Социальные сети"),
-            {
-                "fields": (
-                    "facebook",
-                    "instagram",
-                    "youtube",
-                    "rutube",
-                    "vk_video",
-                    "telegram",
-                    "vk",
-                    "ok",
-                ),
-                "classes": ("collapse",),  # Сворачиваемая секция
-            },
-        ),
-        (
-            _("Статус сайта"),
-            {"fields": ("site_closed", "closure_message", "updated_at")},
-        ),
-        (
-            _("Дополнительный контент"),
-            {"fields": ("content",), "classes": ("collapse",)},
-        ),
-        (
-            _("SEO оптимизация"),
-            {
-                "fields": ("seo_title", "seo_keywords", "seo_description"),
-                "classes": ("collapse",),  # Сворачиваемая секция
-            },
-        ),
-    )
-
-    def has_add_permission(self, request):
-        """
-        Запрещает создание дополнительных записей настроек.
-        Разрешает создание только если записей еще нет.
-        """
-        return not SiteSettings.objects.exists()
-
-    def has_delete_permission(self, request, obj=None):
-        """
-        Запрещает удаление единственной записи настроек.
-        """
-        return False
-
-    def save_model(self, request, obj, form, change):
-        """
-        Переопределяет сохранение для очистки кэша.
-        """
-        super().save_model(request, obj, form, change)
-        # Очищаем кэш при сохранении
-        from django.core.cache import cache
-
-        cache.delete("site_settings")
-        cache.delete("menu_pages")
-        cache.delete("featured_pages")
-
-
-@admin.register(Page)
-class PageAdmin(admin.ModelAdmin):
-    """
-    Админ-панель для страниц сайта.
-    Предоставляет управление страницами с SEO-настройками.
-    """
-
-    # Поля для отображения в списке
-    list_display = [
-        "title",
-        "slug",
-        "show_in_menu",
-        "show_on_site",
-        "order",
-        "updated_at",
-    ]
-    list_editable = [
-        "show_in_menu",
-        "show_on_site",
-        "order",
-    ]  # Редактируемые поля в списке
-    list_filter = ["show_in_menu", "show_on_site", "created_at"]  # Фильтры
-    search_fields = ["title", "slug", "content"]  # Поля для поиска
-    readonly_fields = ["created_at", "updated_at"]  # Только для чтения
-    prepopulated_fields = {"slug": ("title",)}  # Автозаполнение slug из title
-
-    # Группировка полей
-    fieldsets = (
-        (_("Основное содержимое"), {"fields": ("title", "slug", "content")}),
-        (
-            _("Настройки отображения"),
-            {"fields": ("show_in_menu", "show_on_site", "order")},
-        ),
-        (
-            _("SEO оптимизация"),
-            {
-                "fields": ("seo_title", "seo_keywords", "seo_description"),
-                "classes": ("collapse",),  # Сворачиваемая секция
-            },
-        ),
-        (
-            _("Мета-информация"),
-            {"fields": ("created_at", "updated_at"), "classes": ("collapse",)},
-        ),
-    )
-
-    class Media:
-        """
-        Дополнительные CSS стили для админки.
-        """
-
-        css = {"all": ("admin/css/pages.css",)}
-
-    def get_queryset(self, request):
-        """
-        Оптимизирует запросы к базе данных.
-        """
-        qs = super().get_queryset(request)
-        return qs.select_related()
-
-    def save_model(self, request, obj, form, change):
-        """
-        Переопределяет сохранение для логирования изменений.
-        """
-        super().save_model(request, obj, form, change)
-        # Очищаем кэш при сохранении
-        from django.core.cache import cache
-
-        cache.delete("menu_pages")
-        cache.delete("featured_pages")
-
-    # @admin.register(ManagedFile)
-    # class ManagedFileAdmin(admin.ModelAdmin):
+@admin.register(ManagedFile)
+class ManagedFileAdmin(admin.ModelAdmin):
     list_display = [
         "name_display",
         "category_display",
@@ -278,9 +125,6 @@ class PageAdmin(admin.ModelAdmin):
         "scan_logs_directory",
     ]
 
-    change_form_template = "admin/main/managedfile_change_form.html"
-    change_list_template = "admin/main/managedfile_change_list.html"
-
     # Настройки для списка
     list_per_page = 25
     show_full_result_count = True
@@ -355,8 +199,6 @@ class PageAdmin(admin.ModelAdmin):
     def last_modified_display(self, obj):
         """Дата последнего изменения"""
         if obj.file_mtime:
-            from django.utils import timezone
-
             now = timezone.now()
             diff = now - obj.file_mtime
 
@@ -567,6 +409,8 @@ class PageAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         """Добавляем кастомные URL для действий с файлами"""
+        from django.urls import path
+
         urls = super().get_urls()
         custom_urls = [
             path(
@@ -721,8 +565,6 @@ class PageAdmin(admin.ModelAdmin):
 
     def scan_logs_directory(self, request, queryset):
         """Сканировать директории на наличие лог-файлов"""
-        from django.conf import settings
-
         # Определяем директории для сканирования
         scan_dirs = [
             settings.BASE_DIR,

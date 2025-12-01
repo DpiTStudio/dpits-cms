@@ -32,3 +32,17 @@ def clear_pages_cache(sender, **kwargs):
     cache_keys = ["menu_pages", "featured_pages"]
     for key in cache_keys:
         cache.delete(key)
+
+
+@receiver([post_save, post_delete], sender=ManagedFile)
+def clear_managed_files_cache(sender, **kwargs):
+    """
+    Очищает кэш при изменении управляемых файлов
+    """
+    cache_keys = [
+        "managed_files_list",
+        "managed_files_active",
+        "managed_files_stats",
+    ]
+    for key in cache_keys:
+        cache.delete(key)
