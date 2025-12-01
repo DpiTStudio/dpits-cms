@@ -654,3 +654,59 @@
 2025-12-01 12:56:56 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
 2025-12-01 12:56:56 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
 2025-12-01 12:56:56 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-12-01 13:09:06 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 51032
+2025-12-01 13:09:07 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-01 13:09:07 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-01 13:09:07 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-12-01 13:09:07 [INFO] django.server:213 log_message() | "GET /static/css/styles.css HTTP/1.1" 200 0
+2025-12-01 13:09:24 [WARNING] django.request:253 log_response() | Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-12-01 13:09:24 [WARNING] django.server:213 log_message() | "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5229
+2025-12-01 13:09:24 [INFO] django.server:81 handle_error() | - Broken pipe from ('127.0.0.1', 63018)
+2025-12-01 13:10:24 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 51032
+2025-12-01 13:59:39 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78479
+2025-12-01 13:59:39 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-12-01 13:59:39 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-01 13:59:39 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-01 13:59:39 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-01 14:01:03 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 22341
+2025-12-01 14:01:04 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-01 14:01:04 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-01 14:01:04 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+2025-12-01 14:01:04 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-01 14:01:05 [INFO] django.server:213 log_message() | "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+2025-12-01 14:01:05 [INFO] django.server:213 log_message() | "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+2025-12-01 14:01:05 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+2025-12-01 14:01:05 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-01 14:01:05 [INFO] django.server:213 log_message() | "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+2025-12-01 14:01:05 [INFO] django.server:213 log_message() | "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+2025-12-01 14:01:05 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+2025-12-01 14:01:05 [INFO] django.server:213 log_message() | "GET /static/images/logo.png HTTP/1.1" 200 100655
+2025-12-01 14:01:05 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+2025-12-01 14:01:05 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+2025-12-01 14:01:07 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-01 14:01:07 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-01 14:01:09 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-01 14:01:10 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+2025-12-01 14:01:10 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+2025-12-01 14:01:12 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+2025-12-01 14:01:12 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+2025-12-01 14:01:26 [INFO] django.server:213 log_message() | "GET /admin/main/page/ HTTP/1.1" 200 28325
+2025-12-01 14:01:26 [WARNING] django.server:213 log_message() | "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+2025-12-01 14:01:26 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-01 14:01:34 [INFO] django.server:213 log_message() | "POST /admin/main/page/ HTTP/1.1" 302 0
+2025-12-01 14:01:34 [INFO] django.server:213 log_message() | "GET /admin/main/page/ HTTP/1.1" 200 28835
+2025-12-01 14:01:35 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-01 14:01:35 [WARNING] django.server:213 log_message() | "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+2025-12-01 14:01:39 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78479
+2025-12-01 14:01:52 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78479
+2025-12-01 14:01:54 [WARNING] django.request:253 log_response() | Not Found: /page/o-nas/
+2025-12-01 14:01:54 [WARNING] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 404 3120
+2025-12-01 14:01:55 [WARNING] django.request:253 log_response() | Not Found: /favicon.ico
+2025-12-01 14:01:55 [WARNING] django.server:213 log_message() | "GET /favicon.ico HTTP/1.1" 404 5118
+2025-12-01 14:01:59 [WARNING] django.request:253 log_response() | Not Found: /page/o-nas/
+2025-12-01 14:01:59 [WARNING] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 404 3120
+2025-12-01 14:02:19 [INFO] django.server:213 log_message() | "POST /admin/main/page/ HTTP/1.1" 302 0
+2025-12-01 14:02:19 [INFO] django.server:213 log_message() | "GET /admin/main/page/ HTTP/1.1" 200 28851
+2025-12-01 14:02:20 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-01 14:02:20 [WARNING] django.server:213 log_message() | "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+2025-12-01 14:02:23 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 51032
