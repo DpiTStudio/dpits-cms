@@ -737,3 +737,142 @@ Traceback (most recent call last):
     raise TemplateDoesNotExist(template_name, chain=chain)
 django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_list.html
 2025-12-01 16:09:51 [ERROR] django.server:213 log_message() | "GET /admin/main/managedfile/ HTTP/1.1" 500 108338
+2025-12-01 16:14:49 [INFO] django.utils.autoreload:265 trigger_reload() | G:\Python\Projects\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-01 16:14:54 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 16:16:21 [INFO] django.utils.autoreload:265 trigger_reload() | G:\Python\Projects\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-01 16:16:27 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 16:16:48 [INFO] django.utils.autoreload:265 trigger_reload() | G:\Python\Projects\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-01 16:16:53 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 16:17:25 [ERROR] django.request:253 log_response() | Internal Server Error: /admin/main/managedfile/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 74, in resolve_template
+    return get_template(template, using=self.using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_list.html
+2025-12-01 16:17:25 [ERROR] django.server:213 log_message() | "GET /admin/main/managedfile/ HTTP/1.1" 500 108475
+2025-12-01 16:33:05 [ERROR] django.request:253 log_response() | Internal Server Error: /admin/main/managedfile/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 74, in resolve_template
+    return get_template(template, using=self.using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_list.html
+2025-12-01 16:33:05 [ERROR] django.server:213 log_message() | "GET /admin/main/managedfile/ HTTP/1.1" 500 108475
+2025-12-01 16:33:50 [ERROR] django.request:253 log_response() | Internal Server Error: /admin/main/managedfile/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 74, in resolve_template
+    return get_template(template, using=self.using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_list.html
+2025-12-01 16:33:50 [ERROR] django.server:213 log_message() | "GET /admin/main/managedfile/ HTTP/1.1" 500 108181
+2025-12-01 17:24:16 [ERROR] django.request:253 log_response() | Internal Server Error: /admin/main/managedfile/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 74, in resolve_template
+    return get_template(template, using=self.using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_list.html
+2025-12-01 17:24:16 [ERROR] django.server:213 log_message() | "GET /admin/main/managedfile/ HTTP/1.1" 500 108475
+2025-12-01 17:24:19 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 47072
+2025-12-01 17:24:23 [ERROR] django.request:253 log_response() | Internal Server Error: /admin/main/managedfile/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 74, in resolve_template
+    return get_template(template, using=self.using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_list.html
+2025-12-01 17:24:23 [ERROR] django.server:213 log_message() | "GET /admin/main/managedfile/ HTTP/1.1" 500 108338
+2025-12-01 17:57:54 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 17:58:04 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 45413
+2025-12-01 17:58:16 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 22341
+2025-12-01 17:58:18 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+2025-12-01 17:58:18 [INFO] django.server:213 log_message() | "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+2025-12-01 17:58:18 [INFO] django.server:213 log_message() | "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+2025-12-01 17:58:18 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+2025-12-01 17:58:18 [INFO] django.server:213 log_message() | "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+2025-12-01 17:58:18 [INFO] django.server:213 log_message() | "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+2025-12-01 17:58:18 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+2025-12-01 17:58:18 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+2025-12-01 17:58:18 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+2025-12-01 17:58:18 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+2025-12-01 17:58:18 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+2025-12-01 17:58:23 [INFO] django.server:213 log_message() | "GET /admin/main/page/ HTTP/1.1" 200 28327
+2025-12-01 17:58:23 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-01 17:58:23 [WARNING] django.server:213 log_message() | "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+2025-12-01 17:58:29 [INFO] django.server:213 log_message() | "GET /admin/news/newscategory/ HTTP/1.1" 200 30728
+2025-12-01 17:58:30 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-01 18:03:01 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 45398
+2025-12-01 18:03:08 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 22341
+2025-12-01 18:03:15 [INFO] django.server:213 log_message() | "GET /admin/main/page/ HTTP/1.1" 200 28327
+2025-12-01 18:03:16 [WARNING] django.server:213 log_message() | "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+2025-12-01 18:03:16 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-01 18:03:21 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-01 18:03:21 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17559
+2025-12-01 18:03:21 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-01 18:03:21 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-01 18:03:21 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-01 18:03:21 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15397
+2025-12-01 18:03:21 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-01 18:03:22 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-01 18:03:29 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78479
+2025-12-01 18:03:30 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-12-01 18:03:30 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-01 18:03:30 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-01 18:11:29 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 78794
+2025-12-01 18:11:30 [WARNING] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 404 1981
+2025-12-01 18:11:30 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1981
+2025-12-01 18:11:30 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-01 18:11:30 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-01 18:11:33 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 52052
+2025-12-01 18:11:33 [WARNING] django.server:213 log_message() | "GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+2025-12-01 18:11:33 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1981
+2025-12-01 18:11:36 [INFO] django.server:213 log_message() | "GET /reviews/ HTTP/1.1" 200 48634
+2025-12-01 18:11:39 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 51032
+2025-12-01 18:11:44 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 78794
+2025-12-01 18:11:45 [WARNING] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 404 1981
+2025-12-01 18:11:45 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1981
+2025-12-01 18:11:48 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 52052
+2025-12-01 18:11:49 [WARNING] django.server:213 log_message() | "GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+2025-12-01 18:11:49 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1981

@@ -165,7 +165,6 @@ class PageAdmin(admin.ModelAdmin):
         cache.delete("featured_pages")
 
 
-@admin.register(ManagedFile)
 class ManagedFileAdmin(admin.ModelAdmin):
     """
     Админ-панель для управления файлами через интерфейс администратора.
@@ -771,6 +770,223 @@ class ManagedFileAdmin(admin.ModelAdmin):
         self.message_user(request, f"Добавлено {added_count} новых файлов")
 
     scan_logs_directory.short_description = "Сканировать директории на наличие файлов"
+
+
+def changelist_view(self, request, extra_context=None):
+    """
+    Переопределяем представление списка для добавления статистики
+    """
+    response = super().changelist_view(request, extra_context=extra_context)
+
+    if hasattr(response, "context_data"):
+        # Получаем статистику
+        queryset = self.get_queryset(request)
+        response.context_data["active_count"] = queryset.filter(is_active=True).count()
+        response.context_data["exists_count"] = queryset.filter(exists=True).count()
+        response.context_data["text_files_count"] = queryset.filter(
+            is_text_file=True
+        ).count()
+
+    return response
+
+
+# Также добавьте обработку сканирования директорий
+def get_urls(self):
+    """Добавляем кастомные URL для действий с файлами"""
+    urls = super().get_urls()
+    custom_urls = [
+        path(
+            "<int:file_id>/refresh/",
+            self.admin_site.admin_view(self.refresh_file_view),
+            name="main_managedfile_refresh",
+        ),
+        path(
+            "<int:file_id>/backup/",
+            self.admin_site.admin_view(self.backup_file_view),
+            name="main_managedfile_backup",
+        ),
+        path(
+            "<int:file_id>/clear/",
+            self.admin_site.admin_view(self.clear_file_view),
+            name="main_managedfile_clear",
+        ),
+        path(
+            "<int:file_id>/delete-from-disk/",
+            self.admin_site.admin_view(self.delete_file_from_disk_view),
+            name="main_managedfile_delete_from_disk",
+        ),
+        # Новые URL
+        path(
+            "scan/",
+            self.admin_site.admin_view(self.scan_directory_view),
+            name="main_managedfile_scan_directory",
+        ),
+        path(
+            "refresh-all/",
+            self.admin_site.admin_view(self.refresh_all_files_view),
+            name="main_managedfile_refresh_all",
+        ),
+        path(
+            "backup-all/",
+            self.admin_site.admin_view(self.backup_all_files_view),
+            name="main_managedfile_backup_all",
+        ),
+        path(
+            "scan-logs/",
+            self.admin_site.admin_view(self.scan_logs_view),
+            name="main_managedfile_scan_logs",
+        ),
+    ]
+    return custom_urls + urls
+
+
+def scan_directory_view(self, request):
+    """Сканирование директории"""
+    from django.conf import settings
+
+    # Определяем директории для сканирования
+    scan_dirs = [
+        settings.BASE_DIR,
+        "/var/log",
+        "/tmp",
+        "/home",
+        settings.MEDIA_ROOT,
+    ]
+
+    added_count = 0
+
+    for scan_dir in scan_dirs:
+        if os.path.exists(scan_dir):
+            for root, dirs, files in os.walk(scan_dir, topdown=True):
+                # Пропускаем некоторые директории
+                dirs[:] = [
+                    d
+                    for d in dirs
+                    if not d.startswith(".")
+                    and d not in ["__pycache__", "node_modules", "venv", ".git"]
+                ]
+
+                for file in files:
+                    # Проверяем расширения файлов
+                    if file.endswith(
+                        (
+                            ".log",
+                            ".txt",
+                            ".conf",
+                            ".ini",
+                            ".cfg",
+                            ".json",
+                            ".yaml",
+                            ".yml",
+                            ".xml",
+                            ".html",
+                            ".css",
+                            ".js",
+                            ".py",
+                            ".md",
+                        )
+                    ):
+                        file_path = os.path.join(root, file)
+
+                        # Проверяем, не добавлен ли уже файл
+                        if not ManagedFile.objects.filter(file_path=file_path).exists():
+                            try:
+                                # Определяем категорию
+                                if file.endswith(".log"):
+                                    category = "log"
+                                elif file.endswith((".conf", ".ini", ".cfg")):
+                                    category = "config"
+                                elif file.endswith((".py", ".js", ".html", ".css")):
+                                    category = "template"
+                                elif file.endswith((".json", ".yaml", ".yml", ".xml")):
+                                    category = "config"
+                                elif file.endswith(".txt"):
+                                    category = "other"
+                                else:
+                                    category = "other"
+
+                                # Создаем запись
+                                ManagedFile.objects.create(
+                                    name=file,
+                                    file_path=file_path,
+                                    category=category,
+                                    description=f"Автоматически добавлен из {root}",
+                                )
+                                added_count += 1
+                            except Exception as e:
+                                print(f"Ошибка добавления файла {file_path}: {e}")
+
+    self.message_user(request, f"Добавлено {added_count} новых файлов")
+    return HttpResponseRedirect(reverse("admin:main_managedfile_changelist"))
+
+
+def refresh_all_files_view(self, request):
+    """Обновить информацию обо всех файлах"""
+    queryset = self.get_queryset(request)
+    updated = 0
+
+    for obj in queryset:
+        success, _ = obj.refresh_file_info()
+        if success:
+            updated += 1
+
+    self.message_user(
+        request, f"Информация обновлена для {updated} из {queryset.count()} файлов"
+    )
+    return HttpResponseRedirect(reverse("admin:main_managedfile_changelist"))
+
+
+def backup_all_files_view(self, request):
+    """Создать резервные копии всех файлов"""
+    queryset = self.get_queryset(request)
+    created = 0
+
+    for obj in queryset:
+        if obj.exists:
+            backup_path, _ = obj.create_backup()
+            if backup_path:
+                created += 1
+
+    self.message_user(
+        request, f"Резервные копии созданы для {created} из {queryset.count()} файлов"
+    )
+    return HttpResponseRedirect(reverse("admin:main_managedfile_changelist"))
+
+
+def scan_logs_view(self, request):
+    """Сканировать только лог-файлы"""
+    from django.conf import settings
+
+    scan_dirs = [
+        "/var/log",
+        "/tmp",
+        settings.BASE_DIR,
+    ]
+
+    added_count = 0
+
+    for scan_dir in scan_dirs:
+        if os.path.exists(scan_dir):
+            for root, dirs, files in os.walk(scan_dir):
+                for file in files:
+                    if file.endswith(".log"):
+                        file_path = os.path.join(root, file)
+
+                        # Проверяем, не добавлен ли уже файл
+                        if not ManagedFile.objects.filter(file_path=file_path).exists():
+                            try:
+                                ManagedFile.objects.create(
+                                    name=file,
+                                    file_path=file_path,
+                                    category="log",
+                                    description=f"Лог-файл из {root}",
+                                )
+                                added_count += 1
+                            except:
+                                pass
+
+    self.message_user(request, f"Добавлено {added_count} новых лог-файлов")
+    return HttpResponseRedirect(reverse("admin:main_managedfile_changelist"))
 
     class Media:
         css = {"all": ("css/admin-file-manager.css",)}
