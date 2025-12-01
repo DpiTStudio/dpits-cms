@@ -876,3 +876,5 @@ django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_l
 2025-12-01 18:11:48 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 52052
 2025-12-01 18:11:49 [WARNING] django.server:213 log_message() | "GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
 2025-12-01 18:11:49 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1981
+2025-12-01 18:12:01 [INFO] django.server:213 log_message() | "GET /portfolio/create-order/ HTTP/1.1" 200 55946
+2025-12-01 18:12:02 [WARNING] django.server:213 log_message() | "GET /static/css/forms.css HTTP/1.1" 404 1966
