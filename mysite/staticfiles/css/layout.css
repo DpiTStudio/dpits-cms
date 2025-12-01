@@ -172,8 +172,7 @@ footer h5 {
 }
 
 /* Параграфы в подвале */
-footer p {
-    color: var(--text-muted);                /* Приглушенный цвет текста */
+footer p {            /* Приглушенный цвет текста */
     margin-bottom: var(--spacing-md);        /* Отступ снизу */
     line-height: var(--line-height-relaxed); /* Расслабленная высота строки */
 }
@@ -186,6 +185,27 @@ footer a {
     display: flex;                            /* Flexbox для выравнивания */
     align-items: center;                      /* Вертикальное выравнивание */
     gap: var(--spacing-sm);                  /* Отступ между иконкой и текстом */
+}
+
+.footer-content-1 {
+    color: var(--text-footer) !important;               
+    /* Цвет текста */
+    font-size: var(--font-size-md);          
+    /* Размер шрифта */
+    font-weight: var(--font-weight-bold);    
+    /* Жирный шрифт */
+    margin-bottom: var(--spacing-md);        
+    /* Отступ снизу */
+}
+.footer-content-2 {
+    color: var(--text-footer) !important;               
+    /* Цвет текста */
+    font-size: var(--font-size-xl);          
+    /* Размер шрифта */
+    font-weight: var(--font-weight-bold);    
+    /* Жирный шрифт */
+    margin-bottom: var(--spacing-md);        
+    /* Отступ снизу */
 }
 
 /* Состояние наведения на ссылку в подвале */
