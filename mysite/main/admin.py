@@ -3,14 +3,13 @@
 import os
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from .models import SiteSettings, Page
+from .models import SiteSettings, Page, ManagedFile
 from django.urls import path, reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.utils.html import format_html, mark_safe
 from django.core.exceptions import PermissionDenied
 from datetime import datetime
-from .admin_files import *
 
 
 @admin.register(SiteSettings)
@@ -165,8 +164,14 @@ class PageAdmin(admin.ModelAdmin):
         cache.delete("menu_pages")
         cache.delete("featured_pages")
 
-    # @admin.register(ManagedFile)
-    # class ManagedFileAdmin(admin.ModelAdmin):
+
+@admin.register(ManagedFile)
+class ManagedFileAdmin(admin.ModelAdmin):
+    """
+    Админ-панель для управления файлами через интерфейс администратора.
+    Позволяет просматривать, редактировать и управлять файлами на диске.
+    """
+
     list_display = [
         "name_display",
         "category_display",
@@ -286,7 +291,7 @@ class PageAdmin(admin.ModelAdmin):
     show_full_result_count = True
 
     def name_display(self, obj):
-        """Отображение имени с иконкой"""
+        """Отображение имени файла с иконкой"""
         icon = "📄" if obj.is_text_file else "💾"
         return format_html("<strong>{} {}</strong>", icon, obj.name)
 
@@ -294,7 +299,7 @@ class PageAdmin(admin.ModelAdmin):
     name_display.admin_order_field = "name"
 
     def category_display(self, obj):
-        """Отображение категории с цветом"""
+        """Отображение категории файла с цветным значком"""
         colors = {
             "log": "warning",
             "config": "info",
@@ -315,7 +320,7 @@ class PageAdmin(admin.ModelAdmin):
     category_display.admin_order_field = "category"
 
     def file_path_short(self, obj):
-        """Сокращенный путь к файлу"""
+        """Сокращенный путь к файлу для отображения в списке"""
         path = obj.file_path
         if len(path) > 40:
             return f"...{path[-40:]}"
@@ -325,7 +330,7 @@ class PageAdmin(admin.ModelAdmin):
     file_path_short.admin_order_field = "file_path"
 
     def size_display(self, obj):
-        """Отображение размера"""
+        """Отображение размера файла с цветным индикатором"""
         if obj.exists:
             color = (
                 "success" if obj.file_size < 1024 * 1024 else "warning"
@@ -339,7 +344,7 @@ class PageAdmin(admin.ModelAdmin):
     size_display.admin_order_field = "file_size"
 
     def status_display(self, obj):
-        """Статус файла"""
+        """Отображение статуса файла (активен/неактивен/отсутствует)"""
         if obj.exists:
             if obj.is_active:
                 return format_html('<span class="badge badge-success">Активен</span>')
@@ -353,7 +358,7 @@ class PageAdmin(admin.ModelAdmin):
     status_display.short_description = "Статус"
 
     def last_modified_display(self, obj):
-        """Дата последнего изменения"""
+        """Отображение времени последнего изменения файла в удобном формате"""
         if obj.file_mtime:
             from django.utils import timezone
 
@@ -379,7 +384,7 @@ class PageAdmin(admin.ModelAdmin):
     last_modified_display.admin_order_field = "file_mtime"
 
     def actions_column(self, obj):
-        """Колонка с действиями"""
+        """Колонка с кнопками действий для файла"""
         buttons = []
 
         # Кнопка просмотра
@@ -392,7 +397,7 @@ class PageAdmin(admin.ModelAdmin):
                 )
             )
 
-        # Кнопка обновления
+        # Кнопка обновления информации
         buttons.append(
             format_html(
                 '<a href="{}" class="btn btn-sm btn-primary mr-1" '
@@ -401,7 +406,7 @@ class PageAdmin(admin.ModelAdmin):
             )
         )
 
-        # Кнопка бэкапа
+        # Кнопка создания резервной копии
         buttons.append(
             format_html(
                 '<a href="{}" class="btn btn-sm btn-warning mr-1" '
@@ -410,7 +415,7 @@ class PageAdmin(admin.ModelAdmin):
             )
         )
 
-        # Кнопка очистки
+        # Кнопка очистки содержимого
         buttons.append(
             format_html(
                 '<a href="{}" class="btn btn-sm btn-danger mr-1" '
@@ -426,7 +431,7 @@ class PageAdmin(admin.ModelAdmin):
     actions_column.short_description = "Действия"
 
     def file_info_display(self, obj):
-        """Отображение информации о файле"""
+        """Отображение подробной информации о файле"""
         info = []
 
         if obj.exists:
@@ -462,7 +467,7 @@ class PageAdmin(admin.ModelAdmin):
     file_info_display.short_description = "Информация о файле"
 
     def file_preview_display(self, obj):
-        """Предпросмотр содержимого файла"""
+        """Предпросмотр содержимого файла (первые 15 строк)"""
         if not obj.is_text_file or not obj.content:
             return "Предпросмотр недоступен для бинарных файлов"
 
@@ -485,7 +490,7 @@ class PageAdmin(admin.ModelAdmin):
     file_preview_display.short_description = "Предпросмотр (первые 15 строк)"
 
     def backups_list_display(self, obj):
-        """Список резервных копий"""
+        """Отображение списка резервных копий файла"""
         backups = obj.get_backup_list()
 
         if not backups:
@@ -513,7 +518,7 @@ class PageAdmin(admin.ModelAdmin):
     backups_list_display.short_description = "Доступные резервные копии"
 
     def current_permissions(self, obj):
-        """Текущие права доступа"""
+        """Отображение текущих прав доступа к файлу"""
         if not obj.exists:
             return "Файл не существует"
 
@@ -529,7 +534,7 @@ class PageAdmin(admin.ModelAdmin):
     current_permissions.short_description = "Права доступа (octal)"
 
     def save_model(self, request, obj, form, change):
-        """Сохранение модели с обновлением файла"""
+        """Сохранение модели с обновлением файла на диске"""
         if change and obj.content is not None and obj.is_text_file and obj.exists:
             # Проверяем размер файла перед сохранением
             content_size = len(obj.content.encode("utf-8"))
@@ -593,7 +598,7 @@ class PageAdmin(admin.ModelAdmin):
         return custom_urls + urls
 
     def refresh_file_view(self, request, file_id):
-        """Обновление информации о файле"""
+        """Обновление информации о файле из файловой системы"""
         obj = self.get_object(request, file_id)
         if obj:
             success, message = obj.refresh_file_info()

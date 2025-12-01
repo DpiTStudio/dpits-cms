@@ -1,0 +1,16 @@
+2025-12-01 16:09:51 [ERROR] django.request:253 log_response() | Internal Server Error: /admin/main/managedfile/
+Traceback (most recent call last):
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\response.py", line 74, in resolve_template
+    return get_template(template, using=self.using)
+  File "g:\Python\Projects\dpits-cms\.venv\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_list.html
+2025-12-01 16:09:51 [ERROR] django.server:213 log_message() | "GET /admin/main/managedfile/ HTTP/1.1" 500 108338

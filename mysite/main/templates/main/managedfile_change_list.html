@@ -1,0 +1,22 @@
+<!-- templates/admin/main/managedfile_change_list.html -->
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+    <li>
+        <a href="{% url 'admin:main_managedfile_scan_directory' %}" class="btn btn-high btn-success">
+            <i class="fas fa-search me-1"></i>Сканировать директории
+        </a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <div class="module" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+        <h3><i class="fas fa-info-circle me-2"></i>Информация</h3>
+        <p>Всего файлов: {{ cl.result_count }}</p>
+        <p>Активных файлов: {{ cl.queryset.filter(is_active=True).count }}</p>
+        <p>Файлов на диске: {{ cl.queryset.filter(exists=True).count }}</p>
+    </div>
+{% endblock %}

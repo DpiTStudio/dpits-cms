@@ -34,15 +34,19 @@ def clear_pages_cache(sender, **kwargs):
         cache.delete(key)
 
 
-@receiver([post_save, post_delete], sender=ManagedFile)
+@receiver([post_save, post_delete])
 def clear_managed_files_cache(sender, **kwargs):
     """
     Очищает кэш при изменении управляемых файлов
     """
-    cache_keys = [
-        "managed_files_list",
-        "managed_files_active",
-        "managed_files_stats",
-    ]
-    for key in cache_keys:
-        cache.delete(key)
+    # Проверяем, что это модель ManagedFile
+    if sender.__name__ == "ManagedFile":
+        from .models import ManagedFile
+
+        cache_keys = [
+            "managed_files_list",
+            "managed_files_active",
+            "managed_files_stats",
+        ]
+        for key in cache_keys:
+            cache.delete(key)
