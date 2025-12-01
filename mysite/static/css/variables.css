@@ -32,7 +32,7 @@
     /* Приглушенный цвет текста */
     --text-white: #ffffff;                 
     /* Белый цвет текста */
-    --text-footer: #fff8e8;
+    --text-footer: #fff8e8 !important;
     /* Цвет текста в подвале */
 
     /* Градиенты */

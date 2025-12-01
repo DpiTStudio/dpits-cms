@@ -547,3 +547,110 @@
 2025-12-01 01:32:24 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 78768
 2025-12-01 01:32:25 [WARNING] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 404 1981
 2025-12-01 01:32:25 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1981
+2025-12-01 12:35:15 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7258
+2025-12-01 12:35:15 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8589
+2025-12-01 12:35:15 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-01 12:35:15 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14070
+2025-12-01 12:35:15 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-01 12:35:15 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15397
+2025-12-01 12:35:15 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17559
+2025-12-01 12:35:15 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-01 12:35:15 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-01 12:35:15 [WARNING] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 404 1981
+2025-12-01 12:35:16 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-01 12:35:16 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-01 12:35:16 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-01 12:35:16 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-01 12:35:16 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-01 12:35:22 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78453
+2025-12-01 12:35:28 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 51006
+2025-12-01 12:35:29 [INFO] django.server:213 log_message() | "GET /static/css/styles.css HTTP/1.1" 200 0
+2025-12-01 12:36:56 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 12:47:11 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 12:48:05 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 12:48:07 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 76434
+2025-12-01 12:49:50 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 12:49:53 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78473
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7258
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14070
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17559
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8966
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15397
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-01 12:49:54 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-01 12:49:55 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-01 12:50:29 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 12:50:41 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78473
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8966
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17559
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14070
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15397
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-01 12:50:43 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-01 12:50:44 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78473
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14070
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8966
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17559
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15397
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-01 12:50:46 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-01 12:50:48 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-01 12:50:53 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-01 12:50:53 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8966
+2025-12-01 12:50:53 [WARNING] django.request:253 log_response() | Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-12-01 12:50:53 [WARNING] django.server:213 log_message() | "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5229
+2025-12-01 12:50:53 [INFO] django.server:81 handle_error() | - Broken pipe from ('127.0.0.1', 63864)
+2025-12-01 12:50:53 [WARNING] django.request:253 log_response() | Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-12-01 12:50:53 [WARNING] django.server:213 log_message() | "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5229
+2025-12-01 12:50:53 [INFO] django.server:81 handle_error() | - Broken pipe from ('127.0.0.1', 63862)
+2025-12-01 12:53:01 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 12:53:04 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78473
+2025-12-01 12:53:04 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-01 12:53:04 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-01 12:53:08 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78473
+2025-12-01 12:53:08 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-01 12:53:08 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-01 12:53:08 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-01 12:53:08 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17559
+2025-12-01 12:53:08 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-01 12:53:09 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-01 12:53:09 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-01 12:53:09 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-01 12:53:09 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15397
+2025-12-01 12:53:09 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-01 12:53:09 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-01 12:53:09 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-01 12:53:10 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-01 12:54:56 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 12:55:01 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78473
+2025-12-01 12:55:02 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-01 12:55:02 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-01 12:55:02 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-01 12:55:43 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 12:55:45 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78473
+2025-12-01 12:55:46 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-01 12:55:46 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-01 12:55:46 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-12-01 12:56:54 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-01 12:56:56 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78479
+2025-12-01 12:56:56 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-01 12:56:56 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-01 12:56:56 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
