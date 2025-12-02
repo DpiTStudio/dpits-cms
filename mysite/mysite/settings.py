@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "portfolio.apps.PortfolioConfig",  # Портфолио
     "reviews.apps.ReviewsConfig",  # Отзывы
     "accounts.apps.AccountsConfig",  # Аккаунты пользователей
+    "files.apps.FilesConfig",  # Управление файлами
 ]
 
 # =============================================================================
@@ -212,6 +213,7 @@ JAZZMIN_SETTINGS = {
         {"app": "portfolio", "label": "Портфолио", "icon": "fas fa-briefcase"},
         {"app": "reviews", "label": "Отзывы", "icon": "fas fa-star"},
         {"app": "accounts", "label": "Аккаунты", "icon": "fas fa-users"},
+        {"app": "files", "label": "Файлы", "icon": "fas fa-file"},
         {
             "app": "auth",
             "label": "Аутентификация",
@@ -250,6 +252,7 @@ JAZZMIN_SETTINGS = {
         "portfolio",
         "reviews",
         "accounts",
+        "files",
         "auth",
     ],
     # === ИКОНКИ ДЕЙСТВИЙ ===

@@ -38,9 +38,9 @@
 
 .news-image-placeholder {
     height: 200px;
-    /* display: flex;
+    display: flex;
     align-items: center;
-    justify-content: center; */
+    justify-content: center;
     background-color: #f8f9fa;
 }
 

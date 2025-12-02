@@ -24,6 +24,7 @@ urlpatterns = [
     path("portfolio/", include("portfolio.urls")),  # Маршруты для портфолио
     path("reviews/", include("reviews.urls")),  # Маршруты для отзывов
     path("accounts/", include("accounts.urls")),  # Маршруты для аккаунтов пользователей
+    path("files/", include("files.urls")),  # Маршруты для управления файлами
 ]
 
 # В режиме отладки (DEBUG) добавляем обслуживание медиа файлов
