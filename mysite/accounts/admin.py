@@ -14,7 +14,7 @@ class UserProfileInline(admin.StackedInline):
     readonly_fields = ["avatar_preview", "created_at", "updated_at"]
 
     def avatar_preview(self, obj):
-        if obj.avatar:
+        if obj and getattr(obj, "avatar", None):
             return format_html(
                 '<img src="{}" width="50" height="50" style="border-radius: 50%;" />',
                 obj.avatar.url,
@@ -80,7 +80,8 @@ class TicketResponseAdmin(admin.ModelAdmin):
     )
 
     def message_preview(self, obj):
-        return obj.message[:50] + "..." if len(obj.message) > 50 else obj.message
+        msg = getattr(obj, "message", "") or ""
+        return (msg[:50] + "...") if len(msg) > 50 else msg
 
     message_preview.short_description = "Предпросмотр сообщения"
 

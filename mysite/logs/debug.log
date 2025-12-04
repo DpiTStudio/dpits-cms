@@ -1070,3 +1070,18 @@ django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_l
 2025-12-03 20:53:23 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
 2025-12-03 20:53:23 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
 2025-12-03 20:53:23 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-04 03:10:57 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-04 03:11:27 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 78794
+2025-12-04 03:11:28 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-04 03:11:28 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-04 03:11:28 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 304 0
+2025-12-04 03:11:28 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-12-04 03:11:28 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 304 0
+2025-12-04 03:11:28 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 304 0
+2025-12-04 03:11:28 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 304 0
+2025-12-04 03:11:28 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 304 0
+2025-12-04 03:11:28 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 304 0
+2025-12-04 03:11:28 [WARNING] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 404 1981
+2025-12-04 03:11:28 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1981
+2025-12-04 03:11:29 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-04 03:11:29 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
