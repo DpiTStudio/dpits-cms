@@ -1,14 +1,9 @@
 {
   "configurations": [
     {
-      "name": "Py-Dj",
+      "name": "Отладчик Python: Django",
       "type": "debugpy",
       "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "console": "integratedTerminal",
-      "env": {
-        "PYTHONPATH": "${workspaceFolder}"
-      },
       "args": [
         "runserver"
       ],

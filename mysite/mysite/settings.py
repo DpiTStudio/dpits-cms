@@ -200,7 +200,7 @@ JAZZMIN_SETTINGS = {
     "site_icon": "images/logo.png",  # Иконка сайта
     "site_logo_classes": "img-circle",  # CSS классы для логотипа
     "login_logo": "images/logo.png",  # Логотип на странице входа
-    "login_logo_size": "200px",  # Размер логотипа на странице входа
+    "login_logo_size": "100px",  # Размер логотипа на странице входа
     # === ФУНКЦИОНАЛЬНОСТЬ ===
     "show_ui_builder": False,  # Отключить UI builder для продакшена
     "navigation_expanded": True,  # Развернутая навигация по умолчанию

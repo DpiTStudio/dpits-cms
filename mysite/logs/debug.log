@@ -1095,3 +1095,47 @@ django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_l
 2025-12-04 15:05:12 [WARNING] django.request:253 log_response() | Not Found: /favicon.ico
 2025-12-04 15:05:12 [WARNING] django.server:213 log_message() | "GET /favicon.ico HTTP/1.1" 404 5267
 2025-12-04 15:05:12 [INFO] django.server:81 handle_error() | - Broken pipe from ('127.0.0.1', 53499)
+2025-12-04 23:55:41 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-04 23:55:54 [INFO] django.server:213 log_message() | "GET /admin/portfolio/client/ HTTP/1.1" 200 28128
+2025-12-04 23:55:54 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-04 23:55:54 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-04 23:55:54 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-04 23:55:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-04 23:55:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+2025-12-04 23:55:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/images/logo.png HTTP/1.1" 200 100655
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+2025-12-04 23:55:55 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+2025-12-04 23:55:57 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 51023
+2025-12-04 23:56:01 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75319
+2025-12-04 23:56:01 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-04 23:56:01 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-04 23:56:01 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-12-04 23:56:02 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-04 23:56:13 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 78001
+2025-12-04 23:56:14 [WARNING] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 404 1981
+2025-12-04 23:56:14 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1981
+2025-12-04 23:56:14 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-04 23:56:14 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-04 23:56:20 [INFO] django.server:213 log_message() | "GET /news/podgotovka-dlya-nachalo-publikacii-rabot/ HTTP/1.1" 200 73484
+2025-12-04 23:56:20 [WARNING] django.server:213 log_message() | "GET /static/css/news-common.css HTTP/1.1" 404 1984
+2025-12-04 23:56:26 [INFO] django.server:213 log_message() | "GET /news/pervaya-akciya/ HTTP/1.1" 200 73194
+2025-12-04 23:56:26 [WARNING] django.server:213 log_message() | "GET /static/css/news-common.css HTTP/1.1" 404 1984
+2025-12-04 23:56:29 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 51259
+2025-12-04 23:56:29 [WARNING] django.server:213 log_message() | "GET /static/css/portfolio_list.css HTTP/1.1" 404 1993
+2025-12-04 23:56:29 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1981
+2025-12-04 23:56:37 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 50239
+2025-12-04 23:56:37 [INFO] django.server:213 log_message() | "GET /static/css/styles.css HTTP/1.1" 200 0
+2025-12-05 00:00:00 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader

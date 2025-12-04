@@ -26,6 +26,6 @@ $ pip install
 Для перезапуска passenger в папке проекта достаточно выполнить команду touch на пустом файлике restart.txt
  
 $ pwd
-/home/d/dpitstudio/dpits-cms.ru/public_html/HelloDjango/HelloDjango/tmp
+/home/d/dpitstudio/dpits-cms.ru/public_html/mysite/mysite/tmp
 $ touch restart.txt
 pwd /home/d/dpitstudio/dpits-cms.ru/public_html/mysite/mysite/tmp
