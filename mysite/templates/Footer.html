@@ -120,12 +120,12 @@
                     <!-- Условная проверка наличия ссылки на ВКонтакте -->
                     {% if site_settings.vk %}
                         <!-- Ссылка на ВКонтакте с белым текстом и большим размером шрифта -->
-                        <a href="{{ site_settings.vk }}" class="text-white fs-4"><i class="fab fa-vk"></i></a>
+                        <a href="{{ site_settings.vk }}" class="text-white fs-4" target="_blank"><i class="fab fa-vk"></i></a>
                     {% endif %}
                     <!-- Условная проверка наличия ссылки на Одноклассники -->
                     {% if site_settings.ok %}
                         <!-- Ссылка на Одноклассники с белым текстом и большим размером шрифта -->
-                        <a href="{{ site_settings.ok }}" class="text-white fs-4"><i class="fab fa-odnoklassniki"></i></a>
+                        <a href="{{ site_settings.ok }}" class="text-white fs-4" target="_blank"><i class="fab fa-odnoklassniki"></i></a>
                     {% endif %}
                     <!-- Условная проверка наличия ссылки на YouTube -->
                     {% if site_settings.youtube %}
