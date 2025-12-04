@@ -1085,3 +1085,13 @@ django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_l
 2025-12-04 03:11:28 [WARNING] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 404 1981
 2025-12-04 03:11:29 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
 2025-12-04 03:11:29 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-04 14:20:16 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-04 14:21:27 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 78479
+2025-12-04 14:21:28 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-12-04 14:21:28 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-04 14:21:28 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-04 14:21:31 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-04 14:23:43 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-04 15:05:12 [WARNING] django.request:253 log_response() | Not Found: /favicon.ico
+2025-12-04 15:05:12 [WARNING] django.server:213 log_message() | "GET /favicon.ico HTTP/1.1" 404 5267
+2025-12-04 15:05:12 [INFO] django.server:81 handle_error() | - Broken pipe from ('127.0.0.1', 53499)
