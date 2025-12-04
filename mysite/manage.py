@@ -1,22 +1,45 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
-import os
-import sys
+"""
+Утилита командной строки Django для административных задач.
+
+Этот файл является точкой входа для выполнения команд Django из командной строки.
+Позволяет запускать сервер разработки, применять миграции, создавать суперпользователя и т.д.
+"""
+import os  # Импорт модуля для работы с переменными окружения
+import sys  # Импорт модуля для работы с аргументами командной строки
 
 
 def main():
-    """Run administrative tasks."""
+    """
+    Главная функция для выполнения административных задач Django.
+    
+    Устанавливает модуль настроек Django и выполняет команды из командной строки.
+    Обрабатывает ошибки импорта Django с информативными сообщениями.
+    
+    Raises:
+        ImportError: Если Django не установлен или не доступен в PYTHONPATH
+    """
+    # Устанавливаем модуль настроек Django по умолчанию
+    # Это указывает Django, где искать файл settings.py
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
+    
     try:
+        # Импортируем функцию для выполнения команд Django из командной строки
         from django.core.management import execute_from_command_line
     except ImportError as exc:
+        # Если Django не установлен, выводим понятное сообщение об ошибке
         raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and "
-            "available on your PYTHONPATH environment variable? Did you "
-            "forget to activate a virtual environment?"
+            "Не удалось импортировать Django. Убедитесь, что Django установлен и "
+            "доступен в переменной окружения PYTHONPATH. Возможно, вы забыли "
+            "активировать виртуальное окружение?"
         ) from exc
+    
+    # Выполняем команду Django из аргументов командной строки
+    # sys.argv содержит список аргументов, переданных скрипту
     execute_from_command_line(sys.argv)
 
 
+# Если скрипт запущен напрямую (а не импортирован как модуль)
 if __name__ == '__main__':
+    # Вызываем главную функцию
     main()

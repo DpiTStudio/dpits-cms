@@ -1,9 +1,14 @@
 {
   "configurations": [
     {
-      "name": "P:D",
+      "name": "Py-Dj",
       "type": "debugpy",
       "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      },
       "args": [
         "runserver"
       ],
