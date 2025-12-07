@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     "portfolio.apps.PortfolioConfig",  # Портфолио
     "reviews.apps.ReviewsConfig",  # Отзывы
     "accounts.apps.AccountsConfig",  # Аккаунты пользователей
-    "files.apps.FilesConfig",  # Управление файлами
+    # "files.apps.FilesConfig",  # Управление файлами
 ]
 
 # =============================================================================

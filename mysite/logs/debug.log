@@ -316,3 +316,23 @@
 2025-12-05 21:09:26 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
 2025-12-05 21:09:26 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
 2025-12-05 21:09:27 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-08 01:09:57 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-08 01:10:02 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75351
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17559
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15397
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-08 01:10:03 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-08 01:10:07 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-08 01:10:19 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75351
+2025-12-08 01:10:52 [WARNING] django.request:253 log_response() | Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-12-08 01:10:52 [WARNING] django.server:213 log_message() | "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5229
+2025-12-08 01:10:52 [INFO] django.server:81 handle_error() | - Broken pipe from ('127.0.0.1', 50522)
+2025-12-08 01:11:31 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader

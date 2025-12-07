@@ -3,7 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.10 (dpits-cms)" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_10" default="true" project-jdk-name="Python 3.10 (dpits-cms)" project-jdk-type="Python SDK">
-    <output url="file://$PROJECT_DIR$" />
-  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 virtualenv at L:\PYTHON\PROJECTS\dpits-cms\.venv" project-jdk-type="Python SDK" />
 </project>
