@@ -438,13 +438,13 @@ class ManagedFileAdmin(admin.ModelAdmin):
 
     def refresh_file_view(self, request, file_id):
         """Обновление информации о файле"""
-        obj = self.get_object(request, file_id)
-        if obj:
-            success, message = obj.refresh_file_info()
-            if success:
-                messages.success(request, message)
-            else:
-                messages.warning(request, message)
+        from django.shortcuts import get_object_or_404
+        obj = get_object_or_404(ManagedFile, pk=file_id)
+        success, message = obj.refresh_file_info()
+        if success:
+            messages.success(request, message)
+        else:
+            messages.warning(request, message)
 
         return HttpResponseRedirect(
             reverse("admin:main_managedfile_change", args=[file_id])
@@ -452,13 +452,13 @@ class ManagedFileAdmin(admin.ModelAdmin):
 
     def backup_file_view(self, request, file_id):
         """Создание резервной копии файла"""
-        obj = self.get_object(request, file_id)
-        if obj:
-            backup_path, message = obj.create_backup()
-            if backup_path:
-                messages.success(request, message)
-            else:
-                messages.error(request, message)
+        from django.shortcuts import get_object_or_404
+        obj = get_object_or_404(ManagedFile, pk=file_id)
+        backup_path, message = obj.create_backup()
+        if backup_path:
+            messages.success(request, message)
+        else:
+            messages.error(request, message)
 
         return HttpResponseRedirect(
             reverse("admin:main_managedfile_change", args=[file_id])
@@ -466,13 +466,13 @@ class ManagedFileAdmin(admin.ModelAdmin):
 
     def clear_file_view(self, request, file_id):
         """Очистка содержимого файла"""
-        obj = self.get_object(request, file_id)
-        if obj:
-            success, message = obj.clear_file()
-            if success:
-                messages.success(request, message)
-            else:
-                messages.error(request, message)
+        from django.shortcuts import get_object_or_404
+        obj = get_object_or_404(ManagedFile, pk=file_id)
+        success, message = obj.clear_file()
+        if success:
+            messages.success(request, message)
+        else:
+            messages.error(request, message)
 
         return HttpResponseRedirect(
             reverse("admin:main_managedfile_change", args=[file_id])
@@ -480,13 +480,13 @@ class ManagedFileAdmin(admin.ModelAdmin):
 
     def delete_file_from_disk_view(self, request, file_id):
         """Удаление файла с диска"""
-        obj = self.get_object(request, file_id)
-        if obj:
-            success, message = obj.delete_file_from_disk()
-            if success:
-                messages.success(request, message)
-            else:
-                messages.error(request, message)
+        from django.shortcuts import get_object_or_404
+        obj = get_object_or_404(ManagedFile, pk=file_id)
+        success, message = obj.delete_file_from_disk()
+        if success:
+            messages.success(request, message)
+        else:
+            messages.error(request, message)
 
         return HttpResponseRedirect(
             reverse("admin:main_managedfile_change", args=[file_id])

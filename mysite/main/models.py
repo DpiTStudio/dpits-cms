@@ -1,18 +1,19 @@
 # models.py
 # Модели базы данных для приложения main
-import os
-import mimetypes
-from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
-from django_ckeditor_5.fields import CKEditor5Field
-from datetime import datetime
-from pathlib import Path
-from django.db import models
-from django.core.files.base import ContentFile
-from django.utils import timezone
-from django.conf import settings
-from django.core.exceptions import ValidationError
-from django.utils.html import format_html
+import os  # Модуль для работы с операционной системой
+import shutil  # Модуль для операций с файлами (копирование, перемещение)
+import mimetypes  # Модуль для определения MIME-типов файлов
+from django.utils.translation import gettext_lazy as _  # Функция для перевода строк
+from django.urls import reverse  # Функция для построения URL
+from django_ckeditor_5.fields import CKEditor5Field  # Поле редактора для контента
+from datetime import datetime  # Класс для работы с датой и временем
+from pathlib import Path  # Класс для работы с путями к файлам
+from django.db import models  # Базовые классы моделей Django
+from django.core.files.base import ContentFile  # Класс для работы с файловым содержимым
+from django.utils import timezone  # Утилиты для работы с часовыми поясами
+from django.conf import settings  # Настройки Django проекта
+from django.core.exceptions import ValidationError  # Исключение для ошибок валидации
+from django.utils.html import format_html  # Функция для безопасного форматирования HTML
 
 
 class SingletonModel(models.Model):
