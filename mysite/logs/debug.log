@@ -418,3 +418,5 @@
 2025-12-08 20:58:26 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\templates\main\management\commands\add_debug_log.py changed, reloading.
 2025-12-08 20:58:26 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
 2025-12-08 20:58:28 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-08 21:32:27 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\templates\main\management\commands\add_debug_log.py changed, reloading.
+2025-12-08 21:32:27 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
