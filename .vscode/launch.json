@@ -1,11 +1,12 @@
 {
   "configurations": [
     {
-      "name": "Отладчик Python: Django",
+      "name": "PD",
       "type": "debugpy",
       "request": "launch",
       "args": [
-        "runserver"
+        "runserver",
+        "6677"
       ],
       "django": true,
       "autoStartBrowser": false,
