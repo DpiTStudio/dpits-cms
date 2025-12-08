@@ -274,63 +274,86 @@ class Page(models.Model):
 
 
 class ManagedFile(models.Model):
+    """
+    Модель для управления файлами через админку Django.
+    Позволяет отслеживать, редактировать и создавать резервные копии файлов.
+    """
+
+    # Категории файлов
     CATEGORY_CHOICES = [
-        ("log", "Лог-файлы"),
-        ("config", "Конфигурационные"),
-        ("template", "Шаблоны"),
-        ("static", "Статические"),
-        ("media", "Медиа"),
-        ("database", "Базы данных"),
-        ("backup", "Резервные копии"),
-        ("other", "Другие"),
+        ("log", _("Лог-файлы")),
+        ("config", _("Конфигурационные")),
+        ("template", _("Шаблоны")),
+        ("static", _("Статические")),
+        ("media", _("Медиа")),
+        ("database", _("Базы данных")),
+        ("backup", _("Резервные копии")),
+        ("other", _("Другие")),
     ]
 
-    name = models.CharField("Имя файла", max_length=255)
-    file_path = models.CharField("Полный путь", max_length=500, unique=True)
+    # Основные поля
+    name = models.CharField(_("Имя файла"), max_length=255)
+    file_path = models.CharField(_("Полный путь"), max_length=500, unique=True)
     category = models.CharField(
-        "Категория", max_length=50, choices=CATEGORY_CHOICES, default="other"
+        _("Категория"), max_length=50, choices=CATEGORY_CHOICES, default="other"
     )
-    description = models.TextField("Описание", blank=True)
-    is_active = models.BooleanField("Активен", default=True)
-    is_text_file = models.BooleanField("Текстовый файл", default=True)
-    encoding = models.CharField("Кодировка", max_length=50, default="utf-8")
-    auto_backup = models.BooleanField("Авто-бэкап", default=True)
-    max_backups = models.IntegerField("Макс. бэкапов", default=5)
+    description = models.TextField(_("Описание"), blank=True)
+    is_active = models.BooleanField(_("Активен"), default=True)
+    is_text_file = models.BooleanField(_("Текстовый файл"), default=True)
+    encoding = models.CharField(_("Кодировка"), max_length=50, default="utf-8")
+    auto_backup = models.BooleanField(_("Авто-бэкап"), default=True)
+    max_backups = models.IntegerField(_("Макс. бэкапов"), default=5)
 
-    # Поля для информации о файле
-    file_size = models.BigIntegerField("Размер файла", default=0)
-    file_mtime = models.DateTimeField("Время изменения", null=True, blank=True)
-    mime_type = models.CharField("MIME тип", max_length=100, blank=True)
-    file_permissions = models.CharField("Права доступа", max_length=10, blank=True)
+    # Информация о файле
+    file_size = models.BigIntegerField(_("Размер файла"), default=0)
+    file_mtime = models.DateTimeField(_("Время изменения"), null=True, blank=True)
+    mime_type = models.CharField(_("MIME тип"), max_length=100, blank=True)
+    file_permissions = models.CharField(_("Права доступа"), max_length=10, blank=True)
 
-    # Поля для содержимого
-    content = models.TextField("Содержимое", blank=True, null=True)
+    # Содержимое файла (только для текстовых файлов)
+    content = models.TextField(_("Содержимое"), blank=True, null=True)
 
     # Системные поля
-    last_checked = models.DateTimeField("Последняя проверка", auto_now=True)
-    created_at = models.DateTimeField("Создан", auto_now_add=True)
+    last_checked = models.DateTimeField(_("Последняя проверка"), auto_now=True)
+    created_at = models.DateTimeField(_("Создан"), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Управляемый файл")
+        verbose_name_plural = _("Управляемые файлы")
+        ordering = ["name"]
+
+    def __str__(self):
+        return f"{self.name} ({self.get_category_display()})"
 
     @property
     def exists(self):
-        """Проверяет, существует ли файл на диске"""
+        """Проверяет, существует ли файл на диске."""
         return os.path.exists(self.file_path) if self.file_path else False
 
     @property
     def human_readable_size(self):
-        """Возвращает размер файла в удобочитаемом формате"""
-        size = self.file_size
+        """Возвращает размер файла в удобочитаемом формате."""
+        if not self.file_size:
+            return "0 B"
+
+        size = float(self.file_size)
         for unit in ["B", "KB", "MB", "GB", "TB"]:
             if size < 1024.0:
                 return f"{size:.2f} {unit}"
             size /= 1024.0
         return f"{size:.2f} PB"
 
+    def get_category_display(self):
+        """Возвращает отображаемое имя категории."""
+        return dict(self.CATEGORY_CHOICES).get(self.category, self.category)
+
     def refresh_file_info(self):
-        """Обновляет информацию о файле с диска"""
+        """Обновляет информацию о файле с диска."""
         try:
             if not self.file_path or not os.path.exists(self.file_path):
                 return False, "Файл не существует"
 
+            # Получаем информацию о файле
             stat_info = os.stat(self.file_path)
             self.file_size = stat_info.st_size
             self.file_mtime = timezone.make_aware(
@@ -338,30 +361,26 @@ class ManagedFile(models.Model):
             )
 
             # Определяем MIME тип
-            import mimetypes
-
             mime_type, _ = mimetypes.guess_type(self.file_path)
             self.mime_type = mime_type or "application/octet-stream"
 
             # Определяем права доступа
-            import stat
-
             self.file_permissions = oct(stat_info.st_mode)[-3:]
 
             # Проверяем, текстовый ли файл
-            try:
-                with open(self.file_path, "r", encoding="utf-8", errors="ignore") as f:
-                    f.read(1024)
-                self.is_text_file = True
+            self.is_text_file = self._check_if_text_file()
 
-                # Загружаем содержимое для текстовых файлов
-                if self.file_size < 5 * 1024 * 1024:  # 5 MB limit
+            # Загружаем содержимое для текстовых файлов
+            if self.is_text_file and self.file_size < 5 * 1024 * 1024:  # 5 MB limit
+                try:
                     with open(
                         self.file_path, "r", encoding=self.encoding, errors="replace"
                     ) as f:
                         self.content = f.read()
-            except:
-                self.is_text_file = False
+                except (UnicodeDecodeError, IOError):
+                    self.is_text_file = False
+                    self.content = None
+            else:
                 self.content = None
 
             self.save()
@@ -370,8 +389,36 @@ class ManagedFile(models.Model):
         except Exception as e:
             return False, f"Ошибка: {str(e)}"
 
+    def _check_if_text_file(self):
+        """Проверяет, является ли файл текстовым."""
+        if not self.exists:
+            return False
+
+        try:
+            # Проверяем первые 1024 байта на наличие бинарных данных
+            with open(self.file_path, "rb") as f:
+                chunk = f.read(1024)
+
+            # Если файл пустой, считаем его текстовым
+            if not chunk:
+                return True
+
+            # Проверяем наличие нулевых байтов (признак бинарного файла)
+            if b"\x00" in chunk:
+                return False
+
+            # Пытаемся декодировать как текст
+            try:
+                chunk.decode("utf-8", errors="strict")
+                return True
+            except UnicodeDecodeError:
+                return False
+
+        except Exception:
+            return False
+
     def clear_file(self):
-        """Очищает содержимое файла"""
+        """Очищает содержимое файла."""
         try:
             if not self.exists:
                 return False, "Файл не существует"
@@ -392,13 +439,10 @@ class ManagedFile(models.Model):
             return False, f"Ошибка: {str(e)}"
 
     def create_backup(self):
-        """Создает резервную копию файла"""
+        """Создает резервную копию файла."""
         try:
             if not self.exists:
                 return None, "Файл не существует"
-
-            import shutil
-            from datetime import datetime
 
             # Создаем директорию для бэкапов
             backup_dir = os.path.join(os.path.dirname(self.file_path), "backups")
@@ -421,15 +465,16 @@ class ManagedFile(models.Model):
             return None, f"Ошибка создания бэкапа: {str(e)}"
 
     def cleanup_old_backups(self, backup_dir):
-        """Очищает старые бэкапы"""
+        """Очищает старые бэкапы."""
         try:
             if not os.path.exists(backup_dir):
                 return
 
-            import glob
-
             base_name = os.path.basename(self.file_path)
             backup_pattern = os.path.join(backup_dir, f"{base_name}.backup_*")
+
+            import glob
+
             backups = sorted(glob.glob(backup_pattern), key=os.path.getmtime)
 
             # Удаляем старые бэкапы, если превышен лимит
@@ -437,14 +482,14 @@ class ManagedFile(models.Model):
                 oldest_backup = backups.pop(0)
                 try:
                     os.remove(oldest_backup)
-                except:
+                except Exception:
                     pass
 
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"Ошибка очистки бэкапов: {e}")
 
     def get_backup_list(self):
-        """Возвращает список резервных копий"""
+        """Возвращает список резервных копий."""
         backups = []
         try:
             backup_dir = os.path.join(os.path.dirname(self.file_path), "backups")
@@ -457,38 +502,86 @@ class ManagedFile(models.Model):
                 for backup_path in sorted(
                     glob.glob(backup_pattern), key=os.path.getmtime, reverse=True
                 ):
-                    stat_info = os.stat(backup_path)
-                    backups.append(
-                        {
-                            "path": backup_path,
-                            "name": os.path.basename(backup_path),
-                            "size": stat_info.st_size,
-                            "human_size": self._format_size(stat_info.st_size),
-                            "modified": timezone.make_aware(
-                                datetime.fromtimestamp(stat_info.st_mtime)
-                            ),
-                        }
-                    )
-        except Exception:
-            pass
+                    try:
+                        stat_info = os.stat(backup_path)
+                        backups.append(
+                            {
+                                "path": backup_path,
+                                "name": os.path.basename(backup_path),
+                                "size": stat_info.st_size,
+                                "human_size": self._format_size(stat_info.st_size),
+                                "modified": timezone.make_aware(
+                                    datetime.fromtimestamp(stat_info.st_mtime)
+                                ),
+                            }
+                        )
+                    except Exception:
+                        continue
+        except Exception as e:
+            print(f"Ошибка получения списка бэкапов: {e}")
 
         return backups
 
     def _format_size(self, size):
-        """Форматирует размер файла"""
+        """Форматирует размер файла."""
         for unit in ["B", "KB", "MB", "GB"]:
             if size < 1024.0:
                 return f"{size:.1f} {unit}"
             size /= 1024.0
         return f"{size:.1f} TB"
 
-    def get_category_display(self):
-        """Возвращает отображаемое имя категории"""
-        return dict(self.CATEGORY_CHOICES).get(self.category, self.category)
+    def delete_file_from_disk(self):
+        """Удаляет файл с диска."""
+        try:
+            if not self.exists:
+                return False, "Файл не существует"
 
-    class Meta:
-        verbose_name = "Управляемый файл"
-        verbose_name_plural = "Управляемые файлы"
+            # Создаем бэкап перед удалением
+            if self.auto_backup:
+                self.create_backup()
 
-    def __str__(self):
-        return self.name
+            # Удаляем файл
+            os.remove(self.file_path)
+
+            # Обновляем информацию
+            self.file_size = 0
+            self.file_mtime = None
+            self.mime_type = ""
+            self.file_permissions = ""
+            self.content = None
+            self.save()
+
+            return True, "Файл удален с диска"
+
+        except Exception as e:
+            return False, f"Ошибка удаления файла: {str(e)}"
+
+    @classmethod
+    def get_existing_files(cls):
+        """
+        Возвращает QuerySet файлов, которые существуют на диске.
+        Используется для фильтрации в админке.
+        """
+        from django.db.models import Q, Case, When, Value, BooleanField
+
+        # Более сложный способ: возвращаем все файлы с аннотацией
+        return cls.objects.all().annotate(
+            exists_on_disk=Case(
+                *[
+                    When(file_path__isnull=True, then=Value(False)),
+                    When(file_path__exact="", then=Value(False)),
+                ],
+                default=Value(True),
+                output_field=BooleanField(),
+            )
+        )
+
+    def get_files_exists_count(self):
+        """
+        Подсчитывает количество файлов, которые существуют на диске.
+        """
+        count = 0
+        for obj in ManagedFile.objects.all():
+            if obj.exists:
+                count += 1
+        return count

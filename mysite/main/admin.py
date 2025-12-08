@@ -921,22 +921,60 @@ class ManagedFileAdmin(admin.ModelAdmin):
     # Представления для массовых действий
     def changelist_view(self, request, extra_context=None):
         """
-        Переопределяет представление списка для добавления статистики.
+        Переопределяем представление списка для добавления статистики.
         """
         response = super().changelist_view(request, extra_context=extra_context)
 
         if hasattr(response, "context_data"):
             # Получаем статистику
             queryset = self.get_queryset(request)
+
+            # Подсчитываем активные файлы
             response.context_data["active_count"] = queryset.filter(
                 is_active=True
             ).count()
-            response.context_data["exists_count"] = queryset.filter(exists=True).count()
+
+            # Подсчитываем текстовые файлы
             response.context_data["text_files_count"] = queryset.filter(
                 is_text_file=True
             ).count()
 
+            # Подсчитываем существующие файлы (не используем filter(exists=True))
+            # Вместо этого подсчитываем вручную
+            exists_count = 0
+            for obj in queryset:
+                if obj.exists:  # Используем property, а не поле базы данных
+                    exists_count += 1
+            response.context_data["exists_count"] = exists_count
+
+            # Добавляем статистику по категориям
+            categories = {}
+            for obj in queryset:
+                category = obj.get_category_display()
+                categories[category] = categories.get(category, 0) + 1
+            response.context_data["categories_stats"] = categories
+
+            # Добавляем общий размер файлов
+            total_size = sum(obj.file_size for obj in queryset if obj.exists)
+            response.context_data["total_size"] = self.format_size(total_size)
+            response.context_data["total_size_bytes"] = total_size
+
+            # Добавляем количество файлов с авто-бэкапом
+            response.context_data["auto_backup_count"] = queryset.filter(
+                auto_backup=True
+            ).count()
+
         return response
+
+    def format_size(self, size):
+        """
+        Форматирует размер в удобочитаемый вид.
+        """
+        for unit in ["B", "KB", "MB", "GB"]:
+            if size < 1024.0:
+                return f"{size:.2f} {unit}"
+            size /= 1024.0
+        return f"{size:.2f} TB"
 
     def scan_directory_view(self, request):
         """

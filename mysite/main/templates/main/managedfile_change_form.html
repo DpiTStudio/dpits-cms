@@ -1,135 +1,197 @@
-<!-- templates/admin/main/managedfile_change_form.html -->
+<!-- mysite/main/templates/admin/main/managedfile_change_form.html -->
 {% extends "admin/change_form.html" %}
-{% load i18n admin_urls %}
+{% load i18n admin_urls static admin_modify %}
 
-{% block after_field_sets %}
-<div class="module aligned">
-    <h2>Быстрые действия</h2>
+{% block extrahead %}
+  {{ block.super }}
+  <style>
+    .file-actions {
+      margin: 20px 0;
+      padding: 15px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+    }
     
-    <div class="form-row" style="display: flex; gap: 10px; flex-wrap: wrap; padding: 15px; background: #f8f9fa; border-radius: 5px;">
-        {% if original %}
-            <!-- Кнопка просмотра файла -->
-            {% if original.exists %}
-            <div>
-                <a href="file://{{ original.file_path }}" 
-                   class="button" 
-                   target="_blank"
-                   style="background: #17a2b8; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-weight: bold;">
-                   👁️ Открыть файл
-                </a>
-            </div>
-            {% endif %}
-            
-            <!-- Кнопка обновления информации -->
-            <div>
-                <a href="{% url 'admin:main_managedfile_refresh' original.pk %}" 
-                   class="button" 
-                   style="background: #007bff; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-weight: bold;">
-                   🔄 Обновить информацию
-                </a>
-            </div>
-            
-            <!-- Кнопка резервного копирования -->
-            <div>
-                <a href="{% url 'admin:main_managedfile_backup' original.pk %}" 
-                   class="button" 
-                   style="background: #ffc107; color: #212529; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-weight: bold;">
-                   💾 Создать резервную копию
-                </a>
-            </div>
-            
-            <!-- Кнопка очистки -->
-            <div>
-                <a href="{% url 'admin:main_managedfile_clear' original.pk %}" 
-                   class="button" 
-                   style="background: #dc3545; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-weight: bold;"
-                   onclick="return confirm('Очистить содержимое файла?\\nЭто действие нельзя отменить.');">
-                   🗑️ Очистить файл
-                </a>
-            </div>
-            
-            <!-- Кнопка удаления -->
-            <div>
-                <a href="{% url 'admin:main_managedfile_delete_from_disk' original.pk %}" 
-                   class="button" 
-                   style="background: #343a40; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; font-weight: bold;"
-                   onclick="return confirm('Удалить файл с диска?\\nЭто действие нельзя отменить!');">
-                   ❌ Удалить файл
-                </a>
-            </div>
-        {% endif %}
-    </div>
-</div>
-
-{% if original and original.content %}
-<div class="module aligned">
-    <h2>Статистика содержимого</h2>
+    .file-actions h3 {
+      margin-top: 0;
+      color: #495057;
+    }
     
-    <div class="form-row" style="background: #e9ecef; padding: 15px; border-radius: 5px;">
-        <div style="display: flex; gap: 30px; flex-wrap: wrap;">
-            <div>
-                <strong>Строк:</strong> {{ original.content|linebreaksbr|linebreaks|length }}
-            </div>
-            <div>
-                <strong>Символов:</strong> {{ original.content|length }}
-            </div>
-            <div>
-                <strong>Слов:</strong> {{ original.content|wordcount }}
-            </div>
-            <div>
-                <strong>Размер:</strong> {{ original.human_readable_size }}
-            </div>
-            {% if original.exists %}
-            <div>
-                <strong>Последнее изменение:</strong> {{ original.file_mtime|date:"d.m.Y H:i:s" }}
-            </div>
-            {% endif %}
-        </div>
-    </div>
-</div>
-{% endif %}
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .action-button {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .action-button:hover {
+      opacity: 0.9;
+      text-decoration: none;
+    }
+    
+    .btn-view { background: #17a2b8; color: white; }
+    .btn-refresh { background: #28a745; color: white; }
+    .btn-backup { background: #ffc107; color: #212529; }
+    .btn-clear { background: #dc3545; color: white; }
+    .btn-delete { background: #6c757d; color: white; }
+    
+    .file-info-box {
+      background: #e7f3ff;
+      border-left: 4px solid #007bff;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 5px 5px 0;
+    }
+    
+    .file-info-box h4 {
+      margin-top: 0;
+      color: #0056b3;
+    }
+    
+    .alert {
+      padding: 15px;
+      border-radius: 5px;
+      margin: 15px 0;
+    }
+    
+    .alert-warning {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      color: #856404;
+    }
+    
+    .alert-info {
+      background: #d1ecf1;
+      border: 1px solid #bee5eb;
+      color: #0c5460;
+    }
+  </style>
 {% endblock %}
 
-{% block admin_change_form_document_ready %}
-{{ block.super }}
-<script>
-// Добавляем подсветку синтаксиса для некоторых типов файлов
-(function($) {
-    $(document).ready(function() {
-        var filePath = '{{ original.file_path|default:"" }}';
+{% block content %}
+  {% if original and original.pk %}
+    <div class="file-actions">
+      <h3>🚀 Быстрые действия с файлом</h3>
+      <div class="action-buttons">
+        {% if original.exists and original.is_text_file %}
+          <a href="{% url 'admin:main_managedfile_view' original.pk %}" 
+             class="action-button btn-view" 
+             title="Просмотреть содержимое файла">
+            👁️ Просмотр содержимого
+          </a>
+        {% endif %}
         
-        if (filePath) {
-            // Определяем тип файла по расширению
-            var extension = filePath.split('.').pop().toLowerCase();
-            var textareas = $('textarea');
-            
-            if (textareas.length > 0) {
-                var textarea = textareas[0];
-                
-                // Для конфигурационных файлов показываем подсказку
-                if (['conf', 'ini', 'cfg', 'env', 'json', 'yml', 'yaml'].includes(extension)) {
-                    $(textarea).css({
-                        'font-family': 'Monaco, Consolas, monospace',
-                        'font-size': '12px'
-                    });
-                    
-                    // Добавляем подсказку
-                    $('<div class="help" style="margin-top: 10px; color: #6c757d;">')
-                        .html('Это конфигурационный файл. Будьте осторожны при редактировании!')
-                        .insertAfter($(textarea).parent());
-                }
-                
-                // Для лог-файлов
-                if (extension === 'log') {
-                    $(textarea).css({
-                        'font-family': 'Monaco, Consolas, monospace',
-                        'font-size': '11px',
-                        'background-color': '#f8f9fa'
-                    });
-                }
-            }
-        }
-    });
-})(django.jQuery);
-</script>
+        <a href="{% url 'admin:main_managedfile_refresh' original.pk %}" 
+           class="action-button btn-refresh" 
+           title="Обновить информацию о файле">
+          🔄 Обновить информацию
+        </a>
+        
+        {% if original.exists %}
+          <a href="{% url 'admin:main_managedfile_backup' original.pk %}" 
+             class="action-button btn-backup" 
+             title="Создать резервную копию">
+            💾 Создать бэкап
+          </a>
+        {% endif %}
+        
+        {% if original.exists and original.is_text_file %}
+          <a href="{% url 'admin:main_managedfile_clear_confirm' original.pk %}" 
+             class="action-button btn-clear" 
+             title="Очистить содержимое файла"
+             onclick="return confirm('Вы уверены, что хотите очистить файл?\\nЭто действие нельзя отменить.')">
+            🗑️ Очистить файл
+          </a>
+        {% endif %}
+        
+        {% if original.exists %}
+          <a href="{% url 'admin:main_managedfile_delete_from_disk' original.pk %}" 
+             class="action-button btn-delete" 
+             title="Удалить файл с диска"
+             onclick="return confirm('ВНИМАНИЕ!\\n\\nВы собираетесь удалить файл с диска.\\n\\nФайл: {{ original.file_path }}\\n\\nЭто действие необратимо. Продолжить?')">
+            ⚠️ Удалить с диска
+          </a>
+        {% endif %}
+      </div>
+    </div>
+    
+    {% if not original.exists %}
+      <div class="alert alert-warning">
+        <strong>⚠️ Внимание!</strong> Файл отсутствует на диске по указанному пути.
+      </div>
+    {% endif %}
+    
+    <div class="file-info-box">
+      <h4>📋 Информация о файле</h4>
+      <table style="width: 100%;">
+        <tr>
+          <td style="padding: 8px 0; width: 150px; font-weight: bold;">Путь:</td>
+          <td style="padding: 8px 0;"><code>{{ original.file_path }}</code></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold;">Размер:</td>
+          <td style="padding: 8px 0;">{{ original.human_readable_size }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold;">Последнее изменение:</td>
+          <td style="padding: 8px 0;">{{ original.file_mtime|date:"d.m.Y H:i:s"|default:"Неизвестно" }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold;">MIME тип:</td>
+          <td style="padding: 8px 0;">{{ original.mime_type|default:"Неизвестно" }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold;">Права доступа:</td>
+          <td style="padding: 8px 0;">
+            <code>{{ original.file_permissions|default:"Неизвестно" }}</code>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 0; font-weight: bold;">Статус:</td>
+          <td style="padding: 8px 0;">
+            {% if original.exists %}
+              <span style="color: #28a745; font-weight: bold;">✅ Существует на диске</span>
+            {% else %}
+              <span style="color: #dc3545; font-weight: bold;">❌ Отсутствует на диске</span>
+            {% endif %}
+            {% if original.is_active %}
+              <span style="color: #28a745; margin-left: 10px;">● Активен</span>
+            {% else %}
+              <span style="color: #6c757d; margin-left: 10px;">● Неактивен</span>
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+    </div>
+  {% endif %}
+  
+  {{ block.super }}
+{% endblock %}
+
+{% block submit_buttons_bottom %}
+  {{ block.super }}
+  
+  {% if original and original.pk %}
+    <div class="submit-row" style="background: #f8f9fa; margin-top: 20px; padding: 15px; border-radius: 5px;">
+      <h4 style="margin-top: 0;">💡 Подсказки:</h4>
+      <ul style="margin: 10px 0; padding-left: 20px;">
+        <li>Для текстовых файлов изменения сохраняются непосредственно на диск при нажатии "Сохранить"</li>
+        <li>Включите "Авто-бэкап" для автоматического создания резервных копий перед изменениями</li>
+        <li>Проверьте кодировку файла перед редактированием</li>
+        <li>Максимальный размер редактируемого файла - 5 МБ</li>
+      </ul>
+    </div>
+  {% endif %}
 {% endblock %}
