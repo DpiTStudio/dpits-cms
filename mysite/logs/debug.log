@@ -1290,3 +1290,33 @@ django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_l
 2025-12-09 04:29:04 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
 2025-12-09 04:29:06 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 50271
 2025-12-09 04:29:06 [INFO] django.server:213 log_message() | "GET /static/css/styles.css HTTP/1.1" 200 175
+2025-12-09 21:04:15 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\urls.py changed, reloading.
+2025-12-09 21:04:17 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 21:04:51 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\urls.py changed, reloading.
+2025-12-09 21:04:52 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 22:01:27 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 22:09:56 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 22:12:31 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 50271
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /static/css/styles.css HTTP/1.1" 200 175
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-09 22:12:32 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-09 22:12:34 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-09 22:12:36 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75351
+2025-12-09 22:12:36 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-09 22:13:15 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\urls.py changed, reloading.
+2025-12-09 22:13:16 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\urls.py changed, reloading.
+2025-12-09 22:13:16 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 22:13:18 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 22:14:06 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\urls.py changed, reloading.
+2025-12-09 22:14:06 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\urls.py changed, reloading.
+2025-12-09 22:14:07 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 22:14:08 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
