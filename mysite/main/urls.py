@@ -1,8 +1,9 @@
-# urls.py
+# urls.py (дополненный)
 # Маршруты URL для приложения main
 from django.urls import path
 from django.views.generic import TemplateView
 from . import views
+from .views_debug_log import DebugLogView, ClearDebugLogView, DebugLogStatisticsView
 
 app_name = "main"  # Пространство имен приложения
 
@@ -16,6 +17,14 @@ urlpatterns = [
     path("about/", views.AboutView.as_view(), name="about"),
     # Страница профиля пользователя
     path("profile/", views.ProfileView.as_view(), name="profile"),
+    # Отладка и логи
+    path("debug-log/", DebugLogView.as_view(), name="debug_log"),
+    path("debug-log/clear/", ClearDebugLogView.as_view(), name="clear_debug_log"),
+    path(
+        "debug-log/statistics/",
+        DebugLogStatisticsView.as_view(),
+        name="debug_log_stats",
+    ),
     # Обработка ошибок
     path(
         "error/404/",
