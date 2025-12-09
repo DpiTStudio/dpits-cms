@@ -1320,3 +1320,7 @@ django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_l
 2025-12-09 22:14:06 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\urls.py changed, reloading.
 2025-12-09 22:14:07 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
 2025-12-09 22:14:08 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 22:48:35 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\urls.py changed, reloading.
+2025-12-09 22:48:35 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\urls.py changed, reloading.
+2025-12-09 22:48:36 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 22:48:36 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
