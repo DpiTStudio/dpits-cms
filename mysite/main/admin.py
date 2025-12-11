@@ -4,13 +4,20 @@
 import os  # Модуль для работы с операционной системой
 from django.contrib import admin  # Базовый класс админки Django
 from django.utils.translation import gettext_lazy as _  # Функция для перевода строк
-from .models import SiteSettings, Page  # Импорт моделей для админки
+from .models import SiteSettings, Page, LogStats  # Импорт моделей для админки
+
 # ManagedFile импортируется в admin_files.py для избежания дублирования
 from django.urls import path, reverse  # Функции для работы с URL
 from django.http import HttpResponseRedirect  # Класс для перенаправления HTTP-ответов
 from django.contrib import messages  # Система сообщений Django
-from django.utils.html import format_html, mark_safe  # Функции для безопасного форматирования HTML
-from django.shortcuts import render, get_object_or_404  # Функции для работы с представлениями
+from django.utils.html import (
+    format_html,
+    mark_safe,
+)  # Функции для безопасного форматирования HTML
+from django.shortcuts import (
+    render,
+    get_object_or_404,
+)  # Функции для работы с представлениями
 from django.conf import settings  # Настройки Django проекта
 import glob  # Модуль для работы с шаблонами путей к файлам
 import stat  # Модуль для работы с правами доступа к файлам
@@ -173,5 +180,63 @@ class PageAdmin(admin.ModelAdmin):
         cache.delete("featured_pages")
 
 
-# Примечание: Админка для ManagedFile находится в admin_files.py
-# чтобы избежать дублирования регистрации
+# admin.py (добавляем после PageAdmin)
+@admin.register(LogStats)
+class LogStatsAdmin(admin.ModelAdmin):
+    """
+    Админ-панель для статистики логов.
+    """
+
+    list_display = [
+        "log_date",
+        "total_lines",
+        "error_count",
+        "warning_count",
+        "info_count",
+        "updated_at",
+    ]
+    list_filter = ["log_date"]
+    readonly_fields = ["created_at", "updated_at"]
+    search_fields = ["log_date"]
+    date_hierarchy = "log_date"
+
+    fieldsets = (
+        (
+            _("Основная статистика"),
+            {
+                "fields": (
+                    "log_date",
+                    "total_lines",
+                )
+            },
+        ),
+        (
+            _("Статистика по категориям"),
+            {
+                "fields": (
+                    "error_count",
+                    "warning_count",
+                    "info_count",
+                    "debug_count",
+                    "other_count",
+                )
+            },
+        ),
+        (
+            _("Мета-информация"),
+            {"fields": ("created_at", "updated_at"), "classes": ("collapse",)},
+        ),
+    )
+
+    def has_add_permission(self, request):
+        """
+        Запрещает добавление записей вручную.
+        Статистика должна собираться автоматически.
+        """
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        """
+        Разрешает удаление только суперпользователям.
+        """
+        return request.user.is_superuser

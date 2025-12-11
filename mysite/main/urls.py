@@ -27,4 +27,5 @@ urlpatterns = [
         TemplateView.as_view(template_name="main/500.html"),
         name="error_500",
     ),
+    path("log-stats/", views.LogStatsView.as_view(), name="log_stats"),
 ]

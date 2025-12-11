@@ -1297,3 +1297,200 @@ django.template.exceptions.TemplateDoesNotExist: admin/main/managedfile_change_l
 2025-12-09 23:33:35 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
 2025-12-09 23:33:51 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\urls.py changed, reloading.
 2025-12-09 23:34:07 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 23:41:06 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 23:41:07 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 44694
+2025-12-09 23:41:08 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-09 23:41:08 [INFO] django.server:213 log_message() | "GET /static/images/logo.png HTTP/1.1" 200 100655
+2025-12-09 23:41:08 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-09 23:41:08 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-09 23:41:08 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-09 23:41:08 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-09 23:41:08 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-09 23:41:08 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-09 23:41:08 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+2025-12-09 23:41:08 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 22341
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+2025-12-09 23:41:14 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_list.js HTTP/1.1" 200 2252
+2025-12-09 23:41:18 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 64968
+2025-12-09 23:41:18 [INFO] django.server:213 log_message() | "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+2025-12-09 23:41:18 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-09 23:41:18 [INFO] django.server:213 log_message() | "GET /static/django_ckeditor_5/dist/styles.css HTTP/1.1" 200 213809
+2025-12-09 23:41:18 [INFO] django.server:213 log_message() | "GET /static/django_ckeditor_5/dist/bundle.js HTTP/1.1" 200 1275904
+2025-12-09 23:41:18 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+2025-12-09 23:41:18 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+2025-12-09 23:41:23 [INFO] django.server:213 log_message() | "GET /admin/portfolio/order/ HTTP/1.1" 200 22570
+2025-12-09 23:41:23 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-09 23:44:53 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\models.py changed, reloading.
+2025-12-09 23:44:55 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 23:46:09 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\views.py changed, reloading.
+2025-12-09 23:46:11 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 23:47:06 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\urls.py changed, reloading.
+2025-12-09 23:47:08 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 23:47:38 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-09 23:47:40 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 23:49:51 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 23:52:27 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-09 23:52:35 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46136
+2025-12-09 23:52:38 [ERROR] django.request:253 log_response() | Internal Server Error: /admin/main/logstats/
+Traceback (most recent call last):
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: main_logstats
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\options.py", line 2024, in changelist_view
+    cl = self.get_changelist_instance(request)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\options.py", line 867, in get_changelist_instance
+    return ChangeList(
+           ^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\views\main.py", line 146, in __init__
+    self.get_results(request)
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\views\main.py", line 313, in get_results
+    result_count = paginator.count
+                   ^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\paginator.py", line 110, in count
+    return c()
+           ^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: main_logstats
+2025-12-09 23:52:38 [ERROR] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 500 220749
+2025-12-09 23:52:39 [WARNING] django.request:253 log_response() | Not Found: /favicon.ico
+2025-12-09 23:52:39 [WARNING] django.server:213 log_message() | "GET /favicon.ico HTTP/1.1" 404 5379
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 20830
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 200 16264
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-10 10:02:51 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+2025-12-10 10:02:54 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+2025-12-10 10:02:54 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+2025-12-10 10:03:05 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75351
+2025-12-10 10:03:05 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-10 10:03:05 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-10 10:03:05 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-10 10:03:05 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-10 10:03:06 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-10 10:03:06 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-10 10:03:06 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-10 10:03:06 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-10 10:03:06 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-10 10:03:06 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-10 10:03:06 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-10 10:03:06 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-10 10:03:10 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 20830
+2025-12-10 10:03:10 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-10 10:03:12 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 20830
+2025-12-10 10:03:12 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-10 10:03:18 [INFO] django.server:213 log_message() | "GET /admin/main/page/ HTTP/1.1" 200 28827
+2025-12-10 10:03:18 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-10 10:03:18 [WARNING] django.server:213 log_message() | "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+2025-12-10 10:03:19 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 22841
+2025-12-10 10:03:19 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+2025-12-10 10:03:20 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 20830
+2025-12-10 10:03:21 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-10 10:03:25 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/?log_date__gte=2025-12-10&q= HTTP/1.1" 200 20868
+2025-12-10 10:03:25 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-10 12:27:34 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75351
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-10 12:27:35 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464

@@ -372,3 +372,77 @@ def custom_500_view(request):
         context,
         status=500,
     )
+
+
+# views.py (добавляем в конец файла)
+class LogStatsView(MaintenanceMixin, BaseView):
+    """
+    Представление для отображения статистики лог-файлов.
+    Показывает информацию о debug.log и позволяет управлять им.
+    """
+
+    template_name = "main/log_stats.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Проверяет права доступа пользователя.
+        Доступ только для администраторов и персонала.
+        """
+        if not request.user.is_authenticated or not request.user.is_staff:
+            from django.contrib.auth.views import redirect_to_login
+            from django.shortcuts import resolve_url
+
+            return redirect_to_login(
+                request.get_full_path(), login_url=resolve_url("accounts:login")
+            )
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """
+        Добавляет данные о лог-файле в контекст.
+        """
+        context = super().get_context_data(**kwargs)
+
+        # Получаем информацию о лог-файле
+        from .log_utils import get_log_file_info, get_recent_log_lines
+
+        log_info = get_log_file_info()
+
+        # Добавляем последние строки лога
+        recent_lines = get_recent_log_lines(50)
+
+        # SEO данные
+        page_title = "Статистика логов"
+        site_settings = context.get("site_settings")
+        if site_settings and site_settings.logo_text:
+            page_title = f"Статистика логов - {site_settings.logo_text}"
+
+        context.update(
+            {
+                "log_info": log_info,
+                "recent_lines": recent_lines,
+                "page_title": page_title,
+                "meta_description": "Статистика и управление лог-файлами системы",
+            }
+        )
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """
+        Обрабатывает POST-запросы для управления логами.
+        Поддерживает очистку лог-файла.
+        """
+        from .log_utils import clear_log_file
+        from django.contrib import messages
+
+        action = request.POST.get("action")
+
+        if action == "clear_log":
+            success, message = clear_log_file()
+            if success:
+                messages.success(request, message)
+            else:
+                messages.error(request, message)
+
+        return self.get(request, *args, **kwargs)

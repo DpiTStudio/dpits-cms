@@ -1,0 +1,165 @@
+<!-- templates/main/log_stats.html (новый файл) -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .log-stats-container {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+    
+    .log-info-card {
+        background: #f8f9fa;
+        border-left: 4px solid #007bff;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .log-info-card h5 {
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+    
+    .category-badge {
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+    
+    .category-error { background: #f8d7da; color: #721c24; }
+    .category-warning { background: #fff3cd; color: #856404; }
+    .category-info { background: #d1ecf1; color: #0c5460; }
+    .category-debug { background: #d4edda; color: #155724; }
+    .category-other { background: #e2e3e5; color: #383d41; }
+    
+    .log-lines {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 15px;
+        max-height: 500px;
+        overflow-y: auto;
+        font-family: 'Consolas', 'Monaco', monospace;
+        font-size: 12px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+    
+    .log-line {
+        padding: 2px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .log-line:last-child {
+        border-bottom: none;
+    }
+    
+    .btn-danger {
+        background: #dc3545;
+        border-color: #dc3545;
+    }
+    
+    .btn-danger:hover {
+        background: #c82333;
+        border-color: #bd2130;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Статистика лог-файлов</h1>
+    
+    <!-- Карточка с информацией о файле -->
+    <div class="log-stats-container">
+        <h3>Информация о debug.log</h3>
+        
+        {% if log_info.exists %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="log-info-card">
+                        <h5>Основная информация</h5>
+                        <p><strong>Путь к файлу:</strong> {{ log_info.file_path }}</p>
+                        <p><strong>Размер файла:</strong> {{ log_info.file_size_human }}</p>
+                        <p><strong>Всего строк:</strong> {{ log_info.total_lines }}</p>
+                        {% if log_info.last_modified %}
+                            <p><strong>Последнее изменение:</strong> {{ log_info.last_modified }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="log-info-card">
+                        <h5>Статистика по категориям</h5>
+                        <p>
+                            <span class="category-badge category-error">
+                                Ошибки: {{ log_info.categories.ERROR }}
+                            </span>
+                            <span class="category-badge category-warning">
+                                Предупреждения: {{ log_info.categories.WARNING }}
+                            </span>
+                            <span class="category-badge category-info">
+                                Информационные: {{ log_info.categories.INFO }}
+                            </span>
+                            <span class="category-badge category-debug">
+                                Отладочные: {{ log_info.categories.DEBUG }}
+                            </span>
+                            <span class="category-badge category-other">
+                                Прочие: {{ log_info.categories.OTHER }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Последние строки лога -->
+            <div class="log-info-card">
+                <h5>Последние 50 строк лога</h5>
+                <div class="log-lines">
+                    {% for line in recent_lines %}
+                        <div class="log-line">
+                            {{ line }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Форма очистки лога -->
+            <div class="log-info-card">
+                <h5>Управление лог-файлом</h5>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="clear_log">
+                    <div class="alert alert-warning">
+                        <strong>Внимание!</strong> Очистка лог-файла удалит все его содержимое.
+                        Будет создана резервная копия перед очисткой.
+                    </div>
+                    <button type="submit" class="btn btn-danger" 
+                            onclick="return confirm('Вы уверены, что хотите очистить лог-файл?')">
+                        Очистить лог-файл
+                    </button>
+                </form>
+            </div>
+            
+        {% else %}
+            <div class="alert alert-warning">
+                <h5>Лог-файл не найден</h5>
+                <p>Файл debug.log не существует по пути: {{ log_info.file_path }}</p>
+                <p>Возможные причины:</p>
+                <ul>
+                    <li>Логирование не настроено в проекте</li>
+                    <li>Файл был удален</li>
+                    <li>Путь к логам отличается от стандартного</li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

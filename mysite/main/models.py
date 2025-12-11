@@ -586,3 +586,51 @@ class ManagedFile(models.Model):
             if obj.exists:
                 count += 1
         return count
+
+
+# models.py (добавляем в конец файла)
+class LogStats(models.Model):
+    """
+    Модель для хранения статистики лог-файлов.
+    Позволяет отслеживать и анализировать логи.
+    """
+
+    log_date = models.DateField(
+        verbose_name="Дата логов",
+        unique=True,
+        help_text="Дата, за которую собрана статистика",
+    )
+    total_lines = models.IntegerField(
+        verbose_name="Всего строк",
+        default=0,
+        help_text="Общее количество строк в лог-файле",
+    )
+    error_count = models.IntegerField(
+        verbose_name="Ошибки", default=0, help_text="Количество строк с ошибками"
+    )
+    warning_count = models.IntegerField(
+        verbose_name="Предупреждения",
+        default=0,
+        help_text="Количество строк с предупреждениями",
+    )
+    info_count = models.IntegerField(
+        verbose_name="Информационные",
+        default=0,
+        help_text="Количество информационных строк",
+    )
+    debug_count = models.IntegerField(
+        verbose_name="Отладочные", default=0, help_text="Количество отладочных строк"
+    )
+    other_count = models.IntegerField(
+        verbose_name="Прочие", default=0, help_text="Количество строк других типов"
+    )
+    created_at = models.DateTimeField(verbose_name="Создано", auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name="Обновлено", auto_now=True)
+
+    class Meta:
+        verbose_name = "Статистика логов"
+        verbose_name_plural = "Статистика логов"
+        ordering = ["-log_date"]
+
+    def __str__(self):
+        return f"Статистика логов за {self.log_date}"
