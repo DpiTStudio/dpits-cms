@@ -1,21 +1,46 @@
 # views.py
-# Представления (контроллеры) для приложения main
-import re
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView, DetailView
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
-from django.views.decorators.vary import vary_on_cookie
-from django.core.cache import cache
-from django.http import Http404
-from django.db.models import Q
-from .models import SiteSettings, Page
+"""
+ПРЕДСТАВЛЕНИЯ (КОНТРОЛЛЕРЫ) ДЛЯ ПРИЛОЖЕНИЯ MAIN
+
+Этот файл содержит все представления (views) для публичной части приложения.
+Представления обрабатывают HTTP-запросы и возвращают HTTP-ответы.
+
+Основные классы:
+1. MaintenanceMixin: Проверка статуса обслуживания сайта
+2. BaseView: Базовый класс с общим контекстом
+3. IndexView: Главная страница сайта
+4. PageDetailView: Детальная страница контента
+5. ProfileView: Страница профиля пользователя
+6. ContactView, AboutView: Статические страницы
+7. LogStatsView: Статистика лог-файлов
+
+Все представления используют кэширование для оптимизации производительности.
+"""
+
+import re  # Модуль для работы с регулярными выражениями
+from django.shortcuts import (
+    render,
+    get_object_or_404,
+)  # | Функции для работы с запросами
+from django.views.generic import (
+    TemplateView,
+    DetailView,
+)  # | Базовые классы представлений
+from django.utils.decorators import method_decorator  # | Декораторы для методов класса
+from django.views.decorators.cache import cache_page  # | Декоратор кэширования страниц
+from django.views.decorators.vary import (
+    vary_on_cookie,
+)  # | Декоратор для вариаций по кукам
+from django.core.cache import cache  # | Система кэширования
+from django.http import Http404  # | Исключение для 404 ошибок
+from django.db.models import Q  # | Объекты для сложных запросов
+from .models import SiteSettings, Page  # | Импорт моделей
 
 # Импорт модели новостей (если приложение news установлено)
 try:
     from news.models import News
 except ImportError:
-    News = None
+    News = None  # | Если приложение news не установлено
 
 
 class MaintenanceMixin:
@@ -27,6 +52,18 @@ class MaintenanceMixin:
     def dispatch(self, request, *args, **kwargs):
         """
         Перехватывает запрос и проверяет, не закрыт ли сайт.
+
+        Действия:
+        1. Загружает настройки сайта
+        2. Проверяет флаг site_closed
+        3. Если сайт закрыт и пользователь не персонал - показывает страницу закрытия
+
+        Параметры:
+            request: Объект HTTP-запроса
+            *args, **kwargs: Дополнительные аргументы
+
+        Возвращает:
+            HttpResponse: Ответ с рендером страницы закрытия или продолжение обработки
         """
         site_settings = SiteSettings.load()
 
@@ -49,6 +86,17 @@ class BaseView(TemplateView):
         """
         Добавляет общие данные контекста для всех страниц.
         Включает настройки сайта и проверку статуса обслуживания.
+
+        Действия:
+        1. Получает настройки сайта с кэшированием
+        2. Добавляет базовые SEO-данные
+        3. Возвращает расширенный контекст
+
+        Параметры:
+            **kwargs: Дополнительные аргументы контекста
+
+        Возвращает:
+            dict: Словарь с данными контекста
         """
         context = super().get_context_data(**kwargs)
 
@@ -59,7 +107,7 @@ class BaseView(TemplateView):
         if not site_settings:
             site_settings = SiteSettings.load()
             if site_settings:
-                cache.set(cache_key, site_settings, 300)  # Кэш на 5 минут
+                cache.set(cache_key, site_settings, 300)  # | Кэш на 5 минут
 
         context["site_settings"] = site_settings
 
@@ -89,11 +137,22 @@ class ProfileView(MaintenanceMixin, BaseView, TemplateView):
     Требует аутентификации пользователя.
     """
 
-    template_name = "main/profile.html"
+    template_name = "main/profile.html"  # | Путь к шаблону
 
     def dispatch(self, request, *args, **kwargs):
         """
         Проверяет, аутентифицирован ли пользователь.
+
+        Действия:
+        1. Проверяет флаг is_authenticated
+        2. Если не аутентифицирован - перенаправляет на страницу входа
+
+        Параметры:
+            request: Объект HTTP-запроса
+            *args, **kwargs: Дополнительные аргументы
+
+        Возвращает:
+            HttpResponse: Перенаправление или продолжение обработки
         """
         if not request.user.is_authenticated:
             from django.contrib.auth.views import redirect_to_login
@@ -107,6 +166,16 @@ class ProfileView(MaintenanceMixin, BaseView, TemplateView):
     def get_context_data(self, **kwargs):
         """
         Добавляет данные контекста для страницы профиля.
+
+        Действия:
+        1. Добавляет заголовок страницы
+        2. Добавляет объект пользователя
+
+        Параметры:
+            **kwargs: Дополнительные аргументы контекста
+
+        Возвращает:
+            dict: Словарь с данными контекста профиля
         """
         context = super().get_context_data(**kwargs)
         context.update(
@@ -131,6 +200,17 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
         """
         Расширяет контекст данными для главной страницы.
         Включает рекомендуемые страницы и SEO-данные.
+
+        Действия:
+        1. Получает рекомендуемые страницы
+        2. Получает последние новости
+        3. Формирует SEO-заголовок и описание
+
+        Параметры:
+            **kwargs: Дополнительные аргументы контекста
+
+        Возвращает:
+            dict: Словарь с данными контекста главной страницы
         """
         context = super().get_context_data(**kwargs)
         site_settings = context.get("site_settings")
@@ -144,7 +224,7 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
                 Page.objects.filter(show_on_site=True).order_by("order", "title")[:6]
             )
             if featured_pages:
-                cache.set(cache_key, featured_pages, 600)  # Кэш на 10 минут
+                cache.set(cache_key, featured_pages, 600)  # | Кэш на 10 минут
 
         # Получаем три последние новости
         recent_news_list = []
@@ -200,8 +280,8 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
 
         return context
 
-    @method_decorator(cache_page(60 * 15))  # Кэшируем на 15 минут
-    @method_decorator(vary_on_cookie)  # Учитываем куки пользователя
+    @method_decorator(cache_page(60 * 15))  # | Кэшируем на 15 минут
+    @method_decorator(vary_on_cookie)  # | Учитываем куки пользователя
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
@@ -213,19 +293,33 @@ class PageDetailView(MaintenanceMixin, DetailView):
 
     model = Page
     template_name = "main/page_detail.html"
-    context_object_name = "page"
-    slug_field = "slug"
-    slug_url_kwarg = "slug"
+    context_object_name = "page"  # | Имя объекта в контексте
+    slug_field = "slug"  # | Поле для поиска по slug
+    slug_url_kwarg = "slug"  # | Имя параметра в URL
 
     def get_queryset(self):
         """
         Возвращает только активные страницы (show_on_site=True).
+
+        Возвращает:
+            QuerySet: Фильтрованный QuerySet активных страниц
         """
         return Page.objects.filter(show_on_site=True)
 
     def get_context_data(self, **kwargs):
         """
         Добавляет SEO-данные и связанный контент.
+
+        Действия:
+        1. Получает предыдущую и следующую страницы
+        2. Формирует SEO-заголовок и описание
+        3. Добавляет ключевые слова
+
+        Параметры:
+            **kwargs: Дополнительные аргументы контекста
+
+        Возвращает:
+            dict: Словарь с данными контекста страницы
         """
         context = super().get_context_data(**kwargs)
         page = self.object
@@ -263,8 +357,8 @@ class PageDetailView(MaintenanceMixin, DetailView):
 
         return context
 
-    @method_decorator(cache_page(60 * 10))  # Кэшируем на 10 минут
-    @method_decorator(vary_on_cookie)  # Учитываем куки пользователя
+    @method_decorator(cache_page(60 * 10))  # | Кэшируем на 10 минут
+    @method_decorator(vary_on_cookie)  # | Учитываем куки пользователя
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
@@ -277,6 +371,19 @@ class ContactView(MaintenanceMixin, TemplateView):
     template_name = "main/contacts.html"
 
     def get_context_data(self, **kwargs):
+        """
+        Добавляет контекст для страницы контактов.
+
+        Действия:
+        1. Формирует заголовок страницы
+        2. Добавляет описание
+
+        Параметры:
+            **kwargs: Дополнительные аргументы контекста
+
+        Возвращает:
+            dict: Словарь с данными контекста контактов
+        """
         context = super().get_context_data(**kwargs)
         site_settings = SiteSettings.load()
 
@@ -306,6 +413,19 @@ class AboutView(MaintenanceMixin, TemplateView):
     template_name = "main/about.html"
 
     def get_context_data(self, **kwargs):
+        """
+        Добавляет контекст для страницы "О нас".
+
+        Действия:
+        1. Формирует заголовок страницы
+        2. Создает описание из краткого описания сайта
+
+        Параметры:
+            **kwargs: Дополнительные аргументы контекста
+
+        Возвращает:
+            dict: Словарь с данными контекста "О нас"
+        """
         context = super().get_context_data(**kwargs)
         site_settings = SiteSettings.load()
 
@@ -340,6 +460,18 @@ class AboutView(MaintenanceMixin, TemplateView):
 def custom_404_view(request, exception):
     """
     Кастомная страница 404 ошибки.
+
+    Действия:
+    1. Создает контекст с настройками сайта
+    2. Рендерит шаблон 404.html
+    3. Возвращает ответ с кодом 404
+
+    Параметры:
+        request: Объект HTTP-запроса
+        exception: Исключение, вызвавшее ошибку 404
+
+    Возвращает:
+        HttpResponse: Ответ с рендером страницы 404
     """
     site_settings = SiteSettings.load()
     context = {
@@ -352,13 +484,24 @@ def custom_404_view(request, exception):
         request,
         "main/404.html",
         context,
-        status=404,
+        status=404,  # | Указываем код статуса 404
     )
 
 
 def custom_500_view(request):
     """
     Кастомная страница 500 ошибки.
+
+    Действия:
+    1. Создает контекст с настройками сайта
+    2. Рендерит шаблон 500.html
+    3. Возвращает ответ с кодом 500
+
+    Параметры:
+        request: Объект HTTP-запроса
+
+    Возвращает:
+        HttpResponse: Ответ с рендером страницы 500
     """
     site_settings = SiteSettings.load()
     context = {
@@ -370,23 +513,35 @@ def custom_500_view(request):
         request,
         "main/500.html",
         context,
-        status=500,
+        status=500,  # | Указываем код статуса 500
     )
 
 
-# views.py (добавляем в конец файла)
 class LogStatsView(MaintenanceMixin, BaseView):
     """
     Представление для отображения статистики лог-файлов.
     Показывает информацию о debug.log и позволяет управлять им.
+
+    Доступно только для администраторов и персонала.
     """
 
-    template_name = "main/log_stats.html"
+    template_name = "main/log_stats.html"  # | Шаблон для отображения статистики
 
     def dispatch(self, request, *args, **kwargs):
         """
         Проверяет права доступа пользователя.
         Доступ только для администраторов и персонала.
+
+        Действия:
+        1. Проверяет is_authenticated и is_staff
+        2. Если нет прав - перенаправляет на страницу входа
+
+        Параметры:
+            request: Объект HTTP-запроса
+            *args, **kwargs: Дополнительные аргументы
+
+        Возвращает:
+            HttpResponse: Перенаправление или продолжение обработки
         """
         if not request.user.is_authenticated or not request.user.is_staff:
             from django.contrib.auth.views import redirect_to_login
@@ -400,15 +555,26 @@ class LogStatsView(MaintenanceMixin, BaseView):
     def get_context_data(self, **kwargs):
         """
         Добавляет данные о лог-файле в контекст.
+
+        Действия:
+        1. Получает информацию о лог-файле
+        2. Получает последние строки лога
+        3. Формирует SEO-данные
+
+        Параметры:
+            **kwargs: Дополнительные аргументы контекста
+
+        Возвращает:
+            dict: Словарь с данными контекста статистики логов
         """
         context = super().get_context_data(**kwargs)
 
-        # Получаем информацию о лог-файле
+        # Получаем информацию о лог-файле из модуля log_utils
         from .log_utils import get_log_file_info, get_recent_log_lines
 
-        log_info = get_log_file_info()
+        log_info = get_log_file_info()  # | Полная информация о файле
 
-        # Добавляем последние строки лога
+        # Добавляем последние строки лога (50 строк)
         recent_lines = get_recent_log_lines(50)
 
         # SEO данные
@@ -419,9 +585,9 @@ class LogStatsView(MaintenanceMixin, BaseView):
 
         context.update(
             {
-                "log_info": log_info,
-                "recent_lines": recent_lines,
-                "page_title": page_title,
+                "log_info": log_info,  # | Информация о лог-файле
+                "recent_lines": recent_lines,  # | Последние строки лога
+                "page_title": page_title,  # | Заголовок страницы
                 "meta_description": "Статистика и управление лог-файлами системы",
             }
         )
@@ -432,17 +598,30 @@ class LogStatsView(MaintenanceMixin, BaseView):
         """
         Обрабатывает POST-запросы для управления логами.
         Поддерживает очистку лог-файла.
+
+        Действия:
+        1. Получает действие из POST-данных
+        2. Если action == "clear_log" - очищает лог-файл
+        3. Добавляет сообщение об успехе/ошибке
+        4. Возвращает ответ GET
+
+        Параметры:
+            request: Объект HTTP-запроса
+            *args, **kwargs: Дополнительные аргументы
+
+        Возвращает:
+            HttpResponse: Ответ с рендером страницы статистики
         """
         from .log_utils import clear_log_file
         from django.contrib import messages
 
-        action = request.POST.get("action")
+        action = request.POST.get("action")  # | Получаем тип действия
 
         if action == "clear_log":
-            success, message = clear_log_file()
+            success, message = clear_log_file()  # | Очищаем лог-файл
             if success:
-                messages.success(request, message)
+                messages.success(request, message)  # | Сообщение об успехе
             else:
-                messages.error(request, message)
+                messages.error(request, message)  # | Сообщение об ошибке
 
-        return self.get(request, *args, **kwargs)
+        return self.get(request, *args, **kwargs)  # | Возвращаем GET-ответ
