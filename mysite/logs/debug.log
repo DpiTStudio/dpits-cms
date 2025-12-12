@@ -1789,3 +1789,5 @@ django.db.utils.OperationalError: no such table: main_logstats
 2025-12-12 18:03:04 [INFO] django.server:213 log_message() | "GET /reviews/ HTTP/1.1" 200 47894
 2025-12-12 18:03:13 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 51076
 2025-12-12 18:03:13 [INFO] django.server:213 log_message() | "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+2025-12-12 18:31:46 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-12 18:31:53 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46071
