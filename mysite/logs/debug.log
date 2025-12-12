@@ -1791,3 +1791,30 @@ django.db.utils.OperationalError: no such table: main_logstats
 2025-12-12 18:03:13 [INFO] django.server:213 log_message() | "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
 2025-12-12 18:31:46 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
 2025-12-12 18:31:53 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46071
+2025-12-12 18:34:00 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46073
+2025-12-12 18:34:04 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 20830
+2025-12-12 18:34:04 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-12 18:34:06 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/?q= HTTP/1.1" 200 20868
+2025-12-12 18:34:07 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-12 18:34:11 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/?log_date__gte=2025-12-12&q= HTTP/1.1" 200 20868
+2025-12-12 18:34:11 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-12 18:34:13 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75375
+2025-12-12 18:34:13 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-12 18:34:13 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-12 18:34:13 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-12 18:34:13 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-12 18:34:13 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-12 18:34:13 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-12 18:34:13 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-12 18:34:13 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-12 18:34:13 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-12 18:34:14 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-12 18:34:14 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-12 18:34:14 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-12 18:34:17 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/?log_date__gte=2025-12-12&q= HTTP/1.1" 200 20868
+2025-12-12 19:17:48 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46098
+2025-12-12 21:50:39 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 22860
+2025-12-12 21:50:45 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 65490
+2025-12-12 21:50:46 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-12 21:50:59 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46100
+2025-12-12 21:55:50 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
