@@ -1,0 +1,18 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="module">
+    <h2>{{ title }}</h2>
+    <p>{% trans "Вы уверены, что хотите очистить ВСЕ активные файлы?" %}</p>
+    <p><strong>{% trans "Будет очищено файлов" %}: {{ files_count }}</strong></p>
+    <p class="warning">{% trans "Внимание! Это действие невозможно отменить." %}</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="confirm" value="1">
+        <input type="submit" value="{% trans "Да, очистить все" %}" class="button" style="background: #ba2121;">
+        <a href="{% url 'admin:main_managedfile_changelist' %}" class="button">{% trans "Отмена" %}</a>
+    </form>
+</div>
+{% endblock %}
