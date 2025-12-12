@@ -1,28 +1,32 @@
 # admin.py
 # Админ-панель для моделей приложения main
 # Предоставляет интерфейс управления настройками сайта, страницами и файлами
+import glob  # Модуль для работы с шаблонами путей к файлам
+import mimetypes  # Модуль для определения MIME-типов файлов
 import os  # Модуль для работы с операционной системой
-from django.contrib import admin  # Базовый класс админки Django
-from django.utils.translation import gettext_lazy as _  # Функция для перевода строк
-from .models import SiteSettings, Page, LogStats  # Импорт моделей для админки
+import stat  # Модуль для работы с правами доступа к файлам
+from datetime import datetime  # Класс для работы с датой и временем
+
+from django.conf import settings  # Настройки Django проекта
+from django.contrib import (
+    admin,  # Базовый класс админки Django
+    messages,  # Система сообщений Django
+)
+from django.http import HttpResponseRedirect  # Класс для перенаправления HTTP-ответов
+from django.shortcuts import (
+    get_object_or_404,
+    render,
+)  # Функции для работы с представлениями
 
 # ManagedFile импортируется в admin_files.py для избежания дублирования
 from django.urls import path, reverse  # Функции для работы с URL
-from django.http import HttpResponseRedirect  # Класс для перенаправления HTTP-ответов
-from django.contrib import messages  # Система сообщений Django
 from django.utils.html import (
     format_html,
     mark_safe,
 )  # Функции для безопасного форматирования HTML
-from django.shortcuts import (
-    render,
-    get_object_or_404,
-)  # Функции для работы с представлениями
-from django.conf import settings  # Настройки Django проекта
-import glob  # Модуль для работы с шаблонами путей к файлам
-import stat  # Модуль для работы с правами доступа к файлам
-import mimetypes  # Модуль для определения MIME-типов файлов
-from datetime import datetime  # Класс для работы с датой и временем
+from django.utils.translation import gettext_lazy as _  # Функция для перевода строк
+
+from .models import LogStats, Page, SiteSettings  # Импорт моделей для админки
 
 
 @admin.register(SiteSettings)
