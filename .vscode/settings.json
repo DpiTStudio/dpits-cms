@@ -1,5 +1,6 @@
 // settings.json
 {
   "git.logLevel": "error",
-  "git.verbose": false
+  "git.verbose": false,
+  "CodeGPT.apiKey": "Gemini CLI"
 }
