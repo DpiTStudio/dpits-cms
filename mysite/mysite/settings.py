@@ -34,8 +34,8 @@ DEBUG = True
 # РАЗРЕШЕННЫЕ ХОСТЫ: Список доменов/хостов, которые может обслуживать Django
 ALLOWED_HOSTS = [
     "*",  # Разрешает все хосты (только для разработки!)
-    "www.dpits-cms.ru",
     "dpits-cms.ru",
+    "www.dpits-cms.ru",
     "localhost",
     "127.0.0.1",
 ]
