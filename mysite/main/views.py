@@ -557,9 +557,10 @@ class LogStatsView(MaintenanceMixin, BaseView):
         Добавляет данные о лог-файле в контекст.
 
         Действия:
-        1. Получает информацию о лог-файле
-        2. Получает последние строки лога
-        3. Формирует SEO-данные
+        1. Получает информацию о лог-файле (размер, количество строк, категории)
+        2. Получает последние строки лога для предпросмотра
+        3. Формирует SEO-данные для страницы
+        4. Добавляет статистику по категориям
 
         Параметры:
             **kwargs: Дополнительные аргументы контекста
@@ -569,26 +570,41 @@ class LogStatsView(MaintenanceMixin, BaseView):
         """
         context = super().get_context_data(**kwargs)
 
-        # Получаем информацию о лог-файле из модуля log_utils
-        from .log_utils import get_log_file_info, get_recent_log_lines
+        # Импортируем функции для работы с лог-файлом
+        from .log_utils import (
+            get_log_file_info,      # Получение полной информации о файле
+            get_recent_log_lines,   # Получение последних строк
+            count_total_lines,      # Подсчет общего количества строк
+            count_lines_by_category # Подсчет строк по категориям
+        )
 
-        log_info = get_log_file_info()  # | Полная информация о файле
+        # Получаем полную информацию о лог-файле
+        # Включает: размер, путь, количество строк, категории, дату изменения
+        log_info = get_log_file_info()
 
-        # Добавляем последние строки лога (50 строк)
+        # Получаем последние 50 строк лога для отображения на странице
         recent_lines = get_recent_log_lines(50)
 
-        # SEO данные
+        # Дополнительно получаем статистику напрямую (на случай если нужна точность)
+        total_lines = count_total_lines()  # Общее количество строк в файле
+        categories = count_lines_by_category()  # Словарь с количеством по категориям
+
+        # Формируем SEO-заголовок страницы
         page_title = "Статистика логов"
         site_settings = context.get("site_settings")
         if site_settings and site_settings.logo_text:
+            # Если есть настройки сайта, добавляем название сайта к заголовку
             page_title = f"Статистика логов - {site_settings.logo_text}"
 
+        # Обновляем контекст шаблона данными для отображения
         context.update(
             {
-                "log_info": log_info,  # | Информация о лог-файле
-                "recent_lines": recent_lines,  # | Последние строки лога
-                "page_title": page_title,  # | Заголовок страницы
-                "meta_description": "Статистика и управление лог-файлами системы",
+                "log_info": log_info,              # Полная информация о лог-файле
+                "recent_lines": recent_lines,      # Последние строки лога для предпросмотра
+                "total_lines": total_lines,        # Общее количество строк (для удобства)
+                "categories": categories,          # Счетчики по категориям (для удобства)
+                "page_title": page_title,          # Заголовок страницы для <title>
+                "meta_description": "Статистика и управление лог-файлами системы. Просмотр количества строк, анализ по категориям (ERROR, WARNING, INFO, DEBUG), очистка логов.",
             }
         )
 

@@ -276,6 +276,7 @@ class LogStatsAdmin(admin.ModelAdmin):
 
     Предоставляет интерфейс для просмотра статистики лог-файлов.
     Статистика собирается автоматически, ручное добавление запрещено.
+    Включает кнопки для очистки лог-файла и просмотра полной статистики.
     """
 
     list_display = [
@@ -359,3 +360,154 @@ class LogStatsAdmin(admin.ModelAdmin):
             bool: True если суперпользователь, False в противном случае
         """
         return request.user.is_superuser  # Только суперпользователи могут удалять
+
+    def get_urls(self):
+        """
+        Возвращает кастомные URL маршруты для админки.
+
+        Добавляет маршруты для:
+        - Очистки лог-файла
+        - Просмотра полной статистики из debug.log
+
+        Возвращает:
+            list: Список URL маршрутов
+        """
+        urls = super().get_urls()  # Получаем стандартные URL
+        custom_urls = [
+            # Очистка лог-файла
+            path(
+                "clear-log/",
+                self.admin_site.admin_view(self.clear_log_file_view),
+                name="main_logstats_clear",
+            ),
+            # Просмотр полной статистики
+            path(
+                "view-statistics/",
+                self.admin_site.admin_view(self.view_log_statistics),
+                name="main_logstats_view",
+            ),
+        ]
+        return custom_urls + urls  # Объединяем кастомные и стандартные URL
+
+    def changelist_view(self, request, extra_context=None):
+        """
+        Переопределяет стандартное представление списка для добавления кнопок.
+
+        Добавляет кнопки "Очистить" и "Статистика" в интерфейс админки.
+
+        Параметры:
+            request: Объект HTTP запроса
+            extra_context: Дополнительный контекст для шаблона
+
+        Возвращает:
+            HttpResponse: Ответ с рендером страницы списка
+        """
+        extra_context = extra_context or {}
+        
+        # Добавляем URL для кнопок
+        clear_url = reverse("admin:main_logstats_clear")
+        statistics_url = reverse("admin:main_logstats_view")
+        
+        # Создаем HTML для кнопок
+        buttons_html = format_html(
+            '<div style="margin: 10px 0;">'
+            '<a href="{}" class="button" style="margin-right: 10px;" '
+            'onclick="return confirm(\'Вы уверены, что хотите очистить лог-файл? Это действие нельзя отменить!\');">'
+            '🗑️ Очистить лог-файл</a>'
+            '<a href="{}" class="button">'
+            '📊 Статистика</a>'
+            '</div>',
+            clear_url,
+            statistics_url
+        )
+        
+        extra_context["action_buttons"] = buttons_html
+        
+        return super().changelist_view(request, extra_context)
+
+    def clear_log_file_view(self, request):
+        """
+        Обрабатывает очистку лог-файла debug.log.
+
+        Действия:
+        1. Вызывает функцию очистки из log_utils
+        2. Создает резервную копию перед очисткой
+        3. Показывает сообщение об успехе/ошибке
+        4. Перенаправляет обратно к списку статистики
+
+        Параметры:
+            request: Объект HTTP запроса
+
+        Возвращает:
+            HttpResponseRedirect: Перенаправление обратно к списку
+        """
+        from .log_utils import clear_log_file
+
+        success, message = clear_log_file()
+        if success:
+            messages.success(request, message)
+        else:
+            messages.error(request, message)
+
+        return HttpResponseRedirect(
+            reverse("admin:main_logstats_changelist")
+        )
+
+    def view_log_statistics(self, request):
+        """
+        Отображает полную статистику из файла debug.log.
+
+        Получает всю информацию из файла debug.log и отображает её:
+        - Полная информация о файле (размер, количество строк, дата изменения)
+        - Статистика по категориям (ERROR, WARNING, INFO, DEBUG, OTHER)
+        - Все строки из файла debug.log
+
+        Параметры:
+            request: Объект HTTP запроса
+
+        Возвращает:
+            HttpResponse: Страница с полной статистикой
+        """
+        from .log_utils import (
+            get_log_file_info,
+            get_log_file_path,
+        )
+
+        # Получаем полную информацию о лог-файле
+        log_info = get_log_file_info()
+        
+        # Получаем путь к файлу
+        log_file_path = get_log_file_path()
+        
+        # Читаем все строки из файла (или последние 10000 для больших файлов)
+        all_lines = []
+        if log_file_path and os.path.exists(log_file_path):
+            try:
+                with open(log_file_path, "r", encoding="utf-8", errors="ignore") as f:
+                    lines = f.readlines()
+                    # Если файл очень большой, показываем последние 10000 строк
+                    if len(lines) > 10000:
+                        all_lines = lines[-10000:]
+                        messages.warning(
+                            request,
+                            f"Файл содержит {len(lines)} строк. Показаны последние 10000 строк."
+                        )
+                    else:
+                        all_lines = lines
+            except Exception as e:
+                messages.error(request, f"Ошибка чтения файла: {str(e)}")
+                all_lines = []
+
+        context = {
+            "title": _("Полная статистика лог-файла debug.log"),
+            "opts": self.model._meta,
+            "log_info": log_info,
+            "all_lines": all_lines,
+            "total_lines_displayed": len(all_lines),
+        }
+
+        return render(
+            request,
+            "admin/main/logstats_statistics.html",
+            context,
+        )
