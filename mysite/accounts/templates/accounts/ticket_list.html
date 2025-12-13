@@ -12,82 +12,82 @@
 
 {% block content %}
 <section class="ticket-list-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10 col-xl-8">
-                <div class="card ticket-list-card">
-                    <!-- Заголовок -->
-                    <div class="ticket-list-header">
-                        <h2 class="mb-3">Мои тикеты</h2>
-                        <p class="mb-0 opacity-75">Здесь вы можете просмотреть все ваши обращения в поддержку</p>
-                    </div>
-                    
-                    <!-- Тело -->
-                    <div class="card-body p-5">
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} me-2"></i>
-                                    {{ message }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                        
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h4 class="mb-0">Список тикетов</h4>
-                            <a href="{% url 'accounts:create_ticket' %}" class="btn btn-create-ticket">
-                                <i class="fas fa-plus me-2"></i>
-                                Создать тикет
-                            </a>
-                        </div>
-                        
-                        {% if tickets %}
-                            {% for ticket in tickets %}
-                                <div class="ticket-item p-4">
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <div>
-                                            <h5 class="ticket-subject">{{ ticket.subject }}</h5>
-                                            <div class="ticket-date">
-                                                <i class="far fa-clock me-1"></i>
-                                                {{ ticket.created_at|date:"d.m.Y H:i" }}
-                                            </div>
-                                        </div>
-                                        <span class="ticket-status {% if ticket.status == 'open' %}status-open{% elif ticket.status == 'in_progress' %}status-in_progress{% else %}status-closed{% endif %}">
-                                            {{ ticket.get_status_display }}
-                                        </span>
-                                    </div>
-                                    
-                                    <p class="ticket-message-preview mb-3">
-                                        {{ ticket.message|truncatewords:30 }}
-                                    </p>
-                                    
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href="{% url 'accounts:ticket_detail' ticket.pk %}" class="btn btn-outline-primary btn-sm">
-                                            <i class="fas fa-eye me-1"></i>
-                                            Просмотреть
-                                        </a>
-                                        <small class="text-muted">
-                                            Обновлено: {{ ticket.updated_at|date:"d.m.Y H:i" }}
-                                        </small>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        {% else %}
-                            <div class="empty-state">
-                                <div class="empty-state-icon">
-                                    <i class="fas fa-ticket-alt"></i>
-                                </div>
-                                <h4>У вас пока нет тикетов</h4>
-                                <p class="mb-4">Создайте свой первый тикет, и наша команда поддержки поможет вам решить вашу проблему.</p>
-                                <a href="{% url 'accounts:create_ticket' %}" class="btn btn-create-ticket">
-                                    <i class="fas fa-plus me-2"></i>
-                                    Создать первый тикет
-                                </a>
+    <!-- Убираем container-fluid и row -->
+    <div class="ticket-list-container">
+        <div class="card ticket-list-card">
+            <!-- Заголовок -->
+            <div class="ticket-list-header">
+                <h2 class="mb-3">Мои тикеты</h2>
+                <p class="mb-0 opacity-75">Здесь вы можете просмотреть все ваши обращения в поддержку</p>
+            </div>
+
+            <!-- Тело -->
+            <div class="card-body p-5">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    <i
+                        class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} me-2"></i>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="mb-10">Список тикетов</h4>
+                    <a href="{% url 'accounts:create_ticket' %}" class="btn btn-create-ticket">
+                        <i class="fas fa-plus me-2"></i>
+                        Создать тикет
+                    </a>
+                </div>
+
+                {% if tickets %}
+                {% for ticket in tickets %}
+                <div class="ticket-item p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h5 class="ticket-subject">{{ ticket.subject }}</h5>
+                            <div class="ticket-date">
+                                <i class="far fa-clock me-1"></i>
+                                {{ ticket.created_at|date:"d.m.Y H:i" }}
                             </div>
-                        {% endif %}
+                        </div>
+                        <span
+                            class="ticket-status {% if ticket.status == 'open' %}status-open{% elif ticket.status == 'in_progress' %}status-in_progress{% else %}status-closed{% endif %}">
+                            {{ ticket.get_status_display }}
+                        </span>
+                    </div>
+
+                    <p class="ticket-message-preview mb-3">
+                        {{ ticket.message|truncatewords:30 }}
+                    </p>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'accounts:ticket_detail' ticket.pk %}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-eye me-1"></i>
+                            Просмотреть
+                        </a>
+                        <small class="text-muted">
+                            Обновлено: {{ ticket.updated_at|date:"d.m.Y H:i" }}
+                        </small>
                     </div>
                 </div>
+                {% endfor %}
+                {% else %}
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h4>У вас пока нет тикетов</h4>
+                    <p class="mb-4">Создайте свой первый тикет, и наша команда поддержки поможет вам решить вашу
+                        проблему.</p>
+                    <a href="{% url 'accounts:create_ticket' %}" class="btn btn-create-ticket">
+                        <i class="fas fa-plus me-2"></i>
+                        Создать первый тикет
+                    </a>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -96,7 +96,7 @@
 
 {% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Добавляем анимацию появления элементов
         const ticketItems = document.querySelectorAll('.ticket-item');
         ticketItems.forEach((item, index) => {
