@@ -1903,3 +1903,175 @@ django.db.utils.OperationalError: no such table: main_logstats
 2025-12-13 13:22:01 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75539
 2025-12-13 13:22:07 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 50456
 2025-12-13 13:22:12 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 51240
+2025-12-13 13:26:17 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 13:28:22 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-13 13:28:29 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 13:28:31 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 23290
+2025-12-13 13:28:46 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 20830
+2025-12-13 13:28:47 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:28:52 [INFO] django.server:213 log_message() | "GET /admin/main/page/ HTTP/1.1" 200 28827
+2025-12-13 13:28:53 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:28:53 [WARNING] django.server:213 log_message() | "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+2025-12-13 13:29:10 [INFO] django.server:213 log_message() | "GET /admin/news/newscategory/ HTTP/1.1" 200 31228
+2025-12-13 13:29:10 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:29:15 [INFO] django.server:213 log_message() | "GET /admin/news/newscategory/1/change/ HTTP/1.1" 200 35115
+2025-12-13 13:29:15 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:29:25 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 23290
+2025-12-13 13:29:37 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 65659
+2025-12-13 13:29:38 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:29:52 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-13 13:30:08 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 51794
+2025-12-13 13:30:17 [INFO] django.server:213 log_message() | "GET /portfolio/?category=cms-sistema-upravleniya-kontentom HTTP/1.1" 200 51820
+2025-12-13 13:30:25 [INFO] django.server:213 log_message() | "GET /portfolio/categories/ HTTP/1.1" 200 60757
+2025-12-13 13:30:25 [WARNING] django.server:213 log_message() | "GET /static/css/categories.css HTTP/1.1" 404 1981
+2025-12-13 13:30:26 [INFO] django.server:213 log_message() | "GET /media/portfoliocategory/2025/12/2c1a73d7813e4ed9853c4caf43bec9b8.png HTTP/1.1" 200 295096
+2025-12-13 13:30:26 [INFO] django.server:213 log_message() | "GET /media/portfoliocategory/2025/12/41123427f0b946db956002eda1768e44.png HTTP/1.1" 200 276271
+2025-12-13 13:30:27 [INFO] django.server:213 log_message() | "GET /media/www_dpits_cms_ru/2025/09/www_dpits_cms_ru_20250928_183513_cat_logo_8.png HTTP/1.1" 200 42428
+2025-12-13 13:30:37 [INFO] django.server:213 log_message() | "GET /portfolio/?category=vizitki HTTP/1.1" 200 51820
+2025-12-13 13:31:46 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-13 13:32:03 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 13:32:16 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-13 13:32:20 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 13:32:41 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 23290
+2025-12-13 13:33:18 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-13 13:33:23 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 13:33:28 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 23290
+2025-12-13 13:33:32 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 20830
+2025-12-13 13:33:33 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:33:36 [INFO] django.server:213 log_message() | "GET /admin/main/page/ HTTP/1.1" 200 28827
+2025-12-13 13:33:36 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:33:36 [WARNING] django.server:213 log_message() | "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+2025-12-13 13:33:39 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 23290
+2025-12-13 13:33:42 [ERROR] django.request:253 log_response() | Internal Server Error: /admin/main/sitesettings/1/change/
+Traceback (most recent call last):
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\options.py", line 840, in get_form
+    return modelform_factory(self.model, **defaults)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\forms\models.py", line 654, in modelform_factory
+    return type(form)(class_name, (form,), form_class_attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\forms\models.py", line 334, in __new__
+    raise FieldError(message)
+django.core.exceptions.FieldError: Unknown field(s) (logistics) specified for SiteSettings
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\options.py", line 719, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\sites.py", line 246, in inner
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\options.py", line 1987, in change_view
+    return self.changeform_view(request, object_id, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 192, in _view_wrapper
+    result = _process_exception(request, e)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 190, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\options.py", line 1840, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\options.py", line 1878, in _changeform_view
+    ModelForm = self.get_form(
+                ^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\contrib\admin\options.py", line 842, in get_form
+    raise FieldError(
+django.core.exceptions.FieldError: Unknown field(s) (logistics) specified for SiteSettings. Check fields/fieldsets/exclude attributes of class SiteSettingsAdmin.
+2025-12-13 13:33:42 [ERROR] django.server:213 log_message() | "GET /admin/main/sitesettings/1/change/ HTTP/1.1" 500 177591
+2025-12-13 13:33:44 [WARNING] django.request:253 log_response() | Not Found: /favicon.ico
+2025-12-13 13:33:44 [WARNING] django.server:213 log_message() | "GET /favicon.ico HTTP/1.1" 404 5379
+2025-12-13 13:34:29 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-13 13:34:36 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 13:34:42 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-13 13:34:47 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 13:40:00 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-13 13:40:08 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 13:40:16 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\admin.py changed, reloading.
+2025-12-13 13:42:38 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 13:42:46 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 65659
+2025-12-13 13:42:46 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:42:55 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 20830
+2025-12-13 13:42:55 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:42:58 [INFO] django.server:213 log_message() | "GET /admin/main/page/ HTTP/1.1" 200 28827
+2025-12-13 13:42:59 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:42:59 [WARNING] django.server:213 log_message() | "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+2025-12-13 13:43:06 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 23290
+2025-12-13 13:43:12 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46091
+2025-12-13 13:43:21 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 23290
+2025-12-13 13:43:26 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/1/change/ HTTP/1.1" 200 65659
+2025-12-13 13:43:27 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:43:45 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75539
+2025-12-13 13:43:45 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-13 13:44:04 [INFO] django.server:213 log_message() | "GET /admin/portfolio/order/ HTTP/1.1" 200 23070
+2025-12-13 13:44:05 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:44:09 [INFO] django.server:213 log_message() | "GET /admin/portfolio/portfoliocategory/ HTTP/1.1" 200 30115
+2025-12-13 13:44:10 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:44:14 [INFO] django.server:213 log_message() | "GET /admin/portfolio/client/ HTTP/1.1" 200 26979
+2025-12-13 13:44:15 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:44:19 [INFO] django.server:213 log_message() | "GET /admin/portfolio/portfolioreview/ HTTP/1.1" 200 22981
+2025-12-13 13:44:19 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:44:24 [INFO] django.server:213 log_message() | "GET /admin/portfolio/portfolioitem/ HTTP/1.1" 200 24544
+2025-12-13 13:44:24 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:44:29 [INFO] django.server:213 log_message() | "GET /admin/portfolio/ordermessage/ HTTP/1.1" 200 21535
+2025-12-13 13:44:30 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:44:33 [INFO] django.server:213 log_message() | "GET /admin/reviews/review/ HTTP/1.1" 200 26813
+2025-12-13 13:44:34 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:44:39 [INFO] django.server:213 log_message() | "GET /admin/accounts/ticketresponse/ HTTP/1.1" 200 26947
+2025-12-13 13:44:39 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:44:40 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+2025-12-13 13:44:45 [INFO] django.server:213 log_message() | "GET /admin/accounts/ticket/ HTTP/1.1" 200 27724
+2025-12-13 13:44:46 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:44:53 [INFO] django.server:213 log_message() | "GET /admin/accounts/ticket/1/change/ HTTP/1.1" 200 28392
+2025-12-13 13:44:54 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:44:54 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+2025-12-13 13:44:54 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+2025-12-13 13:44:54 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+2025-12-13 13:45:11 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46095
+2025-12-13 13:45:19 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75539
+2025-12-13 13:45:39 [INFO] django.server:213 log_message() | "GET /accounts/profile/ HTTP/1.1" 200 47822
+2025-12-13 13:45:40 [INFO] django.server:213 log_message() | "GET /static/accounts/css/profile.css HTTP/1.1" 200 1674
+2025-12-13 13:45:40 [INFO] django.server:213 log_message() | "GET /media/avatars/avatar_user_1.png HTTP/1.1" 200 372188
+2025-12-13 13:45:47 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 51240
+2025-12-13 13:46:35 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 13:46:41 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 20830
+2025-12-13 13:46:42 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:46:51 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/?log_date__gte=2025-01-01&q= HTTP/1.1" 200 20868
+2025-12-13 13:46:52 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:46:57 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/?log_date__gte=2025-12-13&q= HTTP/1.1" 200 20868
+2025-12-13 13:46:57 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:47:08 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/?q=ERROR HTTP/1.1" 200 20873
+2025-12-13 13:47:09 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:47:14 [INFO] django.server:213 log_message() | "GET /admin/news/news/ HTTP/1.1" 200 32585
+2025-12-13 13:47:15 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:47:27 [INFO] django.server:213 log_message() | "GET /admin/news/news/add/ HTTP/1.1" 200 39372
+2025-12-13 13:47:28 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:49:13 [INFO] django.server:213 log_message() | "POST /admin/news/news/add/ HTTP/1.1" 302 0
+2025-12-13 13:49:15 [INFO] django.server:213 log_message() | "GET /admin/news/news/ HTTP/1.1" 200 34024
+2025-12-13 13:49:16 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-13 13:49:24 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-13 13:49:27 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79564
+2025-12-13 13:49:27 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-13 13:49:47 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 51794
+2025-12-13 13:52:53 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 51794

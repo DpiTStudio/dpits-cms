@@ -1,0 +1,293 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+    .log-editor-container {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    
+    @media (max-width: 1200px) {
+        .log-editor-container {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    .editor-section {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 20px;
+    }
+    
+    .stats-section {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 20px;
+    }
+    
+    .file-info-section {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    #log-content {
+        width: 100%;
+        min-height: 600px;
+        font-family: 'Courier New', monospace;
+        font-size: 13px;
+        line-height: 1.5;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: #fff;
+        resize: vertical;
+    }
+    
+    .stats-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    
+    .stats-table th,
+    .stats-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .stats-table th {
+        background: #e0e0e0;
+        font-weight: bold;
+    }
+    
+    .stats-table tr:hover {
+        background: #f5f5f5;
+    }
+    
+    .category-error {
+        color: #d32f2f;
+        font-weight: bold;
+    }
+    
+    .category-warning {
+        color: #f57c00;
+        font-weight: bold;
+    }
+    
+    .category-info {
+        color: #1976d2;
+        font-weight: bold;
+    }
+    
+    .category-debug {
+        color: #388e3c;
+        font-weight: bold;
+    }
+    
+    .category-other {
+        color: #757575;
+        font-weight: bold;
+    }
+    
+    .button-group {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+    }
+    
+    .info-row {
+        display: flex;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .info-label {
+        font-weight: bold;
+        width: 200px;
+        color: #555;
+    }
+    
+    .info-value {
+        flex: 1;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="module">
+    <h1>{{ title }}</h1>
+    
+    <!-- Информация о файле -->
+    <div class="file-info-section">
+        <h2 style="margin-top: 0;">📄 Информация о файле</h2>
+        <div class="info-row">
+            <span class="info-label">Путь к файлу:</span>
+            <span class="info-value"><code>{{ log_file_path|default:"Не указан" }}</code></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Существует:</span>
+            <span class="info-value">
+                {% if log_info.exists %}
+                    <span style="color: green;">✓ Да</span>
+                {% else %}
+                    <span style="color: red;">✗ Нет</span>
+                {% endif %}
+            </span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Размер файла:</span>
+            <span class="info-value">{{ log_info.file_size_human|default:"0 B" }} ({{ log_info.file_size|default:0 }} байт)</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Всего строк:</span>
+            <span class="info-value"><strong>{{ log_info.total_lines|default:0 }}</strong></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Последнее изменение:</span>
+            <span class="info-value">
+                {% if log_info.last_modified %}
+                    {{ log_info.last_modified|date:"d.m.Y H:i:s" }}
+                {% else %}
+                    Неизвестно
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    
+    <!-- Форма редактирования и статистика -->
+    <form method="post" id="edit-log-form">
+        {% csrf_token %}
+        
+        <div class="log-editor-container">
+            <!-- Левая колонка: редактор -->
+            <div class="editor-section">
+                <h2 style="margin-top: 0;">✏️ Редактирование содержимого</h2>
+                <p style="color: #666; font-size: 12px; margin-bottom: 10px;">
+                    <strong>Внимание:</strong> Перед сохранением будет создана резервная копия файла.
+                </p>
+                <textarea 
+                    id="log-content" 
+                    name="content" 
+                    spellcheck="false"
+                    placeholder="Содержимое файла debug.log...">{{ file_content|default:"" }}</textarea>
+                
+                <div class="button-group">
+                    <input type="submit" value="💾 Сохранить изменения" class="button default" style="padding: 10px 20px;">
+                    <a href="{% url 'admin:main_logstats_changelist' %}" class="button">← {% trans "Назад к списку" %}</a>
+                    <a href="{% url 'admin:main_logstats_view' %}" class="button">📊 {% trans "Статистика" %}</a>
+                </div>
+            </div>
+            
+            <!-- Правая колонка: статистика -->
+            <div class="stats-section">
+                <h2 style="margin-top: 0;">📊 Статистика по категориям</h2>
+                
+                {% if log_info.total_lines > 0 %}
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Категория</th>
+                                <th style="text-align: right;">Количество</th>
+                                <th style="text-align: right;">%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="category-error">🔴 ERROR (Ошибки)</td>
+                                <td style="text-align: right;">{{ log_info.categories.ERROR|default:0 }}</td>
+                                <td style="text-align: right;">
+                                    {% widthratio log_info.categories.ERROR log_info.total_lines 100 %}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="category-warning">🟠 WARNING (Предупреждения)</td>
+                                <td style="text-align: right;">{{ log_info.categories.WARNING|default:0 }}</td>
+                                <td style="text-align: right;">
+                                    {% widthratio log_info.categories.WARNING log_info.total_lines 100 %}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="category-info">🔵 INFO (Информация)</td>
+                                <td style="text-align: right;">{{ log_info.categories.INFO|default:0 }}</td>
+                                <td style="text-align: right;">
+                                    {% widthratio log_info.categories.INFO log_info.total_lines 100 %}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="category-debug">🟢 DEBUG (Отладка)</td>
+                                <td style="text-align: right;">{{ log_info.categories.DEBUG|default:0 }}</td>
+                                <td style="text-align: right;">
+                                    {% widthratio log_info.categories.DEBUG log_info.total_lines 100 %}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="category-other">⚪ OTHER (Прочие)</td>
+                                <td style="text-align: right;">{{ log_info.categories.OTHER|default:0 }}</td>
+                                <td style="text-align: right;">
+                                    {% widthratio log_info.categories.OTHER log_info.total_lines 100 %}%
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background: #e0e0e0; font-weight: bold;">
+                                <td>Всего строк:</td>
+                                <td style="text-align: right;">{{ log_info.total_lines|default:0 }}</td>
+                                <td style="text-align: right;">100%</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                {% else %}
+                    <p style="color: #888; text-align: center; padding: 20px;">
+                        Лог-файл пуст или не содержит записей
+                    </p>
+                {% endif %}
+                
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+                    <h3 style="margin-top: 0; font-size: 14px;">💡 Подсказки:</h3>
+                    <ul style="font-size: 12px; color: #666; line-height: 1.6;">
+                        <li>Используйте Ctrl+F для поиска в тексте</li>
+                        <li>Перед сохранением создается резервная копия</li>
+                        <li>Можно редактировать весь файл целиком</li>
+                        <li>Статистика обновится после сохранения</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Подтверждение перед сохранением
+    document.getElementById('edit-log-form').addEventListener('submit', function(e) {
+        if (!confirm('Вы уверены, что хотите сохранить изменения? Будет создана резервная копия текущего файла.')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // Автосохранение размера textarea (опционально)
+    const textarea = document.getElementById('log-content');
+    if (textarea) {
+        // Фокусируемся на textarea при загрузке
+        textarea.focus();
+        
+        // Подсветка строк с ошибками при прокрутке (опционально)
+        textarea.addEventListener('scroll', function() {
+            // Можно добавить подсветку синтаксиса, если нужно
+        });
+    }
+</script>
+{% endblock %}
+

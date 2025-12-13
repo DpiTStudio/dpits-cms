@@ -51,7 +51,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
     """
 
     # Поля для отображения в списке записей
-    list_display = ["slogan", "phone1", "email", "site_closed", "updated_at"]
+    list_display = ["logo_text","slogan", "phone1", "email", "site_closed", "updated_at"]
     # Поля, которые отображаются в таблице списка объектов
 
     list_filter = ["site_closed"]  # Фильтры в правой панели
@@ -274,9 +274,14 @@ class LogStatsAdmin(admin.ModelAdmin):
     """
     Админ-панель для статистики логов.
 
-    Предоставляет интерфейс для просмотра статистики лог-файлов.
+    Предоставляет интерфейс для:
+    - Просмотра статистики лог-файлов
+    - Редактирования содержимого файла debug.log
+    - Очистки лог-файла с созданием резервной копии
+    - Просмотра ошибок по категориям (ERROR, WARNING, INFO, DEBUG, OTHER)
+    - Подсчета количества строк по категориям
+    
     Статистика собирается автоматически, ручное добавление запрещено.
-    Включает кнопки для очистки лог-файла и просмотра полной статистики.
     """
 
     list_display = [
@@ -368,6 +373,7 @@ class LogStatsAdmin(admin.ModelAdmin):
         Добавляет маршруты для:
         - Очистки лог-файла
         - Просмотра полной статистики из debug.log
+        - Редактирования содержимого debug.log
 
         Возвращает:
             list: Список URL маршрутов
@@ -385,6 +391,12 @@ class LogStatsAdmin(admin.ModelAdmin):
                 "view-statistics/",
                 self.admin_site.admin_view(self.view_log_statistics),
                 name="main_logstats_view",
+            ),
+            # Редактирование содержимого файла
+            path(
+                "edit-log/",
+                self.admin_site.admin_view(self.edit_log_file_view),
+                name="main_logstats_edit",
             ),
         ]
         return custom_urls + urls  # Объединяем кастомные и стандартные URL
@@ -408,17 +420,23 @@ class LogStatsAdmin(admin.ModelAdmin):
         clear_url = reverse("admin:main_logstats_clear")
         statistics_url = reverse("admin:main_logstats_view")
         
+        # Добавляем URL для редактирования
+        edit_url = reverse("admin:main_logstats_edit")
+        
         # Создаем HTML для кнопок
         buttons_html = format_html(
             '<div style="margin: 10px 0;">'
             '<a href="{}" class="button" style="margin-right: 10px;" '
             'onclick="return confirm(\'Вы уверены, что хотите очистить лог-файл? Это действие нельзя отменить!\');">'
             '🗑️ Очистить лог-файл</a>'
-            '<a href="{}" class="button">'
+            '<a href="{}" class="button" style="margin-right: 10px;">'
             '📊 Статистика</a>'
+            '<a href="{}" class="button">'
+            '✏️ Редактировать debug.log</a>'
             '</div>',
             clear_url,
-            statistics_url
+            statistics_url,
+            edit_url
         )
         
         extra_context["action_buttons"] = buttons_html
@@ -509,5 +527,96 @@ class LogStatsAdmin(admin.ModelAdmin):
         return render(
             request,
             "admin/main/logstats_statistics.html",
+            context,
+        )
+
+    def edit_log_file_view(self, request):
+        """
+        Отображает страницу для редактирования содержимого debug.log.
+        
+        Действия:
+        1. При GET: Показывает форму с содержимым файла и статистикой
+        2. При POST: Сохраняет изменения в файл и обновляет статистику
+        
+        Параметры:
+            request: Объект HTTP запроса
+            
+        Возвращает:
+            HttpResponse: Страница редактирования или перенаправление
+        """
+        from .log_utils import (
+            get_log_file_info,
+            get_log_file_path,
+        )
+        
+        log_file_path = get_log_file_path()
+        
+        if not log_file_path or not os.path.exists(log_file_path):
+            messages.error(request, _("Файл debug.log не найден"))
+            return HttpResponseRedirect(
+                reverse("admin:main_logstats_changelist")
+            )
+        
+        # Получаем информацию о файле и статистику
+        log_info = get_log_file_info()
+        
+        if request.method == "POST":
+            # Сохраняем изменения
+            new_content = request.POST.get("content", "")
+            
+            try:
+                # Создаем бэкап перед изменением
+                import shutil
+                from datetime import datetime
+                
+                backup_dir = os.path.join(os.path.dirname(log_file_path), "backups")
+                os.makedirs(backup_dir, exist_ok=True)
+                
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                backup_name = f"debug.log.backup_{timestamp}"
+                backup_path = os.path.join(backup_dir, backup_name)
+                shutil.copy2(log_file_path, backup_path)
+                
+                # Сохраняем новое содержимое
+                with open(log_file_path, "w", encoding="utf-8", errors="ignore") as f:
+                    f.write(new_content)
+                
+                messages.success(
+                    request, 
+                    _("Файл debug.log успешно сохранен. Резервная копия создана: {}").format(
+                        os.path.basename(backup_path)
+                    )
+                )
+                
+                # Перенаправляем обратно к редактированию
+                return HttpResponseRedirect(
+                    reverse("admin:main_logstats_edit")
+                )
+            except Exception as e:
+                messages.error(
+                    request, 
+                    _("Ошибка сохранения файла: {}").format(str(e))
+                )
+        
+        # GET запрос - показываем форму редактирования
+        # Читаем содержимое файла
+        file_content = ""
+        try:
+            with open(log_file_path, "r", encoding="utf-8", errors="ignore") as f:
+                file_content = f.read()
+        except Exception as e:
+            messages.error(request, _("Ошибка чтения файла: {}").format(str(e)))
+        
+        context = {
+            "title": _("Редактирование debug.log"),
+            "opts": self.model._meta,
+            "log_info": log_info,
+            "file_content": file_content,
+            "log_file_path": log_file_path,
+        }
+        
+        return render(
+            request,
+            "admin/main/edit_log_file.html",
             context,
         )
