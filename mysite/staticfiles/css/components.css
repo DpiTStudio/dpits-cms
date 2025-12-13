@@ -342,3 +342,8 @@
     transform: translateY(-5px);            /* Смещение вверх */
     box-shadow: var(--box-shadow-lg);        /* Большая тень */
 }
+
+/* Профиль */
+.profile-info {
+    width: 100% !important; /* Ширина блока профиля */
+}

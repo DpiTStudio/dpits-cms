@@ -2075,3 +2075,4 @@ django.core.exceptions.FieldError: Unknown field(s) (logistics) specified for Si
 2025-12-13 13:49:27 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
 2025-12-13 13:49:47 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 51794
 2025-12-13 13:52:53 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 51794
+2025-12-13 14:29:17 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
