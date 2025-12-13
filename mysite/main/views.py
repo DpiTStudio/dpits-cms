@@ -641,3 +641,139 @@ class LogStatsView(MaintenanceMixin, BaseView):
                 messages.error(request, message)  # | Сообщение об ошибке
 
         return self.get(request, *args, **kwargs)  # | Возвращаем GET-ответ
+
+
+class ErrorLogView(MaintenanceMixin, BaseView):
+    """
+    Представление для отображения лог-файла ошибок (error.log).
+    Показывает информацию об error.log и позволяет управлять им.
+
+    Доступно только для суперпользователей (is_superuser).
+    """
+
+    template_name = "main/error_log.html"  # | Шаблон для отображения ошибок
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Проверяет права доступа пользователя.
+        Доступ только для суперпользователей.
+
+        Действия:
+        1. Проверяет is_authenticated и is_superuser
+        2. Если нет прав - перенаправляет на страницу входа
+
+        Параметры:
+            request: Объект HTTP-запроса
+            *args, **kwargs: Дополнительные аргументы
+
+        Возвращает:
+            HttpResponse: Перенаправление или продолжение обработки
+        """
+        if not request.user.is_authenticated or not request.user.is_superuser:
+            from django.contrib.auth.views import redirect_to_login
+            from django.shortcuts import resolve_url
+
+            return redirect_to_login(
+                request.get_full_path(), login_url=resolve_url("accounts:login")
+            )
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """
+        Добавляет данные о error.log в контекст.
+
+        Действия:
+        1. Получает информацию о error.log (размер, количество строк, категории)
+        2. Получает последние строки лога для предпросмотра
+        3. Формирует SEO-данные для страницы
+        4. Добавляет статистику по категориям
+
+        Параметры:
+            **kwargs: Дополнительные аргументы контекста
+
+        Возвращает:
+            dict: Словарь с данными контекста лога ошибок
+        """
+        context = super().get_context_data(**kwargs)
+
+        # Импортируем функции для работы с error.log
+        from .log_utils import (
+            get_error_log_file_info,      # Получение полной информации о файле
+            get_error_log_recent_lines,   # Получение последних строк
+            count_total_lines,            # Подсчет общего количества строк
+            count_lines_by_category       # Подсчет строк по категориям
+        )
+
+        # Получаем полную информацию о error.log
+        # Включает: размер, путь, количество строк, категории, дату изменения
+        log_info = get_error_log_file_info()
+
+        # Получаем последние 100 строк лога для отображения на странице
+        recent_lines = get_error_log_recent_lines(100)
+
+        # Дополнительно получаем статистику напрямую
+        if log_info.get('file_path'):
+            total_lines = count_total_lines(log_info['file_path'])
+            categories = count_lines_by_category(log_info['file_path'])
+        else:
+            total_lines = 0
+            categories = {
+                'ERROR': 0,
+                'WARNING': 0,
+                'INFO': 0,
+                'DEBUG': 0,
+                'OTHER': 0
+            }
+
+        # Формируем SEO-заголовок страницы
+        page_title = "Лог ошибок"
+        site_settings = context.get("site_settings")
+        if site_settings and site_settings.logo_text:
+            # Если есть настройки сайта, добавляем название сайта к заголовку
+            page_title = f"Лог ошибок - {site_settings.logo_text}"
+
+        # Обновляем контекст шаблона данными для отображения
+        context.update(
+            {
+                "log_info": log_info,              # Полная информация о error.log
+                "recent_lines": recent_lines,      # Последние строки лога для предпросмотра
+                "total_lines": total_lines,        # Общее количество строк (для удобства)
+                "categories": categories,          # Счетчики по категориям (для удобства)
+                "page_title": page_title,          # Заголовок страницы для <title>
+                "meta_description": "Просмотр и управление лог-файлом ошибок системы. Статистика по категориям (ERROR, WARNING, INFO, DEBUG), очистка логов.",
+            }
+        )
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """
+        Обрабатывает POST-запросы для управления error.log.
+        Поддерживает очистку лог-файла с подтверждением.
+
+        Действия:
+        1. Получает действие из POST-данных
+        2. Если action == "clear_log" - очищает error.log
+        3. Добавляет сообщение об успехе/ошибке
+        4. Возвращает ответ GET
+
+        Параметры:
+            request: Объект HTTP-запроса
+            *args, **kwargs: Дополнительные аргументы
+
+        Возвращает:
+            HttpResponse: Ответ с рендером страницы лога ошибок
+        """
+        from .log_utils import clear_error_log_file
+        from django.contrib import messages
+
+        action = request.POST.get("action")  # | Получаем тип действия
+
+        if action == "clear_log":
+            success, message = clear_error_log_file()  # | Очищаем error.log
+            if success:
+                messages.success(request, message)  # | Сообщение об успехе
+            else:
+                messages.error(request, message)  # | Сообщение об ошибке
+
+        return self.get(request, *args, **kwargs)  # | Возвращаем GET-ответ

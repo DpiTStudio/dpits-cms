@@ -244,6 +244,18 @@ JAZZMIN_SETTINGS = {
             "new_tab": True,  # Открывать в новой вкладке
             "icon": "fas fa-external-link-alt",
         },
+        {
+            "name": "Статистика логов",
+            "url": "/log-stats/",
+            "new_tab": True,  # Открывать в новой вкладке
+            "icon": "fas fa-chart-line",
+        },
+        {
+            "name": "Лог ошибок",
+            "url": "/error-log/",
+            "new_tab": True,  # Открывать в новой вкладке
+            "icon": "fas fa-exclamation-triangle",
+        },
     ],
     "show_sidebar": True,  # Показывать боковую панель
     "order_with_respect_to": [  # Порядок приложений в меню

@@ -464,3 +464,251 @@ def _create_backup(log_file_path):
         error_message = f"Ошибка создания резервной копии: {str(e)}"
         logger.error(error_message)
         return None, error_message
+
+
+# =============================================================================
+# ФУНКЦИИ ДЛЯ РАБОТЫ С ERROR.LOG
+# =============================================================================
+
+def get_error_log_file_path():
+    """
+    Получает абсолютный путь к файлу error.log.
+    
+    Проверяет стандартное расположение логов в Django проекте:
+    - BASE_DIR/logs/error.log (стандартный путь)
+    - BASE_DIR/mysite/logs/error.log (альтернативный путь)
+    - Если директория не существует, создает её
+    - Если файл не существует, создает пустой файл
+    
+    Возвращает:
+        str или None: Абсолютный путь к файлу error.log или None при ошибке
+    """
+    # Получаем стандартный путь к директории логов (BASE_DIR/logs)
+    log_dir_standard = os.path.join(settings.BASE_DIR, "logs")
+    
+    # Альтернативный путь (mysite/logs) для совместимости
+    log_dir_custom = os.path.join(settings.BASE_DIR, "mysite", "logs")
+    
+    # Определяем, какой путь использовать
+    log_dir = None
+    if os.path.exists(log_dir_standard):
+        # Если стандартный путь существует, используем его
+        log_dir = log_dir_standard
+    elif os.path.exists(log_dir_custom):
+        # Если альтернативный путь существует, используем его
+        log_dir = log_dir_custom
+    else:
+        # Если ни один путь не существует, создаем стандартный
+        log_dir = log_dir_standard
+    
+    # Создаем директорию для логов, если она не существует
+    if not os.path.exists(log_dir):
+        try:
+            # Создаем директорию со всеми необходимыми родительскими папками
+            os.makedirs(log_dir, exist_ok=True)
+            logger.info(f"Создана директория логов: {log_dir}")
+        except Exception as e:
+            # В случае ошибки логируем и возвращаем None
+            logger.error(f"Ошибка создания директории логов: {e}")
+            return None
+    
+    # Формируем полный путь к файлу error.log
+    log_file = os.path.join(log_dir, "error.log")
+    
+    # Если файл не существует, создаем пустой файл
+    if not os.path.exists(log_file):
+        try:
+            # Открываем файл в режиме записи и создаем начальную запись
+            with open(log_file, "w", encoding="utf-8") as f:
+                f.write(
+                    f"Лог-файл ошибок создан: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+                )
+            logger.info(f"Создан пустой лог-файл ошибок: {log_file}")
+        except Exception as e:
+            # В случае ошибки логируем и возвращаем None
+            logger.error(f"Ошибка создания лог-файла ошибок: {e}")
+            return None
+    
+    # Возвращаем полный путь к файлу
+    return log_file
+
+
+def get_error_log_file_info(log_file_path=None):
+    """
+    Получает полную информацию о файле error.log.
+    
+    Собирает метаданные файла:
+    - Существование файла
+    - Размер файла (в байтах и в читаемом формате)
+    - Общее количество строк
+    - Количество строк по категориям (ERROR, WARNING, INFO, DEBUG, OTHER)
+    - Дата последнего изменения
+    - Полный путь к файлу
+    
+    Параметры:
+        log_file_path (str, optional): Путь к лог-файлу.
+                                      Если не указан, используется стандартный путь к error.log.
+    
+    Возвращает:
+        dict: Словарь с информацией о файле:
+            {
+                'exists': bool,
+                'file_path': str,
+                'file_size': int,
+                'file_size_human': str,
+                'total_lines': int,
+                'categories': dict,
+                'last_modified': str или None
+            }
+    """
+    # Если путь не указан, получаем стандартный путь к error.log
+    if log_file_path is None:
+        log_file_path = get_error_log_file_path()
+    
+    # Инициализируем базовую структуру данных
+    info = {
+        'exists': False,           # Флаг существования файла
+        'file_path': log_file_path or '',  # Путь к файлу
+        'file_size': 0,            # Размер файла в байтах
+        'file_size_human': '0 B',  # Размер файла в читаемом формате
+        'total_lines': 0,          # Общее количество строк
+        'categories': {            # Счетчики по категориям
+            'ERROR': 0,
+            'WARNING': 0,
+            'INFO': 0,
+            'DEBUG': 0,
+            'OTHER': 0
+        },
+        'last_modified': None      # Дата последнего изменения
+    }
+    
+    # Проверяем существование файла
+    if not log_file_path or not os.path.exists(log_file_path):
+        return info  # Если файла нет, возвращаем базовую информацию
+    
+    try:
+        # Получаем информацию о файле с помощью os.stat
+        stat_info = os.stat(log_file_path)
+        
+        # Заполняем данные о файле
+        info['exists'] = True                      # Файл существует
+        info['file_size'] = stat_info.st_size      # Размер файла в байтах
+        
+        # Преобразуем размер в читаемый формат (KB, MB, GB)
+        info['file_size_human'] = _format_file_size(stat_info.st_size)
+        
+        # Получаем дату последнего изменения
+        mtime = datetime.fromtimestamp(stat_info.st_mtime)
+        # Преобразуем в aware datetime для Django
+        info['last_modified'] = timezone.make_aware(mtime)
+        
+        # Подсчитываем общее количество строк
+        info['total_lines'] = count_total_lines(log_file_path)
+        
+        # Подсчитываем строки по категориям
+        info['categories'] = count_lines_by_category(log_file_path)
+        
+        # Возвращаем полную информацию о файле
+        return info
+    
+    except Exception as e:
+        # В случае ошибки логируем и возвращаем базовую информацию
+        logger.error(f"Ошибка получения информации о error.log: {e}")
+        return info
+
+
+def get_error_log_recent_lines(count=50, log_file_path=None):
+    """
+    Получает последние N строк из файла error.log.
+    
+    Читает файл и возвращает указанное количество последних строк.
+    Полезно для отображения последних записей в интерфейсе.
+    
+    Параметры:
+        count (int): Количество последних строк для возврата (по умолчанию 50)
+        log_file_path (str, optional): Путь к лог-файлу.
+                                      Если не указан, используется стандартный путь к error.log.
+    
+    Возвращает:
+        list: Список строк (последние N строк файла)
+    """
+    # Если путь не указан, получаем стандартный путь к error.log
+    if log_file_path is None:
+        log_file_path = get_error_log_file_path()
+    
+    # Проверяем существование файла
+    if not log_file_path or not os.path.exists(log_file_path):
+        return []  # Если файла нет, возвращаем пустой список
+    
+    try:
+        # Открываем файл в режиме чтения с кодировкой UTF-8
+        with open(log_file_path, "r", encoding="utf-8", errors="ignore") as f:
+            # Читаем все строки из файла
+            lines = f.readlines()
+            
+            # Берем последние N строк (или все, если строк меньше N)
+            recent_lines = lines[-count:] if len(lines) > count else lines
+            
+            # Убираем символы переноса строки в конце каждой строки
+            recent_lines = [line.rstrip('\n\r') for line in recent_lines]
+            
+            # Возвращаем список последних строк
+            return recent_lines
+    
+    except Exception as e:
+        # В случае ошибки логируем и возвращаем пустой список
+        logger.error(f"Ошибка чтения последних строк error.log: {e}")
+        return []
+
+
+def clear_error_log_file(log_file_path=None, create_backup=True):
+    """
+    Очищает содержимое файла error.log.
+    
+    Перед очисткой может создать резервную копию файла.
+    После очистки файл остается существующим, но становится пустым.
+    
+    Параметры:
+        log_file_path (str, optional): Путь к лог-файлу.
+                                      Если не указан, используется стандартный путь к error.log.
+        create_backup (bool): Создавать ли резервную копию перед очисткой (по умолчанию True)
+    
+    Возвращает:
+        tuple: (success: bool, message: str)
+            success - успешность операции
+            message - текстовое сообщение о результате
+    """
+    # Если путь не указан, получаем стандартный путь к error.log
+    if log_file_path is None:
+        log_file_path = get_error_log_file_path()
+    
+    # Проверяем существование файла
+    if not log_file_path or not os.path.exists(log_file_path):
+        return False, "Лог-файл ошибок не найден"  # Возвращаем ошибку
+    
+    try:
+        # Создаем резервную копию перед очисткой (если включено)
+        if create_backup:
+            backup_path, backup_message = _create_backup(log_file_path)
+            if not backup_path:
+                # Если не удалось создать бэкап, можно продолжить или прервать
+                # В данном случае продолжаем, но предупреждаем
+                logger.warning(f"Не удалось создать резервную копию: {backup_message}")
+        
+        # Очищаем файл, открывая его в режиме записи и записывая пустую строку
+        with open(log_file_path, "w", encoding="utf-8") as f:
+            # Записываем строку с информацией о времени очистки
+            f.write(f"Лог-файл ошибок очищен: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        
+        # Возвращаем успешный результат
+        message = "Лог-файл ошибок успешно очищен"
+        if create_backup and backup_path:
+            message += f". Резервная копия создана: {backup_path}"
+        
+        return True, message
+    
+    except Exception as e:
+        # В случае ошибки логируем и возвращаем ошибку
+        error_message = f"Ошибка очистки error.log: {str(e)}"
+        logger.error(error_message)
+        return False, error_message

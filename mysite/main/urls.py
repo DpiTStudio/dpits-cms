@@ -58,4 +58,7 @@ urlpatterns = [
     # Статистика логов
     path("log-stats/", views.LogStatsView.as_view(), name="log_stats"),
     # Страница статистики логов (только для администраторов)
+    # Лог ошибок
+    path("error-log/", views.ErrorLogView.as_view(), name="error_log"),
+    # Страница просмотра error.log (только для суперпользователей)
 ]

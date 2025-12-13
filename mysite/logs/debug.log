@@ -4,3 +4,27 @@
 2025-12-13 15:38:09 [WARNING] django.server:213 log_message() | "GET /accounts/logout/ HTTP/1.1" 405 0
 2025-12-13 15:38:19 [INFO] django.server:213 log_message() | "GET /log-stats/ HTTP/1.1" 200 67511
 2025-12-13 15:38:52 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-13 15:38:53 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-13 16:03:51 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 16:04:04 [INFO] django.server:213 log_message() | "GET /log-stats/ HTTP/1.1" 200 68525
+2025-12-13 16:04:04 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-13 16:08:06 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\log_utils.py changed, reloading.
+2025-12-13 16:08:13 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 16:08:40 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\views.py changed, reloading.
+2025-12-13 16:08:48 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 16:10:36 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-13 16:10:45 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 16:10:51 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-13 16:11:00 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 16:11:05 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-13 16:11:05 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 304 0
+2025-12-13 16:11:12 [INFO] django.server:213 log_message() | "GET /accounts/profile/ HTTP/1.1" 200 47786
+2025-12-13 16:11:34 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46383
+2025-12-13 16:11:40 [INFO] django.server:213 log_message() | "GET /log-stats/ HTTP/1.1" 200 72227
+2025-12-13 16:11:48 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46383
+2025-12-13 16:11:51 [INFO] django.server:213 log_message() | "GET /error-log/ HTTP/1.1" 200 88005
+2025-12-13 16:12:20 [INFO] django.server:213 log_message() | "POST /error-log/ HTTP/1.1" 200 67074
+2025-12-13 16:12:55 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46368
+2025-12-13 16:13:10 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46368
+2025-12-13 16:14:36 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-13 16:14:43 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
