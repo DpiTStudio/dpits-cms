@@ -2,5 +2,5 @@
 {
   "git.logLevel": "error",
   "git.verbose": false,
-  "CodeGPT.apiKey": "Gemini CLI"
+  "CodeGPT.apiKey": "Ollama"
 }

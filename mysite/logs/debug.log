@@ -143,3 +143,37 @@
 2025-12-13 21:50:37 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
 2025-12-13 21:50:40 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 50602
 2025-12-13 21:50:40 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-14 23:20:30 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-14 23:20:43 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-14 23:20:43 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-14 23:20:44 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-14 23:20:44 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 304 0
+2025-12-14 23:20:44 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 304 0
+2025-12-14 23:20:44 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 304 0
+2025-12-15 00:15:19 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50429
+2025-12-15 00:15:20 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-15 00:15:20 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-15 00:15:20 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-12-15 00:15:21 [INFO] django.server:213 log_message() | "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+2025-12-15 11:53:10 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 21346
+2025-12-15 11:53:11 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-15 11:53:11 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-15 11:53:11 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 304 0
+2025-12-15 11:53:11 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/images/logo.png HTTP/1.1" 200 100655
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+2025-12-15 11:53:13 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_list.js HTTP/1.1" 304 0
+2025-12-15 11:53:17 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+2025-12-15 11:53:17 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
