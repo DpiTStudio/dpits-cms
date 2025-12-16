@@ -610,3 +610,4 @@
 2025-12-16 21:35:53 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
 2025-12-16 21:35:53 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
 2025-12-16 21:36:12 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 24496
+2025-12-16 23:27:19 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
