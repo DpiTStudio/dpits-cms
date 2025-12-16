@@ -1,3 +1,11 @@
+/* Основные стили для карточек новостей */
+.card-news-link {
+    width: 100% !important;
+    text-align: center;
+    padding: 10px !important;
+    margin: 10% !important;
+}
+
 /* Стили для карточек новостей */
 .news-card {
     transition: transform 0.3s ease;
@@ -6,12 +14,13 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 60px !important;
 }
 
 .news-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    text-decoration: none;
 }
 
 .news-card .card-img-top {

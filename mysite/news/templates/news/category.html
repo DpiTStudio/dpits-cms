@@ -15,133 +15,133 @@
 
 {% block content %}
 <section class="main-content">
-  <div class="container-fluid py-5">
-    <!-- Блок категорий под шапкой -->
-    <div class="row mb-4">
-      <div class="col-12">
-        <div class="categories-header">
-          <h6 class="mb-3">Категории новостей:</h6>
-          <div class="d-flex flex-wrap gap-2">
-            {% for cat in categories %}
-            <a href="{% url 'news:category' cat.slug %}" 
-               class="btn btn-outline-primary btn-sm {% if cat.slug == category.slug %}active{% endif %}">
-              {{ cat.name }}
-            </a>
-            {% empty %}
-            <span class="text-muted">Категорий пока нет</span>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-        <!-- Основной контент -->
-        <div class="col-lg-9">
-            <!-- Заголовок категории -->
-            <h1 class="mb-4">{{ category.name }}</h1>
-            
-            <!-- Описание категории -->
-            {% if category.description %}
-            <div class="mb-4">
-                {{ category.description|safe }}
+    <div class="container-fluid py-5">
+        <!-- Блок категорий под шапкой -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="categories-header">
+                    <h6 class="mb-3"><i>Категории новостей:</i></h6>
+                    <div class="d-flex flex-wrap mt-4 gap-2">
+                        {% for cat in categories %}
+                        <a href="{% url 'news:category' cat.slug %}"
+                            class="card-news-link btn btn-outline-primary {% if cat.slug == category.slug %}active{% endif %}">
+                            {{ forloop.counter }} - {{ cat.name }} [ {{ cat.news_set.count }} ]
+                        </a>
+                        {% empty %}
+                        <span class="text-muted">Категорий пока нет</span>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-            {% endif %}
+        </div>
 
-            <!-- Список новостей -->
-            <div class="row">
-                {% for news_item in news_list %}
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100 news-card">
-                        {% if news_item.image %}
-                        <img src="{{ news_item.image.url }}" class="card-img-top" 
-                              alt="{{ news_item.title }}" style="height: 200px; object-fit: cover;">
-                        {% endif %}
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ news_item.title }}</h5>
-                            <p class="card-text flex-grow-1">
-                                {{ news_item.short_description|striptags|truncatewords:20 }}
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <small class="text-muted">{{ news_item.created_at|date:"d.m.Y" }}</small>
-                                <a href="{% url 'news:detail' news_item.slug %}" 
-                                    class="btn btn-sm btn-outline-primary">Читать</a>
+        <div class="row">
+            <!-- Основной контент -->
+            <div class="col-lg-9">
+                <!-- Заголовок категории -->
+                <h1 class="mb-4">{{ category.name }}</h1>
+
+                <!-- Описание категории -->
+                {% if category.description %}
+                <div class="mb-4">
+                    {{ category.description|safe }}
+                </div>
+                {% endif %}
+
+                <!-- Список новостей -->
+                <div class="row">
+                    {% for news_item in news_list %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 news-card">
+                            {% if news_item.image %}
+                            <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}"
+                                style="height: 200px; object-fit: cover;">
+                            {% endif %}
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ news_item.title }}</h5>
+                                <p class="card-text flex-grow-1">
+                                    {{ news_item.short_description|striptags|truncatewords:20 }}
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center mt-auto">
+                                    <small class="text-muted">{{ news_item.created_at|date:"d.m.Y" }}</small>
+                                    <a href="{% url 'news:detail' news_item.slug %}"
+                                        class="btn btn-sm btn-outline-primary">Читать</a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <!-- Сообщение, если новостей нет -->
+                    <div class="col-12 text-center py-5">
+                        <p class="h5 text-muted">В этой категории пока нет новостей</p>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% empty %}
-                <!-- Сообщение, если новостей нет -->
-                <div class="col-12 text-center py-5">
-                    <p class="h5 text-muted">В этой категории пока нет новостей</p>
-                </div>
-                {% endfor %}
+
+                <!-- Пагинация -->
+                {% if news_list.has_other_pages %}
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <!-- Кнопка "Назад" -->
+                        {% if news_list.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ news_list.previous_page_number }}">&laquo;</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">&laquo;</span>
+                        </li>
+                        {% endif %}
+
+                        <!-- Номера страниц -->
+                        {% for i in news_list.paginator.page_range %}
+                        {% if news_list.number == i %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ i }}</span>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+                        <!-- Кнопка "Вперед" -->
+                        {% if news_list.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ news_list.next_page_number }}">&raquo;</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">&raquo;</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
             </div>
 
-            <!-- Пагинация -->
-            {% if news_list.has_other_pages %}
-            <nav aria-label="Page navigation" class="mt-4">
-                <ul class="pagination justify-content-center">
-                    <!-- Кнопка "Назад" -->
-                    {% if news_list.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ news_list.previous_page_number }}">&laquo;</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <span class="page-link">&laquo;</span>
-                    </li>
-                    {% endif %}
-
-                    <!-- Номера страниц -->
-                    {% for i in news_list.paginator.page_range %}
-                    {% if news_list.number == i %}
-                    <li class="page-item active">
-                        <span class="page-link">{{ i }}</span>
-                    </li>
-                    {% else %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                    </li>
-                    {% endif %}
-                    {% endfor %}
-
-                    <!-- Кнопка "Вперед" -->
-                    {% if news_list.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ news_list.next_page_number }}">&raquo;</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <span class="page-link">&raquo;</span>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav>
-            {% endif %}
-        </div>
-
-        <!-- Сайдбар -->
-        <div class="col-lg-3">
-            <!-- Категории -->
-            <div class="card">
-                <div class="card-header bg-secondary text-white">
-                    <h6 class="mb-0">Категории</h6>
-                </div>
-                <div class="card-body">
-                    {% for cat in categories %}
-                    <div class="mb-2">
-                        <a href="{% url 'news:category' cat.slug %}">
-                            {{ cat.name }}
-                        </a>
+            <!-- Сайдбар -->
+            <div class="col-lg-3">
+                <!-- Категории -->
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        <h6 class="mb-0">Категории</h6>
                     </div>
-                    {% empty %}
-                    <p class="text-muted small">Категорий пока нет</p>
-                    {% endfor %}
+                    <div class="card-body">
+                        {% for cat in categories %}
+                        <div class="mb-2">
+                            <a href="{% url 'news:category' cat.slug %}">
+                                {{ cat.name }}
+                            </a>
+                        </div>
+                        {% empty %}
+                        <p class="text-muted small">Категорий пока нет</p>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
 </section>
 {% endblock %}
