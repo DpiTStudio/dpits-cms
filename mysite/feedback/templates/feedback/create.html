@@ -1,0 +1,176 @@
+<!-- feedback/templates/feedback/create.html -->
+<!-- Шаблон для создания нового сообщения обратной связи -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}Обратная связь
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="mb-4">
+                <i class="fas fa-envelope me-2"></i>Обратная связь
+            </h1>
+            
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                Заполните форму ниже, и мы свяжемся с вами в ближайшее время. 
+                Все поля обязательны для заполнения.
+            </div>
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Пожалуйста, исправьте ошибки ниже.
+                        </div>
+                        {% endif %}
+
+                        <!-- Поле темы -->
+                        <div class="mb-3">
+                            <label for="{{ form.subject.id_for_label }}" class="form-label fw-bold">
+                                <i class="fas fa-tag me-2"></i>{{ form.subject.label }}
+                            </label>
+                            {{ form.subject }}
+                            {% if form.subject.help_text %}
+                            <small class="form-text text-muted">{{ form.subject.help_text }}</small>
+                            {% endif %}
+                            {% if form.subject.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.subject.errors %}
+                                <small><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Поле email -->
+                        <div class="mb-3">
+                            <label for="{{ form.email.id_for_label }}" class="form-label fw-bold">
+                                <i class="fas fa-envelope me-2"></i>{{ form.email.label }}
+                            </label>
+                            {{ form.email }}
+                            {% if form.email.help_text %}
+                            <small class="form-text text-muted">{{ form.email.help_text }}</small>
+                            {% endif %}
+                            {% if form.email.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.email.errors %}
+                                <small><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Поле сообщения -->
+                        <div class="mb-3">
+                            <label for="{{ form.message.id_for_label }}" class="form-label fw-bold">
+                                <i class="fas fa-comment-alt me-2"></i>{{ form.message.label }}
+                            </label>
+                            {{ form.message }}
+                            {% if form.message.help_text %}
+                            <small class="form-text text-muted">{{ form.message.help_text }}</small>
+                            {% endif %}
+                            {% if form.message.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.message.errors %}
+                                <small><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Поле капчи -->
+                        <div class="mb-4">
+                            <label for="{{ form.captcha.id_for_label }}" class="form-label fw-bold">
+                                <i class="fas fa-shield-alt me-2"></i>{{ form.captcha.label }}
+                            </label>
+                            <div class="captcha-wrapper">
+                                {{ form.captcha }}
+                            </div>
+                            {% if form.captcha.help_text %}
+                            <small class="form-text text-muted">{{ form.captcha.help_text }}</small>
+                            {% endif %}
+                            {% if form.captcha.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.captcha.errors %}
+                                <small><i class="fas fa-exclamation-circle me-1"></i>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Кнопки действий -->
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Отправить сообщение
+                            </button>
+                            <a href="{% url 'feedback:list' %}" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-list me-2"></i>Мои сообщения
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-question-circle me-2"></i>Часто задаваемые вопросы
+                        </h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                <strong>Как быстро я получу ответ?</strong> Мы стараемся отвечать в течение 24 часов.
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                <strong>На какой email придет ответ?</strong> Ответ будет отправлен на указанный вами email.
+                            </li>
+                            <li class="mb-0">
+                                <i class="fas fa-check text-success me-2"></i>
+                                <strong>Могу ли я отследить статус сообщения?</strong> Да, все ваши сообщения доступны в разделе "Мои сообщения".
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .captcha-wrapper {
+        margin: 15px 0;
+    }
+    
+    .captcha-wrapper img {
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        padding: 5px;
+        background: #f8f9fa;
+    }
+    
+    .captcha-wrapper input {
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
+

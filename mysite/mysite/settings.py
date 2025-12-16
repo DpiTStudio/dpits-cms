@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "jazzmin",  # Улучшенная админ-панель
     "django_ckeditor_5",  # Расширенный текстовый редактор
     "django_cleanup",  # Автоматическое удаление неиспользуемых файлов
+    "captcha",  # Капча для защиты от спама
     # Встроенные приложения Django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -62,6 +63,7 @@ INSTALLED_APPS = [
     "portfolio.apps.PortfolioConfig",  # Портфолио
     "reviews.apps.ReviewsConfig",  # Отзывы
     "accounts.apps.AccountsConfig",  # Аккаунты пользователей
+    "feedback.apps.FeedbackConfig",  # Обратная связь
     # "files.apps.FilesConfig",  # Управление файлами
 ]
 
@@ -213,6 +215,7 @@ JAZZMIN_SETTINGS = {
         {"app": "portfolio", "label": "Портфолио", "icon": "fas fa-briefcase"},
         {"app": "reviews", "label": "Отзывы", "icon": "fas fa-star"},
         {"app": "accounts", "label": "Аккаунты", "icon": "fas fa-users"},
+        {"app": "feedback", "label": "Обратная связь", "icon": "fas fa-envelope"},
         {"app": "files", "label": "Файлы", "icon": "fas fa-file"},
         {
             "app": "auth",
@@ -264,6 +267,7 @@ JAZZMIN_SETTINGS = {
         "portfolio",
         "reviews",
         "accounts",
+        "feedback",
         "files",
         "auth",
     ],
@@ -276,6 +280,7 @@ JAZZMIN_SETTINGS = {
         "portfolio.Project": "fas fa-briefcase",
         "reviews.Review": "fas fa-star",
         "accounts.User": "fas fa-user-circle",
+        "feedback.FeedbackMessage": "fas fa-envelope",
     },
 }
 
@@ -476,19 +481,23 @@ CKEDITOR_5_FILE_UPLOAD_PERMISSIONS = 0o644  # Права для загружае
 SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Использование БД для сессий
 
 # =============================================================================
-# НАСТРОЙКИ ЭЛЕКТРОННОЙ ПОЧТЫ (ЗАКОММЕНТИРОВАНЫ)
+# НАСТРОЙКИ ЭЛЕКТРОННОЙ ПОЧТЫ
 # =============================================================================
 
-# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-# # Для разработки
+# Для разработки: письма выводятся в консоль
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Для продакшена: раскомментируйте следующие строки и настройте SMTP
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# # Для продакшена
 # EMAIL_HOST = "smtp.yandex.ru"
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = "noreply@yourdomain.com"
 # EMAIL_HOST_PASSWORD = "your_password"
 # DEFAULT_FROM_EMAIL = "noreply@yourdomain.com"
+
+# Email администратора для уведомлений (можно переопределить в SiteSettings)
+ADMIN_EMAIL = None  # Если None, будет использован email из SiteSettings или первого суперпользователя
 
 # =============================================================================
 # НАСТРОЙКИ ЛОГИРОВАНИЯ
@@ -581,3 +590,18 @@ LOGGING = {
 # SECURE_HSTS_PRELOAD = True
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
+
+# =============================================================================
+# НАСТРОЙКИ КАПЧИ (django-simple-captcha)
+# =============================================================================
+
+# Настройки капчи для защиты от спама
+CAPTCHA_CHALLENGE_FUNCT = "captcha.helpers.random_char_challenge"  # Функция генерации капчи
+CAPTCHA_LENGTH = 4  # Длина капчи (количество символов)
+CAPTCHA_TIMEOUT = 5  # Время жизни капчи в минутах
+CAPTCHA_NOISE_FUNCTIONS = (
+    "captcha.helpers.noise_arcs",  # Добавление дуг для усложнения
+    "captcha.helpers.noise_dots",  # Добавление точек для усложнения
+)
+CAPTCHA_FONT_SIZE = 40  # Размер шрифта капчи
+CAPTCHA_IMAGE_SIZE = (120, 50)  # Размер изображения капчи (ширина, высота)

@@ -19,11 +19,13 @@ from django.conf.urls.static import (
 urlpatterns = [
     path("admin/", admin.site.urls),  # Маршрут для админ-панели
     path("ckeditor5/", include("django_ckeditor_5.urls")),  # Маршруты для CKEditor 5
+    path("captcha/", include("captcha.urls")),  # Маршруты для капчи
     path("", include("main.urls")),  # Главная страница и основные маршруты
     path("news/", include("news.urls")),  # Маршруты для новостей
     path("portfolio/", include("portfolio.urls")),  # Маршруты для портфолио
     path("reviews/", include("reviews.urls")),  # Маршруты для отзывов
     path("accounts/", include("accounts.urls")),  # Маршруты для аккаунтов пользователей
+    path("feedback/", include("feedback.urls")),  # Маршруты для обратной связи
     # path("files/", include("files.urls")),  # Маршруты для управления файлами
 ]
 
