@@ -383,7 +383,13 @@
     <!-- Список приложений админки -->
     {% if app_list %}
     <hr class="mt-4 mb-3" />
-    <h2 class="mb-3">{% trans "Управление данными" %}</h2>
+      <div class="dashboard-title">
+          <span class="dashboard-title-icon">
+              <i class="fas fa-database"></i>
+          </span>
+          <span> {% trans "Управление данными" %}</span>
+      </div>
+    <hr class="mt-4 mb-3" />
     <div class="row">
         {% for app in app_list %}
         <div class="col-lg-4 col-md-6 mb-3">
@@ -430,8 +436,13 @@
 
     {% if admin_stats %}
     <hr class="mt-4 mb-3" />
-    <h2 class="mb-3">{% trans "Системные логи" %}</h2>
-
+      <div class="dashboard-title">
+          <span class="dashboard-title-icon">
+              <i class="fa fa-address-card"></i>
+          </span>
+          <span> {% trans "Системные логи" %}</span>
+      </div>
+    <hr class="mt-4 mb-3" />
     <div class="row">
         <!-- Логи debug.log -->
         <div class="col-md-6 mb-3">

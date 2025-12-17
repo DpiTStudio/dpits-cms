@@ -962,3 +962,16 @@ tz
 2025-12-17 18:02:06 [INFO] django.server:213 log_message() | "GET /static/css/forms.css HTTP/1.1" 200 0
 2025-12-17 18:20:10 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 51817
 2025-12-17 18:20:10 [INFO] django.server:213 log_message() | "GET /static/css/styles.css HTTP/1.1" 200 175
+2025-12-17 19:13:48 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 19:13:53 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53520
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-17 19:24:46 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53581
+2025-12-17 19:26:09 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53692
+2025-12-17 19:27:46 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53852
+2025-12-17 19:28:50 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53910
