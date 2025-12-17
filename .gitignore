@@ -7,6 +7,7 @@
 # Прочие директории
 prompts/
 work_filer/
+mysite/logs/
 mysite/logs/debug.log
 mysite/logs/error.log
 mysite/logs/backups/
