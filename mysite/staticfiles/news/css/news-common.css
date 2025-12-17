@@ -1,3 +1,11 @@
+/* Основные стили для карточек новостей */
+.card-news-link {
+    width: 100% !important;
+    text-align: center;
+    padding: 10px !important;
+    margin: 10% !important;
+}
+
 /* Общие стили для страниц новостей */
 .news-content {
     line-height: 1.6;
