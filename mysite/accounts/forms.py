@@ -4,12 +4,14 @@ from django.contrib.auth.forms import (
     UserCreationForm,
     UserChangeForm,
     PasswordChangeForm,
+    AuthenticationForm,
 )
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 import re
 
 from .models import UserProfile, Ticket, TicketResponse
+from captcha.fields import CaptchaField
 
 
 class UserRegisterForm(UserCreationForm):
@@ -41,6 +43,13 @@ class UserRegisterForm(UserCreationForm):
             "required": "Имя пользователя обязательно",
             "unique": "Пользователь с таким именем уже существует",
         },
+    )
+
+    captcha = CaptchaField(
+        error_messages={
+            "invalid": "Неверно введена капча. Попробуйте еще раз.",
+            "required": "Подтвердите, что вы не робот.",
+        }
     )
 
     class Meta:
@@ -80,6 +89,44 @@ class UserRegisterForm(UserCreationForm):
         if len(username) < 3:
             raise ValidationError("Имя пользователя должно содержать минимум 3 символа")
         return username
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    """
+    Форма аутентификации с дополнительной капчей.
+    """
+
+    captcha = CaptchaField(
+        error_messages={
+            "invalid": "Неверно введена капча. Попробуйте еще раз.",
+            "required": "Подтвердите, что вы не робот.",
+        }
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Добавляем CSS-классы и плейсхолдеры для полей логина и пароля
+        self.fields["username"].widget.attrs.update(
+            {
+                "class": "form-control",
+                "placeholder": "Введите имя пользователя или email",
+                "autocomplete": "username",
+            }
+        )
+        self.fields["password"].widget.attrs.update(
+            {
+                "class": "form-control",
+                "placeholder": "Введите ваш пароль",
+                "autocomplete": "current-password",
+            }
+        )
+        # Немного стилизации для капчи
+        self.fields["captcha"].widget.attrs.update(
+            {
+                "class": "form-control",
+                "placeholder": "Введите символы с картинки",
+            }
+        )
 
 
 class UserUpdateForm(forms.ModelForm):

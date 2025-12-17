@@ -15,14 +15,14 @@
             <div class="col-lg-4 col-md-6 mb-4">
                 <!-- Заголовок с названием бренда и жирным шрифтом -->
                 <h5 class="footer-content-2 mb-3">
-                  {{ site_settings.logo_text }}
+                    {{ site_settings.logo_text }}
                 </h5>
                 <!-- Краткое описание сайта с безопасным выводом HTML -->
                 <span class="footer-content-1">
-                  {{ site_settings.short_description|safe }}
+                    {{ site_settings.short_description|safe }}
                 </span>
             </div>
-            
+
             <!-- Колонка с контактами - 4 колонки на больших экранах, 6 на средних -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <!-- Заголовок секции контактов -->
@@ -31,43 +31,43 @@
                 <div class="d-flex flex-column gap-2">
                     <!-- Условная проверка наличия первого телефона -->
                     {% if site_settings.phone1 %}
-                        <!-- Контейнер для телефона с горизонтальным выравниванием -->
-                        <div class="d-flex align-items-center">
-                            <!-- Иконка телефона с отступом справа и основным цветом -->
-                            <i class="fas fa-phone me-2 text-primary"></i>
-                            <!-- Ссылка на телефон с белым текстом и без подчеркивания -->
-                            <a href="tel:{{ site_settings.phone1 }}" class="text-white text-decoration-none">
-                                {{ site_settings.phone1 }}
-                            </a>
-                        </div>
+                    <!-- Контейнер для телефона с горизонтальным выравниванием -->
+                    <div class="d-flex align-items-center">
+                        <!-- Иконка телефона с отступом справа и основным цветом -->
+                        <i class="fas fa-phone me-2 text-primary"></i>
+                        <!-- Ссылка на телефон с белым текстом и без подчеркивания -->
+                        <a href="tel:{{ site_settings.phone1 }}" class="text-white text-decoration-none">
+                            {{ site_settings.phone1 }}
+                        </a>
+                    </div>
                     {% endif %}
                     <!-- Условная проверка наличия второго телефона -->
                     {% if site_settings.phone2 %}
-                        <!-- Контейнер для второго телефона с горизонтальным выравниванием -->
-                        <div class="d-flex align-items-center">
-                            <!-- Иконка телефона с отступом справа и основным цветом -->
-                            <i class="fas fa-phone me-2 text-primary"></i>
-                            <!-- Ссылка на второй телефон с белым текстом и без подчеркивания -->
-                            <a href="tel:{{ site_settings.phone2 }}" class="text-white text-decoration-none">
-                                {{ site_settings.phone2 }}
-                            </a>
-                        </div>
+                    <!-- Контейнер для второго телефона с горизонтальным выравниванием -->
+                    <div class="d-flex align-items-center">
+                        <!-- Иконка телефона с отступом справа и основным цветом -->
+                        <i class="fas fa-phone me-2 text-primary"></i>
+                        <!-- Ссылка на второй телефон с белым текстом и без подчеркивания -->
+                        <a href="tel:{{ site_settings.phone2 }}" class="text-white text-decoration-none">
+                            {{ site_settings.phone2 }}
+                        </a>
+                    </div>
                     {% endif %}
                     <!-- Условная проверка наличия email -->
                     {% if site_settings.email %}
-                        <!-- Контейнер для email с горизонтальным выравниванием -->
-                        <div class="d-flex align-items-center">
-                            <!-- Иконка конверта с отступом справа и основным цветом -->
-                            <i class="fas fa-envelope me-2 text-primary"></i>
-                            <!-- Ссылка на email с белым текстом и без подчеркивания -->
-                            <a href="mailto:{{ site_settings.email }}" class="text-white text-decoration-none">
-                                {{ site_settings.email }}
-                            </a>
-                        </div>
+                    <!-- Контейнер для email с горизонтальным выравниванием -->
+                    <div class="d-flex align-items-center">
+                        <!-- Иконка конверта с отступом справа и основным цветом -->
+                        <i class="fas fa-envelope me-2 text-primary"></i>
+                        <!-- Ссылка на email с белым текстом и без подчеркивания -->
+                        <a href="mailto:{{ site_settings.email }}" class="text-white text-decoration-none">
+                            {{ site_settings.email }}
+                        </a>
+                    </div>
                     {% endif %}
                 </div>
             </div>
-            
+
             <!-- Колонка с быстрыми ссылками - 4 колонки на больших экранах, 6 на средних -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <!-- Заголовок секции быстрых ссылок -->
@@ -77,35 +77,48 @@
                     <!-- Элемент списка с отступом снизу -->
                     <li class="mb-2">
                         <!-- Ссылка на главную страницу с flexbox выравниванием -->
-                        <a href="{% url 'main:index' %}" class="text-white text-decoration-none d-flex align-items-center">
+                        <a href="{% url 'main:index' %}"
+                            class="text-white text-decoration-none d-flex align-items-center">
                             <i class="fas fa-home me-2 text-primary"></i><span>Главная</span>
                         </a>
                     </li>
                     <!-- Элемент списка с отступом снизу -->
                     <li class="mb-2">
                         <!-- Ссылка на страницу новостей с flexbox выравниванием -->
-                        <a href="{% url 'news:list' %}" class="text-white text-decoration-none d-flex align-items-center">
+                        <a href="{% url 'news:list' %}"
+                            class="text-white text-decoration-none d-flex align-items-center">
                             <i class="fas fa-newspaper me-2 text-primary"></i><span>Новости</span>
                         </a>
                     </li>
                     <!-- Элемент списка с отступом снизу -->
                     <li class="mb-2">
                         <!-- Ссылка на страницу портфолио с flexbox выравниванием -->
-                        <a href="{% url 'portfolio:list' %}" class="text-white text-decoration-none d-flex align-items-center">
+                        <a href="{% url 'portfolio:list' %}"
+                            class="text-white text-decoration-none d-flex align-items-center">
                             <i class="fas fa-briefcase me-2 text-primary"></i><span>Портфолио</span>
                         </a>
                     </li>
                     <!-- Элемент списка с отступом снизу -->
                     <li class="mb-2">
                         <!-- Ссылка на страницу отзывов с flexbox выравниванием -->
-                        <a href="{% url 'reviews:list' %}" class="text-white text-decoration-none d-flex align-items-center">
+                        <a href="{% url 'reviews:list' %}"
+                            class="text-white text-decoration-none d-flex align-items-center">
                             <i class="fas fa-star me-2 text-primary"></i><span>Отзывы</span>
                         </a>
                     </li>
+                    <!-- Элемент списка с отступом снизу -->
+                    <li class="mb-2">
+                        <!-- Ссылка на страницу отзывов с flexbox выравниванием -->
+                        <a href="{% url 'feedback:list' %}"
+                            class="text-white text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-envelope me-2 text-primary"></i><span>Обратная связь</span>
+                        </a>
+                    </li>
+                    <!-- Элемент списка с отступом снизу -->
                 </ul>
             </div>
         </div>
-        
+
         <!-- Секция социальных сетей -->
         <div class="row mt-4">
             <!-- Колонка на всю ширину -->
@@ -113,48 +126,57 @@
                 <!-- Заголовок секции социальных сетей -->
                 <h5 class="fw-bold mb-3">Мы в соцсетях</h5>
                 <!-- Описание секции с приглушенным цветом и отступом снизу -->
-                <p class="footer-content-2 mb-3">Подписывайтесь на наши социальные сети, чтобы быть в курсе последних новостей и событий.</p>
-                
+                <p class="footer-content-2 mb-3">Подписывайтесь на наши социальные сети, чтобы быть в курсе последних
+                    новостей и событий.</p>
+
                 <!-- Контейнер для социальных ссылок с flexbox и отступами -->
                 <div class="social-links d-flex gap-3">
+                    <!-- Условная проверка наличия ссылки на Facebook -->
+                    {% if site_settings.facebook %}
+                    <!-- Ссылка на Facebook с белым текстом и большим размером шрифта -->
+                    <a href="{{ site_settings.facebook }}" class="text-white fs-4" target="_blank"><i
+                            class="fab fa-facebook"></i></a>
+                    {% endif %}
                     <!-- Условная проверка наличия ссылки на ВКонтакте -->
                     {% if site_settings.vk %}
-                        <!-- Ссылка на ВКонтакте с белым текстом и большим размером шрифта -->
-                        <a href="{{ site_settings.vk }}" class="text-white fs-4" target="_blank"><i class="fab fa-vk"></i></a>
+                    <!-- Ссылка на ВКонтакте с белым текстом и большим размером шрифта -->
+                    <a href="{{ site_settings.vk }}" class="text-white fs-4" target="_blank"><i
+                            class="fab fa-vk"></i></a>
                     {% endif %}
                     <!-- Условная проверка наличия ссылки на Одноклассники -->
                     {% if site_settings.ok %}
-                        <!-- Ссылка на Одноклассники с белым текстом и большим размером шрифта -->
-                        <a href="{{ site_settings.ok }}" class="text-white fs-4" target="_blank"><i class="fab fa-odnoklassniki"></i></a>
+                    <!-- Ссылка на Одноклассники с белым текстом и большим размером шрифта -->
+                    <a href="{{ site_settings.ok }}" class="text-white fs-4" target="_blank"><i
+                            class="fab fa-odnoklassniki"></i></a>
                     {% endif %}
                     <!-- Условная проверка наличия ссылки на YouTube -->
                     {% if site_settings.youtube %}
-                        <!-- Ссылка на YouTube с белым текстом и большим размером шрифта -->
-                        <a href="{{ site_settings.youtube }}" class="text-white fs-4"><i class="fab fa-youtube"></i></a>
+                    <!-- Ссылка на YouTube с белым текстом и большим размером шрифта -->
+                    <a href="{{ site_settings.youtube }}" class="text-white fs-4"><i class="fab fa-youtube"></i></a>
                     {% endif %}
                     <!-- Условная проверка наличия ссылки на Telegram -->
                     {% if site_settings.telegram %}
-                        <!-- Ссылка на Telegram с белым текстом и большим размером шрифта -->
-                        <a href="{{ site_settings.telegram }}" class="text-white fs-4"><i class="fab fa-telegram"></i></a>
+                    <!-- Ссылка на Telegram с белым текстом и большим размером шрифта -->
+                    <a href="{{ site_settings.telegram }}" class="text-white fs-4"><i class="fab fa-telegram"></i></a>
                     {% endif %}
                     <!-- Условная проверка наличия ссылки на Instagram -->
                     {% if site_settings.instagram %}
-                        <!-- Ссылка на Instagram с белым текстом и большим размером шрифта -->
-                        <a href="{{ site_settings.instagram }}" class="text-white fs-4"><i class="fab fa-instagram"></i></a>
+                    <!-- Ссылка на Instagram с белым текстом и большим размером шрифта -->
+                    <a href="{{ site_settings.instagram }}" class="text-white fs-4"><i class="fab fa-instagram"></i></a>
                     {% endif %}
                 </div>
             </div>
         </div>
-        
+
         <!-- Горизонтальная разделительная линия с вертикальными отступами -->
         <hr class="my-4">
-        
+
         <!-- Контейнер для копирайта с выравниванием по левому краю -->
         <div class="text-left">
             <!-- Текст копирайта с отступом снизу и специальным классом для стилизации -->
             <p class="mb-2 footer-text-copy">
                 <!-- Символ копирайта, текущий год и название бренда -->
-                &copy; {% now "Y" %} {{ site_settings.logo_text }}.<br> 
+                &copy; {% now "Y" %} {{ site_settings.logo_text }}.<br>
                 <!-- Курсивный текст о правах -->
                 <i>Все права защищены.</i>
             </p>

@@ -17,50 +17,50 @@
             <h2>Создание аккаунта</h2>
             <p>Заполните форму ниже, чтобы зарегистрироваться на нашем сайте</p>
         </div>
-        
+
         {% if form.errors %}
         <div class="alert alert-danger">
             <strong>Пожалуйста, исправьте следующие ошибки:</strong>
             <ul>
                 {% for field in form %}
-                    {% for error in field.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
+                {% for error in field.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
                 {% endfor %}
                 {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
+                <li>{{ error }}</li>
                 {% endfor %}
             </ul>
         </div>
         {% endif %}
-        
+
         <form method="POST" novalidate>
             {% csrf_token %}
-            
+
             <div class="mb-3">
                 <label for="id_username" class="form-label">{{ form.username.label }}</label>
                 {{ form.username }}
                 {% if form.username.errors %}
-                    <div class="field-error">{{ form.username.errors.0 }}</div>
+                <div class="field-error">{{ form.username.errors.0 }}</div>
                 {% endif %}
                 <div class="password-requirements">
                     Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.
                 </div>
             </div>
-            
+
             <div class="mb-3">
                 <label for="id_email" class="form-label">{{ form.email.label }}</label>
                 {{ form.email }}
                 {% if form.email.errors %}
-                    <div class="field-error">{{ form.email.errors.0 }}</div>
+                <div class="field-error">{{ form.email.errors.0 }}</div>
                 {% endif %}
             </div>
-            
+
             <div class="mb-3">
                 <label for="id_password1" class="form-label">{{ form.password1.label }}</label>
                 {{ form.password1 }}
                 {% if form.password1.errors %}
-                    <div class="field-error">{{ form.password1.errors.0 }}</div>
+                <div class="field-error">{{ form.password1.errors.0 }}</div>
                 {% endif %}
                 <div class="password-requirements">
                     <ul>
@@ -71,20 +71,30 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="mb-3">
                 <label for="id_password2" class="form-label">{{ form.password2.label }}</label>
                 {{ form.password2 }}
                 {% if form.password2.errors %}
-                    <div class="field-error">{{ form.password2.errors.0 }}</div>
+                <div class="field-error">{{ form.password2.errors.0 }}</div>
                 {% endif %}
                 <div class="password-requirements">
                     Для подтверждения введите, пожалуйста, пароль ещё раз.
                 </div>
             </div>
-            
+
+            <div class="mb-3">
+                <label class="form-label">Подтвердите, что вы не робот</label>
+                <div class="captcha-container">
+                    {{ form.captcha }}
+                </div>
+                {% if form.captcha.errors %}
+                <div class="field-error">{{ form.captcha.errors.0 }}</div>
+                {% endif %}
+            </div>
+
             <button type="submit" class="btn btn-primary btn-register">Зарегистрироваться</button>
-            
+
             <div class="login-redirect">
                 <p>Уже есть аккаунт? <a href="{% url 'accounts:login' %}">Войдите здесь</a></p>
             </div>
@@ -95,23 +105,23 @@
 
 {% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Добавляем классы Bootstrap к элементам формы
         document.getElementById('id_username').classList.add('form-control');
         document.getElementById('id_email').classList.add('form-control');
         document.getElementById('id_password1').classList.add('form-control');
         document.getElementById('id_password2').classList.add('form-control');
-        
+
         // Добавляем плейсхолдеры
         document.getElementById('id_username').placeholder = 'Придумайте имя пользователя';
         document.getElementById('id_email').placeholder = 'Введите ваш email';
         document.getElementById('id_password1').placeholder = 'Введите пароль';
         document.getElementById('id_password2').placeholder = 'Повторите пароль';
-        
+
         // Валидация в реальном времени
         const fields = document.querySelectorAll('input');
         fields.forEach(field => {
-            field.addEventListener('blur', function() {
+            field.addEventListener('blur', function () {
                 if (this.value.trim() === '') {
                     this.classList.add('is-invalid');
                 } else {
@@ -119,10 +129,10 @@
                 }
             });
         });
-        
+
         // Проверка email на корректность
         const emailField = document.getElementById('id_email');
-        emailField.addEventListener('blur', function() {
+        emailField.addEventListener('blur', function () {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (this.value && !emailRegex.test(this.value)) {
                 this.classList.add('is-invalid');
@@ -130,12 +140,12 @@
                 this.classList.remove('is-invalid');
             }
         });
-        
+
         // Проверка совпадения паролей
         const password1 = document.getElementById('id_password1');
         const password2 = document.getElementById('id_password2');
-        
-        password2.addEventListener('blur', function() {
+
+        password2.addEventListener('blur', function () {
             if (password1.value !== password2.value) {
                 password2.classList.add('is-invalid');
             } else {

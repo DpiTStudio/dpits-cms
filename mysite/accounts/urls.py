@@ -3,6 +3,7 @@
 from django.urls import path  # Импорт функции для создания маршрутов URL
 from django.contrib.auth import views as auth_views  # Импорт стандартных представлений аутентификации Django
 from . import views  # Импорт представлений (views) из текущего приложения
+from .forms import CustomAuthenticationForm  # Кастомная форма с капчей
 
 app_name = "accounts"  # Пространство имен приложения (используется для обратных ссылок)
 
@@ -22,6 +23,7 @@ urlpatterns = [
         auth_views.LoginView.as_view(
             template_name="accounts/login.html",  # Шаблон страницы входа
             redirect_authenticated_user=True,  # Перенаправление авторизованных пользователей
+            authentication_form=CustomAuthenticationForm,  # Форма входа с капчей
         ),
         name="login",
     ),

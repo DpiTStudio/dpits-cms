@@ -3,7 +3,7 @@
      ОПИСАНИЕ: Базовый шаблон для всех страниц сайта
      ============================================ -->
 
-<!-- Загрузка статических файлов Django -->
+<!-- Загрузка статических файлов -->
 {% load static %}
 <!-- Объявление типа документа HTML5 -->
 <!DOCTYPE html>
@@ -11,6 +11,7 @@
 <html lang="ru">
 
 <!-- Секция заголовка документа -->
+
 <head>
     <!-- Кодировка символов UTF-8 для поддержки всех языков -->
     <meta charset="UTF-8">
@@ -64,6 +65,7 @@
 </head>
 
 <!-- Тело документа с flexbox макетом для прижатия футера к низу -->
+
 <body class="d-flex flex-column min-vh-100">
     <!-- Блок шапки сайта (переопределяется в дочерних шаблонах) -->
     {% block header %}
@@ -160,7 +162,8 @@
                                             <!-- Футер карточки с датой и кнопкой -->
                                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                                 <!-- Дата создания новости в формате день.месяц.год -->
-                                                <small class="text-muted">{{recent_news.created_at|date:"d.m.Y"}}</small>
+                                                <small
+                                                    class="text-muted">{{recent_news.created_at|date:"d.m.Y"}}</small>
                                                 <!-- Ссылка на детальную страницу новости -->
                                                 <a href="{% url 'news:detail' recent_news.slug %}"
                                                     class="btn btn-sm btn-outline-primary">Читать</a>

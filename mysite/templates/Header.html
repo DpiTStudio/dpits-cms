@@ -100,9 +100,10 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <!-- Пункт меню "Выйти" -->
+                            <!-- Пункт меню "Выйти" (ведёт на страницу подтверждения выхода) -->
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" href="{% url 'accounts:logout' %}">
+                                <a class="dropdown-item d-flex align-items-center"
+                                    href="{% url 'accounts:logout_confirm' %}">
                                     <i class="fas fa-sign-out-alt me-2"></i><span>Выйти</span>
                                 </a>
                             </li>

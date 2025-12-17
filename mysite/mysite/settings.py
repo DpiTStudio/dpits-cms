@@ -105,6 +105,8 @@ TEMPLATES = [
                 "main.context_processors.site_settings",  # Настройки сайта
                 "main.context_processors.menu_items",  # Пункты меню
                 "main.context_processors.sidebar_data",  # Данные сайдбара
+                "main.context_processors.seo_context",  # Базовые SEO-данные
+                "main.context_processors.admin_dashboard_stats",  # Статистика для админки
                 "news.context_processors.latest_news",  # Последние новости
             ],
         },
@@ -597,8 +599,8 @@ LOGGING = {
 
 # Настройки капчи для защиты от спама
 CAPTCHA_CHALLENGE_FUNCT = "captcha.helpers.random_char_challenge"  # Функция генерации капчи
-CAPTCHA_LENGTH = 4  # Длина капчи (количество символов)
-CAPTCHA_TIMEOUT = 5  # Время жизни капчи в минутах
+CAPTCHA_LENGTH = 3  # Длина капчи (количество символов)
+CAPTCHA_TIMEOUT = 10  # Время жизни капчи в минутах
 CAPTCHA_NOISE_FUNCTIONS = (
     "captcha.helpers.noise_arcs",  # Добавление дуг для усложнения
     "captcha.helpers.noise_dots",  # Добавление точек для усложнения
