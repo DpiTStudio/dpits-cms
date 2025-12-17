@@ -10,9 +10,12 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-import os
 from pathlib import Path
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # =============================================================================
 # БАЗОВЫЕ ПУТИ ПРОЕКТА
@@ -26,19 +29,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # =============================================================================
 
 # СЕКРЕТНЫЙ КЛЮЧ: Никогда не используйте этот ключ в продакшене!
-SECRET_KEY = "django-insecure-gg&b-34chy82xwd424vn41_=i=nr$2mrxm5_-xj(ev6ed#h+_="
+SECRET_KEY = os.getenv(
+    "SECRET_KEY", "django-insecure-gg&b-34chy82xwd424vn41_=i=nr$2mrxm5_-xj(ev6ed#h+_="
+)
 
 # РЕЖИМ ОТЛАДКИ: В продакшене должно быть False!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 # РАЗРЕШЕННЫЕ ХОСТЫ: Список доменов/хостов, которые может обслуживать Django
-ALLOWED_HOSTS = [
-    "*",  # Разрешает все хосты (только для разработки!)
-    "dpits-cms.ru",
-    "www.dpits-cms.ru",
-    "localhost",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 # =============================================================================
 # ОПРЕДЕЛЕНИЕ ПРИЛОЖЕНИЙ
@@ -472,12 +471,20 @@ CKEDITOR_5_FILE_UPLOAD_PERMISSIONS = 0o644  # Права для загружае
 # НАСТРОЙКИ КЕШИРОВАНИЯ (ОТКЛЮЧЕНО)
 # =============================================================================
 
-# Кеширование отключено для разработки
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django.core.cache.backends.dummy.DummyCache",  # Заглушка для кеша
-#     }
-# }
+# Кеширование
+if os.getenv("REDIS_URL"):
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.getenv("REDIS_URL"),
+        }
+    }
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        }
+    }
 
 # Движок сессий без кеширования
 SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Использование БД для сессий
@@ -586,19 +593,22 @@ LOGGING = {
 # CSRF_COOKIE_SECURE = False
 
 # Для продакшена
-# SECURE_SSL_REDIRECT = True
-# SECURE_HSTS_SECONDS = 3600
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 3600
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # =============================================================================
 # НАСТРОЙКИ КАПЧИ (django-simple-captcha)
 # =============================================================================
 
 # Настройки капчи для защиты от спама
-CAPTCHA_CHALLENGE_FUNCT = "captcha.helpers.random_char_challenge"  # Функция генерации капчи
+CAPTCHA_CHALLENGE_FUNCT = (
+    "captcha.helpers.random_char_challenge"  # Функция генерации капчи
+)
 CAPTCHA_LENGTH = 3  # Длина капчи (количество символов)
 CAPTCHA_TIMEOUT = 10  # Время жизни капчи в минутах
 CAPTCHA_NOISE_FUNCTIONS = (
