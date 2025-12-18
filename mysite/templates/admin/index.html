@@ -383,13 +383,12 @@
     <!-- Список приложений админки -->
     {% if app_list %}
     <hr class="mt-4 mb-3" />
-      <div class="dashboard-title">
-          <span class="dashboard-title-icon">
-              <i class="fas fa-database"></i>
-          </span>
-          <span> {% trans "Управление данными" %}</span>
-      </div>
-    <hr class="mt-4 mb-3" />
+    <h2 class="mb-4 d-flex align-items-center gap-3">
+        <span class="dashboard-title-icon" style="background: linear-gradient(135deg, #6610f2, #6f42c1);">
+            <i class="fas fa-database"></i>
+        </span>
+        <span>{% trans "Управление данными" %}</span>
+    </h2>
     <div class="row">
         {% for app in app_list %}
         <div class="col-lg-4 col-md-6 mb-3">
@@ -436,13 +435,13 @@
 
     {% if admin_stats %}
     <hr class="mt-4 mb-3" />
-      <div class="dashboard-title">
-          <span class="dashboard-title-icon">
-              <i class="fa fa-address-card"></i>
-          </span>
-          <span> {% trans "Системные логи" %}</span>
-      </div>
-    <hr class="mt-4 mb-3" />
+    <h2 class="mb-4 d-flex align-items-center gap-3">
+        <span class="dashboard-title-icon" style="background: linear-gradient(135deg, #fd7e14, #ffc107);">
+            <i class="fas fa-terminal"></i>
+        </span>
+        <span>{% trans "Системные логи" %}</span>
+    </h2>
+
     <div class="row">
         <!-- Логи debug.log -->
         <div class="col-md-6 mb-3">

@@ -1,0 +1,106 @@
+/* Стили для страницы категорий портфолио - Enhanced */
+
+/* --- Variables --- */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Category Cards --- */
+.category-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-img-top {
+    transition: transform 0.8s ease;
+}
+
+.category-card:hover .card-img-top {
+    transform: scale(1.1);
+}
+
+.portfolio-overlay {
+    background: rgba(118, 75, 162, 0.85);
+    /* fallback */
+    background: linear-gradient(to top, rgba(118, 75, 162, 0.9), rgba(102, 126, 234, 0.8));
+    backdrop-filter: blur(4px);
+    transition: opacity 0.4s ease;
+}
+
+.category-card:hover .portfolio-overlay {
+    opacity: 1 !important;
+}
+
+/* --- Content --- */
+.category-header {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+.badge-count {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+/* --- Sidebar --- */
+.stat-card {
+    border: none;
+    border-radius: 16px;
+    background: white;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+}
+
+.stat-header {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    border: none;
+}
+
+.cta-card {
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    border-radius: 16px;
+    border: none;
+    box-shadow: var(--card-shadow);
+}
+
+/* --- Animations --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 30px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.animate-card {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.section-title {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+}

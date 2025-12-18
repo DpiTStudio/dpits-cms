@@ -1,0 +1,124 @@
+<!-- accounts/templates/accounts/profile.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ site_settings.logo_text }} - Профиль 
+{% endblock %}
+
+{% block header %}
+    {% include "accounts/profile_header.html" %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile-section">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="profile-card">
+                    <!-- Заголовок профиля -->
+                    <div class="profile-header">
+                        <div class="profile-avatar">
+                            {% if user.profile.avatar %}
+                                <img src="{{ user.profile.avatar.url }}" alt="Аватар" class="img-fluid">
+                            {% else %}
+                                <i class="fas fa-user fa-3x" style="color: #667eea; line-height: 120px;"></i>
+                            {% endif %}
+                        </div>
+                        <h2>{{ user.get_full_name|default:user.username }}</h2>
+                        <p>@{{ user.username }}</p>
+                    </div>
+                    
+                    <!-- Тело профиля -->
+                    <div class="profile-body">
+                        <div class="welcome-message">
+                            <h3>Добро пожаловать в ваш профиль!</h3>
+                            <p>Здесь вы можете управлять своими данными и настройками</p>
+                        </div>
+                        
+                        <!-- Статистика -->
+                        <div class="profile-stats">
+                            <div class="stat-card">
+                                <div class="stat-number">{{ tickets_count }}</div>
+                                <div class="stat-label">Тикетов</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">{{ reviews_count }}</div>
+                                <div class="stat-label">Отзывов</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">{{ comments_count }}</div>
+                                <div class="stat-label">Комментариев</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Информация о пользователе -->
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-label">Имя пользователя:</span>
+                                <span class="info-value">{{ user.username }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Email:</span>
+                                <span class="info-value">{{ user.email|default:"Не указан" }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Имя:</span>
+                                <span class="info-value">{{ user.first_name|default:"Не указано" }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Фамилия:</span>
+                                <span class="info-value">{{ user.last_name|default:"Не указана" }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Телефон:</span>
+                                <span class="info-value">{{ user.profile.phone|default:"Не указан" }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Дата регистрации:</span>
+                                <span class="info-value">{{ user.date_joined|date:"d.m.Y H:i" }}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Действия -->
+                        <div class="profile-actions">
+                            <a href="{% url 'accounts:profile_edit' %}" class="btn-profile btn-edit">
+                                <i class="fas fa-edit me-2"></i>Редактировать профиль
+                            </a>
+                            <a href="{% url 'accounts:password_change' %}" class="btn-profile btn-password">
+                                <i class="fas fa-key me-2"></i>Сменить пароль
+                            </a>
+                            <a href="{% url 'accounts:ticket_list' %}" class="btn-profile btn-tickets">
+                                <i class="fas fa-ticket-alt me-2"></i>Мои тикеты
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Анимация появления элементов
+        const elements = document.querySelectorAll('.stat-card, .info-item, .btn-profile');
+        elements.forEach((element, index) => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'all 0.6s ease';
+            
+            setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, 100 + index * 100);
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Страница не найдена (404) - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
+{% endblock %}
+
+{% block meta_description %}
+    Запрашиваемая страница не найдена. Возможно, она была удалена или перемещена.
+{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'main/css/styles.css' %}">
+    <style>
+        .error-page {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            color: #dc3545;
+            line-height: 1;
+        }
+        .error-icon {
+            font-size: 6rem;
+            color: #dc3545;
+            margin-bottom: 2rem;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="error-page text-center">
+                <div class="w-100">
+                    <!-- Иконка ошибки -->
+                    <div class="error-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    
+                    <!-- Код ошибки -->
+                    <div class="error-code mb-4">404</div>
+                    
+                    <!-- Заголовок -->
+                    <h1 class="display-4 fw-bold mb-4">
+                        Страница не найдена
+                    </h1>
+                    
+                    <!-- Описание -->
+                    <p class="lead text-muted mb-5">
+                        К сожалению, запрашиваемая страница не существует или была перемещена.
+                        <br>
+                        Возможно, вы ввели неправильный адрес или страница была удалена.
+                    </p>
+                    
+                    <!-- Действия -->
+                    <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
+                        <a href="{% url 'main:index' %}" 
+                           class="btn btn-primary btn-lg">
+                            <i class="fas fa-home me-2"></i>
+                            Вернуться на главную
+                        </a>
+                        <button onclick="history.back()" 
+                                class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Назад
+                        </button>
+                    </div>
+                    
+                    <!-- Полезные ссылки -->
+                    <div class="card shadow-sm border-0 rounded-3">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-3">
+                                <i class="fas fa-link me-2 text-primary"></i>
+                                Полезные ссылки
+                            </h5>
+                            <div class="d-flex flex-wrap justify-content-center gap-3">
+                                <a href="{% url 'main:index' %}" 
+                                   class="text-decoration-none">
+                                    <i class="fas fa-home me-1"></i>Главная
+                                </a>
+                                <a href="{% url 'main:about' %}" 
+                                   class="text-decoration-none">
+                                    <i class="fas fa-info-circle me-1"></i>О нас
+                                </a>
+                                <a href="{% url 'main:contacts' %}" 
+                                   class="text-decoration-none">
+                                    <i class="fas fa-address-book me-1"></i>Контакты
+                                </a>
+                                {% if menu_pages %}
+                                    {% for page in menu_pages|slice:":3" %}
+                                    <a href="{{ page.get_absolute_url }}" 
+                                       class="text-decoration-none">
+                                        <i class="fas fa-file-alt me-1"></i>{{ page.title }}
+                                    </a>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Поиск -->
+                    <div class="mt-5">
+                        <form action="{% url 'main:index' %}" method="get" class="d-flex justify-content-center">
+                            <div class="input-group" style="max-width: 500px;">
+                                <input type="text" 
+                                       class="form-control form-control-lg" 
+                                       name="search" 
+                                       placeholder="Поиск по сайту...">
+                                <button class="btn btn-primary btn-lg" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

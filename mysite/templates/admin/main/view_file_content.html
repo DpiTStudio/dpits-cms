@@ -1,0 +1,122 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    .file-view-container {
+        padding: 20px;
+    }
+    .file-header {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        border: 1px solid #dee2e6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .dark-mode .file-header {
+        background: #2d2d2d;
+        border-color: #444;
+        color: #eee;
+    }
+    .file-meta {
+        display: flex;
+        gap: 20px;
+        font-size: 14px;
+        color: #6c757d;
+    }
+    .content-viewer {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 0;
+        border-radius: 8px;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        border: 1px solid #333;
+        overflow: hidden;
+    }
+    .line-numbers {
+        background: #252525;
+        color: #858585;
+        text-align: right;
+        padding: 15px 10px;
+        user-select: none;
+        border-right: 1px solid #333;
+        min-width: 40px;
+    }
+    .code-content {
+        padding: 15px;
+        white-space: pre;
+        overflow-x: auto;
+        flex-grow: 1;
+    }
+    .viewer-layout {
+        display: flex;
+    }
+    .btn-custom {
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        color: white !important;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .btn-back { background: #6c757d; }
+    .btn-refresh { background: #17a2b8; }
+    .btn-backup { background: #28a745; }
+    .btn-clear { background: #dc3545; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="file-view-container">
+    <div class="mb-3">
+        <a href="{% url 'admin:main_managedfile_changelist' %}" class="btn-custom btn-back">
+            <i class="fas fa-arrow-left"></i> {% trans "Назад к списку" %}
+        </a>
+    </div>
+
+    <h1>{{ title }}</h1>
+
+    <div class="file-header">
+        <div>
+            <div class="file-meta">
+                <span><strong>{% trans "Путь" %}:</strong> {{ file.file_path }}</span>
+                <span><strong>{% trans "Размер" %}:</strong> {{ file.human_readable_size }}</span>
+                <span><strong>{% trans "Строк" %}:</strong> {{ lines }}</span>
+            </div>
+            <div class="mt-2 small text-muted">
+                {% trans "Последнее изменение" %}: {{ file.file_mtime|date:"d.m.Y H:i:s" }}
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{% url 'admin:main_managedfile_refresh' file.pk %}" class="btn-custom btn-refresh" title="{% trans 'Обновить' %}">
+                <i class="fas fa-sync"></i>
+            </a>
+            <a href="{% url 'admin:main_managedfile_backup' file.pk %}" class="btn-custom btn-backup" title="{% trans 'Бэкап' %}">
+                <i class="fas fa-save"></i>
+            </a>
+            <a href="{% url 'admin:main_managedfile_clear' file.pk %}" class="btn-custom btn-clear" title="{% trans 'Очистить' %}" onclick="return confirm('{% trans 'Очистить файл?' %}');">
+                <i class="fas fa-trash"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="content-viewer">
+        <div class="viewer-layout">
+            <div class="line-numbers">
+                {% for i in "x"|rjust:lines %}
+                    {{ forloop.counter }}<br>
+                {% endfor %}
+            </div>
+            <div class="code-content">{{ content }}</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

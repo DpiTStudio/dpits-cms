@@ -1,0 +1,59 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="container-fluid p-4">
+    <h1><i class="fas fa-search-plus"></i> {{ title }}</h1>
+    
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label class="form-label">{% trans "Базовая директория" %}</label>
+                            <input type="text" name="directory" class="form-control" placeholder="C:\path\to\logs" required>
+                            <div class="form-text">{% trans "Абсолютный путь к папке, которую нужно сканировать." %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">{% trans "Шаблон поиска (Pattern)" %}</label>
+                            <input type="text" name="pattern" class="form-control" value="*.log" required>
+                            <div class="form-text">{% trans "Например: *.log, debug.log, **/*.txt" %}</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">{% trans "Категория для новых файлов" %}</label>
+                            <select name="category" class="form-select">
+                                <option value="logs">{% trans "Логи" %}</option>
+                                <option value="config">{% trans "Конфигурация" %}</option>
+                                <option value="source">{% trans "Исходный код" %}</option>
+                                <option value="other" selected>{% trans "Прочее" %}</option>
+                            </select>
+                        </div>
+                        
+                        <div class="d-flex gap-3 mt-5">
+                            <button type="submit" class="btn btn-primary px-5">
+                                <i class="fas fa-play"></i> {% trans "Начать сканирование" %}
+                            </button>
+                            <a href="{% url 'admin:main_managedfile_changelist' %}" class="btn btn-light px-4">
+                                {% trans "Отмена" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="alert alert-info border-0 shadow-sm">
+                <h5><i class="fas fa-info-circle"></i> {% trans "Как это работает" %}</h5>
+                <hr>
+                <p class="small">{% trans "Инструмент найдет все файлы, соответствующие шаблону в указанной директории, и добавит их в список управления, если они еще не добавлены." %}</p>
+                <p class="small mb-0">{% trans "Будьте осторожны при сканировании системных директорий." %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

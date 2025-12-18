@@ -1,0 +1,44 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="container-fluid p-4">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h3 class="mb-0"><i class="fas fa-exclamation-triangle"></i> {{ title }}</h3>
+        </div>
+        <div class="card-body">
+            <p class="lead">{% trans "Вы собираетесь очистить содержимое следующих файлов:" %}</p>
+            <ul class="list-group mb-4">
+                {% for file in files %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ file.name }}
+                    <span class="badge bg-secondary">{{ file.file_path_short }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="alert alert-warning">
+                <i class="fas fa-info-circle"></i> {% trans "Это действие удалит весь текст из выбранных файлов. Процесс необратим (если не созданы бэкапы)." %}
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="{{ action_name }}">
+                <input type="hidden" name="confirm" value="yes">
+                {% for file in files %}
+                <input type="hidden" name="_selected_action" value="{{ file.pk }}">
+                {% endfor %}
+                
+                <div class="d-flex gap-3 mt-4">
+                    <button type="submit" class="btn btn-danger btn-lg">
+                        <i class="fas fa-trash"></i> {% trans "Да, очистить выбранные файлы" %}
+                    </button>
+                    <a href="{% url 'admin:main_managedfile_changelist' %}" class="btn btn-secondary btn-lg">
+                        {% trans "Отмена" %}
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

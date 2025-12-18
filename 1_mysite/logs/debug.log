@@ -1,0 +1,1653 @@
+Лог-файл очищен: 2025-12-13 15:37:34
+2025-12-13 15:37:34 [INFO] django.server:213 log_message() | "POST /log-stats/ HTTP/1.1" 200 67112
+2025-12-13 15:38:09 [WARNING] django.request:253 log_response() | Method Not Allowed (GET): /accounts/logout/
+2025-12-13 15:38:09 [WARNING] django.server:213 log_message() | "GET /accounts/logout/ HTTP/1.1" 405 0
+2025-12-13 15:38:19 [INFO] django.server:213 log_message() | "GET /log-stats/ HTTP/1.1" 200 67511
+2025-12-13 15:38:52 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-13 15:38:53 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-13 16:03:51 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 16:04:04 [INFO] django.server:213 log_message() | "GET /log-stats/ HTTP/1.1" 200 68525
+2025-12-13 16:04:04 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-13 16:08:06 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\log_utils.py changed, reloading.
+2025-12-13 16:08:13 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 16:08:40 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\views.py changed, reloading.
+2025-12-13 16:08:48 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 16:10:36 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-13 16:10:45 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 16:10:51 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-13 16:11:00 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 16:11:05 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-13 16:11:05 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 304 0
+2025-12-13 16:11:12 [INFO] django.server:213 log_message() | "GET /accounts/profile/ HTTP/1.1" 200 47786
+2025-12-13 16:11:34 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46383
+2025-12-13 16:11:40 [INFO] django.server:213 log_message() | "GET /log-stats/ HTTP/1.1" 200 72227
+2025-12-13 16:11:48 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46383
+2025-12-13 16:11:51 [INFO] django.server:213 log_message() | "GET /error-log/ HTTP/1.1" 200 88005
+2025-12-13 16:12:20 [INFO] django.server:213 log_message() | "POST /error-log/ HTTP/1.1" 200 67074
+2025-12-13 16:12:55 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46368
+2025-12-13 16:13:10 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46368
+2025-12-13 16:14:36 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-13 16:14:43 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 16:15:45 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46383
+2025-12-13 16:15:47 [INFO] django.server:213 log_message() | "GET /log-stats/ HTTP/1.1" 200 74455
+2025-12-13 16:15:50 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46383
+2025-12-13 16:15:53 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46383
+2025-12-13 16:15:56 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46383
+2025-12-13 16:15:57 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-13 16:15:57 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-13 16:15:57 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-13 16:15:57 [INFO] django.server:213 log_message() | "GET /static/images/logo.png HTTP/1.1" 200 100655
+2025-12-13 16:15:57 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-13 16:15:58 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-13 16:15:58 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-13 16:15:58 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-13 16:15:58 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+2025-12-13 16:15:58 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+2025-12-13 16:15:59 [INFO] django.server:213 log_message() | "GET /static/images/logo.png HTTP/1.1" 200 100655
+2025-12-13 16:15:59 [INFO] django.server:213 log_message() | "GET /log-stats/ HTTP/1.1" 200 78380
+2025-12-13 16:16:45 [INFO] django.server:213 log_message() | "GET /accounts/profile/ HTTP/1.1" 200 47786
+2025-12-13 16:16:59 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46383
+2025-12-13 16:48:21 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50927
+2025-12-13 16:48:22 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-13 16:48:26 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50927
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-13 16:48:27 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-13 16:48:28 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-13 16:48:29 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-13 16:48:54 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50927
+2025-12-13 16:48:58 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50927
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+2025-12-13 16:48:59 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-13 16:49:00 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-13 16:49:01 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-13 16:49:47 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50928
+2025-12-13 16:49:52 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50928
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-13 16:49:53 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-13 16:49:55 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-13 16:50:15 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50929
+2025-12-13 16:50:38 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50905
+2025-12-13 16:50:43 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50905
+2025-12-13 16:50:43 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-13 16:50:43 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-13 16:50:43 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-13 16:50:43 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-13 16:50:43 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-13 16:50:43 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-13 16:50:44 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-13 16:50:44 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-13 16:50:44 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-13 16:50:44 [INFO] django.server:213 log_message() | "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+2025-12-13 16:50:44 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-13 16:50:44 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-13 16:50:44 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-13 16:50:45 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-13 16:51:03 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 48027
+2025-12-13 16:52:40 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50429
+2025-12-13 16:53:03 [INFO] django.server:213 log_message() | "GET /accounts/tickets/create/ HTTP/1.1" 200 50172
+2025-12-13 16:53:25 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-13 16:53:26 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 304 0
+2025-12-13 17:01:00 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-13 17:01:08 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 17:01:26 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-13 17:01:33 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 17:02:56 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-13 17:03:03 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 18:03:31 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 18:03:49 [INFO] django.server:213 log_message() | "GET /reviews/ HTTP/1.1" 200 47980
+2025-12-13 18:03:51 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-13 18:03:51 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-13 18:03:51 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-13 18:03:51 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-13 18:03:51 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-13 18:03:51 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-13 18:03:51 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-13 18:03:51 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-13 18:03:51 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-13 18:03:52 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-13 18:03:52 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-13 18:03:52 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-13 18:11:19 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-13 18:11:19 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 304 0
+2025-12-13 21:50:37 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-13 21:50:40 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 50602
+2025-12-13 21:50:40 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-14 23:20:30 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-14 23:20:43 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-14 23:20:43 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-14 23:20:44 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-14 23:20:44 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 304 0
+2025-12-14 23:20:44 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 304 0
+2025-12-14 23:20:44 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 304 0
+2025-12-15 00:15:19 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50429
+2025-12-15 00:15:20 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-15 00:15:20 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-15 00:15:20 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-12-15 00:15:21 [INFO] django.server:213 log_message() | "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+2025-12-15 11:53:10 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 21346
+2025-12-15 11:53:11 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-15 11:53:11 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-15 11:53:11 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 304 0
+2025-12-15 11:53:11 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/images/logo.png HTTP/1.1" 200 100655
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-15 11:53:12 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+2025-12-15 11:53:13 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_list.js HTTP/1.1" 304 0
+2025-12-15 11:53:17 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+2025-12-15 11:53:17 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+2025-12-16 13:48:14 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 46351
+2025-12-16 13:48:14 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-16 13:48:14 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-16 13:48:14 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-16 13:48:15 [INFO] django.server:213 log_message() | "GET /static/images/logo.png HTTP/1.1" 200 100655
+2025-12-16 13:48:15 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-16 13:48:15 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-16 13:48:15 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-16 13:48:16 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-16 13:48:16 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+2025-12-16 13:48:16 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+2025-12-16 17:43:33 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 17:43:54 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-16 17:43:54 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 304 0
+2025-12-16 17:43:54 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 304 0
+2025-12-16 17:43:55 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-16 17:43:55 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 304 0
+2025-12-16 17:43:55 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 304 0
+2025-12-16 17:43:55 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 304 0
+2025-12-16 17:43:55 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 304 0
+2025-12-16 17:43:55 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 304 0
+2025-12-16 17:43:55 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 304 0
+2025-12-16 17:43:55 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 304 0
+2025-12-16 17:43:56 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 17:43:59 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 17:44:14 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79528
+2025-12-16 17:44:14 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 17:44:14 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 17:44:15 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-16 17:44:15 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-16 17:45:06 [WARNING] django.request:253 log_response() | Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-12-16 17:45:06 [WARNING] django.server:213 log_message() | "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5751
+2025-12-16 17:45:06 [INFO] django.server:81 handle_error() | - Broken pipe from ('127.0.0.1', 50774)
+2025-12-16 18:18:41 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79528
+2025-12-16 18:18:46 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79528
+2025-12-16 18:18:47 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 18:18:47 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 18:18:47 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 18:18:47 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 18:18:47 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 18:18:47 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 18:18:47 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 18:18:47 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 18:18:47 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 18:18:48 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 18:18:48 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 18:18:48 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 18:18:48 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 18:18:48 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 18:18:48 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 18:18:48 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 18:18:48 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-16 18:18:49 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-16 18:18:50 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 18:19:34 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 18:19:38 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79528
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 18:19:40 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-16 18:19:41 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 18:21:04 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 18:22:06 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 18:22:48 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 18:22:51 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79528
+2025-12-16 18:22:58 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 18:23:05 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 51758
+2025-12-16 18:23:06 [INFO] django.server:213 log_message() | "GET /static/css/portfolio_list.css HTTP/1.1" 200 0
+2025-12-16 18:23:12 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79528
+2025-12-16 18:23:18 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 79569
+2025-12-16 18:23:35 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 79569
+2025-12-16 18:24:19 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:11:33 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79528
+2025-12-16 19:11:40 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 79561
+2025-12-16 19:11:52 [INFO] django.server:213 log_message() | "GET /news/category/akcii/ HTTP/1.1" 200 75579
+2025-12-16 19:11:57 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-raboty/ HTTP/1.1" 200 75388
+2025-12-16 19:14:06 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:14:12 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-raboty/ HTTP/1.1" 200 75493
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-raboty/ HTTP/1.1" 200 75493
+2025-12-16 19:14:14 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 19:14:15 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 19:14:15 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 19:14:15 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 19:14:15 [INFO] django.server:81 handle_error() | - Broken pipe from ('127.0.0.1', 53041)
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 19:14:16 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 19:14:17 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 19:14:17 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 19:14:18 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 19:14:52 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:14:57 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 51758
+2025-12-16 19:15:03 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79528
+2025-12-16 19:15:10 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79528
+2025-12-16 19:15:15 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-makety/ HTTP/1.1" 200 72792
+2025-12-16 19:15:21 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 79666
+2025-12-16 19:15:25 [INFO] django.server:213 log_message() | "GET /news/category/akcii/ HTTP/1.1" 200 75684
+2025-12-16 19:15:47 [INFO] django.server:213 log_message() | "GET /news/category/akcii/ HTTP/1.1" 200 75684
+2025-12-16 19:15:52 [INFO] django.server:213 log_message() | "GET /news/category/akcii/ HTTP/1.1" 200 75684
+2025-12-16 19:15:54 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 19:15:54 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 19:15:54 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 19:15:54 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 19:15:54 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 19:15:54 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 19:15:55 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 19:15:55 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 19:15:55 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 19:15:55 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 19:15:55 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 19:15:55 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 19:15:55 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-16 19:15:55 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 19:15:56 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 19:15:56 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 19:15:56 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 19:15:57 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 19:16:21 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:16:31 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 79666
+2025-12-16 19:32:53 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 79666
+2025-12-16 19:32:59 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 79666
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 19:33:01 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 19:33:02 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 19:33:02 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 19:33:02 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-16 19:33:03 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 19:44:37 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:45:14 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 79666
+2025-12-16 19:45:20 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 79666
+2025-12-16 19:45:21 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 19:45:21 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 19:45:21 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 19:45:21 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 19:45:21 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 19:45:22 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 19:45:22 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 19:45:22 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 19:45:22 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 19:45:22 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 19:45:22 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 19:45:22 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 19:45:22 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 19:45:22 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 19:45:23 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 19:45:23 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 19:45:23 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-16 19:45:24 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 19:47:43 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80888
+2025-12-16 19:49:20 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:49:22 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80888
+2025-12-16 19:49:29 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80888
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 19:49:31 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 19:49:32 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-16 19:49:32 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 19:49:32 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 19:49:33 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 19:50:22 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:50:29 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80888
+2025-12-16 19:50:34 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80888
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 19:50:36 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 19:50:37 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 19:50:37 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 19:50:37 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-16 19:50:38 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 19:51:12 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:51:14 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80874
+2025-12-16 19:51:16 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 19:51:17 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 19:51:18 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 19:51:18 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-16 19:51:19 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 19:51:19 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 19:51:19 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 19:53:42 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80888
+2025-12-16 19:54:36 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80909
+2025-12-16 19:55:34 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:56:12 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:57:33 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:58:01 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79528
+2025-12-16 19:58:03 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-16 19:58:10 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80914
+2025-12-16 19:58:58 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:59:49 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 19:59:55 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80871
+2025-12-16 20:00:00 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 20:00:14 [INFO] django.server:213 log_message() | "GET /news/category/akcii/ HTTP/1.1" 200 76585
+2025-12-16 20:00:20 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80871
+2025-12-16 20:01:58 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 20:03:27 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79399
+2025-12-16 20:03:35 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79399
+2025-12-16 20:33:38 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-16 20:33:43 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79399
+2025-12-16 20:34:14 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79399
+2025-12-16 20:34:27 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79399
+2025-12-16 20:35:02 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79399
+2025-12-16 20:35:48 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 20:36:20 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79596
+2025-12-16 20:36:54 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79596
+2025-12-16 20:37:32 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 20:39:06 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79603
+2025-12-16 20:39:22 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79603
+2025-12-16 20:39:23 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79603
+2025-12-16 20:39:28 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80871
+2025-12-16 20:40:03 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80871
+2025-12-16 20:40:11 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79876
+2025-12-16 20:40:20 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79876
+2025-12-16 20:40:25 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79876
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-16 20:40:27 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 20:40:28 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 20:50:22 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79876
+2025-12-16 20:50:27 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79876
+2025-12-16 20:50:28 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 20:50:28 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 20:50:28 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 20:50:28 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 20:50:28 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 20:50:28 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 20:50:28 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 20:50:28 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 20:50:28 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 20:50:28 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 20:50:28 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 20:50:29 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 20:50:29 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 20:50:29 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 20:50:29 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 20:50:29 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 20:50:29 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-16 20:50:29 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-16 20:50:31 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 20:51:31 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 20:51:40 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79876
+2025-12-16 20:51:41 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 20:51:41 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 20:51:41 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 20:51:42 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 20:51:42 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 20:51:42 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 20:51:42 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-16 20:51:42 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-16 20:51:42 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 20:51:42 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 20:51:42 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 20:51:42 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 20:51:42 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 20:51:42 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 20:51:43 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 20:51:43 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 20:51:43 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-16 20:51:43 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-16 20:51:44 [INFO] django.server:213 log_message() | "GET /static/images/favicon.ico HTTP/1.1" 200 15406
+2025-12-16 20:51:47 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80871
+2025-12-16 20:52:00 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-proekty/ HTTP/1.1" 200 73643
+2025-12-16 20:52:07 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-makety/ HTTP/1.1" 200 73637
+2025-12-16 20:52:15 [INFO] django.server:213 log_message() | "GET /news/category/akcii/ HTTP/1.1" 200 76585
+2025-12-16 20:52:23 [INFO] django.server:213 log_message() | "GET /news/pervaya-akciya/ HTTP/1.1" 200 73468
+2025-12-16 20:52:23 [WARNING] django.server:213 log_message() | "GET /static/css/news-common.css HTTP/1.1" 404 1984
+2025-12-16 20:52:30 [INFO] django.server:213 log_message() | "GET /news/pervaya-akciya/ HTTP/1.1" 200 73468
+2025-12-16 20:52:31 [WARNING] django.server:213 log_message() | "GET /static/css/news-common.css HTTP/1.1" 404 1984
+2025-12-16 20:52:36 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-16 20:54:15 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79876
+2025-12-16 20:58:05 [INFO] django.server:213 log_message() | "GET /reviews/ HTTP/1.1" 200 47980
+2025-12-16 20:58:13 [INFO] django.server:213 log_message() | "GET /reviews/add/ HTTP/1.1" 200 49202
+2025-12-16 20:58:27 [INFO] django.server:213 log_message() | "GET /accounts/profile/ HTTP/1.1" 200 47786
+2025-12-16 20:58:28 [INFO] django.server:213 log_message() | "GET /static/accounts/css/profile.css HTTP/1.1" 200 1674
+2025-12-16 20:58:28 [INFO] django.server:213 log_message() | "GET /media/avatars/avatar_user_1.png HTTP/1.1" 200 372188
+2025-12-16 21:13:42 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-16 21:13:49 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 21:14:52 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-16 21:14:59 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 21:15:18 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-16 21:15:25 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 21:16:08 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-16 21:16:26 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 21:19:06 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 21:27:12 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 21:27:19 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-16 21:27:21 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-16 21:27:21 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-16 21:27:37 [WARNING] django.request:253 log_response() | Method Not Allowed (GET): /accounts/logout/
+2025-12-16 21:27:37 [WARNING] django.server:213 log_message() | "GET /accounts/logout/ HTTP/1.1" 405 0
+2025-12-16 21:27:42 [WARNING] django.request:253 log_response() | Method Not Allowed (GET): /accounts/logout/
+2025-12-16 21:27:42 [WARNING] django.server:213 log_message() | "GET /accounts/logout/ HTTP/1.1" 405 0
+2025-12-16 21:34:26 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 21:35:19 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50429
+2025-12-16 21:35:21 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-16 21:35:21 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-16 21:35:21 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-16 21:35:21 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-16 21:35:21 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-16 21:35:21 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-16 21:35:21 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-16 21:35:21 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-16 21:35:21 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-16 21:35:22 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-16 21:35:22 [INFO] django.server:213 log_message() | "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+2025-12-16 21:35:22 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-16 21:35:22 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-16 21:35:32 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 50429
+2025-12-16 21:35:39 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 48794
+2025-12-16 21:35:40 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-16 21:35:40 [INFO] django.server:213 log_message() | "GET /static/images/logo.png HTTP/1.1" 200 100655
+2025-12-16 21:35:40 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-16 21:35:40 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-16 21:35:40 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-16 21:35:41 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-16 21:35:41 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-16 21:35:42 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-16 21:35:42 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+2025-12-16 21:35:42 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+2025-12-16 21:35:47 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/ HTTP/1.1" 200 24378
+2025-12-16 21:35:48 [INFO] django.server:213 log_message() | "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+2025-12-16 21:35:48 [INFO] django.server:213 log_message() | "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+2025-12-16 21:35:48 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/css/select2.min.css HTTP/1.1" 304 0
+2025-12-16 21:35:48 [INFO] django.server:213 log_message() | "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+2025-12-16 21:35:48 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+2025-12-16 21:35:48 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-16 21:35:48 [INFO] django.server:213 log_message() | "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+2025-12-16 21:35:48 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+2025-12-16 21:35:48 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+2025-12-16 21:35:48 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+2025-12-16 21:35:48 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_list.js HTTP/1.1" 304 0
+2025-12-16 21:35:52 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/add/ HTTP/1.1" 200 32436
+2025-12-16 21:35:53 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+2025-12-16 21:35:53 [INFO] django.server:213 log_message() | "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+2025-12-16 21:35:53 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-16 21:35:53 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+2025-12-16 21:35:53 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+2025-12-16 21:36:12 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 24496
+2025-12-16 23:27:19 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 23:35:14 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-16 23:36:21 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/ HTTP/1.1" 200 24378
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-16 23:36:23 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-16 23:36:24 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-16 23:36:24 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-16 23:36:24 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-16 23:36:25 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+2025-12-16 23:36:25 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+2025-12-16 23:36:25 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+2025-12-16 23:36:29 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 48797
+2025-12-17 13:44:07 [INFO] django.server:213 log_message() | "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+2025-12-17 13:44:36 [INFO] django.server:213 log_message() | "GET /accounts/profile/ HTTP/1.1" 200 47786
+2025-12-17 13:44:37 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 304 0
+2025-12-17 13:44:37 [INFO] django.server:213 log_message() | "GET /static/accounts/css/profile.css HTTP/1.1" 200 1674
+2025-12-17 13:44:37 [INFO] django.server:213 log_message() | "GET /media/avatars/avatar_user_1.png HTTP/1.1" 200 372188
+2025-12-17 13:44:45 [INFO] django.server:213 log_message() | "GET /reviews/ HTTP/1.1" 200 47980
+2025-12-17 13:44:54 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75316
+2025-12-17 13:44:54 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 304 0
+2025-12-17 13:45:01 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 79876
+2025-12-17 13:45:01 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-17 13:45:01 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-17 13:45:01 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-17 13:45:01 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-17 13:45:07 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-vizitki/ HTTP/1.1" 200 74794
+2025-12-17 13:45:10 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80871
+2025-12-17 13:45:13 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-proekty/ HTTP/1.1" 200 73643
+2025-12-17 13:45:21 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 80871
+2025-12-17 13:45:27 [INFO] django.server:213 log_message() | "GET /news/category/akcii/ HTTP/1.1" 200 76585
+2025-12-17 13:45:48 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-raboty/ HTTP/1.1" 200 76394
+2025-12-17 13:45:52 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-sajty/ HTTP/1.1" 200 74863
+2025-12-17 13:45:57 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-vizitki/ HTTP/1.1" 200 74794
+2025-12-17 13:46:05 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-makety/ HTTP/1.1" 200 73637
+2025-12-17 14:30:08 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 14:30:25 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75435
+2025-12-17 14:30:30 [INFO] django.server:213 log_message() | "GET /accounts/logout/confirm/ HTTP/1.1" 200 49114
+2025-12-17 14:30:35 [INFO] django.server:213 log_message() | "POST /accounts/logout/ HTTP/1.1" 302 0
+2025-12-17 14:30:35 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 73788
+2025-12-17 14:30:38 [INFO] django.server:213 log_message() | "GET /accounts/login/ HTTP/1.1" 200 48594
+2025-12-17 14:30:38 [INFO] django.server:213 log_message() | "GET /static/accounts/css/login.css HTTP/1.1" 200 1992
+2025-12-17 14:32:10 [INFO] django.server:213 log_message() | "POST /accounts/login/ HTTP/1.1" 200 48783
+2025-12-17 14:32:31 [INFO] django.server:213 log_message() | "POST /accounts/login/ HTTP/1.1" 302 0
+2025-12-17 14:32:31 [INFO] django.server:213 log_message() | "GET /accounts/profile/ HTTP/1.1" 200 47786
+2025-12-17 14:32:31 [INFO] django.server:213 log_message() | "GET /static/accounts/css/profile.css HTTP/1.1" 200 1674
+2025-12-17 14:32:31 [INFO] django.server:213 log_message() | "GET /media/avatars/avatar_user_1.png HTTP/1.1" 200 372188
+2025-12-17 14:32:38 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 75435
+2025-12-17 14:32:45 [INFO] django.server:213 log_message() | "GET /accounts/profile/ HTTP/1.1" 200 47786
+2025-12-17 14:34:34 [INFO] django.server:213 log_message() | "GET /feedback/ HTTP/1.1" 200 48712
+2025-12-17 14:34:57 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/ HTTP/1.1" 200 24378
+2025-12-17 14:34:57 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 14:35:06 [INFO] django.server:213 log_message() | "GET /log-stats/ HTTP/1.1" 200 79497
+2025-12-17 14:35:23 [INFO] django.server:213 log_message() | "GET /error-log/ HTTP/1.1" 200 66837
+2025-12-17 14:54:55 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 76086
+2025-12-17 14:55:02 [INFO] django.server:213 log_message() | "GET /feedback/ HTTP/1.1" 200 49363
+2025-12-17 14:55:05 [INFO] django.server:213 log_message() | "GET /feedback/create/ HTTP/1.1" 200 54990
+2025-12-17 14:55:05 [INFO] django.server:213 log_message() | "GET /captcha/image/14deed5d9347ef35b9efd852190fdbc0ae434dae/ HTTP/1.1" 200 9304
+2025-12-17 14:55:17 [INFO] django.server:213 log_message() | "GET /accounts/logout/confirm/ HTTP/1.1" 200 49765
+2025-12-17 14:55:20 [INFO] django.server:213 log_message() | "POST /accounts/logout/ HTTP/1.1" 302 0
+2025-12-17 14:55:20 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 74439
+2025-12-17 14:55:23 [INFO] django.server:213 log_message() | "GET /accounts/register/ HTTP/1.1" 200 52148
+2025-12-17 14:55:23 [INFO] django.server:213 log_message() | "GET /static/accounts/css/register.css HTTP/1.1" 200 704
+2025-12-17 14:55:31 [INFO] django.server:213 log_message() | "GET /accounts/login/ HTTP/1.1" 200 49245
+2025-12-17 14:55:31 [INFO] django.server:213 log_message() | "GET /static/accounts/css/login.css HTTP/1.1" 200 1992
+2025-12-17 14:55:38 [INFO] django.server:213 log_message() | "POST /accounts/login/ HTTP/1.1" 302 0
+2025-12-17 14:55:38 [INFO] django.server:213 log_message() | "GET /accounts/profile/ HTTP/1.1" 200 48437
+2025-12-17 14:55:45 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 80646
+2025-12-17 14:55:45 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-17 14:55:45 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-17 14:55:46 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-17 14:55:46 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-17 14:55:50 [INFO] django.server:213 log_message() | "GET /news/category/sozdannye-sajty/ HTTP/1.1" 200 75633
+2025-12-17 14:56:00 [INFO] django.server:213 log_message() | "GET /news/category/glavnye-novosti/ HTTP/1.1" 200 81641
+2025-12-17 14:59:12 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\accounts\forms.py changed, reloading.
+2025-12-17 14:59:15 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 14:59:19 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\accounts\urls.py changed, reloading.
+2025-12-17 14:59:21 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 15:00:08 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\accounts\forms.py changed, reloading.
+2025-12-17 15:00:10 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 15:00:23 [INFO] django.server:213 log_message() | "GET /accounts/logout/confirm/ HTTP/1.1" 200 49765
+2025-12-17 15:00:27 [INFO] django.server:213 log_message() | "POST /accounts/logout/ HTTP/1.1" 302 0
+2025-12-17 15:00:27 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 74439
+2025-12-17 15:00:31 [ERROR] django.request:253 log_response() | Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\defaulttags.py", line 1035, in find_library
+    return parser.libraries[name]
+           ~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'captcha'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\defaulttags.py", line 1097, in load
+    lib = find_library(parser, name)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "l:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\template\defaulttags.py", line 1037, in find_library
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: 'captcha' is not a registered tag library. Must be one of:
+admin_list
+admin_modify
+admin_urls
+cache
+i18n
+jazzmin
+l10n
+log
+static
+tz
+2025-12-17 15:00:31 [ERROR] django.server:213 log_message() | "GET /accounts/login/ HTTP/1.1" 500 239594
+2025-12-17 15:00:32 [WARNING] django.request:253 log_response() | Not Found: /favicon.ico
+2025-12-17 15:00:32 [WARNING] django.server:213 log_message() | "GET /favicon.ico HTTP/1.1" 404 5943
+2025-12-17 15:01:29 [INFO] django.server:213 log_message() | "GET /accounts/login/ HTTP/1.1" 200 49476
+2025-12-17 15:01:29 [INFO] django.server:213 log_message() | "GET /captcha/image/c25d180427be0835b42a0e3e51a927608badb362/ HTTP/1.1" 200 7746
+2025-12-17 15:01:53 [INFO] django.server:213 log_message() | "POST /accounts/login/ HTTP/1.1" 302 0
+2025-12-17 15:01:53 [INFO] django.server:213 log_message() | "GET /accounts/profile/ HTTP/1.1" 200 48437
+2025-12-17 15:01:58 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 76086
+2025-12-17 15:02:12 [INFO] django.server:213 log_message() | "GET /feedback/ HTTP/1.1" 200 49363
+2025-12-17 15:02:15 [INFO] django.server:213 log_message() | "GET /feedback/create/ HTTP/1.1" 200 54990
+2025-12-17 15:02:15 [INFO] django.server:213 log_message() | "GET /captcha/image/d4c09a60d5302f94ecc2e98f1991247d85db304e/ HTTP/1.1" 200 8535
+2025-12-17 15:38:14 [INFO] django.server:213 log_message() | "GET /admin/auth/user/1/change/ HTTP/1.1" 200 66896
+2025-12-17 15:38:15 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 15:38:15 [INFO] django.server:213 log_message() | "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+2025-12-17 15:38:15 [INFO] django.server:213 log_message() | "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+2025-12-17 15:38:15 [INFO] django.server:213 log_message() | "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+2025-12-17 15:38:15 [INFO] django.server:213 log_message() | "GET /static/admin/js/inlines.js HTTP/1.1" 200 15628
+2025-12-17 15:38:15 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+2025-12-17 15:38:15 [INFO] django.server:213 log_message() | "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+2025-12-17 15:38:15 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+2025-12-17 15:38:15 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+2025-12-17 15:38:15 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+2025-12-17 15:38:17 [INFO] django.server:213 log_message() | "POST /admin/auth/user/1/change/ HTTP/1.1" 302 0
+2025-12-17 15:38:17 [INFO] django.server:213 log_message() | "GET /admin/auth/user/1/change/ HTTP/1.1" 200 67556
+2025-12-17 15:38:17 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 15:38:25 [INFO] django.server:213 log_message() | "GET /static/jazzmin/img/selector-icons.svg HTTP/1.1" 200 3291
+2025-12-17 15:38:30 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 24496
+2025-12-17 15:38:32 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 22036
+2025-12-17 15:38:32 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 15:38:36 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/ HTTP/1.1" 200 24378
+2025-12-17 15:38:37 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 15:40:25 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\feedback\models.py changed, reloading.
+2025-12-17 15:40:28 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 15:40:33 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\feedback\models.py changed, reloading.
+2025-12-17 15:40:36 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 15:40:48 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/ HTTP/1.1" 200 24302
+2025-12-17 15:40:48 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 15:40:52 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/ HTTP/1.1" 200 24302
+2025-12-17 15:40:52 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 15:41:40 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 15:41:42 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 15:41:52 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 15:41:54 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 15:41:57 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 15:41:59 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 15:42:39 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 76086
+2025-12-17 15:44:04 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 15:44:08 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 76536
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /static/css/layout.css HTTP/1.1" 200 14763
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /static/css/sidebar.css HTTP/1.1" 200 9355
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /static/css/content.css HTTP/1.1" 200 13610
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /static/css/components.css HTTP/1.1" 200 17675
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /static/css/base.css HTTP/1.1" 200 8238
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /static/css/utilities.css HTTP/1.1" 200 14324
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /static/css/hero.css HTTP/1.1" 200 8722
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /static/css/variables.css HTTP/1.1" 200 7269
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /static/css/animations.css HTTP/1.1" 200 11288
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /static/css/responsive.css HTTP/1.1" 200 15398
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL_EvbDl94.png HTTP/1.1" 200 41704
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /media/logos/cms_logo.png HTTP/1.1" 200 372188
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /static/js/main.js HTTP/1.1" 200 4464
+2025-12-17 17:38:28 [INFO] django.server:213 log_message() | "GET /media/news/default-category.png HTTP/1.1" 200 41704
+2025-12-17 17:38:39 [INFO] django.server:213 log_message() | "GET /accounts/tickets/ HTTP/1.1" 200 51644
+2025-12-17 17:38:39 [INFO] django.server:213 log_message() | "GET /static/accounts/css/tickets.css HTTP/1.1" 200 1767
+2025-12-17 17:38:44 [INFO] django.server:213 log_message() | "GET /feedback/ HTTP/1.1" 200 49808
+2025-12-17 17:38:49 [INFO] django.server:213 log_message() | "GET /feedback/create/ HTTP/1.1" 200 55435
+2025-12-17 17:38:49 [INFO] django.server:213 log_message() | "GET /captcha/image/1e0b4bf0dbd7e2c221cea84c6c7e6c2f593015e3/ HTTP/1.1" 200 6671
+2025-12-17 17:39:22 [INFO] django.server:213 log_message() | "POST /feedback/create/ HTTP/1.1" 302 0
+2025-12-17 17:39:22 [INFO] django.server:213 log_message() | "GET /feedback/ HTTP/1.1" 200 51781
+2025-12-17 17:39:27 [INFO] django.server:213 log_message() | "GET /feedback/1/ HTTP/1.1" 200 52143
+2025-12-17 17:39:40 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/ HTTP/1.1" 200 31793
+2025-12-17 17:39:40 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:39:47 [INFO] django.server:213 log_message() | "POST /admin/feedback/feedbackmessage/ HTTP/1.1" 302 0
+2025-12-17 17:39:47 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/ HTTP/1.1" 200 32336
+2025-12-17 17:39:47 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /admin/auth/user/1/change/ HTTP/1.1" 200 66877
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/inlines.js HTTP/1.1" 200 15628
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/change_form.js HTTP/1.1" 200 6052
+2025-12-17 17:39:54 [INFO] django.server:213 log_message() | "GET /media/avatars/avatar_user_1.png HTTP/1.1" 200 372188
+2025-12-17 17:39:55 [INFO] django.server:213 log_message() | "POST /admin/auth/user/1/change/ HTTP/1.1" 302 0
+2025-12-17 17:39:56 [INFO] django.server:213 log_message() | "GET /admin/auth/user/1/change/ HTTP/1.1" 200 67537
+2025-12-17 17:39:56 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:39:59 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/ HTTP/1.1" 200 31782
+2025-12-17 17:40:00 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:40:05 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/1/change/ HTTP/1.1" 200 33400
+2025-12-17 17:40:05 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:40:05 [INFO] django.server:213 log_message() | "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+2025-12-17 17:40:24 [INFO] django.server:213 log_message() | "GET /admin/auth/group/ HTTP/1.1" 200 20867
+2025-12-17 17:40:24 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:40:28 [INFO] django.server:213 log_message() | "GET /admin/reviews/review/ HTTP/1.1" 200 28000
+2025-12-17 17:40:28 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:40:31 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/ HTTP/1.1" 200 31782
+2025-12-17 17:40:31 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:40:39 [INFO] django.server:213 log_message() | "POST /admin/feedback/feedbackmessage/ HTTP/1.1" 302 0
+2025-12-17 17:40:39 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/ HTTP/1.1" 200 32347
+2025-12-17 17:40:39 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:40:44 [INFO] django.server:213 log_message() | "GET /admin/feedback/feedbackmessage/add/ HTTP/1.1" 200 32379
+2025-12-17 17:40:44 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:40:50 [INFO] django.server:213 log_message() | "GET /admin/auth/user/1/change/ HTTP/1.1" 200 66877
+2025-12-17 17:40:50 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:40:52 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 49878
+2025-12-17 17:44:33 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\main\context_processors.py changed, reloading.
+2025-12-17 17:44:36 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 17:44:41 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 17:44:43 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 17:45:22 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 17:45:24 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 17:45:28 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 29301
+2025-12-17 17:47:17 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 29301
+2025-12-17 17:48:25 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 39152
+2025-12-17 17:48:51 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 39152
+2025-12-17 17:50:13 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 51897
+2025-12-17 17:50:34 [INFO] django.server:213 log_message() | "GET /admin/news/newscategory/ HTTP/1.1" 200 32415
+2025-12-17 17:50:35 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:50:35 [INFO] django.server:213 log_message() | "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+2025-12-17 17:50:35 [INFO] django.server:213 log_message() | "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+2025-12-17 17:50:35 [INFO] django.server:213 log_message() | "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+2025-12-17 17:50:35 [INFO] django.server:213 log_message() | "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+2025-12-17 17:50:35 [INFO] django.server:213 log_message() | "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+2025-12-17 17:50:35 [INFO] django.server:213 log_message() | "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+2025-12-17 17:50:35 [INFO] django.server:213 log_message() | "GET /static/vendor/select2/js/select2.min.js HTTP/1.1" 200 73170
+2025-12-17 17:50:35 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+2025-12-17 17:50:39 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 24477
+2025-12-17 17:50:42 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 51897
+2025-12-17 17:54:42 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53519
+2025-12-17 17:54:43 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+2025-12-17 17:54:43 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 25392
+2025-12-17 17:54:59 [INFO] django.server:213 log_message() | "GET /error-log/ HTTP/1.1" 200 83876
+2025-12-17 17:55:04 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53519
+2025-12-17 17:56:33 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53519
+2025-12-17 17:56:36 [INFO] django.server:213 log_message() | "GET /log-stats/ HTTP/1.1" 200 80569
+2025-12-17 17:56:40 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53519
+2025-12-17 17:56:42 [INFO] django.server:213 log_message() | "GET /error-log/ HTTP/1.1" 200 83876
+2025-12-17 17:56:43 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53519
+2025-12-17 17:56:52 [INFO] django.server:213 log_message() | "GET /admin/main/sitesettings/ HTTP/1.1" 200 24477
+2025-12-17 17:56:54 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53519
+2025-12-17 17:56:56 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 22017
+2025-12-17 17:56:56 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:56:58 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53519
+2025-12-17 17:57:03 [INFO] django.server:213 log_message() | "GET /admin/main/logstats/ HTTP/1.1" 200 22017
+2025-12-17 17:57:03 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:58:03 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53519
+2025-12-17 17:58:13 [INFO] django.server:213 log_message() | "GET /admin/main/page/ HTTP/1.1" 200 30014
+2025-12-17 17:58:13 [WARNING] django.server:213 log_message() | "GET /static/admin/css/pages.css HTTP/1.1" 404 1984
+2025-12-17 17:58:13 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:58:16 [INFO] django.server:213 log_message() | "GET /admin/portfolio/order/ HTTP/1.1" 200 24257
+2025-12-17 17:58:16 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:58:21 [INFO] django.server:213 log_message() | "GET /admin/portfolio/portfoliocategory/ HTTP/1.1" 200 31302
+2025-12-17 17:58:21 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:58:26 [INFO] django.server:213 log_message() | "GET /admin/portfolio/portfoliocategory/3/change/ HTTP/1.1" 200 35401
+2025-12-17 17:58:26 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:58:26 [INFO] django.server:213 log_message() | "GET /static/django_ckeditor_5/dist/styles.css HTTP/1.1" 200 213809
+2025-12-17 17:58:26 [INFO] django.server:213 log_message() | "GET /static/django_ckeditor_5/dist/bundle.js HTTP/1.1" 200 1275904
+2025-12-17 17:58:45 [INFO] django.server:213 log_message() | "POST /admin/portfolio/portfoliocategory/3/change/ HTTP/1.1" 302 0
+2025-12-17 17:58:45 [INFO] django.server:213 log_message() | "GET /admin/portfolio/portfoliocategory/ HTTP/1.1" 200 31800
+2025-12-17 17:58:45 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:58:50 [INFO] django.server:213 log_message() | "GET /admin/portfolio/portfoliocategory/1/change/ HTTP/1.1" 200 35302
+2025-12-17 17:58:50 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:58:56 [INFO] django.server:213 log_message() | "POST /admin/portfolio/portfoliocategory/1/change/ HTTP/1.1" 302 0
+2025-12-17 17:58:56 [INFO] django.server:213 log_message() | "GET /admin/portfolio/portfoliocategory/ HTTP/1.1" 200 31769
+2025-12-17 17:58:56 [INFO] django.server:213 log_message() | "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+2025-12-17 17:59:03 [INFO] django.server:213 log_message() | "GET /feedback/ HTTP/1.1" 200 51360
+2025-12-17 17:59:09 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 200 76687
+2025-12-17 18:02:01 [INFO] django.server:213 log_message() | "GET /news/ HTTP/1.1" 200 81351
+2025-12-17 18:02:01 [INFO] django.server:213 log_message() | "GET /static/css/news-cards.css HTTP/1.1" 200 0
+2025-12-17 18:02:01 [INFO] django.server:213 log_message() | "GET /static/css/pagination.css HTTP/1.1" 200 0
+2025-12-17 18:02:01 [INFO] django.server:213 log_message() | "GET /media/news/default-category_kswkSuL.png HTTP/1.1" 200 41704
+2025-12-17 18:02:01 [INFO] django.server:213 log_message() | "GET /media/news/cat_logo_1.png HTTP/1.1" 200 45479
+2025-12-17 18:02:03 [INFO] django.server:213 log_message() | "GET /portfolio/ HTTP/1.1" 200 52819
+2025-12-17 18:02:03 [INFO] django.server:213 log_message() | "GET /static/css/portfolio_list.css HTTP/1.1" 200 0
+2025-12-17 18:02:06 [INFO] django.server:213 log_message() | "GET /portfolio/create-order/ HTTP/1.1" 200 56552
+2025-12-17 18:02:06 [INFO] django.server:213 log_message() | "GET /static/css/forms.css HTTP/1.1" 200 0
+2025-12-17 18:20:10 [INFO] django.server:213 log_message() | "GET /page/o-nas/ HTTP/1.1" 200 51817
+2025-12-17 18:20:10 [INFO] django.server:213 log_message() | "GET /static/css/styles.css HTTP/1.1" 200 175
+2025-12-17 19:13:48 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 19:13:53 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53520
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/jazzmin/css/main.css HTTP/1.1" 200 16969
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103009
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 1382975
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/vendor/bootstrap/js/bootstrap.min.js HTTP/1.1" 200 62440
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/jazzmin/js/main.js HTTP/1.1" 200 2391
+2025-12-17 19:13:54 [INFO] django.server:213 log_message() | "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 44244
+2025-12-17 19:24:46 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53581
+2025-12-17 19:26:09 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53692
+2025-12-17 19:27:46 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53852
+2025-12-17 19:28:50 [INFO] django.server:213 log_message() | "GET /admin/ HTTP/1.1" 200 53910
+2025-12-17 21:30:29 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 21:35:22 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 21:35:24 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 21:39:08 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 21:39:10 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:16:12 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:16:15 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 301 0
+2025-12-17 22:16:15 [INFO] django.server:213 log_message() | code 400, message Bad request version ('êê\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93ªª\x00\x00\x00')
+2025-12-17 22:16:15 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:15 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03Á\x14KQ\x97|\x1bëÞ®p²Ü\x92î56À\x03Ëû@+\x03)\x80\x00åß&*M')
+2025-12-17 22:16:15 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:16 [INFO] django.server:213 log_message() | code 400, message Bad request version ('LÀp*iòzl8¨\x8bvv)\x99¼Äæ\x8bî$\x9b¢¬')
+2025-12-17 22:16:16 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:16 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x02h2\x08http/1.1\x00')
+2025-12-17 22:16:16 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:16 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03\x13íÄ\x95ÐdH\x87ÙWXG\x0f')
+2025-12-17 22:16:16 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:16 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ûÚ\x19\x00')
+2025-12-17 22:16:16 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ("*'¥\x8a\x82V²²Ø,kPy{")
+2025-12-17 22:16:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x17L§¸\x8dlR\x97H$Èo·\x18')
+2025-12-17 22:16:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x02\x01\x00\x00')
+2025-12-17 22:16:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¹â\x11\x87\x99XÝÐ\x06qs^´G´ÆË\x90\x9au\x94ä!,@X')
+2025-12-17 22:16:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:18 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03æ¯i')
+2025-12-17 22:16:18 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:18 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x02\x01\x00\x00')
+2025-12-17 22:16:18 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:18 [INFO] django.server:213 log_message() | code 400, message Bad request version ('§ÍÒ÷oÆ!¢4YD>\x8a\x931þ\x02W\x9c3\x95·¢\x05¶%\x017Þä\x95\x18æn\x8b-Lç\x9c÷\x17\x9c')
+2025-12-17 22:16:18 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:18 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x02h2\x08http/1.1\x003\x04ï\x04íºº\x00\x01\x00\x11ì\x04ÀÉ')
+2025-12-17 22:16:18 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:23 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x80\x17ù©DôØa\x91«¤q³\x00ø$\x99«9eaä')
+2025-12-17 22:16:23 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:23 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x16\x80\\\x1bL')
+2025-12-17 22:16:23 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:23 [INFO] django.server:213 log_message() | code 400, message Bad request syntax ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03\x87GÍiT\x18\x14¡\x0fp+æ*Ã¬Î7È¢uÞöMÐ³¾\x02\\n\x9c9')
+2025-12-17 22:16:23 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:23 [INFO] django.server:213 log_message() | code 400, message Bad request version ('êê\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063ÊÊ\x00\x00\x00')
+2025-12-17 22:16:23 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:53 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x90wñB\x00öA\x946+»\x82Ä¼,ç\x925\x07')
+2025-12-17 22:16:53 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:53 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00-\x00\x02\x01\x01\x003\x04ï\x04í\x9a\x9a\x00\x01\x00\x11ì\x04ÀúÅ±M\x93@Øv»\x13ë¾~É\x9aÐ<¨\x96äÉ\x01HLYÈ')
+2025-12-17 22:16:53 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:53 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x15\x95E³\xadÙÞ\x92\x13ÿ¡1')
+2025-12-17 22:16:53 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:16:53 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ºº\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06SZZ\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00\x17\x00\x00\x00')
+2025-12-17 22:16:53 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:17:53 [INFO] django.server:213 log_message() | code 400, message Bad request version ("\x19¶-\x10{µ'\x8ahÜVÅ2")
+2025-12-17 22:17:53 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:17:53 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¥q')
+2025-12-17 22:17:53 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:17:53 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ÿÚ\x12\x10U±l¶ï6+¶.ªMliµ½ÊH+\x16A\x94pÍÿãX\x0e4\x00')
+2025-12-17 22:17:53 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:17:53 [INFO] django.server:213 log_message() | code 400, message Bad request version ('W')
+2025-12-17 22:17:53 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:02 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:18:04 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:18:09 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x02\x01\x00\x003\x04ï\x04í')
+2025-12-17 22:18:09 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:09 [INFO] django.server:213 log_message() | code 400, message Bad request version ('·ÔaRÓ´$Â«×Ì\x08rvqV%Ê[±\x97\x94£')
+2025-12-17 22:18:09 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:09 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Æ·\x06id[F¤yËÓk\x86ý\\\x12¯')
+2025-12-17 22:18:09 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:09 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00')
+2025-12-17 22:18:09 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:10 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:18:12 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:18:13 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Üâ')
+2025-12-17 22:18:13 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:13 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Ý6¦9\x8b·[\x8aì\x94»®g\x03')
+2025-12-17 22:18:13 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:13 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x9c¼/c\x84\x01Æ+ÿ\x02_\x8d»=øVAéVS\x92É\x84?°/ÒæV¼üRË\x13µ4Ee\x89õ\x19\x0fõj]g')
+2025-12-17 22:18:13 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:13 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¯£\x18Æ|]Ðµ¼E6Q\x90\x96®ª\x11cb')
+2025-12-17 22:18:13 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:13 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¼\x7fþ')
+2025-12-17 22:18:13 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:13 [INFO] django.server:213 log_message() | code 400, message Bad request version ('o\x9e\x9dB\x9fú\x0fâCç@\x070')
+2025-12-17 22:18:13 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:29 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:18:33 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Ã@¬S:')
+2025-12-17 22:18:33 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:33 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00')
+2025-12-17 22:18:33 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:33 [INFO] django.server:213 log_message() | code 400, message Bad request version ('9ø{c')
+2025-12-17 22:18:33 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:33 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Í\x8bUw')
+2025-12-17 22:18:33 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:34 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x9fúgw\x7f\x87ÈÿÙ\x90Óy\x11¦Ç\x003')
+2025-12-17 22:18:34 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:34 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x02\x01\x00\x00')
+2025-12-17 22:18:34 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:34 [INFO] django.server:213 log_message() | code 400, message Bad request version ('/,\x0e!9AwMÈ/·Ì\x90~Æ.E\x03\x03\x0es0Oõ`\xadýg£F\x95;\x00\x90=>\\·\x93=Ã\x13<z·ã;\x9ce9£õìÍ\x84Tb«¯\x03\x15ã\x8fn')
+2025-12-17 22:18:34 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:34 [INFO] django.server:213 log_message() | code 400, message Bad request version ('úlokÓr\x94Ö\x10½Í')
+2025-12-17 22:18:34 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:35 [INFO] django.server:213 log_message() | code 400, message Bad request version ('::\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06súú\x00\x00\x00')
+2025-12-17 22:18:35 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:35 [INFO] django.server:213 log_message() | code 400, message Bad request version ('zz\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93**\x00\x00\x00\x12\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x00-\x00\x02\x01\x01\x00#\x00\x00\x003\x04ï\x04í')
+2025-12-17 22:18:35 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:35 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x02h2\x08http/1.1\x00\x1b\x00\x03\x02\x00\x02\x00+\x00\x07\x06')
+2025-12-17 22:18:35 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:35 [INFO] django.server:213 log_message() | code 400, message Bad request version ('äb\x8fÉ')
+2025-12-17 22:18:35 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:41 [INFO] django.server:213 log_message() | code 400, message Bad request version ("eI³\x92ÙXµR\x9c\x99\x99QYà/\x8cP?\x86ê\xad\x18H\x8e-\x91'»Yy\x04\x06\x14")
+2025-12-17 22:18:41 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:41 [INFO] django.server:213 log_message() | code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06súú\x00\x00\x00')
+2025-12-17 22:18:41 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:42 [INFO] django.server:213 log_message() | code 400, message Bad request syntax ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03uÃ\x9a÷t;;Õ\x89b\x9b\x06èà$\x98\x8eH\x8d<!Ù\x8dVÃåc')
+2025-12-17 22:18:42 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¥\x89n¾\x1b\x10\x1büxo&\x98<ù')
+2025-12-17 22:18:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:42 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ÞJ\x91$÷')
+2025-12-17 22:18:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:42 [INFO] django.server:213 log_message() | code 400, message Bad request version ('À\x07¦hÍ\x80d\x06XgÉð\x17[k\x04Õ')
+2025-12-17 22:18:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:47 [INFO] django.server:213 log_message() | code 400, message Bad request version ('DãÂ\x9aÐÇ\x06¿\x87')
+2025-12-17 22:18:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:47 [INFO] django.server:213 log_message() | code 400, message Bad request version ('éú\x00\x98Ç¤Ô¸\x03ÿë§ÎÄw\x93\x99')
+2025-12-17 22:18:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:47 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ºº\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s::\x00\x00\x00\x17\x00\x00DÍ\x00\x05\x00\x03\x02h2\x00+\x00\x07\x06ªª\x03\x04\x03\x03\x00\x1b\x00\x03\x02\x00\x02\x003\x04ï\x04í')
+2025-12-17 22:18:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:18:47 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x08ó\x83ò®éL\x03v\\\x00\x90«Ý\x02á\\\x05aÍ´öc~Ü)yR×b0¡\x86\x14\x061')
+2025-12-17 22:18:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:19:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x02\x01\x00\x003\x04ï\x04í**\x00\x01\x00\x11ì\x04À')
+2025-12-17 22:19:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:19:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('»\x92=»\x96áæ¶Ìç·f\x03«Íh?\x00ùÄ±ðBð\x99\x06@RÁÇWJD×\x99sl@V3T\x91(?b×gå#:')
+2025-12-17 22:19:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:19:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Ñð\x17ÏäEÚß\x96<èäX}1')
+2025-12-17 22:19:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:19:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('©¹õË5ÑAÎâ\x19\x82ê[~Ê±')
+2025-12-17 22:19:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:19:40 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:19:47 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ØÀý£³\x06o\x18Ú')
+2025-12-17 22:19:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:19:47 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x11;(×æÊYö\x10swIÛ¤J8ñÁ\x15Õ\x9c\x00]<\x8b+[þ¸\x16\x06³')
+2025-12-17 22:19:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:19:47 [INFO] django.server:213 log_message() | code 400, message Bad request version ('tJ')
+2025-12-17 22:19:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:19:47 [INFO] django.server:213 log_message() | code 400, message Bad request version ('å\x81©F\x0442äÒÃÖ\x8fÙ+uûmPø\x80\x84\x1a')
+2025-12-17 22:19:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:20:47 [INFO] django.server:213 log_message() | code 400, message Bad request syntax ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03³C\x9b¿')
+2025-12-17 22:20:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:20:47 [INFO] django.server:213 log_message() | code 400, message Bad request version ('3\\Q´)\x8bó\x81ò0\x13\x00vá\x93Çt')
+2025-12-17 22:20:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:20:47 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ñ\x15±ÿjæMÝ/4Ç\x9c1F\x0faÓºA\x11¢\x8c')
+2025-12-17 22:20:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:20:47 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00+\x00\x07\x06\x1a\x1a\x03\x04\x03\x03\x00')
+2025-12-17 22:20:47 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:05 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:21:07 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:21:21 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:21:26 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ÊA{\x8bM\x8dô\x12`8\x83²d\x83t$\x95÷\x15r¬ú@ÔÔ?d\x93\x12ïP.m£UôÅ')
+2025-12-17 22:21:26 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:26 [INFO] django.server:213 log_message() | code 400, message Bad request syntax ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03\x15Ø%\x99ÙB@5HV')
+2025-12-17 22:21:26 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:26 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ºº\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93jj\x00\x00ÿ\x01\x00\x01\x00\x003\x04ï\x04í')
+2025-12-17 22:21:26 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:26 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Ç')
+2025-12-17 22:21:26 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:27 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06À\x01\x00\x06¼\x03\x031')
+2025-12-17 22:21:27 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:27 [INFO] django.server:213 log_message() | code 400, message Bad request version ('4Éfö}Nä\x8fß\x82nú\x95½ã\x99ª6QSül,\x90¬oÃ\x93Mã+a~h\x9bÚW¸K$\x9ahEnÁ¢^m2\x06Ëz\x9fh\x07«Lc"/#5é¶M¼DÌ\x96å#\x8a1\x81]\x05Á\x92¼\x06\x8b\x06m×b"9Ô\x9aá\x19\x04ã\\¤ä\x97cN"¡A*h¹AM¿·,±Ê½Ä\x91W)\x10nê¸A7è^\x02·\x91Íá®\x81æ\x19d»eëúh¤;+~Q\xad\x02Â+')
+2025-12-17 22:21:27 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:27 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00#\x00\x00DÍ\x00\x05\x00\x03\x02h2\x00-\x00\x02\x01\x01\x00\x1b\x00\x03\x02\x00\x02\x00+\x00\x07\x06ÊÊ\x03\x04\x03\x03ÿ\x01\x00\x01\x00\x00')
+2025-12-17 22:21:27 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:27 [INFO] django.server:213 log_message() | code 400, message Bad request version ('zz\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063::\x00\x00\x00')
+2025-12-17 22:21:27 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:48 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:21:50 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:21:54 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:21:58 [INFO] django.server:213 log_message() | code 400, message Bad request version ("ZãÍ@'")
+2025-12-17 22:21:58 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x84«\x9b\x97+\x12Ùb')
+2025-12-17 22:21:58 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:58 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:58 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Ahs\x16£Dð2>\x8fÞ!çÏ#xvñ\x9d×àûó«/\x14ÔT\x8eÕÃc$;´.*êíeasä\x12@Èá\x88\x82²¡5ÐÖ}')
+2025-12-17 22:21:58 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:58 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Vöðh\x86\x14\x14D')
+2025-12-17 22:21:58 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:59 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06')
+2025-12-17 22:21:59 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:59 [INFO] django.server:213 log_message() | code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06SÚÚ\x00\x00ÿ\x01\x00\x01\x00\x00')
+2025-12-17 22:21:59 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:59 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x9bay\x13ïäc´\x158ô\\û/<Ç½\x98ï½íü')
+2025-12-17 22:21:59 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:21:59 [INFO] django.server:213 log_message() | code 400, message Bad request version ('µL·ðmò')
+2025-12-17 22:21:59 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:08 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:22:10 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:22:10 [INFO] django.server:213 log_message() | code 400, message Bad request version ("º½\x17÷xÊd\x96ÈSØ'²z")
+2025-12-17 22:22:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:10 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00')
+2025-12-17 22:22:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:10 [INFO] django.server:213 log_message() | code 400, message Bad request syntax ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03\x82Ú".uªú\x93§S"î]¸Þ\x11û')
+2025-12-17 22:22:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:10 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ç¢')
+2025-12-17 22:22:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:21 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:22:24 [INFO] django.server:213 log_message() | code 400, message Bad request version ('5ài¶àhó\x88B\x8c\x17þ')
+2025-12-17 22:22:24 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:24 [INFO] django.server:213 log_message() | code 400, message Bad request version ('**\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93êê\x00\x00\x00\x1b\x00\x03\x02\x00\x02DÍ\x00\x05\x00\x03\x02h2\x00')
+2025-12-17 22:22:24 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:24 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x02h2\x08http/1.1\x00-\x00\x02\x01\x01\x003\x04ï\x04í')
+2025-12-17 22:22:24 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:24 [INFO] django.server:213 log_message() | code 400, message Bad request version ('zûWq·\x9eÁòoz25sË\x96\x06\x9ew=\x91°\x96-S\x86¤bcÈZ¸Õ\x00')
+2025-12-17 22:22:24 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:34 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:22:36 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:22:40 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:22:43 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:22:56 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ý2!¦d\x17\x8fæ5ºÕ-¿\x83')
+2025-12-17 22:22:56 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:56 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ªª\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s\x1a\x1a\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x00\x17\x00\x00\x00#\x00\x00\x00')
+2025-12-17 22:22:56 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:56 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00')
+2025-12-17 22:22:56 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:22:56 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x8a{0')
+2025-12-17 22:22:56 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:23:13 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:23:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x88@ã%-^µ\x070i3\x98×\x88\x7f\x02¥àbA\x02\x1an\xad"«µ±VX|\x9f·§\x1a9\x16Î\x18Õ&À4Âq')
+2025-12-17 22:23:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:23:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ("A\x19¨\x13FuU|rkX@,a\x86\x90Æ\x8ed<nBhµç\x94¦À×+K¤TÑG¤Ëx\x10\x954b%l\x8d\x06ðËVð¨êe'\x8b[PO#\x8b\x89¼")
+2025-12-17 22:23:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:23:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('j/No$Dd$\x80')
+2025-12-17 22:23:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:23:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x87×\x9747q')
+2025-12-17 22:23:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:23:18 [INFO] django.server:213 log_message() | code 400, message Bad request version ('<\x10')
+2025-12-17 22:23:18 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:23:18 [INFO] django.server:213 log_message() | code 400, message Bad request version ('.ä$\x96EZÏ`')
+2025-12-17 22:23:18 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:23:18 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Ö\x9fb±\x08º\x1aY<¨¬rS;Ø')
+2025-12-17 22:23:18 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:23:18 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¼\x82µ¾¸')
+2025-12-17 22:23:18 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:24:10 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:24:12 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:25:00 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:25:04 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00+\x00\x07\x06')
+2025-12-17 22:25:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:25:04 [INFO] django.server:213 log_message() | code 400, message Bad request version ('$ý`\x86p\x11\x17P\x99M\x86&\x18')
+2025-12-17 22:25:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:25:04 [INFO] django.server:213 log_message() | code 400, message Bad request version ('5Ä¶¤F\x96qKÆ\x8e¼\x8a3\x06Á\x0eÖ\x94ºò\x876')
+2025-12-17 22:25:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:25:04 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x13Q')
+2025-12-17 22:25:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:27:04 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:27:06 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:27:10 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:27:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¬')
+2025-12-17 22:27:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x0e°è\x06&\x8c¨ó1ZßsÊ\x99\x98k}ë$°\x83\x82k@¢mj+bd\x954c\x9d+Ð\x98ði(\x07\x9bStâO\x00<\x03ÞqB&)!úY°ôZ^¸µt\x81jOUÓÌÞ»\x92\x12BOÍhh\x9aÉUcçBx\x13,WYgÊ2XÅ`9ó')
+2025-12-17 22:27:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:27:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:27:17 [INFO] django.server:213 log_message() | code 400, message Bad request syntax ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x039a\x16àï¡;')
+2025-12-17 22:27:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:27:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x01t\x02¥\x88«\x94¬â\x86')
+2025-12-17 22:27:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:01 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:28:06 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:28:10 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x02h2\x08http/1.1\x00')
+2025-12-17 22:28:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:10 [INFO] django.server:213 log_message() | code 400, message Bad request version ('V\\d»\x13±Å¼R&Ô¾')
+2025-12-17 22:28:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:10 [INFO] django.server:213 log_message() | code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93ÚÚ\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00')
+2025-12-17 22:28:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:10 [INFO] django.server:213 log_message() | code 400, message Bad request version ('tÂbg\x05Ã\x04$#ÇÐ\x89Oè·Ãi\x8b?\x86B¡\x14\x83&Ê9M¼D')
+2025-12-17 22:28:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:13 [INFO] django.server:213 log_message() | code 400, message Bad request syntax ("\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03'Q9\x10½")
+2025-12-17 22:28:13 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:13 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x07\\¤Ê')
+2025-12-17 22:28:13 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:14 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Á;\x9b\x9bj\x03\x86Û\x00\x12\x00\x00ÿ\x01\x00\x01\x00DÍ\x00\x05\x00\x03\x02h2\x00')
+2025-12-17 22:28:14 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:14 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ÊÊ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S')
+2025-12-17 22:28:14 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:14 [INFO] django.server:213 log_message() | code 400, message Bad request version ('::\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06sÊÊ\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00ÿ\x01\x00\x01\x00\x00-\x00\x02\x01\x01DÍ\x00\x05\x00\x03\x02h2\x00')
+2025-12-17 22:28:14 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:14 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x18û]¦\x92\x01û54½\x1b\x91\x9d\x9bÜ\x04òÍá')
+2025-12-17 22:28:14 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:20 [INFO] django.server:213 log_message() | code 400, message Bad request version ('eP+\x124v+\x94\x06f\x91q½üqW3\x98Ê')
+2025-12-17 22:28:20 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:20 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x8a\x8a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063')
+2025-12-17 22:28:20 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:20 [INFO] django.server:213 log_message() | code 400, message Bad request version ('è\x9aÍ\x08á¾\x19')
+2025-12-17 22:28:20 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:20 [INFO] django.server:213 log_message() | code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06sÚÚ\x00\x00\x00')
+2025-12-17 22:28:20 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:20 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x06÷ôJz8¾\x12ì¯#|l\x00')
+2025-12-17 22:28:20 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:20 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ûd°(\x8e;d1\x95U"aû[Ý¸\x81Úú¾\x03ÇIA')
+2025-12-17 22:28:20 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:20 [INFO] django.server:213 log_message() | code 400, message Bad request version ("\x02h2\x08http/1.1\x003\x04ï\x04í::\x00\x01\x00\x11ì\x04À1µ\x92Ð{\x95ú\x9b\x17Ð'Î\x84\x96ÁxÊ¤e,¼f[\x89Y\x10G\x8a²\x90ú·UÔzK.¦gæ|\x98³K=\x05¡gå1\x18OT:5¡OG\x80§LÂ\x99´:\x8aÌ§")
+2025-12-17 22:28:20 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:20 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Ã`Éôé')
+2025-12-17 22:28:20 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:21 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x90')
+2025-12-17 22:28:21 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:21 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ü^$\x98[Ü\x14¯ÚºU}+\x90\x99\x14Âä\x12ª`Ãk³xºòy\x10Ì\x07\x97,\x15\x8a-U«U»T`ld\x95\x82\x91\x8f\x81¤Â2')
+2025-12-17 22:28:21 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:21 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¶\x9dn=ÄÅÙÜh¿®½õ\x95')
+2025-12-17 22:28:21 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:28:21 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ÚÚ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Sjj\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x003\x04ï\x04í')
+2025-12-17 22:28:21 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:29:48 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:29:56 [ERROR] django.request:253 log_response() | Internal Server Error: /
+Traceback (most recent call last):
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 803, in _connect
+    raise err
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 185, in _view_wrapper
+    result = _pre_process_request(request, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 131, in _pre_process_request
+    result = middleware.process_request(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\middleware\cache.py", line 161, in process_request
+    cache_key = get_cache_key(request, self.key_prefix, "GET", cache=self.cache)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\cache.py", line 392, in get_cache_key
+    headerlist = cache.get(cache_key)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\cache\backends\redis.py", line 188, in get
+    return self._cache.get(key, default)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\cache\backends\redis.py", line 100, in get
+    value = client.get(key)
+            ^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\commands\core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 1533, in get_connection
+    connection.connect()
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение.
+2025-12-17 22:29:56 [ERROR] django.server:213 log_message() | "GET / HTTP/1.1" 500 182970
+2025-12-17 22:29:57 [WARNING] django.request:253 log_response() | Not Found: /favicon.ico
+2025-12-17 22:29:57 [WARNING] django.server:213 log_message() | "GET /favicon.ico HTTP/1.1" 404 5943
+2025-12-17 22:30:24 [ERROR] django.request:253 log_response() | Internal Server Error: /
+Traceback (most recent call last):
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 803, in _connect
+    raise err
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 787, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 185, in _view_wrapper
+    result = _pre_process_request(request, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\decorators.py", line 131, in _pre_process_request
+    result = middleware.process_request(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\middleware\cache.py", line 161, in process_request
+    cache_key = get_cache_key(request, self.key_prefix, "GET", cache=self.cache)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\utils\cache.py", line 392, in get_cache_key
+    headerlist = cache.get(cache_key)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\cache\backends\redis.py", line 188, in get
+    return self._cache.get(key, default)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\django\core\cache\backends\redis.py", line 100, in get
+    value = client.get(key)
+            ^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\commands\core.py", line 1829, in get
+    return self.execute_command("GET", name, keys=[name])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\client.py", line 621, in execute_command
+    return self._execute_command(*args, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\client.py", line 627, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\utils.py", line 195, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 1533, in get_connection
+    connection.connect()
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+  File "L:\PYTHON\PROJECTS\dpits-cms\.venv\Lib\site-packages\redis\connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение.
+2025-12-17 22:30:24 [ERROR] django.server:213 log_message() | "GET / HTTP/1.1" 500 182970
+2025-12-17 22:31:09 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03\x83[*¹Ø\x08Iû+u\x8c\x06¾%Ï\\õ¶¿Ô[\x8a\x9fòC\x08K\x94_ÊU\x8d')
+2025-12-17 22:31:09 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:09 [INFO] django.server:213 log_message() | code 400, message Bad request syntax ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03@\x9f5\x98ÃÝ')
+2025-12-17 22:31:09 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:09 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x02h2\x08http/1.1\x00\x1b\x00\x03\x02\x00\x02\x00-\x00\x02\x01\x01\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00')
+2025-12-17 22:31:09 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:09 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\'2\x9aS·f£I\x0f÷YéP\x90r\x13\x8bÚ\x81ÏÁ\x16\x9c\x03ñ)"áp`5\x86%\x82\x88sD')
+2025-12-17 22:31:09 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:10 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x8c\x12¼')
+2025-12-17 22:31:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:10 [INFO] django.server:213 log_message() | code 400, message Bad request version ('*\x16®(vÆe\x97\x10F\x12S`\x06\x11×»©Â\x8bc\\\x1b"ÚDe¤')
+2025-12-17 22:31:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:10 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00-\x00\x02\x01\x01\x00')
+2025-12-17 22:31:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:10 [INFO] django.server:213 log_message() | code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063\x8a\x8a\x00\x00\x00-\x00\x02\x01\x01\x00')
+2025-12-17 22:31:10 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:15 [INFO] django.server:213 log_message() | code 400, message Bad request version ('gw\x9dxÕtæüX&jávÁ}ñ')
+2025-12-17 22:31:15 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:15 [INFO] django.server:213 log_message() | code 400, message Bad request version ('$\x04Z')
+2025-12-17 22:31:15 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:15 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06')
+2025-12-17 22:31:15 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:15 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x83\x1b\x82>±\x13\x01\x00«|Qóp\x9c!Ì5\x80-2X¨9Ñ\x04')
+2025-12-17 22:31:15 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:45 [INFO] django.server:213 log_message() | code 400, message Bad request version ('êZ\x96b×7mßd~M\x00j')
+2025-12-17 22:31:45 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:45 [INFO] django.server:213 log_message() | code 400, message Bad request version ('²°õóÀÙ7y>J')
+2025-12-17 22:31:45 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:45 [INFO] django.server:213 log_message() | code 400, message Bad request version ('qL¥¥ÁVc³Í®r\x82/bI|¶H7;Â*·\x8fÓV¸+(')
+2025-12-17 22:31:45 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:31:45 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x9a\x9aÂ\x91ÿh¿\x9e¤oß7¨Þúj!bÈÈ×ëA\x05ÿ\x00')
+2025-12-17 22:31:45 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:23 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:32:24 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:32:31 [INFO] django.server:213 log_message() | code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06sÊÊ\x00\x00\x00\x17\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00')
+2025-12-17 22:32:31 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:31 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x04OHf%ùAëlÒrqÏ6Ô')
+2025-12-17 22:32:31 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:31 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x9b')
+2025-12-17 22:32:31 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:31 [INFO] django.server:213 log_message() | code 400, message Bad request version ('©\x15TG\x17Lî\\GOû¾n²ÊÓÔmÃÑ\x8b\x89±y§pL\x07\x91<¢*\x89òó\\21lÃìUÛ2&ãx\xad\x04ð\x12#:!')
+2025-12-17 22:32:31 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:32 [INFO] django.server:213 log_message() | code 400, message Bad request version ('`Q©kîÞ\x83Alc°Ú±\x9dÄþV')
+2025-12-17 22:32:32 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:32 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ª\x86å9\x00')
+2025-12-17 22:32:32 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:32 [INFO] django.server:213 log_message() | code 400, message Bad request version ('0H²77Æ$,')
+2025-12-17 22:32:32 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:32 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x12³\x07\x1b²3Xo')
+2025-12-17 22:32:32 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:36 [INFO] django.server:213 log_message() | "GET / HTTP/1.1" 301 0
+2025-12-17 22:32:36 [INFO] django.server:213 log_message() | code 400, message Bad request version ('::\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S\x1a\x1a\x00\x00\x00\x17\x00\x00\x00')
+2025-12-17 22:32:36 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:36 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Éô§ÒH\x0f6Ðp\x17\x08\x8c\x99\x92/')
+2025-12-17 22:32:36 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:37 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x94\x9c:çe8Ö\x18\x18\x13\x95sÐªKÍ')
+2025-12-17 22:32:37 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:37 [INFO] django.server:213 log_message() | code 400, message Bad request version ('^\x1bµ\x11zfi)tî\x94')
+2025-12-17 22:32:37 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:37 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x02h2\x08http/1.1\x003\x04ï\x04ízz\x00\x01\x00\x11ì\x04ÀÁ')
+2025-12-17 22:32:37 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:37 [INFO] django.server:213 log_message() | code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063ºº\x00\x00\x00')
+2025-12-17 22:32:37 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:42 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Å')
+2025-12-17 22:32:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:42 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x02\x01\x00\x003\x04ï\x04í::\x00\x01\x00\x11ì\x04À\x10Gh°K\x0ee\x8a\x82G\x13=Út±¹')
+2025-12-17 22:32:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:42 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x8d\x99H8IÚ¾\\â\x96\x9d\x18Þ8\x1b¯')
+2025-12-17 22:32:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:32:42 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x8a\x8a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s')
+2025-12-17 22:32:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:02 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:35:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x82,')
+2025-12-17 22:35:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ýÏý4\x7f}\\')
+2025-12-17 22:35:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ("²g'\x84b2S+à\x7f")
+2025-12-17 22:35:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:17 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¦%kÛl\x91\x9a')
+2025-12-17 22:35:17 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:19 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06')
+2025-12-17 22:35:19 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:19 [INFO] django.server:213 log_message() | code 400, message Bad request version ('**\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063**\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00\x12\x00\x00\x00#\x00\x00\x00')
+2025-12-17 22:35:19 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:19 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03r÷\x86³\x11\x08ðpÝ\x115EFa\x8a\x16t\x1b5}ÏMhäW\x9dÌÞõ©ð\x8e')
+2025-12-17 22:35:19 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:19 [INFO] django.server:213 log_message() | code 400, message Bad request version ('h\x16D\x82\xad$b\x04\x7fy>Z\x99Tö\x8fp')
+2025-12-17 22:35:19 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:24 [INFO] django.server:213 log_message() | code 400, message Bad request version ("1FBó\x0e\x8a\x92d\x9c\x06\x9fêÀþ\x9eba'Jÿ§\x87\x82\\\x96\x10ð¨Cu:³¿\x11\x9fA!\x91ÁT~+uSæ\x81\x18")
+2025-12-17 22:35:24 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:24 [INFO] django.server:213 log_message() | code 400, message Bad request version ('**\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06sJJ\x00\x00\x00-\x00\x02\x01\x01\x00')
+2025-12-17 22:35:24 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:24 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03Vd}Í98eÖä\x7fÙf\\\x13Ü\x83TDû\x1aÄTÛºô\x89ø·®±Î\x8a')
+2025-12-17 22:35:24 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:24 [INFO] django.server:213 log_message() | code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93jj\x00\x00\x00#\x00\x00ÿ\x01\x00\x01\x00\x00')
+2025-12-17 22:35:24 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:29 [INFO] django.server:213 log_message() | code 400, message Bad request version ("W%\x1aæ\x8d\x19'£¯ë¯WQ½\x7fÅ\x86\x9b\x98\x82Þ\x89HÌ¹_<¼³cØ\x19Y´\x8eì%GÌRX\x15\x13fcÜÃ\x97Â@;Q#v\x11o¼ÐSkuz}\x11r092a±\x9c0µ\x05\x97üX}")
+2025-12-17 22:35:29 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:29 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x0f*\x96Ç\x15Àeï%\x82ð\x80Ê,')
+2025-12-17 22:35:29 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:30 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x1a\x1a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s')
+2025-12-17 22:35:30 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:30 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00\x1b\x00\x03\x02\x00\x02\x003\x04ï\x04í')
+2025-12-17 22:35:30 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:30 [INFO] django.server:213 log_message() | code 400, message Bad request version ('#p(\x91[É½1:{+\x1b_±')
+2025-12-17 22:35:30 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:30 [INFO] django.server:213 log_message() | code 400, message Bad request version ('9Ìõn÷ä¦«¶\x8a\x03¹')
+2025-12-17 22:35:30 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:35 [INFO] django.server:213 log_message() | code 400, message Bad request version ('êÊ¥KÖ-)w¯\x9b\x12Ñ)÷v\x0fVål\x93')
+2025-12-17 22:35:35 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:35 [INFO] django.server:213 log_message() | code 400, message Bad request version ('**\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S\x8a\x8a\x00\x00\x00')
+2025-12-17 22:35:35 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:35 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x11Jí')
+2025-12-17 22:35:35 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:35 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x03\x8bý\x13_\x00')
+2025-12-17 22:35:35 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:35 [INFO] django.server:213 log_message() | code 400, message Bad request version ('zu¬u¾D»Dlq\x15{Î\x04Z§p\x80G\x8b\\oyvç')
+2025-12-17 22:35:35 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:35 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00')
+2025-12-17 22:35:35 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:36 [INFO] django.server:213 log_message() | code 400, message Bad request version ('I\x18Ó')
+2025-12-17 22:35:36 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:37 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ÊÊ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93ZZ\x00\x00\x00\x12\x00\x00\x00')
+2025-12-17 22:35:37 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:37 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ÊÊ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93')
+2025-12-17 22:35:37 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:37 [INFO] django.server:213 log_message() | code 400, message Bad request version (',a£4\x12m£©ÑÓ\x89oÌ¢')
+2025-12-17 22:35:37 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:42 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03°')
+2025-12-17 22:35:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:42 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03YØôÄD?\x10)|#º\x8cS\x02P¿\x0e\x18ÓH»{/Ô)(õ\x19³\x00ÿD')
+2025-12-17 22:35:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:42 [INFO] django.server:213 log_message() | code 400, message Bad request version ('B,§\x9cÆ\x11u»')
+2025-12-17 22:35:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:35:42 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03é\x94ê´Ì\x9bú\x00úQéß\x8e/`W\x17ùÚ\x95è\x84¤Zðl±`ç\x8ckf')
+2025-12-17 22:35:42 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:37:00 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:37:03 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:37:16 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:37:19 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:38:08 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x95ãè,')
+2025-12-17 22:38:08 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:38:08 [INFO] django.server:213 log_message() | code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93\x1a\x1a\x00\x00\x00')
+2025-12-17 22:38:08 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:38:08 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06')
+2025-12-17 22:38:08 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:38:08 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ZZ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063êê\x00\x00\x00')
+2025-12-17 22:38:08 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:38:27 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:38:29 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:38:32 [INFO] django.server:213 log_message() | code 400, message Bad request version ('8ô7´ò\x1bÒ')
+2025-12-17 22:38:32 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:38:32 [INFO] django.server:213 log_message() | code 400, message Bad request version ('::\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s\x9a\x9a\x00\x00\x00')
+2025-12-17 22:38:32 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:38:32 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x02h2\x08http/1.1\x00')
+2025-12-17 22:38:32 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:38:32 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Åæ°\x16\x9f!j\x17\x82¥')
+2025-12-17 22:38:32 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:38:34 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x16Xí\x89\x8e#7\x15§@}mD[3È\x80ÕÔ¨\x1bwD0')
+2025-12-17 22:38:34 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:38:34 [INFO] django.server:213 log_message() | code 400, message Bad request version ('A(\x92K®Sê\x04\x8fÔ')
+2025-12-17 22:38:34 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:38:34 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Q\x91å\x19i³³Kä\x11\x9fª´gÁùÈ\x9f\x8a\x83\x10Å"àè\xadí±_\x9f\x05mî¹\x9cþà\x07)Ù)ÞÆ')
+2025-12-17 22:38:34 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:38:34 [INFO] django.server:213 log_message() | code 400, message Bad request version ('=¤\x81\x0e¸*^fIïB+;#q\x82û\x92ßÂXè\x8aq²¡\x81*À¾±«J')
+2025-12-17 22:38:34 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:39:04 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03\x19\x8f')
+2025-12-17 22:39:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:39:04 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ÚÚ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s')
+2025-12-17 22:39:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:39:04 [INFO] django.server:213 log_message() | code 400, message Bad request version ('Ñ©ÕuÖ¦pÄ')
+2025-12-17 22:39:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:39:04 [INFO] django.server:213 log_message() | code 400, message Bad request version ('::\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06SÚÚ\x00\x00\x00')
+2025-12-17 22:39:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:40:04 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x93\x14\x8då<\x9b9\x124-BÆrC\x19ú,±SÄeP}_ì@VhØ\x90§?\x00')
+2025-12-17 22:40:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:40:04 [INFO] django.server:213 log_message() | code 400, message Bad request version ('4\x94\x96\x16')
+2025-12-17 22:40:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:40:04 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¬õÚ0l\x12I\x9e\x93Ö\x00')
+2025-12-17 22:40:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:40:04 [INFO] django.server:213 log_message() | code 400, message Bad request syntax ('\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03Å&Ænp;À')
+2025-12-17 22:40:04 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:07 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-17 22:41:10 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:41:11 [INFO] django.server:213 log_message() | code 400, message Bad request version ('&q\xad\x86»\x05¯&')
+2025-12-17 22:41:11 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:11 [INFO] django.server:213 log_message() | code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93úú\x00\x00\x003\x04ï\x04íÚÚ\x00\x01\x00\x11ì\x04À\x90\x9cd')
+2025-12-17 22:41:11 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:11 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ºº\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063\x8a\x8a\x00\x00\x00-\x00\x02\x01\x01\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00')
+2025-12-17 22:41:11 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:11 [INFO] django.server:213 log_message() | code 400, message Bad request syntax ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03}\x92\x7f\xad(\x9dõû;_»8ß\\\x8c¢')
+2025-12-17 22:41:11 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:28 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:41:32 [INFO] django.server:213 log_message() | code 400, message Bad request version ('+¦sÁ\x83ÆIt¡D¿´\x80ºpE¡\x99V:ònÑÐ|:\x97h\x9b`\x83EjÊ\x82d:¡ùWÉü\x8aÓ\x92')
+2025-12-17 22:41:32 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:32 [INFO] django.server:213 log_message() | code 400, message Bad request version ('ú¸||\x89')
+2025-12-17 22:41:32 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:33 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x1b«À\x88t$\x8c5`\x92`\x88\x96R*-¡\x10²µæÇo\x11\x11ã\x18\xad\x15çw§zÄVÀ`\x91@¼mI^©Úx\x83!z>W\x98\x17bVõÃÃ\x07b\x01\x9b3t^HÍRòk¹Ib»×\x9ce¢Bê')
+2025-12-17 22:41:33 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¬V\x18²Ø<ã¥\x95¼£Á\x01pzÐk§z\x83£©\x19\x8e\x99\x84\x17\x89É.i\x9c\x9e¦£\x10Ìè·®\x90¡\x07å`qÅ}Ye?ïò\x15¦\x11K\x7fñ')
+2025-12-17 22:41:33 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:33 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:33 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06')
+2025-12-17 22:41:33 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:33 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x02\x01\x00\x00+\x00\x07\x06ºº\x03\x04\x03\x03ÿ\x01\x00\x01\x00\x00-\x00\x02\x01\x01\x00')
+2025-12-17 22:41:33 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:39 [INFO] django.server:213 log_message() | code 400, message Bad request version ('FôÆ¨DÀÎÂD\x83øqaþC0§#5')
+2025-12-17 22:41:39 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:39 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x08þ*}Tª®\x81\x81~\x89GÃî#r3\x08"S°£\x8cù\x002\x1aHuÊWsâ\x9c2gÊ8')
+2025-12-17 22:41:39 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:39 [INFO] django.server:213 log_message() | code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03\x9apÐü³äÇî1')
+2025-12-17 22:41:39 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:41:39 [INFO] django.server:213 log_message() | code 400, message Bad request version ('À~\x83$Lc\x1ayU\x1bgö\x06Ì{a\x96')
+2025-12-17 22:41:39 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:42:42 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-17 22:42:48 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00')
+2025-12-17 22:42:48 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:42:48 [INFO] django.server:213 log_message() | code 400, message Bad request version ('³Y')
+2025-12-17 22:42:48 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:42:49 [INFO] django.server:213 log_message() | code 400, message Bad request version ('&UÎ«\x940@9Q\x95Éf\x06RÌ\x86zP3\xadÐhªN«±äõ»²vZÁU¢13+«\x82\x8fý\x08t\x92\x08\x19ÇÚ\x93·')
+2025-12-17 22:42:49 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:42:49 [INFO] django.server:213 log_message() | code 400, message Bad request version ('\x9a\x9a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s')
+2025-12-17 22:42:49 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:42:49 [INFO] django.server:213 log_message() | code 400, message Bad request version ('t¢úgQ£\x16\x87hs¶k\x04\x165\x13;?²-yP\x83\x86Ûhî\x82i£|\x1aÞ{Î5#\x07Å¶\x14ó\x06\x84\x17\x9aníX\x88\x13')
+2025-12-17 22:42:49 [INFO] django.server:213 log_message() | code 400, message Bad request version ('¢Ð¢\x80')
+2025-12-17 22:42:49 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.
+2025-12-17 22:42:49 [ERROR] django.server:193 log_message() | You're accessing the development server over HTTPS, but it only supports HTTP.

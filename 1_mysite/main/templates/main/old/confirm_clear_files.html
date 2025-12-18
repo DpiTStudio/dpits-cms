@@ -1,0 +1,47 @@
+<!-- templates/admin/main/confirm_clear_files.html -->
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+    &rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+    &rsaquo; {% trans 'Clear Selected Files' %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <div class="module">
+        <h2>Подтверждение очистки файлов</h2>
+        
+        <div class="form-row" style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; margin: 20px 0; border-radius: 5px;">
+            <h3 style="color: #856404; margin-top: 0;">⚠️ Внимание!</h3>
+            <p>Вы собираетесь очистить {{ files|length }} файл(ов):</p>
+            
+            <ul>
+                {% for file in files %}
+                <li><strong>{{ file.name }}</strong> ({{ file.file_path }}) - {{ file.human_readable_size }}</li>
+                {% endfor %}
+            </ul>
+            
+            <p>После очистки все содержимое файлов будет удалено и не может быть восстановлено!</p>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="confirm" value="1">
+            
+            {% for file in files %}
+            <input type="hidden" name="{{ action_checkbox_name }}" value="{{ file.pk }}">
+            {% endfor %}
+            
+            <div class="submit-row">
+                <a href="{% url opts|admin_urlname:'changelist' %}" class="button">Отмена</a>
+                <input type="submit" value="Очистить выбранные файлы" class="default" style="background: #dc3545; color: white; border: none;">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

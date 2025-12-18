@@ -3,6 +3,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block title %}
 {% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}Обратная связь
 {% endblock %}
@@ -14,10 +15,10 @@
             <h1 class="mb-4">
                 <i class="fas fa-envelope me-2"></i>Обратная связь
             </h1>
-            
+
             <div class="alert alert-info">
                 <i class="fas fa-info-circle me-2"></i>
-                Заполните форму ниже, и мы свяжемся с вами в ближайшее время. 
+                Заполните форму ниже, и мы свяжемся с вами в ближайшее время.
                 Все поля обязательны для заполнения.
             </div>
 
@@ -142,11 +143,13 @@
                             </li>
                             <li class="mb-2">
                                 <i class="fas fa-check text-success me-2"></i>
-                                <strong>На какой email придет ответ?</strong> Ответ будет отправлен на указанный вами email.
+                                <strong>На какой email придет ответ?</strong> Ответ будет отправлен на указанный вами
+                                email.
                             </li>
                             <li class="mb-0">
                                 <i class="fas fa-check text-success me-2"></i>
-                                <strong>Могу ли я отследить статус сообщения?</strong> Да, все ваши сообщения доступны в разделе "Мои сообщения".
+                                <strong>Могу ли я отследить статус сообщения?</strong> Да, все ваши сообщения доступны в
+                                разделе "Мои сообщения".
                             </li>
                         </ul>
                     </div>
@@ -160,17 +163,16 @@
     .captcha-wrapper {
         margin: 15px 0;
     }
-    
+
     .captcha-wrapper img {
         border: 1px solid #dee2e6;
         border-radius: 4px;
         padding: 5px;
         background: #f8f9fa;
     }
-    
+
     .captcha-wrapper input {
         margin-top: 10px;
     }
 </style>
 {% endblock %}
-

@@ -1,0 +1,56 @@
+<!-- templates/admin/main/view_file_content.html -->
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+    &rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+    &rsaquo; {% trans 'View File Content' %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <div class="module">
+        <h2>Просмотр содержимого файла: {{ file.name }}</h2>
+        
+        <div class="form-row">
+            <label><strong>Путь к файлу:</strong></label>
+            <div><code>{{ file.file_path }}</code></div>
+        </div>
+        
+        <div class="form-row">
+            <label><strong>Размер:</strong></label>
+            <div>{{ file_size_human }}</div>
+        </div>
+        
+        <div class="form-row">
+            <label><strong>Последнее изменение:</strong></label>
+            <div>{{ file.file_mtime|date:"d.m.Y H:i:s" }}</div>
+        </div>
+        
+        <hr>
+        
+        <div class="form-row">
+            <label><strong>Содержимое файла:</strong></label>
+            <div style="margin-top: 10px;">
+                <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; padding: 15px; max-height: 600px; overflow-y: auto;">
+                    <pre style="margin: 0; white-space: pre-wrap; font-family: 'Consolas', 'Monaco', 'Courier New', monospace; line-height: 1.4; font-size: 13px;">{{ content }}</pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="submit-row" style="margin-top: 20px;">
+            <a href="{% url 'admin:main_managedfile_changelist' %}" class="button">Назад к списку</a>
+            <a href="{% url 'admin:main_managedfile_change' file.id %}" class="button default">Редактировать файл</a>
+            {% if file.exists and file.is_text_file %}
+            <a href="{% url 'admin:main_managedfile_clear_confirm' file.id %}" class="button" style="background: #dc3545; color: white;">
+                Очистить файл
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,349 @@
+/* ============================================
+   ФАЙЛ: components.css
+   ОПИСАНИЕ: Стили для компонентов интерфейса (карточки, кнопки, формы, бейджи)
+   ============================================ */
+
+/* ========== КАРТОЧКИ ========== */
+
+/* Базовая карточка */
+.card {
+    border-radius: var(--border-radius);    /* Скругление углов */
+    box-shadow: var(--box-shadow);           /* Стандартная тень */
+    border: none;                            /* Убираем стандартную границу */
+    transition: var(--transition);           /* Плавный переход */
+    display: flex;                            /* Flexbox для выравнивания */
+    flex-direction: column;                   /* Вертикальное направление */
+    overflow: hidden;                         /* Скрываем переполнение */
+    background-color: var(--text-white);     /* Белый фон */
+    margin-bottom: var(--spacing-lg);        /* Отступ снизу */
+}
+
+/* Состояние наведения на карточку */
+.card:hover {
+    transform: translateY(-5px);             /* Смещение вверх при наведении */
+    box-shadow: var(--box-shadow-lg);        /* Увеличенная тень */
+}
+
+/* Заголовок карточки */
+.card-header {
+    background: var(--primary-gradient);      /* Градиентный фон */
+    color: var(--text-white);                /* Белый текст */
+    padding: var(--spacing-md);              /* Внутренние отступы */
+    font-weight: var(--font-weight-semibold); /* Полужирный шрифт */
+    border-bottom: none;                     /* Убираем нижнюю границу */
+}
+
+/* Тело карточки */
+.card-body {
+    padding: var(--spacing-lg);              /* Внутренние отступы */
+    flex: 1;                                 /* Занимает все доступное пространство */
+    display: flex;                            /* Flexbox для выравнивания */
+    flex-direction: column;                   /* Вертикальное направление */
+}
+
+/* Заголовок в карточке */
+.card-title {
+    color: var(--dark-color);                /* Темный цвет текста */
+    font-weight: var(--font-weight-semibold); /* Полужирный шрифт */
+    margin-bottom: var(--spacing-md);        /* Отступ снизу */
+    font-size: var(--font-size-lg);          /* Увеличенный размер */
+}
+
+/* Текст в карточке */
+.card-text {
+    color: var(--text-muted);                /* Приглушенный цвет текста */
+    line-height: var(--line-height-relaxed);  /* Расслабленная высота строки */
+    flex-grow: 1;                            /* Растягивается для заполнения пространства */
+}
+
+/* Футер карточки */
+.card-footer {
+    background-color: transparent;           /* Прозрачный фон */
+    border-top: var(--border-width-thin) solid #dee2e6; /* Верхняя граница */
+    padding: var(--spacing-md);              /* Внутренние отступы */
+}
+
+/* Карточка с эффектом наведения */
+.card-hover {
+    transition: var(--transition);           /* Плавный переход */
+    cursor: pointer;                          /* Указатель при наведении */
+}
+
+/* Состояние наведения на карточку с эффектом */
+.card-hover:hover {
+    transform: translateY(-5px);             /* Смещение вверх */
+    box-shadow: var(--box-shadow-xl);         /* Очень большая тень */
+}
+
+/* Карточка новости */
+.news-card {
+    transition: var(--transition);           /* Плавный переход */
+    border: none;                            /* Убираем границу */
+    border-radius: var(--border-radius-md);  /* Среднее скругление */
+    overflow: hidden;                         /* Скрываем переполнение */
+}
+
+/* Состояние наведения на карточку новости */
+.news-card:hover {
+    transform: translateY(-3px);             /* Небольшое смещение вверх */
+    box-shadow: var(--box-shadow-md);        /* Средняя тень */
+}
+
+/* Изображение в карточке новости */
+.news-card .card-img-top {
+    height: 180px;                           /* Фиксированная высота */
+    object-fit: cover;                       /* Обрезка с сохранением пропорций */
+    object-position: center;                 /* Центрирование изображения */
+    transition: var(--transition);           /* Плавный переход */
+    width: 100%;                             /* Полная ширина */
+}
+
+/* Состояние наведения на изображение новости */
+.news-card:hover .card-img-top {
+    transform: scale(1.05);                  /* Увеличение при наведении */
+}
+
+/* Карточка категории */
+.category-card {
+    transition: var(--transition);           /* Плавный переход */
+    border: none;                            /* Убираем границу */
+    border-radius: var(--border-radius-md);  /* Среднее скругление */
+    overflow: hidden;                         /* Скрываем переполнение */
+}
+
+/* Состояние наведения на карточку категории */
+.category-card:hover {
+    transform: translateY(-5px);            /* Смещение вверх */
+    box-shadow: var(--box-shadow-lg);        /* Большая тень */
+}
+
+/* Изображение категории */
+.category-image {
+    transition: var(--transition);           /* Плавный переход */
+    width: 100%;                             /* Полная ширина */
+    height: auto;                            /* Автоматическая высота */
+}
+
+/* Состояние наведения на изображение категории */
+.category-card:hover .category-image {
+    transform: scale(1.05);                  /* Увеличение при наведении */
+}
+
+/* Заголовок категорий */
+.categories-header {
+    background-color: var(--light-color);     /* Светлый фон */
+    padding: var(--spacing-md);              /* Внутренние отступы */
+    border-radius: var(--border-radius-sm);  /* Маленькое скругление */
+    border: var(--border-width-thin) solid #dee2e6; /* Серая граница */
+    margin-bottom: var(--spacing-lg);        /* Отступ снизу */
+}
+
+/* Заголовок в блоке категорий */
+.categories-header h6 {
+    font-weight: var(--font-weight-semibold); /* Полужирный шрифт */
+    color: #495057;                          /* Темно-серый цвет */
+    margin-bottom: var(--spacing-md);        /* Отступ снизу */
+}
+
+/* ========== КНОПКИ ========== */
+
+/* Базовая кнопка */
+.btn {
+    font-weight: var(--font-weight-medium);  /* Средний вес шрифта */
+    transition: var(--transition);           /* Плавный переход */
+    border-radius: var(--border-radius);     /* Скругление углов */
+    padding: var(--spacing-sm) var(--spacing-lg); /* Внутренние отступы */
+    cursor: pointer;                          /* Указатель при наведении */
+    display: inline-flex;                    /* Flexbox для выравнивания */
+    align-items: center;                      /* Вертикальное выравнивание */
+    justify-content: center;                  /* Горизонтальное выравнивание */
+    gap: var(--spacing-sm);                  /* Отступ между иконкой и текстом */
+    text-decoration: none;                   /* Убираем подчеркивание */
+    border: var(--border-width) solid transparent; /* Прозрачная граница */
+}
+
+/* Основная кнопка */
+.btn-primary {
+    background: var(--primary-gradient);     /* Градиентный фон */
+    color: var(--text-white);                /* Белый текст */
+    border: none;                            /* Убираем границу */
+    border-radius: var(--border-radius);     /* Скругление углов */
+    transition: var(--transition);           /* Плавный переход */
+}
+
+/* Состояние наведения на основную кнопку */
+.btn-primary:hover {
+    transform: translateY(-2px);            /* Смещение вверх */
+    box-shadow: var(--box-shadow-primary);  /* Тень с основным цветом */
+    color: var(--text-white);               /* Белый текст */
+}
+
+/* Кнопка с обводкой */
+.btn-outline-primary {
+    border: var(--border-width) solid var(--primary-color); /* Граница основного цвета */
+    color: var(--primary-color);             /* Цвет текста - основной */
+    background-color: transparent;          /* Прозрачный фон */
+}
+
+/* Состояние наведения на кнопку с обводкой */
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);  /* Фон основного цвета */
+    border-color: var(--primary-color);      /* Граница основного цвета */
+    color: var(--text-white);                /* Белый текст */
+}
+
+/* Активная кнопка с обводкой */
+.btn-outline-primary.active {
+    background-color: var(--primary-color);  /* Фон основного цвета */
+    border-color: var(--primary-color);      /* Граница основного цвета */
+    color: var(--text-white);                /* Белый текст */
+}
+
+/* Маленькая кнопка */
+.btn-sm {
+    padding: var(--spacing-xs) var(--spacing-md); /* Уменьшенные отступы */
+    font-size: var(--font-size-sm);          /* Маленький размер шрифта */
+}
+
+/* Большая кнопка */
+.btn-lg {
+    padding: var(--spacing-md) var(--spacing-xl); /* Увеличенные отступы */
+    font-size: var(--font-size-lg);          /* Большой размер шрифта */
+}
+
+/* Кнопка с градиентом */
+.btn-primary-gradient {
+    background: var(--primary-gradient);     /* Градиентный фон */
+    border: none;                            /* Убираем границу */
+    border-radius: var(--border-radius-md);  /* Среднее скругление */
+    padding: var(--spacing-md) var(--spacing-xl); /* Внутренние отступы */
+    color: var(--text-white);                /* Белый текст */
+    font-weight: var(--font-weight-semibold); /* Полужирный шрифт */
+    transition: var(--transition);           /* Плавный переход */
+    position: relative;                       /* Относительное позиционирование */
+    overflow: hidden;                         /* Скрываем переполнение */
+}
+
+/* Состояние наведения на кнопку с градиентом */
+.btn-primary-gradient:hover {
+    transform: translateY(-2px);            /* Смещение вверх */
+    box-shadow: var(--box-shadow-primary);   /* Тень с основным цветом */
+}
+
+/* ========== ФОРМЫ ========== */
+
+/* Группа формы */
+.form-group {
+    margin-bottom: var(--spacing-lg);        /* Отступ снизу */
+    position: relative;                       /* Относительное позиционирование */
+}
+
+/* Метка формы */
+.form-label {
+    font-weight: var(--font-weight-semibold); /* Полужирный шрифт */
+    color: var(--dark-color);                /* Темный цвет текста */
+    margin-bottom: var(--spacing-sm);       /* Отступ снизу */
+    display: block;                          /* Блочный элемент */
+}
+
+/* Поле ввода */
+.form-control {
+    border-radius: var(--border-radius);      /* Скругление углов */
+    border: var(--border-width) solid #e9ecef; /* Светло-серая граница */
+    transition: var(--transition);           /* Плавный переход */
+    padding: var(--spacing-sm) var(--spacing-md); /* Внутренние отступы */
+    width: 100%;                             /* Полная ширина */
+    font-size: var(--font-size-base);        /* Базовый размер шрифта */
+}
+
+/* Состояние фокуса поля ввода */
+.form-control:focus {
+    border-color: var(--primary-color);      /* Граница основного цвета */
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25); /* Тень при фокусе */
+    outline: none;                           /* Убираем стандартный контур */
+    transform: translateY(-1px);            /* Небольшое смещение вверх */
+}
+
+/* ========== БЕЙДЖИ ========== */
+
+/* Базовый бейдж */
+.badge {
+    font-weight: var(--font-weight-medium);  /* Средний вес шрифта */
+    padding: var(--spacing-xs) var(--spacing-md); /* Внутренние отступы */
+    border-radius: var(--border-radius-xl);  /* Большое скругление (капсула) */
+    font-size: var(--font-size-xs);         /* Маленький размер шрифта */
+    display: inline-block;                   /* Блочно-строчный элемент */
+}
+
+/* Бейдж вторичного цвета */
+.badge.bg-secondary {
+    background-color: var(--text-muted);     /* Приглушенный цвет фона */
+    color: var(--text-white);                /* Белый текст */
+}
+
+/* ========== АЛЕРТЫ ========== */
+
+/* Базовый алерт */
+.alert {
+    border-radius: var(--border-radius);     /* Скругление углов */
+    border: none;                            /* Убираем границу */
+    padding: var(--spacing-md);              /* Внутренние отступы */
+    margin-bottom: var(--spacing-md);        /* Отступ снизу */
+}
+
+/* Алерт успеха */
+.alert-success {
+    background-color: rgba(40, 167, 69, 0.1); /* Полупрозрачный зеленый фон */
+    color: var(--success-color);             /* Зеленый цвет текста */
+    border-left: 4px solid var(--success-color); /* Зеленая левая граница */
+}
+
+/* Алерт ошибки */
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.1); /* Полупрозрачный красный фон */
+    color: var(--danger-color);              /* Красный цвет текста */
+    border-left: 4px solid var(--danger-color); /* Красная левая граница */
+}
+
+/* Алерт предупреждения */
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.1); /* Полупрозрачный желтый фон */
+    color: #856404;                          /* Темно-желтый цвет текста */
+    border-left: 4px solid var(--warning-color); /* Желтая левая граница */
+}
+
+/* Алерт информации */
+.alert-info {
+    background-color: rgba(23, 162, 184, 0.1); /* Полупрозрачный голубой фон */
+    color: var(--info-color);                /* Голубой цвет текста */
+    border-left: 4px solid var(--info-color); /* Голубая левая граница */
+}
+
+/* ========== УТИЛИТАРНЫЕ КЛАССЫ ДЛЯ КОМПОНЕНТОВ ========== */
+
+/* Тень при наведении */
+.shadow-sm-hover {
+    box-shadow: var(--box-shadow-sm);        /* Маленькая тень по умолчанию */
+    transition: var(--transition);           /* Плавный переход */
+}
+
+/* Состояние наведения с тенью */
+.shadow-sm-hover:hover {
+    box-shadow: var(--box-shadow-md);        /* Средняя тень при наведении */
+}
+
+/* Переход для всех свойств */
+.transition-all {
+    transition: var(--transition);           /* Плавный переход */
+}
+
+/* Эффект поднятия при наведении */
+.hover-lift:hover {
+    transform: translateY(-5px);            /* Смещение вверх */
+    box-shadow: var(--box-shadow-lg);        /* Большая тень */
+}
+
+/* Профиль */
+.profile-info {
+    width: 100% !important; /* Ширина блока профиля */
+}

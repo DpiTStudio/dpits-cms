@@ -1,0 +1,192 @@
+<!-- ============================================
+     ФАЙЛ: sidebar.html
+     ОПИСАНИЕ: Боковая панель (сайдбар) с дополнительной информацией
+     ============================================ -->
+
+<!-- Загрузка статических файлов Django -->
+{% load static %}
+<!-- Контейнер сайдбара - 3 колонки из 12 на больших экранах -->
+<div class="col-lg-3">
+    <!-- Секция последних новостей -->
+    <!-- Условная проверка наличия новостей для сайдбара -->
+    {% if sidebar_news %}
+    <!-- Карточка с отступом снизу, тенью, без границы и скругленными углами -->
+    <div class="card mb-4 shadow-sm border-0 rounded-3">
+        <!-- Заголовок карточки с основным цветом фона и белым текстом -->
+        <div class="card-header bg-primary text-white">
+            <!-- Заголовок с иконкой газеты и без отступа снизу -->
+            <h6 class="mb-0">
+                <i class="fas fa-newspaper me-2"></i>Последние новости
+            </h6>
+        </div>
+        <!-- Тело карточки -->
+        <div class="card-body">
+            <!-- Цикл по списку новостей для сайдбара -->
+            {% for news in sidebar_news %}
+            <!-- Контейнер для каждой новости с отступами и условной нижней границей -->
+            <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
+                <!-- Заголовок новости с отступом снизу -->
+                <h6 class="mb-1">
+                    <!-- Ссылка на детальную страницу новости без подчеркивания и темным текстом -->
+                    <a href="{% url 'news:detail' news.slug %}" 
+                        class="text-decoration-none text-dark">
+                        {{ news.title|truncatewords:6 }}
+                    </a>
+                </h6>
+                <!-- Дата создания новости с приглушенным цветом и иконкой календаря -->
+                <small class="text-muted">
+                    <i class="fas fa-calendar me-1"></i>
+                    {{ news.created_at|date:"d.m.Y" }}
+                </small>
+            </div>
+            {% endfor %}
+            <!-- Контейнер с центрированием и отступом сверху -->
+            <div class="text-center mt-3">
+                <!-- Кнопка-ссылка на страницу всех новостей -->
+                <a href="{% url 'news:list' %}" 
+                    class="btn btn-sm btn-outline-primary">
+                    Все новости <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Секция последних работ из портфолио -->
+    <!-- Условная проверка наличия работ портфолио для сайдбара -->
+    {% if sidebar_portfolio %}
+    <!-- Карточка с отступом снизу, тенью, без границы и скругленными углами -->
+    <div class="card mb-4 shadow-sm border-0 rounded-3">
+        <!-- Заголовок карточки с зеленым цветом фона и белым текстом -->
+        <div class="card-header bg-success text-white">
+            <!-- Заголовок с иконкой портфеля и без отступа снизу -->
+            <h6 class="mb-0">
+                <i class="fas fa-briefcase me-2"></i>Последние работы
+            </h6>
+        </div>
+        <!-- Тело карточки -->
+        <div class="card-body">
+            <!-- Цикл по списку работ портфолио для сайдбара -->
+            {% for portfolio_item in sidebar_portfolio %}
+            <!-- Контейнер для каждой работы с отступами и условной нижней границей -->
+            <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
+                <!-- Условная проверка наличия изображения у работы -->
+                {% if portfolio_item.image %}
+                <!-- Изображение работы с адаптивными размерами, скруглением и отступом снизу -->
+                <img src="{{ portfolio_item.image.url }}" 
+                     class="img-fluid rounded mb-2 sidebar-portfolio-image" 
+                     alt="{{ portfolio_item.title }}">
+                {% endif %}
+                <!-- Заголовок работы с отступом снизу -->
+                <h6 class="mb-1">
+                    <!-- Ссылка на детальную страницу работы без подчеркивания и темным текстом -->
+                    <a href="{% url 'portfolio:detail' portfolio_item.slug %}" 
+                        class="text-decoration-none text-dark">
+                        {{ portfolio_item.title|truncatewords:6 }}
+                    </a>
+                </h6>
+                <!-- Дата создания работы с приглушенным цветом и иконкой календаря -->
+                <small class="text-muted">
+                    <i class="fas fa-calendar me-1"></i>
+                    {{ portfolio_item.created_at|date:"d.m.Y" }}
+                </small>
+            </div>
+            {% endfor %}
+            <!-- Контейнер с центрированием и отступом сверху -->
+            <div class="text-center mt-3">
+                <!-- Кнопка-ссылка на страницу всех работ портфолио -->
+                <a href="{% url 'portfolio:list' %}" 
+                    class="btn btn-sm btn-outline-success">
+                    Все работы <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Секция последних отзывов -->
+    <!-- Условная проверка наличия отзывов для сайдбара -->
+    {% if sidebar_reviews %}
+    <!-- Карточка с отступом снизу, тенью, без границы и скругленными углами -->
+    <div class="card mb-4 shadow-sm border-0 rounded-3">
+        <!-- Заголовок карточки с желтым цветом фона и темным текстом -->
+        <div class="card-header bg-warning text-dark">
+            <!-- Заголовок с иконкой звезды и без отступа снизу -->
+            <h6 class="mb-0">
+                <i class="fas fa-star me-2"></i>Последние отзывы
+            </h6>
+        </div>
+        <!-- Тело карточки -->
+        <div class="card-body">
+            <!-- Цикл по списку отзывов для сайдбара -->
+            {% for review in sidebar_reviews %}
+            <!-- Контейнер для каждого отзыва с отступами и условной нижней границей -->
+            <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
+                <!-- Контейнер с flexbox выравниванием по началу -->
+                <div class="d-flex align-items-start mb-2">
+                    <!-- Контейнер с растягиванием на все доступное пространство -->
+                    <div class="flex-grow-1">
+                        <!-- Имя автора отзыва с отступом снизу -->
+                        <h6 class="mb-1">{{ review.full_name }}</h6>
+                        <!-- Текст отзыва с маленьким размером, приглушенным цветом и отступом снизу -->
+                        <p class="small text-muted mb-1">
+                            {{ review.message|truncatewords:15 }}
+                        </p>
+                        <!-- Дата создания отзыва с приглушенным цветом и иконкой календаря -->
+                        <small class="text-muted">
+                            <i class="fas fa-calendar me-1"></i>
+                            {{ review.created_at|date:"d.m.Y" }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Секция контактной информации -->
+    <!-- Условная проверка наличия телефона или email в настройках -->
+    {% if site_settings.phone1 or site_settings.email %}
+    <!-- Карточка с отступом снизу, тенью, без границы и скругленными углами -->
+    <div class="card mb-4 shadow-sm border-0 rounded-3">
+        <!-- Заголовок карточки с основным цветом фона и белым текстом -->
+        <div class="card-header bg-primary text-white">
+            <!-- Заголовок с иконкой телефона и без отступа снизу -->
+            <h6 class="mb-0">
+                <i class="fas fa-phone me-2"></i>Контакты
+            </h6>
+        </div>
+        <!-- Тело карточки -->
+        <div class="card-body">
+            <!-- Условная проверка наличия первого телефона -->
+            {% if site_settings.phone1 %}
+            <!-- Параграф с отступом снизу -->
+            <p class="mb-2">
+                <!-- Ссылка на телефон без подчеркивания и темным текстом -->
+                <a href="tel:{{ site_settings.phone1 }}" 
+                    class="text-decoration-none text-dark">
+                    <!-- Иконка телефона с отступом справа и основным цветом -->
+                    <i class="fas fa-phone-alt me-2 text-primary"></i>
+                    {{ site_settings.phone1 }}
+                </a>
+            </p>
+            {% endif %}
+            <!-- Условная проверка наличия email -->
+            {% if site_settings.email %}
+            <!-- Параграф без отступа снизу -->
+            <p class="mb-0">
+                <!-- Ссылка на email без подчеркивания и темным текстом -->
+                <a href="mailto:{{ site_settings.email }}" 
+                    class="text-decoration-none text-dark">
+                    <!-- Иконка конверта с отступом справа и основным цветом -->
+                    <i class="fas fa-envelope me-2 text-primary"></i>
+                    {{ site_settings.email }}
+                </a>
+            </p>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+

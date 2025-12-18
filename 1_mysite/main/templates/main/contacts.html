@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Контакты - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ site_settings.seo_description|default:"Контактная информация и способы связи с нами" }}
+{% endblock %}
+
+{% block meta_keywords %}
+    контакты, связь, адрес, телефон, email
+{% endblock %}
+
+{% block extra_head %}
+    <meta property="og:title" content="Контакты - {{ site_settings.logo_text }}">
+    <meta property="og:description" content="Контактная информация и способы связи">
+    <link rel="stylesheet" href="{% static 'main/css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Навигационная цепочка (хлебные крошки) -->
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'main:index' %}" class="text-decoration-none">
+                            <i class="fas fa-home me-1"></i>Главная
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Контакты</li>
+                </ol>
+            </nav>
+
+            <!-- Заголовок страницы -->
+            <header class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary mb-3">
+                    <i class="fas fa-address-book me-2"></i>Контакты
+                </h1>
+                <p class="lead text-muted">
+                    Свяжитесь с нами любым удобным способом
+                </p>
+            </header>
+
+            <!-- Контактная информация -->
+            <div class="row g-4 mb-5">
+                <!-- Телефоны -->
+                {% if site_settings.phone1 or site_settings.phone2 %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0 rounded-3">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                <i class="fas fa-phone fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold mb-3">Телефоны</h5>
+                            {% if site_settings.phone1 %}
+                            <p class="mb-2">
+                                <a href="tel:{{ site_settings.phone1 }}" 
+                                   class="text-decoration-none text-dark fw-semibold">
+                                    <i class="fas fa-phone-alt me-2 text-primary"></i>
+                                    {{ site_settings.phone1 }}
+                                </a>
+                            </p>
+                            {% endif %}
+                            {% if site_settings.phone2 %}
+                            <p class="mb-0">
+                                <a href="tel:{{ site_settings.phone2 }}" 
+                                   class="text-decoration-none text-dark fw-semibold">
+                                    <i class="fas fa-phone-alt me-2 text-primary"></i>
+                                    {{ site_settings.phone2 }}
+                                </a>
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Email -->
+                {% if site_settings.email %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0 rounded-3">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                <i class="fas fa-envelope fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold mb-3">Электронная почта</h5>
+                            <p class="mb-0">
+                                <a href="mailto:{{ site_settings.email }}" 
+                                   class="text-decoration-none text-dark fw-semibold">
+                                    <i class="fas fa-at me-2 text-primary"></i>
+                                    {{ site_settings.email }}
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Адрес -->
+                {% if site_settings.address %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0 rounded-3">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-3">
+                                <i class="fas fa-map-marker-alt fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title fw-bold mb-3">Адрес</h5>
+                            <p class="mb-0 text-muted">
+                                <i class="fas fa-location-dot me-2 text-primary"></i>
+                                {{ site_settings.address }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Социальные сети -->
+            {% if site_settings.vk or site_settings.telegram or site_settings.instagram or site_settings.facebook or site_settings.youtube or site_settings.rutube or site_settings.vk_video or site_settings.ok %}
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 rounded-3">
+                        <div class="card-body text-center p-5">
+                            <h3 class="fw-bold mb-4">
+                                <i class="fas fa-share-alt me-2 text-primary"></i>
+                                Мы в социальных сетях
+                            </h3>
+                            <p class="text-muted mb-4">
+                                Следите за нашими обновлениями и новостями
+                            </p>
+                            <div class="d-flex flex-wrap justify-content-center gap-3">
+                                {% if site_settings.vk %}
+                                <a href="{{ site_settings.vk }}" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="btn btn-outline-primary btn-lg rounded-circle social-btn"
+                                   title="ВКонтакте">
+                                    <i class="fab fa-vk"></i>
+                                </a>
+                                {% endif %}
+                                {% if site_settings.telegram %}
+                                <a href="{{ site_settings.telegram }}" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="btn btn-outline-primary btn-lg rounded-circle social-btn"
+                                   title="Telegram">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                {% endif %}
+                                {% if site_settings.instagram %}
+                                <a href="{{ site_settings.instagram }}" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="btn btn-outline-primary btn-lg rounded-circle social-btn"
+                                   title="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                {% endif %}
+                                {% if site_settings.facebook %}
+                                <a href="{{ site_settings.facebook }}" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="btn btn-outline-primary btn-lg rounded-circle social-btn"
+                                   title="Facebook">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                {% endif %}
+                                {% if site_settings.youtube %}
+                                <a href="{{ site_settings.youtube }}" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="btn btn-outline-primary btn-lg rounded-circle social-btn"
+                                   title="YouTube">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                                {% endif %}
+                                {% if site_settings.rutube %}
+                                <a href="{{ site_settings.rutube }}" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="btn btn-outline-primary btn-lg rounded-circle social-btn"
+                                   title="Rutube">
+                                    <i class="fas fa-video"></i>
+                                </a>
+                                {% endif %}
+                                {% if site_settings.vk_video %}
+                                <a href="{{ site_settings.vk_video }}" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="btn btn-outline-primary btn-lg rounded-circle social-btn"
+                                   title="VK Видео">
+                                    <i class="fab fa-vk"></i>
+                                </a>
+                                {% endif %}
+                                {% if site_settings.ok %}
+                                <a href="{{ site_settings.ok }}" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   class="btn btn-outline-primary btn-lg rounded-circle social-btn"
+                                   title="Одноклассники">
+                                    <i class="fab fa-odnoklassniki"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Дополнительная информация -->
+            {% if site_settings.content %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 rounded-3">
+                        <div class="card-body p-4">
+                            <h3 class="fw-bold mb-3">
+                                <i class="fas fa-info-circle me-2 text-primary"></i>
+                                Дополнительная информация
+                            </h3>
+                            <div class="content-body">
+                                {{ site_settings.content|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .social-btn {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    .social-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .card {
+        transition: transform 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}
+

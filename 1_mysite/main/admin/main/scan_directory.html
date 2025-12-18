@@ -1,0 +1,43 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="module">
+    <h2>{{ title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        
+        <div style="margin-bottom: 15px;">
+            <label for="directory">{% trans "Директория для сканирования" %}:</label><br>
+            <input type="text" id="directory" name="directory" size="60" 
+                   placeholder="{% trans "Например: /var/www/html/logs" %}">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label for="pattern">{% trans "Шаблон файлов" %}:</label><br>
+            <input type="text" id="pattern" name="pattern" size="60" value="*"
+                   placeholder="{% trans "Например: *.log или **/*.txt" %}">
+            <p class="help">{% trans "Используйте * для всех файлов, **/* для рекурсивного поиска" %}</p>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label for="category">{% trans "Категория" %}:</label><br>
+            <select id="category" name="category">
+                <option value="log">{% trans "Лог-файлы" %}</option>
+                <option value="config">{% trans "Конфигурационные" %}</option>
+                <option value="template">{% trans "Шаблоны" %}</option>
+                <option value="static">{% trans "Статические" %}</option>
+                <option value="media">{% trans "Медиа" %}</option>
+                <option value="database">{% trans "Базы данных" %}</option>
+                <option value="backup">{% trans "Резервные копии" %}</option>
+                <option value="other" selected>{% trans "Другие" %}</option>
+            </select>
+        </div>
+        
+        <div>
+            <input type="submit" value="{% trans "Сканировать" %}" class="button">
+            <a href="{% url 'admin:main_managedfile_changelist' %}" class="button">{% trans "Отмена" %}</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

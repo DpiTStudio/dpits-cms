@@ -1,0 +1,207 @@
+/* ============================================
+   ФАЙЛ: base.css
+   ОПИСАНИЕ: Базовые стили для всего сайта
+   ============================================ */
+
+/* Сброс стилей для всех элементов */
+* {
+    box-sizing: border-box;                 
+    /* Включает padding и border в общую ширину элемента */
+    margin: 0;                               
+    /* Убирает внешние отступы по умолчанию */
+    padding: 0;                              
+    /* Убирает внутренние отступы по умолчанию */
+}
+
+/* Основной элемент страницы */
+html {
+    font-size: 16px;                         
+    /* Базовый размер шрифта для rem единиц */
+    scroll-behavior: smooth;                 
+    /* Плавная прокрутка при переходе по якорям */
+}
+
+/* Тело документа */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    /* Семейство шрифтов с резервными вариантами */
+    line-height: var(--line-height-normal);  
+    /* Нормальная высота строки для читаемости */
+    color: var(--text-color);                
+    /* Основной цвет текста */
+    background-color: var(--light-color);    
+    /* Светлый фон страницы */
+    display: flex;                            
+    /* Используем flexbox для макета */
+    flex-direction: column;                   
+    /* Вертикальное направление flex контейнера */
+    min-height: 100vh;                       
+    /* Минимальная высота на весь экран */
+    -webkit-font-smoothing: antialiased;     
+    /* Сглаживание шрифтов в WebKit браузерах */
+    -moz-osx-font-smoothing: grayscale;      
+    /* Сглаживание шрифтов в Firefox на macOS */
+}
+
+/* Основной контент страницы */
+main {
+    flex: 1;                                 
+    /* Занимает все доступное пространство */
+    width: 100%;                             
+    /* Полная ширина */
+}
+
+/* Контейнер с полной шириной */
+.container-fluid {
+    width: 100%;                             
+    /* Полная ширина контейнера */
+    padding-left: var(--spacing-md);         
+    /* Внутренний отступ слева */
+    padding-right: var(--spacing-md);        
+    /* Внутренний отступ справа */
+}
+
+/* Секция на всю ширину */
+.full-width-section {
+    width: 100%;                             
+    /* Полная ширина секции */
+    margin-left: 0;                          
+    /* Убираем внешний отступ слева */
+    margin-right: 0;                         
+    /* Убираем внешний отступ справа */
+}
+
+/* Заголовок страницы */
+.title_page {
+    color: var(--primary-color) !important;  
+    /* Основной цвет для заголовка */
+    font-size: 7ch;                          
+    /* Размер шрифта относительно ширины символа "0" */
+    font-weight: var(--font-weight-bold);    
+    /* Жирный шрифт */
+    margin-bottom: var(--spacing-lg);        
+    /* Отступ снизу */
+}
+
+/* Изображение новости в детальном просмотре */
+.img_news_detail {
+    border: var(--border-width-thin) solid #ccc;  
+    /* Тонкая серая граница */
+    width: 20%;                              
+    /* Ширина 20% от родителя */
+    height: auto;                            
+    /* Автоматическая высота для сохранения пропорций */
+    border-radius: var(--border-radius);     
+    /* Скругление углов */
+    object-fit: cover;                       
+    /* Обрезка изображения с сохранением пропорций */
+    margin-bottom: var(--spacing-md);        
+    /* Отступ снизу */
+}
+
+/* Ссылки */
+a {
+    color: var(--primary-color);             
+    /* Цвет ссылок - основной цвет сайта */
+    text-decoration: none;                   
+    /* Убираем подчеркивание по умолчанию */
+    transition: var(--transition);           
+    /* Плавный переход при изменении */
+}
+
+/* Состояние наведения на ссылку */
+a:hover {
+    color: var(--secondary-color);           
+    /* Цвет при наведении - вторичный цвет */
+    text-decoration: underline;              
+    /* Подчеркивание при наведении */
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--font-weight-bold);    
+    /* Жирный шрифт для заголовков */
+    line-height: var(--line-height-tight);   
+    /* Плотная высота строки */
+    margin-bottom: var(--spacing-md);        
+    /* Отступ снизу */
+    color: var(--dark-color);                
+    /* Темный цвет для заголовков */
+}
+
+/* Параграфы */
+p {
+    margin-bottom: var(--spacing-md);        
+    /* Отступ снизу между параграфами */
+    line-height: var(--line-height-relaxed); 
+    /* Расслабленная высота строки для читаемости */
+}
+
+/* Изображения */
+img {
+    max-width: 100%;                         
+    /* Максимальная ширина - 100% контейнера */
+    height: auto;                            
+    /* Автоматическая высота */
+    display: block;                          
+    /* Блочный элемент */
+}
+
+/* Списки */
+ul, ol {
+    /* list-style-position: unset;             Маркеры списка внутри элемента */
+    padding-left: var(--spacing-lg);         
+    /* Отступ слева для списков */
+}
+
+/* Элементы списка */
+li {
+    margin-bottom: var(--spacing-sm);       
+    /* Отступ между элементами списка */
+}
+
+/* Горизонтальная линия */
+hr {
+    border: none;                            
+    /* Убираем стандартную границу */
+    border-top: var(--border-width-thin) solid #dee2e6;  
+    /* Верхняя граница */
+    margin: var(--spacing-xl) 0;            
+    /* Вертикальные отступы */
+}
+
+/* Выделение текста */
+::selection {
+    background-color: var(--primary-color); 
+    /* Фон выделенного текста */
+    color: var(--text-white);               
+    /* Цвет выделенного текста */
+}
+
+/* Скроллбар для вебкит браузеров */
+::-webkit-scrollbar {
+    width: 10px;                             
+    /* Ширина скроллбара */
+    height: 10px;                            
+    /* Высота горизонтального скроллбара */
+}
+
+/* Дорожка скроллбара */
+::-webkit-scrollbar-track {
+    background: var(--light-color);          
+    /* Фон дорожки скроллбара */
+}
+
+/* Ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);        
+    /* Цвет ползунка */
+    border-radius: var(--border-radius);     
+    /* Скругление ползунка */
+}
+
+/* Состояние наведения на ползунок */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);      
+    /* Цвет при наведении */
+}

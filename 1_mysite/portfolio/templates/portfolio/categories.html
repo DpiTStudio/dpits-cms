@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ site_settings.logo_text }} - Категории портфолио
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'portfolio/css/categories.css' %}">
+<link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+{% endblock %}
+

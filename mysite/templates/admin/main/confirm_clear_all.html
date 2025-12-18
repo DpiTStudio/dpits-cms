@@ -1,0 +1,35 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="container-fluid p-4">
+    <div class="card border-danger shadow-lg" style="max-width: 600px; margin: 0 auto;">
+        <div class="card-header bg-danger text-white text-center py-3">
+            <h3 class="mb-0"><i class="fas fa-trash-alt fa-2x mb-2 d-block"></i> {{ title }}</h3>
+        </div>
+        <div class="card-body p-4 text-center">
+            <h4 class="mb-4">{% trans "Вы уверены?" %}</h4>
+            <p class="mb-4">
+                {% trans "Это действие очистит содержимое ВСЕХ активных управляемых файлов (" %} <strong>{{ files_count }}</strong> {% trans "шт.)." %}
+            </p>
+            <div class="alert alert-danger mb-4">
+                <i class="fas fa-exclamation-triangle"></i> {% trans "ВСЕ ДАННЫЕ В ЭТИХ ФАЙЛАХ БУДУТ УДАЛЕНЫ!" %}
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="confirm" value="yes">
+                
+                <div class="d-grid gap-3">
+                    <button type="submit" class="btn btn-danger btn-lg">
+                        <i class="fas fa-check"></i> {% trans "Да, я уверен, очистить все файлы" %}
+                    </button>
+                    <a href="{% url 'admin:main_managedfile_changelist' %}" class="btn btn-outline-secondary">
+                        {% trans "Нет, отмена" %}
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

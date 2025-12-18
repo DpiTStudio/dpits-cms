@@ -10,12 +10,9 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from datetime import datetime
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # =============================================================================
 # БАЗОВЫЕ ПУТИ ПРОЕКТА
@@ -29,15 +26,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # =============================================================================
 
 # СЕКРЕТНЫЙ КЛЮЧ: Никогда не используйте этот ключ в продакшене!
-SECRET_KEY = os.getenv(
-    "SECRET_KEY", "django-insecure-gg&b-34chy82xwd424vn41_=i=nr$2mrxm5_-xj(ev6ed#h+_="
-)
+SECRET_KEY = "django-insecure-gg&b-34chy82xwd424vn41_=i=nr$2mrxm5_-xj(ev6ed#h+_="
 
 # РЕЖИМ ОТЛАДКИ: В продакшене должно быть False!
-DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+DEBUG = True
 
 # РАЗРЕШЕННЫЕ ХОСТЫ: Список доменов/хостов, которые может обслуживать Django
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+ALLOWED_HOSTS = [
+    "*",  # Разрешает все хосты (только для разработки!)
+    "dpits-cms.ru",
+    "www.dpits-cms.ru",
+    "localhost",
+    "127.0.0.1",
+]
 
 # =============================================================================
 # ОПРЕДЕЛЕНИЕ ПРИЛОЖЕНИЙ
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     "django_ckeditor_5",  # Расширенный текстовый редактор
     "django_cleanup",  # Автоматическое удаление неиспользуемых файлов
     "captcha",  # Капча для защиты от спама
+    "django_extensions",  # Расширения Django (для runserver_plus с HTTPS)
     # Встроенные приложения Django
     "django.contrib.admin",
     "django.contrib.auth",
@@ -217,7 +219,6 @@ JAZZMIN_SETTINGS = {
         {"app": "reviews", "label": "Отзывы", "icon": "fas fa-star"},
         {"app": "accounts", "label": "Аккаунты", "icon": "fas fa-users"},
         {"app": "feedback", "label": "Обратная связь", "icon": "fas fa-envelope"},
-        {"app": "files", "label": "Файлы", "icon": "fas fa-file"},
         {
             "app": "auth",
             "label": "Аутентификация",
@@ -269,7 +270,6 @@ JAZZMIN_SETTINGS = {
         "reviews",
         "accounts",
         "feedback",
-        "files",
         "auth",
     ],
     # === ИКОНКИ ДЕЙСТВИЙ ===
@@ -468,23 +468,15 @@ CKEDITOR_5_ALLOW_ALL_TAGS = True  # Разрешить все HTML теги
 CKEDITOR_5_FILE_UPLOAD_PERMISSIONS = 0o644  # Права для загружаемых файлов
 
 # =============================================================================
-# НАСТРОЙКИ КЕШИРОВАНИЯ (ОТКЛЮЧЕНО)
+# НАСТРОЙКИ КЕШИРОВАНИЯ
 # =============================================================================
 
-# Кеширование
-if os.getenv("REDIS_URL"):
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": os.getenv("REDIS_URL"),
-        }
+# Кеширование для разработки (использует заглушку, не требует Redis)
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",  # Заглушка для кеша
     }
-else:
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        }
-    }
+}
 
 # Движок сессий без кеширования
 SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Использование БД для сессий
@@ -506,109 +498,88 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # DEFAULT_FROM_EMAIL = "noreply@yourdomain.com"
 
 # Email администратора для уведомлений (можно переопределить в SiteSettings)
-ADMIN_EMAIL = None  # Если None, будет использован email из SiteSettings или первого суперпользователя
+# ADMIN_EMAIL = None  # Если None, будет использован email из SiteSettings или первого суперпользователя
 
 # =============================================================================
 # НАСТРОЙКИ ЛОГИРОВАНИЯ
 # =============================================================================
 
-# Создаем папку для логов если её нет
-LOG_DIR = BASE_DIR / "logs"
-LOG_DIR.mkdir(exist_ok=True)
+# # Создаем папку для логов если её нет
+# LOG_DIR = BASE_DIR / "logs"
+# LOG_DIR.mkdir(exist_ok=True)
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "detailed": {
-            "format": (
-                "%(asctime)s [%(levelname)s] %(name)s:%(lineno)d "
-                "%(funcName)s() | %(message)s"
-            ),
-            "datefmt": "%Y-%m-%d %H:%M:%S",
-        },
-        "simple": {
-            "format": "%(asctime)s [%(levelname)s] %(message)s",
-            "datefmt": "%H:%M:%S",
-        },
-    },
-    "handlers": {
-        "file": {
-            "level": "INFO",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": LOG_DIR / "debug.log",
-            "maxBytes": 10 * 1024 * 1024,
-            "backupCount": 5,
-            "encoding": "utf-8",
-            "formatter": "detailed",
-        },
-        "error_file": {
-            "level": "ERROR",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": LOG_DIR / "error.log",
-            "maxBytes": 10 * 1024 * 1024,
-            "backupCount": 3,
-            "encoding": "utf-8",
-            "formatter": "detailed",
-        },
-        "console": {
-            "level": "DEBUG",
-            "class": "logging.StreamHandler",
-            "formatter": "simple",
-        },
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["file", "error_file", "console"],
-            "level": "INFO",
-            "propagate": True,
-        },
-        "portfolio": {
-            "handlers": ["file", "error_file"],
-            "level": "DEBUG",
-            "propagate": False,
-        },
-        "security": {
-            "handlers": ["error_file"],
-            "level": "WARNING",
-            "propagate": False,
-        },
-    },
-    "root": {
-        "handlers": ["console"],
-        "level": "WARNING",
-    },
-}
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "formatters": {
+#         "detailed": {
+#             "format": (
+#                 "%(asctime)s [%(levelname)s] %(name)s:%(lineno)d "
+#                 "%(funcName)s() | %(message)s"
+#             ),
+#             "datefmt": "%Y-%m-%d %H:%M:%S",
+#         },
+#         "simple": {
+#             "format": "%(asctime)s [%(levelname)s] %(message)s",
+#             "datefmt": "%H:%M:%S",
+#         },
+#     },
+#     "handlers": {
+#         "file": {
+#             "level": "INFO",
+#             "class": "logging.handlers.RotatingFileHandler",
+#             "filename": LOG_DIR / "debug.log",
+#             "maxBytes": 10 * 1024 * 1024,
+#             "backupCount": 5,
+#             "encoding": "utf-8",
+#             "formatter": "detailed",
+#         },
+#         "error_file": {
+#             "level": "ERROR",
+#             "class": "logging.handlers.RotatingFileHandler",
+#             "filename": LOG_DIR / "error.log",
+#             "maxBytes": 10 * 1024 * 1024,
+#             "backupCount": 3,
+#             "encoding": "utf-8",
+#             "formatter": "detailed",
+#         },
+#         "console": {
+#             "level": "DEBUG",
+#             "class": "logging.StreamHandler",
+#             "formatter": "simple",
+#         },
+#     },
+#     "loggers": {
+#         "django": {
+#             "handlers": ["file", "error_file", "console"],
+#             "level": "INFO",
+#             "propagate": True,
+#         },
+#         "django.server": {
+#             "handlers": ["console"],
+#             "level": "WARNING",  # Скрываем INFO сообщения о HTTPS (они будут как WARNING)
+#             "propagate": False,
+#         },
+#         "portfolio": {
+#             "handlers": ["file", "error_file"],
+#             "level": "DEBUG",
+#             "propagate": False,
+#         },
+#         "security": {
+#             "handlers": ["error_file"],
+#             "level": "WARNING",
+#             "propagate": False,
+#         },
+#     },
+#     "root": {
+#         "handlers": ["console"],
+#         "level": "WARNING",
+#     },
+# }
 
-# =============================================================================
-# НАСТРОЙКИ СЕКУРЫ
-# =============================================================================
-
-# Для разработки
-# SECURE_SSL_REDIRECT = False
-# SECURE_HSTS_SECONDS = 0
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = False
-# SECURE_HSTS_PRELOAD = False
-# SESSION_COOKIE_SECURE = False
-# CSRF_COOKIE_SECURE = False
-
-# Для продакшена
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SECURE_HSTS_SECONDS = 3600
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-
-# =============================================================================
-# НАСТРОЙКИ КАПЧИ (django-simple-captcha)
-# =============================================================================
 
 # Настройки капчи для защиты от спама
-CAPTCHA_CHALLENGE_FUNCT = (
-    "captcha.helpers.random_char_challenge"  # Функция генерации капчи
-)
+CAPTCHA_CHALLENGE_FUNCT = "captcha.helpers.random_char_challenge"  # Функция генерации капчи
 CAPTCHA_LENGTH = 3  # Длина капчи (количество символов)
 CAPTCHA_TIMEOUT = 10  # Время жизни капчи в минутах
 CAPTCHA_NOISE_FUNCTIONS = (

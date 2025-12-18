@@ -1,0 +1,130 @@
+<!-- ============================================
+     ФАЙЛ: header.html
+     ОПИСАНИЕ: Шапка сайта с навигационным меню
+     ============================================ -->
+
+<!-- Открывающий тег шапки сайта с темным фоном, белым текстом, липким позиционированием и тенью -->
+<header class="bg-dark text-white sticky-top shadow-sm">
+    <!-- Навигационная панель Bootstrap с расширением на больших экранах и темной темой -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <!-- Контейнер с полной шириной и адаптивными горизонтальными отступами -->
+        <div class="container-fluid px-3 px-lg-4">
+            <!-- Ссылка-логотип бренда с flexbox выравниванием по центру вертикально -->
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'main:index' %}">
+                <!-- Условная проверка наличия логотипа в настройках сайта -->
+                {% if site_settings.logo %}
+                <!-- Изображение логотипа с атрибутами для доступности и стилизации -->
+                <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" height="40"
+                    class="me-2 rounded">
+                {% endif %}
+                <!-- Текстовое название бренда с жирным шрифтом -->
+                <span class="fw-bold">{{ site_settings.logo_text }}</span>
+            </a>
+
+            <!-- Кнопка переключения мобильного меню (гамбургер) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- Иконка гамбургера для мобильного меню -->
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Сворачиваемый контейнер навигационного меню -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Список навигационных элементов с автоматическим отступом справа -->
+                <ul class="navbar-nav me-auto d-flex align-items-center">
+                    <!-- Пункт меню "Главная" с иконкой на мобильных устройствах -->
+                    {% comment %} <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'main:index' %}">
+                            <i class="fas fa-home me-1 d-lg-none"></i>Главная
+                        </a>
+                    </li> {% endcomment %}
+                    <!-- Пункт меню "Новости" с иконкой на мобильных устройствах -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'news:list' %}">
+                            <i class="fas fa-newspaper me-1 d-lg-none"></i><span>Новости</span>
+                        </a>
+                    </li>
+                    <!-- Пункт меню "Портфолио" с иконкой на мобильных устройствах -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'portfolio:list' %}">
+                            <i class="fas fa-briefcase me-1 d-lg-none"></i><span>Портфолио</span>
+                        </a>
+                    </li>
+                    <!-- Пункт меню "Отзывы" с иконкой на мобильных устройствах -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'reviews:list' %}">
+                            <i class="fas fa-star me-1 d-lg-none"></i><span>Отзывы</span>
+                        </a>
+                    </li>
+                    <!-- Цикл для динамического добавления страниц из меню -->
+                    {% for page in menu_pages %}
+                    <!-- Пункт меню для каждой страницы из настроек -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'main:page_detail' page.slug %}">
+                            <span>{{ page.title }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <!-- Контейнер для элементов авторизации с flexbox выравниванием по центру -->
+                <div class="d-flex align-items-center">
+                    <!-- Условная проверка авторизации пользователя -->
+                    {% if user.is_authenticated %}
+                    <!-- Выпадающее меню для авторизованного пользователя -->
+                    <div class="dropdown">
+                        <!-- Кнопка выпадающего меню с обводкой, иконкой и именем пользователя -->
+                        <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <!-- Иконка пользователя с отступом справа -->
+                            <i class="fas fa-user me-2"></i>
+                            <!-- Имя пользователя, скрытое на маленьких экранах -->
+                            <span class="d-none d-md-inline">{{ user.username }}</span>
+                        </button>
+                        <!-- Выпадающее меню с выравниванием справа -->
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <!-- Пункт меню "Профиль" -->
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="{% url 'accounts:profile' %}">
+                                    <i class="fas fa-user me-2"></i><span>Профиль</span>
+                                </a>
+                            </li>
+                            <!-- Пункт меню "Мои тикеты" -->
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center"
+                                    href="{% url 'accounts:ticket_list' %}">
+                                    <i class="fas fa-ticket-alt me-2"></i><span>Мои тикеты</span>
+                                </a>
+                            </li>
+                            <!-- Разделитель в меню -->
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <!-- Пункт меню "Выйти" (ведёт на страницу подтверждения выхода) -->
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center"
+                                    href="{% url 'accounts:logout_confirm' %}">
+                                    <i class="fas fa-sign-out-alt me-2"></i><span>Выйти</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <!-- Кнопка входа для неавторизованных пользователей -->
+                    <a href="{% url 'accounts:login' %}" class="btn btn-outline-light me-2 d-flex align-items-center">
+                        <i class="fas fa-sign-in-alt me-1"></i>
+                        <!-- Текст кнопки, скрытый на маленьких экранах -->
+                        <span class="d-none d-sm-inline">Войти</span>
+                    </a>
+                    <!-- Кнопка регистрации для неавторизованных пользователей -->
+                    <a href="{% url 'accounts:register' %}" class="btn btn-primary d-flex align-items-center">
+                        <i class="fas fa-user-plus me-1"></i>
+                        <!-- Текст кнопки, скрытый на маленьких экранах -->
+                        <span class="d-none d-sm-inline">Регистрация</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

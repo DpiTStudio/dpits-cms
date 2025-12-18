@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ site_settings.logo_text }} - Заказ #{{ order.id }} - {{ order.title }}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/order_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="main-content">
+    <div class="container-fluid py-5">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'portfolio:client_dashboard' %}">Личный кабинет</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'portfolio:order_list' %}">Мои заказы</a></li>
+                        <li class="breadcrumb-item active">Заказ #{{ order.id }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Основной контент -->
+            <div class="col-lg-8">
+                <!-- Заголовок и статус -->
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                    <div>
+                        <h1 class="h3 mb-2">{{ order.title }}</h1>
+                        <div class="d-flex flex-wrap gap-2 align-items-center">
+                            <span class="badge {% if order.status == 'completed' %}bg-success{% elif order.status == 'in_progress' %}bg-warning{% elif order.status == 'pending' %}bg-secondary{% else %}bg-info{% endif %}">
+                                {{ order.get_status_display }}
+                            </span>
+                            <small class="text-muted">Создан: {{ order.created_at|date:"d.m.Y" }}</small>
+                            {% if order.deadline %}
+                            <small class="text-muted">Дедлайн: {{ order.deadline|date:"d.m.Y" }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if order.status != 'completed' and order.status != 'cancelled' %}
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            Действия
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#updateOrderModal">
+                                <i class="fas fa-edit me-2"></i>Редактировать
+                            </a></li>
+                            <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
+                                <i class="fas fa-times me-2"></i>Отменить заказ
+                            </a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Прогресс выполнения -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Прогресс выполнения</h5>
+                        <div class="progress mb-3" style="height: 10px;">
+                            <div class="progress-bar {% if order.status == 'completed' %}bg-success{% elif order.status == 'in_progress' %}bg-warning{% else %}bg-secondary{% endif %}" 
+                                 role="progressbar" style="width: {{ order.get_progress_percentage }}%">
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-3">
+                                <small class="text-muted">Создан</small>
+                                <div class="{% if order.status == 'pending' %}text-primary fw-bold{% endif %}">📝</div>
+                            </div>
+                            <div class="col-3">
+                                <small class="text-muted">В работе</small>
+                                <div class="{% if order.status == 'in_progress' %}text-primary fw-bold{% endif %}">⚡</div>
+                            </div>
+                            <div class="col-3">
+                                <small class="text-muted">На проверке</small>
+                                <div class="{% if order.status == 'review' %}text-primary fw-bold{% endif %}">🔍</div>
+                            </div>
+                            <div class="col-3">
+                                <small class="text-muted">Завершен</small>
+                                <div class="{% if order.status == 'completed' %}text-primary fw-bold{% endif %}">✅</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Описание заказа -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Описание проекта</h5>
+                        <div class="mb-4">
+                            {{ order.description|linebreaks }}
+                        </div>
+
+                        {% if order.budget %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Бюджет:</strong> {{ order.budget }} ₽
+                            </div>
+                            {% if order.deadline %}
+                            <div class="col-md-6">
+                                <strong>Дедлайн:</strong> {{ order.deadline|date:"d.m.Y" }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        {% if order.additional_notes %}
+                        <div class="mt-3">
+                            <strong>Дополнительные заметки:</strong>
+                            <p class="mb-0 mt-1">{{ order.additional_notes|linebreaks }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Файлы -->
+                {% if order.requirements_file %}
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Прикрепленные файлы</h5>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-file-pdf text-danger fa-2x me-3"></i>
+                            <div class="flex-grow-1">
+                                <div class="fw-bold">{{ order.requirements_file.name|cut:"requirements_files/" }}</div>
+                                <small class="text-muted">Требования к проекту</small>
+                            </div>
+                            <a href="{{ order.requirements_file.url }}" class="btn btn-outline-primary btn-sm" download>
+                                <i class="fas fa-download me-1"></i>Скачать
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Сообщения -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Обсуждение проекта</h5>
+                        
+                        <div class="messages-container mb-4" style="max-height: 400px; overflow-y: auto;">
+                            {% for message in order.messages.all %}
+                            <div class="message-bubble mb-3 {% if message.sender == request.user %}text-end{% endif %}">
+                                <div class="d-flex {% if message.sender == request.user %}justify-content-end{% endif %}">
+                                    <div class="{% if message.sender == request.user %}bg-primary text-white{% else %}bg-light{% endif %} rounded p-3" style="max-width: 70%;">
+                                        <div class="d-flex justify-content-between align-items-start mb-1">
+                                            <strong class="{% if message.sender == request.user %}text-white{% endif %}">
+                                                {% if message.sender == request.user %}Вы{% else %}{{ message.sender.get_full_name|default:message.sender.username }}{% endif %}
+                                            </strong>
+                                            <small class="{% if message.sender == request.user %}text-white-50{% else %}text-muted{% endif %}">
+                                                {{ message.created_at|date:"H:i d.m.Y" }}
+                                            </small>
+                                        </div>
+                                        <p class="mb-0">{{ message.content|linebreaks }}</p>
+                                        
+                                        {% if message.attachment %}
+                                        <div class="mt-2">
+                                            <a href="{{ message.attachment.url }}" class="btn btn-sm {% if message.sender == request.user %}btn-light{% else %}btn-outline-primary{% endif %}" download>
+                                                <i class="fas fa-paperclip me-1"></i>{{ message.attachment.name|cut:"message_attachments/" }}
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="text-center text-muted py-4">
+                                <i class="fas fa-comments fa-2x mb-2"></i>
+                                <p>Обсуждение проекта начнется здесь</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Форма отправки сообщения -->
+                        {% if order.status != 'completed' and order.status != 'cancelled' %}
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="message_form" value="true">
+                            
+                            <div class="mb-3">
+                                <textarea name="content" class="form-control" rows="3" placeholder="Введите ваше сообщение..." required></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="attachment" class="form-label">Прикрепить файл (опционально)</label>
+                                <input type="file" name="attachment" class="form-control" id="attachment">
+                            </div>
+                            
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Сообщения видны только вам и исполнителю</small>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane me-1"></i>Отправить
+                                </button>
+                            </div>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Боковая панель -->
+            <div class="col-lg-4">
+                <!-- Информация о заказе -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Информация о заказе</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <strong>ID заказа:</strong>
+                                <span class="float-end">#{{ order.id }}</span>
+                            </li>
+                            <li class="mb-2">
+                                <strong>Статус:</strong>
+                                <span class="float-end badge {% if order.status == 'completed' %}bg-success{% elif order.status == 'in_progress' %}bg-warning{% elif order.status == 'pending' %}bg-secondary{% else %}bg-info{% endif %}">
+                                    {{ order.get_status_display }}
+                                </span>
+                            </li>
+                            <li class="mb-2">
+                                <strong>Создан:</strong>
+                                <span class="float-end">{{ order.created_at|date:"d.m.Y H:i" }}</span>
+                            </li>
+                            <li class="mb-2">
+                                <strong>Обновлен:</strong>
+                                <span class="float-end">{{ order.updated_at|date:"d.m.Y H:i" }}</span>
+                            </li>
+                            {% if order.deadline %}
+                            <li class="mb-2">
+                                <strong>Дедлайн:</strong>
+                                <span class="float-end">{{ order.deadline|date:"d.m.Y" }}</span>
+                            </li>
+                            {% endif %}
+                            {% if order.budget %}
+                            <li class="mb-0">
+                                <strong>Бюджет:</strong>
+                                <span class="float-end">{{ order.budget }} ₽</span>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Контакты -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Контакты</h5>
+                        <p class="small mb-3">По вопросам выполнения заказа обращайтесь:</p>
+                        
+                        <div class="d-grid gap-2">
+                            <a href="mailto:support@example.com" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-envelope me-2"></i>Написать на почту
+                            </a>
+                            <a href="tel:+79999999999" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-phone me-2"></i>Позвонить
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Модальные окна -->
+{% if order.status != 'completed' and order.status != 'cancelled' %}
+<!-- Модальное окно редактирования -->
+<div class="modal fade" id="updateOrderModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактировать заказ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <!-- Форма редактирования -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно отмены -->
+<div class="modal fade" id="cancelOrderModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Отмена заказа</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены, что хотите отменить этот заказ? Это действие нельзя будет отменить.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет, оставить</button>
+                <form method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="cancel_order" value="true">
+                    <button type="submit" class="btn btn-danger">Да, отменить заказ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

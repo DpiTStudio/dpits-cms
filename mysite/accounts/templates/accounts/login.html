@@ -2,6 +2,7 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block title %}
 {{ site_settings.logo_text }} - Вход
 {% endblock %}
@@ -122,35 +123,36 @@
 
 {% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function  () {
+    document.addEventListener('DOMContentLoaded', function () {
         const form = document.querySelector('form');
         const usernameInput = document.getElementById('id_username');
         const passwordInput = document.getElementById('id_password');
         const loginButton = document.getElementById('login-button');
- // Функция для переключения видимости пароля
+
+        // Функция для переключения видимости пароля
         window.togglePassword = function () {
-             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
             const eyeIcon = document.querySelector('.password-toggle i');
             eyeIcon.classList.toggle('fa-eye');
             eyeIcon.classList.toggle('fa-eye-slash');
         }
 
-      ощь с паролем
+        // Функция помощи с паролем
         window.showPasswordHelp = function () {
-             alert('Если вы забыли пароль, пожалуйста, свяжитесь с технической поддержкой по email: support@example.com или создайте новый аккаунт.');
+            alert('Если вы забыли пароль, пожалуйста, свяжитесь с технической поддержкой по email: support@example.com или создайте новый аккаунт.');
         }
 
-        // Кооддержки
+        // Функция контакта поддержки
         window.showSupportContact = function () {
-            aler t('Техническая поддержка:\nEmail: support@example.com\nТелефон: +7 (XXX) XXX-XX-XX\nВремя работы: Пн-Пт, 9:00-18:00');
+            alert('Техническая поддержка:\nEmail: support@example.com\nТелефон: +7 (XXX) XXX-XX-XX\nВремя работы: Пн-Пт, 9:00-18:00');
         }
 
-        // Валидацияном времени
+        // Валидация в реальном времени
         function validateForm() {
             let isValid = true;
 
-            // Проверка именля
+            // Проверка имени пользователя
             if (!usernameInput.value.trim()) {
                 markInvalid(usernameInput, 'Поле обязательно для заполнения');
                 isValid = false;
@@ -159,7 +161,7 @@
             }
 
             // Проверка пароля
-         wordInput.value.trim()) {
+            if (!passwordInput.value.trim()) {
                 markInvalid(passwordInput, 'Поле обязательно для заполнения');
                 isValid = false;
             } else if (passwordInput.value.length < 4) {
@@ -170,11 +172,11 @@
             }
 
             loginButton.disabled = !isValid;
-       isValid;
+            return isValid;
         }
 
         function markInvalid(input, message) {
-            inputst.add('is-invalid');
+            input.classList.add('is-invalid');
             let feedback = input.nextElementSibling;
             if (!feedback || !feedback.classList.contains('invalid-feedback')) {
                 feedback = document.createElement('div');
@@ -185,7 +187,7 @@
         }
 
         function markValid(input) {
-            input.classList.remove('id');
+            input.classList.remove('is-invalid');
             const feedback = input.nextElementSibling;
             if (feedback && feedback.classList.contains('invalid-feedback')) {
                 feedback.remove();
@@ -193,21 +195,23 @@
         }
 
         // События для валидации
-        usernameInput.addEventListener('input',eForm);
+        usernameInput.addEventListener('input', validateForm);
         usernameInput.addEventListener('blur', validateForm);
         passwordInput.addEventListener('input', validateForm);
         passwordInput.addEventListener('blur', validateForm);
 
         // Валидация при отправке формы
-        form.addEventListener('submit', function           if (!validateForm()) {
+        form.addEventListener('submit', function (e) {
+            if (!validateForm()) {
                 e.preventDefault();
             }
-         });
+        });
 
         // Инициализация валидации
         validateForm();
 
-        // Автофокус на поле имени т        usernameInput.focus();
+        // Автофокус на поле имени пользователя
+        usernameInput.focus();
     });
 </script>
 {% endblock %}
