@@ -1,8 +1,9 @@
 # accounts/forms.py
+# Формы для работы с данными пользователей и системой тикетов
+
 from django import forms
 from django.contrib.auth.forms import (
     UserCreationForm,
-    UserChangeForm,
     PasswordChangeForm,
     AuthenticationForm,
 )
@@ -15,6 +16,11 @@ from captcha.fields import CaptchaField
 
 
 class UserRegisterForm(UserCreationForm):
+    """
+    Форма регистрации нового пользователя.
+    Включает email, username, два пароля и проверку капчей.
+    """
+
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(
@@ -45,6 +51,7 @@ class UserRegisterForm(UserCreationForm):
         },
     )
 
+    # Поле капчи для защиты от автоматических регистраций
     captcha = CaptchaField(
         error_messages={
             "invalid": "Неверно введена капча. Попробуйте еще раз.",
@@ -79,12 +86,14 @@ class UserRegisterForm(UserCreationForm):
         }
 
     def clean_email(self):
+        """Проверка уникальности email адреса"""
         email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
             raise ValidationError("Пользователь с таким email уже существует")
         return email
 
     def clean_username(self):
+        """Дополнительная валидация длины имени пользователя"""
         username = self.cleaned_data.get("username")
         if len(username) < 3:
             raise ValidationError("Имя пользователя должно содержать минимум 3 символа")
@@ -93,7 +102,7 @@ class UserRegisterForm(UserCreationForm):
 
 class CustomAuthenticationForm(AuthenticationForm):
     """
-    Форма аутентификации с дополнительной капчей.
+    Кастомная форма входа с добавлением поля капчи.
     """
 
     captcha = CaptchaField(
@@ -105,7 +114,7 @@ class CustomAuthenticationForm(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Добавляем CSS-классы и плейсхолдеры для полей логина и пароля
+        # Настройка Bootstrap-классов для стандартных полей Django
         self.fields["username"].widget.attrs.update(
             {
                 "class": "form-control",
@@ -120,7 +129,6 @@ class CustomAuthenticationForm(AuthenticationForm):
                 "autocomplete": "current-password",
             }
         )
-        # Немного стилизации для капчи
         self.fields["captcha"].widget.attrs.update(
             {
                 "class": "form-control",
@@ -130,6 +138,10 @@ class CustomAuthenticationForm(AuthenticationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
+    """
+    Форма для обновления основных данных пользователя (имя, фамилия, почта).
+    """
+
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(
@@ -156,6 +168,10 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    """
+    Форма для обновления профиля (расширенная информация).
+    """
+
     class Meta:
         model = UserProfile
         fields = ["phone", "avatar", "bio"]
@@ -181,9 +197,9 @@ class ProfileUpdateForm(forms.ModelForm):
         }
 
     def clean_phone(self):
+        """Валидация формата номера телефона с помощью регулярного выражения"""
         phone = self.cleaned_data.get("phone")
         if phone:
-            # Простая валидация телефона
             phone_regex = r"^\+?[1-9]\d{1,14}$"
             if not re.match(
                 phone_regex,
@@ -197,6 +213,10 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class TicketForm(forms.ModelForm):
+    """
+    Форма создания нового тикета в службу поддержки.
+    """
+
     class Meta:
         model = Ticket
         fields = ["subject", "message"]
@@ -204,7 +224,7 @@ class TicketForm(forms.ModelForm):
             "subject": forms.TextInput(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "Краткое описание проблемы",
+                    "placeholder": "Кратко опишите суть обращения",
                     "maxlength": "200",
                 }
             ),
@@ -212,23 +232,25 @@ class TicketForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "rows": 6,
-                    "placeholder": "Подробно опишите вашу проблему...",
+                    "placeholder": "Опишите вашу проблему или вопрос максимально подробно...",
                     "minlength": "10",
                 }
             ),
         }
         labels = {
-            "subject": "Тема тикета",
-            "message": "Сообщение",
+            "subject": "Тема обращения",
+            "message": "Суть проблемы",
         }
 
     def clean_subject(self):
+        """Проверка минимальной длины темы"""
         subject = self.cleaned_data.get("subject")
         if len(subject.strip()) < 5:
             raise ValidationError("Тема должна содержать минимум 5 символов")
         return subject
 
     def clean_message(self):
+        """Проверка минимальной длины текста сообщения"""
         message = self.cleaned_data.get("message")
         if len(message.strip()) < 10:
             raise ValidationError("Сообщение должно содержать минимум 10 символов")
@@ -236,6 +258,10 @@ class TicketForm(forms.ModelForm):
 
 
 class TicketResponseForm(forms.ModelForm):
+    """
+    Форма для добавления ответа в существующий тикет.
+    """
+
     class Meta:
         model = TicketResponse
         fields = ["message"]
@@ -244,23 +270,28 @@ class TicketResponseForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "rows": 4,
-                    "placeholder": "Введите ваш ответ...",
+                    "placeholder": "Напишите ваш ответ администрации...",
                     "minlength": "2",
                 }
             ),
         }
         labels = {
-            "message": "Сообщение",
+            "message": "Ваш ответ",
         }
 
     def clean_message(self):
+        """Проверка, что ответ не слишком короткий"""
         message = self.cleaned_data.get("message")
         if len(message.strip()) < 2:
-            raise ValidationError("Сообщение должно содержать минимум 2 символа")
+            raise ValidationError("Ответ должен содержать хотя бы 2 символа")
         return message
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):
+    """
+    Кастомная форма смены пароля с Bootstrap стилями.
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -273,18 +304,22 @@ class CustomPasswordChangeForm(PasswordChangeForm):
                 }
             )
             if field_name == "old_password":
-                field.widget.attrs["placeholder"] = "Введите текущий пароль"
+                field.widget.attrs["placeholder"] = "Введите имеющийся пароль"
             elif field_name == "new_password1":
-                field.widget.attrs["placeholder"] = "Введите новый пароль"
+                field.widget.attrs["placeholder"] = "Придумайте новый сложный пароль"
             elif field_name == "new_password2":
-                field.widget.attrs["placeholder"] = "Повторите новый пароль"
+                field.widget.attrs["placeholder"] = "Введите новый пароль еще раз"
 
 
-class ProfileEditForm(forms.ModelForm):  # Изменено с UserChangeForm на ModelForm
+class ProfileEditForm(forms.ModelForm):
+    """
+    Форма редактирования данных профиля (аналог UserUpdateForm для определенных страниц).
+    """
+
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(
-            attrs={"class": "form-control", "placeholder": "Введите email"}
+            attrs={"class": "form-control", "placeholder": "Ваш email"}
         ),
     )
 
@@ -295,19 +330,19 @@ class ProfileEditForm(forms.ModelForm):  # Изменено с UserChangeForm н
             "username": forms.TextInput(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "Введите имя пользователя",
+                    "placeholder": "Желаемое имя пользователя",
                 }
             ),
             "first_name": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "Введите имя"}
+                attrs={"class": "form-control", "placeholder": "Ваше имя"}
             ),
             "last_name": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "Введите фамилию"}
+                attrs={"class": "form-control", "placeholder": "Ваша фамилия"}
             ),
         }
         labels = {
-            "username": "Имя пользователя",
-            "email": "Email адрес",
+            "username": "Логин",
+            "email": "Электронная почта",
             "first_name": "Имя",
             "last_name": "Фамилия",
         }

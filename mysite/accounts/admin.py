@@ -1,4 +1,6 @@
 # accounts/admin.py
+# Конфигурация административной панели для приложения аккаунтов
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
@@ -7,13 +9,18 @@ from .models import UserProfile, Ticket, TicketResponse
 
 
 class UserProfileInline(admin.StackedInline):
+    """
+    Инлайн-редактор профиля пользователя прямо на странице редактирования User.
+    """
+
     model = UserProfile
-    can_delete = False
+    can_delete = False  # Запрет удаления профиля отдельно от пользователя
     verbose_name_plural = "Профили"
     fields = ["phone", "avatar_preview", "avatar", "bio", "created_at", "updated_at"]
     readonly_fields = ["avatar_preview", "created_at", "updated_at"]
 
     def avatar_preview(self, obj):
+        """Отображение миниатюры аватара в админке"""
         if obj and obj.avatar:
             return format_html(
                 '<img src="{}" width="50" height="50" style="border-radius: 50%;" />',
@@ -25,6 +32,10 @@ class UserProfileInline(admin.StackedInline):
 
 
 class UserAdmin(BaseUserAdmin):
+    """
+    Переопределенный класс управления пользователями с интеграцией профиля.
+    """
+
     inlines = (UserProfileInline,)
     list_display = (
         "username",
@@ -40,9 +51,13 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
+    """
+    Управление тикетами техподдержки в админке.
+    """
+
     list_display = ["id", "user", "subject", "status", "created_at", "updated_at"]
     list_filter = ["status", "created_at"]
-    list_editable = ["status"]
+    list_editable = ["status"]  # Возможность менять статус прямо из списка
     readonly_fields = ["created_at", "updated_at"]
     search_fields = ["subject", "message", "user__username"]
     list_per_page = 20
@@ -53,11 +68,16 @@ class TicketAdmin(admin.ModelAdmin):
     )
 
     def get_queryset(self, request):
+        """Оптимизация запросов через select_related"""
         return super().get_queryset(request).select_related("user")
 
 
 @admin.register(TicketResponse)
 class TicketResponseAdmin(admin.ModelAdmin):
+    """
+    Управление ответами на тикеты.
+    """
+
     list_display = [
         "id",
         "ticket",
@@ -80,15 +100,17 @@ class TicketResponseAdmin(admin.ModelAdmin):
     )
 
     def message_preview(self, obj):
+        """Короткое превью текста сообщения для списка"""
         msg = getattr(obj, "message", "") or ""
         return (msg[:50] + "...") if len(msg) > 50 else msg
 
     message_preview.short_description = "Предпросмотр сообщения"
 
     def get_queryset(self, request):
+        """Оптимизация запросов для списка ответов"""
         return super().get_queryset(request).select_related("ticket", "user")
 
 
-# Перерегистрируем UserAdmin
+# Перерегистрируем стандартную модель User с нашей новой конфигурацией
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

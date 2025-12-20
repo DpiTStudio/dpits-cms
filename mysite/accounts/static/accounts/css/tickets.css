@@ -189,6 +189,15 @@
     color: #495057;
     line-height: 1.6;
     font-size: 0.95rem;
+    white-space: pre-wrap;
+    /* Добавлено: сохранение переносов строк в превью */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    /* Стандартное свойство */
 }
 
 .ticket-footer {
@@ -256,6 +265,38 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Message Bubbles Detail Styles */
+.message-bubble {
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: var(--box-shadow-sm);
+    transition: var(--transition);
+}
+
+.message-bubble p {
+    white-space: pre-wrap;
+    /* Добавлено: сохранение переносов строк в сообщениях */
+    word-break: break-word;
+    /* Добавлено: перенос длинных слов */
+}
+
+.user-message {
+    background: #f8f9fa;
+    border-left: 4px solid var(--primary-color);
+}
+
+.admin-message {
+    background: #eef2ff;
+    border-left: 4px solid #4f46e5;
+}
+
+.message-time {
+    color: #94a3b8;
+    font-size: 0.8rem;
 }
 
 @media (max-width: 768px) {

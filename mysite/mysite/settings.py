@@ -10,9 +10,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-import os
 from pathlib import Path
-from datetime import datetime
 
 # =============================================================================
 # БАЗОВЫЕ ПУТИ ПРОЕКТА
@@ -58,6 +56,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.humanize",  # Добавлено: для работы с фильтрами дат (например, naturaltime)
     # Пользовательские приложения проекта
     "main.apps.MainConfig",  # Главное приложение
     "news.apps.NewsConfig",  # Новости
@@ -505,81 +504,83 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # =============================================================================
 
 # # Создаем папку для логов если её нет
-# LOG_DIR = BASE_DIR / "logs"
-# LOG_DIR.mkdir(exist_ok=True)
+LOG_DIR = BASE_DIR / "logs"
+LOG_DIR.mkdir(exist_ok=True)
 
-# LOGGING = {
-#     "version": 1,
-#     "disable_existing_loggers": False,
-#     "formatters": {
-#         "detailed": {
-#             "format": (
-#                 "%(asctime)s [%(levelname)s] %(name)s:%(lineno)d "
-#                 "%(funcName)s() | %(message)s"
-#             ),
-#             "datefmt": "%Y-%m-%d %H:%M:%S",
-#         },
-#         "simple": {
-#             "format": "%(asctime)s [%(levelname)s] %(message)s",
-#             "datefmt": "%H:%M:%S",
-#         },
-#     },
-#     "handlers": {
-#         "file": {
-#             "level": "INFO",
-#             "class": "logging.handlers.RotatingFileHandler",
-#             "filename": LOG_DIR / "debug.log",
-#             "maxBytes": 10 * 1024 * 1024,
-#             "backupCount": 5,
-#             "encoding": "utf-8",
-#             "formatter": "detailed",
-#         },
-#         "error_file": {
-#             "level": "ERROR",
-#             "class": "logging.handlers.RotatingFileHandler",
-#             "filename": LOG_DIR / "error.log",
-#             "maxBytes": 10 * 1024 * 1024,
-#             "backupCount": 3,
-#             "encoding": "utf-8",
-#             "formatter": "detailed",
-#         },
-#         "console": {
-#             "level": "DEBUG",
-#             "class": "logging.StreamHandler",
-#             "formatter": "simple",
-#         },
-#     },
-#     "loggers": {
-#         "django": {
-#             "handlers": ["file", "error_file", "console"],
-#             "level": "INFO",
-#             "propagate": True,
-#         },
-#         "django.server": {
-#             "handlers": ["console"],
-#             "level": "WARNING",  # Скрываем INFO сообщения о HTTPS (они будут как WARNING)
-#             "propagate": False,
-#         },
-#         "portfolio": {
-#             "handlers": ["file", "error_file"],
-#             "level": "DEBUG",
-#             "propagate": False,
-#         },
-#         "security": {
-#             "handlers": ["error_file"],
-#             "level": "WARNING",
-#             "propagate": False,
-#         },
-#     },
-#     "root": {
-#         "handlers": ["console"],
-#         "level": "WARNING",
-#     },
-# }
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "detailed": {
+            "format": (
+                "%(asctime)s [%(levelname)s] %(name)s:%(lineno)d "
+                "%(funcName)s() | %(message)s"
+            ),
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+        },
+        "simple": {
+            "format": "%(asctime)s [%(levelname)s] %(message)s",
+            "datefmt": "%H:%M:%S",
+        },
+    },
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_DIR / "debug.log",
+            "maxBytes": 10 * 1024 * 1024,
+            "backupCount": 5,
+            "encoding": "utf-8",
+            "formatter": "detailed",
+        },
+        "error_file": {
+            "level": "ERROR",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOG_DIR / "error.log",
+            "maxBytes": 10 * 1024 * 1024,
+            "backupCount": 3,
+            "encoding": "utf-8",
+            "formatter": "detailed",
+        },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file", "error_file", "console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "django.server": {
+            "handlers": ["console"],
+            "level": "WARNING",  # Скрываем INFO сообщения о HTTPS (они будут как WARNING)
+            "propagate": False,
+        },
+        "portfolio": {
+            "handlers": ["file", "error_file"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+        "security": {
+            "handlers": ["error_file"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+}
 
 
 # Настройки капчи для защиты от спама
-CAPTCHA_CHALLENGE_FUNCT = "captcha.helpers.random_char_challenge"  # Функция генерации капчи
+CAPTCHA_CHALLENGE_FUNCT = (
+    "captcha.helpers.random_char_challenge"  # Функция генерации капчи
+)
 CAPTCHA_LENGTH = 3  # Длина капчи (количество символов)
 CAPTCHA_TIMEOUT = 10  # Время жизни капчи в минутах
 CAPTCHA_NOISE_FUNCTIONS = (

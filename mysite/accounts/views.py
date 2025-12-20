@@ -1,4 +1,6 @@
 # accounts/views.py
+# Представления (контроллеры) для управления аккаунтами и системой тикетов
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, update_session_auth_hash
@@ -8,7 +10,8 @@ from django.db import transaction
 from django.conf import settings
 import logging
 
-from .models import Ticket, TicketResponse, UserProfile
+# Импорт моделей и форм
+from .models import Ticket, UserProfile
 from .forms import (
     UserRegisterForm,
     UserUpdateForm,
@@ -19,12 +22,15 @@ from .forms import (
     ProfileEditForm,
 )
 
+# Настройка логгера для записи ошибок в файл или консоль
 logger = logging.getLogger(__name__)
 
 
 def register(request):
     """
-    Регистрация нового пользователя с обработкой ошибок
+    Регистрация нового пользователя.
+    Если пользователь уже вошел, перенаправляет в профиль.
+    При успешной регистрации создает пользователя, авторизует его и перенаправляет в профиль.
     """
     if request.user.is_authenticated:
         messages.info(request, "Вы уже авторизованы!")
@@ -34,9 +40,11 @@ def register(request):
         form = UserRegisterForm(request.POST)
         try:
             if form.is_valid():
-                with transaction.atomic():
+                with (
+                    transaction.atomic()
+                ):  # Атомарная транзакция для безопасности данных
                     user = form.save()
-                    login(request, user)
+                    login(request, user)  # Автоматический вход после регистрации
                     messages.success(
                         request, "✅ Регистрация прошла успешно! Добро пожаловать!"
                     )
@@ -55,7 +63,10 @@ def register(request):
 
 
 def get_reviews_count(user):
-    """Получение количества отзывов пользователя"""
+    """
+    Вспомогательная функция для получения количества отзывов пользователя.
+    Использует ленивый импорт для избежания циклических зависимостей.
+    """
     try:
         from reviews.models import Review
 
@@ -65,8 +76,12 @@ def get_reviews_count(user):
 
 
 def get_comments_count(user):
-    """Получение количества комментариев пользователя"""
+    """
+    Вспомогательная функция для получения количества комментариев пользователя.
+    Использует ленивый импорт из гипотетического приложения комментариев.
+    """
     try:
+        # Предполагаем наличие приложения comments
         from comments.models import Comment
 
         return Comment.objects.filter(author=user).count()
@@ -78,7 +93,7 @@ def get_comments_count(user):
 @require_http_methods(["GET", "POST"])
 def profile_edit(request):
     """
-    Редактирование основных данных пользователя
+    Редактирование основных данных (User model): username, email, имя, фамилия.
     """
     if request.method == "POST":
         form = ProfileEditForm(request.POST, instance=request.user)
@@ -98,12 +113,16 @@ def profile_edit(request):
 @require_http_methods(["GET", "POST"])
 def profile_update(request):
     """
-    Расширенное редактирование профиля пользователя
+    Обновление расширенных данных профиля (UserProfile model): телефон, аватар, био.
+    Использует две формы в одном представлении.
     """
     try:
-        user_profile = UserProfile.objects.get(user=request.user)
-    except UserProfile.DoesNotExist:
-        user_profile = UserProfile.objects.create(user=request.user)
+        # Получаем профиль или создаем его, если он по какой-то причине отсутствует
+        user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    except Exception as e:
+        logger.error(f"Ошибка получения профиля: {e}")
+        messages.error(request, "❌ Ошибка доступа к данным профиля.")
+        return redirect("accounts:profile")
 
     if request.method == "POST":
         u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -113,10 +132,10 @@ def profile_update(request):
             with transaction.atomic():
                 u_form.save()
                 p_form.save()
-            messages.success(request, "✅ Профиль успешно обновлен!")
+            messages.success(request, "✅ Данные успешно обновлены!")
             return redirect("accounts:profile")
         else:
-            messages.error(request, "❌ Исправьте ошибки в форме")
+            messages.error(request, "❌ Исправьте ошибки в форме.")
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=user_profile)
@@ -129,21 +148,26 @@ def profile_update(request):
 @require_http_methods(["GET", "POST"])
 def password_change(request):
     """
-    Смена пароля пользователя
+    Смена пароля пользователя с автоматическим обновлением сессии,
+    чтобы пользователя не разлогинило после смены пароля.
     """
     if request.method == "POST":
         form = CustomPasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             try:
                 user = form.save()
-                update_session_auth_hash(request, user)
+                update_session_auth_hash(request, user)  # Важно для сохранения сессии
                 messages.success(request, "✅ Пароль успешно изменен!")
                 return redirect("accounts:profile")
             except Exception as e:
                 logger.error(f"Ошибка смены пароля: {e}")
-                messages.error(request, "❌ Ошибка при смене пароля")
+                messages.error(
+                    request, "❌ Ошибка при смене пароля. Обратитесь к администратору."
+                )
         else:
-            messages.error(request, "❌ Исправьте ошибки в форме")
+            messages.error(
+                request, "❌ Пожалуйста, проверьте правильность ввода паролей."
+            )
     else:
         form = CustomPasswordChangeForm(request.user)
 
@@ -153,9 +177,10 @@ def password_change(request):
 @login_required
 def ticket_list(request):
     """
-    Список тикетов пользователя
+    Отображение списка всех обращений текущего пользователя.
     """
     try:
+        # Получаем тикеты пользователя с предзагрузкой связанных данных
         tickets = (
             Ticket.objects.filter(user=request.user)
             .select_related("user")
@@ -163,8 +188,8 @@ def ticket_list(request):
         )
         return render(request, "accounts/ticket_list.html", {"tickets": tickets})
     except Exception as e:
-        logger.error(f"Ошибка загрузки тикетов: {e}")
-        messages.error(request, "❌ Ошибка загрузки списка тикетов")
+        logger.error(f"Ошибка загрузки списка тикетов: {e}")
+        messages.error(request, "❌ Ошибка загрузки ваших обращений.")
         return redirect("accounts:profile")
 
 
@@ -172,12 +197,17 @@ def ticket_list(request):
 @require_http_methods(["GET", "POST"])
 def ticket_detail(request, pk):
     """
-    Детальная страница тикета с ответами
+    Детальная страница тикета с историей переписки и возможностью ответа.
+    Доступ имеют авторы тикета и сотрудники (is_staff).
     """
     try:
-        ticket = get_object_or_404(
-            Ticket.objects.select_related("user"), pk=pk, user=request.user
-        )
+        # Сотрудники видят все тикеты, обычные пользователи - только свои
+        if request.user.is_staff:
+            ticket = get_object_or_404(Ticket.objects.select_related("user"), pk=pk)
+        else:
+            ticket = get_object_or_404(
+                Ticket.objects.select_related("user"), pk=pk, user=request.user
+            )
 
         if request.method == "POST":
             form = TicketResponseForm(request.POST)
@@ -186,29 +216,36 @@ def ticket_detail(request, pk):
                     response = form.save(commit=False)
                     response.ticket = ticket
                     response.user = request.user
-                    response.is_admin_response = request.user.is_staff
+                    # Флаг is_admin_response проставляется в модели TicketResponse.save()
                     response.save()
 
-                    # Обновляем статус и время тикета
+                    # Переводим тикет в статус "В обработке", если отвечает пользователь
                     if not request.user.is_staff:
-                        ticket.status = "in_progress"
+                        ticket.status = Ticket.STATUS_IN_PROGRESS
+
                     ticket.save()
 
-                messages.success(request, "✅ Сообщение отправлено!")
+                messages.success(request, "✅ Ответ успешно добавлен!")
                 return redirect("accounts:ticket_detail", pk=pk)
             else:
-                messages.error(request, "❌ Ошибка в форме ответа")
+                messages.error(request, "❌ Сообщение слишком короткое или пустое.")
         else:
             form = TicketResponseForm()
 
+        # История переписки (все ответы к тикету)
         responses = ticket.responses.select_related("user").order_by("created_at")
 
-        context = {"ticket": ticket, "responses": responses, "form": form}
+        context = {
+            "ticket": ticket,
+            "responses": responses,
+            "form": form,
+            "title": f"Тикет #{ticket.id}",
+        }
         return render(request, "accounts/ticket_detail.html", context)
 
     except Exception as e:
-        logger.error(f"Ошибка загрузки тикета: {e}")
-        messages.error(request, "❌ Ошибка загрузки тикета")
+        logger.error(f"Ошибка загрузки тикета #{pk}: {e}")
+        messages.error(request, "❌ Не удалось загрузить обращение.")
         return redirect("accounts:ticket_list")
 
 
@@ -216,7 +253,7 @@ def ticket_detail(request, pk):
 @require_http_methods(["GET", "POST"])
 def create_ticket(request):
     """
-    Создание нового тикета
+    Создание нового обращения в службу поддержки.
     """
     if request.method == "POST":
         form = TicketForm(request.POST)
@@ -226,13 +263,15 @@ def create_ticket(request):
                     ticket = form.save(commit=False)
                     ticket.user = request.user
                     ticket.save()
-                messages.success(request, "✅ Тикет создан успешно!")
+                messages.success(
+                    request, "✅ Ваше обращение принято и скоро будет рассмотрено!"
+                )
                 return redirect("accounts:ticket_detail", pk=ticket.pk)
             except Exception as e:
-                logger.error(f"Ошибка создания тикета: {e}")
-                messages.error(request, "❌ Ошибка создания тикета")
+                logger.error(f"Ошибка при создании тикета: {e}")
+                messages.error(request, "❌ Критическая ошибка при создании тикета.")
         else:
-            messages.error(request, "❌ Исправьте ошибки в форме")
+            messages.error(request, "❌ Пожалуйста, заполните тему и сообщение.")
     else:
         form = TicketForm()
 
@@ -242,7 +281,7 @@ def create_ticket(request):
 @login_required
 def logout_confirmation(request):
     """
-    Страница подтверждения выхода
+    Страница с подтверждением выхода из системы для предотвращения случайного выхода.
     """
     return render(request, "accounts/logout_confirm.html")
 
@@ -250,28 +289,29 @@ def logout_confirmation(request):
 @require_http_methods(["POST"])
 def custom_logout(request):
     """
-    Обработка выхода пользователя (только POST запросы)
+    Обработка выхода (только через POST для безопасности).
     """
     try:
         logout(request)
-        messages.success(request, "✅ Вы успешно вышли из системы!")
+        messages.success(request, "✅ Вы успешно вышли из системы. До свидания!")
         return redirect(getattr(settings, "LOGOUT_REDIRECT_URL", "main:index"))
     except Exception as e:
-        logger.error(f"Ошибка выхода: {e}")
-        messages.error(request, "❌ Ошибка при выходе из системы")
+        logger.error(f"Ошибка при выходе: {e}")
+        messages.error(request, "❌ Произошла ошибка при выходе.")
         return redirect("main:index")
 
 
 @login_required
 def profile_view(request):
     """
-    Основное представление профиля пользователя
+    Главная страница личного кабинета со статистикой пользователя.
     """
     try:
         user = request.user
+        # Считаем количество активных тикетов
         tickets_count = Ticket.objects.filter(user=user).count()
 
-        # Статистика из других приложений (с обработкой ошибок)
+        # Получаем статистику из других приложений
         reviews_count = get_reviews_count(user)
         comments_count = get_comments_count(user)
 
@@ -279,10 +319,11 @@ def profile_view(request):
             "tickets_count": tickets_count,
             "reviews_count": reviews_count,
             "comments_count": comments_count,
+            "title": "Мой профиль",
         }
         return render(request, "accounts/profile.html", context)
 
     except Exception as e:
-        logger.error(f"Ошибка загрузки профиля: {e}")
-        messages.error(request, "❌ Ошибка загрузки профиля")
+        logger.error(f"Ошибка загрузки личного кабинета: {e}")
+        messages.error(request, "❌ Не удалось загрузить данные профиля.")
         return redirect("main:index")

@@ -1129,3 +1129,6 @@ tz
 2025-12-17 23:03:32 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
 2025-12-17 23:05:12 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
 2025-12-17 23:06:03 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-20 23:32:35 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
+2025-12-20 23:33:09 [INFO] django.utils.autoreload:265 trigger_reload() | L:\PYTHON\PROJECTS\dpits-cms\mysite\mysite\settings.py changed, reloading.
+2025-12-20 23:33:15 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
