@@ -23,12 +23,14 @@
     font-size: 1.1rem;
     line-height: 1.8;
 }
+
 .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: none;
     border-radius: 12px;
     margin-bottom: 1.5rem;
 }
+
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
@@ -91,11 +93,6 @@
     margin-bottom: 0.5rem;
 }
 
-/* Badge Styles */
-.badge {
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-}
 
 /* Social Links */
 .social-links a {
@@ -120,6 +117,7 @@
 .bg-primary {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
 }
+
 .text-primary {
     color: #007bff !important;
 }
@@ -165,19 +163,18 @@
         padding: 2rem 0 !important;
         text-align: center;
     }
-    
+
     .img_hero {
         width: 150px !important;
         height: 150px !important;
         margin: 1rem auto;
     }
-    
+
     .main-content {
         padding: 2rem 0;
     }
-    
+
     .card-body {
         padding: 1rem;
     }
 }
-

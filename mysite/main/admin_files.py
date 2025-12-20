@@ -123,10 +123,10 @@ class ManagedFileAdmin(admin.ModelAdmin):
         "name",  # Имя файла
         "category_display",  # Категория (отображаемое имя)
         "file_path_short",  # Укороченный путь
-        "size_display",  | Размер в удобочитаемом формате
-        "exists_display",  | Индикатор существования
-        "mtime_display",  | Дата изменения
-        "actions",  | Кнопки действий
+        "size_display",  # Размер в удобочитаемом формате
+        "exists_display",  # Индикатор существования
+        "mtime_display",  # Дата изменения
+        "actions",  # Кнопки действий
     ]
 
     list_filter = [
@@ -144,12 +144,12 @@ class ManagedFileAdmin(admin.ModelAdmin):
     ]
 
     readonly_fields = [
-        "file_size",  | Размер файла (только чтение)
-        "file_mtime",  | Время изменения (только чтение)
-        "mime_type",  | MIME-тип (только чтение)
-        "file_permissions",  | Права доступа (только чтение)
-        "last_checked",  | Последняя проверка (только чтение)
-        "created_at",  | Дата создания (только чтение)
+        "file_size",  # Размер файла (только чтение)
+        "file_mtime",  # Время изменения (только чтение)
+        "mime_type",  # MIME-тип (только чтение)
+        "file_permissions",  # Права доступа (только чтение)
+        "last_checked",  # Последняя проверка (только чтение)
+        "created_at",  # Дата создания (только чтение)
     ]
 
     # Поля, которые можно редактировать в списке
@@ -163,11 +163,11 @@ class ManagedFileAdmin(admin.ModelAdmin):
 
     # Действия, доступные в выпадающем списке
     actions = [
-        "refresh_file_info",  | Обновить информацию о файлах
-        "create_backup",  | Создать резервные копии
-        "clear_files",  | Очистить файлы
-        "toggle_active",  | Переключить активность
-        "scan_directory",  | Сканировать директорию
+        "refresh_file_info",  # Обновить информацию о файлах
+        "create_backup",  # Создать резервные копии
+        "clear_files",  # Очистить файлы
+        "toggle_active",  # Переключить активность
+        "scan_directory",  # Сканировать директорию
     ]
 
     # Группировка полей в форме редактирования
@@ -180,7 +180,7 @@ class ManagedFileAdmin(admin.ModelAdmin):
                     "file_path",  # Полный путь
                     "category",  # Категория
                     "description",  # Описание
-                    "is_active",  | Активность
+                    "is_active",  # Активность
                 )
             },
         ),
@@ -188,32 +188,32 @@ class ManagedFileAdmin(admin.ModelAdmin):
             _("Настройки файла"),
             {
                 "fields": (
-                    "is_text_file",  | Текстовый файл
-                    "encoding",  | Кодировка
-                    "auto_backup",  | Авто-бэкап
-                    "max_backups",  | Макс. бэкапов
+                    "is_text_file",  # Текстовый файл
+                    "encoding",  # Кодировка
+                    "auto_backup",  # Авто-бэкап
+                    "max_backups",  # Макс. бэкапов
                 ),
-                "classes": ("collapse",),  | Сворачиваемая секция
+                "classes": ("collapse",),  # Сворачиваемая секция
             },
         ),
         (
             _("Содержимое файла"),
             {
-                "fields": ("content",),  | Содержимое
-                "classes": ("collapse",),  | Сворачиваемая секция
+                "fields": ("content",),  # Содержимое
+                "classes": ("collapse",),  # Сворачиваемая секция
             },
         ),
         (
             _("Информация о файле"),
             {
                 "fields": (
-                    "file_size",  | Размер
-                    "file_mtime",  | Время изменения
-                    "mime_type",  | MIME-тип
-                    "file_permissions",  | Права доступа
-                    "last_checked",  | Последняя проверка
+                    "file_size",  # Размер
+                    "file_mtime",  # Время изменения
+                    "mime_type",  # MIME-тип
+                    "file_permissions",  # Права доступа
+                    "last_checked",  # Последняя проверка
                 ),
-                "classes": ("collapse",),  | Сворачиваемая секция
+                "classes": ("collapse",),  # Сворачиваемая секция
             },
         ),
     )
@@ -233,7 +233,7 @@ class ManagedFileAdmin(admin.ModelAdmin):
         Возвращает:
             list: Список URL маршрутов
         """
-        urls = super().get_urls()  | Получаем стандартные URL
+        urls = super().get_urls()  # Получаем стандартные URL
         custom_urls = [
             # Просмотр содержимого файла
             path(
@@ -272,7 +272,7 @@ class ManagedFileAdmin(admin.ModelAdmin):
                 name="main_managedfile_clear_all",
             ),
         ]
-        return custom_urls + urls  | Объединяем кастомные и стандартные URL
+        return custom_urls + urls  # Объединяем кастомные и стандартные URL
 
     def category_display(self, obj):
         """
@@ -285,7 +285,7 @@ class ManagedFileAdmin(admin.ModelAdmin):
             str: Отображаемое имя категории
         """
         return obj.get_category_display()
-    category_display.short_description = _("Категория")  | Заголовок столбца
+    category_display.short_description = _("Категория")  # Заголовок столбца
 
     def file_path_short(self, obj):
         """
@@ -298,9 +298,9 @@ class ManagedFileAdmin(admin.ModelAdmin):
             str: Укороченный путь (максимум 50 символов)
         """
         if len(obj.file_path) > 50:
-            return f"{obj.file_path[:47]}..."  | Обрезаем длинные пути
+            return f"{obj.file_path[:47]}..."  # Обрезаем длинные пути
         return obj.file_path
-    file_path_short.short_description = _("Путь")  | Заголовок столбца
+    file_path_short.short_description = _("Путь")  # Заголовок столбца
 
     def size_display(self, obj):
         """
@@ -313,7 +313,7 @@ class ManagedFileAdmin(admin.ModelAdmin):
             str: Размер с единицей измерения
         """
         return obj.human_readable_size
-    size_display.short_description = _("Размер")  | Заголовок столбца
+    size_display.short_description = _("Размер")  # Заголовок столбца
 
     def exists_display(self, obj):
         """
@@ -335,7 +335,7 @@ class ManagedFileAdmin(admin.ModelAdmin):
                 '<span style="color: red;">✗ {}</span>',
                 _("Не существует"),
             )
-    exists_display.short_description = _("Статус")  | Заголовок столбца
+    exists_display.short_description = _("Статус")  # Заголовок столбца
 
     def mtime_display(self, obj):
         """
@@ -350,7 +350,7 @@ class ManagedFileAdmin(admin.ModelAdmin):
         if obj.file_mtime:
             return obj.file_mtime.strftime("%d.%m.%Y %H:%M")
         return _("Неизвестно")
-    mtime_display.short_description = _("Изменен")  | Заголовок столбца
+    mtime_display.short_description = _("Изменен")  # Заголовок столбца
 
     def actions(self, obj):
         """
@@ -393,7 +393,7 @@ class ManagedFileAdmin(admin.ModelAdmin):
             )
         
         return format_html(" ".join(buttons))
-    actions.short_description = _("Действия")  | Заголовок столбца
+    actions.short_description = _("Действия")  # Заголовок столбца
 
     def view_file_content(self, request, object_id):
         """
@@ -731,6 +731,9 @@ class ManagedFileAdmin(admin.ModelAdmin):
         Подключает кастомные CSS и JavaScript файлы.
         """
         css = {
-            "all": ("css/admin-file-manager.css",)
+            "all": (
+                "css/badge.css",
+                "css/admin-file-manager.css",
+            )
         }
         js = ("js/admin-file-manager.js",)
