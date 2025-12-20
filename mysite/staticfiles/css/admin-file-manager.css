@@ -1,28 +1,6 @@
 /* static/css/admin-file-manager.css */
 /* Стили для админки управления файлами */
 
-/* Бейджи для статусов */
-.badge-file {
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.badge-file-active {
-    background-color: #28a745;
-    color: white;
-}
-
-.badge-file-inactive {
-    background-color: #6c757d;
-    color: white;
-}
-
-.badge-file-missing {
-    background-color: #dc3545;
-    color: white;
-}
 
 /* Предпросмотр файла */
 .file-preview {
