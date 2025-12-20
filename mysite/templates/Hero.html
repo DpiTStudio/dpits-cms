@@ -5,7 +5,7 @@
 
 <!-- Блок hero секции (переопределяется в дочерних шаблонах) -->
 {% block hero_section %}
-<!-- Секция hero с основным цветом фона и белым текстом -->
+<!-- Секция hero с основным цветом фона и динамическим фоновым изображением -->
 <section class="hero-section text-white 
     {% if '/news/' in request.path %}hero-news
     {% elif '/portfolio/' in request.path %}hero-portfolio
@@ -17,7 +17,11 @@
     {% elif news and news.category %} hero-cat-{{ news.category.slug }}
     {% elif portfolio_item and portfolio_item.category %} hero-cat-{{ portfolio_item.category.slug }}
     {% elif item and item.category %} hero-cat-{{ item.category.slug }}
-    {% endif %}">
+    {% endif %}"
+    {% if site_settings.hero_background %}
+    style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ site_settings.hero_background.url }}'); background-size: cover; background-position: center;"
+    {% endif %}>
+    <!-- Если фоновое изображение загружено в админке, оно применяется через inline-стили с полупрозрачным градиентом для читаемости текста -->
     <!-- Контейнер с полной шириной -->
     <div class="container-fluid">
         <!-- Строка с вертикальным выравниванием по центру -->
@@ -25,7 +29,7 @@
             <!-- Левая колонка с текстовым контентом - 8 колонок из 12 на больших экранах -->
             <div class="col-lg-8">
                 <!-- Основной заголовок сайта с большим размером и жирным шрифтом -->
-                <h1 class="display-5 fw-bold mb-3">{{ site_settings.title|default:site_settings.logo_text|default:"Добро пожаловать" }}</h1>
+                <h1 class="display-5 fw-bold mb-3 hero-title">{{ site_settings.title|default:site_settings.logo_text|default:"Добро пожаловать" }}</h1>
                 
                 <!-- Условная проверка наличия текста логотипа в настройках -->
                 {% if site_settings.logo_text %}

@@ -100,6 +100,14 @@ class SiteSettings(SingletonModel):
     )
     # Поле для загрузки изображения логотипа
 
+    hero_background = models.ImageField(
+        _("Фон Hero-секции"),
+        upload_to="hero_bg/",  # Файлы сохраняются в MEDIA_ROOT/hero_bg/
+        blank=True,
+        help_text=_("Изображение для фонового баннера на главной странице"),
+    )
+    # Поле для загрузки фонового изображения главной секции (Hero)
+
     logo_text = models.CharField(_("Текст логотипа"), max_length=100, blank=True)
     # Текстовое представление логотипа (для SEO и доступности)
 

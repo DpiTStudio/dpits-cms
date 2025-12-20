@@ -51,7 +51,14 @@ class SiteSettingsAdmin(admin.ModelAdmin):
     """
 
     # Поля для отображения в списке записей
-    list_display = ["logo_text","slogan", "phone1", "email", "site_closed", "updated_at"]
+    list_display = [
+        "logo_text",
+        "slogan",
+        "phone1",
+        "email",
+        "site_closed",
+        "updated_at",
+    ]
     # Поля, которые отображаются в таблице списка объектов
 
     list_filter = ["site_closed"]  # Фильтры в правой панели
@@ -64,8 +71,17 @@ class SiteSettingsAdmin(admin.ModelAdmin):
     fieldsets = (
         (
             _("Основная информация"),  # Заголовок секции
-            {"fields": ("logo", "logo_text", "slogan", "motto", "short_description")},
-            # Поля в этой секции
+            {
+                "fields": (
+                    "logo",
+                    "hero_background",
+                    "logo_text",
+                    "slogan",
+                    "motto",
+                    "short_description",
+                )
+            },
+            # Поля в этой секции: логотип, фон Hero, текст логотипа, слоган, девиз и краткое описание
         ),
         (
             _("Контактная информация"),
@@ -280,7 +296,7 @@ class LogStatsAdmin(admin.ModelAdmin):
     - Очистки лог-файла с созданием резервной копии
     - Просмотра ошибок по категориям (ERROR, WARNING, INFO, DEBUG, OTHER)
     - Подсчета количества строк по категориям
-    
+
     Статистика собирается автоматически, ручное добавление запрещено.
     """
 
@@ -415,32 +431,32 @@ class LogStatsAdmin(admin.ModelAdmin):
             HttpResponse: Ответ с рендером страницы списка
         """
         extra_context = extra_context or {}
-        
+
         # Добавляем URL для кнопок
         clear_url = reverse("admin:main_logstats_clear")
         statistics_url = reverse("admin:main_logstats_view")
-        
+
         # Добавляем URL для редактирования
         edit_url = reverse("admin:main_logstats_edit")
-        
+
         # Создаем HTML для кнопок
         buttons_html = format_html(
             '<div style="margin: 10px 0;">'
             '<a href="{}" class="button" style="margin-right: 10px;" '
-            'onclick="return confirm(\'Вы уверены, что хотите очистить лог-файл? Это действие нельзя отменить!\');">'
-            '🗑️ Очистить лог-файл</a>'
+            "onclick=\"return confirm('Вы уверены, что хотите очистить лог-файл? Это действие нельзя отменить!');\">"
+            "🗑️ Очистить лог-файл</a>"
             '<a href="{}" class="button" style="margin-right: 10px;">'
-            '📊 Статистика</a>'
+            "📊 Статистика</a>"
             '<a href="{}" class="button">'
-            '✏️ Редактировать debug.log</a>'
-            '</div>',
+            "✏️ Редактировать debug.log</a>"
+            "</div>",
             clear_url,
             statistics_url,
-            edit_url
+            edit_url,
         )
-        
+
         extra_context["action_buttons"] = buttons_html
-        
+
         return super().changelist_view(request, extra_context)
 
     def clear_log_file_view(self, request):
@@ -467,9 +483,7 @@ class LogStatsAdmin(admin.ModelAdmin):
         else:
             messages.error(request, message)
 
-        return HttpResponseRedirect(
-            reverse("admin:main_logstats_changelist")
-        )
+        return HttpResponseRedirect(reverse("admin:main_logstats_changelist"))
 
     def view_log_statistics(self, request):
         """
@@ -493,10 +507,10 @@ class LogStatsAdmin(admin.ModelAdmin):
 
         # Получаем полную информацию о лог-файле
         log_info = get_log_file_info()
-        
+
         # Получаем путь к файлу
         log_file_path = get_log_file_path()
-        
+
         # Читаем все строки из файла (или последние 10000 для больших файлов)
         all_lines = []
         if log_file_path and os.path.exists(log_file_path):
@@ -508,7 +522,7 @@ class LogStatsAdmin(admin.ModelAdmin):
                         all_lines = lines[-10000:]
                         messages.warning(
                             request,
-                            f"Файл содержит {len(lines)} строк. Показаны последние 10000 строк."
+                            f"Файл содержит {len(lines)} строк. Показаны последние 10000 строк.",
                         )
                     else:
                         all_lines = lines
@@ -533,14 +547,14 @@ class LogStatsAdmin(admin.ModelAdmin):
     def edit_log_file_view(self, request):
         """
         Отображает страницу для редактирования содержимого debug.log.
-        
+
         Действия:
         1. При GET: Показывает форму с содержимым файла и статистикой
         2. При POST: Сохраняет изменения в файл и обновляет статистику
-        
+
         Параметры:
             request: Объект HTTP запроса
-            
+
         Возвращает:
             HttpResponse: Страница редактирования или перенаправление
         """
@@ -548,56 +562,49 @@ class LogStatsAdmin(admin.ModelAdmin):
             get_log_file_info,
             get_log_file_path,
         )
-        
+
         log_file_path = get_log_file_path()
-        
+
         if not log_file_path or not os.path.exists(log_file_path):
             messages.error(request, _("Файл debug.log не найден"))
-            return HttpResponseRedirect(
-                reverse("admin:main_logstats_changelist")
-            )
-        
+            return HttpResponseRedirect(reverse("admin:main_logstats_changelist"))
+
         # Получаем информацию о файле и статистику
         log_info = get_log_file_info()
-        
+
         if request.method == "POST":
             # Сохраняем изменения
             new_content = request.POST.get("content", "")
-            
+
             try:
                 # Создаем бэкап перед изменением
                 import shutil
                 from datetime import datetime
-                
+
                 backup_dir = os.path.join(os.path.dirname(log_file_path), "backups")
                 os.makedirs(backup_dir, exist_ok=True)
-                
+
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                 backup_name = f"debug.log.backup_{timestamp}"
                 backup_path = os.path.join(backup_dir, backup_name)
                 shutil.copy2(log_file_path, backup_path)
-                
+
                 # Сохраняем новое содержимое
                 with open(log_file_path, "w", encoding="utf-8", errors="ignore") as f:
                     f.write(new_content)
-                
+
                 messages.success(
-                    request, 
-                    _("Файл debug.log успешно сохранен. Резервная копия создана: {}").format(
-                        os.path.basename(backup_path)
-                    )
+                    request,
+                    _(
+                        "Файл debug.log успешно сохранен. Резервная копия создана: {}"
+                    ).format(os.path.basename(backup_path)),
                 )
-                
+
                 # Перенаправляем обратно к редактированию
-                return HttpResponseRedirect(
-                    reverse("admin:main_logstats_edit")
-                )
+                return HttpResponseRedirect(reverse("admin:main_logstats_edit"))
             except Exception as e:
-                messages.error(
-                    request, 
-                    _("Ошибка сохранения файла: {}").format(str(e))
-                )
-        
+                messages.error(request, _("Ошибка сохранения файла: {}").format(str(e)))
+
         # GET запрос - показываем форму редактирования
         # Читаем содержимое файла
         file_content = ""
@@ -606,7 +613,7 @@ class LogStatsAdmin(admin.ModelAdmin):
                 file_content = f.read()
         except Exception as e:
             messages.error(request, _("Ошибка чтения файла: {}").format(str(e)))
-        
+
         context = {
             "title": _("Редактирование debug.log"),
             "opts": self.model._meta,
@@ -614,7 +621,7 @@ class LogStatsAdmin(admin.ModelAdmin):
             "file_content": file_content,
             "log_file_path": log_file_path,
         }
-        
+
         return render(
             request,
             "admin/main/edit_log_file.html",
