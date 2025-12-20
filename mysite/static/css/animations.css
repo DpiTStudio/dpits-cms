@@ -447,3 +447,35 @@
     }
 }
 
+
+/* ============================================
+   АНИМАЦИЯ ФОНОВОГО ГРАДИЕНТА (MESH GRADIENT)
+   ============================================ */
+
+/* Анимация движения фонового градиента */
+@keyframes meshGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Класс для анимированного фонового градиента */
+.animate-mesh {
+    background: linear-gradient(-45deg, #2c3e50, #4b6cb7, #182848, #2c3e50);
+    background-size: 400% 400%;
+    animation: meshGradient 15s ease infinite;
+}
+
+/* Эффект матового стекла (glassmorphism) */
+.glass-effect {
+    background: rgba(44, 62, 80, 0.8) !important;
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
