@@ -27,13 +27,9 @@ from django_ckeditor_5.fields import (
     CKEditor5Field,
 )  # Поле WYSIWYG редактора для контента
 from datetime import datetime  # Класс для работы с датой и временем
-from pathlib import Path  # Современный класс для работы с путями к файлам
 from django.db import models  # Базовые классы моделей Django ORM
-from django.core.files.base import ContentFile  # Класс для работы с файловым содержимым
 from django.utils import timezone  # Утилиты для работы с часовыми поясами
-from django.conf import settings  # Настройки Django проекта
 from django.core.exceptions import ValidationError  # Исключение для ошибок валидации
-from django.utils.html import format_html  # Функция для безопасного форматирования HTML
 
 
 class SingletonModel(models.Model):
@@ -80,6 +76,9 @@ class SiteSettings(SingletonModel):
     """
 
     # Контактная информация
+    title = models.CharField(_("Название сайта"), max_length=100, blank=True)
+    # Поле для названия сайта
+
     phone1 = models.CharField(_("Основной телефон"), max_length=20, blank=True)
     # Поле для основного телефона, максимальная длина 20 символов, может быть пустым
 
@@ -885,7 +884,7 @@ class ManagedFile(models.Model):
         Возвращает:
             QuerySet: QuerySet с аннотацией exists_on_disk
         """
-        from django.db.models import Q, Case, When, Value, BooleanField
+        from django.db.models import Case, When, Value, BooleanField
 
         # Создаем сложную аннотацию для определения существования файла
         return cls.objects.all().annotate(

@@ -2,5 +2,6 @@
 {
   "git.logLevel": "error",
   "git.verbose": false,
-  "CodeGPT.apiKey": "Ollama"
+  "CodeGPT.apiKey": "Ollama",
+  "djlint.showInstallError": false
 }

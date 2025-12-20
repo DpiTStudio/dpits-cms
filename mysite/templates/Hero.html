@@ -25,7 +25,7 @@
             <!-- Левая колонка с текстовым контентом - 8 колонок из 12 на больших экранах -->
             <div class="col-lg-8">
                 <!-- Основной заголовок сайта с большим размером и жирным шрифтом -->
-                <h1 class="display-5 fw-bold mb-3">{{ site_settings.title|default:"Добро пожаловать" }}</h1>
+                <h1 class="display-5 fw-bold mb-3">{{ site_settings.title|default:site_settings.logo_text|default:"Добро пожаловать" }}</h1>
                 
                 <!-- Условная проверка наличия текста логотипа в настройках -->
                 {% if site_settings.logo_text %}
