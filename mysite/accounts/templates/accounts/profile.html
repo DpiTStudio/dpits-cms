@@ -16,85 +16,132 @@
 
 {% block content %}
 <section class="profile-section">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-12">
-                <div class="profile-card">
-                    <!-- Заголовок профиля -->
-                    <div class="profile-header">
-                        <div class="profile-avatar">
-                            {% if user.profile.avatar %}
-                                <img src="{{ user.profile.avatar.url }}" alt="Аватар" class="img-fluid">
-                            {% else %}
-                                <i class="fas fa-user fa-3x" style="color: #667eea; line-height: 120px;"></i>
-                            {% endif %}
-                        </div>
-                        <h2>{{ user.get_full_name|default:user.username }}</h2>
-                        <p>@{{ user.username }}</p>
-                    </div>
-                    
-                    <!-- Тело профиля -->
-                    <div class="profile-body">
-                        <div class="welcome-message">
-                            <h3>Добро пожаловать в ваш профиль!</h3>
-                            <p>Здесь вы можете управлять своими данными и настройками</p>
-                        </div>
+            <div class="col-lg-10">
+                <div class="profile-card-container">
+                    <div class="profile-card">
+                        <!-- Header Background / Banner -->
+                        <div class="profile-banner"></div>
                         
-                        <!-- Статистика -->
-                        <div class="profile-stats">
-                            <div class="stat-card">
-                                <div class="stat-number">{{ tickets_count }}</div>
-                                <div class="stat-label">Тикетов</div>
+                        <!-- Заголовок профиля -->
+                        <div class="profile-header">
+                            <div class="profile-avatar-wrapper">
+                                <div class="profile-avatar">
+                                    {% if user.profile.avatar %}
+                                        <img src="{{ user.profile.avatar.url }}" alt="Аватар">
+                                    {% else %}
+                                        <div class="avatar-placeholder">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="online-badge"></div>
                             </div>
-                            <div class="stat-card">
-                                <div class="stat-number">{{ reviews_count }}</div>
-                                <div class="stat-label">Отзывов</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number">{{ comments_count }}</div>
-                                <div class="stat-label">Комментариев</div>
+                            <div class="profile-title">
+                                <h2>{{ user.get_full_name|default:user.username }}</h2>
+                                <p class="username">@{{ user.username }}</p>
+                                {% if user.is_staff %}
+                                    <span class="badge-admin"><i class="fas fa-shield-alt"></i> Администратор</span>
+                                {% endif %}
                             </div>
                         </div>
                         
-                        <!-- Информация о пользователе -->
-                        <div class="profile-info">
-                            <div class="info-item">
-                                <span class="info-label">Имя пользователя:</span>
-                                <span class="info-value">{{ user.username }}</span>
+                        <!-- Тело профиля -->
+                        <div class="profile-body">
+                            <div class="row">
+                                <!-- Sidebar Info -->
+                                <div class="col-md-4">
+                                    <div class="profile-sidebar">
+                                        <div class="info-group">
+                                            <h4>Контакная информация</h4>
+                                            <div class="info-item">
+                                                <i class="fas fa-envelope"></i>
+                                                <div class="info-content">
+                                                    <span class="info-label">Email</span>
+                                                    <span class="info-value">{{ user.email|default:"Не указан" }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="info-item">
+                                                <i class="fas fa-phone"></i>
+                                                <div class="info-content">
+                                                    <span class="info-label">Телефон</span>
+                                                    <span class="info-value">{{ user.profile.phone|default:"Не указан" }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="info-item">
+                                                <i class="fas fa-calendar-alt"></i>
+                                                <div class="info-content">
+                                                    <span class="info-label">На сайте с</span>
+                                                    <span class="info-value">{{ user.date_joined|date:"d M Y" }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="profile-actions-stacked">
+                                            <a href="{% url 'accounts:profile_edit' %}" class="btn-profile-primary">
+                                                <i class="fas fa-user-edit"></i> Редактировать
+                                            </a>
+                                            <a href="{% url 'accounts:password_change' %}" class="btn-profile-secondary">
+                                                <i class="fas fa-key"></i> Сменить пароль
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Main Content -->
+                                <div class="col-md-8">
+                                    <div class="profile-main">
+                                        {% if user.profile.bio %}
+                                        <div class="bio-section">
+                                            <h3>О себе</h3>
+                                            <p>{{ user.profile.bio }}</p>
+                                        </div>
+                                        {% endif %}
+
+                                        <div class="stats-grid">
+                                            <div class="stat-card">
+                                                <div class="stat-icon icon-tickets">
+                                                    <i class="fas fa-ticket-alt"></i>
+                                                </div>
+                                                <div class="stat-info">
+                                                    <span class="stat-number">{{ tickets_count }}</span>
+                                                    <span class="stat-label">Тикеты</span>
+                                                </div>
+                                            </div>
+                                            <div class="stat-card">
+                                                <div class="stat-icon icon-reviews">
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="stat-info">
+                                                    <span class="stat-number">{{ reviews_count }}</span>
+                                                    <span class="stat-label">Отзывы</span>
+                                                </div>
+                                            </div>
+                                            <div class="stat-card">
+                                                <div class="stat-icon icon-comments">
+                                                    <i class="fas fa-comments"></i>
+                                                </div>
+                                                <div class="stat-info">
+                                                    <span class="stat-number">{{ comments_count }}</span>
+                                                    <span class="stat-label">Комментарии</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-quick-links">
+                                            <h3>Быстрые ссылки</h3>
+                                            <div class="links-grid">
+                                                <a href="{% url 'accounts:ticket_list' %}" class="quick-link-card">
+                                                    <i class="fas fa-life-ring"></i>
+                                                    <span>Мои обращения</span>
+                                                </a>
+                                                <!-- Можно добавить другие ссылки -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="info-item">
-                                <span class="info-label">Email:</span>
-                                <span class="info-value">{{ user.email|default:"Не указан" }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Имя:</span>
-                                <span class="info-value">{{ user.first_name|default:"Не указано" }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Фамилия:</span>
-                                <span class="info-value">{{ user.last_name|default:"Не указана" }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Телефон:</span>
-                                <span class="info-value">{{ user.profile.phone|default:"Не указан" }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Дата регистрации:</span>
-                                <span class="info-value">{{ user.date_joined|date:"d.m.Y H:i" }}</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Действия -->
-                        <div class="profile-actions">
-                            <a href="{% url 'accounts:profile_edit' %}" class="btn-profile btn-edit">
-                                <i class="fas fa-edit me-2"></i>Редактировать профиль
-                            </a>
-                            <a href="{% url 'accounts:password_change' %}" class="btn-profile btn-password">
-                                <i class="fas fa-key me-2"></i>Сменить пароль
-                            </a>
-                            <a href="{% url 'accounts:ticket_list' %}" class="btn-profile btn-tickets">
-                                <i class="fas fa-ticket-alt me-2"></i>Мои тикеты
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -108,16 +155,30 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Анимация появления элементов
-        const elements = document.querySelectorAll('.stat-card, .info-item, .btn-profile');
-        elements.forEach((element, index) => {
+        const elements = document.querySelectorAll('.info-item, .stat-card, .quick-link-card, .btn-profile-primary, .btn-profile-secondary');
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        elements.forEach((element) => {
             element.style.opacity = '0';
             element.style.transform = 'translateY(20px)';
-            element.style.transition = 'all 0.6s ease';
-            
-            setTimeout(() => {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }, 100 + index * 100);
+            element.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            observer.observe(element);
         });
     });
 </script>

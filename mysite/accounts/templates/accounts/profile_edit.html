@@ -7,26 +7,26 @@
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'accounts/css/accounts.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/css/profile_forms.css' %}">
 {% endblock %}
 
 {% block content %}
-<section class="profile-edit-section">
+<section class="profile-form-section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-xl-6">
-                <div class="card profile-edit-card">
+                <div class="profile-form-card">
                     <!-- Заголовок -->
-                    <div class="profile-edit-header">
-                        <h2 class="mb-3">Редактирование профиля</h2>
-                        <p class="mb-0 opacity-75">Обновите вашу личную информацию</p>
+                    <div class="profile-form-header">
+                        <h2>Настройка профиля</h2>
+                        <p>Основные данные пользователя</p>
                     </div>
                     
                     <!-- Тело формы -->
-                    <div class="card-body p-5">
+                    <div class="profile-form-body">
                         {% if messages %}
                             {% for message in messages %}
-                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-4" role="alert">
                                     <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} me-2"></i>
                                     {{ message }}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -34,105 +34,98 @@
                             {% endfor %}
                         {% endif %}
                         
-                        <form method="post" novalidate>
+                        <form method="post" novalidate id="profileEditForm">
                             {% csrf_token %}
                             
-                            <div class="form-group">
-                                <label for="{{ form.username.id_for_label }}" class="form-label">
-                                    <i class="fas fa-user me-2"></i>Имя пользователя:
+                            <div class="form-group-custom">
+                                <label for="{{ form.username.id_for_label }}">
+                                    Имя пользователя
                                 </label>
-                                {{ form.username }}
-                                <div class="form-icon">
-                                    <i class="fas fa-user"></i>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-at"></i>
+                                    {{ form.username }}
                                 </div>
                                 {% if form.username.errors %}
-                                    <div class="text-danger mt-2">
-                                        <i class="fas fa-exclamation-circle me-2"></i>
-                                        {{ form.username.errors }}
-                                    </div>
+                                    {% for error in form.username.errors %}
+                                        <div class="error-text">
+                                            <i class="fas fa-info-circle"></i> {{ error }}
+                                        </div>
+                                    {% endfor %}
                                 {% endif %}
+                                <p class="help-text">Публичное имя, которое видят другие пользователи</p>
                             </div>
                             
-                            <div class="form-group">
-                                <label for="{{ form.email.id_for_label }}" class="form-label">
-                                    <i class="fas fa-envelope me-2"></i>Email:
+                            <div class="form-group-custom">
+                                <label for="{{ form.email.id_for_label }}">
+                                    Электронная почта
                                 </label>
-                                {{ form.email }}
-                                <div class="form-icon">
+                                <div class="input-wrapper">
                                     <i class="fas fa-envelope"></i>
+                                    {{ form.email }}
                                 </div>
                                 {% if form.email.errors %}
-                                    <div class="text-danger mt-2">
-                                        <i class="fas fa-exclamation-circle me-2"></i>
-                                        {{ form.email.errors }}
-                                    </div>
+                                    {% for error in form.email.errors %}
+                                        <div class="error-text">
+                                            <i class="fas fa-info-circle"></i> {{ error }}
+                                        </div>
+                                    {% endfor %}
                                 {% endif %}
                             </div>
                             
-                            <div class="form-group">
-                                <label for="{{ form.first_name.id_for_label }}" class="form-label">
-                                    <i class="fas fa-signature me-2"></i>Имя:
-                                </label>
-                                {{ form.first_name }}
-                                <div class="form-icon">
-                                    <i class="fas fa-signature"></i>
-                                </div>
-                                {% if form.first_name.errors %}
-                                    <div class="text-danger mt-2">
-                                        <i class="fas fa-exclamation-circle me-2"></i>
-                                        {{ form.first_name.errors }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group-custom">
+                                        <label for="{{ form.first_name.id_for_label }}">Имя</label>
+                                        <div class="input-wrapper">
+                                            <i class="fas fa-user-tag"></i>
+                                            {{ form.first_name }}
+                                        </div>
+                                        {% if form.first_name.errors %}
+                                            {% for error in form.first_name.errors %}
+                                                <div class="error-text"><i class="fas fa-info-circle"></i> {{ error }}</div>
+                                            {% endfor %}
+                                        {% endif %}
                                     </div>
-                                {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group-custom">
+                                        <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+                                        <div class="input-wrapper">
+                                            <i class="fas fa-signature"></i>
+                                            {{ form.last_name }}
+                                        </div>
+                                        {% if form.last_name.errors %}
+                                            {% for error in form.last_name.errors %}
+                                                <div class="error-text"><i class="fas fa-info-circle"></i> {{ error }}</div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label for="{{ form.last_name.id_for_label }}" class="form-label">
-                                    <i class="fas fa-signature me-2"></i>Фамилия:
-                                </label>
-                                {{ form.last_name }}
-                                <div class="form-icon">
-                                    <i class="fas fa-signature"></i>
-                                </div>
-                                {% if form.last_name.errors %}
-                                    <div class="text-danger mt-2">
-                                        <i class="fas fa-exclamation-circle me-2"></i>
-                                        {{ form.last_name.errors }}
-                                    </div>
-                                {% endif %}
-                            </div>
-                            
-                            <div class="row mt-4">
-                                <div class="col-md-4 mb-3">
-                                    <button type="submit" class="btn btn-save">
-                                        <i class="fas fa-save me-2"></i>
-                                        Сохранить
-                                    </button>
-                                </div>
-                                
-                                <div class="col-md-4 mb-3">
-                                    <a href="{% url 'accounts:profile' %}" class="btn btn-outline-secondary">
-                                        <i class="fas fa-times me-2"></i>
-                                        Отмена
-                                    </a>
-                                </div>
-                                
-                                <div class="col-md-4 mb-3">
-                                    <a href="{% url 'accounts:password_change' %}" class="btn btn-outline-custom">
-                                        <i class="fas fa-key me-2"></i>
-                                        Пароль
-                                    </a>
-                                </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-submit-custom">
+                                    <i class="fas fa-check me-2"></i> Сохранить изменения
+                                </button>
+                                <a href="{% url 'accounts:profile' %}" class="btn-cancel-custom">
+                                    Отмена
+                                </a>
                             </div>
                         </form>
                         
-                        <hr class="my-4">
-                        
-                        <div class="text-center">
-                            <p class="text-muted mb-3">Нужно изменить больше информации?</p>
-                            <a href="{% url 'accounts:profile_update' %}" class="btn btn-outline-primary">
-                                <i class="fas fa-user-edit me-2"></i>
-                                Расширенные настройки профиля
-                            </a>
+                        <div class="secondary-actions">
+                            <div class="row gy-3">
+                                <div class="col-sm-6 text-sm-start">
+                                    <a href="{% url 'accounts:password_change' %}" class="btn-link-custom">
+                                        <i class="fas fa-shield-alt"></i> Сменить пароль
+                                    </a>
+                                </div>
+                                <div class="col-sm-6 text-sm-end">
+                                    <a href="{% url 'accounts:profile_update' %}" class="btn-link-custom">
+                                        <i class="fas fa-cog"></i> Расширенные настройки
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -144,21 +137,27 @@
 
 {% block extra_js %}
 <script>
-    // Добавляем placeholder для полей
     document.addEventListener('DOMContentLoaded', function() {
-        const fields = {
-            'id_username': 'Введите имя пользователя',
-            'id_email': 'Введите email адрес',
-            'id_first_name': 'Введите ваше имя',
-            'id_last_name': 'Введите вашу фамилию'
-        };
-        
-        for (const [id, placeholder] of Object.entries(fields)) {
-            const field = document.getElementById(id);
-            if (field) {
-                field.setAttribute('placeholder', placeholder);
+        // Добавляем классы к полям формы Django
+        const inputs = document.querySelectorAll('#profileEditForm input');
+        inputs.forEach(input => {
+            if (input.type !== 'hidden' && input.type !== 'submit') {
+                input.classList.add('form-control-custom');
             }
-        }
+        });
+
+        // Плавная анимация фокуса
+        const formGroups = document.querySelectorAll('.form-group-custom');
+        formGroups.forEach((group, index) => {
+            group.style.opacity = '0';
+            group.style.transform = 'translateY(20px)';
+            group.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+            
+            setTimeout(() => {
+                group.style.opacity = '1';
+                group.style.transform = 'translateY(0)';
+            }, 100 + index * 100);
+        });
     });
 </script>
 {% endblock %}
