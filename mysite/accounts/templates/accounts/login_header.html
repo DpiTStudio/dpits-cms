@@ -2,11 +2,15 @@
 <header class="bg-dark text-white sticky-top">
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'main:index' %}">
+            <!-- Ссылка-логотип бренда с премиальным стилем -->
+            <a class="navbar-brand navbar-brand-premium d-flex align-items-center" href="{% url 'main:index' %}">
                 {% if site_settings.logo %}
-                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" height="40" class="me-2">
+                <div class="brand-logo-container me-2">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" height="40"
+                        class="rounded brand-logo">
+                </div>
                 {% endif %}
-                <span class="fw-bold">{{ site_settings.logo_text }}</span>
+                <span class="brand-text">{{ site_settings.logo_text }}</span>
             </a>
             
             <div class="d-flex">
