@@ -257,7 +257,7 @@ footer h5 {
 
 /* Параграфы в подвале */
 footer p {
-    color: var(--text-muted);
+    /* color: var(--text-muted); */
     /* Приглушенный цвет текста */
     margin-bottom: var(--spacing-md);
     /* Отступ снизу */

@@ -14,19 +14,19 @@
             <!-- Колонка с информацией о бренде - 4 колонки на больших экранах, 6 на средних -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <!-- Заголовок с названием бренда и жирным шрифтом -->
-                <h5 class="footer-content-2 mb-3">
+                <h5 class="footer-content-2 mb-2">
                     {{ site_settings.logo_text }}
                 </h5>
                 <!-- Краткое описание сайта с безопасным выводом HTML -->
-                <span class="footer-content-1">
+                <p class="footer-content-1 mb-3">
                     {{ site_settings.short_description|safe }}
-                </span>
+                </p>
             </div>
 
             <!-- Колонка с контактами - 4 колонки на больших экранах, 6 на средних -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <!-- Заголовок секции контактов -->
-                <h5 class="fw-bold mb-3">Контакты</h5>
+                <h5 class="fw-bold mb-2">Контакты</h5>
                 <!-- Контейнер с вертикальным flexbox и отступами между элементами -->
                 <div class="d-flex flex-column gap-2">
                     <!-- Условная проверка наличия первого телефона -->
