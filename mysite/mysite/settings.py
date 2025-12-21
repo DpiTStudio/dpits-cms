@@ -303,7 +303,6 @@ JAZZMIN_UI_TWEAKS = {
     "sidebar_nav_flat_style": True,  # Плоский стиль
     # === НАСТРОЙКИ ТЕМЫ ===
     "theme": "default",  # Основная тема
-    "dark_mode_theme": None,  # Темная тема (None для отключения)
     # === НАСТРОЙКИ КНОПОК ===
     "button_classes": {
         "primary": "btn-primary",

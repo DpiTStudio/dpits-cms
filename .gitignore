@@ -12,6 +12,7 @@
 
 # Прочие директории
 .vscode/
+mysite/logs/
 work_filer/
 prompts/
 mysite/logs/debug.log
