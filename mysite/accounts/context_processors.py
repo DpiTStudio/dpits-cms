@@ -8,7 +8,7 @@ def site_settings(request):
     """
     return {
         "site_settings": {
-            "logo_text": getattr(settings, "SITE_NAME", "Мой сайт"),
-            "support_email": getattr(settings, "SUPPORT_EMAIL", "support@example.com"),
+            "logo_text": getattr(settings, "SITE_NAME", "DPITS-CMS.RU"),
+            "support_email": getattr(settings, "SUPPORT_EMAIL", "admin@dpitst-cms.ru"),
         }
     }
