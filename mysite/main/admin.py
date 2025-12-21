@@ -15,20 +15,15 @@
 для избежания дублирования регистрации и организации кода.
 """
 
-import glob  # Модуль для работы с шаблонами путей к файлам (поиск по маскам)
-import mimetypes  # Модуль для определения MIME-типов файлов
 import os  # Модуль для работы с операционной системой (файлы, директории)
-import stat  # Модуль для работы с правами доступа к файлам
 
 from datetime import datetime  # Класс для работы с датой и временем
-from django.conf import settings  # Настройки Django проекта
 from django.contrib import (
     admin,  # Базовый класс админки Django
     messages,  # Система сообщений Django (уведомления пользователю)
 )
 from django.http import HttpResponseRedirect  # Класс для перенаправления HTTP-ответов
 from django.shortcuts import (
-    get_object_or_404,  # Функция для получения объекта или 404 ошибки
     render,  # Функция для рендеринга шаблонов
 )
 
@@ -36,7 +31,6 @@ from django.shortcuts import (
 from django.urls import path, reverse  # Функции для работы с URL
 from django.utils.html import (
     format_html,  # Функция для безопасного форматирования HTML
-    mark_safe,  # Функция для пометки строки как безопасного HTML
 )
 from django.utils.translation import gettext_lazy as _  # Функция для перевода строк
 
@@ -244,7 +238,7 @@ class PageAdmin(admin.ModelAdmin):
         Позволяет подключать кастомные CSS файлы к админ-панели.
         """
 
-        css = {"all": ("admin/css/pages.css",)}
+        css = {"all": ("css/pages.css",)}
         # Подключаем CSS файл для стилизации админки страниц
 
     def get_queryset(self, request):

@@ -20,7 +20,7 @@ class Review(models.Model):
         null=True,  # если автор может быть не указан
         blank=True,  # если поле может быть пустым в формах
     )
-    email = models.EmailField(_("Email"), max_length=254, blank=True)
+    email = models.EmailField(_("Email"), max_length=254)
     full_name = models.CharField(_("ФИО"), max_length=100)
     message = models.TextField(_("Сообщение"))
     phone = models.CharField(_("Телефон"), max_length=20)
