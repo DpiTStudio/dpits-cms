@@ -33,7 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "*",  # Разрешает все хосты (только для разработки!)
     "dpits-cms.ru",
-    "www.dpits-cms.ru",
+    # "www.dpits-cms.ru",
     "localhost",
     "127.0.0.1",
 ]
