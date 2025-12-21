@@ -40,7 +40,12 @@ from .models import SiteSettings, Page  # | Импорт моделей
 try:
     from news.models import News
 except ImportError:
-    News = None  # | Если приложение news не установлено
+    News = None
+
+try:
+    from portfolio.models import PortfolioItem
+except ImportError:
+    PortfolioItem = None
 
 
 class MaintenanceMixin:
@@ -269,10 +274,26 @@ class IndexView(MaintenanceMixin, BaseView, TemplateView):
             elif site_settings.seo_description:
                 meta_description = site_settings.seo_description
 
+        # Получаем три последние работы из портфолио
+        recent_portfolio_list = []
+        if PortfolioItem:
+            try:
+                recent_portfolio_list = list(
+                    PortfolioItem.objects.filter(status="published").order_by("-created_at")[:3]
+                )
+            except Exception:
+                try:
+                    recent_portfolio_list = list(
+                        PortfolioItem.objects.all().order_by("-created_at")[:3]
+                    )
+                except Exception:
+                    recent_portfolio_list = []
+
         context.update(
             {
                 "featured_pages": featured_pages,
                 "recent_news_list": recent_news_list,
+                "recent_portfolio_list": recent_portfolio_list,
                 "page_title": page_title,
                 "meta_description": meta_description,
             }

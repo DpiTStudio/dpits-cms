@@ -1,0 +1,99 @@
+        {% load static %}
+<!-- Блок последних работ на главной странице -->
+        {% block home_portfolio_section %}
+        <!-- Условная проверка наличия списка последних работ -->
+        {% if recent_portfolio_list %}
+        <!-- Контейнер с полной шириной для секции портфолио -->
+        <div class="container-fluid">
+            <!-- Строка с центрированием контента -->
+            <div class="row justify-content-center">
+                <!-- Колонка на всю ширину на мобильных, 10 колонок на больших экранах -->
+                <div class="col-12 col-lg-10">
+                    <!-- Карточка с тенью и отступом сверху -->
+                    <div class="card shadow-sm mt-4">
+                        <!-- Заголовок карточки с зеленым цветом и белым текстом -->
+                        <div class="card-header bg-success text-white">
+                            <!-- Заголовок с иконкой портфеля -->
+                            <h4 class="mb-0"><i class="fas fa-briefcase me-2"></i>Последние работы</h4>
+                        </div>
+                        <!-- Тело карточки -->
+                        <div class="card-body">
+                            <!-- Строка для сетки карточек портфолио -->
+                            <div class="row">
+                                <!-- Цикл по списку последних работ -->
+                                {% for portfolio_item in recent_portfolio_list %}
+                                <!-- Колонка для карточки работы - 4 колонки на средних экранах -->
+                                <div class="col-md-4 mb-3">
+                                    <!-- Карточка работы с полной высотой -->
+                                    <div class="card h-100 news-card">
+                                        <!-- Условная проверка наличия изображения у работы -->
+                                        {% if portfolio_item.image %}
+                                        <!-- Изображение работы из базы данных -->
+                                        <img src="{{ portfolio_item.image.url }}" class="card-img-top"
+                                            alt="{{ portfolio_item.title }}">
+                                        {% else %}
+                                        <!-- Изображение по умолчанию, если у работы нет изображения -->
+                                        <img src="{% static 'images/default-portfolio.jpg' %}" class="card-img-top"
+                                            alt="{{ portfolio_item.title }}">
+                                        {% endif %}
+                                        <!-- Тело карточки с flexbox для выравнивания -->
+                                        <div class="card-body d-flex flex-column">
+                                            <!-- Условная проверка наличия категории у работы -->
+                                            {% if portfolio_item.category %}
+                                            <!-- Бейдж категории с выравниванием по левому краю -->
+                                            <span class="badge bg-secondary mb-2 align-self-start">
+                                                {{ portfolio_item.category.name }}
+                                            </span>
+                                            {% endif %}
+                                            <!-- Заголовок работы с ограничением количества слов -->
+                                            <h6 class="card-title d-flex align-items-center">
+                                                <!-- Изображение новости (15 пикселей) для соответствия стилю -->
+                                                {% if portfolio_item.image %}
+                                                <img src="{{ portfolio_item.image.url }}" class="sidebar-news-image" alt="{{ portfolio_item.title }}">
+                                                {% else %}
+                                                <img src="{% static 'images/default-portfolio.jpg' %}" class="sidebar-news-image" alt="{{ portfolio_item.title }}">
+                                                {% endif %}
+                                                <span class="flex-grow-1">{{ portfolio_item.title|truncatewords:8 }}</span>
+                                            </h6>
+                                            <!-- Текст работы с растягиванием и ограничением количества слов -->
+                                            <p class="card-text flex-grow-1 small">
+                                                {{ portfolio_item.short_description|striptags|truncatewords:12 }}
+                                            </p>
+                                            <!-- Футер карточки с датой и кнопкой -->
+                                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                                <!-- Дата создания работы -->
+                                                <small
+                                                    class="text-muted">{{portfolio_item.project_date|date:"d.m.Y"}}</small>
+                                                <!-- Ссылка на детальную страницу работы -->
+                                                <a href="{% url 'portfolio:detail' portfolio_item.slug %}"
+                                                    class="btn btn-sm btn-outline-success">Подробнее</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Обработка случая, когда работ нет -->
+                                {% empty %}
+                                <!-- Сообщение об отсутствии работ с центрированием -->
+                                <div class="col-12 text-center py-4">
+                                    <p class="text-muted">Работ пока нет</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Ссылка на страницу со всеми работами -->
+                            {% if recent_portfolio_list %}
+                            <!-- Контейнер с центрированием и отступом сверху -->
+                            <div class="text-center mt-3">
+                                <!-- Кнопка-ссылка на список всех работ -->
+                                <a href="{% url 'portfolio:list' %}" class="btn btn-success">
+                                    Все работы <i class="fas fa-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endblock %}

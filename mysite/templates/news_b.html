@@ -1,4 +1,5 @@
-        <!-- Блок последних новостей на главной странице -->
+        {% load static %}
+<!-- Блок последних новостей на главной странице -->
         {% block home_news_section %}
         <!-- Условная проверка наличия списка последних новостей -->
         {% if recent_news_list %}
@@ -45,7 +46,15 @@
                                             </span>
                                             {% endif %}
                                             <!-- Заголовок новости с ограничением количества слов -->
-                                            <h6 class="card-title">{{ recent_news.title|truncatewords:8 }}</h6>
+                                            <h6 class="card-title d-flex align-items-center">
+                                                <!-- Изображение новости размером 15 пикселей -->
+                                                {% if recent_news.image %}
+                                                <img src="{{ recent_news.image.url }}" class="sidebar-news-image" alt="{{ recent_news.title }}">
+                                                {% else %}
+                                                <img src="{% static 'images/default-news.jpg' %}" class="sidebar-news-image" alt="{{ recent_news.title }}">
+                                                {% endif %}
+                                                <span class="flex-grow-1">{{ recent_news.title|truncatewords:8 }}</span>
+                                            </h6>
                                             <!-- Текст новости с растягиванием и ограничением количества слов -->
                                             <p class="card-text flex-grow-1 small">
                                                 {{ recent_news.short_description|striptags|truncatewords:12 }}

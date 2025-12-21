@@ -6,7 +6,7 @@
 <!-- Загрузка статических файлов Django -->
 {% load static %}
 <!-- Контейнер сайдбара - 3 колонки из 12 на больших экранах -->
-<div class="col-lg-3">
+<div class="col-lg-3 sidebar">
     <!-- Секция последних новостей -->
     <!-- Условная проверка наличия новостей для сайдбара -->
     {% if sidebar_news %}
@@ -26,10 +26,16 @@
             <!-- Контейнер для каждой новости с отступами и условной нижней границей -->
             <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
                 <!-- Заголовок новости с отступом снизу -->
-                <h6 class="mb-1">
+                <h6 class="mb-1 d-flex align-items-center">
+                    <!-- Изображение новости размером 15 пикселей -->
+                    {% if news.image %}
+                    <img src="{{ news.image.url }}" class="sidebar-news-image" alt="{{ news.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default-news.jpg' %}" class="sidebar-news-image" alt="{{ news.title }}">
+                    {% endif %}
                     <!-- Ссылка на детальную страницу новости без подчеркивания и темным текстом -->
                     <a href="{% url 'news:detail' news.slug %}" 
-                        class="text-decoration-none text-dark">
+                        class="text-decoration-none text-dark flex-grow-1">
                         {{ news.title|truncatewords:6 }}
                     </a>
                 </h6>
@@ -70,18 +76,17 @@
             {% for portfolio_item in sidebar_portfolio %}
             <!-- Контейнер для каждой работы с отступами и условной нижней границей -->
             <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
-                <!-- Условная проверка наличия изображения у работы -->
-                {% if portfolio_item.image %}
-                <!-- Изображение работы с адаптивными размерами, скруглением и отступом снизу -->
-                <img src="{{ portfolio_item.image.url }}" 
-                     class="img-fluid rounded mb-2 sidebar-portfolio-image" 
-                     alt="{{ portfolio_item.title }}">
-                {% endif %}
-                <!-- Заголовок работы с отступом снизу -->
-                <h6 class="mb-1">
+                <!-- Заголовок работы с отступом снизу и компактной миниатюрой -->
+                <h6 class="mb-1 d-flex align-items-center">
+                    <!-- Изображение работы размером 15 пикселей -->
+                    {% if portfolio_item.image %}
+                    <img src="{{ portfolio_item.image.url }}" class="sidebar-news-image" alt="{{ portfolio_item.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default-portfolio.jpg' %}" class="sidebar-news-image" alt="{{ portfolio_item.title }}">
+                    {% endif %}
                     <!-- Ссылка на детальную страницу работы без подчеркивания и темным текстом -->
                     <a href="{% url 'portfolio:detail' portfolio_item.slug %}" 
-                        class="text-decoration-none text-dark">
+                        class="text-decoration-none text-dark flex-grow-1">
                         {{ portfolio_item.title|truncatewords:6 }}
                     </a>
                 </h6>

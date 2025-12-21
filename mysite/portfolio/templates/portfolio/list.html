@@ -158,9 +158,15 @@
                 <div class="card-body">
                     {% for recent_news in recent_news_list|slice:":5" %}
                     <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
-                        <h6 class="mb-1">
+                        <h6 class="mb-1 d-flex align-items-center">
+                            <!-- Изображение новости размером 15 пикселей -->
+                            {% if recent_news.image %}
+                            <img src="{{ recent_news.image.url }}" class="sidebar-news-image" alt="{{ recent_news.title }}">
+                            {% else %}
+                            <img src="{% static 'images/default-news.jpg' %}" class="sidebar-news-image" alt="{{ recent_news.title }}">
+                            {% endif %}
                             <a href="{% url 'news:detail' recent_news.slug %}" 
-                                class="text-decoration-none text-dark">
+                                class="text-decoration-none text-dark flex-grow-1">
                                 {{ recent_news.title|truncatewords:6 }}
                             </a>
                         </h6>
