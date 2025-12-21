@@ -186,29 +186,6 @@
             </div>
             {% endif %}
 
-            <!-- Последние работы -->
-            <div class="card mb-4">
-                <div class="card-header bg-primary text-white">
-                    <h6 class="mb-0">Последние работы</h6>
-                </div>
-                <div class="card-body">
-                    {% for recent_item in recent_portfolio_items %}
-                    <div class="mb-3 pb-3 border-bottom">
-                        <h6 class="mb-1">
-                            <a href="{% url 'portfolio:detail' recent_item.slug %}">
-                                {{ recent_item.title|truncatewords:6 }}
-                            </a>
-                        </h6>
-                        <small class="text-muted">{{ recent_item.project_date|date:"d.m.Y" }}</small>
-                        <div>
-                            <small class="badge bg-light text-dark">{{ recent_item.category.name }}</small>
-                        </div>
-                    </div>
-                    {% empty %}
-                    <p class="text-muted small">Работ пока нет</p>
-                    {% endfor %}
-                </div>
-            </div>
 
             <!-- Категории -->
             <div class="card">
@@ -229,6 +206,9 @@
             </div>
         </div>
     </div>
-  </div>
+</div>
+
+  <!-- Блок последних работ на всю ширину внизу страницы -->
+  {% include "portfolio_b.html" %}
 </section>
 {% endblock %}

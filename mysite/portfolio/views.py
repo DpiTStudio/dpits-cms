@@ -1,12 +1,23 @@
 # portfolio/views.py
 # Представления (контроллеры) для приложения portfolio (портфолио)
-from django.shortcuts import render, get_object_or_404, redirect  # Импорт функций для рендеринга шаблонов, получения объектов и перенаправления
-from django.views.generic import ListView, DetailView  # Импорт базовых классов представлений Django
-from django.contrib.auth.decorators import login_required  # Декоратор для требования аутентификации
+from django.shortcuts import (
+    render,
+    get_object_or_404,
+    redirect,
+)  # Импорт функций для рендеринга шаблонов, получения объектов и перенаправления
+from django.views.generic import (
+    ListView,
+    DetailView,
+)  # Импорт базовых классов представлений Django
+from django.contrib.auth.decorators import (
+    login_required,
+)  # Декоратор для требования аутентификации
 from django.contrib import messages  # Импорт системы сообщений Django
-from django.utils import timezone  # Импорт утилит для работы с часовыми поясами
 from django.core.cache import cache  # Импорт кэша для оптимизации производительности
-from django.db.models import Count, Q  # Импорт функций агрегации и Q-объекта для сложных запросов
+from django.db.models import (
+    Count,
+    Q,
+)  # Импорт функций агрегации и Q-объекта для сложных запросов
 from .models import (
     PortfolioCategory,  # Модель категории портфолио
     PortfolioItem,  # Модель работы портфолио
@@ -15,7 +26,11 @@ from .models import (
     OrderMessage,  # Модель сообщения в заказе
     PortfolioReview,  # Модель отзыва о работе
 )
-from .forms import OrderForm, ReviewForm, ClientProfileForm  # Импорт форм для работы с заказами, отзывами и профилем клиента
+from .forms import (
+    OrderForm,
+    ReviewForm,
+    ClientProfileForm,
+)  # Импорт форм для работы с заказами, отзывами и профилем клиента
 
 # Импорт модели новостей (если приложение news установлено)
 try:
@@ -47,26 +62,36 @@ class PortfolioListView(ListView):
         """
         Добавление категорий в контекст.
         Оптимизировано с использованием кэширования.
-        
+
         Args:
             **kwargs: Дополнительные аргументы контекста
-            
+
         Returns:
             dict: Контекст для шаблона с категориями и выбранной категорией
         """
         context = super().get_context_data(**kwargs)  # Получаем базовый контекст
-        
+
         # ИСПРАВЛЕНО: Используем кэш для категорий
         cache_key = "portfolio_categories_active"
         categories = cache.get(cache_key)
         if not categories:
             categories = list(
-                PortfolioCategory.objects.filter(is_active=True).order_by("-order", "name")
+                PortfolioCategory.objects.filter(is_active=True).order_by(
+                    "-order", "name"
+                )
             )
             cache.set(cache_key, categories, 600)  # Кэш на 10 минут
-        
+
         context["categories"] = categories  # Добавляем категории в контекст
-        context["selected_category"] = self.request.GET.get("category", "")  # Получаем выбранную категорию из GET-параметра
+        context["selected_category"] = self.request.GET.get(
+            "category", ""
+        )  # Получаем выбранную категорию из GET-параметра
+
+        # Список последних работ для отображения внизу на всю ширину
+        context["recent_portfolio_list"] = PortfolioItem.objects.filter(
+            status="published"
+        ).order_by("-created_at")[:3]
+
         return context  # Возвращаем контекст
 
 
@@ -87,10 +112,10 @@ class PortfolioDetailView(DetailView):
         """
         Добавление отзывов и связанных работ в контекст.
         Оптимизировано с использованием select_related и prefetch_related.
-        
+
         Args:
             **kwargs: Дополнительные аргументы контекста
-            
+
         Returns:
             dict: Контекст для шаблона с отзывами и похожими работами
         """
@@ -99,10 +124,10 @@ class PortfolioDetailView(DetailView):
         # Отзывы к этой работе
         # ИСПРАВЛЕНО: Добавлен select_related для оптимизации запросов к клиенту
         context["reviews"] = (
-            PortfolioReview.objects.filter(
-                portfolio_item=self.object, is_approved=True
-            )
-            .select_related("client", "client__user")  # Оптимизация: загружаем клиента и пользователя одним запросом
+            PortfolioReview.objects.filter(portfolio_item=self.object, is_approved=True)
+            .select_related(
+                "client", "client__user"
+            )  # Оптимизация: загружаем клиента и пользователя одним запросом
             .order_by("-created_at")  # Сортируем по дате создания (новые сверху)
         )
 
@@ -112,9 +137,13 @@ class PortfolioDetailView(DetailView):
             PortfolioItem.objects.filter(
                 category=self.object.category, status="published"
             )
-            .select_related("category", "client")  # Оптимизация: загружаем категорию и клиента одним запросом
+            .select_related(
+                "category", "client"
+            )  # Оптимизация: загружаем категорию и клиента одним запросом
             .exclude(id=self.object.id)  # Исключаем текущую работу из списка похожих
-            .order_by("-created_at")[:4]  # Получаем 4 последние работы из той же категории
+            .order_by("-created_at")[
+                :4
+            ]  # Получаем 4 последние работы из той же категории
         )
 
         # Увеличиваем счетчик просмотров
@@ -177,10 +206,10 @@ def client_dashboard(request):
     Личный кабинет клиента.
     Отображает статистику и последние заказы и отзывы клиента.
     Оптимизировано с использованием select_related и агрегации.
-    
+
     Args:
         request: HTTP-запрос от аутентифицированного пользователя
-        
+
     Returns:
         HttpResponse: Отрендеренный шаблон личного кабинета клиента
     """
@@ -188,12 +217,14 @@ def client_dashboard(request):
         # Получаем клиента по пользователю
         # ИСПРАВЛЕНО: Добавлен select_related для оптимизации
         client = Client.objects.select_related("user").get(user=request.user)
-        
+
         # Последние 5 заказов клиента
         # ИСПРАВЛЕНО: Добавлен select_related и ограничение запроса
         orders = (
             Order.objects.filter(client=client)
-            .select_related("client", "client__user")  # Оптимизация: загружаем клиента одним запросом
+            .select_related(
+                "client", "client__user"
+            )  # Оптимизация: загружаем клиента одним запросом
             .order_by("-created_at")[:5]  # Получаем только 5 последних заказов
         )
 
@@ -201,7 +232,9 @@ def client_dashboard(request):
         # ИСПРАВЛЕНО: Добавлен select_related
         reviews = (
             PortfolioReview.objects.filter(client=client)
-            .select_related("client", "portfolio_item", "portfolio_item__category")  # Оптимизация: загружаем связанные объекты
+            .select_related(
+                "client", "portfolio_item", "portfolio_item__category"
+            )  # Оптимизация: загружаем связанные объекты
             .order_by("-created_at")[:3]  # Получаем только 3 последних отзыва
         )
 
@@ -209,12 +242,18 @@ def client_dashboard(request):
         # ИСПРАВЛЕНО: Используем агрегацию для оптимизации запросов
         orders_stats = Order.objects.filter(client=client).aggregate(
             total=Count("id"),  # Общее количество заказов
-            completed=Count("id", filter=Q(status="completed")),  # Количество завершенных заказов
-            active=Count("id", filter=Q(status="in_progress")),  # Количество активных заказов
+            completed=Count(
+                "id", filter=Q(status="completed")
+            ),  # Количество завершенных заказов
+            active=Count(
+                "id", filter=Q(status="in_progress")
+            ),  # Количество активных заказов
         )
-        
+
         orders_count = orders_stats["total"] or 0  # Общее количество заказов
-        completed_orders = orders_stats["completed"] or 0  # Количество завершенных заказов
+        completed_orders = (
+            orders_stats["completed"] or 0
+        )  # Количество завершенных заказов
         active_orders = orders_stats["active"] or 0  # Количество активных заказов
 
     except Client.DoesNotExist:  # Если клиент не найден
@@ -245,10 +284,10 @@ def order_list(request):
     """
     Список всех заказов клиента.
     Оптимизировано с использованием select_related и агрегации.
-    
+
     Args:
         request: HTTP-запрос от аутентифицированного пользователя
-        
+
     Returns:
         HttpResponse: Отрендеренный шаблон со списком заказов или редирект на профиль
     """
@@ -256,32 +295,42 @@ def order_list(request):
         # Получаем клиента по пользователю
         # ИСПРАВЛЕНО: Добавлен select_related для оптимизации
         client = Client.objects.select_related("user").get(user=request.user)
-        
+
         # Получаем все заказы клиента
         # ИСПРАВЛЕНО: Добавлен select_related
         orders = (
             Order.objects.filter(client=client)
-            .select_related("client", "client__user")  # Оптимизация: загружаем клиента одним запросом
+            .select_related(
+                "client", "client__user"
+            )  # Оптимизация: загружаем клиента одним запросом
             .order_by("-created_at")  # Сортируем по дате создания (новые сверху)
         )
-        
+
         # Фильтрация по статусу
-        status_filter = request.GET.get("status")  # Получаем фильтр статуса из GET-параметра
+        status_filter = request.GET.get(
+            "status"
+        )  # Получаем фильтр статуса из GET-параметра
         if status_filter:  # Если фильтр указан
             orders = orders.filter(status=status_filter)  # Фильтруем заказы по статусу
-        
+
         # Статистика заказов
         # ИСПРАВЛЕНО: Используем агрегацию для оптимизации запросов
         orders_stats = Order.objects.filter(client=client).aggregate(
             total=Count("id"),  # Общее количество заказов
-            completed=Count("id", filter=Q(status="completed")),  # Количество завершенных заказов
-            active=Count("id", filter=Q(status="in_progress")),  # Количество активных заказов
+            completed=Count(
+                "id", filter=Q(status="completed")
+            ),  # Количество завершенных заказов
+            active=Count(
+                "id", filter=Q(status="in_progress")
+            ),  # Количество активных заказов
         )
-        
+
         orders_count = orders_stats["total"] or 0  # Общее количество заказов
-        completed_orders = orders_stats["completed"] or 0  # Количество завершенных заказов
+        completed_orders = (
+            orders_stats["completed"] or 0
+        )  # Количество завершенных заказов
         active_orders = orders_stats["active"] or 0  # Количество активных заказов
-        
+
     except Client.DoesNotExist:  # Если клиент не найден
         client = None  # Устанавливаем клиента в None
         orders = []  # Пустой список заказов
@@ -289,9 +338,13 @@ def order_list(request):
         completed_orders = 0  # Количество завершенных заказов = 0
         active_orders = 0  # Количество активных заказов = 0
         status_filter = None  # Фильтр статуса = None
-        messages.error(request, "Сначала заполните профиль клиента!")  # Показываем сообщение об ошибке
-        return redirect("portfolio:client_profile")  # Перенаправляем на страницу профиля клиента
-    
+        messages.error(
+            request, "Сначала заполните профиль клиента!"
+        )  # Показываем сообщение об ошибке
+        return redirect(
+            "portfolio:client_profile"
+        )  # Перенаправляем на страницу профиля клиента
+
     # Формируем данные для шаблона
     return render(
         request,  # HTTP-запрос
@@ -313,19 +366,22 @@ def order_detail(request, pk):
     Детальная страница заказа.
     Отображает информацию о заказе и сообщения по заказу.
     Оптимизировано с использованием select_related и prefetch_related.
-    
+
     Args:
         request: HTTP-запрос от аутентифицированного пользователя
         pk: Первичный ключ заказа
-        
+
     Returns:
         HttpResponse: Отрендеренный шаблон с детальной информацией о заказе
     """
     # Получаем заказ или показываем ошибку 404
     # ИСПРАВЛЕНО: Добавлен select_related и prefetch_related для оптимизации
     order = get_object_or_404(
-        Order.objects.select_related("client", "client__user")  # Оптимизация: загружаем клиента одним запросом
-        .prefetch_related("messages", "messages__user"),  # Оптимизация: загружаем сообщения одним запросом
+        Order.objects.select_related(
+            "client", "client__user"
+        ).prefetch_related(  # Оптимизация: загружаем клиента одним запросом
+            "messages", "messages__user"
+        ),  # Оптимизация: загружаем сообщения одним запросом
         pk=pk,
         client__user=request.user,  # Проверяем, что заказ принадлежит текущему пользователю
     )
@@ -341,8 +397,12 @@ def order_detail(request, pk):
                     user=request.user,  # Устанавливаем автора сообщения
                     message=message_content,  # Устанавливаем текст сообщения
                 )
-                messages.success(request, "Сообщение отправлено!")  # Показываем сообщение об успехе
-                return redirect("portfolio:order_detail", pk=order.pk)  # Перенаправляем на страницу заказа
+                messages.success(
+                    request, "Сообщение отправлено!"
+                )  # Показываем сообщение об успехе
+                return redirect(
+                    "portfolio:order_detail", pk=order.pk
+                )  # Перенаправляем на страницу заказа
 
     # Формируем данные для шаблона
     return render(
