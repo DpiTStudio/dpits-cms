@@ -1,7 +1,0 @@
-// settings.json
-{
-  "git.logLevel": "error",
-  "git.verbose": false,
-  "CodeGPT.apiKey": "Ollama",
-  "djlint.showInstallError": false
-}
