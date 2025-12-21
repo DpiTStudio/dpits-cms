@@ -1,3 +1,9 @@
+# Игнорировать всё
+*
+
+# Кроме самого .gitignore
+!.gitignore
+
 # Виртуальные окружения и IDE
 .venv/
 .vscode/
@@ -5,10 +11,3 @@
 .gigaide/
 
 # Прочие директории
-prompts/
-work_filer/
-mysite/logs/
-mysite/logs/debug.log
-mysite/logs/error.log
-mysite/logs/backups/
-mysite/logs/debug.log
