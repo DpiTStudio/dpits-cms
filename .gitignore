@@ -11,12 +11,6 @@
 .gigaide/
 
 # Прочие директории
-<<<<<<< HEAD
-=======
-prompts/
+.vscode/
 work_filer/
-mysite/logs/
-mysite/logs/debug.log
-mysite/logs/error.log
-mysite/logs/backups/
->>>>>>> f6827b62d6719a904f3124c09247a2b3a7310fed
+prompts/
