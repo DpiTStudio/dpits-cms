@@ -993,3 +993,4 @@ Traceback (most recent call last):
     raise self.error(
 django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 3: 'endif', expected 'endblock'. Did you forget to register or load this tag?
 2025-12-21 22:42:50 [WARNING] django.request:253 log_response() | Not Found: /favicon.ico
+2025-12-22 13:56:02 [INFO] django.utils.autoreload:667 run_with_reloader() | Watching for file changes with StatReloader
