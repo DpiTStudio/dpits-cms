@@ -19,10 +19,7 @@
 
     <!-- ========== БАЗОВЫЕ МЕТАТЕГИ ========== -->
     <!-- Динамический заголовок страницы с блоком для переопределения -->
-    <title>
-      {% block title %}{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}{%
-      endblock %}
-    </title>
+    <title>{% block title %}{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}{% endblock %}</title>
 
     <!-- Мета-описание страницы для поисковых систем -->
     <meta

@@ -1,10 +1,20 @@
-{% extends 'base.html' %} {% load static %} {% block title %} {% if
-site_settings.seo_title %} {{ site_settings.logo_text }} - {{
-site_settings.seo_title }} {% else %} {{
-site_settings.logo_text|default:"Главная страница" }} {% endif %} {% endblock %}
-{% block meta_description %} {{
-site_settings.short_description|striptags|truncatewords:20 }} {% endblock %} {%
-block extra_head %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} 
+  {% if site_settings.seo_title %} 
+    {{ site_settings.logo_text }} 
+    - {{ site_settings.seo_title }} 
+  {% else %} 
+    {{ site_settings.logo_text|default:"Главная страница" }} 
+  {% endif %} 
+{% endblock %}
+
+{% block meta_description %}
+  {{ site_settings.short_description|striptags|truncatewords:20 }} 
+{% endblock %}
+
+{% block extra_head %}
 <meta property="og:title" content="{{ site_settings.logo_text }}" />
 <meta
   property="og:description"
