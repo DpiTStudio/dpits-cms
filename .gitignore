@@ -12,6 +12,7 @@
 
 # Логи и временные файлы
 mysite/logs/
+mysite/work_filer/
 
 # Прочие директории
 work_filer/
