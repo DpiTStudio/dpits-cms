@@ -1,0 +1,11 @@
+# Prettier ignore file
+# Не форматировать Django templates!
+
+# Django templates
+**/*.html
+**/templates/**/*.html
+mysite/templates/**
+mysite/*/templates/**
+
+# Также игнорируем другие файлы Django
+**/*.py
