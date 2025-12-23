@@ -5,32 +5,50 @@
 
 /* ========== HEADER (Шапка сайта) ========== */
 
-/* Контейнер шапки */
+/* Контейнер шапки с эффектом матового стекла */
 header {
-    background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d, #1a2a6c);
-    background-size: 400% 400%;
-    animation: meshGradient 20s ease infinite;
+    background: rgba(30, 41, 59, 0.95);
+    /* Полупрозрачный темный фон */
+    backdrop-filter: blur(20px) saturate(180%);
+    /* Эффект размытия и насыщенности для glassmorphism */
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    /* Поддержка Safari */
     color: var(--text-white);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    /* Белый цвет текста */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    /* Современная тень */
     position: sticky;
+    /* Липкое позиционирование */
     top: 0;
+    /* Прилипает к верху */
     z-index: var(--z-index-sticky);
+    /* Слой выше остального контента */
     width: 100%;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    /* Полная ширина */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    /* Тонкая полупрозрачная граница снизу */
+    transition: all 0.3s ease;
+    /* Плавный переход для всех свойств */
 }
 
 /* Эффект свечения снизу шапки */
 header::after {
     content: '';
+    /* Пустой контент для псевдоэлемента */
     position: absolute;
+    /* Абсолютное позиционирование */
     bottom: 0;
+    /* Позиция снизу */
     left: 0;
+    /* Позиция слева */
     right: 0;
+    /* Позиция справа */
     height: 1px;
+    /* Высота линии */
     background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    /* Градиент от прозрачного к основному цвету */
     opacity: 0.5;
+    /* Полупрозрачность */
 }
 
 /* Навигационная панель */

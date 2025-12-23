@@ -23,45 +23,48 @@
 
 /* Разные фоны для разных разделов (категорий) */
 .hero-home {
-    /* background: var(--hero-gradient); */
-    background: linear-gradient(135deg, rgba(78, 64, 18, 0.8) 0%, rgba(142, 128, 124, 0.8) 100%),
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(139, 92, 246, 0.95) 100%),
         url('/static/images/logo_h.png');
+    /* Современный градиент Indigo to Violet с фоновым изображением */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .hero-news {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-    /* Глубокий синий для новостей */
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.95) 0%, rgba(37, 99, 235, 0.95) 100%);
+    /* Яркий синий градиент для новостей (Blue-500 to Blue-600) */
 }
 
 .hero-portfolio {
-    background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
-    /* Яркий голубой для портфолио */
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.95) 0%, rgba(14, 165, 233, 0.95) 100%);
+    /* Свежий голубой для портфолио (Cyan-500 to Sky-500) */
 }
 
 .hero-reviews {
-    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-    /* Свежий зеленый для отзывов */
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%);
+    /* Приятный зеленый для отзывов (Green-500 to Green-600) */
 }
 
 .hero-accounts {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    /* Элегантный фиолетовый для профиля */
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.95) 0%, rgba(124, 58, 237, 0.95) 100%);
+    /* Элегантный фиолетовый для профиля (Violet-500 to Violet-600) */
 }
 
 /* Примеры фонов для конкретных категорий портфолио (по slug) */
 .hero-cat-web-design {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.95) 0%, rgba(219, 39, 119, 0.95) 100%);
+    /* Pink gradient */
 }
 
 .hero-cat-mobile-apps {
-    background: linear-gradient(135deg, #5eeff5 0%, #4568dc 100%);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.95) 0%, rgba(99, 102, 241, 0.95) 100%);
+    /* Blue to Indigo */
 }
 
 .hero-cat-seo {
-    background: linear-gradient(135deg, #4e4012 0%, #8e807c 100%);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.95) 0%, rgba(217, 119, 6, 0.95) 100%);
+    /* Amber gradient */
 }
 
 

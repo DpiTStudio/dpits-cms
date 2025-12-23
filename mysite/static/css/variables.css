@@ -1,47 +1,104 @@
 /* ============================================
    ФАЙЛ: variables.css
-   ОПИСАНИЕ: CSS переменные для всего сайта
+   ОПИСАНИЕ: CSS переменные для всего сайта (Обновлено 2025)
    ============================================ */
 
 /* Корневой элемент для определения CSS переменных */
 :root {
-    /* Основные цвета сайта */
-    --primary-color: #667eea;
-    /* Основной цвет - фиолетово-синий */
-    --secondary-color: #764ba2;
-    /* Вторичный цвет - фиолетовый */
-    --dark-color: #2c3e50;
-    /* Темный цвет для текста и фона */
-    --light-color: #f8f9fa;
-    /* Светлый цвет для фона */
+    /* ========== ОСНОВНЫЕ ЦВЕТА ========== */
+    /* Основные цвета - современная палитра Indigo/Violet */
+    --primary-color: #6366f1;
+    /* Indigo-500 - основной цвет */
+    --primary-hover: #4f46e5;
+    /* Indigo-600 - при наведении */
+    --primary-light: #818cf8;
+    /* Indigo-400 - светлый вариант */
+    --primary-dark: #4338ca;
+    /* Indigo-700 - темный вариант */
+    
+    --secondary-color: #8b5cf6;
+    /* Violet-500 - вторичный цвет */
+    --secondary-hover: #7c3aed;
+    /* Violet-600 - при наведении */
+    
+    --accent-color: #ec4899;
+    /* Pink-500 - акцентный цвет */
+    --accent-hover: #db2777;
+    /* Pink-600 - при наведении */
+    
+    /* Нейтральные цвета для лучшей читаемости */
+    --neutral-50: #fafafa;
+    --neutral-100: #f5f5f5;
+    --neutral-200: #e5e5e5;
+    --neutral-300: #d4d4d4;
+    --neutral-400: #a3a3a3;
+    --neutral-500: #737373;
+    --neutral-600: #525252;
+    --neutral-700: #404040;
+    --neutral-800: #262626;
+    --neutral-900: #171717;
+    
+    /* Устаревшие переменные (для обратной совместимости) */
+    --dark-color: #1e293b;
+    /* Slate-800 - темный цвет для текста и фона */
+    --light-color: #f8fafc;
+    /* Slate-50 - светлый цвет для фона */
 
+    /* ========== СЕМАНТИЧЕСКИЕ ЦВЕТА ========== */
     /* Цвета состояний */
-    --success-color: #28a745;
-    /* Зеленый цвет для успешных операций */
-    --warning-color: #ffc107;
-    /* Желтый цвет для предупреждений */
-    --danger-color: #dc3545;
-    /* Красный цвет для ошибок */
-    --info-color: #17a2b8;
-    /* Голубой цвет для информации */
+    --success-color: #10b981;
+    /* Green-500 - успешные операции */
+    --success-light: #34d399;
+    /* Green-400 */
+    --success-dark: #059669;
+    /* Green-600 */
+    
+    --warning-color: #f59e0b;
+    /* Amber-500 - предупреждения */
+    --warning-light: #fbbf24;
+    /* Amber-400 */
+    --warning-dark: #d97706;
+    /* Amber-600 */
+    
+    --danger-color: #ef4444;
+    /* Red-500 - ошибки */
+    --danger-light: #f87171;
+    /* Red-400 */
+    --danger-dark: #dc2626;
+    /* Red-600 */
+    
+    --info-color: #3b82f6;
+    /* Blue-500 - информация */
+    --info-light: #60a5fa;
+    /* Blue-400 */
+    --info-dark: #2563eb;
+    /* Blue-600 */
 
-    /* Цвета текста */
-    --text-color: #333;
-    /* Основной цвет текста */
-    --text-muted: lab(21.83% 6.01 -30.09);
-    /* Приглушенный цвет текста */
+    /* ========== ЦВЕТА ТЕКСТА ========== */
+    --text-color: #1f2937;
+    /* Gray-800 - основной цвет текста */
+    --text-secondary: #6b7280;
+    /* Gray-500 - вторичный текст */
+    --text-muted: #9ca3af;
+    /* Gray-400 - приглушенный текст */
     --text-white: #ffffff;
     /* Белый цвет текста */
-    --text-footer: #fff8e8 !important;
-    /* Цвет текста в подвале */
+    --text-footer: #f3f4f6;
+    /* Gray-100 - цвет текста в подвале */
 
-    /* Градиенты */
-    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    /* Основной градиент */
-    --hero-gradient: linear-gradient(135deg, #c3bbbb75 0%, #615c56 100%);
-    /* Градиент для hero секции */
-    --light-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    /* ========== ГРАДИЕНТЫ ========== */
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    /* Indigo to Violet */
+    --secondary-gradient: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    /* Violet to Pink */
+    --hero-gradient: linear-gradient(135deg, rgba(99, 102, 241, 0.9) 0%, rgba(139, 92, 246, 0.9) 100%);
+    /* Полупрозрачный градиент для hero */
+    --light-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     /* Светлый градиент */
+    --dark-gradient: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    /* Темный градиент */
+    --mesh-gradient: linear-gradient(-45deg, #6366f1, #8b5cf6, #ec4899, #6366f1);
+    /* Анимированный mesh градиент */
 
     /* Радиусы скругления */
     --border-radius-sm: 8px;

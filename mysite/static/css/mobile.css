@@ -1,0 +1,354 @@
+/* ============================================
+   ФАЙЛ: mobile.css
+   ОПИСАНИЕ: Улучшенные стили для мобильных устройств
+   ============================================ */
+
+/* ========== МОБИЛЬНОЕ МЕНЮ ========== */
+
+@media (max-width: 991.98px) {
+
+  /* Полноэкранное мобильное меню */
+  .navbar-collapse {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 85%;
+    max-width: 400px;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    padding: 2rem 1.5rem;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1050;
+    overflow-y: auto;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .navbar-collapse.show {
+    left: 0;
+  }
+
+  /* Оверлей для мобильного меню */
+  .navbar-collapse.show::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 85%;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    animation: fadeIn 0.3s ease;
+  }
+
+  /* Вертикальное расположение пунктов меню */
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  /* Стили для пунктов мобильного меню */
+  .nav-link {
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(8px);
+  }
+
+  .nav-link.active {
+    background: var(--primary-color);
+    color: white !important;
+  }
+
+  /* Иконки в мобильном меню */
+  .nav-link i {
+    margin-right: 12px;
+    font-size: 1.25rem;
+    width: 24px;
+    text-align: center;
+  }
+
+  /* Кнопка закрытия меню */
+  .navbar-toggler {
+    position: relative;
+    z-index: 1051;
+  }
+
+  /* Элементы авторизации в мобильном меню */
+  .navbar-collapse .d-flex {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .navbar-collapse .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem;
+    font-size: 1.125rem;
+  }
+
+  .navbar-collapse .dropdown-menu {
+    position: static;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin-top: 0.5rem;
+  }
+
+  .navbar-collapse .dropdown-item {
+    color: white;
+    padding: 0.875rem 1.25rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 0.5rem;
+  }
+
+  .navbar-collapse .dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ========== TOUCH-FRIENDLY ЭЛЕМЕНТЫ ========== */
+
+/* Минимальный размер кликабельных элементов: 44x44px */
+@media (max-width: 768px) {
+
+  .btn,
+  .nav-link,
+  a.card-link,
+  button {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Увеличенные отступы для лучшего тапа */
+  .form-control,
+  .form-select {
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+  }
+
+  /* Отключение hover эффектов на touch устройствах */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* ========== АДАПТИВНАЯ ТИПОГРАФИКА ========== */
+
+@media (max-width: 768px) {
+
+  /* Уменьшенные размеры шрифтов для мобильных */
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+
+  h5 {
+    font-size: 1.125rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+  }
+
+  /* Уменьшенные отступы */
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* ========== АДАПТИВНЫЕ ИЗОБРАЖЕНИЯ ========== */
+
+@media (max-width: 768px) {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Оптимизация hero изображений */
+  .hero-section {
+    min-height: auto;
+    padding: 2rem 0 !important;
+  }
+
+  .logo-container img {
+    max-height: 150px;
+  }
+}
+
+/* ========== АДАПТИВНАЯ СЕТКА ========== */
+
+@media (max-width: 768px) {
+
+  /* Одноколоночная сетка на мобильных */
+  .row>[class*="col-"] {
+    margin-bottom: 1rem;
+  }
+
+  /* Скрытие сайдбара на мобильных */
+  .sidebar {
+    display: none;
+  }
+
+  /* Полная ширина контента */
+  .col-lg-9 {
+    width: 100%;
+  }
+}
+
+/* ========== МОБИЛЬНЫЙ FOOTER ========== */
+
+@media (max-width: 768px) {
+  footer {
+    padding: 2rem 0;
+  }
+
+  footer .col-lg-4,
+  footer .col-md-6 {
+    margin-bottom: 2rem;
+  }
+
+  footer h5 {
+    font-size: 1.25rem;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+}
+
+/* ========== ОПТИМИЗАЦИЯ ПРОИЗВОДИТЕЛЬНОСТИ НА МОБИЛЬНЫХ ========== */
+
+@media (max-width: 768px) {
+
+  /* Упрощенные тени */
+  .card,
+  .btn,
+  header,
+  footer {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Отключение backdrop-filter на старых мобильных */
+  @supports not (backdrop-filter: blur(10px)) {
+    header {
+      background: rgba(30, 41, 59, 1) !important;
+    }
+  }
+
+  /* Упрощенные анимации */
+  .animate-fade-in-up,
+  .animate-fade-in-down,
+  .animate-fade-in-left,
+  .animate-fade-in-right {
+    animation-duration: 0.3s;
+  }
+
+  .card {
+    animation-duration: 0.3s;
+  }
+}
+
+/* ========== LANDSCAPE ОРИЕНТАЦИЯ ========== */
+
+@media (max-width: 768px) and (orientation: landscape) {
+
+  /* Уменьшенная высота hero в landscape */
+  .hero-section {
+    padding: 1.5rem 0 !important;
+  }
+
+  /* Компактный header */
+  header {
+    padding: 0.5rem 0;
+  }
+
+  .navbar-brand {
+    font-size: 1.125rem;
+  }
+}
+
+/* ========== ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ ========== */
+
+@media (max-width: 375px) {
+
+  /* Дополнительные оптимизации для маленьких экранов */
+  .container-fluid {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .btn {
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+  }
+}
+
+/* ========== ПЛАНШЕТЫ ========== */
+
+@media (min-width: 769px) and (max-width: 991.98px) {
+
+  /* Адаптация для планшетов */
+  .container-fluid {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .hero-section {
+    padding: 3rem 0 !important;
+  }
+
+  /* Двухколоночная сетка для карточек */
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ========== ACCESSIBILITY НА МОБИЛЬНЫХ ========== */
+
+@media (max-width: 768px) {
+
+  /* Увеличенный фокус для доступности */
+  *:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
+  /* Увеличенный размер текста для лучшей читаемости */
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}

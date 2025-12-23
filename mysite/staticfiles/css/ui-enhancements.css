@@ -1,0 +1,461 @@
+/* ============================================
+   ФАЙЛ: ui-enhancements.css
+   ОПИСАНИЕ: Дополнительные UI улучшения и микроинтеракции
+   ============================================ */
+
+/* ========== RIPPLE EFFECT ========== */
+
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  animation: ripple-animation 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Подготовка элементов для ripple */
+.btn,
+.nav-link,
+.card-link {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ========== SCROLL TO TOP BUTTON ========== */
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(100px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-to-top:active {
+  transform: translateY(-2px);
+}
+
+/* Мобильная версия кнопки */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.125rem;
+  }
+}
+
+/* ========== TOAST УВЕДОМЛЕНИЯ ========== */
+
+.toast {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: none;
+  overflow: hidden;
+}
+
+.toast-header {
+  background: var(--neutral-50);
+  border-bottom: 1px solid var(--neutral-200);
+  padding: 12px 16px;
+}
+
+.toast-body {
+  padding: 16px;
+  color: var(--text-color);
+}
+
+.toast .btn-close {
+  font-size: 0.875rem;
+}
+
+/* Анимация появления toast */
+.toast.showing {
+  animation: toastSlideIn 0.3s ease-out;
+}
+
+.toast.hide {
+  animation: toastSlideOut 0.3s ease-in;
+}
+
+@keyframes toastSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toastSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* ========== LOADING STATES ========== */
+
+/* Кнопка с загрузкой */
+.btn.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: button-loading-spinner 0.6s linear infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* ========== TOOLTIPS ========== */
+
+.tooltip-custom {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-custom::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 8px 12px;
+  background: var(--neutral-900);
+  color: white;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.tooltip-custom::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--neutral-900);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.tooltip-custom:hover::before,
+.tooltip-custom:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ========== BADGES С АНИМАЦИЕЙ ========== */
+
+.badge-animated {
+  animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* ========== PROGRESS BAR ========== */
+
+.progress-modern {
+  height: 8px;
+  background: var(--neutral-200);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-modern .progress-bar {
+  background: var(--primary-gradient);
+  border-radius: 10px;
+  transition: width 0.6s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-modern .progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent);
+  animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ========== FOCUS STATES ========== */
+
+/* Улучшенные focus состояния для доступности */
+*:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.btn:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+/* ========== SELECTION ========== */
+
+::selection {
+  background: var(--primary-color);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* ========== CUSTOM SCROLLBAR ========== */
+
+/* Для WebKit браузеров */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-100);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 10px;
+  border: 2px solid var(--neutral-100);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}
+
+/* Для Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--neutral-100);
+}
+
+/* ========== SKELETON SCREENS ========== */
+
+.skeleton {
+  background: linear-gradient(90deg,
+      var(--neutral-200) 25%,
+      var(--neutral-100) 50%,
+      var(--neutral-200) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: var(--border-radius);
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ========== EMPTY STATES ========== */
+
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  color: var(--neutral-300);
+  margin-bottom: 16px;
+}
+
+.empty-state-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 8px;
+}
+
+.empty-state-text {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+/* ========== LOADING SPINNER ========== */
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--neutral-200);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spinner-rotation 0.8s linear infinite;
+}
+
+@keyframes spinner-rotation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px;
+}
+
+/* ========== BACKDROP ========== */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1040;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ========== FLOATING LABELS ========== */
+
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label {
+  color: var(--primary-color);
+}
+
+/* ========== TRANSITIONS ========== */
+
+/* Плавные переходы для всех интерактивных элементов */
+a,
+button,
+.btn,
+.card,
+.nav-link {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========== PRINT STYLES ========== */
+
+@media print {
+
+  .scroll-to-top,
+  .navbar,
+  .sidebar,
+  footer,
+  .btn {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}

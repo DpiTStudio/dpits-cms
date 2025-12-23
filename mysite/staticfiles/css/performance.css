@@ -1,0 +1,209 @@
+/* ============================================
+   ФАЙЛ: performance.css
+   ОПИСАНИЕ: Оптимизации производительности и загрузки
+   ============================================ */
+
+/* ========== LAZY LOADING ========== */
+
+/* Изображения с отложенной загрузкой */
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* Placeholder для изображений */
+img[loading="lazy"]:not(.loaded) {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ========== КРИТИЧЕСКИЙ CSS ========== */
+
+/* Оптимизация для первого экрана */
+.above-the-fold {
+  content-visibility: auto;
+}
+
+/* Отложенная загрузка для контента ниже первого экрана */
+.below-the-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* ========== ОПТИМИЗАЦИЯ ШРИФТОВ ========== */
+
+/* Предзагрузка критических шрифтов */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+  /* Показывать системный шрифт до загрузки Inter */
+}
+
+@font-face {
+  font-family: 'Outfit';
+  font-display: swap;
+  /* Показывать системный шрифт до загрузки Outfit */
+}
+
+/* ========== ОПТИМИЗАЦИЯ АНИМАЦИЙ ========== */
+
+/* Отключение анимаций для пользователей с предпочтением reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========== ОПТИМИЗАЦИЯ ДЛЯ МОБИЛЬНЫХ ========== */
+
+/* Упрощенные эффекты для мобильных устройств */
+@media (max-width: 768px) {
+  * {
+    /* Отключение hover эффектов на touch устройствах */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Упрощенные тени для производительности */
+  .card,
+  .btn,
+  header,
+  footer {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+/* ========== WILL-CHANGE ДЛЯ АНИМИРУЕМЫХ ЭЛЕМЕНТОВ ========== */
+
+/* Оптимизация для элементов с трансформациями */
+.card:hover,
+.btn:hover,
+.nav-link:hover {
+  will-change: transform;
+}
+
+/* Убираем will-change после завершения анимации */
+.card:not(:hover),
+.btn:not(:hover),
+.nav-link:not(:hover) {
+  will-change: auto;
+}
+
+/* ========== ОПТИМИЗАЦИЯ СКРОЛЛИНГА ========== */
+
+/* Плавный скроллинг только для больших экранов */
+@media (min-width: 769px) and (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Оптимизация скроллинга для мобильных */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: auto;
+    /* Быстрый скроллинг на мобильных */
+  }
+}
+
+/* ========== CONTAIN ДЛЯ ИЗОЛЯЦИИ ========== */
+
+/* Изоляция для карточек и компонентов */
+.card,
+.news-card,
+.portfolio-item {
+  contain: layout style paint;
+  /* Изоляция для лучшей производительности */
+}
+
+/* ========== PRELOAD HINTS ========== */
+
+/* Подсказки браузеру для предзагрузки */
+.preload-hint {
+  content-visibility: auto;
+}
+
+/* ========== SKELETON SCREENS ========== */
+
+/* Скелетон для загрузки контента */
+.skeleton {
+  background: linear-gradient(90deg,
+      var(--neutral-200) 25%,
+      var(--neutral-100) 50%,
+      var(--neutral-200) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: var(--border-radius);
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+
+.skeleton-title {
+  height: 2rem;
+  width: 60%;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.skeleton-image {
+  height: 200px;
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius);
+}
+
+/* ========== INTERSECTION OBSERVER HELPERS ========== */
+
+/* Классы для элементов, наблюдаемых Intersection Observer */
+.fade-in-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== RESOURCE HINTS ========== */
+
+/* Оптимизация загрузки внешних ресурсов */
+/* Используйте эти классы в HTML:
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+   <link rel="preload" href="/static/css/critical.css" as="style">
+*/
