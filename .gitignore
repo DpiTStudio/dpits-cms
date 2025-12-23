@@ -10,9 +10,9 @@
 .idea/
 .gigaide/
 
-# Прочие директории
-.vscode/
+# Логи и временные файлы
 mysite/logs/
+
+# Прочие директории
 work_filer/
 prompts/
-mysite/logs/debug.log
