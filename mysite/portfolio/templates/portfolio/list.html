@@ -16,6 +16,31 @@
     <!-- Блок категорий под шапкой -->
     <div class="row mb-4">
       <div class="col-12">
+        <div class="filters mb-4">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <select class="form-select" id="categoryFilter">
+                        <option value="">Все категории</option>
+                        <hr class="my-4">
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-select" id="sortBy">
+                        <option value="-created_at">Сначала новые</option>
+                        <option value="created_at">Сначала старые</option>
+                        <option value="title">По названию (А-Я)</option>
+                        <option value="-views">По популярности</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Поиск...">
+                </div>
+            </div>
+        </div>
+        <hr class="my-4">
         <div class="categories-header">
           <h6 class="mb-3">Категории работ:</h6>
           <div class="d-flex flex-wrap gap-2">
@@ -29,6 +54,7 @@
             {% endfor %}
           </div>
         </div>
+        <hr class="my-4">
       </div>
     </div>
 
