@@ -29,4 +29,9 @@ urlpatterns = [
     path("create-order/", views.create_order, name="create_order"),
     # Создание отзыва
     path("create-review/<slug:slug>/", views.create_review, name="create_review"),
+    path(
+        "portfolio/<slug:slug>/create-news/",
+        views.create_news_from_portfolio,
+        name="create_news_from_portfolio",
+    ),
 ]

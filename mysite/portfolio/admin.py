@@ -132,6 +132,49 @@ class PortfolioItemAdmin(admin.ModelAdmin):
         ),
     )
 
+    actions = ["create_news_from_portfolio"]
+
+    def create_news_from_portfolio(self, request, queryset):
+        """
+        Действие для создания новостей из выбранных работ портфолио.
+        """
+        from news.models import News, NewsCategory
+
+        # Находим или создаем категорию
+        portfolio_category, _ = NewsCategory.objects.get_or_create(
+            name="Портфолио",
+            defaults={
+                "slug": "portfolio",
+                "description": "Новости о новых работах в портфолио",
+                "show_in_menu": True,
+                "order": 10,
+                "is_active": True,
+            },
+        )
+
+        created_count = 0
+        for portfolio_item in queryset:
+            # Проверяем, не существует ли уже новость
+            if not News.objects.filter(
+                slug=f"portfolio-{portfolio_item.slug}"
+            ).exists():
+                news = News.objects.create(
+                    title=f"Новая работа: {portfolio_item.title}",
+                    slug=f"portfolio-{portfolio_item.slug}",
+                    category=portfolio_category,
+                    image=portfolio_item.image,
+                    short_description=portfolio_item.short_description[:200],
+                    content=portfolio_item.create_news_content(),
+                    is_active=True,
+                )
+                created_count += 1
+
+        self.message_user(
+            request, f"Создано {created_count} новостей из выбранных работ портфолио."
+        )
+
+    create_news_from_portfolio.short_description = "Создать новости из выбранных работ"
+
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):

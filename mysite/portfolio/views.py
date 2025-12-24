@@ -1,46 +1,37 @@
 # portfolio/views.py
 # Представления (контроллеры) для приложения portfolio (портфолио)
-from django.shortcuts import (
-    render,
-    get_object_or_404,
-    redirect,
-)  # Импорт функций для рендеринга шаблонов, получения объектов и перенаправления
-from django.views.generic import (
-    ListView,
-    DetailView,
-)  # Импорт базовых классов представлений Django
-from django.contrib.auth.decorators import (
-    login_required,
-)  # Декоратор для требования аутентификации
-from django.contrib import messages  # Импорт системы сообщений Django
-from django.core.cache import cache  # Импорт кэша для оптимизации производительности
-from django.db.models import (
-    Count,
-    Q,
-)  # Импорт функций агрегации и Q-объекта для сложных запросов
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DetailView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required  # Добавлен импорт
+from django.contrib.auth.decorators import user_passes_test  # Для гибкой проверки прав
+from django.contrib import messages
+from django.core.cache import cache
+from django.db.models import Count, Q
+from django.contrib.auth import get_user_model  # Для безопасного получения модели User
 from .models import (
-    PortfolioCategory,  # Модель категории портфолио
-    PortfolioItem,  # Модель работы портфолио
-    Client,  # Модель клиента
-    Order,  # Модель заказа
-    OrderMessage,  # Модель сообщения в заказе
-    PortfolioReview,  # Модель отзыва о работе
+    PortfolioCategory,
+    PortfolioItem,
+    Client,
+    Order,
+    OrderMessage,
+    PortfolioReview,
 )
-from .forms import (
-    OrderForm,
-    ReviewForm,
-    ClientProfileForm,
-)  # Импорт форм для работы с заказами, отзывами и профилем клиента
+from .forms import OrderForm, ReviewForm, ClientProfileForm
 
-# Импорт модели новостей (если приложение news установлено)
+# Попытка импорта модели новостей
 try:
-    from news.models import News  # Пытаемся импортировать модель новостей
-except ImportError:  # Если импорт не удался
-    News = None  # Устанавливаем News в None
+    from news.models import News, NewsCategory
+except ImportError:
+    News = None
+    NewsCategory = None  # Добавлено: явное определение, чтобы избежать NameError
+
+User = get_user_model()
 
 
+# --- Список работ портфолио ---
 class PortfolioListView(ListView):
-    """Список всех работ портфолио"""
+    """Список опубликованных работ портфолио с фильтрацией по категории."""
 
     model = PortfolioItem
     template_name = "portfolio/list.html"
@@ -48,30 +39,18 @@ class PortfolioListView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        """Фильтрация работ по статусу и категории"""
-        queryset = PortfolioItem.objects.filter(status="published")
-
-        # Фильтрация по категории
+        queryset = PortfolioItem.objects.filter(status="published").select_related(
+            "category", "client"
+        )
         category_slug = self.request.GET.get("category")
         if category_slug:
             queryset = queryset.filter(category__slug=category_slug)
-
-        return queryset.select_related("category", "client").order_by("-created_at")
+        return queryset.order_by("-created_at")
 
     def get_context_data(self, **kwargs):
-        """
-        Добавление категорий в контекст.
-        Оптимизировано с использованием кэширования.
+        context = super().get_context_data(**kwargs)
 
-        Args:
-            **kwargs: Дополнительные аргументы контекста
-
-        Returns:
-            dict: Контекст для шаблона с категориями и выбранной категорией
-        """
-        context = super().get_context_data(**kwargs)  # Получаем базовый контекст
-
-        # ИСПРАВЛЕНО: Используем кэш для категорий
+        # Кэширование активных категорий
         cache_key = "portfolio_categories_active"
         categories = cache.get(cache_key)
         if not categories:
@@ -80,23 +59,22 @@ class PortfolioListView(ListView):
                     "-order", "name"
                 )
             )
-            cache.set(cache_key, categories, 600)  # Кэш на 10 минут
+            cache.set(cache_key, categories, 600)  # 10 минут
 
-        context["categories"] = categories  # Добавляем категории в контекст
-        context["selected_category"] = self.request.GET.get(
-            "category", ""
-        )  # Получаем выбранную категорию из GET-параметра
+        context["categories"] = categories
+        context["selected_category"] = self.request.GET.get("category", "")
+        context["recent_portfolio_list"] = (
+            PortfolioItem.objects.filter(status="published")
+            .select_related("category")
+            .order_by("-created_at")[:3]
+        )
 
-        # Список последних работ для отображения внизу на всю ширину
-        context["recent_portfolio_list"] = PortfolioItem.objects.filter(
-            status="published"
-        ).order_by("-created_at")[:3]
-
-        return context  # Возвращаем контекст
+        return context
 
 
+# --- Детальная страница работы ---
 class PortfolioDetailView(DetailView):
-    """Детальная страница работы портфолио"""
+    """Детальный просмотр работы портфолио."""
 
     model = PortfolioItem
     template_name = "portfolio/detail.html"
@@ -105,55 +83,37 @@ class PortfolioDetailView(DetailView):
     slug_url_kwarg = "slug"
 
     def get_queryset(self):
-        """Только опубликованные работы"""
         return PortfolioItem.objects.filter(status="published")
 
     def get_context_data(self, **kwargs):
-        """
-        Добавление отзывов и связанных работ в контекст.
-        Оптимизировано с использованием select_related и prefetch_related.
+        context = super().get_context_data(**kwargs)
 
-        Args:
-            **kwargs: Дополнительные аргументы контекста
-
-        Returns:
-            dict: Контекст для шаблона с отзывами и похожими работами
-        """
-        context = super().get_context_data(**kwargs)  # Получаем базовый контекст
-
-        # Отзывы к этой работе
-        # ИСПРАВЛЕНО: Добавлен select_related для оптимизации запросов к клиенту
+        # Отзывы
         context["reviews"] = (
             PortfolioReview.objects.filter(portfolio_item=self.object, is_approved=True)
-            .select_related(
-                "client", "client__user"
-            )  # Оптимизация: загружаем клиента и пользователя одним запросом
-            .order_by("-created_at")  # Сортируем по дате создания (новые сверху)
+            .select_related("client", "client__user")
+            .order_by("-created_at")
         )
 
-        # Похожие работы из той же категории
-        # ИСПРАВЛЕНО: Добавлен select_related для оптимизации
+        # Похожие работы
         context["related_works"] = (
             PortfolioItem.objects.filter(
                 category=self.object.category, status="published"
             )
-            .select_related(
-                "category", "client"
-            )  # Оптимизация: загружаем категорию и клиента одним запросом
-            .exclude(id=self.object.id)  # Исключаем текущую работу из списка похожих
-            .order_by("-created_at")[
-                :4
-            ]  # Получаем 4 последние работы из той же категории
+            .select_related("category", "client")
+            .exclude(id=self.object.id)
+            .order_by("-created_at")[:4]
         )
 
-        # Увеличиваем счетчик просмотров
-        self.object.increment_views()  # Увеличиваем счетчик просмотров на 1
+        # Счётчик просмотров
+        self.object.increment_views()
 
-        return context  # Возвращаем контекст
+        return context
 
 
+# --- Категория ---
 class CategoryDetailView(DetailView):
-    """Детальная страница категории"""
+    """Просмотр категории портфолио."""
 
     model = PortfolioCategory
     template_name = "portfolio/category_detail.html"
@@ -162,35 +122,34 @@ class CategoryDetailView(DetailView):
     slug_url_kwarg = "slug"
 
     def get_context_data(self, **kwargs):
-        """Добавление работ категории в контекст"""
         context = super().get_context_data(**kwargs)
-        context["portfolio_items"] = PortfolioItem.objects.filter(
-            category=self.object, status="published"
-        ).order_by("-created_at")
+        context["portfolio_items"] = (
+            PortfolioItem.objects.filter(category=self.object, status="published")
+            .select_related("client")
+            .order_by("-created_at")
+        )
         return context
 
 
 def categories_view(request):
-    """Страница всех категорий"""
-    categories = PortfolioCategory.objects.filter(is_active=True)
+    """Все активные категории."""
+    categories = PortfolioCategory.objects.filter(is_active=True).order_by(
+        "-order", "name"
+    )
     return render(request, "portfolio/categories.html", {"categories": categories})
 
 
+# --- Профиль клиента ---
 @login_required
 def client_profile(request):
-    """Профиль клиента"""
-    try:
-        client = Client.objects.get(user=request.user)
-    except Client.DoesNotExist:
-        client = None
+    """Управление профилем клиента."""
+    client, created = Client.objects.get_or_create(user=request.user)  # Упрощение
 
     if request.method == "POST":
         form = ClientProfileForm(request.POST, instance=client)
         if form.is_valid():
-            client = form.save(commit=False)
-            client.user = request.user
-            client.save()
-            messages.success(request, "Профиль успешно обновлен!")
+            form.save()  # user уже связан, не нужно вручную присваивать
+            messages.success(request, "Профиль успешно обновлён!")
             return redirect("portfolio:client_profile")
     else:
         form = ClientProfileForm(instance=client)
@@ -200,226 +159,112 @@ def client_profile(request):
     )
 
 
-@login_required  # Декоратор: требует аутентификации пользователя
+# --- Личный кабинет клиента ---
+@login_required
 def client_dashboard(request):
-    """
-    Личный кабинет клиента.
-    Отображает статистику и последние заказы и отзывы клиента.
-    Оптимизировано с использованием select_related и агрегации.
-
-    Args:
-        request: HTTP-запрос от аутентифицированного пользователя
-
-    Returns:
-        HttpResponse: Отрендеренный шаблон личного кабинета клиента
-    """
+    """Обобщённая статистика по клиенту: заказы, отзывы."""
     try:
-        # Получаем клиента по пользователю
-        # ИСПРАВЛЕНО: Добавлен select_related для оптимизации
         client = Client.objects.select_related("user").get(user=request.user)
+    except Client.DoesNotExist:
+        messages.error(request, "Профиль клиента не найден.")
+        return redirect("portfolio:client_profile")
 
-        # Последние 5 заказов клиента
-        # ИСПРАВЛЕНО: Добавлен select_related и ограничение запроса
-        orders = (
-            Order.objects.filter(client=client)
-            .select_related(
-                "client", "client__user"
-            )  # Оптимизация: загружаем клиента одним запросом
-            .order_by("-created_at")[:5]  # Получаем только 5 последних заказов
-        )
-
-        # Последние 3 отзыва клиента
-        # ИСПРАВЛЕНО: Добавлен select_related
-        reviews = (
-            PortfolioReview.objects.filter(client=client)
-            .select_related(
-                "client", "portfolio_item", "portfolio_item__category"
-            )  # Оптимизация: загружаем связанные объекты
-            .order_by("-created_at")[:3]  # Получаем только 3 последних отзыва
-        )
-
-        # Статистика заказов
-        # ИСПРАВЛЕНО: Используем агрегацию для оптимизации запросов
-        orders_stats = Order.objects.filter(client=client).aggregate(
-            total=Count("id"),  # Общее количество заказов
-            completed=Count(
-                "id", filter=Q(status="completed")
-            ),  # Количество завершенных заказов
-            active=Count(
-                "id", filter=Q(status="in_progress")
-            ),  # Количество активных заказов
-        )
-
-        orders_count = orders_stats["total"] or 0  # Общее количество заказов
-        completed_orders = (
-            orders_stats["completed"] or 0
-        )  # Количество завершенных заказов
-        active_orders = orders_stats["active"] or 0  # Количество активных заказов
-
-    except Client.DoesNotExist:  # Если клиент не найден
-        client = None  # Устанавливаем клиента в None
-        orders = []  # Пустой список заказов
-        reviews = []  # Пустой список отзывов
-        orders_count = 0  # Количество заказов = 0
-        completed_orders = 0  # Количество завершенных заказов = 0
-        active_orders = 0  # Количество активных заказов = 0
-
-    # Формируем данные для шаблона
-    return render(
-        request,  # HTTP-запрос
-        "portfolio/client_dashboard.html",  # Путь к шаблону
-        {
-            "client": client,  # Объект клиента
-            "orders": orders,  # Список последних заказов
-            "reviews": reviews,  # Список последних отзывов
-            "orders_count": orders_count,  # Общее количество заказов
-            "completed_orders": completed_orders,  # Количество завершенных заказов
-            "active_orders": active_orders,  # Количество активных заказов
-        },
-    )  # Рендерим шаблон личного кабинета
-
-
-@login_required  # Декоратор: требует аутентификации пользователя
-def order_list(request):
-    """
-    Список всех заказов клиента.
-    Оптимизировано с использованием select_related и агрегации.
-
-    Args:
-        request: HTTP-запрос от аутентифицированного пользователя
-
-    Returns:
-        HttpResponse: Отрендеренный шаблон со списком заказов или редирект на профиль
-    """
-    try:
-        # Получаем клиента по пользователю
-        # ИСПРАВЛЕНО: Добавлен select_related для оптимизации
-        client = Client.objects.select_related("user").get(user=request.user)
-
-        # Получаем все заказы клиента
-        # ИСПРАВЛЕНО: Добавлен select_related
-        orders = (
-            Order.objects.filter(client=client)
-            .select_related(
-                "client", "client__user"
-            )  # Оптимизация: загружаем клиента одним запросом
-            .order_by("-created_at")  # Сортируем по дате создания (новые сверху)
-        )
-
-        # Фильтрация по статусу
-        status_filter = request.GET.get(
-            "status"
-        )  # Получаем фильтр статуса из GET-параметра
-        if status_filter:  # Если фильтр указан
-            orders = orders.filter(status=status_filter)  # Фильтруем заказы по статусу
-
-        # Статистика заказов
-        # ИСПРАВЛЕНО: Используем агрегацию для оптимизации запросов
-        orders_stats = Order.objects.filter(client=client).aggregate(
-            total=Count("id"),  # Общее количество заказов
-            completed=Count(
-                "id", filter=Q(status="completed")
-            ),  # Количество завершенных заказов
-            active=Count(
-                "id", filter=Q(status="in_progress")
-            ),  # Количество активных заказов
-        )
-
-        orders_count = orders_stats["total"] or 0  # Общее количество заказов
-        completed_orders = (
-            orders_stats["completed"] or 0
-        )  # Количество завершенных заказов
-        active_orders = orders_stats["active"] or 0  # Количество активных заказов
-
-    except Client.DoesNotExist:  # Если клиент не найден
-        client = None  # Устанавливаем клиента в None
-        orders = []  # Пустой список заказов
-        orders_count = 0  # Количество заказов = 0
-        completed_orders = 0  # Количество завершенных заказов = 0
-        active_orders = 0  # Количество активных заказов = 0
-        status_filter = None  # Фильтр статуса = None
-        messages.error(
-            request, "Сначала заполните профиль клиента!"
-        )  # Показываем сообщение об ошибке
-        return redirect(
-            "portfolio:client_profile"
-        )  # Перенаправляем на страницу профиля клиента
-
-    # Формируем данные для шаблона
-    return render(
-        request,  # HTTP-запрос
-        "portfolio/order_list.html",  # Путь к шаблону
-        {
-            "client": client,  # Объект клиента
-            "orders": orders,  # Список заказов
-            "orders_count": orders_count,  # Общее количество заказов
-            "completed_orders": completed_orders,  # Количество завершенных заказов
-            "active_orders": active_orders,  # Количество активных заказов
-            "status_filter": status_filter,  # Выбранный фильтр статуса
-        },
-    )  # Рендерим шаблон со списком заказов
-
-
-@login_required  # Декоратор: требует аутентификации пользователя
-def order_detail(request, pk):
-    """
-    Детальная страница заказа.
-    Отображает информацию о заказе и сообщения по заказу.
-    Оптимизировано с использованием select_related и prefetch_related.
-
-    Args:
-        request: HTTP-запрос от аутентифицированного пользователя
-        pk: Первичный ключ заказа
-
-    Returns:
-        HttpResponse: Отрендеренный шаблон с детальной информацией о заказе
-    """
-    # Получаем заказ или показываем ошибку 404
-    # ИСПРАВЛЕНО: Добавлен select_related и prefetch_related для оптимизации
-    order = get_object_or_404(
-        Order.objects.select_related(
-            "client", "client__user"
-        ).prefetch_related(  # Оптимизация: загружаем клиента одним запросом
-            "messages", "messages__user"
-        ),  # Оптимизация: загружаем сообщения одним запросом
-        pk=pk,
-        client__user=request.user,  # Проверяем, что заказ принадлежит текущему пользователю
+    # Оптимизированные запросы
+    orders = (
+        Order.objects.filter(client=client)
+        .select_related("client", "client__user")
+        .order_by("-created_at")[:5]
+    )
+    reviews = (
+        PortfolioReview.objects.filter(client=client)
+        .select_related("portfolio_item", "portfolio_item__category")
+        .order_by("-created_at")[:3]
     )
 
-    if request.method == "POST":  # Если запрос методом POST
-        if "message" in request.POST:  # Если в запросе есть поле "message"
-            # Обработка нового сообщения
-            message_content = request.POST.get("message")  # Получаем текст сообщения
-            if message_content:  # Если сообщение не пустое
-                # Создаем новое сообщение
-                OrderMessage.objects.create(
-                    order=order,  # Связываем сообщение с заказом
-                    user=request.user,  # Устанавливаем автора сообщения
-                    message=message_content,  # Устанавливаем текст сообщения
-                )
-                messages.success(
-                    request, "Сообщение отправлено!"
-                )  # Показываем сообщение об успехе
-                return redirect(
-                    "portfolio:order_detail", pk=order.pk
-                )  # Перенаправляем на страницу заказа
+    # Агрегация для статистики
+    stats = Order.objects.filter(client=client).aggregate(
+        total=Count("id"),
+        completed=Count("id", filter=Q(status="completed")),
+        active=Count("id", filter=Q(status="in_progress")),
+    )
 
-    # Формируем данные для шаблона
-    return render(
-        request,  # HTTP-запрос
-        "portfolio/order_detail.html",  # Путь к шаблону
-        {"order": order},  # Объект заказа с предзагруженными сообщениями
-    )  # Рендерим шаблон с детальной информацией о заказе
+    context = {
+        "client": client,
+        "orders": orders,
+        "reviews": reviews,
+        "orders_count": stats["total"] or 0,
+        "completed_orders": stats["completed"] or 0,
+        "active_orders": stats["active"] or 0,
+    }
+    return render(request, "portfolio/client_dashboard.html", context)
 
 
+# --- Список заказов ---
 @login_required
-def create_order(request):
-    """Создание нового заказа"""
+def order_list(request):
+    """Полный список заказов клиента с фильтрацией."""
     try:
-        client = Client.objects.get(user=request.user)
+        client = Client.objects.select_related("user").get(user=request.user)
     except Client.DoesNotExist:
         messages.error(request, "Сначала заполните профиль клиента!")
         return redirect("portfolio:client_profile")
+
+    orders = (
+        Order.objects.filter(client=client)
+        .select_related("client", "client__user")
+        .order_by("-created_at")
+    )
+
+    status_filter = request.GET.get("status")
+    if status_filter:
+        orders = orders.filter(status=status_filter)
+
+    stats = Order.objects.filter(client=client).aggregate(
+        total=Count("id"),
+        completed=Count("id", filter=Q(status="completed")),
+        active=Count("id", filter=Q(status="in_progress")),
+    )
+
+    context = {
+        "client": client,
+        "orders": orders,
+        "orders_count": stats["total"] or 0,
+        "completed_orders": stats["completed"] or 0,
+        "active_orders": stats["active"] or 0,
+        "status_filter": status_filter,
+    }
+    return render(request, "portfolio/order_list.html", context)
+
+
+# --- Детали заказа ---
+@login_required
+def order_detail(request, pk):
+    """Детали заказа и переписка."""
+    order = get_object_or_404(
+        Order.objects.select_related("client__user").prefetch_related("messages__user"),
+        pk=pk,
+        client__user=request.user,
+    )
+
+    if request.method == "POST" and "message" in request.POST:
+        message_content = request.POST.get("message").strip()
+        if message_content:
+            OrderMessage.objects.create(
+                order=order, user=request.user, message=message_content
+            )
+            messages.success(request, "Сообщение отправлено!")
+            return redirect("portfolio:order_detail", pk=order.pk)
+
+    return render(request, "portfolio/order_detail.html", {"order": order})
+
+
+# --- Создание заказа ---
+@login_required
+def create_order(request):
+    """Создание нового заказа."""
+    client, created = Client.objects.get_or_create(user=request.user)
+    if created:
+        messages.info(request, "Создан профиль клиента. Теперь можно создавать заказы.")
 
     if request.method == "POST":
         form = OrderForm(request.POST, request.FILES)
@@ -435,16 +280,17 @@ def create_order(request):
     return render(request, "portfolio/create_order.html", {"form": form})
 
 
+# --- Создание отзыва ---
 @login_required
 def create_review(request, slug):
-    """Создание отзыва о работе"""
+    """Создание или редактирование отзыва на работу."""
     portfolio_item = get_object_or_404(PortfolioItem, slug=slug)
     client = get_object_or_404(Client, user=request.user)
 
-    # Проверяем, есть ли уже отзыв от этого клиента
     existing_review = PortfolioReview.objects.filter(
         client=client, portfolio_item=portfolio_item
     ).first()
+    is_editing = existing_review is not None
 
     if request.method == "POST":
         form = ReviewForm(request.POST, instance=existing_review)
@@ -453,7 +299,7 @@ def create_review(request, slug):
             review.client = client
             review.portfolio_item = portfolio_item
             review.save()
-            messages.success(request, "Отзыв успешно отправлен на модерацию!")
+            messages.success(request, "Отзыв отправлен на модерацию!")
             return redirect("portfolio:detail", slug=portfolio_item.slug)
     else:
         form = ReviewForm(instance=existing_review)
@@ -461,5 +307,56 @@ def create_review(request, slug):
     return render(
         request,
         "portfolio/create_review.html",
-        {"form": form, "portfolio_item": portfolio_item},
+        {
+            "form": form,
+            "portfolio_item": portfolio_item,
+            "is_editing": is_editing,
+        },
     )
+
+
+# --- Создание новости из портфолио ---
+@login_required
+@user_passes_test(
+    lambda u: u.has_perm("news.add_news")
+)  # Заменён на user_passes_test для гибкости
+def create_news_from_portfolio(request, slug):
+    """Создание новости на основе работы портфолио."""
+    if not News or not NewsCategory:
+        messages.error(request, "Приложение новостей не установлено.")
+        return redirect("portfolio:detail", slug=slug)
+
+    portfolio_item = get_object_or_404(PortfolioItem, slug=slug)
+
+    try:
+        category, _ = NewsCategory.objects.get_or_create(
+            name="Портфолио",
+            defaults={
+                "slug": "portfolio",
+                "description": "Новости о работах портфолио",
+                "show_in_menu": True,
+                "order": 10,
+                "is_active": True,
+            },
+        )
+
+        if News.objects.filter(slug=f"portfolio-{portfolio_item.slug}").exists():
+            messages.info(request, "Новость для этой работы уже существует.")
+            return redirect("news:detail", slug=f"portfolio-{portfolio_item.slug}")
+
+        news = News.objects.create(
+            title=f"Работа портфолио: {portfolio_item.title}",
+            slug=f"portfolio-{portfolio_item.slug}",
+            category=category,
+            image=portfolio_item.image,
+            short_description=portfolio_item.short_description[:200],
+            content=portfolio_item.create_news_content(),
+            is_active=True,
+        )
+
+        messages.success(request, "Новость успешно создана!")
+        return redirect("news:detail", slug=news.slug)
+
+    except Exception as e:
+        messages.error(request, f"Ошибка при создании новости: {str(e)}")
+        return redirect("portfolio:detail", slug=portfolio_item.slug)

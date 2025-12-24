@@ -1,7 +1,12 @@
 # news/views.py
 # Представления (контроллеры) для приложения news (новости)
-from django.shortcuts import render, get_object_or_404  # Импорт функций для рендеринга шаблонов и получения объектов
-from django.core.paginator import Paginator  # Импорт класса для пагинации (разбиения на страницы)
+from django.shortcuts import (
+    render,
+    get_object_or_404,
+)  # Импорт функций для рендеринга шаблонов и получения объектов
+from django.core.paginator import (
+    Paginator,
+)  # Импорт класса для пагинации (разбиения на страницы)
 from django.core.cache import cache  # Импорт кэша для оптимизации производительности
 from django.db.models import Q  # Импорт Q-объекта для сложных запросов
 from .models import News, NewsCategory  # Импорт моделей новостей и категорий
@@ -11,10 +16,10 @@ def news_list(request):
     """
     Отображение списка всех активных новостей.
     Оптимизировано с использованием select_related для уменьшения количества запросов к БД.
-    
+
     Args:
         request: HTTP-запрос от пользователя
-        
+
     Returns:
         HttpResponse: Отрендеренный шаблон со списком новостей
     """
@@ -40,7 +45,9 @@ def news_list(request):
 
     # Разбиваем на страницы по 20 новостей
     paginator = Paginator(news_list, 20)  # Создаем пагинатор с 20 новостями на страницу
-    page_number = request.GET.get("page", 1)  # Получаем номер страницы из GET-параметра, по умолчанию 1
+    page_number = request.GET.get(
+        "page", 1
+    )  # Получаем номер страницы из GET-параметра, по умолчанию 1
     page_obj = paginator.get_page(page_number)  # Получаем объект страницы с новостями
 
     # Последние новости для сайдбара
@@ -62,18 +69,20 @@ def news_list(request):
         "recent_news_list": recent_news_list,  # Последние новости для сайдбара
         "category": None,  # На главной странице категория не выбрана
     }
-    return render(request, "news/list.html", context)  # Рендерим шаблон со списком новостей
+    return render(
+        request, "news/list.html", context
+    )  # Рендерим шаблон со списком новостей
 
 
 def news_detail(request, slug):
     """
     Отображение детальной страницы новости.
     Оптимизировано с использованием select_related для уменьшения количества запросов к БД.
-    
+
     Args:
         request: HTTP-запрос от пользователя
         slug: URL-дружественный идентификатор новости
-        
+
     Returns:
         HttpResponse: Отрендеренный шаблон с детальной информацией о новости
     """
@@ -126,18 +135,20 @@ def news_detail(request, slug):
         "categories": categories,  # Список категорий для меню
         "recent_news_list": recent_news_list,  # Последние новости для сайдбара
     }
-    return render(request, "news/detail.html", context)  # Рендерим шаблон с детальной информацией
+    return render(
+        request, "news/detail.html", context
+    )  # Рендерим шаблон с детальной информацией
 
 
 def news_by_category(request, slug):
     """
     Отображение новостей определенной категории.
     Оптимизировано с использованием select_related и кэширования.
-    
+
     Args:
         request: HTTP-запрос от пользователя
         slug: URL-дружественный идентификатор категории
-        
+
     Returns:
         HttpResponse: Отрендеренный шаблон со списком новостей категории
     """
@@ -188,22 +199,26 @@ def news_by_category(request, slug):
         "categories": categories,  # Список категорий для меню
         "recent_news_list": recent_news_list,  # Последние новости для сайдбара
     }
-    return render(request, "news/category.html", context)  # Рендерим шаблон со списком новостей категории
+    return render(
+        request, "news/category.html", context
+    )  # Рендерим шаблон со списком новостей категории
 
 
 def news_search(request):
     """
     Поиск новостей по запросу пользователя.
     Оптимизировано с использованием select_related и кэширования.
-    
+
     Args:
         request: HTTP-запрос от пользователя с параметром 'q' (поисковый запрос)
-        
+
     Returns:
         HttpResponse: Отрендеренный шаблон с результатами поиска
     """
-    query = request.GET.get("q", "")  # Получаем поисковый запрос из GET-параметра, по умолчанию пустая строка
-    
+    query = request.GET.get(
+        "q", ""
+    )  # Получаем поисковый запрос из GET-параметра, по умолчанию пустая строка
+
     # ИСПРАВЛЕНО: Добавлен select_related и расширен поиск по нескольким полям
     if query:
         # Поиск по заголовку, краткому описанию и содержанию
@@ -214,7 +229,9 @@ def news_search(request):
                 | Q(content__icontains=query),  # Поиск в содержании
                 is_active=True,
             )
-            .select_related("category")  # Оптимизация: загружаем категорию одним запросом
+            .select_related(
+                "category"
+            )  # Оптимизация: загружаем категорию одним запросом
             .distinct()  # Убираем дубликаты
             .order_by("-created_at")
         )
@@ -225,7 +242,7 @@ def news_search(request):
             .select_related("category")
             .order_by("-created_at")
         )
-    
+
     # Все активные категории для меню
     # ИСПРАВЛЕНО: Используем кэш для категорий
     cache_key = "news_categories_menu"
@@ -257,7 +274,9 @@ def news_search(request):
         "recent_news_list": recent_news_list,  # Последние новости для сайдбара
         "query": query,  # Поисковый запрос для отображения в шаблоне
     }
-    return render(request, "news/search.html", context)  # Рендерим шаблон с результатами поиска
+    return render(
+        request, "news/search.html", context
+    )  # Рендерим шаблон с результатами поиска
 
 
 # ИСПРАВЛЕНО: Функция news_by_tag удалена, так как в модели News нет поля tags

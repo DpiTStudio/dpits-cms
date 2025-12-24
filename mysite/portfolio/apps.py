@@ -1,7 +1,14 @@
-from django.apps import AppConfig
+# portfolio/apps.py
+# ------ -------
+from django.apps import AppConfig  # Импортируем класс AppConfig
 
 
-class PortfolioConfig(AppConfig):
+class PortfolioConfig(
+    AppConfig
+):  # Создаем новый класс PortfolioConfig, наследующий от AppConfig
     default_auto_field = "django.db.models.BigAutoField"
     name = "portfolio"
-    verbose_name = "Портфолио"
+
+    def ready(self):  # Метод ready() вызывается при запуске приложения
+        # Импортируем сигналы
+        import portfolio.signals

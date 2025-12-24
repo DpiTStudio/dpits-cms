@@ -117,7 +117,7 @@ class PortfolioItem(models.Model):
     )
 
     title = models.CharField(_("Заголовок"), max_length=200)
-    slug = models.SlugField(_("URL"), unique=True)
+    slug = models.SlugField(_("URL"), unique=True, blank=True)
     category = models.ForeignKey(
         PortfolioCategory, on_delete=models.CASCADE, verbose_name=_("Категория")
     )
@@ -169,39 +169,163 @@ class PortfolioItem(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Создаем slug из заголовка, если он не задан.
-        ИСПРАВЛЕНО: Добавлена проверка уникальности slug с исключением текущего объекта.
+        Автоматически генерирует уникальный slug и создает новость при публикации.
         """
+        # Генерация slug
         if not self.slug:
-            base_slug = slugify(self.title)  # Преобразуем заголовок в slug
-            self.slug = base_slug  # Устанавливаем базовый slug
-            # Убеждаемся, что slug уникален (исключаем текущий объект при обновлении)
+            base_slug = slugify(self.title)
+            self.slug = base_slug
             counter = 1
-            # ИСПРАВЛЕНО: Добавлен фильтр для исключения текущего объекта при проверке уникальности
             queryset = PortfolioItem.objects.filter(slug=self.slug)
-            if self.pk:  # Если объект уже существует (обновление)
-                queryset = queryset.exclude(pk=self.pk)  # Исключаем текущий объект
-            while queryset.exists():  # Пока slug не уникален
-                self.slug = f"{base_slug}-{counter}"  # Добавляем номер к slug
+            if self.pk:
+                queryset = queryset.exclude(pk=self.pk)
+            while queryset.exists():
+                self.slug = f"{base_slug}-{counter}"
                 queryset = PortfolioItem.objects.filter(slug=self.slug)
-                if self.pk:  # Если объект уже существует
-                    queryset = queryset.exclude(pk=self.pk)  # Исключаем текущий объект
-                counter += 1  # Увеличиваем счетчик
-        super().save(*args, **kwargs)  # Вызываем метод save родительского класса
+                if self.pk:
+                    queryset = queryset.exclude(pk=self.pk)
+                counter += 1
+
+        # Сохранение объекта
+        super().save(*args, **kwargs)
+
+        # Создание новости при публикации
+        if self.status == "published":
+            self.create_news_from_portfolio()
 
     def get_absolute_url(self):
         return reverse("portfolio:detail", kwargs={"slug": self.slug})
 
     def get_technologies_list(self):
-        """Возвращает список технологий"""
-        if self.technologies:
-            return [tech.strip() for tech in self.technologies.split(",")]
-        return []
+        """Возвращает список технологий, разделённых запятыми."""
+        return (
+            [tech.strip() for tech in self.technologies.split(",")]
+            if self.technologies
+            else []
+        )
 
     def increment_views(self):
-        """Увеличивает счетчик просмотров на 1"""
+        """Увеличивает счётчик просмотров без полной перезаписи объекта."""
         self.views += 1
         self.save(update_fields=["views"])
+
+    def create_news_from_portfolio(self):
+        """
+        Создаёт новость на основе элемента портфолио, если она ещё не создана.
+        """
+        from news.models import News, NewsCategory
+
+        # Проверка статуса
+        if self.status != "published":
+            return
+
+        # Проверка существования новости
+        if News.objects.filter(slug=f"portfolio-{self.slug}").exists():
+            return
+
+        # Получение или создание категории "Портфолио"
+        portfolio_category, _ = NewsCategory.objects.get_or_create(
+            slug="portfolio",
+            defaults={
+                "name": "Портфолио",
+                "description": "Новости о новых работах в портфолио",
+                "show_in_menu": True,
+                "order": 10,
+                "is_active": True,
+            },
+        )
+
+        # Создание новости
+        News.objects.create(
+            title=f"Добавлена новая работа: {self.title}",
+            slug=f"portfolio-{self.slug}",
+            category=portfolio_category,
+            image=self.image,
+            short_description=self.short_description,
+            content=self.create_news_content(),
+            is_active=True,
+        )
+
+    def create_news_content(self):
+        """
+        Генерирует HTML-контент для новости на основе данных портфолио.
+        """
+        client_html = (
+            f"<p><strong>Клиент:</strong> {self.client}</p>" if self.client else ""
+        )
+        technologies_html = (
+            f"<p><strong>Технологии:</strong> {self.technologies}</p>"
+            if self.technologies
+            else ""
+        )
+        project_url_html = (
+            f'<p><strong>Ссылка на проект:</strong> <a href="{self.project_url}" target="_blank">{self.project_url}</a></p>'
+            if self.project_url
+            else ""
+        )
+        github_url_html = (
+            f'<p><strong>GitHub:</strong> <a href="{self.github_url}" target="_blank">{self.github_url}</a></p>'
+            if self.github_url
+            else ""
+        )
+
+        return f"""
+        <div class="portfolio-news">
+            <h2>{self.title}</h2>
+            <div class="portfolio-info">
+                <p><strong>Категория:</strong> {self.category.name}</p>
+                <p><strong>Дата проекта:</strong> {self.project_date}</p>
+                {client_html}
+                {technologies_html}
+                {project_url_html}
+                {github_url_html}
+            </div>
+            <div class="portfolio-description">
+                <h3>Описание работы</h3>
+                {self.content}
+            </div>
+            <div class="portfolio-actions mt-4">
+                <a href="{self.get_absolute_url()}" class="btn btn-primary">
+                    <i class="fas fa-external-link-alt"></i> Посмотреть детали работы
+                </a>
+            </div>
+        </div>
+        """
+
+        """
+        Генерирует HTML-контент для новости.
+        """
+        content = f"""
+        <div class="portfolio-news">
+            <h2>{self.title}</h2>
+            
+            <div class="portfolio-info">
+                <p><strong>Категория:</strong> {self.category.name}</p>
+                <p><strong>Дата проекта:</strong> {self.project_date}</p>
+                
+                {f"<p><strong>Клиент:</strong> {self.client}</p>" if self.client else ""}
+                
+                {f"<p><strong>Технологии:</strong> {self.technologies}</p>" if self.technologies else ""}
+                
+                {f'<p><strong>Ссылка на проект:</strong> <a href="{self.project_url}" target="_blank">{self.project_url}</a></p>' if self.project_url else ""}
+                
+                {f'<p><strong>GitHub:</strong> <a href="{self.github_url}" target="_blank">{self.github_url}</a></p>' if self.github_url else ""}
+            </div>
+            
+            <div class="portfolio-description">
+                <h3>Описание работы</h3>
+                {self.content}
+            </div>
+            
+            <div class="portfolio-actions mt-4">
+                <a href="{self.get_absolute_url()}" class="btn btn-primary">
+                    <i class="fas fa-external-link-alt"></i> Посмотреть детали работы
+                </a>
+            </div>
+        </div>
+        """
+
+        return content
 
 
 class Order(models.Model):
