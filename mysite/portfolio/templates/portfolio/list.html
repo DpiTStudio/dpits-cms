@@ -1,38 +1,74 @@
 {% extends "base.html" %}
 {% load static %}
 
+{# ============================================================================================= #}
+{# ШАБЛОН: LIST.HTML                                                                             #}
+{# ОПИСАНИЕ:                                                                                      #}
+{# Этот шаблон отвечает за отображение главной страницы портфолио. Он выводит список проектов     #}
+{# в виде сетки карточек с возможностью фильтрации, поиска и пагинации.                          #}
+{#                                                                                                #}
+{# НЮАНСЫ И ФУНКЦИОНАЛ:                                                                          #}
+{# 1. Наследование: Расширяет 'base.html', получая общую структуру страницы.                     #}
+{# 2. Стилизация: Использует встроенный CSS в блоке 'extra_css' для создания уникального          #}
+{#    дизайна карточек, эффектов наведения (hover) и стеклянного морфизма (glassmorphism).       #}
+{# 3. Фильтрация: Содержит форму с поиском, выбором категории и сортировкой.                     #}
+{# 4. Интерактивность: Карточки имеют анимацию при наведении, зум изображения и появление кнопок.#}
+{# 5. Адаптивность: Использует классы Bootstrap Grid (row, col-*) для корректного отображения    #}
+{#    на мобильных (col-12) и десктопах (col-md-*, col-lg-*).                                    #}
+{# 6. Данные: Ожидает переменные контекста:                                                      #}
+{#    - portfolio_items: список объектов проектов (Page object для пагинации).                   #}
+{#    - categories: список доступных категорий проектов.                                         #}
+{#    - selected_category: текущая выбранная категория (slug).                                   #}
+{#    - recent_news_list: список последних новостей для сайдбара.                                #}
+{#    - site_settings: настройки сайта (например, текст логотипа).                               #}
+{# ============================================================================================= #}
+
 {% block title %}
 {{ site_settings.logo_text|default:"Портфолио" }} — Наши Проекты
 {% endblock %}
 
 {% block extra_css %}
+{# Подключение внешних стилей для списка портфолио и пагинации #}
 <link rel="stylesheet" href="{% static 'css/portfolio_list.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+
 <style>
+  /* ========================================= */
+  /* CSS ПЕРЕМЕННЫЕ И НАСТРОЙКИ ДИЗАЙНА        */
+  /* ========================================= */
   :root {
+    /* Основной градиент, используемый в элементах акцента */
     --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    /* Смещение карточки вверх при наведении */
     --card-hover-transform: translateY(-8px);
+    /* Цвет фона с эффектом матового стекла */
     --glass-bg: rgba(255, 255, 255, 0.95);
+    /* Тонкая рамка для эффекта стекла */
     --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Мягкая тень для состояния покоя */
     --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
+    /* Усиленная тень для состояния наведения */
     --shadow-hover: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
   }
 
+  /* Класс для наложения градиента на текст */
   .text-gradient {
     background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; /* Обрезка фона по тексту для Webkit браузеров */
+    -webkit-text-fill-color: transparent; /* Прозрачный текст, чтобы был виден фон */
     background-clip: text;
   }
 
+  /* Стили контейнера фильтров с эффектом стекла (Glassmorphism) */
   .filter-glass-bax {
     background: var(--glass-bg);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px); /* Размытие фона под элементом */
     border: 1px solid rgba(99, 102, 241, 0.1);
     box-shadow: var(--shadow-soft);
     border-radius: 1rem;
   }
 
+  /* Стили для кнопок-категорий (таблеток/pills) */
   .category-pill {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid transparent;
@@ -45,21 +81,24 @@
     display: inline-block;
   }
 
+  /* Состояния наведения и активности для категорий */
   .category-pill:hover,
   .category-pill.active {
-    background: var(--primary-gradient);
+    background: var(--primary-gradient); /* Градиентный фон при активности */
     color: white;
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* Небольшой подъем */
     box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
     text-decoration: none;
   }
 
-  /* Modern Card Styling */
+  /* ========================================= */
+  /* СТИЛИ КАРТОЧКИ ПОРТФОЛИО                  */
+  /* ========================================= */
   .portfolio-card-modern {
     background: #fff;
     border: none;
     border-radius: 12px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Плавная анимация с отскоком */
     height: 100%;
     overflow: hidden;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -68,39 +107,46 @@
     flex-direction: column;
   }
 
+  /* Эффекты при наведении на всю карточку */
   .portfolio-card-modern:hover {
-    transform: var(--card-hover-transform);
-    box-shadow: var(--shadow-hover);
+    transform: var(--card-hover-transform); /* Подъем карточки */
+    box-shadow: var(--shadow-hover); /* Увеличение тени */
   }
 
+  /* Обертка для изображения проекта (фиксированная высота) */
   .card-img-wrapper {
     position: relative;
     height: 240px;
     overflow: hidden;
   }
 
+  /* Само изображение внутри карточки */
   .card-img-wrapper img {
-    transition: transform 0.8s ease;
+    transition: transform 0.8s ease; /* Очень плавное увеличение */
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* Заполнение области без искажения пропорций */
   }
 
+  /* Зум изображения при наведении на карточку */
   .portfolio-card-modern:hover .card-img-wrapper img {
     transform: scale(1.08);
   }
 
+  /* Затемняющий слой поверх изображения (с кнопками) */
   .card-overlay {
-    background: rgba(15, 23, 42, 0.6);
-    opacity: 0;
+    background: rgba(15, 23, 42, 0.6); /* Полупрозрачный темный фон */
+    opacity: 0; /* Скрыт по умолчанию */
     transition: all 0.3s ease;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px); /* Размытие фона под оверлеем */
   }
 
+  /* Показ оверлея при наведении */
   .portfolio-card-modern:hover .card-overlay {
     opacity: 1;
   }
 
+  /* Бейдж технологии (например, Python, Django) */
   .tech-badge {
     font-size: 0.75rem;
     padding: 0.35em 0.8em;
@@ -110,23 +156,28 @@
     font-weight: 600;
   }
 
+  /* Мета-информация внизу карточки (дата, глазик) */
   .card-meta {
     font-size: 0.85rem;
     color: #94a3b8;
   }
 
-  /* Sidebar Modernization */
+  /* ========================================= */
+  /* СТИЛИ ДЛЯ САЙДБАРА И ЭЛЕМЕНТОВ ФОРМЫ      */
+  /* ========================================= */
+  /* Мини-карточка новости в сайдбаре */
   .news-mini-card {
     transition: transform 0.2s ease;
-    border-left: 3px solid transparent;
+    border-left: 3px solid transparent; /* Подготовка для цветной полоски слева */
   }
 
   .news-mini-card:hover {
-    transform: translateX(5px);
-    border-left-color: #6366f1;
+    transform: translateX(5px); /* Сдвиг вправо при наведении */
+    border-left-color: #6366f1; /* Появление цветной полоски */
     background-color: #f8fafc;
   }
   
+  /* Современные инпуты и селекты */
   .form-control-modern, .form-select-modern {
     border: 1px solid #e2e8f0;
     padding: 0.75rem 1rem;
@@ -134,21 +185,23 @@
     transition: all 0.2s;
   }
   
+  /* Фокус на элементах формы */
   .form-control-modern:focus, .form-select-modern:focus {
     border-color: #6366f1;
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
   }
 
+  /* Утилиты для обрезки текста (многоточие) */
   .line-clamp-2 {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 2; /* Ограничение до 2 строк */
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
   
   .line-clamp-1 {
     display: -webkit-box;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 1; /* Ограничение до 1 строки */
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -159,7 +212,10 @@
 <section class="main-content">
   <div class="container-fluid py-4">
     
-    <!-- Hero Header -->
+    <!-- ========================================= -->
+    <!-- 1. ЗАГОЛОВОК СТРАНИЦЫ (HERO SECTION)      -->
+    <!-- ========================================= -->
+    <!-- Приветственный блок с заголовком и кратким описанием раздела -->
     <div class="row mb-5 align-items-end">
       <div class="col-md-9">
         <h6 class="text-uppercase text-primary fw-bold letter-spacing-2 mb-2">Наше Портфолио</h6>
@@ -170,15 +226,18 @@
           Изучите наши последние работы. Более 100 успешно реализованных проектов, от корпоративных сайтов до сложных веб-приложений.
         </p>
       </div>
-      <!-- Decorative element or stats could go here -->
+      <!-- Здесь можно добавить декоративный элемент или статистику справа -->
     </div>
 
-    <!-- Smart Filters Panel -->
+    <!-- ========================================= -->
+    <!-- 2. ПАНЕЛЬ ФИЛЬТРАЦИИ И ПОИСКА             -->
+    <!-- ========================================= -->
+    <!-- Основной блок управления выборкой проектов: Поиск, Категория, Сортировка -->
     <div class="row mb-5">
       <div class="col-12">
         <div class="filter-glass-bax p-4">
           <form id="portfolio-filters" class="row g-3 align-items-center" novalidate>
-            <!-- Search -->
+            <!-- А. Поле поиска -->
             <div class="col-lg-5">
               <div class="input-group">
                 <span class="input-group-text bg-white border-end-0 rounded-start-4 ps-3">
@@ -192,7 +251,8 @@
               </div>
             </div>
             
-            <!-- Category Mobile/Desktop Selector -->
+            <!-- Б. Выбор категории (Селект) -->
+            <!-- Используется и на мобильных и на десктопах как основной контрол формы -->
             <div class="col-lg-4">
                <select class="form-select form-select-modern" id="categoryFilter" aria-label="Категория">
                 <option value="">Все категории</option>
@@ -202,7 +262,7 @@
               </select>
             </div>
 
-            <!-- Sort -->
+            <!-- В. Сортировка -->
             <div class="col-lg-3">
               <select class="form-select form-select-modern" id="sortBy" aria-label="Сортировка">
                 <option value="-created_at">✨ Новые первыми</option>
@@ -213,7 +273,8 @@
             </div>
           </form>
 
-          <!-- Quick Category Tags (Visual) -->
+          <!-- Г. Быстрые ссылки категорий (Тэги) -->
+          <!-- Видны только на экранах от md (планшеты) и выше. Дублируют функционал селекта для удобства -->
           <div class="d-none d-md-flex flex-wrap gap-2 mt-4 pt-3 border-top border-light">
              <a href="?" 
                 class="category-pill {% if not selected_category %}active{% endif %}">
@@ -230,23 +291,31 @@
       </div>
     </div>
 
-    <!-- Portfolio Grid -->
+    <!-- ========================================= -->
+    <!-- 3. СЕТКА ПРОЕКТОВ (GRID)                  -->
+    <!-- ========================================= -->
+    <!-- Основной цикл вывода проектов. Используется Bootstrap Grid -->
     <div class="row g-4 mb-5" id="portfolio-grid">
       {% for item in portfolio_items %}
         <div class="col-md-6 col-lg-4">
+          <!-- Карточка проекта -->
+          <!-- Атрибуты data-* могут использоваться для JS фильтрации на клиенте, если требуется -->
           <article class="portfolio-card-modern" 
                    data-category="{{ item.category.id }}" 
                    data-title="{{ item.title }}">
             
-            <!-- Image Area -->
+            <!-- Верхняя часть: Изображение -->
             <div class="card-img-wrapper">
               <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">
               
+              <!-- Оверлей при наведении с кнопками действий -->
               <div class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white">
                 <div class="d-flex gap-2">
+                  <!-- Кнопка "Подробнее" -->
                   <a href="{% url 'portfolio:detail' item.slug %}" class="btn btn-light rounded-pill px-4 fw-bold shadow-sm">
                     Подробнее
                   </a>
+                  <!-- Кнопка "Отзыв" (только для авторизованных) -->
                   {% if user.is_authenticated %}
                   <a href="{% url 'portfolio:create_review' item.slug %}" class="btn btn-outline-light rounded-circle p-2" style="width: 38px; height: 38px;" title="Оставить отзыв">
                     <i class="fas fa-star"></i>
@@ -255,6 +324,7 @@
                 </div>
               </div>
 
+              <!-- Бейдж категории в углу изображения -->
               <div class="position-absolute top-0 end-0 m-3">
                 <span class="badge bg-white text-primary shadow-sm px-3 py-2 rounded-pill">
                   {{ item.category.name }}
@@ -262,8 +332,9 @@
               </div>
             </div>
 
-            <!-- Content Area -->
+            <!-- Нижняя часть: Контент -->
             <div class="card-body d-flex flex-column p-4">
+              <!-- Заголовок проекта -->
               <div class="mb-2">
                 <h5 class="card-title fw-bold mb-0">
                   <a href="{% url 'portfolio:detail' item.slug %}" class="text-dark text-decoration-none stretch-link">
@@ -272,22 +343,27 @@
                 </h5>
               </div>
 
+              <!-- Краткое описание (обрезается до 2 строк) -->
               <p class="card-text text-muted small line-clamp-2 mb-3">
                 {{ item.short_description|truncatechars:100 }}
               </p>
               
+              <!-- Футер карточки: Технологии и Мета-данные -->
               <div class="mt-auto">
                  {% if item.technologies %}
+                  <!-- Вывод первых 3 технологий -->
                   <div class="d-flex flex-wrap gap-2 mb-3">
                     {% for tech in item.technologies|slice:":3" %}
                       <span class="tech-badge">{{ tech }}</span>
                     {% endfor %}
+                    <!-- Если технологий больше 3, показываем счетчик "+N" -->
                     {% if item.technologies|length > 3 %}
                       <span class="tech-badge">+{{ item.technologies|length|add:"-3" }}</span>
                     {% endif %}
                   </div>
                 {% endif %}
 
+                <!-- Дата и просмотры -->
                 <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light">
                   <div class="card-meta">
                     <i class="far fa-calendar-alt me-1"></i> {{ item.project_date|date:"M Y" }}
@@ -301,6 +377,7 @@
           </article>
         </div>
       {% empty %}
+        <!-- Блок "Ничего не найдено" (Empty State) -->
         <div class="col-12 text-center py-5">
           <div class="py-5">
             <i class="fas fa-search fa-3x text-secondary mb-3 opacity-50"></i>
@@ -314,12 +391,16 @@
       {% endfor %}
     </div>
 
-    <!-- Pagination -->
+    <!-- ========================================= -->
+    <!-- 4. ПАГИНАЦИЯ                              -->
+    <!-- ========================================= -->
+    <!-- Отображается только если страниц больше одной -->
     {% if portfolio_items.has_other_pages %}
       <div class="row mb-5">
         <div class="col-12">
           <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center gap-2">
+              <!-- Кнопка "Назад" -->
               {% if portfolio_items.has_previous %}
               <li class="page-item">
                 <a class="page-link rounded-circle border-0 shadow-sm" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;" href="?page={{ portfolio_items.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">
@@ -328,6 +409,7 @@
               </li>
               {% endif %}
 
+              <!-- Номера страниц -->
               {% for i in portfolio_items.paginator.page_range %}
                 <li class="page-item {% if portfolio_items.number == i %}active{% endif %}">
                   <a class="page-link rounded-circle border-0 shadow-sm {% if portfolio_items.number == i %}bg-primary text-white{% endif %}" 
@@ -338,6 +420,7 @@
                 </li>
               {% endfor %}
 
+              <!-- Кнопка "Вперед" -->
               {% if portfolio_items.has_next %}
               <li class="page-item">
                 <a class="page-link rounded-circle border-0 shadow-sm" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;" href="?page={{ portfolio_items.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">
@@ -351,8 +434,11 @@
       </div>
     {% endif %}
 
-    <!-- Bottom Sidebar Section (News etc) -->
+    <!-- ========================================= -->
+    <!-- 5. НИЖНЯЯ СЕКЦИЯ (САЙДБАР + ДОП.КОНТЕНТ)  -->
+    <!-- ========================================= -->
     <div class="row pt-5 border-top">
+       <!-- Левая колонка: Последние новости -->
        <div class="col-lg-4 mb-5">
          {% if recent_news_list %}
            <div class="bg-white rounded-4 p-4 shadow-sm border">
@@ -360,16 +446,19 @@
                <span class="bg-primary text-white rounded p-1 me-2" style="font-size: 0.8em;"><i class="fas fa-newspaper"></i></span>
                Новости
              </h5>
+             <!-- Список новостей -->
              <div class="d-flex flex-column gap-3">
                {% for recent_news in recent_news_list|slice:":4" %}
                  <a href="{% url 'news:detail' recent_news.slug %}" class="text-decoration-none text-dark">
                    <div class="news-mini-card p-2 rounded">
                      <div class="d-flex align-items-center">
+                       <!-- Миниатюра новости -->
                        <div class="flex-shrink-0">
                          <img src="{{ recent_news.image.url|default:'https://via.placeholder.com/64' }}" 
                               class="rounded-3 object-fit-cover shadow-sm" 
                               width="60" height="60" alt="">
                        </div>
+                       <!-- Заголовок и дата -->
                        <div class="flex-grow-1 ms-3">
                          <h6 class="mb-1 small fw-bold line-clamp-1">{{ recent_news.title }}</h6>
                          <small class="text-muted d-block"><i class="far fa-clock me-1"></i>{{ recent_news.created_at|date:"d M Y" }}</small>
@@ -379,6 +468,7 @@
                  </a>
                {% endfor %}
              </div>
+             <!-- Кнопка "Все новости" -->
              <div class="text-center mt-4">
                <a href="{% url 'news:list' %}" class="btn btn-outline-primary btn-sm rounded-pill w-100">Все новости</a>
              </div>
@@ -386,7 +476,8 @@
          {% endif %}
        </div>
        
-       <!-- Secondary Content Block -->
+       <!-- Правая колонка: Дополнительный контент -->
+       <!-- Подключает шаблон 'portfolio_b.html', который может содержать промо-блоки или призывы к действию -->
        <div class="col-lg-8">
          <div class="p-2">
            {% include "portfolio_b.html" %}
