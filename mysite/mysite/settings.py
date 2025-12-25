@@ -210,44 +210,53 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Добро пожаловать в панель управления",
     "copyright": "DPITS Studio",
     "search_model": ["auth.User", "portfolio.PortfolioItem", "news.News"],
-
     # === НАСТРОЙКИ ЛОГОТИПА И ИКОНОК ===
     "site_logo": "images/logo.png",
+    "site_logo_size": "100px",
     "login_logo": "images/logo.png",
     "login_logo_size": "100px",
-
     # === ФУНКЦИОНАЛЬНОСТЬ ===
     "show_ui_builder": False,
     "navigation_expanded": True,
-    
     # === МЕНЮ (Top Menu) ===
     "topmenu_links": [
-        {"name": "На сайт", "url": "/", "new_tab": True, "icon": "fas fa-external-link-alt"},
-        {"name": "Статистика", "url": "/log-stats/", "new_tab": True, "icon": "fas fa-chart-line"},
-        {"name": "Логи ошибок", "url": "/error-log/", "new_tab": True, "icon": "fas fa-bug"},
+        {
+            "name": "На сайт",
+            "url": "/",
+            "new_tab": True,
+            "icon": "fas fa-external-link-alt",
+        },
+        {
+            "name": "Статистика",
+            "url": "/log-stats/",
+            "new_tab": True,
+            "icon": "fas fa-chart-line",
+        },
+        {
+            "name": "Логи ошибок",
+            "url": "/error-log/",
+            "new_tab": True,
+            "icon": "fas fa-bug",
+        },
     ],
-
     # === БОКОВОЕ МЕНЮ (Side Menu) ===
     "show_sidebar": True,
     "show_sidebar_numbers": True,
-    
     "order_with_respect_to": [
-        "main", 
-        "news", 
-        "portfolio", 
-        "reviews", 
-        "accounts", 
-        "feedback", 
+        "main",
+        "news",
+        "portfolio",
+        "reviews",
+        "accounts",
+        "feedback",
         "auth",
     ],
-
     # === ИКОНКИ МОДЕЛЕЙ (FontAwesome) ===
     "icons": {
         # AUTH
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user-shield",
         "auth.Group": "fas fa-users",
-        
         # MAIN
         "main": "fas fa-cogs",
         "main.SiteSettings": "fas fa-sliders-h",
@@ -256,12 +265,10 @@ JAZZMIN_SETTINGS = {
         "main.SidebarItem": "fas fa-list-ul",
         "main.LogStats": "fas fa-chart-bar",
         "main.ErrorLog": "fas fa-exclamation-triangle",
-        
         # NEWS
         "news": "fas fa-newspaper",
         "news.Category": "fas fa-folder",
         "news.News": "fas fa-file-alt",
-        
         # PORTFOLIO
         "portfolio": "fas fa-briefcase",
         "portfolio.Category": "fas fa-tags",
@@ -270,71 +277,45 @@ JAZZMIN_SETTINGS = {
         "portfolio.PortfolioReview": "fas fa-quote-right",
         "portfolio.Order": "fas fa-shopping-cart",
         "portfolio.OrderMessage": "fas fa-comment-dollar",
-        
         # REVIEWS
         "reviews": "fas fa-star",
         "reviews.Review": "fas fa-star-half-alt",
-        
         # ACCOUNTS
         "accounts": "fas fa-id-card",
         "accounts.Profile": "fas fa-id-badge",
-        
         # FEEDBACK
         "feedback": "fas fa-headset",
         "feedback.FeedbackMessage": "fas fa-envelope-open-text",
         "feedback.Ticket": "fas fa-ticket-alt",
         "feedback.TicketResponse": "fas fa-reply",
-        
         # SITES
         "sites.Site": "fas fa-globe",
     },
-
     # === СТРУКТУРА МЕНЮ ===
     "menu": [
         {
-            "app": "main", 
-            "label": "Основные настройки", 
+            "app": "main",
+            "label": "Основные настройки",
             "icon": "fas fa-cogs",
-            "models": ["main.SiteSettings", "main.SEOData", "main.LogStats", "main.ErrorLog"] 
+            "models": [
+                "main.SiteSettings",
+                "main.SEOData",
+                "main.LogStats",
+                "main.ErrorLog",
+            ],
         },
-        {
-            "app": "news", 
-            "label": "Новости", 
-            "icon": "fas fa-newspaper"
-        },
-        {
-            "app": "portfolio", 
-            "label": "Портфолио", 
-            "icon": "fas fa-briefcase"
-        },
-        {
-            "app": "reviews", 
-            "label": "Отзывы", 
-            "icon": "fas fa-star"
-        },
-        {
-            "app": "accounts", 
-            "label": "Учетные записи", 
-            "icon": "fas fa-users"
-        },
-        {
-            "app": "feedback", 
-            "label": "Обратная связь", 
-            "icon": "fas fa-envelope"
-        },
-        {
-            "app": "auth", 
-            "label": "Администрирование", 
-            "icon": "fas fa-shield-alt"
-        },
+        {"app": "news", "label": "Новости", "icon": "fas fa-newspaper"},
+        {"app": "portfolio", "label": "Портфолио", "icon": "fas fa-briefcase"},
+        {"app": "reviews", "label": "Отзывы", "icon": "fas fa-star"},
+        {"app": "accounts", "label": "Учетные записи", "icon": "fas fa-users"},
+        {"app": "feedback", "label": "Обратная связь", "icon": "fas fa-envelope"},
+        {"app": "auth", "label": "Администрирование", "icon": "fas fa-shield-alt"},
     ],
-
     # === ВНЕШНИЙ ВИД ===
     "ui": {
         "theme": "darkly",
         "dark_mode_theme": "darkly",
     },
-
     # === CUSTOM CSS & JS ===
     "custom_css": "css/admin_custom.css",
     "custom_js": "js/admin_font_size.js",
