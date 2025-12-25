@@ -1,0 +1,39 @@
+/* Portfolio Detail Styles */
+
+.portfolio-detail-header {
+    margin-bottom: 2rem;
+}
+
+.portfolio-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-color, #333);
+}
+
+.portfolio-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-md, 8px);
+    margin: 1.5rem 0;
+}
+
+.portfolio-meta {
+    background-color: var(--bg-surface, #f8f9fa);
+    padding: 1.5rem;
+    border-radius: var(--border-radius-lg, 12px);
+}
+
+.categories-header {
+    background-color: var(--bg-surface, #fff);
+    padding: 1rem;
+    border-radius: var(--border-radius-md, 8px);
+    border: 1px solid var(--border-color, #eee);
+}
+
+.related-work-card {
+    transition: transform 0.3s ease;
+}
+
+.related-work-card:hover {
+    transform: translateY(-5px);
+}

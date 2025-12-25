@@ -1,0 +1,30 @@
+/* Categories Styles */
+
+.category-card {
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color, #eee);
+    overflow: hidden;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.category-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color, #0d6efd);
+}
+
+.category-list-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius-md, 8px);
+    transition: background-color 0.2s;
+}
+
+.category-list-item:hover {
+    background-color: var(--hover-color, #f8f9fa);
+}

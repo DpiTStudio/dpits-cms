@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}
+{% if is_editing %}Редактирование отзыва{% else %}Создание отзыва{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+<style>
+    .rating-select {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+    .rating-select input {
+        display: none;
+    }
+    .rating-select label {
+        cursor: pointer;
+        width: 30px;
+        font-size: 25px;
+        color: #ccc;
+    }
+    .rating-select label:before {
+        content: '\f005';
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+    }
+    .rating-select input:checked ~ label,
+    .rating-select input:checked ~ label ~ label {
+        color: #ffc107;
+    }
+    .rating-select label:hover,
+    .rating-select label:hover ~ label {
+        color: #ffca2c;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="main-content">
+    <div class="container-fluid py-5">
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h1 class="mb-3">
+                    {% if is_editing %}Редактирование отзыва{% else %}Оставить отзыв{% endif %}
+                </h1>
+                <p class="text-muted lead">
+                    Ваше мнение о работе "{{ portfolio_item.title }}"
+                </p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-5">
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            
+                            {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                <p class="mb-0">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            
+                            <!-- Rating Field -->
+                            <div class="mb-4 text-center">
+                                <label class="form-label d-block fw-bold mb-2">Ваша оценка</label>
+                                <div class="d-flex justify-content-center">
+                                    {% if form.rating %}
+                                        {{ form.rating }}
+                                    {% else %}
+                                        <!-- Fallback if manual rendering needed, but usually widget handles it. 
+                                             Assuming standard select if not custom. 
+                                             If user wants stars, we might need JS or CSS tricks.
+                                             Let's stick to standard form rendering for safely or simple styling.
+                                        -->
+                                    {% endif %}
+                                </div>
+                                {% if form.rating.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.rating.errors.0 }}
+                                </div>
+                                {% endif %}
+                                <div class="form-text">Выберите оценку от 1 до 5</div>
+                            </div>
+
+                            <!-- Title Field -->
+                            <div class="mb-3">
+                                <label for="{{ form.title.id_for_label }}" class="form-label fw-bold">Заголовок отзыва</label>
+                                <input type="text" name="{{ form.title.name }}" 
+                                       value="{{ form.title.value|default:'' }}" 
+                                       class="form-control {% if form.title.errors %}is-invalid{% endif %}" 
+                                       id="{{ form.title.id_for_label }}" 
+                                       placeholder="Кратко о впечатлениях">
+                                {% if form.title.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.title.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Content Field -->
+                            <div class="mb-4">
+                                <label for="{{ form.content.id_for_label }}" class="form-label fw-bold">Текст отзыва</label>
+                                <textarea name="{{ form.content.name }}" 
+                                          class="form-control {% if form.content.errors %}is-invalid{% endif %}" 
+                                          id="{{ form.content.id_for_label }}" 
+                                          rows="5" 
+                                          placeholder="Расскажите подробнее...">{{ form.content.value|default:'' }}</textarea>
+                                {% if form.content.errors %}
+                                <div class="invalid-feedback">
+                                    {{ form.content.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-warning btn-lg text-white">
+                                    <i class="fas fa-paper-plane me-2"></i>
+                                    {% if is_editing %}Сохранить изменения{% else %}Отправить отзыв{% endif %}
+                                </button>
+                                <a href="{{ portfolio_item.get_absolute_url }}" class="btn btn-outline-secondary">
+                                    Отмена
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

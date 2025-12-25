@@ -78,7 +78,7 @@ class PortfolioDetailView(DetailView):
 
     model = PortfolioItem
     template_name = "portfolio/detail.html"
-    context_object_name = "portfolio_item"
+    context_object_name = "item"
     slug_field = "slug"
     slug_url_kwarg = "slug"
 
