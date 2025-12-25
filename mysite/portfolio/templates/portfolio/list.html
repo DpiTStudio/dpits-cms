@@ -2,237 +2,398 @@
 {% load static %}
 
 {% block title %}
-{{ site_settings.logo_text }} - Портфолио
+{{ site_settings.logo_text|default:"Портфолио" }} — Наши Проекты
 {% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/portfolio_list.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+<style>
+  :root {
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --card-hover-transform: translateY(-8px);
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+    --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
+    --shadow-hover: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
+  }
+
+  .text-gradient {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .filter-glass-bax {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    box-shadow: var(--shadow-soft);
+    border-radius: 1rem;
+  }
+
+  .category-pill {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    background-color: #f8fafc;
+    color: #64748b;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .category-pill:hover,
+  .category-pill.active {
+    background: var(--primary-gradient);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+    text-decoration: none;
+  }
+
+  /* Modern Card Styling */
+  .portfolio-card-modern {
+    background: #fff;
+    border: none;
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .portfolio-card-modern:hover {
+    transform: var(--card-hover-transform);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .card-img-wrapper {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+  }
+
+  .card-img-wrapper img {
+    transition: transform 0.8s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .portfolio-card-modern:hover .card-img-wrapper img {
+    transform: scale(1.08);
+  }
+
+  .card-overlay {
+    background: rgba(15, 23, 42, 0.6);
+    opacity: 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .portfolio-card-modern:hover .card-overlay {
+    opacity: 1;
+  }
+
+  .tech-badge {
+    font-size: 0.75rem;
+    padding: 0.35em 0.8em;
+    border-radius: 6px;
+    background-color: #eff6ff;
+    color: #4f46e5;
+    font-weight: 600;
+  }
+
+  .card-meta {
+    font-size: 0.85rem;
+    color: #94a3b8;
+  }
+
+  /* Sidebar Modernization */
+  .news-mini-card {
+    transition: transform 0.2s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .news-mini-card:hover {
+    transform: translateX(5px);
+    border-left-color: #6366f1;
+    background-color: #f8fafc;
+  }
+  
+  .form-control-modern, .form-select-modern {
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    transition: all 0.2s;
+  }
+  
+  .form-control-modern:focus, .form-select-modern:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
 <section class="main-content">
-  <div class="container-fluid py-5">
-    <!-- Фильтры и категории -->
-    <div class="row mb-4">
+  <div class="container-fluid py-4">
+    
+    <!-- Hero Header -->
+    <div class="row mb-5 align-items-end">
+      <div class="col-md-9">
+        <h6 class="text-uppercase text-primary fw-bold letter-spacing-2 mb-2">Наше Портфолио</h6>
+        <h1 class="display-4 fw-bold mb-3">
+          Мы создаем <span class="text-gradient">цифровые шедевры</span>
+        </h1>
+        <p class="lead text-muted mb-0" style="max-width: 700px;">
+          Изучите наши последние работы. Более 100 успешно реализованных проектов, от корпоративных сайтов до сложных веб-приложений.
+        </p>
+      </div>
+      <!-- Decorative element or stats could go here -->
+    </div>
+
+    <!-- Smart Filters Panel -->
+    <div class="row mb-5">
       <div class="col-12">
-        <!-- Улучшенный блок фильтрации -->
-        <div class="filters mb-4">
-          <div class="row g-3">
-            <div class="col-md-4">
-              <label for="categoryFilter" class="visually-hidden">Фильтр по категориям</label>
-              <select class="form-select" id="categoryFilter">
+        <div class="filter-glass-bax p-4">
+          <form id="portfolio-filters" class="row g-3 align-items-center" novalidate>
+            <!-- Search -->
+            <div class="col-lg-5">
+              <div class="input-group">
+                <span class="input-group-text bg-white border-end-0 rounded-start-4 ps-3">
+                  <i class="fas fa-search text-muted"></i>
+                </span>
+                <input type="text"
+                       class="form-control form-control-modern border-start-0 ps-2"
+                       id="searchInput"
+                       placeholder="Поиск проекта..."
+                       aria-label="Поиск">
+              </div>
+            </div>
+            
+            <!-- Category Mobile/Desktop Selector -->
+            <div class="col-lg-4">
+               <select class="form-select form-select-modern" id="categoryFilter" aria-label="Категория">
                 <option value="">Все категории</option>
                 {% for category in categories %}
                   <option value="{{ category.id }}">{{ category.name }}</option>
                 {% endfor %}
               </select>
             </div>
-            <div class="col-md-4">
-              <label for="sortBy" class="visually-hidden">Сортировка</label>
-              <select class="form-select" id="sortBy">
-                <option value="-created_at">Сначала новые</option>
-                <option value="created_at">Сначала старые</option>
-                <option value="title">По названию (А-Я)</option>
-                <option value="-views">По популярности</option>
+
+            <!-- Sort -->
+            <div class="col-lg-3">
+              <select class="form-select form-select-modern" id="sortBy" aria-label="Сортировка">
+                <option value="-created_at">✨ Новые первыми</option>
+                <option value="created_at">📅 Старые первыми</option>
+                <option value="title">🅰️ По названию</option>
+                <option value="-views">🔥 Популярные</option>
               </select>
             </div>
-            <div class="col-md-4">
-              <label for="searchInput" class="visually-hidden">Поиск</label>
-              <input type="text" class="form-control" id="searchInput" placeholder="Поиск по названиям...">
-            </div>
-          </div>
-        </div>
+          </form>
 
-        <!-- Блок категорий с иконками -->
-        <div class="categories-header">
-          <h6 class="mb-3">Категории работ:</h6>
-          <div class="d-flex flex-wrap gap-2">
-            {% for category in categories %}
+          <!-- Quick Category Tags (Visual) -->
+          <div class="d-none d-md-flex flex-wrap gap-2 mt-4 pt-3 border-top border-light">
+             <a href="?" 
+                class="category-pill {% if not selected_category %}active{% endif %}">
+               Все
+             </a>
+             {% for category in categories %}
               <a href="?category={{ category.slug }}"
-                 class="btn btn-outline-primary btn-sm {% if selected_category == category.slug %}active{% endif %}"
-                 aria-label="Фильтр: {{ category.name }}">
-                {% if category.image %}
-                  <img src="{{ category.image.url }}" alt="{{ category.name }}" class="category-icon">
-                {% else %}
-                  <img src="{% static 'images/placeholder-category.png' %}" alt="Категория" class="category-icon">
-                {% endif %}
+                 class="category-pill {% if selected_category == category.slug %}active{% endif %}">
                 {{ category.name }}
               </a>
-            {% empty %}
-              <span class="text-muted">Категорий пока нет</span>
-            {% endfor %}
+             {% endfor %}
           </div>
         </div>
-        <hr class="my-4">
       </div>
     </div>
 
-    <!-- Заголовок -->
-    <div class="row mb-4">
-      <div class="col-12">
-        <h1 class="h2 fw-bold">
-          {{ site_settings.logo_text|default:"Портфолио" }} - Портфолио
-        </h1>
-      </div>
-    </div>
-
-    <div class="row">
-      <!-- Основной блок работ -->
-      <div class="col-lg-9">
-        <div class="row" id="portfolio-grid">
-          {% for item in portfolio_items %}
-            <div class="col-md-6 mb-4">
-              <div class="card h-100 portfolio-card border-0 shadow-sm hover-lift" data-category="{{ item.category.id }}" data-title="{{ item.title }}">
-                <div class="position-relative overflow-hidden">
-                  <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}" loading="lazy" style="height: 200px; object-fit: cover;">
-                  <div class="position-absolute top-0 end-0 m-2">
-                    <span class="badge bg-primary">{{ item.category.name }}</span>
-                  </div>
-                  <div class="portfolio-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                    <div class="text-center text-white">
-                      <i class="fas fa-eye fa-2x mb-2"></i>
-                      <p class="mb-0">Смотреть проект</p>
-                    </div>
-                  </div>
+    <!-- Portfolio Grid -->
+    <div class="row g-4 mb-5" id="portfolio-grid">
+      {% for item in portfolio_items %}
+        <div class="col-md-6 col-lg-4">
+          <article class="portfolio-card-modern" 
+                   data-category="{{ item.category.id }}" 
+                   data-title="{{ item.title }}">
+            
+            <!-- Image Area -->
+            <div class="card-img-wrapper">
+              <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">
+              
+              <div class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white">
+                <div class="d-flex gap-2">
+                  <a href="{% url 'portfolio:detail' item.slug %}" class="btn btn-light rounded-pill px-4 fw-bold shadow-sm">
+                    Подробнее
+                  </a>
+                  {% if user.is_authenticated %}
+                  <a href="{% url 'portfolio:create_review' item.slug %}" class="btn btn-outline-light rounded-circle p-2" style="width: 38px; height: 38px;" title="Оставить отзыв">
+                    <i class="fas fa-star"></i>
+                  </a>
+                  {% endif %}
                 </div>
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">{{ item.title }}</h5>
-                  <p class="card-text flex-grow-1 text-muted">{{ item.short_description|truncatewords:15 }}</p>
-                  <div class="mt-auto">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                      <small class="text-muted">
-                        <i class="far fa-calendar me-1"></i>{{ item.project_date|date:"M Y" }}
-                      </small>
-                      <small class="text-muted">
-                        <i class="far fa-eye me-1"></i>{{ item.views }}
-                      </small>
-                    </div>
-                    {% if item.technologies %}
-                      <div class="mb-2">
-                        <small class="text-muted">Технологии:</small>
-                        <div class="d-flex flex-wrap gap-1 mt-1">
-                          {% for tech in item.technologies|slice:":3" %}
-                            <span class="badge bg-light text-dark border">{{ tech }}</span>
-                          {% endfor %}
-                        </div>
-                      </div>
+              </div>
+
+              <div class="position-absolute top-0 end-0 m-3">
+                <span class="badge bg-white text-primary shadow-sm px-3 py-2 rounded-pill">
+                  {{ item.category.name }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="card-body d-flex flex-column p-4">
+              <div class="mb-2">
+                <h5 class="card-title fw-bold mb-0">
+                  <a href="{% url 'portfolio:detail' item.slug %}" class="text-dark text-decoration-none stretch-link">
+                    {{ item.title }}
+                  </a>
+                </h5>
+              </div>
+
+              <p class="card-text text-muted small line-clamp-2 mb-3">
+                {{ item.short_description|truncatechars:100 }}
+              </p>
+              
+              <div class="mt-auto">
+                 {% if item.technologies %}
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    {% for tech in item.technologies|slice:":3" %}
+                      <span class="tech-badge">{{ tech }}</span>
+                    {% endfor %}
+                    {% if item.technologies|length > 3 %}
+                      <span class="tech-badge">+{{ item.technologies|length|add:"-3" }}</span>
                     {% endif %}
                   </div>
-                  <div class="d-grid gap-2 mt-3">
-                    <a href="{% url 'portfolio:detail' item.slug %}" class="btn btn-outline-primary">Подробнее</a>
-                    {% if user.is_authenticated %}
-                      <a href="{% url 'portfolio:create_review' item.slug %}" class="btn btn-outline-success">
-                        <i class="fas fa-star me-1"></i>Оставить отзыв
-                      </a>
-                    {% endif %}
+                {% endif %}
+
+                <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light">
+                  <div class="card-meta">
+                    <i class="far fa-calendar-alt me-1"></i> {{ item.project_date|date:"M Y" }}
+                  </div>
+                  <div class="card-meta">
+                    <i class="far fa-eye me-1"></i> {{ item.views }}
                   </div>
                 </div>
               </div>
             </div>
-          {% empty %}
-            <div class="col-12 text-center py-5">
-              <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
-              <h4>Работы не найдены</h4>
-              <p class="text-muted">Попробуйте изменить параметры поиска или выбрать другую категорию</p>
-              <a href="{% url 'portfolio:categories' %}" class="btn btn-primary mt-2">
-                <i class="fas fa-layer-group me-2"></i>Посмотреть все категории
-              </a>
-            </div>
-          {% endfor %}
+          </article>
         </div>
+      {% empty %}
+        <div class="col-12 text-center py-5">
+          <div class="py-5">
+            <i class="fas fa-search fa-3x text-secondary mb-3 opacity-50"></i>
+            <h3>Проекты не найдены</h3>
+            <p class="text-muted">Попробуйте изменить параметры фильтрации или выбрать другую категорию</p>
+            <a href="{% url 'portfolio:categories' %}" class="btn btn-primary rounded-pill px-4 mt-2">
+              <i class="fas fa-sync-alt me-2"></i>Сбросить фильтры
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
 
-        <!-- Пагинация -->
-        {% if portfolio_items.has_other_pages %}
-          <nav aria-label="Пагинация портфолио" class="mt-4">
-            <ul class="pagination justify-content-center">
+    <!-- Pagination -->
+    {% if portfolio_items.has_other_pages %}
+      <div class="row mb-5">
+        <div class="col-12">
+          <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center gap-2">
               {% if portfolio_items.has_previous %}
-                <li class="page-item">
-                  <a class="page-link" href="?page={{ portfolio_items.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}" aria-label="Предыдущая">
-                    &laquo;
-                  </a>
-                </li>
+              <li class="page-item">
+                <a class="page-link rounded-circle border-0 shadow-sm" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;" href="?page={{ portfolio_items.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">
+                  <i class="fas fa-chevron-left"></i>
+                </a>
+              </li>
               {% endif %}
 
               {% for i in portfolio_items.paginator.page_range %}
                 <li class="page-item {% if portfolio_items.number == i %}active{% endif %}">
-                  <a class="page-link" href="?page={{ i }}{% if selected_category %}&category={{ selected_category }}{% endif %}">
+                  <a class="page-link rounded-circle border-0 shadow-sm {% if portfolio_items.number == i %}bg-primary text-white{% endif %}" 
+                     style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"
+                     href="?page={{ i }}{% if selected_category %}&category={{ selected_category }}{% endif %}">
                     {{ i }}
                   </a>
                 </li>
               {% endfor %}
 
               {% if portfolio_items.has_next %}
-                <li class="page-item">
-                  <a class="page-link" href="?page={{ portfolio_items.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}" aria-label="Следующая">
-                    &raquo;
-                  </a>
-                </li>
+              <li class="page-item">
+                <a class="page-link rounded-circle border-0 shadow-sm" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;" href="?page={{ portfolio_items.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+              </li>
               {% endif %}
             </ul>
           </nav>
-        {% endif %}
-      </div>
-
-      <!-- Сайдбар -->
-      <div class="col-lg-3">
-        <!-- Последние новости -->
-        {% if recent_news_list %}
-          <div class="card mb-4 shadow-sm border-0 rounded-3">
-            <div class="card-header bg-primary text-white">
-              <h6 class="mb-0"><i class="fas fa-newspaper me-2"></i>Последние новости</h6>
-            </div>
-            <div class="card-body">
-              {% for recent_news in recent_news_list|slice:":5" %}
-                <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
-                  <h6 class="mb-1 d-flex align-items-center">
-                    <img src="{{ recent_news.image.url|default:'https://via.placeholder.com/15' }}" 
-                         class="sidebar-news-image" 
-                         alt="{{ recent_news.title }}" 
-                         width="15" 
-                         height="15"
-                         loading="lazy">
-                    <a href="{% url 'news:detail' recent_news.slug %}" class="text-decoration-none text-dark flex-grow-1 ms-2">
-                      {{ recent_news.title|truncatewords:6 }}
-                    </a>
-                  </h6>
-                  <small class="text-muted">
-                    <i class="fas fa-calendar me-1"></i>{{ recent_news.created_at|date:"d.m.Y" }}
-                  </small>
-                </div>
-              {% endfor %}
-              <div class="text-center mt-3">
-                <a href="{% url 'news:list' %}" class="btn btn-sm btn-outline-primary">
-                  Все новости <i class="fas fa-arrow-right ms-1"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        {% endif %}
-
-        <!-- Категории в сайдбаре -->
-        <div class="card border-0 shadow-sm rounded-3">
-          <div class="card-header bg-secondary text-white">
-            <h6 class="mb-0">Категории</h6>
-          </div>
-          <div class="card-body">
-            {% for category in categories %}
-              <div class="mb-2">
-                <a href="?category={{ category.slug }}" 
-                   class="text-decoration-none {% if selected_category == category.slug %}fw-bold text-primary{% else %}text-dark{% endif %}">
-                  {{ category.name }}
-                </a>
-              </div>
-            {% empty %}
-              <p class="text-muted small">Категорий пока нет</p>
-            {% endfor %}
-          </div>
         </div>
       </div>
+    {% endif %}
+
+    <!-- Bottom Sidebar Section (News etc) -->
+    <div class="row pt-5 border-top">
+       <div class="col-lg-4 mb-5">
+         {% if recent_news_list %}
+           <div class="bg-white rounded-4 p-4 shadow-sm border">
+             <h5 class="fw-bold mb-4 d-flex align-items-center">
+               <span class="bg-primary text-white rounded p-1 me-2" style="font-size: 0.8em;"><i class="fas fa-newspaper"></i></span>
+               Новости
+             </h5>
+             <div class="d-flex flex-column gap-3">
+               {% for recent_news in recent_news_list|slice:":4" %}
+                 <a href="{% url 'news:detail' recent_news.slug %}" class="text-decoration-none text-dark">
+                   <div class="news-mini-card p-2 rounded">
+                     <div class="d-flex align-items-center">
+                       <div class="flex-shrink-0">
+                         <img src="{{ recent_news.image.url|default:'https://via.placeholder.com/64' }}" 
+                              class="rounded-3 object-fit-cover shadow-sm" 
+                              width="60" height="60" alt="">
+                       </div>
+                       <div class="flex-grow-1 ms-3">
+                         <h6 class="mb-1 small fw-bold line-clamp-1">{{ recent_news.title }}</h6>
+                         <small class="text-muted d-block"><i class="far fa-clock me-1"></i>{{ recent_news.created_at|date:"d M Y" }}</small>
+                       </div>
+                     </div>
+                   </div>
+                 </a>
+               {% endfor %}
+             </div>
+             <div class="text-center mt-4">
+               <a href="{% url 'news:list' %}" class="btn btn-outline-primary btn-sm rounded-pill w-100">Все новости</a>
+             </div>
+           </div>
+         {% endif %}
+       </div>
+       
+       <!-- Secondary Content Block -->
+       <div class="col-lg-8">
+         <div class="p-2">
+           {% include "portfolio_b.html" %}
+         </div>
+       </div>
     </div>
 
-    <!-- Блок последних работ -->
-    {% include "portfolio_b.html" %}
   </div>
 </section>
 {% endblock %}
