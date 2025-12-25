@@ -208,8 +208,9 @@ JAZZMIN_SETTINGS = {
     "site_header": "DPITS CMS",
     "site_brand": "DPITS CMS",
     "welcome_sign": "Добро пожаловать в панель управления",
-    "copyright": "DPITS Studio",
-    "search_model": ["auth.User", "portfolio.PortfolioItem", "news.News"],
+    "copyright": "DPITS CMS",
+    # === НАСТРОЙКИ ПОИСКА ===
+    # "search_model": ["auth.User", "portfolio.PortfolioItem", "news.News"],
     # === НАСТРОЙКИ ЛОГОТИПА И ИКОНОК ===
     "site_logo": "images/logo.png",
     "site_logo_size": "100px",
@@ -221,19 +222,19 @@ JAZZMIN_SETTINGS = {
     # === МЕНЮ (Top Menu) ===
     "topmenu_links": [
         {
-            "name": "На сайт",
+            "name": "Публик",
             "url": "/",
             "new_tab": True,
             "icon": "fas fa-external-link-alt",
         },
         {
-            "name": "Статистика",
+            "name": "Стат",
             "url": "/log-stats/",
             "new_tab": True,
             "icon": "fas fa-chart-line",
         },
         {
-            "name": "Логи ошибок",
+            "name": "Лог",
             "url": "/error-log/",
             "new_tab": True,
             "icon": "fas fa-bug",

@@ -17,17 +17,19 @@
 
     .dashboard-header {
         display: flex;
-        align-items: center;
+        align-items: left;
         justify-content: space-between;
         gap: 1rem;
-        margin-bottom: 2rem;
+        /* margin-bottom: 2rem; */
+        padding-bottom: 3rem;
+        padding-top: 3rem;
     }
 
     .dashboard-title {
         font-size: 1.8rem;
-        font-weight: 700;
+        font-weight: 900;
         display: flex;
-        align-items: center;
+        align-items: left;
         gap: 1rem;
         color: var(--text-dark);
     }
@@ -52,6 +54,9 @@
     }
 
     /* Stat Cards */
+    .card {
+        
+    }
     .stat-card {
         position: relative;
         overflow: hidden;
@@ -60,10 +65,11 @@
         box-shadow: var(--card-shadow);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         background: var(--card-bg);
+        padding-bottom: 2rem;
     }
 
     .stat-card:hover {
-        transform: translateY(-5px);
+        /* transform: translateY(-5px); */
         box-shadow: var(--card-hover-shadow);
     }
 
@@ -94,7 +100,7 @@
     .stat-label {
         font-size: 0.85rem;
         text-transform: uppercase;
-        font-weight: 600;
+        font-weight: 500;
         letter-spacing: 0.05em;
         opacity: 0.9;
         margin-bottom: 0.5rem;
@@ -425,7 +431,7 @@
     </div>
 
     {% if admin_stats %}
-    <div class="row g-4">
+    <div class="row g-1">
         <!-- Пользователи -->
         <div class="col-xl-3 col-md-6">
             <div class="card stat-card bg-primary text-white h-100">
@@ -567,11 +573,18 @@
 
     <!-- Список приложений админки -->
     {% if app_list %}
-    <div class="section-header">
-        <div class="dashboard-title-icon" style="background: var(--purple-gradient);">
-            <i class="fas fa-database"></i>
+    <div class="dashboard-header">
+        <div>
+            <div class="dashboard-title">
+                <span class="dashboard-title-icon">
+                    <i class="fas fa-database"></i>
+                </span>
+                <span>{% trans "Управление данными" %}</span>
+            </div>
+            <p class="dashboard-subtitle">
+                {% trans "Управление данными" %}
+            </p>
         </div>
-        <h2 class="section-title">{% trans "Управление данными" %}</h2>
     </div>
 
     <div class="row g-4">
@@ -621,11 +634,29 @@
     {% endif %}
 
     {% if admin_stats %}
-    <div class="section-header">
+    {% comment %} <div class="section-header">
         <div class="dashboard-title-icon" style="background: var(--orange-gradient);">
             <i class="fas fa-terminal"></i>
         </div>
         <h2 class="section-title">{% trans "Системные логи" %}</h2>
+        <hr class="">
+        <div class="dashboard-subtitle">
+            {% trans "Системные логи" %}
+        </div>
+    </div> {% endcomment %}
+
+    <div class="dashboard-header">
+        <div>
+            <div class="dashboard-title">
+                <span class="dashboard-title-icon">
+                    <i class="fas fa-terminal"></i>
+                </span>
+                <span>{% trans "Системные логи" %}</span>
+            </div>
+            <p class="dashboard-subtitle">
+                {% trans "Системные логи" %}
+            </p>
+        </div>
     </div>
 
     <div class="row g-4">
