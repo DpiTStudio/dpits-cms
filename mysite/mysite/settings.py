@@ -204,93 +204,140 @@ AUTO_NEWS_CREATION = {
 
 JAZZMIN_SETTINGS = {
     # === ОСНОВНЫЕ НАСТРОЙКИ САЙТА ===
-    "site_title": "Админ панель",  # Заголовок вкладки браузера
-    "site_header": "Админ панель",  # Заголовок в админ-панели
-    "site_brand": "Админ панель",  # Бренд в шапке
-    "welcome_sign": "Добро пожаловать в админ панель",  # Приветственное сообщение
+    "site_title": "DPITS CMS Админ",
+    "site_header": "DPITS CMS",
+    "site_brand": "DPITS CMS",
+    "welcome_sign": "Добро пожаловать в панель управления",
+    "copyright": "DPITS Studio",
+    "search_model": ["auth.User", "portfolio.PortfolioItem", "news.News"],
+
     # === НАСТРОЙКИ ЛОГОТИПА И ИКОНОК ===
-    "site_logo": "images/logo.png",  # Логотип в шапке
-    "site_icon": "images/logo.png",  # Иконка сайта
-    "site_logo_classes": "img-circle",  # CSS классы для логотипа
-    "login_logo": "images/logo.png",  # Логотип на странице входа
-    "login_logo_size": "100px",  # Размер логотипа на странице входа
+    "site_logo": "images/logo.png",
+    "login_logo": "images/logo.png",
+    "login_logo_size": "100px",
+
     # === ФУНКЦИОНАЛЬНОСТЬ ===
-    "show_ui_builder": False,  # Отключить UI builder для продакшена
-    "navigation_expanded": True,  # Развернутая навигация по умолчанию
-    "hide_apps": [],  # Приложения для скрытия
-    "hide_models": [],  # Модели для скрытия
-    # === НАСТРОЙКИ МЕНЮ С УЛУЧШЕННЫМИ ИКОНКАМИ ===
-    "menu": [
-        {"app": "main", "label": "Главная", "icon": "fas fa-home"},
-        {"app": "news", "label": "Новости", "icon": "fas fa-newspaper"},
-        {"app": "portfolio", "label": "Портфолио", "icon": "fas fa-briefcase"},
-        {"app": "reviews", "label": "Отзывы", "icon": "fas fa-star"},
-        {"app": "accounts", "label": "Аккаунты", "icon": "fas fa-users"},
-        {"app": "feedback", "label": "Обратная связь", "icon": "fas fa-envelope"},
-        {
-            "app": "auth",
-            "label": "Аутентификация",
-            "icon": "fas fa-user-shield",
-            "models": [
-                {"name": "user", "label": "Пользователи", "icon": "fas fa-user"},
-                {"name": "group", "label": "Группы", "icon": "fas fa-users-cog"},
-            ],
-        },
-        {"app": "sites", "label": "Сайты", "icon": "fas fa-globe"},
-    ],
-    # === НАСТРОЙКИ СПИСКОВ ИЗМЕНЕНИЙ ===
-    "changelist": {
-        "show_delete_link": True,  # Показывать ссылку удаления
-        "show_full_result_count": False,  # Не показывать полное количество результатов
-    },
-    # === ВНЕШНИЙ ВИД И ТЕМЫ ===
-    "ui": {
-        "theme": "darkly",  # Темная тема по умолчанию
-        "dark_mode_theme": "darkly",  # Темная тема для темного режима
-    },
-    # === ДОПОЛНИТЕЛЬНЫЕ УЛУЧШЕНИЯ ===
-    # "search_model": ["auth.User", "main.Profile"],  # Модели для поиска в хедере
+    "show_ui_builder": False,
+    "navigation_expanded": True,
+    
+    # === МЕНЮ (Top Menu) ===
     "topmenu_links": [
-        {
-            "name": "На сайт",
-            "url": "/",
-            "new_tab": True,  # Открывать в новой вкладке
-            "icon": "fas fa-external-link-alt",
-        },
-        {
-            "name": "Статистика логов",
-            "url": "/log-stats/",
-            "new_tab": True,  # Открывать в новой вкладке
-            "icon": "fas fa-chart-line",
-        },
-        {
-            "name": "Лог ошибок",
-            "url": "/error-log/",
-            "new_tab": True,  # Открывать в новой вкладке
-            "icon": "fas fa-exclamation-triangle",
-        },
+        {"name": "На сайт", "url": "/", "new_tab": True, "icon": "fas fa-external-link-alt"},
+        {"name": "Статистика", "url": "/log-stats/", "new_tab": True, "icon": "fas fa-chart-line"},
+        {"name": "Логи ошибок", "url": "/error-log/", "new_tab": True, "icon": "fas fa-bug"},
     ],
-    "show_sidebar": True,  # Показывать боковую панель
-    "order_with_respect_to": [  # Порядок приложений в меню
-        "main",
-        "news",
-        "portfolio",
-        "reviews",
-        "accounts",
-        "feedback",
+
+    # === БОКОВОЕ МЕНЮ (Side Menu) ===
+    "show_sidebar": True,
+    "show_sidebar_numbers": True,
+    
+    "order_with_respect_to": [
+        "main", 
+        "news", 
+        "portfolio", 
+        "reviews", 
+        "accounts", 
+        "feedback", 
         "auth",
     ],
-    # === ИКОНКИ ДЕЙСТВИЙ ===
+
+    # === ИКОНКИ МОДЕЛЕЙ (FontAwesome) ===
     "icons": {
+        # AUTH
         "auth": "fas fa-users-cog",
-        "auth.user": "fas fa-user",
+        "auth.user": "fas fa-user-shield",
         "auth.Group": "fas fa-users",
-        "news.News": "fas fa-newspaper",
-        "portfolio.Project": "fas fa-briefcase",
-        "reviews.Review": "fas fa-star",
-        "accounts.User": "fas fa-user-circle",
-        "feedback.FeedbackMessage": "fas fa-envelope",
+        
+        # MAIN
+        "main": "fas fa-cogs",
+        "main.SiteSettings": "fas fa-sliders-h",
+        "main.SEOData": "fab fa-google",
+        "main.MenuItem": "fas fa-bars",
+        "main.SidebarItem": "fas fa-list-ul",
+        "main.LogStats": "fas fa-chart-bar",
+        "main.ErrorLog": "fas fa-exclamation-triangle",
+        
+        # NEWS
+        "news": "fas fa-newspaper",
+        "news.Category": "fas fa-folder",
+        "news.News": "fas fa-file-alt",
+        
+        # PORTFOLIO
+        "portfolio": "fas fa-briefcase",
+        "portfolio.Category": "fas fa-tags",
+        "portfolio.PortfolioItem": "fas fa-paint-brush",
+        "portfolio.Client": "fas fa-user-tie",
+        "portfolio.PortfolioReview": "fas fa-quote-right",
+        "portfolio.Order": "fas fa-shopping-cart",
+        "portfolio.OrderMessage": "fas fa-comment-dollar",
+        
+        # REVIEWS
+        "reviews": "fas fa-star",
+        "reviews.Review": "fas fa-star-half-alt",
+        
+        # ACCOUNTS
+        "accounts": "fas fa-id-card",
+        "accounts.Profile": "fas fa-id-badge",
+        
+        # FEEDBACK
+        "feedback": "fas fa-headset",
+        "feedback.FeedbackMessage": "fas fa-envelope-open-text",
+        "feedback.Ticket": "fas fa-ticket-alt",
+        "feedback.TicketResponse": "fas fa-reply",
+        
+        # SITES
+        "sites.Site": "fas fa-globe",
     },
+
+    # === СТРУКТУРА МЕНЮ ===
+    "menu": [
+        {
+            "app": "main", 
+            "label": "Основные настройки", 
+            "icon": "fas fa-cogs",
+            "models": ["main.SiteSettings", "main.SEOData", "main.LogStats", "main.ErrorLog"] 
+        },
+        {
+            "app": "news", 
+            "label": "Новости", 
+            "icon": "fas fa-newspaper"
+        },
+        {
+            "app": "portfolio", 
+            "label": "Портфолио", 
+            "icon": "fas fa-briefcase"
+        },
+        {
+            "app": "reviews", 
+            "label": "Отзывы", 
+            "icon": "fas fa-star"
+        },
+        {
+            "app": "accounts", 
+            "label": "Учетные записи", 
+            "icon": "fas fa-users"
+        },
+        {
+            "app": "feedback", 
+            "label": "Обратная связь", 
+            "icon": "fas fa-envelope"
+        },
+        {
+            "app": "auth", 
+            "label": "Администрирование", 
+            "icon": "fas fa-shield-alt"
+        },
+    ],
+
+    # === ВНЕШНИЙ ВИД ===
+    "ui": {
+        "theme": "darkly",
+        "dark_mode_theme": "darkly",
+    },
+
+    # === CUSTOM CSS & JS ===
+    "custom_css": "css/admin_custom.css",
+    "custom_js": "js/admin_font_size.js",
 }
 
 # =============================================================================

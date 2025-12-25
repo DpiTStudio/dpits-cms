@@ -1,0 +1,155 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    .log-stats-container {
+        padding: 20px;
+    }
+    .stat-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    .stat-card {
+        flex: 1;
+        min-width: 200px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        padding: 20px;
+        border-left: 5px solid #007bff;
+        transition: transform 0.2s;
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+    .stat-card.error { border-left-color: #dc3545; }
+    .stat-card.warning { border-left-color: #ffc107; }
+    .stat-card.info { border-left-color: #17a2b8; }
+    .stat-card.debug { border-left-color: #28a745; }
+    .stat-card.other { border-left-color: #6c757d; }
+
+    .stat-label {
+        font-size: 14px;
+        color: #6c757d;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+    .stat-value {
+        font-size: 28px;
+        font-weight: bold;
+        color: #343a40;
+    }
+    .log-viewer {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 20px;
+        border-radius: 8px;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        max-height: 600px;
+        overflow-y: auto;
+        border: 1px solid #333;
+    }
+    .log-line {
+        margin-bottom: 2px;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+    .log-line-error { color: #f44336; background: rgba(244, 67, 54, 0.1); }
+    .log-line-warning { color: #ffeb3b; background: rgba(255, 235, 59, 0.05); }
+    .log-line-info { color: #2196f3; }
+    .log-line-debug { color: #4caf50; }
+
+    .dark-mode .stat-card {
+        background: #2d2d2d;
+        color: #eee;
+    }
+    .dark-mode .stat-value { color: #fff; }
+    
+    .btn-group {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 10px;
+    }
+    .btn-custom {
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .btn-back { background: #6c757d; }
+    .btn-edit { background: #007bff; }
+    .btn-clear { background: #dc3545; }
+    .btn-custom:hover { opacity: 0.9; color: white; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="log-stats-container">
+    <div class="btn-group">
+        <a href="{% url 'admin:main_errorlog_changelist' %}" class="btn-custom btn-back">
+            <i class="fas fa-arrow-left"></i> {% trans "Назад к списку" %}
+        </a>
+        <a href="{% url 'admin:main_errorlog_edit' %}" class="btn-custom btn-edit">
+            <i class="fas fa-edit"></i> {% trans "Редактировать файл" %}
+        </a>
+        <a href="{% url 'admin:main_errorlog_clear' %}" class="btn-custom btn-clear" onclick="return confirm('{% trans 'Вы уверены, что хотите очистить лог-файл?' %}');">
+            <i class="fas fa-trash"></i> {% trans "Очистить лог" %}
+        </a>
+    </div>
+
+    <h1>{{ title }}</h1>
+
+    <div class="stat-row">
+        <div class="stat-card">
+            <div class="stat-label">{% trans "Размер файла" %}</div>
+            <div class="stat-value">{{ log_info.file_size_human }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">{% trans "Всего строк" %}</div>
+            <div class="stat-value">{{ log_info.total_lines }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">{% trans "Изменен" %}</div>
+            <div class="stat-value" style="font-size: 18px;">{{ log_info.last_modified|date:"d.m.Y H:i:s" }}</div>
+        </div>
+    </div>
+
+    <div class="stat-row">
+        <div class="stat-card error">
+            <div class="stat-label">{% trans "Ошибки (ERROR)" %}</div>
+            <div class="stat-value">{{ log_info.categories.ERROR }}</div>
+        </div>
+        <div class="stat-card warning">
+            <div class="stat-label">{% trans "Предупреждения (WARNING)" %}</div>
+            <div class="stat-value">{{ log_info.categories.WARNING }}</div>
+        </div>
+        <div class="stat-card info">
+            <div class="stat-label">{% trans "Инфо (INFO)" %}</div>
+            <div class="stat-value">{{ log_info.categories.INFO }}</div>
+        </div>
+        <div class="stat-card debug">
+            <div class="stat-label">{% trans "Отладка (DEBUG)" %}</div>
+            <div class="stat-value">{{ log_info.categories.DEBUG }}</div>
+        </div>
+    </div>
+
+    <h2>{% trans "Просмотр содержимого" %} ({{ total_lines_displayed }} {% trans "строк" %})</h2>
+    <div class="log-viewer">
+        {% for line in all_lines %}
+            <div class="log-line {% if 'ERROR' in line|upper or 'ОШИБКА' in line|upper %}log-line-error{% elif 'WARNING' in line|upper or 'ПРЕДУПРЕЖДЕНИЕ' in line|upper %}log-line-warning{% elif 'INFO' in line|upper or 'ИНФОРМАЦИЯ' in line|upper %}log-line-info{% elif 'DEBUG' in line|upper or 'ОТЛАДКА' in line|upper %}log-line-debug{% endif %}">{{ line|linebreaksbr }}</div>
+        {% empty %}
+            <div class="text-muted">{% trans "Файл пуст или информация недоступна" %}</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

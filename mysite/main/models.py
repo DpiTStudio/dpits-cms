@@ -996,3 +996,16 @@ class LogStats(models.Model):
             str: "Статистика логов за ДАТА"
         """
         return f"Статистика логов за {self.log_date}"
+
+
+class ErrorLog(LogStats):
+    """
+    Прокси-модель для LogStats, чтобы отобразить отдельный пункт
+    меню для управления логом ошибок (error.log).
+    """
+
+    class Meta:
+        proxy = True
+        verbose_name = "Лог ошибок"
+        verbose_name_plural = "Лог ошибок"
+

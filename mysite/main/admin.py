@@ -34,7 +34,7 @@ from django.utils.html import (
 )
 from django.utils.translation import gettext_lazy as _  # Функция для перевода строк
 
-from .models import LogStats, Page, SiteSettings  # Импорт моделей для админки
+from .models import ErrorLog, LogStats, Page, SiteSettings  # Импорт моделей для админки
 
 
 @admin.register(SiteSettings)
@@ -621,3 +621,155 @@ class LogStatsAdmin(admin.ModelAdmin):
             "admin/main/edit_log_file.html",
             context,
         )
+
+
+@admin.register(ErrorLog)
+class ErrorLogAdmin(LogStatsAdmin):
+    """
+    Админ-панель для логов ошибок.
+    Повторяет функционал LogStatsAdmin, но для файла error.log.
+    """
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).none()
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+
+        # URL для кнопок
+        clear_url = reverse("admin:main_errorlog_clear")
+        statistics_url = reverse("admin:main_errorlog_view")
+        edit_url = reverse("admin:main_errorlog_edit")
+
+        buttons_html = format_html(
+            '<div style="margin: 10px 0;">'
+            '<a href="{}" class="button" style="margin-right: 10px;" '
+            "onclick=\"return confirm('Вы уверены, что хотите очистить лог-файл ошибок? Это действие нельзя отменить!');\">"
+            "🗑️ Очистить лог ошибок</a>"
+            '<a href="{}" class="button" style="margin-right: 10px;">'
+            "📊 Статистика</a>"
+            '<a href="{}" class="button">'
+            "✏️ Редактировать error.log</a>"
+            "</div>",
+            clear_url,
+            statistics_url,
+            edit_url,
+        )
+
+        extra_context["action_buttons"] = buttons_html
+        return admin.ModelAdmin.changelist_view(self, request, extra_context)
+
+    def get_urls(self):
+        urls = super(LogStatsAdmin, self).get_urls()
+        custom_urls = [
+            path(
+                "clear-log/",
+                self.admin_site.admin_view(self.clear_log_file_view),
+                name="main_errorlog_clear",
+            ),
+            path(
+                "view-statistics/",
+                self.admin_site.admin_view(self.view_log_statistics),
+                name="main_errorlog_view",
+            ),
+            path(
+                "edit-log/",
+                self.admin_site.admin_view(self.edit_log_file_view),
+                name="main_errorlog_edit",
+            ),
+        ]
+        return custom_urls + urls
+
+    def clear_log_file_view(self, request):
+        from .log_utils import clear_error_log_file
+
+        success, message = clear_error_log_file()
+        if success:
+            messages.success(request, message)
+        else:
+            messages.error(request, message)
+
+        return HttpResponseRedirect(reverse("admin:main_errorlog_changelist"))
+
+    def view_log_statistics(self, request):
+        from .log_utils import get_error_log_file_info, get_error_log_file_path
+
+        log_info = get_error_log_file_info()
+        log_file_path = get_error_log_file_path()
+
+        all_lines = []
+        if log_file_path and os.path.exists(log_file_path):
+            try:
+                with open(log_file_path, "r", encoding="utf-8", errors="ignore") as f:
+                    lines = f.readlines()
+                    if len(lines) > 10000:
+                        all_lines = lines[-10000:]
+                        messages.warning(
+                            request,
+                            f"Файл содержит {len(lines)} строк. Показаны последние 10000 строк.",
+                        )
+                    else:
+                        all_lines = lines
+            except Exception as e:
+                messages.error(request, f"Ошибка чтения файла: {str(e)}")
+
+        context = {
+            "title": _("Полная статистика лог-файла error.log"),
+            "opts": self.model._meta,
+            "log_info": log_info,
+            "all_lines": all_lines,
+            "total_lines_displayed": len(all_lines),
+        }
+
+        return render(request, "admin/main/errorlog_statistics.html", context)
+
+    def edit_log_file_view(self, request):
+        from .log_utils import get_error_log_file_info, get_error_log_file_path
+        import shutil
+
+        log_file_path = get_error_log_file_path()
+
+        if not log_file_path or not os.path.exists(log_file_path):
+            messages.error(request, _("Файл error.log не найден"))
+            return HttpResponseRedirect(reverse("admin:main_errorlog_changelist"))
+
+        log_info = get_error_log_file_info()
+
+        if request.method == "POST":
+            new_content = request.POST.get("content", "")
+            try:
+                backup_dir = os.path.join(os.path.dirname(log_file_path), "backups")
+                os.makedirs(backup_dir, exist_ok=True)
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                backup_name = f"error.log.backup_{timestamp}"
+                backup_path = os.path.join(backup_dir, backup_name)
+                shutil.copy2(log_file_path, backup_path)
+
+                with open(log_file_path, "w", encoding="utf-8", errors="ignore") as f:
+                    f.write(new_content)
+
+                messages.success(
+                    request,
+                    _("Файл error.log успешно сохранен. Бэкап: {}").format(
+                        os.path.basename(backup_path)
+                    ),
+                )
+                return HttpResponseRedirect(reverse("admin:main_errorlog_edit"))
+            except Exception as e:
+                messages.error(request, _("Ошибка сохранения: {}").format(str(e)))
+
+        file_content = ""
+        try:
+            with open(log_file_path, "r", encoding="utf-8", errors="ignore") as f:
+                file_content = f.read()
+        except Exception as e:
+            messages.error(request, f"Ошибка чтения: {e}")
+
+        context = {
+            "title": _("Редактирование error.log"),
+            "opts": self.model._meta,
+            "log_info": log_info,
+            "file_content": file_content,
+            "log_file_path": log_file_path,
+        }
+        return render(request, "admin/main/edit_error_log_file.html", context)

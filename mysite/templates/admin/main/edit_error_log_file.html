@@ -1,0 +1,117 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    .log-edit-container {
+        padding: 20px;
+    }
+    .file-info {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+    }
+    .dark-mode .file-info {
+        background: #2d2d2d;
+        border-color: #444;
+        color: #eee;
+    }
+    .edit-area {
+        width: 100%;
+        height: 600px;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 14px;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        background: #fff;
+        color: #212529;
+        resize: vertical;
+    }
+    .dark-mode .edit-area {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        border-color: #333;
+    }
+    .btn-group {
+        margin-top: 20px;
+        display: flex;
+        gap: 15px;
+    }
+    .btn-save {
+        padding: 10px 25px;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .btn-save:hover { background: #218838; }
+    
+    .btn-custom {
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .btn-back { background: #6c757d; }
+    .btn-custom:hover { opacity: 0.9; color: white; }
+    
+    .path-label {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="log-edit-container">
+    <div class="mb-4">
+        <a href="{% url 'admin:main_errorlog_view' %}" class="btn-custom btn-back">
+            <i class="fas fa-arrow-left"></i> {% trans "Назад к статистике" %}
+        </a>
+    </div>
+
+    <h1>{{ title }}</h1>
+
+    <div class="file-info">
+        <div class="row">
+            <div class="col-md-4">
+                <strong>{% trans "Размер" %}:</strong> {{ log_info.file_size_human }}
+            </div>
+            <div class="col-md-4">
+                <strong>{% trans "Строк" %}:</strong> {{ log_info.total_lines }}
+            </div>
+            <div class="col-md-4">
+                <strong>{% trans "Изменен" %}:</strong> {{ log_info.last_modified|date:"d.m.Y H:i:s" }}
+            </div>
+        </div>
+        <div class="path-label">
+            <strong>{% trans "Путь" %}:</strong> {{ log_file_path }}
+        </div>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="content" class="edit-area">{{ file_content }}</textarea>
+        
+        <div class="btn-group">
+            <button type="submit" class="btn-save">
+                <i class="fas fa-save"></i> {% trans "Сохранить изменения" %}
+            </button>
+            <p class="text-muted small align-self-center mb-0">
+                <i class="fas fa-info-circle"></i> {% trans "Перед сохранением будет автоматически создана резервная копия." %}
+            </p>
+        </div>
+    </form>
+</div>
+{% endblock %}
