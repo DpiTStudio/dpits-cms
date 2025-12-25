@@ -4,224 +4,412 @@
 {% block extrastyle %}
 {{ block.super }}
 <style>
+    :root {
+        --primary-gradient: linear-gradient(135deg, #007bff, #00c9ff);
+        --purple-gradient: linear-gradient(135deg, #6610f2, #6f42c1);
+        --orange-gradient: linear-gradient(135deg, #fd7e14, #ffc107);
+        --card-bg: #ffffff;
+        --card-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+        --card-hover-shadow: 0 18px 35px rgba(15, 23, 42, 0.15);
+        --text-muted: #64748b;
+        --text-dark: #1e293b;
+    }
+
     .dashboard-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
     }
 
     .dashboard-title {
-        font-size: 1.7rem;
-        font-weight: 600;
+        font-size: 1.8rem;
+        font-weight: 700;
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 1rem;
+        color: var(--text-dark);
     }
 
     .dashboard-title-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, #007bff, #00c9ff);
+        background: var(--primary-gradient);
         color: #fff;
-        font-size: 18px;
-        box-shadow: 0 6px 16px rgba(0, 123, 255, 0.45);
+        font-size: 20px;
+        box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
     }
 
     .dashboard-subtitle {
-        margin: 0;
-        font-size: 0.9rem;
-        color: #6c757d;
+        margin: 0.5rem 0 0;
+        font-size: 0.95rem;
+        color: var(--text-muted);
     }
 
+    /* Stat Cards */
     .stat-card {
         position: relative;
         overflow: hidden;
         border: none;
-        border-radius: 0.85rem;
-        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.22);
-        transform: translateY(0);
-        transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-    }
-
-    .stat-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        opacity: 0.14;
-        background-image: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.65), transparent 58%),
-            radial-gradient(circle at 100% 100%, rgba(15, 23, 42, 0.45), transparent 60%);
-        pointer-events: none;
+        border-radius: 1rem;
+        box-shadow: var(--card-shadow);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: var(--card-bg);
     }
 
     .stat-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 18px 35px rgba(15, 23, 42, 0.38);
+        transform: translateY(-5px);
+        box-shadow: var(--card-hover-shadow);
     }
 
     .stat-card .card-body {
         position: relative;
         z-index: 1;
+        padding: 1.5rem;
+    }
+
+    /* Cards colorful backgrounds for top stats */
+    .stat-card.bg-primary { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+    .stat-card.bg-info { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+    .stat-card.bg-success { background: linear-gradient(135deg, #22c55e, #16a34a); }
+    .stat-card.bg-warning { background: linear-gradient(135deg, #f59e0b, #d97706);  color: white !important;}
+    .stat-card.bg-secondary { background: linear-gradient(135deg, #64748b, #475569); }
+    .stat-card.bg-danger { background: linear-gradient(135deg, #ef4444, #dc2626); }
+    .stat-card.bg-dark { background: linear-gradient(135deg, #1e293b, #0f172a); }
+
+    .stat-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.2), transparent 50%),
+                          radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.1), transparent 50%);
+        pointer-events: none;
     }
 
     .stat-label {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
-        opacity: 0.8;
-        margin-bottom: 0.25rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        opacity: 0.9;
+        margin-bottom: 0.5rem;
     }
 
     .stat-value {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 0.2rem;
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        line-height: 1;
     }
 
     .stat-muted {
-        font-size: 0.9rem;
-        opacity: 0.9;
+        font-size: 0.85rem;
+        opacity: 0.85;
     }
 
     .stat-icon-pill {
         position: absolute;
-        right: 0.9rem;
-        top: 0.9rem;
-        width: 38px;
-        height: 38px;
-        border-radius: 999px;
+        right: 1rem;
+        top: 1rem;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(15, 23, 42, 0.18);
+        background: rgba(255, 255, 255, 0.2);
         color: #fff;
-        font-size: 18px;
-    }
-
-    .stat-delta {
-        font-size: 0.8rem;
-        margin-top: 0.25rem;
-    }
-
-    .stat-delta-up {
-        color: #22c55e;
-    }
-
-    .stat-delta-down {
-        color: #ef4444;
+        font-size: 20px;
+        backdrop-filter: blur(4px);
     }
 
     .stat-progress {
-        height: 5px;
+        height: 6px;
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.2);
         overflow: hidden;
-        margin-top: 0.65rem;
+        margin-top: 1rem;
     }
 
     .stat-progress-bar {
         height: 100%;
         border-radius: inherit;
-        background: linear-gradient(90deg, #a3e635, #22c55e, #16a34a);
+        background: rgba(255, 255, 255, 0.9);
         width: 0;
     }
 
-    .logs-card h5 {
+    /* Section Headers */
+    .section-header {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 1rem;
+        margin: 2.5rem 0 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e2e8f0;
     }
 
-    .log-actions {
-        margin-top: 1rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
+    .section-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin: 0;
     }
 
-    .log-actions .btn {
-        border-radius: 999px;
-        padding-inline: 0.9rem;
-        font-size: 0.8rem;
-    }
-
-    .logs-pill {
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        padding: 0.1rem 0.45rem;
-        border-radius: 999px;
-        background: rgba(15, 23, 42, 0.06);
-        color: #64748b;
-    }
-
+    /* Data Management Cards */
     .admin-apps-card {
-        border-radius: 0.8rem;
-        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.2);
-        border: none;
+        border-radius: 1rem;
+        box-shadow: var(--card-shadow);
+        border: 1px solid #f1f5f9;
+        height: 100%;
+        transition: all 0.3s ease;
+        background: #fff;
     }
 
-    .admin-apps-card h5 {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
+    .admin-apps-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--card-hover-shadow);
+        border-color: #e2e8f0;
     }
 
-    .admin-apps-card ul li+li {
-        margin-top: 0.1rem;
+    .app-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #f1f5f9;
     }
 
-    .admin-apps-card a {
+    .app-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .app-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: #f8fafc;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+
+    .app-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        background: #f1f5f9;
+        color: #64748b;
+        font-weight: 600;
+    }
+
+    .model-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .model-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.6rem 0.5rem;
+        border-radius: 0.5rem;
+        transition: background 0.2s;
+        color: var(--text-dark);
         text-decoration: none;
     }
 
-    .admin-apps-card a:hover {
-        text-decoration: underline;
+    .model-item:hover {
+        background: #f8fafc;
+        text-decoration: none;
+        color: var(--text-dark);
     }
 
-    .stat-badge-dot {
-        display: inline-block;
+    .model-link {
+        color: var(--text-dark);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        flex-grow: 1;
+    }
+
+    .model-link:hover {
+        color: #2563eb;
+    }
+    
+    .model-actions a {
+        color: #94a3b8;
+        padding: 4px;
+        transition: color 0.2s;
+    }
+    .model-actions a:hover {
+        color: #22c55e;
+    }
+
+    /* Logs Section */
+    .logs-card {
+        border-radius: 1rem;
+        box-shadow: var(--card-shadow);
+        border: none;
+        background: #fff;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .logs-card:hover {
+        box-shadow: var(--card-hover-shadow);
+    }
+
+    .logs-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+    }
+
+    .logs-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .log-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        background: #f8fafc;
+        padding: 1rem;
+        border-radius: 0.75rem;
+    }
+
+    .log-stat-item strong {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        margin-bottom: 0.2rem;
+    }
+
+    .log-stat-item span {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .log-distribution {
+        margin-bottom: 1.5rem;
+    }
+
+    .log-dist-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .log-bars {
+        display: flex;
+        height: 8px;
+        border-radius: 999px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+        background: #e2e8f0;
+    }
+
+    .log-bar {
+        height: 100%;
+        transition: width 0.5s ease;
+    }
+
+    .log-bar.error { background: #ef4444; }
+    .log-bar.warning { background: #f97316; }
+    .log-bar.info { background: #3b82f6; }
+    .log-bar.debug { background: #22c55e; }
+
+    .log-legend {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.75rem;
+        flex-wrap: wrap;
+    }
+    
+    .log-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        color: var(--text-muted);
+    }
+
+    .log-legend-dot {
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        margin-right: 4px;
     }
 
-    .stat-badge-dot.error {
-        background: #ef4444;
+    .log-actions {
+        display: flex;
+        gap: 0.5rem;
+        border-top: 1px solid #f1f5f9;
+        padding-top: 1rem;
     }
 
-    .stat-badge-dot.warning {
-        background: #f97316;
+    .btn-log-action {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s;
+        flex: 1;
+        justify-content: center;
+        font-weight: 500;
     }
 
-    .stat-badge-dot.info {
-        background: #0ea5e9;
-    }
+    .btn-log-view { background: #f0f9ff; color: #0284c7; border: none; }
+    .btn-log-view:hover { background: #e0f2fe; color: #0369a1; }
 
-    .stat-badge-dot.debug {
-        background: #22c55e;
-    }
+    .btn-log-edit { background: #f8fafc; color: #475569; border: none; }
+    .btn-log-edit:hover { background: #f1f5f9; color: #334155; }
 
-    .countup {
-        opacity: 0;
-    }
+    .btn-log-clear { background: #fef2f2; color: #dc2626; border: none; }
+    .btn-log-clear:hover { background: #fee2e2; color: #b91c1c; }
 
     @media (max-width: 767.98px) {
         .dashboard-header {
             flex-direction: column;
             align-items: flex-start;
         }
+        .log-stats-grid {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div id="content-main" class="container-fluid">
+<div id="content-main" class="container-fluid p-4">
     <div class="dashboard-header">
         <div>
             <div class="dashboard-title">
@@ -237,9 +425,9 @@
     </div>
 
     {% if admin_stats %}
-    <div class="row">
+    <div class="row g-4">
         <!-- Пользователи -->
-        <div class="col-md-3 col-sm-6 mb-3">
+        <div class="col-xl-3 col-md-6">
             <div class="card stat-card bg-primary text-white h-100">
                 <div class="card-body">
                     <div class="stat-icon-pill">
@@ -259,7 +447,7 @@
         </div>
 
         <!-- Новости -->
-        <div class="col-md-3 col-sm-6 mb-3">
+        <div class="col-xl-3 col-md-6">
             <div class="card stat-card bg-info text-white h-100">
                 <div class="card-body">
                     <div class="stat-icon-pill">
@@ -278,7 +466,7 @@
         </div>
 
         <!-- Портфолио -->
-        <div class="col-md-3 col-sm-6 mb-3">
+        <div class="col-xl-3 col-md-6">
             <div class="card stat-card bg-success text-white h-100">
                 <div class="card-body">
                     <div class="stat-icon-pill">
@@ -298,8 +486,8 @@
         </div>
 
         <!-- Заказы -->
-        <div class="col-md-3 col-sm-6 mb-3">
-            <div class="card stat-card bg-warning text-dark h-100">
+        <div class="col-xl-3 col-md-6">
+            <div class="card stat-card bg-warning text-white h-100">
                 <div class="card-body">
                     <div class="stat-icon-pill">
                         <i class="fas fa-tasks"></i>
@@ -307,7 +495,7 @@
                     <div class="stat-label">{% trans "Заказы" %}</div>
                     <div class="stat-value countup" data-count="{{ admin_stats.portfolio.orders }}">0</div>
                     <div class="stat-muted">
-                        {% trans "Проекты клиентов и статус выполнения." %}
+                        {% trans "Проекты клиентов" %}
                     </div>
                     <div class="stat-progress">
                         <div class="stat-progress-bar" data-progress="58"></div>
@@ -315,11 +503,9 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row mt-3">
         <!-- Отзывы -->
-        <div class="col-md-4 col-sm-6 mb-3">
+        <div class="col-xl-4 col-md-6">
             <div class="card stat-card bg-secondary text-white h-100">
                 <div class="card-body">
                     <div class="stat-icon-pill">
@@ -339,7 +525,7 @@
         </div>
 
         <!-- Обратная связь -->
-        <div class="col-md-4 col-sm-6 mb-3">
+        <div class="col-xl-4 col-md-6">
             <div class="card stat-card bg-danger text-white h-100">
                 <div class="card-body">
                     <div class="stat-icon-pill">
@@ -358,7 +544,7 @@
         </div>
 
         <!-- Тикеты поддержки -->
-        <div class="col-md-4 col-sm-6 mb-3">
+        <div class="col-xl-4 col-md-6">
             <div class="card stat-card bg-dark text-white h-100">
                 <div class="card-body">
                     <div class="stat-icon-pill">
@@ -377,52 +563,53 @@
             </div>
         </div>
     </div>
-
     {% endif %}
 
     <!-- Список приложений админки -->
     {% if app_list %}
-    <hr class="mt-4 mb-3" />
-    <h2 class="mb-4 d-flex align-items-center gap-3">
-        <span class="dashboard-title-icon" style="background: linear-gradient(135deg, #6610f2, #6f42c1);">
+    <div class="section-header">
+        <div class="dashboard-title-icon" style="background: var(--purple-gradient);">
             <i class="fas fa-database"></i>
-        </span>
-        <span>{% trans "Управление данными" %}</span>
-    </h2>
-    <div class="row">
+        </div>
+        <h2 class="section-title">{% trans "Управление данными" %}</h2>
+    </div>
+
+    <div class="row g-4">
         {% for app in app_list %}
-        <div class="col-lg-4 col-md-6 mb-3">
-            <div class="card admin-apps-card h-100">
+        <div class="col-lg-4 col-md-6">
+            <div class="card admin-apps-card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <div class="d-flex align-items-center gap-2">
-                            <div class="dashboard-title-icon"
-                                style="width:32px;height:32px;font-size:14px;box-shadow:none;">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <h5 class="card-title mb-0">{{ app.name }}</h5>
+                    <div class="app-header">
+                        <div class="app-title">
+                            <span class="app-icon"><i class="fas fa-layer-group"></i></span>
+                            {{ app.name }}
                         </div>
-                        <span class="badge bg-light text-muted">
-                            <i class="fas fa-table me-1"></i>
-                            {{ app.models|length }}
+                        <span class="app-badge">
+                            {{ app.models|length }} {% trans "мод." %}
                         </span>
                     </div>
-                    <ul class="list-unstyled mb-0 small">
+                    <ul class="model-list">
                         {% for model in app.models %}
-                        <li class="d-flex align-items-center justify-content-between py-1">
-                            <div>
-                                <i class="fas fa-angle-right text-muted me-1"></i>
-                                {% if model.admin_url %}
-                                <a href="{{ model.admin_url }}">{{ model.name }}</a>
-                                {% else %}
+                        <li class="model-item">
+                            {% if model.admin_url %}
+                            <a href="{{ model.admin_url }}" class="model-link">
+                                <i class="fas fa-angle-right text-muted"></i>
                                 {{ model.name }}
+                            </a>
+                            {% else %}
+                            <span class="model-link text-muted">
+                                <i class="fas fa-angle-right"></i>
+                                {{ model.name }}
+                            </span>
+                            {% endif %}
+
+                            <div class="model-actions">
+                                {% if model.add_url %}
+                                <a href="{{ model.add_url }}" title="{% trans 'Добавить' %}">
+                                    <i class="fas fa-plus-circle"></i>
+                                </a>
                                 {% endif %}
                             </div>
-                            {% if model.add_url %}
-                            <a href="{{ model.add_url }}" class="text-muted" title="{% trans 'Добавить' %}">
-                                <i class="fas fa-plus-circle"></i>
-                            </a>
-                            {% endif %}
                         </li>
                         {% endfor %}
                     </ul>
@@ -434,58 +621,81 @@
     {% endif %}
 
     {% if admin_stats %}
-    <hr class="mt-4 mb-3" />
-    <h2 class="mb-4 d-flex align-items-center gap-3">
-        <span class="dashboard-title-icon" style="background: linear-gradient(135deg, #fd7e14, #ffc107);">
+    <div class="section-header">
+        <div class="dashboard-title-icon" style="background: var(--orange-gradient);">
             <i class="fas fa-terminal"></i>
-        </span>
-        <span>{% trans "Системные логи" %}</span>
-    </h2>
+        </div>
+        <h2 class="section-title">{% trans "Системные логи" %}</h2>
+    </div>
 
-    <div class="row">
+    <div class="row g-4">
         <!-- Логи debug.log -->
-        <div class="col-md-6 mb-3">
-            <div class="card logs-card h-100">
+        <div class="col-md-6">
+            <div class="card logs-card">
                 <div class="card-body">
-                    <h5 class="card-title mb-3">
-                        <i class="fas fa-bug text-danger"></i>
-                        {% trans "Логи (debug.log)" %}
-                        <span class="logs-pill">{% trans "Приложение" %}</span>
-                    </h5>
+                    <div class="logs-header">
+                        <h5 class="logs-title">
+                            <i class="fas fa-bug text-danger"></i>
+                            {% trans "Логи отладки" %} (debug.log)
+                        </h5>
+                        <span class="app-badge bg-light">{% trans "Приложение" %}</span>
+                    </div>
+
                     {% if admin_stats.logs.debug %}
-                    <p class="mb-1">
-                        <strong>{% trans "Размер" %}:</strong> {{ admin_stats.logs.debug.file_size_human }}
-                    </p>
-                    <p class="mb-1">
-                        <strong>{% trans "Строк" %}:</strong> {{ admin_stats.logs.debug.total_lines }}
-                    </p>
-                    <p class="mb-0">
-                        <strong>{% trans "Категории" %}:</strong>
-                        <span class="stat-badge-dot error"></span>ERROR: {{ admin_stats.logs.debug.categories.ERROR }},
-                        <span class="stat-badge-dot warning"></span>WARNING:
-                        {{ admin_stats.logs.debug.categories.WARNING }},
-                        <span class="stat-badge-dot info"></span>INFO:
-                        {{ admin_stats.logs.debug.categories.INFO }},
-                        <span class="stat-badge-dot debug"></span>DEBUG:
-                        {{ admin_stats.logs.debug.categories.DEBUG }}
-                    </p>
+                    <div class="log-stats-grid">
+                        <div class="log-stat-item">
+                            <strong>{% trans "Размер" %}</strong>
+                            <span>{{ admin_stats.logs.debug.file_size_human }}</span>
+                        </div>
+                        <div class="log-stat-item">
+                            <strong>{% trans "Строк" %}</strong>
+                            <span>{{ admin_stats.logs.debug.total_lines }}</span>
+                        </div>
+                    </div>
+
+                    <div class="log-distribution">
+                        <span class="log-dist-label">{% trans "Распределение событий" %}</span>
+                        <div class="log-bars">
+                            {% widthratio admin_stats.logs.debug.categories.ERROR admin_stats.logs.debug.total_lines 100 as error_pct %}
+                            <div class="log-bar error" style="width: {{ error_pct }}%" title="ERROR: {{ admin_stats.logs.debug.categories.ERROR }}"></div>
+                            
+                            {% widthratio admin_stats.logs.debug.categories.WARNING admin_stats.logs.debug.total_lines 100 as warn_pct %}
+                            <div class="log-bar warning" style="width: {{ warn_pct }}%" title="WARNING: {{ admin_stats.logs.debug.categories.WARNING }}"></div>
+                            
+                            {% widthratio admin_stats.logs.debug.categories.INFO admin_stats.logs.debug.total_lines 100 as info_pct %}
+                            <div class="log-bar info" style="width: {{ info_pct }}%" title="INFO: {{ admin_stats.logs.debug.categories.INFO }}"></div>
+                            
+                            <div class="log-bar debug" style="flex: 1;" title="DEBUG: {{ admin_stats.logs.debug.categories.DEBUG }}"></div>
+                        </div>
+                        <div class="log-legend">
+                            <div class="log-legend-item">
+                                <span class="log-legend-dot" style="background: #ef4444;"></span>
+                                Err: {{ admin_stats.logs.debug.categories.ERROR }}
+                            </div>
+                            <div class="log-legend-item">
+                                <span class="log-legend-dot" style="background: #f97316;"></span>
+                                Warn: {{ admin_stats.logs.debug.categories.WARNING }}
+                            </div>
+                            <div class="log-legend-item">
+                                <span class="log-legend-dot" style="background: #3b82f6;"></span>
+                                Info: {{ admin_stats.logs.debug.categories.INFO }}
+                            </div>
+                        </div>
+                    </div>
                     {% else %}
-                    <p class="text-muted mb-0">{% trans "Информация о debug.log недоступна" %}</p>
+                    <p class="text-muted text-center py-4">{% trans "Информация о debug.log недоступна" %}</p>
                     {% endif %}
 
                     <div class="log-actions">
-                        <a href="{% url 'admin:main_logstats_view' %}" class="btn btn-sm btn-outline-primary">
-                            <i class="fas fa-chart-bar me-1"></i>
-                            {% trans "Статистика" %}
+                        <a href="{% url 'admin:main_logstats_view' %}" class="btn-log-action btn-log-view">
+                            <i class="fas fa-chart-pie"></i> {% trans "Анализ" %}
                         </a>
-                        <a href="{% url 'admin:main_logstats_edit' %}" class="btn btn-sm btn-outline-secondary">
-                            <i class="fas fa-pen me-1"></i>
-                            {% trans "Редактировать" %}
+                        <a href="{% url 'admin:main_logstats_edit' %}" class="btn-log-action btn-log-edit shadow-sm">
+                            <i class="fas fa-edit"></i> {% trans "Правка" %}
                         </a>
-                        <a href="{% url 'admin:main_logstats_clear' %}" class="btn btn-sm btn-outline-danger"
+                        <a href="{% url 'admin:main_logstats_clear' %}" class="btn-log-action btn-log-clear"
                             onclick="return confirm('{% trans 'Вы уверены, что хотите очистить debug.log?' %}');">
-                            <i class="fas fa-trash me-1"></i>
-                            {% trans "Очистить" %}
+                            <i class="fas fa-trash-alt"></i> {% trans "Сброс" %}
                         </a>
                     </div>
                 </div>
@@ -493,72 +703,64 @@
         </div>
 
         <!-- Логи error.log -->
-        <div class="col-md-6 mb-3">
-            <div class="card logs-card h-100">
+        <div class="col-md-6">
+            <div class="card logs-card">
                 <div class="card-body">
-                    <h5 class="card-title mb-3">
-                        <i class="fas fa-exclamation-triangle text-warning"></i>
-                        {% trans "Логи (error.log)" %}
-                        <span class="logs-pill">{% trans "Ошибки" %}</span>
-                    </h5>
+                    <div class="logs-header">
+                        <h5 class="logs-title">
+                            <i class="fas fa-exclamation-triangle text-warning"></i>
+                            {% trans "Логи ошибок" %} (error.log)
+                        </h5>
+                        <span class="app-badge bg-light">{% trans "Сервер" %}</span>
+                    </div>
+
                     {% if admin_stats.logs.error %}
-                    <p class="mb-1">
-                        <strong>{% trans "Размер" %}:</strong> {{ admin_stats.logs.error.file_size_human }}
-                    </p>
-                    <p class="mb-1">
-                        <strong>{% trans "Строк" %}:</strong> {{ admin_stats.logs.error.total_lines }}
-                    </p>
-                    <p class="mb-0">
-                        <strong>{% trans "Категории" %}:</strong>
-                        <span class="stat-badge-dot error"></span>ERROR: {{ admin_stats.logs.error.categories.ERROR }},
-                        <span class="stat-badge-dot warning"></span>WARNING:
-                        {{ admin_stats.logs.error.categories.WARNING }},
-                        <span class="stat-badge-dot info"></span>INFO:
-                        {{ admin_stats.logs.error.categories.INFO }},
-                        <span class="stat-badge-dot debug"></span>DEBUG:
-                        {{ admin_stats.logs.error.categories.DEBUG }}
-                    </p>
+                    <div class="log-stats-grid">
+                        <div class="log-stat-item">
+                            <strong>{% trans "Размер" %}</strong>
+                            <span>{{ admin_stats.logs.error.file_size_human }}</span>
+                        </div>
+                        <div class="log-stat-item">
+                            <strong>{% trans "Строк" %}</strong>
+                            <span>{{ admin_stats.logs.error.total_lines }}</span>
+                        </div>
+                    </div>
+
+                    <div class="log-distribution">
+                        <span class="log-dist-label">{% trans "Категории ошибок" %}</span>
+                        <div class="log-bars">
+                             {% widthratio admin_stats.logs.error.categories.ERROR admin_stats.logs.error.total_lines 100 as err_e_pct %}
+                            <div class="log-bar error" style="width: {{ err_e_pct }}%"></div>
+                            
+                            {% widthratio admin_stats.logs.error.categories.WARNING admin_stats.logs.error.total_lines 100 as err_w_pct %}
+                            <div class="log-bar warning" style="width: {{ err_w_pct }}%"></div>
+                            
+                            <div class="log-bar info" style="flex:1; opacity: 0.1; background: #cbd5e1;"></div>
+                        </div>
+                        <div class="log-legend">
+                            <div class="log-legend-item">
+                                <span class="log-legend-dot" style="background: #ef4444;"></span>
+                                Error: {{ admin_stats.logs.error.categories.ERROR }}
+                            </div>
+                            <div class="log-legend-item">
+                                <span class="log-legend-dot" style="background: #f97316;"></span>
+                                Warning: {{ admin_stats.logs.error.categories.WARNING }}
+                            </div>
+                        </div>
+                    </div>
                     {% else %}
-                    <p class="text-muted mb-0">{% trans "Информация об error.log недоступна" %}</p>
+                    <p class="text-muted text-center py-4">{% trans "Информация об error.log недоступна" %}</p>
                     {% endif %}
 
                     <div class="log-actions">
-                        <a href="/error-log/" class="btn btn-sm btn-outline-primary">
-                            <i class="fas fa-external-link-alt me-1"></i>
-                            {% trans "Открыть лог" %}
+                        <a href="/error-log/" target="_blank" class="btn-log-action btn-log-view" style="flex: 1;">
+                            <i class="fas fa-external-link-alt"></i> {% trans "Открыть в новом окне" %}
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    {% if admin_stats.logs.last_stats %}
-    <div class="row mt-2">
-        <div class="col-12 mb-3">
-            <div class="card logs-card h-100">
-                <div class="card-body">
-                    <h5 class="card-title mb-3">
-                        <i class="fas fa-history text-muted"></i>
-                        {% trans "Последняя запись статистики логов" %}
-                    </h5>
-                    <p class="mb-1">
-                        <strong>{% trans "Дата" %}:</strong> {{ admin_stats.logs.last_stats.log_date }}
-                    </p>
-                    <p class="mb-1">
-                        <strong>{% trans "Всего строк" %}:</strong> {{ admin_stats.logs.last_stats.total_lines }}
-                    </p>
-                    <p class="mb-0">
-                        <strong>{% trans "ERROR" %}:</strong> {{ admin_stats.logs.last_stats.error_count }},
-                        <strong>{% trans "WARNING" %}:</strong> {{ admin_stats.logs.last_stats.warning_count }},
-                        <strong>{% trans "INFO" %}:</strong> {{ admin_stats.logs.last_stats.info_count }},
-                        <strong>{% trans "DEBUG" %}:</strong> {{ admin_stats.logs.last_stats.debug_count }}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
     {% endif %}
 </div>
 {% endblock %}
@@ -573,13 +775,16 @@
                 el.style.opacity = 1;
                 return;
             }
-            var duration = 900;
+            var duration = 1200;
             var start = 0;
             var startTime = null;
 
             function step(timestamp) {
                 if (!startTime) startTime = timestamp;
                 var progress = Math.min((timestamp - startTime) / duration, 1);
+                // Ease out quart
+                progress = 1 - Math.pow(1 - progress, 4);
+                
                 var value = Math.floor(progress * target);
                 el.textContent = value.toLocaleString("ru-RU");
                 if (progress < 1) {
@@ -596,19 +801,25 @@
         function animateProgress(bar) {
             var value = parseInt(bar.getAttribute("data-progress") || "0", 10);
             if (isNaN(value)) return;
-            bar.style.transition = "width 0.9s ease-out";
+            bar.style.transition = "width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)";
             bar.style.width = value + "%";
         }
 
         document.addEventListener("DOMContentLoaded", function () {
+            // Animate numbers
             var counters = document.querySelectorAll(".countup");
             counters.forEach(animateCount);
 
+            // Animate main progress bars
             var bars = document.querySelectorAll(".stat-progress-bar");
-            // Небольшая задержка, чтобы анимация выглядела плавнее
             setTimeout(function () {
                 bars.forEach(animateProgress);
-            }, 150);
+            }, 300);
+
+            // Animate log distribution bars
+            // We set their width via inline style in HTML, so they animate by default transition in CSS
+            // if we wanted to animate them from 0 we would need to set width=0 first then to value.
+            // For now CSS transition handles it if the element renders.
         });
     })();
 </script>
