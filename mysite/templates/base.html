@@ -149,6 +149,18 @@
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
     <!-- Мобильные стили (должен быть самым последним) -->
     <link rel="stylesheet" href="{% static 'css/mobile.css' %}" />
+    <!-- Темная тема -->
+    <link rel="stylesheet" href="{% static 'css/dark-mode.css' %}" />
+    <!-- Индикатор прогресса чтения -->
+    <link rel="stylesheet" href="{% static 'css/reading-progress.css' %}" />
+    <!-- Хлебные крошки -->
+    <link rel="stylesheet" href="{% static 'css/breadcrumbs.css' %}" />
+    <!-- Социальный шаринг -->
+    <link rel="stylesheet" href="{% static 'css/social-share.css' %}" />
+    <!-- Поиск -->
+    <link rel="stylesheet" href="{% static 'css/search.css' %}" />
+    <!-- Улучшенные формы -->
+    <link rel="stylesheet" href="{% static 'css/forms-enhanced.css' %}" />
 
     <!-- Блок для дополнительных элементов в head (переопределяется в дочерних шаблонах) -->
     {% block extra_head %}{% endblock %}
@@ -159,6 +171,9 @@
   <!-- Тело документа с flexbox макетом для прижатия футера к низу -->
 
   <body class="d-flex flex-column min-vh-100">
+    <!-- Индикатор прогресса чтения -->
+    <div class="reading-progress" id="readingProgress"></div>
+    
     <!-- Блок шапки сайта (переопределяется в дочерних шаблонах) -->
     {% block header %}
     <!-- Подключение шаблона шапки -->
@@ -210,6 +225,18 @@
     <!-- Подключение JavaScript библиотек -->
     <!-- Bootstrap 5 JavaScript bundle из CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Переключение темы -->
+    <script src="{% static 'js/theme-toggle.js' %}"></script>
+    <!-- Индикатор прогресса чтения -->
+    <script src="{% static 'js/reading-progress.js' %}"></script>
+    <!-- Социальный шаринг -->
+    <script src="{% static 'js/social-share.js' %}"></script>
+    <!-- Поиск -->
+    <script src="{% static 'js/search.js' %}"></script>
+    <!-- Ленивая загрузка изображений -->
+    <script src="{% static 'js/lazy-loading.js' %}"></script>
+    <!-- Мобильные улучшения -->
+    <script src="{% static 'js/mobile-enhancements.js' %}"></script>
     <!-- Пользовательский JavaScript файл -->
     <script src="{% static 'js/main.js' %}"></script>
 

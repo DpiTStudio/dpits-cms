@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "main.apps.MainConfig",  # Главное приложение
     "news.apps.NewsConfig",  # Новости
     "portfolio.apps.PortfolioConfig",  # Портфолио
+    "services.apps.ServicesConfig",  # Услуги
     "reviews.apps.ReviewsConfig",  # Отзывы
     "accounts.apps.AccountsConfig",  # Аккаунты пользователей
     "feedback.apps.FeedbackConfig",  # Обратная связь
@@ -247,6 +248,7 @@ JAZZMIN_SETTINGS = {
         "main",
         "news",
         "portfolio",
+        "services",
         "reviews",
         "accounts",
         "feedback",
@@ -307,6 +309,7 @@ JAZZMIN_SETTINGS = {
         },
         {"app": "news", "label": "Новости", "icon": "fas fa-newspaper"},
         {"app": "portfolio", "label": "Портфолио", "icon": "fas fa-briefcase"},
+        {"app": "services", "label": "Услуги", "icon": "fas fa-concierge-bell"},
         {"app": "reviews", "label": "Отзывы", "icon": "fas fa-star"},
         {"app": "accounts", "label": "Учетные записи", "icon": "fas fa-users"},
         {"app": "feedback", "label": "Обратная связь", "icon": "fas fa-envelope"},

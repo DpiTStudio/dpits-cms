@@ -70,7 +70,21 @@
                 </ul>
 
                 <!-- Контейнер для элементов авторизации с flexbox выравниванием по центру -->
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Поиск -->
+                    <div class="search-container d-none d-md-block">
+                        <input type="text" class="form-control search-input" placeholder="Поиск..." aria-label="Поиск по сайту">
+                        <button class="search-button" type="button" aria-label="Найти">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Переключатель темы -->
+                    <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему" title="Переключить тему">
+                        <i class="fas fa-sun theme-toggle-icon"></i>
+                        <i class="fas fa-moon theme-toggle-icon"></i>
+                    </button>
+                    
                     <!-- Условная проверка авторизации пользователя -->
                     {% if user.is_authenticated %}
                     <!-- Выпадающее меню для авторизованного пользователя -->

@@ -1,0 +1,36 @@
+<!-- ============================================
+     ФАЙЛ: breadcrumbs.html
+     ОПИСАНИЕ: Компонент хлебных крошек для навигации
+     ============================================ -->
+
+{% load static %}
+
+{% block breadcrumbs %}
+{% if breadcrumbs %}
+<nav aria-label="breadcrumb" class="breadcrumbs">
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'main:index' %}">
+                    <i class="fas fa-home"></i>
+                    <span>Главная</span>
+                </a>
+            </li>
+            {% for crumb in breadcrumbs %}
+            <li class="breadcrumb-item {% if forloop.last %}active{% endif %}">
+                {% if not forloop.last %}
+                <a href="{{ crumb.url }}">
+                    {% if crumb.icon %}<i class="{{ crumb.icon }}"></i>{% endif %}
+                    <span>{{ crumb.title }}</span>
+                </a>
+                {% else %}
+                {% if crumb.icon %}<i class="{{ crumb.icon }}"></i>{% endif %}
+                <span>{{ crumb.title }}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</nav>
+{% endif %}
+{% endblock %}

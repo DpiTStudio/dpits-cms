@@ -1,0 +1,197 @@
+/* ============================================
+   ФАЙЛ: search.css
+   ОПИСАНИЕ: Стили для поиска по сайту
+   ============================================ */
+
+/* Контейнер поиска */
+.search-container {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Поле поиска */
+.search-input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) var(--spacing-md);
+    border: 2px solid var(--neutral-300);
+    border-radius: var(--border-radius-lg);
+    font-size: var(--font-size-base);
+    transition: var(--transition);
+    background-color: var(--text-white);
+    padding-right: 45px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+[data-theme="dark"] .search-input {
+    background-color: var(--bg-secondary);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-color);
+}
+
+/* Кнопка поиска */
+.search-button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: var(--border-radius);
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.search-button:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--box-shadow-md);
+}
+
+/* Выпадающий список результатов */
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--text-white);
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-lg);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: var(--z-index-dropdown);
+    margin-top: var(--spacing-xs);
+    display: none;
+}
+
+[data-theme="dark"] .search-results {
+    background: var(--bg-card);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.search-results.active {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Элемент результата */
+.search-result-item {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--neutral-200);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+}
+
+[data-theme="dark"] .search-result-item {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background-color: var(--light-color);
+}
+
+[data-theme="dark"] .search-result-item:hover {
+    background-color: var(--bg-secondary);
+}
+
+/* Иконка результата */
+.search-result-icon {
+    color: var(--primary-color);
+    font-size: var(--font-size-lg);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* Контент результата */
+.search-result-content {
+    flex: 1;
+}
+
+.search-result-title {
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-color);
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-base);
+}
+
+.search-result-description {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+}
+
+/* Категория результата */
+.search-result-category {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    margin-top: var(--spacing-xs);
+}
+
+/* Сообщение "ничего не найдено" */
+.search-no-results {
+    padding: var(--spacing-xl);
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.search-no-results i {
+    font-size: 2rem;
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-md);
+    display: block;
+}
+
+/* Индикатор загрузки */
+.search-loading {
+    padding: var(--spacing-md);
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.search-loading .spinner {
+    margin: 0 auto;
+}
+
+/* Мобильная версия */
+@media (max-width: 768px) {
+    .search-container {
+        max-width: 100%;
+    }
+    
+    .search-results {
+        max-height: 300px;
+    }
+}

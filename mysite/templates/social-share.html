@@ -1,0 +1,27 @@
+<!-- ============================================
+     ФАЙЛ: social-share.html
+     ОПИСАНИЕ: Компонент социального шаринга
+     ============================================ -->
+
+{% load static %}
+
+{% block social_share %}
+<div class="social-share">
+    <span class="social-share-label">Поделиться:</span>
+    <a href="#" class="share-btn share-btn-vk" data-network="vk" aria-label="Поделиться ВКонтакте" title="Поделиться ВКонтакте">
+        <i class="fab fa-vk"></i>
+    </a>
+    <a href="#" class="share-btn share-btn-telegram" data-network="telegram" aria-label="Поделиться в Telegram" title="Поделиться в Telegram">
+        <i class="fab fa-telegram"></i>
+    </a>
+    <a href="#" class="share-btn share-btn-whatsapp" data-network="whatsapp" aria-label="Поделиться в WhatsApp" title="Поделиться в WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="#" class="share-btn share-btn-facebook" data-network="facebook" aria-label="Поделиться в Facebook" title="Поделиться в Facebook">
+        <i class="fab fa-facebook"></i>
+    </a>
+    <a href="#" class="share-btn share-btn-copy" data-network="copy" aria-label="Копировать ссылку" title="Копировать ссылку">
+        <i class="fas fa-copy"></i>
+    </a>
+</div>
+{% endblock %}
