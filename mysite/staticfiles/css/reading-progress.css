@@ -1,0 +1,38 @@
+/* ============================================
+   ФАЙЛ: reading-progress.css
+   ОПИСАНИЕ: Стили для индикатора прогресса чтения страницы
+   ============================================ */
+
+/* Контейнер индикатора прогресса */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--primary-gradient);
+    z-index: var(--z-index-fixed);
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+/* Анимация пульсации */
+.reading-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5));
+    animation: progressPulse 1.5s infinite;
+}
+
+@keyframes progressPulse {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}

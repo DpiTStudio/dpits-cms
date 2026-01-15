@@ -1,0 +1,203 @@
+/* ============================================
+   ФАЙЛ: dark-mode.css
+   ОПИСАНИЕ: Стили для темной темы сайта
+   ============================================ */
+
+/* Переменные для темной темы */
+:root[data-theme="dark"] {
+    /* Основные цвета */
+    --primary-color: #818cf8;
+    --primary-hover: #a5b4fc;
+    --primary-light: #c7d2fe;
+    --primary-dark: #6366f1;
+    
+    --secondary-color: #a78bfa;
+    --secondary-hover: #c4b5fd;
+    
+    --accent-color: #f472b6;
+    --accent-hover: #f9a8d4;
+    
+    /* Нейтральные цвета (инвертированы) */
+    --neutral-50: #171717;
+    --neutral-100: #262626;
+    --neutral-200: #404040;
+    --neutral-300: #525252;
+    --neutral-400: #737373;
+    --neutral-500: #a3a3a3;
+    --neutral-600: #d4d4d4;
+    --neutral-700: #e5e5e5;
+    --neutral-800: #f5f5f5;
+    --neutral-900: #fafafa;
+    
+    /* Устаревшие переменные */
+    --dark-color: #f8fafc;
+    --light-color: #1e293b;
+    
+    /* Цвета текста */
+    --text-color: #e2e8f0;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --text-white: #0f172a;
+    --text-footer: #334155;
+    
+    /* Фон */
+    --bg-color: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: #1e293b;
+}
+
+/* Переключатель темы */
+.theme-toggle {
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background: var(--neutral-300);
+    border-radius: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+}
+
+.theme-toggle::before {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    transition: var(--transition);
+    left: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: var(--primary-color);
+}
+
+[data-theme="dark"] .theme-toggle::before {
+    transform: translateX(24px);
+}
+
+.theme-toggle-icon {
+    position: absolute;
+    font-size: 14px;
+    transition: var(--transition);
+    opacity: 0;
+}
+
+.theme-toggle .fa-sun {
+    left: 6px;
+    color: #f59e0b;
+}
+
+.theme-toggle .fa-moon {
+    right: 6px;
+    color: #6366f1;
+}
+
+[data-theme="dark"] .theme-toggle .fa-moon {
+    opacity: 1;
+}
+
+[data-theme="light"] .theme-toggle .fa-sun,
+:root:not([data-theme]) .theme-toggle .fa-sun {
+    opacity: 1;
+}
+
+/* Применение темной темы к body */
+[data-theme="dark"] body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Карточки в темной теме */
+[data-theme="dark"] .card {
+    background-color: var(--bg-card);
+    color: var(--text-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .card-header {
+    background: var(--primary-gradient);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .card-title {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .card-text {
+    color: var(--text-secondary);
+}
+
+/* Формы в темной теме */
+[data-theme="dark"] .form-control {
+    background-color: var(--bg-secondary);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .form-control:focus {
+    background-color: var(--bg-secondary);
+    border-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .form-label {
+    color: var(--text-color);
+}
+
+/* Навигация в темной теме */
+[data-theme="dark"] header {
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Футер в темной теме */
+[data-theme="dark"] footer {
+    background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hero секция в темной теме */
+[data-theme="dark"] .hero-section {
+    background-blend-mode: overlay;
+}
+
+/* Алерты в темной теме */
+[data-theme="dark"] .alert {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left-color: currentColor;
+}
+
+/* Выпадающее меню в темной теме */
+[data-theme="dark"] .dropdown-menu {
+    background-color: var(--bg-card);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .dropdown-item {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    background-color: var(--bg-secondary);
+    color: var(--primary-color);
+}
+
+/* Таблицы в темной теме */
+[data-theme="dark"] table {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .table {
+    background-color: var(--bg-card);
+}
+
+[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
