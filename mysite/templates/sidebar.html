@@ -5,8 +5,8 @@
 
 <!-- Загрузка статических файлов Django -->
 {% load static %}
-<!-- Контейнер сайдбара - 3 колонки из 12 на больших экранах -->
-<div class="col-lg-3 sidebar">
+<!-- Контейнер сайдбара - 12 колонок на маленьких экранах, 3 на больших -->
+<div class="col-12 col-lg-3 sidebar mb-4 mb-lg-0">
     <!-- Секция последних новостей -->
     <!-- Условная проверка наличия новостей для сайдбара -->
     {% if sidebar_news %}
@@ -26,21 +26,21 @@
             <!-- Контейнер для каждой новости с отступами и условной нижней границей -->
             <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
                 <!-- Заголовок новости с отступом снизу -->
-                <h6 class="mb-1 d-flex align-items-center">
-                    <!-- Изображение новости размером 15 пикселей -->
+                <h6 class="mb-1 d-flex align-items-start">
+                    <!-- Изображение новости с адаптивными размерами -->
                     {% if news.image %}
-                    <img src="{{ news.image.url }}" class="sidebar-news-image" alt="{{ news.title }}">
+                    <img src="{{ news.image.url }}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ news.title }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
                     {% else %}
-                    <img src="{% static 'images/default-news.jpg' %}" class="sidebar-news-image" alt="{{ news.title }}">
+                    <img src="{% static 'images/default-news.jpg' %}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ news.title }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
                     {% endif %}
                     <!-- Ссылка на детальную страницу новости без подчеркивания и темным текстом -->
                     <a href="{% url 'news:detail' news.slug %}" 
                         class="text-decoration-none text-dark flex-grow-1">
-                        {{ news.title|truncatewords:6 }}
+                        {{ news.title|truncatewords:8 }}
                     </a>
                 </h6>
                 <!-- Дата создания новости с приглушенным цветом и иконкой календаря -->
-                <small class="text-muted">
+                <small class="text-muted d-block mt-1">
                     <i class="fas fa-calendar me-1"></i>
                     {{ news.created_at|date:"d.m.Y" }}
                 </small>
@@ -77,21 +77,21 @@
             <!-- Контейнер для каждой работы с отступами и условной нижней границей -->
             <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
                 <!-- Заголовок работы с отступом снизу и компактной миниатюрой -->
-                <h6 class="mb-1 d-flex align-items-center">
-                    <!-- Изображение работы размером 15 пикселей -->
+                <h6 class="mb-1 d-flex align-items-start">
+                    <!-- Изображение работы с адаптивными размерами -->
                     {% if portfolio_item.image %}
-                    <img src="{{ portfolio_item.image.url }}" class="sidebar-news-image" alt="{{ portfolio_item.title }}">
+                    <img src="{{ portfolio_item.image.url }}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ portfolio_item.title }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
                     {% else %}
-                    <img src="{% static 'images/default-portfolio.jpg' %}" class="sidebar-news-image" alt="{{ portfolio_item.title }}">
+                    <img src="{% static 'images/default-portfolio.jpg' %}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ portfolio_item.title }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
                     {% endif %}
                     <!-- Ссылка на детальную страницу работы без подчеркивания и темным текстом -->
                     <a href="{% url 'portfolio:detail' portfolio_item.slug %}" 
                         class="text-decoration-none text-dark flex-grow-1">
-                        {{ portfolio_item.title|truncatewords:6 }}
+                        {{ portfolio_item.title|truncatewords:8 }}
                     </a>
                 </h6>
                 <!-- Дата создания работы с приглушенным цветом и иконкой календаря -->
-                <small class="text-muted">
+                <small class="text-muted d-block mt-1">
                     <i class="fas fa-calendar me-1"></i>
                     {{ portfolio_item.created_at|date:"d.m.Y" }}
                 </small>

@@ -5,26 +5,25 @@
 
 {% load static %}
 
-{% block breadcrumbs %}
 {% if breadcrumbs %}
-<nav aria-label="breadcrumb" class="breadcrumbs">
-    <div class="container-fluid">
-        <ol class="breadcrumb">
+<nav aria-label="breadcrumb" class="breadcrumbs bg-light py-2">
+    <div class="container-fluid px-3 px-md-4">
+        <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item">
-                <a href="{% url 'main:index' %}">
-                    <i class="fas fa-home"></i>
+                <a href="{% url 'main:index' %}" class="text-decoration-none">
+                    <i class="fas fa-home me-1"></i>
                     <span>Главная</span>
                 </a>
             </li>
             {% for crumb in breadcrumbs %}
             <li class="breadcrumb-item {% if forloop.last %}active{% endif %}">
                 {% if not forloop.last %}
-                <a href="{{ crumb.url }}">
-                    {% if crumb.icon %}<i class="{{ crumb.icon }}"></i>{% endif %}
+                <a href="{{ crumb.url }}" class="text-decoration-none">
+                    {% if crumb.icon %}<i class="{{ crumb.icon }} me-1"></i>{% endif %}
                     <span>{{ crumb.title }}</span>
                 </a>
                 {% else %}
-                {% if crumb.icon %}<i class="{{ crumb.icon }}"></i>{% endif %}
+                {% if crumb.icon %}<i class="{{ crumb.icon }} me-1"></i>{% endif %}
                 <span>{{ crumb.title }}</span>
                 {% endif %}
             </li>
@@ -33,4 +32,3 @@
     </div>
 </nav>
 {% endif %}
-{% endblock %}

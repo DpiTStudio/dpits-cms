@@ -3,8 +3,6 @@
      ОПИСАНИЕ: Hero секция (главный баннер) сайта
      ============================================ -->
 
-<!-- Блок hero секции (переопределяется в дочерних шаблонах) -->
-{% block hero_section %}
 <!-- Секция hero с основным цветом фона и динамическим фоновым изображением -->
 <section class="hero-section text-white 
     {% if '/news/' in request.path %}hero-news
@@ -22,25 +20,25 @@
     style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ site_settings.hero_background.url }}'); background-size: cover; background-position: center;"
     {% endif %}>
     <!-- Если фоновое изображение загружено в админке, оно применяется через inline-стили с полупрозрачным градиентом для читаемости текста -->
-    <!-- Контейнер с полной шириной -->
-    <div class="container-fluid">
-        <!-- Строка с вертикальным выравниванием по центру -->
-        <div class="row align-items-center">
-            <!-- Левая колонка с текстовым контентом - 8 колонок из 12 на больших экранах -->
-            <div class="col-lg-8">
-                <!-- Основной заголовок сайта с большим размером и жирным шрифтом -->
-                <h1 class="display-5 fw-bold mb-3 hero-title">{{ site_settings.title|default:site_settings.logo_text|default:"Добро пожаловать" }}</h1>
+    <!-- Контейнер с полной шириной и адаптивными отступами -->
+    <div class="container-fluid px-3 px-md-4 px-lg-5">
+        <!-- Строка с вертикальным выравниванием по центру и адаптивными отступами -->
+        <div class="row align-items-center g-4 py-4 py-md-5">
+            <!-- Левая колонка с текстовым контентом - 12 колонок на маленьких экранах, 8 на больших -->
+            <div class="col-12 col-lg-8 order-2 order-lg-1">
+                <!-- Основной заголовок сайта с адаптивным размером и жирным шрифтом -->
+                <h1 class="display-4 display-md-5 fw-bold mb-3 hero-title">{{ site_settings.title|default:site_settings.logo_text|default:"Добро пожаловать" }}</h1>
                 
                 <!-- Условная проверка наличия текста логотипа в настройках -->
                 {% if site_settings.logo_text %}
-                <!-- Подчеркнутый текст логотипа с размером заголовка h4 -->
-                <u class="h4">{{ site_settings.logo_text|safe }}</u>
+                <!-- Подчеркнутый текст логотипа с адаптивным размером заголовка -->
+                <u class="h5 h-md-4 d-block mb-3">{{ site_settings.logo_text|safe }}</u>
                 {% endif %}
                 
                 <!-- Условная проверка наличия слогана сайта -->
                 {% if site_settings.slogan %}
-                <!-- Слоган сайта с увеличенным размером шрифта и отступом снизу -->
-                <p class="lead mb-4">
+                <!-- Слоган сайта с адаптивным размером шрифта и отступом снизу -->
+                <p class="lead mb-3 mb-md-4">
                     {{ site_settings.slogan }}
                 </p>
                 {% endif %}
@@ -48,29 +46,30 @@
                 <!-- Условная проверка наличия девиза сайта -->
                 {% if site_settings.motto %}
                 <!-- Контейнер для девиза сайта с безопасным выводом HTML -->
-                <div class="motto-content">
+                <div class="motto-content small">
                     {{ site_settings.motto|safe }}
                 </div>
                 {% endif %}
             </div>
             
-            <!-- Правая колонка с логотипом - 4 колонки из 12 на больших экранах -->
-            <div class="col-lg-4 text-center">
+            <!-- Правая колонка с логотипом - 12 колонок на маленьких экранах, 4 на больших -->
+            <div class="col-12 col-lg-4 text-center order-1 order-lg-2">
                 <!-- Условная проверка наличия логотипа в настройках -->
                 {% if site_settings.logo %}
                 <!-- Контейнер для логотипа -->
-                <div class="logo-container">
+                <div class="logo-container mb-3 mb-lg-0">
                     <!-- Изображение логотипа с адаптивными размерами, скруглением и тенью -->
                     <img src="{{ site_settings.logo.url }}" 
                          alt="{{ site_settings.logo_text }}" 
-                         class="img-fluid rounded shadow logo-container-img">
+                         class="img-fluid rounded shadow logo-container-img"
+                         style="max-width: 200px; height: auto;">
                 </div>
                 {% endif %}
             </div>
         </div>
         
         <!-- Фоновая секция с отступом сверху -->
-        <div class="mt-1">
+        <div class="mt-2 mt-md-3">
             <!-- Условная проверка текущего пути для выбора фонового контента -->
             <!-- Если путь содержит '/news/' - показываем фон для новостей -->
             {% if '/news/' in request.path %}
@@ -88,4 +87,3 @@
         </div>
     </div>
 </section>
-{% endblock %}

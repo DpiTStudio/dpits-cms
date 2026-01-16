@@ -33,12 +33,12 @@
     --dark-color: #f8fafc;
     --light-color: #1e293b;
     
-    /* Цвета текста */
-    --text-color: #e2e8f0;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
+    /* Цвета текста (светлее для лучшей читаемости) */
+    --text-color: #f8fafc;
+    --text-secondary: #f1f5f9;
+    --text-muted: #e2e8f0;
     --text-white: #0f172a;
-    --text-footer: #334155;
+    --text-footer: #cbd5e1;
     
     /* Фон */
     --bg-color: #0f172a;
@@ -200,4 +200,63 @@
 
 [data-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) {
     background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Заголовки в темной теме */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--text-color);
+}
+
+/* Заголовки в статьях в темной теме */
+[data-theme="dark"] .content-article h1,
+[data-theme="dark"] .content-article h2,
+[data-theme="dark"] .content-article h3,
+[data-theme="dark"] .content-article h4,
+[data-theme="dark"] .content-article h5,
+[data-theme="dark"] .content-article h6 {
+    color: var(--text-color);
+}
+
+/* Заголовки в секциях в темной теме */
+[data-theme="dark"] .content-section h2 {
+    color: var(--text-color);
+}
+
+/* Заголовки в карточках преимуществ в темной теме */
+[data-theme="dark"] .content-section .card-title {
+    color: var(--text-color);
+}
+
+/* Заголовки в контактах в темной теме */
+[data-theme="dark"] .contact-item h5 {
+    color: var(--text-color);
+}
+
+/* Параграфы в темной теме */
+[data-theme="dark"] p {
+    color: var(--text-color);
+}
+
+/* Ссылки в темной теме */
+[data-theme="dark"] a {
+    color: var(--primary-light);
+}
+
+[data-theme="dark"] a:hover {
+    color: var(--primary-color);
+}
+
+/* Хлебные крошки в темной теме */
+[data-theme="dark"] .breadcrumb-item.active {
+    color: var(--text-secondary);
+}
+
+/* Списки в темной теме */
+[data-theme="dark"] li {
+    color: var(--text-color);
 }

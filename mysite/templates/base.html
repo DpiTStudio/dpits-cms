@@ -9,238 +9,205 @@
 <!DOCTYPE html>
 <!-- Открывающий тег HTML с указанием языка интерфейса -->
 <html lang="ru">
-  <!-- Секция заголовка документа -->
+<!-- Секция заголовка документа -->
 
-  <head>
-    <!-- Кодировка символов UTF-8 для поддержки всех языков -->
-    <meta charset="UTF-8" />
-    <!-- Мета-тег для адаптивности на мобильных устройствах -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <!-- Кодировка символов UTF-8 для поддержки всех языков -->
+  <meta charset="UTF-8" />
+  <!-- Мета-тег для адаптивности на мобильных устройствах -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ========== БАЗОВЫЕ МЕТАТЕГИ ========== -->
-    <!-- Динамический заголовок страницы с блоком для переопределения -->
-    <title>{% block title %}{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}{% endblock %}</title>
+  <!-- ========== БАЗОВЫЕ МЕТАТЕГИ ========== -->
+  <!-- Динамический заголовок страницы с блоком для переопределения -->
+  <title>{% block title %}{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}{% endblock %}</title>
 
-    <!-- Мета-описание страницы для поисковых систем -->
-    <meta
-      name="description"
-      content="{% block meta_description %}{{ site_settings.short_description|striptags|truncatewords:30 }}{% endblock %}"
-    />
+  <!-- Мета-описание страницы для поисковых систем -->
+  <meta name="description"
+    content="{% block meta_description %}{{ site_settings.short_description|striptags|truncatewords:30 }}{% endblock %}" />
 
-    <!-- Мета-ключевые слова для поисковых систем -->
-    <meta
-      name="keywords"
-      content="{% block meta_keywords %}{{ site_settings.meta_keywords }}{% endblock %}"
-    />
+  <!-- Мета-ключевые слова для поисковых систем -->
+  <meta name="keywords" content="{% block meta_keywords %}{{ site_settings.meta_keywords }}{% endblock %}" />
 
-    <!-- Автор сайта -->
-    <meta name="author" content="{{ site_settings.logo_text }}" />
+  <!-- Автор сайта -->
+  <meta name="author" content="{{ site_settings.logo_text }}" />
 
-    <!-- ========== OPEN GRAPH (для социальных сетей) ========== -->
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="{% block og_title %}{{ site_settings.logo_text }}{% endblock %}"
-    />
-    <meta
-      property="og:description"
-      content="{% block og_description %}{{ site_settings.short_description|striptags|truncatewords:30 }}{% endblock %}"
-    />
-    <meta
-      property="og:image"
-      content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'images/og-image.jpg' %}{% endif %}{% endblock %}"
-    />
-    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-    <meta property="og:site_name" content="{{ site_settings.logo_text }}" />
-    <meta property="og:locale" content="ru_RU" />
+  <!-- ========== OPEN GRAPH (для социальных сетей) ========== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{% block og_title %}{{ site_settings.logo_text }}{% endblock %}" />
+  <meta property="og:description"
+    content="{% block og_description %}{{ site_settings.short_description|striptags|truncatewords:30 }}{% endblock %}" />
+  <meta property="og:image"
+    content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'images/og-image.jpg' %}{% endif %}{% endblock %}" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:site_name" content="{{ site_settings.logo_text }}" />
+  <meta property="og:locale" content="ru_RU" />
 
-    <!-- ========== TWITTER CARDS ========== -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="{% block twitter_title %}{{ site_settings.logo_text }}{% endblock %}"
-    />
-    <meta
-      name="twitter:description"
-      content="{% block twitter_description %}{{ site_settings.short_description|striptags|truncatewords:30 }}{% endblock %}"
-    />
-    <meta
-      name="twitter:image"
-      content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'images/twitter-image.jpg' %}{% endif %}{% endblock %}"
-    />
+  <!-- ========== TWITTER CARDS ========== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{% block twitter_title %}{{ site_settings.logo_text }}{% endblock %}" />
+  <meta name="twitter:description"
+    content="{% block twitter_description %}{{ site_settings.short_description|striptags|truncatewords:30 }}{% endblock %}" />
+  <meta name="twitter:image"
+    content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'images/twitter-image.jpg' %}{% endif %}{% endblock %}" />
 
-    <!-- ========== CANONICAL URL ========== -->
-    <link rel="canonical" href="{{ request.build_absolute_uri }}" />
+  <!-- ========== CANONICAL URL ========== -->
+  <link rel="canonical" href="{{ request.build_absolute_uri }}" />
 
-    <!-- ========== FAVICON И ИКОНКИ ========== -->
-    <!-- Иконка сайта (favicon) -->
-    <link
-      rel="icon"
-      href="{% static 'images/favicon.ico' %}"
-      type="image/x-icon"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="{% static 'images/apple-touch-icon.png' %}"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="{% static 'images/favicon-32x32.png' %}"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="{% static 'images/favicon-16x16.png' %}"
-    />
-    <meta name="theme-color" content="#6366f1" />
+  <!-- ========== FAVICON И ИКОНКИ ========== -->
+  <!-- Иконка сайта (favicon) -->
+  <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}" />
+  <meta name="theme-color" content="#6366f1" />
 
-    <!-- Подключение современных шрифтов Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Outfit:wght@400;500;600;700;900&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Подключение современных шрифтов Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Outfit:wght@400;500;600;700;900&display=swap"
+    rel="stylesheet" />
 
-    <!-- Подключение Bootstrap 5 CSS фреймворка из CDN -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+  <!-- Подключение Bootstrap 5 CSS фреймворка из CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- Подключение Font Awesome иконок из CDN -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+  <!-- Подключение Font Awesome иконок из CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!-- Подключение пользовательских CSS файлов в правильном порядке -->
-    <!-- CSS переменные (должен быть первым для использования в других файлах) -->
-    <link rel="stylesheet" href="{% static 'css/variables.css' %}" />
-    <!-- Базовые стили для всех элементов -->
-    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-    <!-- Оптимизации производительности -->
-    <link rel="stylesheet" href="{% static 'css/performance.css' %}" />
-    <!-- Анимации для улучшения пользовательского опыта -->
-    <link rel="stylesheet" href="{% static 'css/animations.css' %}" />
-    <!-- Стили макета (header, footer, навигация) -->
-    <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
-    <!-- Стили компонентов (карточки, кнопки, формы) -->
-    <link rel="stylesheet" href="{% static 'css/components.css' %}" />
-    <!-- Современные стили для карточек -->
-    <link rel="stylesheet" href="{% static 'css/cards.css' %}" />
-    <!-- Улучшенные стили бейджей -->
-    <link rel="stylesheet" href="{% static 'css/badge.css' %}" />
-    <!-- Стили для hero секции (главный баннер) -->
-    <link rel="stylesheet" href="{% static 'css/hero.css' %}" />
-    <!-- Стили для боковой панели (сайдбара) -->
-    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
-    <!-- Стили для контентных секций -->
-    <link rel="stylesheet" href="{% static 'css/content.css' %}" />
-    <!-- Утилитарные классы для быстрой стилизации -->
-    <link rel="stylesheet" href="{% static 'css/utilities.css' %}" />
-    <!-- UI улучшения и микроинтеракции -->
-    <link rel="stylesheet" href="{% static 'css/ui-enhancements.css' %}" />
-    <!-- Адаптивные стили (должен быть последним для переопределения) -->
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
-    <!-- Мобильные стили (должен быть самым последним) -->
-    <link rel="stylesheet" href="{% static 'css/mobile.css' %}" />
-    <!-- Темная тема -->
-    <link rel="stylesheet" href="{% static 'css/dark-mode.css' %}" />
-    <!-- Индикатор прогресса чтения -->
-    <link rel="stylesheet" href="{% static 'css/reading-progress.css' %}" />
-    <!-- Хлебные крошки -->
-    <link rel="stylesheet" href="{% static 'css/breadcrumbs.css' %}" />
-    <!-- Социальный шаринг -->
-    <link rel="stylesheet" href="{% static 'css/social-share.css' %}" />
-    <!-- Поиск -->
-    <link rel="stylesheet" href="{% static 'css/search.css' %}" />
-    <!-- Улучшенные формы -->
-    <link rel="stylesheet" href="{% static 'css/forms-enhanced.css' %}" />
+  <!-- Подключение пользовательских CSS файлов в правильном порядке -->
+  <!-- CSS переменные (должен быть первым для использования в других файлах) -->
+  <link rel="stylesheet" href="{% static 'css/variables.css' %}" />
+  <!-- Базовые стили для всех элементов -->
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+  <!-- Оптимизации производительности -->
+  <link rel="stylesheet" href="{% static 'css/performance.css' %}" />
+  <!-- Анимации для улучшения пользовательского опыта -->
+  <link rel="stylesheet" href="{% static 'css/animations.css' %}" />
+  <!-- Стили макета (header, footer, навигация) -->
+  <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
+  <!-- Стили компонентов (карточки, кнопки, формы) -->
+  <link rel="stylesheet" href="{% static 'css/components.css' %}" />
+  <!-- Современные стили для карточек -->
+  <link rel="stylesheet" href="{% static 'css/cards.css' %}" />
+  <!-- Улучшенные стили бейджей -->
+  <link rel="stylesheet" href="{% static 'css/badge.css' %}" />
+  <!-- Стили для hero секции (главный баннер) -->
+  <link rel="stylesheet" href="{% static 'css/hero.css' %}" />
+  <!-- Стили для боковой панели (сайдбара) -->
+  <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
+  <!-- Стили для контентных секций -->
+  <link rel="stylesheet" href="{% static 'css/content.css' %}" />
+  <!-- Утилитарные классы для быстрой стилизации -->
+  <link rel="stylesheet" href="{% static 'css/utilities.css' %}" />
+  <!-- UI улучшения и микроинтеракции -->
+  <link rel="stylesheet" href="{% static 'css/ui-enhancements.css' %}" />
+  <!-- Адаптивные стили (должен быть последним для переопределения) -->
+  <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+  <!-- Мобильные стили (должен быть самым последним) -->
+  <link rel="stylesheet" href="{% static 'css/mobile.css' %}" />
+  <!-- Темная тема -->
+  <link rel="stylesheet" href="{% static 'css/dark-mode.css' %}" />
+  <!-- Индикатор прогресса чтения -->
+  <link rel="stylesheet" href="{% static 'css/reading-progress.css' %}" />
+  <!-- Хлебные крошки -->
+  <link rel="stylesheet" href="{% static 'css/breadcrumbs.css' %}" />
+  <!-- Социальный шаринг -->
+  <link rel="stylesheet" href="{% static 'css/social-share.css' %}" />
+  <!-- Поиск -->
+  <link rel="stylesheet" href="{% static 'css/search.css' %}" />
+  <!-- Улучшенные формы -->
+  <link rel="stylesheet" href="{% static 'css/forms-enhanced.css' %}" />
 
-    <!-- Блок для дополнительных элементов в head (переопределяется в дочерних шаблонах) -->
-    {% block extra_head %}{% endblock %}
-    <!-- Блок для дополнительных CSS файлов (переопределяется в дочерних шаблонах) -->
-    {% block extra_css %}{% endblock %}
-  </head>
+  <!-- Блок для дополнительных элементов в head (переопределяется в дочерних шаблонах) -->
+  {% block extra_head %}{% endblock %}
+  <!-- Блок для дополнительных CSS файлов (переопределяется в дочерних шаблонах) -->
+  {% block extra_css %}{% endblock %}
+</head>
 
-  <!-- Тело документа с flexbox макетом для прижатия футера к низу -->
+<!-- Тело документа с flexbox макетом для прижатия футера к низу -->
 
-  <body class="d-flex flex-column min-vh-100">
-    <!-- Индикатор прогресса чтения -->
-    <div class="reading-progress" id="readingProgress"></div>
-    
-    <!-- Блок шапки сайта (переопределяется в дочерних шаблонах) -->
-    {% block header %}
-    <!-- Подключение шаблона шапки -->
-    {% include "header.html" %} {% endblock %}
+<body class="d-flex flex-column min-vh-100">
+  <!-- Индикатор прогресса чтения -->
+  <div class="reading-progress" id="readingProgress"></div>
 
-    <!-- Основной контент страницы с растягиванием на всю доступную высоту -->
-    <main class="flex-grow-1">
-      <!-- Блок hero секции (переопределяется в дочерних шаблонах) -->
-      {% block hero_section %}
-      <!-- Подключение шаблона hero секции -->
-      {% include 'hero.html' %} {% endblock %}
+  <!-- Блок шапки сайта (переопределяется в дочерних шаблонах) -->
+  {% block header %}
+  <!-- Подключение шаблона шапки -->
+  {% include "header.html" %}
+  {% endblock %}
 
-      <!-- Контейнер с полной шириной для основного контента -->
-      <div class="container-fluid">
-        <!-- Строка Bootstrap для сетки -->
-        <div class="row">
-          <!-- Основной контент - занимает 9 колонок из 12 на больших экранах -->
-          <div class="col-lg-9">
-            <!-- Блок основного контента (переопределяется в дочерних шаблонах) -->
-            {% block content %}
-            <!-- Основной контент будет здесь -->
-            {% endblock %} 
-            {% comment %}
-            <!-- Блок рекомендуемых страниц (переопределяется в дочерних шаблонах) -->
-            {% block featured_pages %}
-            <!-- Подключение шаблона рекомендуемых страниц -->
-            {% include 'featured_pages.html' %} {% endblock %} 
+  <!-- Основной контент страницы с растягиванием на всю доступную высоту -->
+  <main class="flex-grow-1">
+    <!-- Блок хлебных крошек (переопределяется в дочерних шаблонах) -->
+    {% block breadcrumbs %}
+    {% include 'breadcrumbs.html' %}
+    {% endblock %}
+
+    <!-- Блок hero секции (переопределяется в дочерних шаблонах) -->
+    {% block hero_section %}
+    <!-- Подключение шаблона hero секции -->
+    {% include 'hero.html' %}
+    {% endblock %}
+
+    <!-- Контейнер с полной шириной для основного контента -->
+    <div class="container-fluid px-0">
+      <!-- Строка Bootstrap для сетки -->
+      <div class="row g-0 g-md-4">
+        <!-- Основной контент - занимает 12 колонок на маленьких экранах, 9 на больших -->
+        <div class="col-12 col-lg-9">
+          <!-- Блок основного контента (переопределяется в дочерних шаблонах) -->
+          {% block content %}
+          <!-- Основной контент будет здесь -->
+          {% endblock %}
+          {% comment %}
+          <!-- Блок рекомендуемых страниц (переопределяется в дочерних шаблонах) -->
+          {% block featured_pages %}
+          <!-- Подключение шаблона рекомендуемых страниц -->
+          {% include 'featured_pages.html' %} {% endblock %}
           {% endcomment %}
-          </div>
-
-          <!-- Блок сайдбара (переопределяется в дочерних шаблонах) -->
-          {% block sidebar %}
-          <!-- Подключение шаблона сайдбара -->
-          {% include 'sidebar.html' %} {% endblock %}
         </div>
+
+        <!-- Блок сайдбара (переопределяется в дочерних шаблонах) -->
+        {% block sidebar %}
+        <!-- Подключение шаблона сайдбара -->
+        {% include 'sidebar.html' %}
+        {% endblock %}
       </div>
+    </div>
 
-      <!-- Блок контентной секции (переопределяется в дочерних шаблонах) -->
-      {% block content_section %}
-      <!-- Подключение шаблона контентной секции -->
-      {% include "content-section.html" %} {% endblock %}
-    </main>
+    <!-- Блок контентной секции (переопределяется в дочерних шаблонах) -->
+    {% block content_section %}
+    <!-- Подключение шаблона контентной секции -->
+    {% include "content-section.html" %}
+    {% endblock %}
+  </main>
 
-    <!-- Блок футера (переопределяется в дочерних шаблонах) -->
-    {% block footer %}
-    <!-- Подключение шаблона футера -->
-    {% include "footer.html" %} {% endblock %}
+  <!-- Блок футера (переопределяется в дочерних шаблонах) -->
+  {% block footer %}
+  <!-- Подключение шаблона футера -->
+  {% include "footer.html" %}
+  {% endblock %}
 
-    <!-- Подключение JavaScript библиотек -->
-    <!-- Bootstrap 5 JavaScript bundle из CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Переключение темы -->
-    <script src="{% static 'js/theme-toggle.js' %}"></script>
-    <!-- Индикатор прогресса чтения -->
-    <script src="{% static 'js/reading-progress.js' %}"></script>
-    <!-- Социальный шаринг -->
-    <script src="{% static 'js/social-share.js' %}"></script>
-    <!-- Поиск -->
-    <script src="{% static 'js/search.js' %}"></script>
-    <!-- Ленивая загрузка изображений -->
-    <script src="{% static 'js/lazy-loading.js' %}"></script>
-    <!-- Мобильные улучшения -->
-    <script src="{% static 'js/mobile-enhancements.js' %}"></script>
-    <!-- Пользовательский JavaScript файл -->
-    <script src="{% static 'js/main.js' %}"></script>
+  <!-- Подключение JavaScript библиотек -->
+  <!-- Bootstrap 5 JavaScript bundle из CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Переключение темы -->
+  <script src="{% static 'js/theme-toggle.js' %}"></script>
+  <!-- Индикатор прогресса чтения -->
+  <script src="{% static 'js/reading-progress.js' %}"></script>
+  <!-- Социальный шаринг -->
+  <script src="{% static 'js/social-share.js' %}"></script>
+  <!-- Поиск -->
+  <script src="{% static 'js/search.js' %}"></script>
+  <!-- Ленивая загрузка изображений -->
+  <script src="{% static 'js/lazy-loading.js' %}"></script>
+  <!-- Мобильные улучшения -->
+  <script src="{% static 'js/mobile-enhancements.js' %}"></script>
+  <!-- Пользовательский JavaScript файл -->
+  <script src="{% static 'js/main.js' %}"></script>
 
-    <!-- Блок для дополнительных JavaScript файлов (переопределяется в дочерних шаблонах) -->
-    {% block extra_js %}{% endblock %}
-  </body>
+  <!-- Блок для дополнительных JavaScript файлов (переопределяется в дочерних шаблонах) -->
+  {% block extra_js %}{% endblock %}
+</body>
+
 </html>
