@@ -122,11 +122,16 @@
   {% block extra_head %}{% endblock %}
   <!-- Блок для дополнительных CSS файлов (переопределяется в дочерних шаблонах) -->
   {% block extra_css %}{% endblock %}
+
+  <!-- Статистические баннеры в head -->
+  {{ statistics_banners.head|safe }}
 </head>
 
 <!-- Тело документа с flexbox макетом для прижатия футера к низу -->
 
 <body class="d-flex flex-column min-vh-100">
+  <!-- Статистические баннеры в начале body -->
+  {{ statistics_banners.body_start|safe }}
   <!-- Индикатор прогресса чтения -->
   <div class="reading-progress" id="readingProgress"></div>
 
