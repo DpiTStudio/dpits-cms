@@ -14,9 +14,7 @@
 Примечание: ManagedFileAdmin находится в отдельном файле admin_files.py
 для избежания дублирования регистрации и организации кода.
 """
-
 import os  # Модуль для работы с операционной системой (файлы, директории)
-
 from datetime import datetime  # Класс для работы с датой и временем
 from django.contrib import (
     admin,  # Базовый класс админки Django
@@ -26,21 +24,21 @@ from django.http import HttpResponseRedirect  # Класс для перенап
 from django.shortcuts import (
     render,  # Функция для рендеринга шаблонов
 )
-
 # ManagedFile импортируется в admin_files.py для избежания дублирования
 from django.urls import path, reverse  # Функции для работы с URL
 from django.utils.html import (
     format_html,  # Функция для безопасного форматирования HTML
 )
 from django.utils.translation import gettext_lazy as _  # Функция для перевода строк
-
-from .models import ErrorLog, LogStats, Page, SiteSettings  # Импорт моделей для админки
+from .models import ErrorLog, LogStats, Page, SiteSettings, StatisticsBanner  # Импорт моделей для админки
 
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
     """
-    Админ-панель для настроек сайта.
+    Админ## 5. Добавьте миграцию для новой модели:
+
+панель для настроек сайта.
     Обеспечивает singleton-режим (только одна запись настроек).
     """
 
@@ -773,3 +771,199 @@ class ErrorLogAdmin(LogStatsAdmin):
             "log_file_path": log_file_path,
         }
         return render(request, "admin/main/edit_error_log_file.html", context)
+
+
+@admin.register(StatisticsBanner)
+class StatisticsBannerAdmin(admin.ModelAdmin):
+    """
+    Админ-панель для управления статистическими баннерами.
+    """
+    
+    list_display = [
+        'name',
+        'banner_type',
+        'position',
+        'is_active',
+        'order',
+        'counter_id',
+        'updated_at',
+    ]
+    
+    list_editable = [
+        'is_active',
+        'order',
+    ]
+    
+    list_filter = [
+        'banner_type',
+        'position',
+        'is_active',
+        'created_at',
+    ]
+    
+    search_fields = [
+        'name',
+        'code',
+        'counter_id',
+        'description',
+    ]
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    fieldsets = (
+        (_('Основная информация'), {
+            'fields': (
+                'name',
+                'banner_type',
+                'counter_id',
+                'description',
+            )
+        }),
+        (_('Код баннера'), {
+            'fields': ('code',),
+            'classes': ('wide',),
+            'description': _('Вставьте HTML/JavaScript код счетчика')
+        }),
+        (_('Позиция отображения'), {
+            'fields': ('position', 'order'),
+        }),
+        (_('Настройки видимости'), {
+            'fields': (
+                'is_active',
+                'show_on_all_pages',
+                'show_on_index',
+                'show_on_pages',
+                'show_on_news',
+                'show_on_portfolio',
+            ),
+            'classes': ('collapse',),
+        }),
+        (_('Настройки доступа'), {
+            'fields': (
+                'enabled_for_admin',
+                'enabled_for_staff',
+                'enabled_for_users',
+            ),
+            'classes': ('collapse',),
+        }),
+        (_('Мета-информация'), {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',),
+        }),
+    )
+    
+    actions = ['activate_banners', 'deactivate_banners']
+    
+    def activate_banners(self, request, queryset):
+        """Активировать выбранные баннеры."""
+        updated = queryset.update(is_active=True)
+        self.message_user(
+            request,
+            f'Активировано {updated} баннеров'
+        )
+    activate_banners.short_description = _('Активировать выбранные баннеры')
+    
+    def deactivate_banners(self, request, queryset):
+        """Деактивировать выбранные баннеры."""
+        updated = queryset.update(is_active=False)
+        self.message_user(
+            request,
+            f'Деактивировано {updated} баннеров'
+        )
+    deactivate_banners.short_description = _('Деактивировать выбранные баннеры')
+    """
+    Админ-панель для управления статистическими баннерами.
+    """
+    
+    list_display = [
+        'name',
+        'banner_type',
+        'position',
+        'is_active',
+        'order',
+        'counter_id',
+        'updated_at',
+    ]
+    
+    list_editable = [
+        'is_active',
+        'order',
+    ]
+    
+    list_filter = [
+        'banner_type',
+        'position',
+        'is_active',
+        'created_at',
+    ]
+    
+    search_fields = [
+        'name',
+        'code',
+        'counter_id',
+        'description',
+    ]
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    fieldsets = (
+        (_('Основная информация'), {
+            'fields': (
+                'name',
+                'banner_type',
+                'counter_id',
+                'description',
+            )
+        }),
+        (_('Код баннера'), {
+            'fields': ('code',),
+            'classes': ('wide',),
+            'description': _('Вставьте HTML/JavaScript код счетчика')
+        }),
+        (_('Позиция отображения'), {
+            'fields': ('position', 'order'),
+        }),
+        (_('Настройки видимости'), {
+            'fields': (
+                'is_active',
+                'show_on_all_pages',
+                'show_on_index',
+                'show_on_pages',
+                'show_on_news',
+                'show_on_portfolio',
+            ),
+            'classes': ('collapse',),
+        }),
+        (_('Настройки доступа'), {
+            'fields': (
+                'enabled_for_admin',
+                'enabled_for_staff',
+                'enabled_for_users',
+            ),
+            'classes': ('collapse',),
+        }),
+        (_('Мета-информация'), {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',),
+        }),
+    )
+    
+    actions = ['activate_banners', 'deactivate_banners']
+    
+    def activate_banners(self, request, queryset):
+        """Активировать выбранные баннеры."""
+        updated = queryset.update(is_active=True)
+        self.message_user(
+            request,
+            f'Активировано {updated} баннеров'
+        )
+    activate_banners.short_description = _('Активировать выбранные баннеры')
+    
+    def deactivate_banners(self, request, queryset):
+        """Деактивировать выбранные баннеры."""
+        updated = queryset.update(is_active=False)
+        self.message_user(
+            request,
+            f'Деактивировано {updated} баннеров'
+        )
+    deactivate_banners.short_description = _('Деактивировать выбранные баннеры')

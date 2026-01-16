@@ -20,6 +20,8 @@ from django.dispatch import receiver  # Декоратор для приема �
 from django.core.cache import cache  # Система кэширования Django
 from .models import SiteSettings, Page, LogStats  # Импорт моделей
 
+from .models import StatisticsBanner # 
+
 
 @receiver([post_save, post_delete], sender=SiteSettings)
 def clear_site_settings_cache(sender, **kwargs):
@@ -113,6 +115,22 @@ def clear_log_stats_cache(sender, **kwargs):
         "log_stats_yearly",  # Кэш годовой статистики
         "log_categories",  # Кэш категорий логов
         "log_total_lines",  # Кэш общего количества строк
+    ]
+    for key in cache_keys:
+        cache.delete(key)
+
+
+@receiver(post_save, sender=StatisticsBanner)
+@receiver(post_delete, sender=StatisticsBanner)
+def clear_banners_cache(sender, instance, **kwargs):
+    """
+    Очищает кэш статистических баннеров при изменении.
+    """
+    # Удаляем все варианты кэша для разных типов пользователей
+    cache_keys = [
+        'statistics_banners_admin',
+        'statistics_banners_staff',
+        'statistics_banners_user',
     ]
     for key in cache_keys:
         cache.delete(key)

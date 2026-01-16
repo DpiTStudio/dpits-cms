@@ -194,7 +194,14 @@
             </script>
             <noscript><div><img src="https://mc.yandex.ru/watch/105986204" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
             <!-- /Yandex.Metrika counter -->
-
+            <!-- Баннеры в подвале -->
+            {{ statistics_banners.footer|safe }}
+            {% block footer %}{% endblock %}
         </div>
     </div>
 </footer>
+<!-- Статистические баннеры в конце body -->
+{{ statistics_banners.body_end|safe }}
+
+<!-- Кастомные баннеры (вставляются вручную в шаблонах) -->
+{% block custom_banners %}{% endblock %}

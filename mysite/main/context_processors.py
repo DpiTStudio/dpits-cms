@@ -254,3 +254,76 @@ def admin_dashboard_stats(request):
         cache.set(cache_key, stats, 60)
 
     return {"admin_stats": stats}
+
+
+def statistics_banners(request):
+    """
+    Контекстный процессор для статистических баннеров.
+    Группирует баннеры по позициям для удобной вставки в шаблонах.
+    """
+    from .models import StatisticsBanner
+    
+    # Ключ кэширования зависит от пользователя
+    user_key = ''
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            user_key = 'admin'
+        elif request.user.is_staff:
+            user_key = 'staff'
+        else:
+            user_key = 'user'
+    
+    cache_key = f'statistics_banners_{user_key}'
+    banners_data = cache.get(cache_key)
+    
+    if not banners_data:
+        # Получаем все активные баннеры
+        banners = StatisticsBanner.objects.filter(is_active=True).order_by('order')
+        
+        # Группируем баннеры по позициям
+        banners_by_position = {
+            'head': [],
+            'body_start': [],
+            'body_end': [],
+            'header': [],
+            'footer': [],
+            'custom': [],
+        }
+        
+        # Определяем тип текущей страницы
+        path = request.path
+        is_index = path == '/' or path == ''
+        is_page = '/page/' in path
+        is_news = '/news/' in path
+        is_portfolio = '/portfolio/' in path
+        
+        for banner in banners:
+            # Проверяем видимость на текущей странице
+            if banner.show_on_all_pages:
+                pass  # Показываем везде
+            elif is_index and not banner.show_on_index:
+                continue
+            elif is_page and not banner.show_on_pages:
+                continue
+            elif is_news and not banner.show_on_news:
+                continue
+            elif is_portfolio and not banner.show_on_portfolio:
+                continue
+            
+            # Получаем код с учетом прав пользователя
+            banner_code = banner.get_rendered_code(request)
+            if banner_code:
+                banners_by_position[banner.position].append(banner_code)
+        
+        # Объединяем коды баннеров для каждой позиции
+        banners_data = {
+            position: '\n'.join(codes) if codes else ''
+            for position, codes in banners_by_position.items()
+        }
+        
+        # Кэшируем на 5 минут
+        cache.set(cache_key, banners_data, 300)
+    
+    return {
+        'statistics_banners': banners_data
+    }

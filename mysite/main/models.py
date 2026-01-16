@@ -1009,3 +1009,184 @@ class ErrorLog(LogStats):
         verbose_name = "Лог ошибок"
         verbose_name_plural = "Лог ошибок"
 
+
+class StatisticsBanner(models.Model):
+    """
+    Модель для статистических баннеров (Яндекс.Метрика, Google Analytics и др.).
+    """
+    
+    BANNER_TYPES = [
+        ('yandex_metrika', _('Яндекс.Метрика')),
+        ('google_analytics', _('Google Analytics')),
+        ('google_tag_manager', _('Google Tag Manager')),
+        ('facebook_pixel', _('Facebook Pixel')),
+        ('vk_retargeting', _('VK Ретаргетинг')),
+        ('mailru_top', _('Mail.ru Top')),
+        ('liveinternet', _('LiveInternet')),
+        ('custom', _('Пользовательский код')),
+        ('other', _('Другой')),
+    ]
+    
+    POSITIONS = [
+        ('head', _('В <head> (рекомендуется для счетчиков)')),
+        ('body_start', _('В начале <body>')),
+        ('body_end', _('В конце <body> (рекомендуется для скриптов)')),
+        ('header', _('В шапке сайта')),
+        ('footer', _('В подвале сайта')),
+        ('custom', _('Кастомная позиция (вручную в шаблоне)')),
+    ]
+    
+    # Основные поля
+    name = models.CharField(
+        _('Название баннера'),
+        max_length=200,
+        help_text=_('Например: Яндекс.Метрика главный счетчик')
+    )
+    
+    banner_type = models.CharField(
+        _('Тип баннера'),
+        max_length=50,
+        choices=BANNER_TYPES,
+        default='yandex_metrika'
+    )
+    
+    code = models.TextField(
+        _('Код баннера'),
+        help_text=_('HTML/JavaScript код для вставки на сайт')
+    )
+    
+    position = models.CharField(
+        _('Позиция на странице'),
+        max_length=50,
+        choices=POSITIONS,
+        default='head'
+    )
+    
+    # Настройки видимости
+    is_active = models.BooleanField(
+        _('Активен'),
+        default=True,
+        help_text=_('Включить/выключить баннер')
+    )
+    
+    show_on_all_pages = models.BooleanField(
+        _('Показывать на всех страницах'),
+        default=True,
+        help_text=_('Если включено, баннер будет отображаться на всех страницах сайта')
+    )
+    
+    show_on_index = models.BooleanField(
+        _('Показывать на главной'),
+        default=True
+    )
+    
+    show_on_pages = models.BooleanField(
+        _('Показывать на страницах'),
+        default=True
+    )
+    
+    show_on_news = models.BooleanField(
+        _('Показывать на новостях'),
+        default=True
+    )
+    
+    show_on_portfolio = models.BooleanField(
+        _('Показывать на портфолио'),
+        default=True
+    )
+    
+    # Дополнительные настройки
+    enabled_for_admin = models.BooleanField(
+        _('Показывать администраторам'),
+        default=False,
+        help_text=_('Если включено, баннер будет виден администраторам сайта')
+    )
+    
+    enabled_for_staff = models.BooleanField(
+        _('Показывать персоналу'),
+        default=False,
+        help_text=_('Если включено, баннер будет виден персоналу сайта')
+    )
+    
+    enabled_for_users = models.BooleanField(
+        _('Показывать пользователям'),
+        default=True,
+        help_text=_('Если включено, баннер будет виден обычным пользователям')
+    )
+    
+    # Приоритет и сортировка
+    order = models.IntegerField(
+        _('Порядок отображения'),
+        default=0,
+        help_text=_('Чем меньше число, тем выше баннер в списке')
+    )
+    
+    # Информация о счетчике
+    counter_id = models.CharField(
+        _('ID счетчика'),
+        max_length=100,
+        blank=True,
+        help_text=_('ID счетчика Яндекс.Метрики, Google Analytics и т.д.')
+    )
+    
+    description = models.TextField(
+        _('Описание'),
+        blank=True,
+        help_text=_('Дополнительная информация о баннере')
+    )
+    
+    # Временные метки
+    created_at = models.DateTimeField(_('Создан'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('Обновлен'), auto_now=True)
+    
+    class Meta:
+        verbose_name = _('Статистический баннер')
+        verbose_name_plural = _('Статистические баннеры')
+        ordering = ['order', 'name']
+    
+    def __str__(self):
+        return f"{self.name} ({self.get_banner_type_display()})"
+    
+    def clean(self):
+        """Валидация данных баннера."""
+        super().clean()
+        
+        # Проверяем, что для Яндекс.Метрики указан ID счетчика
+        if self.banner_type == 'yandex_metrika' and not self.counter_id:
+            raise ValidationError({
+                'counter_id': _('Для Яндекс.Метрики необходимо указать ID счетчика')
+            })
+        
+        # Проверяем, что код не пустой
+        if not self.code.strip():
+            raise ValidationError({
+                'code': _('Код баннера не может быть пустым')
+            })
+    
+    def get_rendered_code(self, request=None):
+        """
+        Возвращает готовый для вставки код с учетом настроек видимости.
+        
+        Args:
+            request: Объект запроса для проверки прав пользователя
+            
+        Returns:
+            str: HTML код для вставки или пустая строка
+        """
+        # Проверяем активность баннера
+        if not self.is_active:
+            return ""
+        
+        # Проверяем права доступа
+        if request and hasattr(request, 'user'):
+            user = request.user
+            if user.is_authenticated:
+                if user.is_superuser and not self.enabled_for_admin:
+                    return ""
+                if user.is_staff and not self.enabled_for_staff:
+                    return ""
+                if not user.is_staff and not user.is_superuser and not self.enabled_for_users:
+                    return ""
+        
+        # Возвращаем код баннера
+        return self.code.strip()
