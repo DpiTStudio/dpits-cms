@@ -22,15 +22,21 @@
                 <!-- Список навигационных элементов с автоматическим отступом справа -->
                 <ul class="navbar-nav me-auto d-flex align-items-center">
                     <!-- Пункт меню "Главная" с иконкой на мобильных устройствах -->
-                    {% comment %} <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link active" href="{% url 'main:index' %}">
                             <i class="fas fa-home me-1 d-lg-none"></i>Главная
                         </a>
-                    </li> {% endcomment %}
+                    </li>
                     <!-- Пункт меню "Новости" с иконкой на мобильных устройствах -->
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center" href="{% url 'news:list' %}">
                             <i class="fas fa-newspaper me-1 d-lg-none"></i><span>Новости</span>
+                        </a>
+                    </li>
+                    <!-- Пункт меню "Контакты" с иконкой на мобильных устройствах -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'main:contacts' %}">
+                            <i class="fas fa-phone me-1 d-lg-none"></i><span>Контакты</span>
                         </a>
                     </li>
                     <!-- Пункт меню "Портфолио" с иконкой на мобильных устройствах -->

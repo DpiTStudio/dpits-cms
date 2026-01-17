@@ -36,25 +36,34 @@
             <!-- Меню -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center">
-                    <!-- Пункты меню -->
+                    <!-- Пункт меню "Новости" с иконкой на мобильных устройствах -->
                     <li class="nav-item">
                         <a class="nav-link nav-link-custom" href="{% url 'news:list' %}">
                             <i class="fas fa-newspaper me-2 d-lg-none text-primary-accent"></i>Новости
                             <span class="nav-indicator"></span>
                         </a>
                     </li>
+                    <!-- Пункт меню "Контакты" с иконкой на мобильных устройствах -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'main:contacts' %}">
+                            <i class="fas fa-phone me-1 d-lg-none"></i><span>Контакты</span>
+                        </a>
+                    </li>
+                    <!-- Пункт меню "Портфолио" с иконкой на мобильных устройствах -->
                     <li class="nav-item">
                         <a class="nav-link nav-link-custom" href="{% url 'portfolio:list' %}">
                             <i class="fas fa-layer-group me-2 d-lg-none text-primary-accent"></i>Портфолио
                             <span class="nav-indicator"></span>
                         </a>
                     </li>
+                    <!-- Пункт меню "Услуги" с иконкой на мобильных устройствах -->
                     <li class="nav-item">
                         <a class="nav-link nav-link-custom" href="{% url 'services:list' %}">
                             <i class="fas fa-concierge-bell me-2 d-lg-none text-primary-accent"></i>Услуги
                             <span class="nav-indicator"></span>
                         </a>
                     </li>
+                    <!-- Пункт меню "Отзывы" с иконкой на мобильных устройствах -->
                     <li class="nav-item">
                         <a class="nav-link nav-link-custom" href="{% url 'reviews:list' %}">
                             <i class="fas fa-star me-2 d-lg-none text-primary-accent"></i>Отзывы
