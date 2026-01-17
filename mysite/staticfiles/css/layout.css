@@ -5,13 +5,16 @@
 
 /* ========== HEADER (Шапка сайта) ========== */
 
+/* ========== HEADER (Шапка сайта) ========== */
+
 :root {
     --header-height: 80px;
-    --glass-bg: rgba(15, 23, 42, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
     --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-    --text-glow: 0 0 10px rgba(99, 102, 241, 0.5);
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
 }
 
 /* Контейнер шапки с эффектом матового стекла */
@@ -22,11 +25,12 @@
     border-bottom: 1px solid var(--glass-border);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1030;
+    box-shadow: var(--glass-shadow);
 }
 
 .glass-header.scrolled {
-    background: rgba(15, 23, 42, 0.9);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
 }
 
 /* Бренд */
@@ -35,6 +39,7 @@
     font-size: 1.5rem;
     position: relative;
     z-index: 1;
+    color: var(--text-primary) !important;
 }
 
 .brand-logo-wrapper {
@@ -45,7 +50,7 @@
 }
 
 .shadow-brand {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);
     transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -55,7 +60,7 @@
     left: 50%;
     width: 120%;
     height: 120%;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
     transform: translate(-50%, -50%) scale(0.8);
     opacity: 0;
     transition: all 0.5s ease;
@@ -73,10 +78,10 @@
 }
 
 .text-gradient {
-    background: linear-gradient(to right, #ffffff, #a5b4fc);
+    background: linear-gradient(to right, #334155, #6366f1);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 30px rgba(165, 180, 252, 0.2);
 }
 
 /* Навигация */
@@ -85,7 +90,7 @@
 }
 
 .nav-link-custom {
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: var(--text-secondary) !important;
     font-weight: 500;
     padding: 0.75rem 1rem !important;
     position: relative;
@@ -96,7 +101,7 @@
 }
 
 .text-primary-accent {
-    color: #818cf8;
+    color: #6366f1;
 }
 
 .nav-indicator {
@@ -113,8 +118,8 @@
 }
 
 .nav-link-custom:hover {
-    color: #fff !important;
-    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary) !important;
+    background: rgba(0, 0, 0, 0.03);
 }
 
 .nav-link-custom:hover .nav-indicator,
@@ -125,8 +130,8 @@
 }
 
 .nav-link-custom.active {
-    color: #fff !important;
-    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary) !important;
+    background: rgba(0, 0, 0, 0.05);
 }
 
 /* Поиск */
@@ -135,20 +140,24 @@
 }
 
 .search-input-modern {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 50px;
     padding: 0.5rem 1rem 0.5rem 2.5rem;
-    color: #fff;
+    color: var(--text-primary);
     width: 200px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
     font-size: 0.9rem;
 }
 
+.search-input-modern::placeholder {
+    color: #94a3b8;
+}
+
 .search-input-modern:focus {
     width: 280px;
-    background: rgba(0, 0, 0, 0.3);
+    background: #fff;
     border-color: rgba(99, 102, 241, 0.5);
     box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
@@ -160,44 +169,13 @@
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-secondary);
     pointer-events: none;
     transition: color 0.3s;
 }
 
 .search-input-modern:focus + .search-btn-modern {
-    color: #818cf8;
-}
-
-/* Переключатель темы */
-.theme-switch-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #e2e8f0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    position: relative;
-}
-
-.theme-switch-btn i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 0.3s ease;
-}
-
-.theme-switch-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: rotate(15deg);
-    border-color: rgba(255, 255, 255, 0.2);
+    color: #6366f1;
 }
 
 /* Кнопка аккаунта */
@@ -205,16 +183,17 @@
     display: flex;
     align-items: center;
     padding: 0.35rem 0.75rem 0.35rem 0.35rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 50px;
-    color: #fff;
+    color: var(--text-primary);
     transition: all 0.3s ease;
 }
 
 .btn-account:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: #fff;
     border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .user-avatar-sm {
@@ -226,14 +205,15 @@
     align-items: center;
     justify-content: center;
     font-size: 0.9rem;
+    color: white;
 }
 
 /* Dropdown */
 .dropdown-menu-glass {
-    background: rgba(30, 41, 59, 0.9);
+    background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
     padding: 0.5rem;
     margin-top: 1rem;
@@ -241,23 +221,23 @@
 }
 
 .dropdown-item {
-    color: #cbd5e1;
+    color: var(--text-secondary);
     border-radius: 8px;
     padding: 0.7rem 1rem;
     transition: all 0.2s;
 }
 
 .dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    background: rgba(99, 102, 241, 0.05);
+    color: #6366f1;
     transform: translateX(5px);
 }
 
 /* Buttons */
 .btn-glass-outline {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--text-primary);
     border-radius: 12px;
     padding: 0.6rem 1.2rem;
     transition: all 0.3s;
@@ -265,8 +245,9 @@
 }
 
 .btn-glass-outline:hover {
-    border-color: #fff;
-    background: rgba(255, 255, 255, 0.1);
+    border-color: #6366f1;
+    color: #6366f1;
+    background: rgba(99, 102, 241, 0.05);
     transform: translateY(-2px);
 }
 
@@ -280,12 +261,12 @@
     position: relative;
     overflow: hidden;
     transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
 .btn-gradient-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
     color: #fff;
 }
 
@@ -296,7 +277,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
     transition: 0.5s;
 }
 
@@ -310,7 +291,7 @@
     display: block;
     width: 25px;
     height: 2px;
-    background: #fff;
+    background: #334155;
     margin: 5px 0;
     transition: 0.3s;
 }
@@ -363,6 +344,7 @@ footer::before {
     background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
     border-radius: 50%;
     z-index: 0;
+    animation: float 10s ease-in-out infinite;
 }
 
 footer::after {
@@ -375,6 +357,7 @@ footer::after {
     background: radial-gradient(circle, rgba(118, 75, 162, 0.1) 0%, transparent 70%);
     border-radius: 50%;
     z-index: 0;
+    animation: floatReverse 8s ease-in-out infinite;
 }
 
 footer .container-fluid {
@@ -444,11 +427,12 @@ footer a {
 
 /* Состояние наведения на ссылку в подвале */
 footer a:hover {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     /* Основной цвет при наведении */
     text-decoration: none;
     transform: translateX(5px);
     /* Смещение вправо при наведении */
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
 }
 
 /* Текст копирайта в подвале */
@@ -473,28 +457,35 @@ footer a:hover {
 
 /* Ссылка социальной сети */
 .social-links a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
     /* Блочно-строчный элемент */
-    font-size: var(--font-size-xxl);
+    font-size: 1.25rem;
     /* Большой размер иконки */
     color: var(--text-white);
     /* Белый цвет иконки */
     transition: var(--transition);
     /* Плавный переход */
-    padding: var(--spacing-sm);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 0;
     /* Внутренние отступы */
-    border-radius: var(--border-radius-sm);
+    border-radius: 50%;
     /* Скругление углов */
 }
 
 /* Состояние наведения на социальную ссылку */
 .social-links a:hover {
-    color: var(--primary-color);
+    color: white;
     /* Основной цвет при наведении */
-    transform: scale(1.2) translateY(-3px);
+    transform: translateY(-5px) scale(1.1);
     /* Увеличение и смещение вверх */
-    background-color: rgba(255, 255, 255, 0.1);
+    background: var(--primary-gradient);
     /* Полупрозрачный белый фон */
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
 }
 
 /* Список без маркеров в подвале */

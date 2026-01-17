@@ -7,7 +7,7 @@
 <!-- Открывающий тег шапки сайта с эффектом glassmorphism -->
 <header class="sticky-top glass-header">
     <!-- Навигационная панель -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <!-- Контейнер с полной шириной и адаптивными отступами -->
         <div class="container-fluid px-3 px-lg-5">
             <!-- Логотип бренда -->
@@ -79,12 +79,6 @@
                             <button type="submit" class="search-btn-modern search-button"><i class="fas fa-search"></i></button>
                         </form>
                     </div>
-
-                    <!-- Переключатель темы New -->
-                    <button class="theme-switch-btn" id="themeToggle" aria-label="Переключить тему">
-                        <i class="fas fa-sun theme-icon-sun"></i>
-                        <i class="fas fa-moon theme-icon-moon"></i>
-                    </button>
 
                     <!-- Аккаунт -->
                     {% if user.is_authenticated %}
