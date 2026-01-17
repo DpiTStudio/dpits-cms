@@ -23,6 +23,7 @@ urlpatterns = [
     path("", include("main.urls")),  # Главная страница и основные маршруты
     path("news/", include("news.urls")),  # Маршруты для новостей
     path("portfolio/", include("portfolio.urls")),  # Маршруты для портфолио
+    path("services/", include("services.urls")),  # Маршруты для услуг
     path("reviews/", include("reviews.urls")),  # Маршруты для отзывов
     path("accounts/", include("accounts.urls")),  # Маршруты для аккаунтов пользователей
     path("feedback/", include("feedback.urls")),  # Маршруты для обратной связи
