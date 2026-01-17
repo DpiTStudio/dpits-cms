@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    О нас - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
+   {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - О нас 
 {% endblock %}
 
 {% block meta_description %}
@@ -10,11 +10,11 @@
 {% endblock %}
 
 {% block meta_keywords %}
-    о нас, компания, информация, услуги
+    {{ site_settings.seo_keywords|default:"о нас, компания, информация, услуги" }}
 {% endblock %}
 
 {% block extra_head %}
-    <meta property="og:title" content="О нас - {{ site_settings.logo_text }}">
+    <meta property="og:title" content="{{ site_settings.logo_text }} - О нас">
     <meta property="og:description" content="Информация о нашей компании и услугах">
     <link rel="stylesheet" href="{% static 'main/css/styles.css' %}">
 {% endblock %}

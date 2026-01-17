@@ -2,11 +2,15 @@
 {% load static %}
 
 {% block title %}
-    Страница не найдена (404) - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
+    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - Страница не найдена (404)
 {% endblock %}
 
 {% block meta_description %}
-    Запрашиваемая страница не найдена. Возможно, она была удалена или перемещена.
+    {{ site_settings.seo_description|default:"Запрашиваемая страница не найдена. Возможно, она была удалена или перемещена." }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ site_settings.seo_keywords|default:"страница не найдена, 404, страница, не найдена, удалена, перемещена" }}
 {% endblock %}
 
 {% block extra_head %}

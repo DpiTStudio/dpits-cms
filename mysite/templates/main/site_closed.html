@@ -3,11 +3,15 @@
 {% load static %}
 
 {% block title %}
-    Сайт на техническом обслуживании - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
+    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - Сайт на техническом обслуживании
 {% endblock %}
 
 {% block meta_description %}
-    Сайт временно недоступен из-за технического обслуживания. Приносим извинения за неудобства.
+    {{ site_settings.seo_description|default:"Сайт временно недоступен из-за технического обслуживания. Приносим извинения за неудобства." }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ site_settings.seo_keywords|default:"сайт, техническое обслуживание, обслуживание, техническое, обслуживание, обслуживание, техническое, обслуживание" }}
 {% endblock %}
 
 {% block content %}

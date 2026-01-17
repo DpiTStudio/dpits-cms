@@ -2,11 +2,15 @@
 {% load static %}
 
 {% block title %}
-    Ошибка сервера (500) - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
+    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - Ошибка сервера (500)
 {% endblock %}
 
 {% block meta_description %}
-    Произошла внутренняя ошибка сервера. Мы уже работаем над её устранением.
+    {{ site_settings.seo_description|default:"Произошла внутренняя ошибка сервера. Мы уже работаем над её устранением." }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ site_settings.seo_keywords|default:"ошибка сервера, 500, ошибка, сервер, устранение" }}
 {% endblock %}
 
 {% block extra_head %}

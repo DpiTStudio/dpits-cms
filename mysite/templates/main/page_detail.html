@@ -5,12 +5,12 @@
 
 <!-- Заголовок страницы для браузера и SEO -->
 {% block title %}
-{{ site_settings.logo_text }} - {{ page.display_title }}
+    {{ site_settings.logo_text }} - {{ page.display_title }}
 {% endblock %}
 
 <!-- Мета-описание из SEO настроек или усеченный контент -->
 {% block meta_description %}
-{{ page.seo_description|default:page.content|striptags|truncatewords:20 }}
+    {{ page.seo_description|default:page.content|striptags|truncatewords:20 }}
 {% endblock %}
 
 <!-- Ключевые слова для SEO -->

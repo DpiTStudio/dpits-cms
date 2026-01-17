@@ -13,7 +13,17 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ page_title }}{% endblock %}
+{% block title %}
+    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - {{ page_title }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ site_settings.seo_description|default:"Страница просмотра лог-файла ошибок" }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ site_settings.seo_keywords|default:"лог-файл, ошибка, ошибки, просмотр, лог" }}
+{% endblock %}
 
 {% block extra_css %}
 <style>

@@ -13,7 +13,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ page_title }}{% endblock %}
+{% block title %}
+    {{ site_settings.logo_text }} - {{ page_title }}
+{% endblock %}
 
 {% block extra_css %}
 <style>
