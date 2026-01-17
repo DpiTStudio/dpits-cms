@@ -11,16 +11,17 @@
         <!-- Контейнер с полной шириной и адаптивными отступами -->
         <div class="container-fluid px-3 px-lg-5">
             <!-- Логотип бренда -->
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'main:index' %}">
+            <!-- Ссылка-логотип бренда с премиальным стилем -->
+            <a class="navbar-brand navbar-brand-premium d-flex align-items-center" href="{% url 'main:index' %}">
                 {% if site_settings.logo %}
-                <div class="brand-logo-wrapper me-3 animate-logo-hover">
-                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" height="45"
-                        class="rounded-circle shadow-brand">
-                    <div class="logo-glow"></div>
+                <div class="brand-logo-container me-2">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" height="40"
+                        class="rounded brand-logo">
                 </div>
                 {% endif %}
                 <span class="brand-text fw-bold text-gradient">{{ site_settings.logo_text }}</span>
             </a>
+
 
             <!-- Кнопка мобильного меню -->
             <button class="navbar-toggler border-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -83,7 +84,7 @@
                     <!-- Аккаунт -->
                     {% if user.is_authenticated %}
                     <div class="dropdown">
-                        <button class="btn btn-account dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-account" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="user-avatar-sm">
                                 <i class="fas fa-user"></i>
                             </div>
