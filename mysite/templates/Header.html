@@ -4,146 +4,111 @@
      ============================================ -->
 
 <!-- Открывающий тег шапки сайта с темным фоном, белым текстом, липким позиционированием и тенью -->
-<header class="sticky-top shadow-sm bg-dark">
-    <!-- Навигационная панель Bootstrap с расширением на больших экранах и темной темой -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <!-- Контейнер с полной шириной и адаптивными горизонтальными отступами -->
-        <div class="container-fluid px-2 px-md-3 px-lg-4">
-            <!-- Ссылка-логотип бренда с премиальным стилем и flexbox выравниванием -->
-            <a class="navbar-brand navbar-brand-premium d-flex align-items-center" href="{% url 'main:index' %}">
-                <!-- Условная проверка наличия логотипа в настройках сайта -->
+<!-- Открывающий тег шапки сайта с эффектом glassmorphism -->
+<header class="sticky-top glass-header">
+    <!-- Навигационная панель -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <!-- Контейнер с полной шириной и адаптивными отступами -->
+        <div class="container-fluid px-3 px-lg-5">
+            <!-- Логотип бренда -->
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'main:index' %}">
                 {% if site_settings.logo %}
-                <!-- Изображение логотипа с премиальной анимацией -->
-                <div class="brand-logo-container me-2">
-                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" height="40"
-                        class="rounded brand-logo">
+                <div class="brand-logo-wrapper me-3 animate-logo-hover">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" height="45"
+                        class="rounded-circle shadow-brand">
+                    <div class="logo-glow"></div>
                 </div>
                 {% endif %}
-                <!-- Текстовое название бренда с градиентом и инновационным стилем -->
-                <span class="brand-text">{{ site_settings.logo_text }}</span>
+                <span class="brand-text fw-bold text-gradient">{{ site_settings.logo_text }}</span>
             </a>
 
-            <!-- Кнопка переключения мобильного меню (гамбургер) -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <!-- Кнопка мобильного меню -->
+            <button class="navbar-toggler border-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <!-- Иконка гамбургера для мобильного меню -->
-                <span class="navbar-toggler-icon"></span>
+                <div class="animated-hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </button>
 
-            <!-- Сворачиваемый контейнер навигационного меню -->
+            <!-- Меню -->
             <div class="collapse navbar-collapse" id="navbarNav">
-                <!-- Список навигационных элементов с автоматическим отступом справа -->
-                <ul class="navbar-nav me-auto d-flex align-items-center">
-                    <!-- Пункт меню "Главная" с иконкой на мобильных устройствах -->
-                    {% comment %} <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'main:index' %}">
-                            <i class="fas fa-home me-1 d-lg-none"></i>Главная
-                        </a>
-                    </li> {% endcomment %}
-                    <!-- Пункт меню "Новости" с иконкой на мобильных устройствах -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center">
+                    <!-- Пункты меню -->
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" href="{% url 'news:list' %}">
-                            <i class="fas fa-newspaper me-1 d-lg-none"></i><span>Новости</span>
+                        <a class="nav-link nav-link-custom" href="{% url 'news:list' %}">
+                            <i class="fas fa-newspaper me-2 d-lg-none text-primary-accent"></i>Новости
+                            <span class="nav-indicator"></span>
                         </a>
                     </li>
-                    <!-- Пункт меню "Портфолио" с иконкой на мобильных устройствах -->
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" href="{% url 'portfolio:list' %}">
-                            <i class="fas fa-briefcase me-1 d-lg-none"></i><span>Портфолио</span>
+                        <a class="nav-link nav-link-custom" href="{% url 'portfolio:list' %}">
+                            <i class="fas fa-layer-group me-2 d-lg-none text-primary-accent"></i>Портфолио
+                            <span class="nav-indicator"></span>
                         </a>
                     </li>
-                    <!-- Пункт меню "Услуги" с иконкой на мобильных устройствах -->
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" href="{% url 'services:list' %}">
-                            <i class="fas fa-briefcase me-1 d-lg-none"></i><span>Услуги</span>
+                        <a class="nav-link nav-link-custom" href="{% url 'services:list' %}">
+                            <i class="fas fa-concierge-bell me-2 d-lg-none text-primary-accent"></i>Услуги
+                            <span class="nav-indicator"></span>
                         </a>
                     </li>
-                    <!-- Пункт меню "Отзывы" с иконкой на мобильных устройствах -->
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" href="{% url 'reviews:list' %}">
-                            <i class="fas fa-star me-1 d-lg-none"></i><span>Отзывы</span>
+                        <a class="nav-link nav-link-custom" href="{% url 'reviews:list' %}">
+                            <i class="fas fa-star me-2 d-lg-none text-primary-accent"></i>Отзывы
+                            <span class="nav-indicator"></span>
                         </a>
                     </li>
-                    <!-- Цикл для динамического добавления страниц из меню -->
                     {% for page in menu_pages %}
-                    <!-- Пункт меню для каждой страницы из настроек -->
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" href="{% url 'main:page_detail' page.slug %}">
-                            <span>{{ page.title }}</span>
+                        <a class="nav-link nav-link-custom" href="{% url 'main:page_detail' page.slug %}">
+                            {{ page.title }}
+                            <span class="nav-indicator"></span>
                         </a>
                     </li>
                     {% endfor %}
                 </ul>
 
-                <!-- Контейнер для элементов авторизации с flexbox выравниванием по центру -->
-                <div class="d-flex align-items-center gap-2 flex-wrap">
-                    <!-- Поиск -->
-                    <div class="search-container d-none d-md-flex flex-grow-1 flex-md-grow-0" style="max-width: 300px;">
-                        <input type="text" class="form-control form-control-sm search-input" placeholder="Поиск..." aria-label="Поиск по сайту">
-                        <button class="btn btn-outline-light btn-sm search-button" type="button" aria-label="Найти">
-                            <i class="fas fa-search"></i>
-                        </button>
+                <!-- Правая часть: Поиск, Тема, Аккаунт -->
+                <div class="d-flex align-items-center gap-3">
+                    <!-- Поиск Expanding -->
+                    <div class="search-wrapper search-container d-none d-md-block">
+                        <form class="search-form" action="#" method="get">
+                            <input type="text" class="search-input-modern search-input" placeholder="Поиск..." aria-label="Поиск">
+                            <button type="submit" class="search-btn-modern search-button"><i class="fas fa-search"></i></button>
+                        </form>
                     </div>
-                    
-                    <!-- Переключатель темы -->
-                    <button class="btn btn-outline-light btn-sm theme-toggle" id="themeToggle" aria-label="Переключить тему" title="Переключить тему">
-                        <i class="fas fa-sun theme-toggle-icon d-none"></i>
-                        <i class="fas fa-moon theme-toggle-icon"></i>
+
+                    <!-- Переключатель темы New -->
+                    <button class="theme-switch-btn" id="themeToggle" aria-label="Переключить тему">
+                        <i class="fas fa-sun theme-icon-sun"></i>
+                        <i class="fas fa-moon theme-icon-moon"></i>
                     </button>
-                    
-                    <!-- Условная проверка авторизации пользователя -->
+
+                    <!-- Аккаунт -->
                     {% if user.is_authenticated %}
-                    <!-- Выпадающее меню для авторизованного пользователя -->
                     <div class="dropdown">
-                        <!-- Кнопка выпадающего меню с обводкой, иконкой и именем пользователя -->
-                        <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <!-- Иконка пользователя с отступом справа -->
-                            <i class="fas fa-user me-2"></i>
-                            <!-- Имя пользователя, скрытое на маленьких экранах -->
-                            <span class="d-none d-md-inline">{{ user.username }}</span>
+                        <button class="btn btn-account dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="user-avatar-sm">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span class="d-none d-md-inline ms-2 fw-medium">{{ user.username }}</span>
                         </button>
-                        <!-- Выпадающее меню с выравниванием справа -->
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <!-- Пункт меню "Профиль" -->
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="{% url 'accounts:profile' %}">
-                                    <i class="fas fa-user me-2"></i><span>Профиль</span>
-                                </a>
-                            </li>
-                            <!-- Пункт меню "Мои тикеты" -->
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center"
-                                    href="{% url 'accounts:ticket_list' %}">
-                                    <i class="fas fa-ticket-alt me-2"></i><span>Мои тикеты</span>
-                                </a>
-                            </li>
-                            <!-- Разделитель в меню -->
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <!-- Пункт меню "Выйти" (ведёт на страницу подтверждения выхода) -->
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center"
-                                    href="{% url 'accounts:logout_confirm' %}">
-                                    <i class="fas fa-sign-out-alt me-2"></i><span>Выйти</span>
-                                </a>
-                            </li>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-glass animate-slide-in">
+                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}"><i class="fas fa-id-card me-2"></i>Профиль</a></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:ticket_list' %}"><i class="fas fa-ticket-alt me-2"></i>Мои тикеты</a></li>
+                            <li><hr class="dropdown-divider bg-light-transparent"></li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'accounts:logout_confirm' %}"><i class="fas fa-sign-out-alt me-2"></i>Выйти</a></li>
                         </ul>
                     </div>
                     {% else %}
-                    <!-- Кнопка входа для неавторизованных пользователей -->
-                    <a href="{% url 'accounts:login' %}" class="btn btn-outline-light btn-sm me-1 me-md-2 d-flex align-items-center">
-                        <i class="fas fa-sign-in-alt me-1"></i>
-                        <!-- Текст кнопки, скрытый на маленьких экранах -->
-                        <span class="d-none d-sm-inline">Войти</span>
-                    </a>
-                    <!-- Кнопка регистрации для неавторизованных пользователей -->
-                    <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-sm d-flex align-items-center">
-                        <i class="fas fa-user-plus me-1"></i>
-                        <!-- Текст кнопки, скрытый на маленьких экранах -->
-                        <span class="d-none d-sm-inline">Регистрация</span>
-                    </a>
+                    <div class="auth-buttons">
+                        <a href="{% url 'accounts:login' %}" class="btn btn-glass-outline me-2">Войти</a>
+                        <a href="{% url 'accounts:register' %}" class="btn btn-gradient-primary shine-effect">
+                            Регистрация
+                        </a>
+                    </div>
                     {% endif %}
                 </div>
             </div>
