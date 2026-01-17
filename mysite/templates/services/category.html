@@ -16,11 +16,15 @@
             </ol>
         </nav>
 
-        <div class="row mb-5">
-            <div class="col-lg-8">
+        <!-- Заголовок страницы -->
+        <div class="row mb-5 text-left">
+            <div class="col-lg-8 mx-auto">
+                <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">КАТЕГОРИЯ УСЛУГ</span>
                 <h1 class="display-4 fw-bold mb-3">{{ category.name }}</h1>
                 {% if category.description %}
-                <div class="lead text-muted">{{ category.description|safe }}</div>
+                <div class="lead text-muted">{{ category.description|striptags|truncatechars:150 }}</div>
+                {% else %}
+                <p class="lead text-muted">Все услуги в категории {{ category.name }}.</p>
                 {% endif %}
             </div>
         </div>

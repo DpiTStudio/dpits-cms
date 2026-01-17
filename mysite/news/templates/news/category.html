@@ -16,6 +16,19 @@
 {% block content %}
 <section class="main-content">
     <div class="container-fluid py-5">
+        <!-- Заголовок страницы -->
+        <div class="row mb-5 text-left">
+            <div class="col-lg-8 mx-auto">
+                <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">КАТЕГОРИЯ НОВОСТЕЙ</span>
+                <h1 class="display-4 fw-bold mb-3">{{ category.name }}</h1>
+                {% if category.description %}
+                <div class="lead text-muted">{{ category.description|striptags|truncatechars:150 }}</div>
+                {% else %}
+                <p class="lead text-muted">Все новости в категории {{ category.name }}.</p>
+                {% endif %}
+            </div>
+        </div>
+
         <!-- Блок категорий под шапкой -->
         <div class="row mb-4">
             <div class="col-12">
@@ -38,16 +51,6 @@
         <div class="row">
             <!-- Основной контент -->
             <div class="col-lg-9">
-                <!-- Заголовок категории -->
-                <h1 class="mb-4">{{ category.name }}</h1>
-
-                <!-- Описание категории -->
-                {% if category.description %}
-                <div class="mb-4">
-                    {{ category.description|safe }}
-                </div>
-                {% endif %}
-
                 <!-- Список новостей -->
                 <div class="row">
                     {% for news_item in news_list %}

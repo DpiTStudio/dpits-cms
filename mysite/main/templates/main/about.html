@@ -37,14 +37,17 @@
 
             <!-- Заголовок страницы -->
             <header class="text-center mb-5">
-                <h1 class="display-4 fw-bold text-primary mb-3">
-                    <i class="fas fa-info-circle me-2"></i>О нас
-                </h1>
-                {% if site_settings.slogan %}
-                <p class="lead text-muted">
-                    {{ site_settings.slogan }}
-                </p>
-                {% endif %}
+                <div class="row mb-5 text-left">
+                    <div class="col-lg-8 mx-auto">
+                        <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">О НАС</span>
+                        <h1 class="display-4 fw-bold mb-3">Наша компания</h1>
+                        {% if site_settings.slogan %}
+                        <p class="lead text-muted">{{ site_settings.slogan }}</p>
+                        {% else %}
+                        <p class="lead text-muted">Узнайте больше о нашей команде, миссии и ценностях.</p>
+                        {% endif %}
+                    </div>
+                </div>
             </header>
 
             <!-- Логотип и основная информация -->

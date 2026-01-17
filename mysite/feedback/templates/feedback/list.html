@@ -11,10 +11,16 @@
 <div class="container-fluid mt-5">
     <div class="row">
         <div class="col-md-10 offset-md-1">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1>
-                    <i class="fas fa-inbox me-2"></i>Мои сообщения
-                </h1>
+            <!-- Заголовок страницы -->
+            <div class="row mb-5 text-left">
+                <div class="col-lg-10 mx-auto">
+                    <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">ОБРАТНАЯ СВЯЗЬ</span>
+                    <h1 class="display-4 fw-bold mb-3">Мои сообщения</h1>
+                    <p class="lead text-muted">Просматривайте ваши обращения и отслеживайте статус ответов от нашей команды.</p>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end align-items-center mb-4">
                 <a href="{% url 'feedback:create' %}" class="btn btn-primary">
                     <i class="fas fa-plus me-2"></i>Новое сообщение
                 </a>

@@ -16,6 +16,15 @@
 {% block content %}
 <section class="main-content py-4 py-md-5">
     <div class="container-fluid px-3 px-md-4">
+        <!-- Заголовок страницы -->
+        <div class="row mb-5 text-left">
+            <div class="col-lg-8 mx-auto">
+                <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">НОВОСТИ</span>
+                <h1 class="display-4 fw-bold mb-3">Актуальные события</h1>
+                <p class="lead text-muted">Следите за последними новостями и обновлениями из мира технологий и разработки.</p>
+            </div>
+        </div>
+
         <!-- Блок категорий под шапкой -->
         <div class="row mb-4">
             <div class="col-12">
@@ -34,15 +43,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Главный заголовок -->
-        <h1 class="mb-4 fw-bold">
-            {% if site_settings.logo_text %}
-            {{ site_settings.logo_text }} - Новости
-            {% else %}
-            Новости
-            {% endif %}
-        </h1>
 
         <!-- Список новостей -->
         <div class="row g-4">
