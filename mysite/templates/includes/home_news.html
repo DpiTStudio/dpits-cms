@@ -1,0 +1,99 @@
+        {% load static %}
+<!-- Блок последних новостей на главной странице -->
+        {% block home_news_section %}
+        <!-- Условная проверка наличия списка последних новостей -->
+        {% if recent_news_list %}
+        <!-- Контейнер с полной шириной для секции новостей -->
+        <div class="container-fluid">
+            <!-- Строка с центрированием контента -->
+            <div class="row justify-content-center">
+                <!-- Колонка на всю ширину на мобильных, 10 колонок на больших экранах -->
+                <div class="col-12 col-lg-10">
+                    <!-- Карточка с тенью и отступом сверху -->
+                    <div class="card shadow-sm mt-4">
+                        <!-- Заголовок карточки с основным цветом и белым текстом -->
+                        <div class="card-header bg-primary text-white">
+                            <!-- Заголовок с иконкой газеты -->
+                            <h4 class="mb-0"><i class="fas fa-newspaper me-2"></i>Последние новости</h4>
+                        </div>
+                        <!-- Тело карточки -->
+                        <div class="card-body">
+                            <!-- Строка для сетки карточек новостей -->
+                            <div class="row">
+                                <!-- Цикл по списку последних новостей -->
+                                {% for recent_news in recent_news_list %}
+                                <!-- Колонка для карточки новости - 4 колонки на средних экранах -->
+                                <div class="col-md-4 mb-3">
+                                    <!-- Карточка новости с полной высотой -->
+                                    <div class="card h-100 news-card">
+                                        <!-- Условная проверка наличия изображения у новости -->
+                                        {% if recent_news.image %}
+                                        <!-- Изображение новости из базы данных -->
+                                        <img src="{{ recent_news.image.url }}" class="card-img-top"
+                                            alt="{{ recent_news.title }}">
+                                        {% else %}
+                                        <!-- Изображение по умолчанию, если у новости нет изображения -->
+                                        <img src="{% static 'images/default-news.jpg' %}" class="card-img-top"
+                                            alt="{{ recent_news.title }}">
+                                        {% endif %}
+                                        <!-- Тело карточки с flexbox для выравнивания -->
+                                        <div class="card-body d-flex flex-column">
+                                            <!-- Условная проверка наличия категории у новости -->
+                                            {% if recent_news.category %}
+                                            <!-- Бейдж категории с выравниванием по левому краю -->
+                                            <span class="badge bg-secondary mb-2 align-self-start">
+                                                {{ recent_news.category.name }}
+                                            </span>
+                                            {% endif %}
+                                            <!-- Заголовок новости с ограничением количества слов -->
+                                            <h6 class="card-title d-flex align-items-center">
+                                                <!-- Изображение новости размером 15 пикселей -->
+                                                {% if recent_news.image %}
+                                                <img src="{{ recent_news.image.url }}" class="sidebar-news-image" alt="{{ recent_news.title }}">
+                                                {% else %}
+                                                <img src="{% static 'images/default-news.jpg' %}" class="sidebar-news-image" alt="{{ recent_news.title }}">
+                                                {% endif %}
+                                                <span class="flex-grow-1">{{ recent_news.title|truncatewords:8 }}</span>
+                                            </h6>
+                                            <!-- Текст новости с растягиванием и ограничением количества слов -->
+                                            <p class="card-text flex-grow-1 small">
+                                                {{ recent_news.short_description|striptags|truncatewords:12 }}
+                                            </p>
+                                            <!-- Футер карточки с датой и кнопкой -->
+                                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                                <!-- Дата создания новости в формате день.месяц.год -->
+                                                <small
+                                                    class="text-muted">{{recent_news.created_at|date:"d.m.Y"}}</small>
+                                                <!-- Ссылка на детальную страницу новости -->
+                                                <a href="{% url 'news:detail' recent_news.slug %}"
+                                                    class="btn btn-sm btn-outline-primary">Читать</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Обработка случая, когда новостей нет -->
+                                {% empty %}
+                                <!-- Сообщение об отсутствии новостей с центрированием -->
+                                <div class="col-12 text-center py-4">
+                                    <p class="text-muted">Новостей пока нет</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Ссылка на страницу со всеми новостями -->
+                            {% if recent_news_list %}
+                            <!-- Контейнер с центрированием и отступом сверху -->
+                            <div class="text-center mt-3">
+                                <!-- Кнопка-ссылка на список всех новостей -->
+                                <a href="{% url 'news:list' %}" class="btn btn-primary">
+                                    Все новости <i class="fas fa-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endblock %}
