@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ service.name }} - {{ site_settings.logo_text }}{% endblock %}
+{% block title %}{{ site_settings.logo_text }} - {{ service.name }}{% endblock %}
 {% block meta_description %}{{ service.seo_description|default:service.short_description|striptags }}{% endblock %}
 {% block meta_keywords %}{{ service.seo_keywords }}{% endblock %}
 
