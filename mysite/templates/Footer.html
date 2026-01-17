@@ -63,6 +63,16 @@
                         </a>
                     </div>
                     {% endif %}
+                    <!-- Условная проверка наличия адреса -->
+                    {% if site_settings.address %}
+                    <!-- Контейнер для адреса с горизонтальным выравниванием -->
+                    <div class="d-flex align-items-center">
+                        <!-- Иконка карты с отступом справа и основным цветом -->
+                        <i class="fas fa-map-marker-alt me-2 text-primary"></i>
+                        <!-- Текст адреса с белым цветом -->
+                        <span class="text-white">{{ site_settings.address }}</span>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
 
