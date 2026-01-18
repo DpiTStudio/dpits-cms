@@ -31,6 +31,22 @@ class PortfolioCategoryAdmin(admin.ModelAdmin):
     # Элементов на странице
     list_per_page = 20
 
+    # Группировка полей в форме редактирования
+    fieldsets = (
+        (
+            _("Основная информация"),
+            {"fields": ("name", "slug", "description", "order", "is_active")},
+        ),
+        (
+            _("SEO настройки"),
+            {"fields": ("seo_title", "seo_description", "seo_keywords")},
+        ),
+        (
+            _("Статистика"),
+            {"fields": ("created_at", "updated_at", "works_count_display")},
+        ),
+    )
+
     def works_count(self, obj):
         """Количество работ в категории"""
         return obj.portfolioitem_set.count()
