@@ -9,12 +9,14 @@
     {% elif '/portfolio/' in request.path %}hero-portfolio
     {% elif '/reviews/' in request.path %}hero-reviews
     {% elif '/accounts/' in request.path %}hero-accounts
+    {% elif '/services/' in request.path %}hero-services
     {% else %}hero-home{% endif %}
     {% if selected_category %} hero-cat-{{ selected_category }}
     {% elif category and category.slug %} hero-cat-{{ category.slug }}
     {% elif news and news.category %} hero-cat-{{ news.category.slug }}
     {% elif portfolio_item and portfolio_item.category %} hero-cat-{{ portfolio_item.category.slug }}
     {% elif item and item.category %} hero-cat-{{ item.category.slug }}
+    {% elif services and services.category %} hero-cat-{{ services.category.slug }}
     {% endif %}"
     {% if site_settings.hero_background %}
     style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ site_settings.hero_background.url }}'); background-size: cover; background-position: center;"
@@ -80,6 +82,9 @@
             <!-- Если путь содержит '/reviews/' - показываем фон для отзывов -->
             {% elif '/reviews/' in request.path %}
                 {% include 'includes/backgrounds/reviews_bg.html' %}
+            <!-- Если путь содержит '/services/' - показываем фон для услуг -->
+            {% elif '/services/' in request.path %}
+                {% include 'includes/backgrounds/services_bg.html' %}
             <!-- Иначе показываем фон для главной страницы -->
             {% else %}
                 {% include 'includes/backgrounds/home_bg.html' %}
