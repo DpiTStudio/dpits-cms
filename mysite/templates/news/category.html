@@ -3,15 +3,8 @@
 {% load static %}
 
 <!-- Заголовок страницы -->
-{% comment %}
-{% block title %}
-    {% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}{{ category.name }}
-{% endblock %}
-{% endcomment %}
+{% block title %}{% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}{{ category.name }}{% endblock %}
 
-{% block extra_title %}
-    {% if site_settings.logo_text %}{{ site_settings.logo_text }} - {% endif %}{{ category.name }}
-{% endblock %}
 
 {% block extra_description %}
     {% if category.description %}{{ category.description|striptags|truncatechars:150 }}{% endif %}
