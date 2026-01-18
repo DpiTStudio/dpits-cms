@@ -15,9 +15,15 @@ from .models import (
 @admin.register(PortfolioCategory)
 class PortfolioCategoryAdmin(admin.ModelAdmin):
     """Админ-панель для категорий портфолио"""
-
     # Поля для отображения в списке
-    list_display = ["name", "slug", "order", "is_active", "works_count", "created_at"]
+    list_display = (
+        "name",
+        "slug",
+        "order",
+        "is_active",
+        "works_count",
+        "created_at",
+    )
     # Фильтры для боковой панели
     list_filter = ["is_active", "created_at"]
     # Поля для поиска
@@ -34,15 +40,21 @@ class PortfolioCategoryAdmin(admin.ModelAdmin):
     # Группировка полей в форме редактирования
     fieldsets = (
         (
+            # Заголовок группы полей
             _("Основная информация"),
+            # Поля в группе
             {"fields": ("name", "slug", "description", "order", "is_active")},
         ),
         (
+            # Заголовок группы полей
             _("SEO настройки"),
+            # Поля в группе
             {"fields": ("seo_title", "seo_description", "seo_keywords")},
         ),
         (
+            # Заголовок группы полей
             _("Статистика"),
+            # Поля в группе
             {"fields": ("created_at", "updated_at", "works_count_display")},
         ),
     )
