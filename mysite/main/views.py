@@ -135,7 +135,7 @@ class BaseView(TemplateView):
         return context
 
 
-class ProfileView(MaintenanceMixin, BaseView, TemplateView):
+class ProfileView(MaintenanceMixin, BaseView):
     """
     Представление для страницы профиля пользователя.
     Отображает шаблон профиля с базовым контекстом.
@@ -193,7 +193,7 @@ class ProfileView(MaintenanceMixin, BaseView, TemplateView):
         return context
 
 
-class IndexView(MaintenanceMixin, BaseView, TemplateView):
+class IndexView(MaintenanceMixin, BaseView):
     """
     Представление для главной страницы сайта.
     Наследует функциональность обслуживания и базовые данные.

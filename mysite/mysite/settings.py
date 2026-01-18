@@ -93,7 +93,7 @@ ROOT_URLCONF = "mysite.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [str(BASE_DIR / "templates")],
         "APP_DIRS": True,  # Поиск шаблонов в папках templates приложений
         "OPTIONS": {
             "context_processors": [
@@ -108,6 +108,7 @@ TEMPLATES = [
                 "main.context_processors.sidebar_data",  # Данные сайдбара
                 "main.context_processors.seo_context",  # Базовые SEO-данные
                 "main.context_processors.admin_dashboard_stats",  # Статистика для админки
+                "main.context_processors.statistics_banners",  # Статистические баннеры
                 "news.context_processors.latest_news",  # Последние новости
             ],
         },

@@ -32,25 +32,15 @@ class MainConfig(AppConfig):
             print(f"Ошибка импорта сигналов: {e}")
             # Игнорируем ошибку для продолжения работы
             pass
-
-
-def ready(self):
-    """
-    Вызывается когда приложение готово к работе.
-    Используется для регистрации сигналов.
-    """
-    # Импорт здесь чтобы избежать циклических импортов
-    try:
-        from . import signals
-    except ImportError as e:
-        # Если сигналы не определены, выводим отладочную информацию
-        print(f"Ошибка импорта сигналов: {e}")
-        # Игнорируем ошибку для продолжения работы
-        pass
-    
-    # Регистрируем контекстный процессор
-    from django.template import engines
-    for engine in engines.all():
-        engine.engine.context_processors.append(
-            'main.context_processors.statistics_banners'
-        )
+        
+        # Регистрируем контекстный процессор программно (если необходимо)
+        # Примечание: Лучше добавить его в settings.py TEMPLATES
+        try:
+            from django.template import engines
+            for engine in engines.all():
+                if 'main.context_processors.statistics_banners' not in engine.engine.context_processors:
+                    engine.engine.context_processors.append(
+                        'main.context_processors.statistics_banners'
+                    )
+        except Exception as e:
+            print(f"Ошибка регистрации контекстного процессора statistics_banners: {e}")
