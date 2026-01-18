@@ -15,6 +15,7 @@
     {% elif category and category.slug %} hero-cat-{{ category.slug }}
     {% elif news and news.category %} hero-cat-{{ news.category.slug }}
     {% elif portfolio_item and portfolio_item.category %} hero-cat-{{ portfolio_item.category.slug }}
+    {% elif portfolio and portfolio.category %} hero-cat-{{ portfolio.category.slug }}
     {% elif item and item.category %} hero-cat-{{ item.category.slug }}
     {% elif services and services.category %} hero-cat-{{ services.category.slug }}
     {% endif %}"
