@@ -77,12 +77,12 @@
             <!-- Если путь содержит '/portfolio/' - показываем фон для портфолио -->
             {% elif '/portfolio/' in request.path %}
                 {% include 'includes/backgrounds/portfolio_bg.html' %}
-              <!-- Иначе показываем фон для главной страницы -->
-            {% else %}
-                {% include 'includes/backgrounds/home_bg.html' %}
-          <!-- Если путь содержит '/reviews/' - показываем фон для отзывов -->
+            <!-- Если путь содержит '/reviews/' - показываем фон для отзывов -->
             {% elif '/reviews/' in request.path %}
                 {% include 'includes/backgrounds/reviews_bg.html' %}
+            <!-- Иначе показываем фон для главной страницы -->
+            {% else %}
+                {% include 'includes/backgrounds/home_bg.html' %}
             {% endif %}
         </div>
     </div>
