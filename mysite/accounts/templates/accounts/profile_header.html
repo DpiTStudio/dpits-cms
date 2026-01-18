@@ -1,0 +1,100 @@
+<!-- accounts/templates/accounts/profile_header.html -->
+<header class="bg-dark text-white sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid px-4 px-lg-5">
+            <!-- Ссылка-логотип бренда с премиальным стилем -->
+            <a class="navbar-brand navbar-brand-premium d-flex align-items-center" href="{% url 'main:index' %}">
+                {% if site_settings.logo %}
+                <div class="brand-logo-container me-2">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" height="40"
+                        class="rounded brand-logo">
+                </div>
+                {% endif %}
+                <span class="brand-text">{{ site_settings.logo_text }}</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Список навигационных элементов с автоматическим отступом справа -->
+                <ul class="navbar-nav me-auto d-flex align-items-center">
+                    <!-- Пункт меню "Главная" с иконкой на мобильных устройствах -->
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'main:index' %}">
+                            <i class="fas fa-home me-1 d-lg-none"></i>Главная
+                        </a>
+                    </li>
+                    <!-- Пункт меню "Новости" с иконкой на мобильных устройствах -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'news:list' %}">
+                            <i class="fas fa-newspaper me-1 d-lg-none"></i><span>Новости</span>
+                        </a>
+                    </li>
+                    <!-- Пункт меню "Контакты" с иконкой на мобильных устройствах -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'main:contacts' %}">
+                            <i class="fas fa-phone me-1 d-lg-none"></i><span>Контакты</span>
+                        </a>
+                    </li>
+                    <!-- Пункт меню "Портфолио" с иконкой на мобильных устройствах -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'portfolio:list' %}">
+                            <i class="fas fa-briefcase me-1 d-lg-none"></i><span>Портфолио</span>
+                        </a>
+                    </li>
+                    <!-- Пункт меню "Отзывы" с иконкой на мобильных устройствах -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'reviews:list' %}">
+                            <i class="fas fa-star me-1 d-lg-none"></i><span>Отзывы</span>
+                        </a>
+                    </li>
+                    <!-- Цикл для динамического добавления страниц из меню -->
+                    {% for page in menu_pages %}
+                    <!-- Пункт меню для каждой страницы из настроек -->
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="{% url 'main:page_detail' page.slug %}">
+                            <span>{{ page.title }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% comment %} <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:index' %}">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'news:list' %}">Новости</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio:list' %}">Портфолио</a>
+                    </li>
+                </ul>
+                {% endcomment %}
+                <div class="d-flex">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center" 
+                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user me-2"></i>
+                            <span class="d-none d-md-inline">{{ user.username }}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">
+                                <i class="fas fa-user me-2"></i>Профиль
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:ticket_list' %}">
+                                <i class="fas fa-ticket-alt me-2"></i>Мои тикеты
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:logout_confirm' %}">
+                                <i class="fas fa-sign-out-alt me-2"></i>Выйти
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

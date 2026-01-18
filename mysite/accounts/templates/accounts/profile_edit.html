@@ -1,0 +1,163 @@
+<!-- accounts/profile_edit.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ site_settings.logo_text }} - Редактирование профиля
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/profile_forms.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile-form-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-6">
+                <div class="profile-form-card">
+                    <!-- Заголовок -->
+                    <div class="profile-form-header">
+                        <h2>Настройка профиля</h2>
+                        <p>Основные данные пользователя</p>
+                    </div>
+                    
+                    <!-- Тело формы -->
+                    <div class="profile-form-body">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-4" role="alert">
+                                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} me-2"></i>
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <form method="post" novalidate id="profileEditForm">
+                            {% csrf_token %}
+                            
+                            <div class="form-group-custom">
+                                <label for="{{ form.username.id_for_label }}">
+                                    Имя пользователя
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-at"></i>
+                                    {{ form.username }}
+                                </div>
+                                {% if form.username.errors %}
+                                    {% for error in form.username.errors %}
+                                        <div class="error-text">
+                                            <i class="fas fa-info-circle"></i> {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <p class="help-text">Публичное имя, которое видят другие пользователи</p>
+                            </div>
+                            
+                            <div class="form-group-custom">
+                                <label for="{{ form.email.id_for_label }}">
+                                    Электронная почта
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-envelope"></i>
+                                    {{ form.email }}
+                                </div>
+                                {% if form.email.errors %}
+                                    {% for error in form.email.errors %}
+                                        <div class="error-text">
+                                            <i class="fas fa-info-circle"></i> {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group-custom">
+                                        <label for="{{ form.first_name.id_for_label }}">Имя</label>
+                                        <div class="input-wrapper">
+                                            <i class="fas fa-user-tag"></i>
+                                            {{ form.first_name }}
+                                        </div>
+                                        {% if form.first_name.errors %}
+                                            {% for error in form.first_name.errors %}
+                                                <div class="error-text"><i class="fas fa-info-circle"></i> {{ error }}</div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group-custom">
+                                        <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+                                        <div class="input-wrapper">
+                                            <i class="fas fa-signature"></i>
+                                            {{ form.last_name }}
+                                        </div>
+                                        {% if form.last_name.errors %}
+                                            {% for error in form.last_name.errors %}
+                                                <div class="error-text"><i class="fas fa-info-circle"></i> {{ error }}</div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn-submit-custom">
+                                    <i class="fas fa-check me-2"></i> Сохранить изменения
+                                </button>
+                                <a href="{% url 'accounts:profile' %}" class="btn-cancel-custom">
+                                    Отмена
+                                </a>
+                            </div>
+                        </form>
+                        
+                        <div class="secondary-actions">
+                            <div class="row gy-3">
+                                <div class="col-sm-6 text-sm-start">
+                                    <a href="{% url 'accounts:password_change' %}" class="btn-link-custom">
+                                        <i class="fas fa-shield-alt"></i> Сменить пароль
+                                    </a>
+                                </div>
+                                <div class="col-sm-6 text-sm-end">
+                                    <a href="{% url 'accounts:profile_update' %}" class="btn-link-custom">
+                                        <i class="fas fa-cog"></i> Расширенные настройки
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Добавляем классы к полям формы Django
+        const inputs = document.querySelectorAll('#profileEditForm input');
+        inputs.forEach(input => {
+            if (input.type !== 'hidden' && input.type !== 'submit') {
+                input.classList.add('form-control-custom');
+            }
+        });
+
+        // Плавная анимация фокуса
+        const formGroups = document.querySelectorAll('.form-group-custom');
+        formGroups.forEach((group, index) => {
+            group.style.opacity = '0';
+            group.style.transform = 'translateY(20px)';
+            group.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+            
+            setTimeout(() => {
+                group.style.opacity = '1';
+                group.style.transform = 'translateY(0)';
+            }, 100 + index * 100);
+        });
+    });
+</script>
+{% endblock %}
