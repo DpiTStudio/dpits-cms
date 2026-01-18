@@ -25,24 +25,144 @@
             </div>
         </div>
 
-        <!-- Блок категорий под шапкой -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="categories-header">
-                    <h6 class="mb-3 fw-bold">Категории новостей:</h6>
-                    <div class="d-flex flex-wrap gap-2">
-                        {% for category in categories %}
-                        <a href="{% url 'news:category' category.slug %}"
-                            class="card-news-link btn btn-outline-primary btn-sm">
-                            {{ forloop.counter }} - {{ category.name }} [ {{ category.news_set.count }} ]
-                        </a>
-                        {% empty %}
-                        <span class="text-muted small">Категорий пока нет</span>
-                        {% endfor %}
-                    </div>
+<style>
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.25rem;
+}
+
+.category-card {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.category-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.category-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.category-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+    top: 0;
+    left: 0;
+}
+
+.category-content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1.25rem;
+    text-align: center;
+    color: white;
+    z-index: 2;
+}
+
+.category-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.category-count {
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Цвета для разных категорий */
+.category-card:nth-child(6n+1) .category-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.category-card:nth-child(6n+2) .category-bg { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+.category-card:nth-child(6n+3) .category-bg { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+.category-card:nth-child(6n+4) .category-bg { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+.category-card:nth-child(6n+5) .category-bg { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .categories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    
+    .category-card {
+        aspect-ratio: 4/3;
+    }
+}
+
+@media (max-width: 480px) {
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .category-card {
+        aspect-ratio: 1/1;
+    }
+}
+</style>
+
+<div class="row mb-5">
+    <div class="col-12">
+        <h6 class="mb-3 fw-bold">Категории новостей</h6>
+        
+        {% if categories %}
+        <div class="categories-grid">
+            {% for category in categories %}
+            <a href="{% url 'news:category' category.slug %}" class="category-card">
+                <div class="category-bg">
+                    {% if category.image %}
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                    {% endif %}
                 </div>
-            </div>
+                <div class="category-overlay"></div>
+                
+                <div class="category-content">
+                    <span class="category-name">{{ category.name }}</span>
+                    <span class="category-count">
+                        {{ category.news_set.count }} статей
+                    </span>
+                </div>
+            </a>
+            {% endfor %}
         </div>
+        {% else %}
+        <div class="text-center py-5">
+            <p class="text-muted mb-0">Категорий пока нет</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
 
         <!-- Список новостей -->
         <div class="row g-4">
