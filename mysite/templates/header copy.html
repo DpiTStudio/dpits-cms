@@ -85,8 +85,8 @@
                 <div class="d-flex align-items-center gap-3">
                     <!-- Поиск Expanding -->
                     <div class="search-wrapper search-container d-none d-md-block">
-                        <form class="search-form" action="#" method="get">
-                            <input type="text" class="search-input-modern search-input" placeholder="Поиск..." aria-label="Поиск">
+                        <form class="search-form" action="{% url 'news:search' %}" method="get">
+                            <input type="text" name="q" class="search-input-modern search-input" placeholder="Поиск..." aria-label="Поиск">
                             <button type="submit" class="search-btn-modern search-button"><i class="fas fa-search"></i></button>
                         </form>
                     </div>

@@ -73,20 +73,14 @@
         
         <!-- Фоновая секция с отступом сверху -->
         <div class="mt-2 mt-md-3">
-            <!-- Условная проверка текущего пути для выбора фонового контента -->
-            <!-- Если путь содержит '/news/' - показываем фон для новостей -->
             {% if '/news/' in request.path %}
                 {% include 'includes/backgrounds/news_bg.html' %}
-            <!-- Если путь содержит '/portfolio/' - показываем фон для портфолио -->
             {% elif '/portfolio/' in request.path %}
                 {% include 'includes/backgrounds/portfolio_bg.html' %}
-            <!-- Если путь содержит '/reviews/' - показываем фон для отзывов -->
             {% elif '/reviews/' in request.path %}
                 {% include 'includes/backgrounds/reviews_bg.html' %}
-            <!-- Если путь содержит '/services/' - показываем фон для услуг -->
             {% elif '/services/' in request.path %}
                 {% include 'includes/backgrounds/services_bg.html' %}
-            <!-- Иначе показываем фон для главной страницы -->
             {% else %}
                 {% include 'includes/backgrounds/home_bg.html' %}
             {% endif %}

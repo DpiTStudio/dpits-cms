@@ -21,7 +21,7 @@ urlpatterns = [
     # slug - URL-дружественный идентификатор новости
     path("<slug:slug>/", views.news_detail, name="detail"),
     
-    # Поиск новостей (закомментировано, так как функция может быть не реализована)
+    # Поиск новостей
     # URL: /news/search/
-    # path("search/", views.news_search, name="search"),
+    path("search/", views.news_search, name="search"),
 ]

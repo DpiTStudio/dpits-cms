@@ -26,11 +26,13 @@
                     {% if service.category.id == category.id %}
                     <div class="service-card h-100">
                         <div class="service-card-content">
-                            {% if service.icon %}
                             <div class="service-card-icon-wrapper">
-                                <img src="{{ service.icon.url }}" alt="{{ service.name }}" class="service-card-icon">
+                                {% if service.icon %}
+                                    <img src="{{ service.icon.url }}" alt="{{ service.name }}" class="service-card-icon">
+                                {% else %}
+                                    <i class="fas fa-concierge-bell fa-2x text-primary p-3"></i>
+                                {% endif %}
                             </div>
-                            {% endif %}
                             
                             <h5 class="service-card-title">{{ service.name }}</h5>
                             <div class="service-text mb-4">{{ service.short_description|striptags|truncatechars:100 }}</div>
