@@ -32,17 +32,19 @@
                 <!-- Основной заголовок сайта с адаптивным размером и жирным шрифтом -->
                 <h1 class="display-4 display-md-5 fw-bold mb-3 hero-title">{{ site_settings.title|default:site_settings.logo_text|default:"Добро пожаловать" }}</h1>
                 
+                {% comment %}
                 <!-- Условная проверка наличия текста логотипа в настройках -->
                 {% if site_settings.logo_text %}
                 <!-- Подчеркнутый текст логотипа с адаптивным размером заголовка -->
                 <u class="h5 h-md-4 d-block mb-3">{{ site_settings.logo_text|safe }}</u>
                 {% endif %}
+                {% endcomment %}
                 
                 <!-- Условная проверка наличия слогана сайта -->
                 {% if site_settings.slogan %}
                 <!-- Слоган сайта с адаптивным размером шрифта и отступом снизу -->
                 <p class="lead mb-3 mb-md-4">
-                    {{ site_settings.slogan }}
+                    <i>{{ site_settings.slogan }}</i>
                 </p>
                 {% endif %}
                 
