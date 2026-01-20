@@ -106,11 +106,13 @@
     {% include 'breadcrumbs.html' %}
     {% endblock %}
 
+    {% comment %}
     <!-- Блок hero секции (переопределяется в дочерних шаблонах) -->
     {% block hero_section %}
     <!-- Подключение шаблона hero секции -->
     {% include 'hero.html' %}
     {% endblock %}
+    {% endcomment %}
 
     <!-- Контейнер с полной шириной для основного контента -->
     <div class="container-fluid px-0">

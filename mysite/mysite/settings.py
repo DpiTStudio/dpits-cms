@@ -512,11 +512,11 @@ CKEDITOR_5_FILE_UPLOAD_PERMISSIONS = 0o644  # Права для загружае
 # =============================================================================
 
 # Кеширование для разработки (использует заглушку, не требует Redis)
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.dummy.DummyCache",  # Заглушка для кеша
-    }
-}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.dummy.DummyCache",  # Заглушка для кеша
+#     }
+# }
 
 # Движок сессий без кеширования
 SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Использование БД для сессий

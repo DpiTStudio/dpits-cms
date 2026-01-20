@@ -1,9 +1,12 @@
 import os
 import sys
 
+# ../dpits-cms.ru/public_html/venv/lib64/python3.14/site-packages
+
+
 site_user_root_dir = "/home/d/dpitstudio/dpits-cms.ru/public_html"
 sys.path.insert(0, site_user_root_dir + "/mysite")
-sys.path.insert(1, site_user_root_dir + "/venv/lib/python3.11/site-packages")
+sys.path.insert(1, site_user_root_dir + "/venv/lib64/python3.14/site-packages")
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
 from django.core.wsgi import get_wsgi_application
 
