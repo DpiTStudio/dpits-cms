@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{# Расширяем базовый шаблон нашего сайта #}
+
+{% load static %}
+{# Загружаем тег static для работы со статическими файлами (CSS, JS, изображения) #}
+
+{% block title %}
+{# Блок для заголовка вкладки браузера #}
+    {{ category.name }} - Новости | {{ site_settings.logo_text|default:"DpiTS-CMS.RU" }}
+{# Выводим название категории и текст из настроек сайта или значение по умолчанию #}
+{% endblock %}
+
+{% block extra_css %}
+{# Блок для подключения дополнительных стилей конкретно для этой страницы #}
+<link rel="stylesheet" href="{% static 'css/news-cards.css' %}">
+{# Подключаем стили для карточек новостей #}
+<link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+{# Подключаем стили для пагинации #}
+<style>
+    /* Кастомные стили для страницы категории */
+    .category-hero {
+        position: relative;
+        padding: 5rem 0;
+        background: #0f172a;
+        color: white;
+        overflow: hidden;
+        margin-bottom: 3rem;
+        border-radius: 0 0 2rem 2rem;
+    }
+
+    .category-hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.3;
+        z-index: 1;
+    }
+
+    .category-hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .category-badge {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 0.5rem 1.25rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+    }
+
+    .news-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        background: white;
+        border-radius: 1.5rem;
+        overflow: hidden;
+    }
+
+    .news-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    .news-card-img-wrapper {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 16/10;
+    }
+
+    .news-card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .news-card:hover .news-card-img {
+        transform: scale(1.1);
+    }
+
+    .news-card-body {
+        padding: 1.75rem;
+    }
+
+    .news-date {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .news-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 1rem;
+        color: #1e293b;
+    }
+
+    .news-excerpt {
+        color: #64748b;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .read-more-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: #3b82f6;
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: gap 0.2s ease;
+    }
+
+    .read-more-btn:hover {
+        gap: 0.75rem;
+        color: #2563eb;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{# Основной блок контента страницы #}
+
+<header class="category-hero">
+    {# Шапка категории с фоновым изображением и описанием #}
+    {% if category.image %}
+        <img src="{{ category.image.url }}" alt="{{ category.name }}" class="category-hero-bg">
+        {# Если у категории есть изображение, выводим его как фон #}
+    {% endif %}
+    
+    <div class="container text-center category-hero-content">
+        <span class="category-badge">Категория</span>
+        {# Бейдж с надписью "Категория" #}
+        <h1 class="display-3 fw-bold mb-4">{{ category.name }}</h1>
+        {# Название текущей категории #}
+        
+        {% if category.description %}
+            <div class="lead mx-auto" style="max-width: 800px; opacity: 0.9;">
+                {{ category.description|safe }}
+                {# Описание категории, если оно задано (с поддержкой HTML) #}
+            </div>
+        {% endif %}
+    </div>
+</header>
+
+<div class="container mb-5">
+    {# Контейнер для списка новостей #}
+    <div class="row g-4">
+        {# Сетка новостей #}
+        {% for news_item in news_list %}
+            {# Цикл по списку новостей категории #}
+            <div class="col-12 col-md-6 col-lg-4">
+                <article class="news-card h-100 shadow-sm">
+                    {# Карточка отдельной новости #}
+                    <div class="news-card-img-wrapper">
+                        {% if news_item.image %}
+                            <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}" class="news-card-img">
+                            {# Изображение новости #}
+                        {% endif %}
+                    </div>
+                    
+                    <div class="news-card-body d-flex flex-column">
+                        <div class="news-date">
+                            <i class="far fa-calendar-alt"></i>
+                            {{ news_item.created_at|date:"d M Y" }}
+                            {# Дата публикации новости #}
+                        </div>
+                        
+                        <h2 class="news-title">
+                            <a href="{% url 'news:detail' news_item.slug %}" class="text-decoration-none text-dark">
+                                {{ news_item.title }}
+                            </a>
+                            {# Заголовок новости со ссылкой на полную версию #}
+                        </h2>
+                        
+                        <div class="news-excerpt flex-grow-1">
+                            {{ news_item.short_description|striptags|truncatewords:20 }}
+                            {# Краткое описание новости, обрезанное до 20 слов #}
+                        </div>
+                        
+                        <a href="{% url 'news:detail' news_item.slug %}" class="read-more-btn mt-auto">
+                            Читать далее <i class="fas fa-arrow-right"></i>
+                            {# Кнопка "Читать далее" #}
+                        </a>
+                    </div>
+                </article>
+            </div>
+        {% empty %}
+            {# Блок, который отобразится, если новостей в категории нет #}
+            <div class="col-12 text-center py-5">
+                <div class="mb-4">
+                    <i class="fas fa-folder-open fa-4x text-muted opacity-25"></i>
+                </div>
+                <h3 class="text-muted">В этой категории пока нет новостей</h3>
+                <p class="text-muted">Мы скоро добавим что-нибудь интересное!</p>
+                <a href="{% url 'news:list' %}" class="btn btn-primary rounded-pill px-4 mt-3">
+                    Все новости
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Пагинация -->
+    {# Блок навигации по страницам #}
+    {% if news_list.has_other_pages %}
+        <nav class="mt-5 pt-4">
+            <ul class="pagination justify-content-center">
+                {% if news_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news_list.previous_page_number }}">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for i in news_list.paginator.page_range %}
+                    {% if news_list.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if news_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news_list.next_page_number }}">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+</div>
+{% endblock %}

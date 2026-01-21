@@ -1,141 +1,179 @@
+{# news/news-category.html - Блок с сеткой категорий новостей #}
+
 <style>
+/* Сетка для отображения категорий */
 .categories-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 1.25rem;
+    /* Используем CSS Grid для гибкой сетки */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* Автоматическое заполнение колонками минимум 300px */
+    gap: 1.5rem;
+    /* Отступ между карточками */
 }
 
+/* Стили для карточки категории */
 .category-card {
     display: block;
+    /* Делаем ссылку блочным элементом */
     position: relative;
+    /* Для позиционирования внутренних элементов */
     width: 100%;
     aspect-ratio: 16/9;
-    border-radius: 12px;
+    /* Соотношение сторон 16:9 */
+    border-radius: 1.25rem;
+    /* Закругленные углы */
     overflow: hidden;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
+    /* Скрываем выходящий за границы контент */
     text-decoration: none !important;
+    /* Отключаем подчеркивание ссылки */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    /* Тень для объема */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Плавная анимация всех свойств */
 }
 
+/* Эффект при наведении на карточку */
 .category-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    text-decoration: none !important;
+    transform: translateY(-8px) scale(1.02);
+    /* Приподнимаем и немного увеличиваем */
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    /* Усиливаем тень */
 }
 
+/* Фон карточки (изображение) */
 .category-bg {
     position: absolute;
-    width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
+/* Настройки изображения внутри фона */
 .category-bg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* Сохраняем пропорции, заполняя всю площадь */
+    transition: transform 0.6s ease;
+    /* Плавное увеличение картинки */
 }
 
+/* Увеличение изображения при наведении на карточку */
+.category-card:hover .category-bg img {
+    transform: scale(1.1);
+}
+
+/* Полупрозрачный градиент поверх изображения для читаемости текста */
 .category-overlay {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
-    top: 0;
-    left: 0;
+    inset: 0;
+    /* Растягиваем на всю площадь */
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+    /* Темный градиент снизу вверх */
+    z-index: 2;
+    transition: opacity 0.3s ease;
 }
 
+/* Контент внутри карточки (текст и счетчик) */
 .category-content {
     position: relative;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: center;
-    padding: 1.25rem;
-    text-align: center;
+    /* Прижимаем контент к низу */
+    padding: 1.5rem;
+    z-index: 3;
     color: white;
-    z-index: 2;
 }
 
+/* Название категории */
 .category-name {
+    font-size: 1.25rem;
     font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    /* Тень для текста */
 }
 
+/* Счетчик количества новостей в категории */
 .category-count {
-    background: rgba(255, 255, 255, 0.95);
-    color: #333;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.85rem;
-    font-weight: 600;
+    opacity: 0.9;
+    font-weight: 500;
 }
 
-/* Цвета для разных категорий */
-.category-card:nth-child(6n+1) .category-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-.category-card:nth-child(6n+2) .category-bg { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-.category-card:nth-child(6n+3) .category-bg { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-.category-card:nth-child(6n+4) .category-bg { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
-.category-card:nth-child(6n+5) .category-bg { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+/* Цвета заглушек для категорий без фото (на основе порядкового номера) */
+.category-card:nth-child(5n+1) { background: linear-gradient(135deg, #6366f1, #a855f7); }
+.category-card:nth-child(5n+2) { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+.category-card:nth-child(5n+3) { background: linear-gradient(135deg, #3b82f6, #2dd4bf); }
+.category-card:nth-child(5n+4) { background: linear-gradient(135deg, #f59e0b, #ed64a6); }
+.category-card:nth-child(5n+5) { background: linear-gradient(135deg, #10b981, #3b82f6); }
 
-/* Адаптивность */
+/* Адаптивность для планшетов */
 @media (max-width: 768px) {
     .categories-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         gap: 1rem;
-    }
-    
-    .category-card {
-        aspect-ratio: 4/3;
     }
 }
 
+/* Адаптивность для мобильных устройств */
 @media (max-width: 480px) {
     .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
-    }
-    
-    .category-card {
-        aspect-ratio: 1/1;
+        grid-template-columns: 1fr;
+        /* Одна колонка на мобилках */
     }
 }
 </style>
 
-<!-- Блок категорий под шапкой -->
 <div class="row mb-5">
     <div class="col-12">
-        <h6 class="mb-3 fw-bold">Категории новостей</h6>
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h2 class="h4 fw-bold mb-0">Категории</h2>
+            {# Заголовок секции #}
+            <div class="header-line flex-grow-1 ms-3 bg-light" style="height: 2px;"></div>
+            {# Декоративная линия #}
+        </div>
         
         {% if categories %}
-        <div class="categories-grid">
-            {% for category in categories %}
-            <a href="{% url 'news:category' category.slug %}" class="category-card">
-                <div class="category-bg">
-                    {% if category.image %}
-                    <img src="{{ category.image.url }}" alt="{{ category.name }}">
-                    {% endif %}
-                </div>
-                <div class="category-overlay"></div>
-                
-                <div class="category-content">
-                    <span class="category-name">{{ category.name }}</span>
-                    <span class="category-count">
-                        {{ category.news_set.count }} статей
-                    </span>
-                </div>
-            </a>
-            {% endfor %}
-        </div>
+            {# Если список категорий не пуст #}
+            <div class="categories-grid">
+                {% for category in categories %}
+                    {# Проходим циклом по каждой категории #}
+                    <a href="{% url 'news:category' category.slug %}" class="category-card">
+                        {# Ссылка на страницу категории #}
+                        <div class="category-bg">
+                            {% if category.image %}
+                                <img src="{{ category.image.url }}" alt="{{ category.name }}" loading="lazy">
+                                {# Изображение категории с ленивой загрузкой #}
+                            {% endif %}
+                        </div>
+                        <div class="category-overlay"></div>
+                        {# Слой затемнения #}
+                        
+                        <div class="category-content">
+                            <span class="category-name">{{ category.name }}</span>
+                            {# Вывод названия категории #}
+                            <span class="category-count">
+                                <i class="far fa-newspaper"></i>
+                                {{ category.news_set.count }} статей
+                                {# Вывод количества новостей в категории #}
+                            </span>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
         {% else %}
-        <div class="text-center py-5">
-            <p class="text-muted mb-0">Категорий пока нет</p>
-        </div>
+            {# Если категорий нет #}
+            <div class="text-center py-4 bg-light rounded-4">
+                <p class="text-muted mb-0">Категории пока не созданы</p>
+            </div>
         {% endif %}
     </div>
 </div>
