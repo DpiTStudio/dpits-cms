@@ -68,6 +68,65 @@ class SingletonModel(models.Model):
         return obj  # Возвращаем объект
 
 
+class HeroMixin(models.Model):
+    """
+    Абстрактный класс (миксин) для добавления настроек Hero-секции в любую модель.
+    Позволяет индивидуально настраивать заголовок, подзаголовок и фон для каждой страницы или категории.
+    """
+
+    hero_title = models.CharField(
+        _("Заголовок Hero"),
+        max_length=255,
+        blank=True,
+        help_text=_("Если не заполнено, будет использовано стандартное название"),
+    )
+    hero_subtitle = models.TextField(
+        _("Подзаголовок Hero"),
+        blank=True,
+        help_text=_("Если не заполнено, будет использовано краткое описание"),
+    )
+    hero_image = models.ImageField(
+        _("Фон Hero"),
+        upload_to="hero_overrides/",
+        blank=True,
+        help_text=_("Переопределяет фоновое изображение для этой конкретной страницы"),
+    )
+    hero_is_active = models.BooleanField(
+        _("Показывать Hero"),
+        default=True,
+        help_text=_("Снимите галочку, чтобы скрыть Hero-секцию на этой странице"),
+    )
+
+    class Meta:
+        abstract = True
+
+
+class AppHeroSettings(HeroMixin):
+    """
+    Модель для настройки Hero-секций основных разделов сайта (списков новостей, услуг и т.д.).
+    Используется там, где нет привязки к конкретному объекту из базы данных.
+    """
+
+    APP_CHOICES = [
+        ("news", _("Новости (общий список)")),
+        ("portfolio", _("Портфолио (общий список)")),
+        ("services", _("Услуги (общий список)")),
+        ("reviews", _("Отзывы")),
+        ("contacts", _("Контакты")),
+        ("home", _("Главная страница")),
+    ]
+    app_name = models.CharField(
+        _("Раздел сайта"), max_length=50, choices=APP_CHOICES, unique=True
+    )
+
+    class Meta:
+        verbose_name = _("Hero раздел")
+        verbose_name_plural = _("Hero разделы")
+
+    def __str__(self):
+        return self.get_app_name_display()
+
+
 class SiteSettings(SingletonModel):
     """
     Модель для хранения глобальных настроек сайта.
@@ -238,7 +297,7 @@ class SiteSettings(SingletonModel):
             raise ValidationError({"email": _("Введите корректный email адрес")})
 
 
-class Page(models.Model):
+class Page(HeroMixin):
     """
     Модель для пользовательских страниц сайта.
     Поддерживает SEO, управление видимостью и порядком отображения.

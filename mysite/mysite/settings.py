@@ -103,6 +103,7 @@ TEMPLATES = [
                 "main.context_processors.seo_context",  # Базовые SEO-данные
                 "main.context_processors.admin_dashboard_stats",  # Статистика для админки
                 "main.context_processors.statistics_banners",  # Статистические баннеры
+                "main.context_processors.hero_overrides",  # Динамические баннеры разделов
                 "news.context_processors.latest_news",  # Последние новости
             ],
         },

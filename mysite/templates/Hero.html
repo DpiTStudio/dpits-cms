@@ -1,95 +1,76 @@
 <!-- ============================================
      ФАЙЛ: hero.html
-     ОПИСАНИЕ: Hero секция (главный баннер) сайта
+     ОПИСАНИЕ: Динамическая Hero-секция (главный баннер) сайта
+     ПОДДЕРЖКА: Позволяет изменять заголовки, подзаголовки и фон для каждой страницы/категории через админку.
      ============================================ -->
 
-<!-- Секция hero с основным цветом фона и динамическим фоновым изображением -->
+{% load static %}
+
+{# Определяем объект, из которого будем брать настройки Hero #}
+{% with hero=news|default:portfolio_item|default:service|default:category|default:page|default:app_hero %}
+
+{# Проверяем, разрешено ли отображение Hero на этой странице #}
+{% if hero.hero_is_active|default:True %}
+
 <section class="hero-section text-white 
     {% if '/news/' in request.path %}hero-news
     {% elif '/portfolio/' in request.path %}hero-portfolio
     {% elif '/reviews/' in request.path %}hero-reviews
     {% elif '/accounts/' in request.path %}hero-accounts
     {% elif '/services/' in request.path %}hero-services
-    {% else %}hero-home{% endif %}
-    {% if selected_category %} hero-cat-{{ selected_category }}
-    {% elif category and category.slug %} hero-cat-{{ category.slug }}
-    {% elif news and news.category %} hero-cat-{{ news.category.slug }}
-    {% elif portfolio_item and portfolio_item.category %} hero-cat-{{ portfolio_item.category.slug }}
-    {% elif portfolio and portfolio.category %} hero-cat-{{ portfolio.category.slug }}
-    {% elif item and item.category %} hero-cat-{{ item.category.slug }}
-    {% elif services and services.category %} hero-cat-{{ services.category.slug }}
-    {% endif %}"
-    style="{% if category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ category.image.url }}');
-           {% elif service.background %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ service.background.url }}');
-           {% elif service.category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ service.category.image.url }}');
-           {% elif news.category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ news.category.image.url }}');
-           {% elif portfolio_item.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ portfolio_item.image.url }}');
-           {% elif portfolio_item.category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ portfolio_item.category.image.url }}');
-           {% elif site_settings.hero_background %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ site_settings.hero_background.url }}');
-           {% endif %} background-size: cover; background-position: center;">
-    <!-- Если фоновое изображение загружено в админке, оно применяется через inline-стили с полупрозрачным градиентом для читаемости текста -->
-    <!-- Контейнер с полной шириной и адаптивными отступами -->
+    {% else %}hero-home{% endif %}"
+    style="
+        {% if hero.hero_image %}background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ hero.hero_image.url }}');
+        {% elif category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ category.image.url }}');
+        {% elif service.background %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ service.background.url }}');
+        {% elif news.category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ news.category.image.url }}');
+        {% elif site_settings.hero_background %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ site_settings.hero_background.url }}');
+        {% endif %} 
+        background-size: cover; background-position: center; min-height: 350px;">
+    
     <div class="container-fluid px-3 px-md-4 px-lg-5">
-        <!-- Строка с вертикальным выравниванием по центру и адаптивными отступами -->
         <div class="row align-items-center g-4 py-4 py-md-5">
-            <!-- Левая колонка с текстовым контентом - 12 колонок на маленьких экранах, 8 на больших -->
             <div class="col-12 col-lg-8 order-2 order-lg-1">
-                <!-- Основной заголовок сайта с адаптивным размером и жирным шрифтом -->
+                <!-- Заголовок: приоритет у HeroMixin, затем у названия объекта, затем у настроек сайта -->
                 <h1 class="display-4 display-md-5 fw-bold mb-3 hero-title">
-                    {% if category %}{{ category.name }}
+                    {% if hero.hero_title %}{{ hero.hero_title }}
+                    {% elif category %}{{ category.name }}
                     {% elif news %}{{ news.title }}
                     {% elif portfolio_item %}{{ portfolio_item.title }}
                     {% elif service %}{{ service.name }}
-                    {% else %}{{ site_settings.title|default:site_settings.logo_text|default:"Добро пожаловать" }}{% endif %}
+                    {% elif page %}{{ page.title }}
+                    {% else %}{{ site_settings.title|default:"Добро пожаловать" }}{% endif %}
                 </h1>
                 
-                {% comment %}
-                <!-- Условная проверка наличия текста логотипа в настройках -->
-                {% if site_settings.logo_text %}
-                <!-- Подчеркнутый текст логотипа с адаптивным размером заголовка -->
-                <u class="h5 h-md-4 d-block mb-3">{{ site_settings.logo_text|safe }}</u>
-                {% endif %}
-                {% endcomment %}
-                
-                <!-- Условная проверка наличия слогана сайта -->
-                <p class="lead mb-3 mb-md-4">
-                    {% if category and category.description %}
-                        <i>{{ category.description|striptags|truncatewords:20 }}</i>
-                    {% elif news and news.short_description %}
-                        <i>{{ news.short_description|striptags|truncatewords:20 }}</i>
-                    {% elif service and service.short_description %}
-                        <i>{{ service.short_description|striptags|truncatewords:20 }}</i>
-                    {% elif site_settings.slogan %}
-                        <i>{{ site_settings.slogan }}</i>
-                    {% endif %}
+                <!-- Подзаголовок (описание): приоритет у HeroMixin, затем у описания объекта -->
+                <p class="lead mb-3 mb-md-4 hero-subtitle">
+                    {% if hero.hero_subtitle %}{{ hero.hero_subtitle|linebreaksbr }}
+                    {% elif category and category.description %}{{ category.description|striptags|truncatewords:20 }}
+                    {% elif news and news.short_description %}{{ news.short_description|striptags|truncatewords:20 }}
+                    {% elif service and service.short_description %}{{ service.short_description|striptags|truncatewords:20 }}
+                    {% elif site_settings.slogan %}<i>{{ site_settings.slogan }}</i>{% endif %}
                 </p>
                 
-                <!-- Условная проверка наличия девиза сайта -->
-                {% if site_settings.motto %}
-                <!-- Контейнер для девиза сайта с безопасным выводом HTML -->
-                <div class="motto-content small">
+                {% if site_settings.motto and not hero.hero_subtitle %}
+                <div class="motto-content small opacity-75">
                     {{ site_settings.motto|safe }}
                 </div>
                 {% endif %}
             </div>
             
-            <!-- Правая колонка с логотипом - 12 колонок на маленьких экранах, 4 на больших -->
             <div class="col-12 col-lg-4 text-center order-1 order-lg-2">
-                <!-- Условная проверка наличия логотипа в настройках -->
                 {% if site_settings.logo %}
-                <!-- Контейнер для логотипа -->
                 <div class="logo-container mb-3 mb-lg-0">
-                    <!-- Изображение логотипа с адаптивными размерами, скруглением и тенью -->
                     <img src="{{ site_settings.logo.url }}" 
                          alt="{{ site_settings.logo_text }}" 
                          class="img-fluid rounded shadow logo-container-img"
-                         style="max-width: 200px; height: auto;">
+                         style="max-width: 180px; height: auto; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));">
                 </div>
                 {% endif %}
             </div>
         </div>
         
-        <!-- Фоновая секция с отступом сверху -->
+        <!-- Фоновые эффекты/декорации -->
         <div class="mt-2 mt-md-3">
             {% if '/news/' in request.path %}
                 {% include 'includes/backgrounds/news_bg.html' %}
@@ -105,3 +86,6 @@
         </div>
     </div>
 </section>
+
+{% endif %} {# Конец проверки hero_is_active #}
+{% endwith %}

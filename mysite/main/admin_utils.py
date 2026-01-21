@@ -8,7 +8,10 @@ import os            # Параметры операционной систем�
 import sys           # Параметры Python интерпретатора
 import platform      # Информация о платформе (Windows/Linux)
 import socket        # Сетевые настройки и имя хоста
-import psutil        # Мониторинг ресурсов (ЦПУ, память, диск)
+try:
+    import psutil  # Мониторинг ресурсов (ЦПУ, память, диск)
+except ImportError:
+    psutil = None
 from datetime import datetime  # Работа со временем
 from django.conf import settings  # Доступ к settings.py проекта
 

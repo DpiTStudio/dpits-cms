@@ -21,6 +21,18 @@ class NewsCategoryAdmin(admin.ModelAdmin):
         ("Основная информация", {"fields": ("name", "slug", "image", "description")}),
         ("Настройки отображения", {"fields": ("show_in_menu", "order", "is_active")}),
         (
+            "Настройки Hero-секции",
+            {
+                "fields": (
+                    "hero_title",
+                    "hero_subtitle",
+                    "hero_image",
+                    "hero_is_active",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+        (
             "SEO оптимизация",
             {
                 "fields": ("seo_title", "seo_keywords", "seo_description"),
@@ -88,6 +100,18 @@ class NewsAdmin(admin.ModelAdmin):
             "Статус",
             {
                 "fields": ("is_active",),
+            },
+        ),
+        (
+            "Настройки Hero-секции",
+            {
+                "fields": (
+                    "hero_title",
+                    "hero_subtitle",
+                    "hero_image",
+                    "hero_is_active",
+                ),
+                "classes": ("collapse",),
             },
         ),
     )

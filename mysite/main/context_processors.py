@@ -341,3 +341,29 @@ def statistics_banners(request):
         cache.set(cache_key, banners_by_position, 900)
         
     return {'banners': banners_by_position}
+
+
+def hero_overrides(request):
+    """
+    Контекстный процессор для получения настроек Hero-секции для крупных разделов сайта.
+    """
+    from .models import AppHeroSettings
+
+    app_hero = None
+    path = request.path
+
+    if path == "/":
+        app_hero = AppHeroSettings.objects.filter(app_name="home").first()
+    elif "/news/" in path:
+        app_hero = AppHeroSettings.objects.filter(app_name="news").first()
+    elif "/portfolio/" in path:
+        app_hero = AppHeroSettings.objects.filter(app_name="portfolio").first()
+    elif "/services/" in path:
+        app_hero = AppHeroSettings.objects.filter(app_name="services").first()
+    elif "/reviews/" in path:
+        app_hero = AppHeroSettings.objects.filter(app_name="reviews").first()
+    elif "/contacts/" in path:
+        app_hero = AppHeroSettings.objects.filter(app_name="contacts").first()
+
+    return {"app_hero": app_hero}
+

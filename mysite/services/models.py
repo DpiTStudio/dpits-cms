@@ -4,9 +4,10 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.text import slugify
 from django_ckeditor_5.fields import CKEditor5Field
+from main.models import HeroMixin
 
 
-class ServiceCategory(models.Model):
+class ServiceCategory(HeroMixin):
     """Категория услуг"""
 
     name = models.CharField(_("Название"), max_length=100)
@@ -65,7 +66,7 @@ class ServiceCategory(models.Model):
         return self.service_set.count()
 
 
-class Service(models.Model):
+class Service(HeroMixin):
     """Модель услуги"""
 
     PRICE_TYPE_CHOICES = (

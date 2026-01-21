@@ -21,6 +21,7 @@ from .models import (
     LogStats,           # Статистика логов
     ErrorLog,           # Прокси-модель лога ошибок
     StatisticsBanner,   # Баннеры счетчиков
+    AppHeroSettings,    # Настройки Hero
 )
 
 # Импорт утилит
@@ -100,6 +101,55 @@ class PageAdmin(admin.ModelAdmin):
         from django.core.cache import cache
         cache.delete("menu_pages")
         cache.delete("featured_pages")
+
+    fieldsets = (
+        (None, {"fields": ("title", "slug", "content")}),
+        (_("Отображение"), {"fields": ("show_in_menu", "show_on_site", "order")}),
+        (
+            _("Настройки Hero-секции"),
+            {
+                "fields": (
+                    "hero_title",
+                    "hero_subtitle",
+                    "hero_image",
+                    "hero_is_active",
+                ),
+                "classes": ("collapse",),
+                "description": _(
+                    "Эти настройки позволяют переопределить стандартный баннер вверху этой страницы."
+                ),
+            },
+        ),
+        (
+            _("SEO"),
+            {
+                "fields": ("seo_title", "seo_keywords", "seo_description"),
+                "classes": ("collapse",),
+            },
+        ),
+    )
+
+
+@admin.register(AppHeroSettings)
+class AppHeroSettingsAdmin(admin.ModelAdmin):
+    """Админка для настройки общих баннеров разделов."""
+
+    list_display = ("app_name", "hero_title", "hero_is_active")
+    list_editable = ("hero_is_active",)
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "app_name",
+                    "hero_title",
+                    "hero_subtitle",
+                    "hero_image",
+                    "hero_is_active",
+                )
+            },
+        ),
+    )
 
 
 @admin.register(LogStats)

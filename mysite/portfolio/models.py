@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.html import format_html  # Добавлен импорт
 from django_ckeditor_5.fields import CKEditor5Field
+from main.models import HeroMixin
 from .utils import custom_upload_to
 
 
@@ -36,7 +37,7 @@ class Client(models.Model):
         return reverse("portfolio:client_profile")
 
 
-class PortfolioCategory(models.Model):
+class PortfolioCategory(HeroMixin):
     """Категории портфолио"""
 
     name = models.CharField(_("Название"), max_length=100)
@@ -107,7 +108,7 @@ class PortfolioCategory(models.Model):
         return self.portfolioitem_set.count()
 
 
-class PortfolioItem(models.Model):
+class PortfolioItem(HeroMixin):
     """Элемент портфолио"""
 
     STATUS_CHOICES = (

@@ -46,6 +46,18 @@ class PortfolioCategoryAdmin(admin.ModelAdmin):
             {"fields": ("name", "slug", "description", "order", "is_active")},
         ),
         (
+            _("Настройки Hero-секции"),
+            {
+                "fields": (
+                    "hero_title",
+                    "hero_subtitle",
+                    "hero_image",
+                    "hero_is_active",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+        (
             # Заголовок группы полей
             _("SEO настройки"),
             # Поля в группе
@@ -155,6 +167,18 @@ class PortfolioItemAdmin(admin.ModelAdmin):
             },
         ),
         (
+            _("Настройки Hero-секции"),
+            {
+                "fields": (
+                    "hero_title",
+                    "hero_subtitle",
+                    "hero_image",
+                    "hero_is_active",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+        (
             _("Статистика"),
             {"fields": ("views", "created_at", "updated_at"), "classes": ("collapse",)},
         ),
@@ -186,7 +210,7 @@ class PortfolioItemAdmin(admin.ModelAdmin):
             if not News.objects.filter(
                 slug=f"portfolio-{portfolio_item.slug}"
             ).exists():
-                news = News.objects.create(
+                News.objects.create(
                     title=f"Новая работа: {portfolio_item.title}",
                     slug=f"portfolio-{portfolio_item.slug}",
                     category=portfolio_category,

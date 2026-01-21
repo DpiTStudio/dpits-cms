@@ -9,8 +9,10 @@ from django_ckeditor_5.fields import (
     CKEditor5Field,
 )  # Поле для расширенного текстового редактора
 
+from main.models import HeroMixin
 
-class NewsCategory(models.Model):
+
+class NewsCategory(HeroMixin):
     """
     Категория новостей.
     Модель для группировки новостей по темам.
@@ -104,7 +106,7 @@ class NewsCategory(models.Model):
         )  # Генерируем URL используя имя маршрута и slug категории
 
 
-class News(models.Model):
+class News(HeroMixin):
     """
     Новость.
     Модель для хранения новостных статей на сайте.
