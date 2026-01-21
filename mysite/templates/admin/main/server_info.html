@@ -2,7 +2,7 @@
 <!-- СТРАНИЦА ИНФОРМАЦИИ О СЕРВЕРЕ -->
 <!-- 
      Этот шаблон отображает детальную техническую информацию о сервере, 
-     окружении Python, конфигурации Django и системных ресурсах.
+     окружении Python, конфигурации CMS и системных ресурсах.
 -->
 
 {% extends "admin/base_site.html" %}
@@ -299,12 +299,11 @@
         <!-- 4. Python & Django -->
         <div class="server-info-card">
             <div class="server-info-card-header">
-                <h3 class="server-info-card-title"><i class="fab fa-python"></i> Python & Django</h3>
+                <h3 class="server-info-card-title"><i class="fab fa-python"></i> Python & CMS</h3>
             </div>
             <div class="server-info-card-body">
                 <table class="info-table">
                     <tr><td>{% trans "Версия Python" %}</td><td>{{ server_info.python_django.python_version }}</td></tr>
-                    <tr><td>{% trans "Версия Django" %}</td><td>{{ server_info.python_django.django_version }}</td></tr>
                     <tr><td>{% trans "Путь к Python" %}</td><td>{{ server_info.python_django.executable }}</td></tr>
                     <tr><td>{% trans "Корень проекта" %}</td><td>{{ server_info.python_django.base_dir }}</td></tr>
                     <tr>
@@ -339,7 +338,7 @@
     <!-- 6. Текущий процесс -->
     <div class="server-info-card">
         <div class="server-info-card-header">
-            <h3 class="server-info-card-title"><i class="fas fa-tasks"></i> {% trans "Параметры текущего процесса Django" %}</h3>
+            <h3 class="server-info-card-title"><i class="fas fa-tasks"></i> {% trans "Параметры текущего процесса CMS" %}</h3>
         </div>
         <div class="server-info-card-body">
             <table class="info-table">
@@ -358,7 +357,7 @@
     <!-- 7. Установленные приложения -->
     <div class="server-info-card">
         <div class="server-info-card-header">
-            <h3 class="server-info-card-title"><i class="fas fa-cubes"></i> {% trans "Активные приложения Django" %} ({{ installed_apps|length }})</h3>
+            <h3 class="server-info-card-title"><i class="fas fa-cubes"></i> {% trans "Активные приложения" %} ({{ installed_apps|length }})</h3>
         </div>
         <div class="server-info-card-body">
             <div class="app-grid">

@@ -1,13 +1,7 @@
 """
-Настройки Django для проекта mysite.
+Настройки для проекта mysite.
 
-Сгенерировано с помощью 'django-admin startproject' используя Django 5.2.6.
-
-Для получения дополнительной информации об этом файле см.
-https://docs.djangoproject.com/en/5.2/topics/settings/
-
-Для полного списка настроек и их значений см.
-https://docs.djangoproject.com/en/5.2/ref/settings/
+Сгенерировано с помощью старт-пакета.
 """
 
 from pathlib import Path
@@ -29,7 +23,7 @@ SECRET_KEY = "django-insecure-gg&b-34chy82xwd424vn41_=i=nr$2mrxm5_-xj(ev6ed#h+_=
 # РЕЖИМ ОТЛАДКИ: В продакшене должно быть False!
 DEBUG = True
 
-# РАЗРЕШЕННЫЕ ХОСТЫ: Список доменов/хостов, которые может обслуживать Django
+# РАЗРЕШЕННЫЕ ХОСТЫ: Список доменов/хостов, которые может обслуживать система
 ALLOWED_HOSTS = [
     "*",  # Разрешает все хосты (только для разработки!)
     "dpits-cms.ru",
@@ -49,7 +43,7 @@ INSTALLED_APPS = [
     "django_cleanup",  # Автоматическое удаление неиспользуемых файлов
     "captcha",  # Капча для защиты от спама
     "django_extensions",  # Расширения Django (для runserver_plus с HTTPS)
-    # Встроенные приложения Django
+    # Встроенные приложения системы
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -97,7 +91,7 @@ TEMPLATES = [
         "APP_DIRS": True,  # Поиск шаблонов в папках templates приложений
         "OPTIONS": {
             "context_processors": [
-                # Стандартные процессоры контекста Django
+                # Стандартные процессоры контекста
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
@@ -185,7 +179,7 @@ MEDIA_URL = "/media/"  # URL префикс для медиа файлов
 MEDIA_ROOT = BASE_DIR / "media"  # Директория для хранения медиа
 
 # =============================================================================
-# ПРОЧИЕ НАСТРОЙКИ DJANGO
+# ПРОЧИЕ НАСТРОЙКИ СИСТЕМЫ
 # =============================================================================
 
 # Тип поля первичного ключа по умолчанию

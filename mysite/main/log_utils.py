@@ -7,8 +7,8 @@
 import os  # Модуль для работы с файловой системой
 import shutil  # Модуль для копирования и перемещения файлов
 from datetime import datetime  # Работа с датами
-from django.conf import settings  # Глобальные настройки Django
-from django.utils import timezone  # Учет часовых поясов Django
+from django.conf import settings  # Глобальные настройки системы
+from django.utils import timezone  # Учет часовых поясов системы
 import logging  # Стандартная библиотека логирования Python
 
 # Создаем объект логгера для фиксации ошибок работы самого модуля

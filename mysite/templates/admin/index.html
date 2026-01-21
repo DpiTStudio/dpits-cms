@@ -1,7 +1,7 @@
 {% extends "admin/base_site.html" %}
 {% load i18n static main_tags %}
 
-{% block title %}{% trans "Панель управления" %} | {{ site_title|default:_("DPITS CMS") }}{% endblock %}
+{% block title %}{% trans "Панель управления" %}{% endblock %}
 
 {% block extrastyle %}
 {{ block.super }}
@@ -367,7 +367,6 @@
                     </div>
                     <div class="small text-muted">
                         <div><i class="fab fa-python"></i> Python {{ admin_stats.system.python_version }}</div>
-                        <div><i class="fas fa-rocket"></i> Django {{ admin_stats.system.django_version }}</div>
                         <div><i class="fas fa-clock"></i> Up: {{ admin_stats.system.uptime }}</div>
                     </div>
                 </div>

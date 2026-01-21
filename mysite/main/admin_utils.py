@@ -2,14 +2,13 @@
 # ВСПОМОГАТЕЛЬНЫЕ УТИЛИТЫ ДЛЯ АДМИН-ПАНЕЛИ
 # 
 # Этот файл содержит функции для сбора системной информации о сервере,
-# конфигурации Django и окружения, которые отображаются на дашборде.
+# конфигурации CMS и окружения, которые отображаются на дашборде.
 
 import os            # Параметры операционной системы
 import sys           # Параметры Python интерпретатора
 import platform      # Информация о платформе (Windows/Linux)
 import socket        # Сетевые настройки и имя хоста
 import psutil        # Мониторинг ресурсов (ЦПУ, память, диск)
-import django        # Доступ к версии и настройкам Django
 from datetime import datetime  # Работа со временем
 from django.conf import settings  # Доступ к settings.py проекта
 
@@ -29,10 +28,10 @@ def get_server_info():
         "node": platform.node(),                    # Имя сетевого узла
     }
 
-    # 2. Окружение Python и Django
+    # 2. Окружение Python и CMS
     python_django_info = {
         "python_version": sys.version,              # Версия Python
-        "django_version": django.get_version(),     # Версия Django
+        "django_version": "",                       # Скрыто
         "executable": sys.executable,               # Путь к интерпретатору
         "base_dir": settings.BASE_DIR,              # Корневая папка проекта
     }
@@ -50,7 +49,7 @@ def get_server_info():
         "host_ip": host_ip,
     }
 
-    # 4. Настройки Django окружения
+    # 4. Настройки системного окружения
     env_info = {
         "debug": settings.DEBUG,                    # Режим отладки (True/False)
         "time_zone": settings.TIME_ZONE,            # Часовой пояс проекта
@@ -61,7 +60,7 @@ def get_server_info():
     # 5. Состояние процесса и ресурсов
     process_info = {}
     try:
-        process = psutil.Process(os.getpid())       # Текущий процесс Django
+        process = psutil.Process(os.getpid())       # Текущий процесс
         with process.oneshot():
             process_info = {
                 "pid": process.pid,                 # ID процесса
@@ -114,7 +113,7 @@ def get_server_info():
 
 
 def get_installed_apps_info():
-    """Возвращает список всех установленных Django приложений."""
+    """Возвращает список всех установленных приложений."""
     from django.apps import apps
     return [
         {

@@ -2,12 +2,11 @@
 # КОНТЕКСТНЫЕ ПРОЦЕССОРЫ ДЛЯ ДОБАВЛЕНИЯ ДАННЫХ В ШАБЛОНЫ
 #
 # Этот файл содержит функции, которые автоматически добавляют определенные данные
-# во все шаблоны Django (или в зависимости от условий).
+# во все шаблоны (или в зависимости от условий).
 # Это избавляет от необходимости передавать одни и те же данные в каждом представлении (view).
 
 from datetime import datetime
-from django.core.cache import cache  # Система кэширования Django
-from django.utils.translation import gettext_lazy as _  # Функция для интернационализации (перевода)
+from django.core.cache import cache  # Система кэширования
 from .models import SiteSettings, Page, LogStats  # Импорт моделей из текущего приложения
 from .admin_utils import format_bytes  # Утилита для форматирования байтов в читаемый вид (KB, MB, GB)
 
@@ -213,7 +212,6 @@ def admin_dashboard_stats(request):
         last_log_stats = LogStats.objects.first()
 
         # 8. Системные характеристики сервера (CPU, Память, Версии)
-        import django
         import sys
         import platform
         try:
@@ -274,7 +272,6 @@ def admin_dashboard_stats(request):
                 "error": error_log_info,
             },
             "system": {
-                "django_version": django.get_version(),
                 "python_version": sys.version.split()[0],
                 "os": platform.system(),
                 "cpu_percent": cpu_percent,

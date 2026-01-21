@@ -1,4 +1,4 @@
-<!-- templates/admin/main/server_info.html -->
+<!-- templates/main/server_info.html -->
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls static %}
 
@@ -389,7 +389,7 @@
         <div class="server-info-card">
             <div class="server-info-card-header">
                 <h3 class="server-info-card-title">
-                    <i class="fab fa-python"></i> Python & Django
+                    <i class="fab fa-python"></i> Python & CMS
                 </h3>
             </div>
             <div class="server-info-card-body">
@@ -403,11 +403,11 @@
                         <td>{{ server_info.python.executable }}</td>
                     </tr>
                     <tr>
-                        <td>Django версия</td>
+                        <td>CMS версия</td>
                         <td>{{ server_info.django.version }}</td>
                     </tr>
                     <tr>
-                        <td>Настройки Django</td>
+                        <td>Настройки CMS</td>
                         <td>{{ server_info.django.settings_module }}</td>
                     </tr>
                     <tr>
