@@ -1,0 +1,43 @@
+<!-- Секция контактной информации -->
+<!-- Условная проверка наличия телефона или email в настройках -->
+{% if site_settings.phone1 or site_settings.email %}
+<!-- Карточка с отступом снизу, тенью, без границы и скругленными углами -->
+<div class="card mb-4 shadow-sm border-0 rounded-3">
+    <!-- Заголовок карточки с основным цветом фона и белым текстом -->
+    <div class="card-header bg-primary text-white">
+        <!-- Заголовок с иконкой телефона и без отступа снизу -->
+        <h6 class="mb-0">
+            <i class="fas fa-phone me-2"></i>Контакты
+        </h6>
+    </div>
+    <!-- Тело карточки -->
+    <div class="card-body">
+        <!-- Условная проверка наличия первого телефона -->
+        {% if site_settings.phone1 %}
+        <!-- Параграф с отступом снизу -->
+        <p class="mb-2">
+            <!-- Ссылка на телефон без подчеркивания и темным текстом -->
+            <a href="tel:{{ site_settings.phone1 }}" 
+                class="text-decoration-none text-dark">
+                <!-- Иконка телефона с отступом справа и основным цветом -->
+                <i class="fas fa-phone-alt me-2 text-primary"></i>
+                {{ site_settings.phone1 }}
+            </a>
+        </p>
+        {% endif %}
+        <!-- Условная проверка наличия email -->
+        {% if site_settings.email %}
+        <!-- Параграф без отступа снизу -->
+        <p class="mb-0">
+            <!-- Ссылка на email без подчеркивания и темным текстом -->
+            <a href="mailto:{{ site_settings.email }}" 
+                class="text-decoration-none text-dark">
+                <!-- Иконка конверта с отступом справа и основным цветом -->
+                <i class="fas fa-envelope me-2 text-primary"></i>
+                {{ site_settings.email }}
+            </a>
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

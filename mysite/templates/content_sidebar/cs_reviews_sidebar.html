@@ -1,0 +1,40 @@
+<!-- Секция последних отзывов -->
+<!-- Условная проверка наличия отзывов для сайдбара -->
+{% if sidebar_reviews %}
+<!-- Карточка с отступом снизу, тенью, без границы и скругленными углами -->
+<div class="card mb-4 shadow-sm border-0 rounded-3">
+    <!-- Заголовок карточки с желтым цветом фона и темным текстом -->
+    <div class="card-header bg-warning text-dark">
+        <!-- Заголовок с иконкой звезды и без отступа снизу -->
+        <h6 class="mb-0">
+            <i class="fas fa-star me-2"></i>Последние отзывы
+        </h6>
+    </div>
+    <!-- Тело карточки -->
+    <div class="card-body">
+        <!-- Цикл по списку отзывов для сайдбара -->
+        {% for review in sidebar_reviews %}
+        <!-- Контейнер для каждого отзыва с отступами и условной нижней границей -->
+        <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
+            <!-- Контейнер с flexbox выравниванием по началу -->
+            <div class="d-flex align-items-start mb-2">
+                <!-- Контейнер с растягиванием на все доступное пространство -->
+                <div class="flex-grow-1">
+                    <!-- Имя автора отзыва с отступом снизу -->
+                    <h6 class="mb-1">{{ review.full_name }}</h6>
+                    <!-- Текст отзыва с маленьким размером, приглушенным цветом и отступом снизу -->
+                    <p class="small text-muted mb-1">
+                        {{ review.message|truncatewords:15 }}
+                    </p>
+                    <!-- Дата создания отзыва с приглушенным цветом и иконкой календаря -->
+                    <small class="text-muted">
+                        <i class="fas fa-calendar me-1"></i>
+                        {{ review.created_at|date:"d.m.Y" }}
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

@@ -101,16 +101,14 @@
     object-fit: cover;                       /* Обрезка с сохранением пропорций */
 }
 
-/* Маленькое изображение новости в сайдбаре (15 пикселей) */
+/* Маленькое изображение новости в сайдбаре*/
 .sidebar-news-image {
-    width: 15px !important;
-    height: 15px !important;
-    min-width: 15px;
-    min-height: 15px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 2px;
     margin-right: var(--spacing-xs);
-    display: inline-block;
+    display: block;
     vertical-align: middle;
 }
 

@@ -1,0 +1,122 @@
+{% load static %}
+
+{% if sidebar_news %}
+<div class="card mb-4 shadow-sm border-0 rounded-4 overflow-hidden">
+    <!-- Заголовок с улучшенным дизайном -->
+    <div class="card-header bg-gradient-primary text-white py-3 border-0">
+        <div class="d-flex align-items-center">
+            <div class="bg-white bg-opacity-25 rounded-circle p-2 me-3">
+                <i class="fas fa-newspaper fa-sm"></i>
+            </div>
+            <h5 class="mb-0 fw-semibold">Последние новости</h5>
+        </div>
+    </div>
+
+    <!-- Тело карточки -->
+    <div class="card-body p-3">
+        {% for news in sidebar_news %}
+        <div class="news-sidebar-item position-relative mb-3">
+            <a href="{% url 'news:detail' news.slug %}" class="text-decoration-none text-dark d-block">
+                <div class="row g-1 align-items-center">
+                    <!-- Изображение -->
+                    <div class="col-12">
+                        <!-- Заголовок -->
+                        <h6 class="fw-semibold mb-0 lh-sm text-dark hover-text-primary transition-color">
+                            {{ news.title|truncatechars:60 }}
+                        </h6>
+                        <div class="position-relative overflow-hidden rounded-3" style="height: 100%;">
+                            {% if news.image %}
+                            <img src="{{ news.image.url }}" 
+                                 alt="{{ news.title }}"
+                                 class="img-fluid w-100 h-100 object-fit-cover transition-scale">
+                            {% else %}
+                            <img src="{% static 'images/default-news.jpg' %}" 
+                                 alt="{{ news.title }}"
+                                 class="img-fluid w-100 h-100 object-fit-cover transition-scale">
+                            {% endif %}
+                            <!-- Наложение градиента -->
+                            <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-overlay"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Контент -->
+                    <div class="col-12">
+                        <!-- Дата -->
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-calendar-alt fa-xs text-primary me-2"></i>
+                            <small class="text-muted fw-medium">{{ news.created_at|date:"d.m.Y" }}</small>
+                        </div>
+                        {% if news.read_time %}
+                        <!-- Индикатор чтения (опционально) -->
+                        <div class="mt-2">
+                            <span class="badge bg-light text-dark border py-1 px-2 fs-xs">
+                                <i class="fas fa-clock me-1 fa-xs"></i>
+                                {{ news.read_time }} мин
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Разделитель -->
+            {% if not forloop.last %}
+            <div class="border-bottom mt-3 opacity-25"></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <!-- Кнопка "Все новости" -->
+        <div class="text-center mt-4 pt-2">
+            <a href="{% url 'news:list' %}" 
+               class="btn btn-primary px-4 py-2 rounded-pill fw-medium shadow-sm hover-lift">
+                <span>Все новости</span>
+                <i class="fas fa-arrow-right ms-2 fa-sm"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+    }
+    
+    .bg-gradient-overlay {
+        background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+    }
+    
+    .transition-scale {
+        transition: transform 0.3s ease;
+    }
+    
+    .transition-color {
+        transition: color 0.2s ease;
+    }
+    
+    .hover-lift {
+        transition: all 0.3s ease;
+    }
+    
+    .hover-lift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(67, 97, 238, 0.2);
+    }
+    
+    .news-sidebar-item:hover .transition-scale {
+        transform: scale(1.05);
+    }
+    
+    .hover-text-primary:hover {
+        color: #4361ee !important;
+    }
+    
+    .fs-xs {
+        font-size: 0.75rem;
+    }
+    
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>
+{% endif %}

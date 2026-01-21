@@ -1,0 +1,51 @@
+{% load static %}
+<!-- Секция последних работ из портфолио -->
+<!-- Условная проверка наличия работ портфолио для сайдбара -->
+{% if sidebar_portfolio %}
+<!-- Карточка с отступом снизу, тенью, без границы и скругленными углами -->
+<div class="card mb-4 shadow-sm border-0 rounded-3">
+    <!-- Заголовок карточки с зеленым цветом фона и белым текстом -->
+    <div class="card-header bg-success text-white">
+        <!-- Заголовок с иконкой портфеля и без отступа снизу -->
+        <h6 class="mb-0">
+            <i class="fas fa-briefcase me-2"></i>Последние работы
+        </h6>
+    </div>
+    <!-- Тело карточки -->
+    <div class="card-body">
+        <!-- Цикл по списку работ портфолио для сайдбара -->
+        {% for portfolio_item in sidebar_portfolio %}
+        <!-- Контейнер для каждой работы с отступами и условной нижней границей -->
+        <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
+            <!-- Заголовок работы с отступом снизу и компактной миниатюрой -->
+            <h6 class="mb-1 d-flex align-items-start">
+                <!-- Изображение работы с адаптивными размерами -->
+                {% if portfolio_item.image %}
+                <img src="{{ portfolio_item.image.url }}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ portfolio_item.title }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                {% else %}
+                <img src="{% static 'images/default-portfolio.jpg' %}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ portfolio_item.title }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                {% endif %}
+                <!-- Ссылка на детальную страницу работы без подчеркивания и темным текстом -->
+                <a href="{% url 'portfolio:detail' portfolio_item.slug %}" 
+                    class="text-decoration-none text-dark flex-grow-1">
+                    {{ portfolio_item.title|truncatewords:8 }}
+                </a>
+            </h6>
+            <!-- Дата создания работы с приглушенным цветом и иконкой календаря -->
+            <small class="text-muted d-block mt-1">
+                <i class="fas fa-calendar me-1"></i>
+                {{ portfolio_item.created_at|date:"d.m.Y" }}
+            </small>
+        </div>
+        {% endfor %}
+        <!-- Контейнер с центрированием и отступом сверху -->
+        <div class="text-center mt-3">
+            <!-- Кнопка-ссылка на страницу всех работ портфолио -->
+            <a href="{% url 'portfolio:list' %}" 
+                class="btn btn-sm btn-outline-success">
+                Все работы <i class="fas fa-arrow-right ms-1"></i>
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
