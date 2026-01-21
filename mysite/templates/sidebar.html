@@ -27,12 +27,14 @@
             <div class="mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
                 <!-- Заголовок новости с отступом снизу -->
                 <h6 class="mb-1 d-flex align-items-start">
+                    <hr>
                     <!-- Изображение новости с адаптивными размерами -->
                     {% if news.image %}
-                    <img src="{{ news.image.url }}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ news.title }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                    <img src="{{ news.image.url }}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ news.title }}" style="width: 30%; height: 60px; object-fit: cover; border-radius: 4px;">
                     {% else %}
-                    <img src="{% static 'images/default-news.jpg' %}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ news.title }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                    <img src="{% static 'images/default-news.jpg' %}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ news.title }}" style="width: 30%; height: 60px; object-fit: cover; border-radius: 4px;">
                     {% endif %}
+                    <hr>
                     <!-- Ссылка на детальную страницу новости без подчеркивания и темным текстом -->
                     <a href="{% url 'news:detail' news.slug %}" 
                         class="text-decoration-none text-dark flex-grow-1">
