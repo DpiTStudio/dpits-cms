@@ -137,27 +137,8 @@
 {% block content %}
 {# Основной блок контента страницы #}
 
-<header class="category-hero">
-    {# Шапка категории с фоновым изображением и описанием #}
-    {% if category.image %}
-        <img src="{{ category.image.url }}" alt="{{ category.name }}" class="category-hero-bg">
-        {# Если у категории есть изображение, выводим его как фон #}
-    {% endif %}
-    
-    <div class="container text-center category-hero-content">
-        <span class="category-badge">Категория</span>
-        {# Бейдж с надписью "Категория" #}
-        <h1 class="display-3 fw-bold mb-4">{{ category.name }}</h1>
-        {# Название текущей категории #}
-        
-        {% if category.description %}
-            <div class="lead mx-auto" style="max-width: 800px; opacity: 0.9;">
-                {{ category.description|safe }}
-                {# Описание категории, если оно задано (с поддержкой HTML) #}
-            </div>
-        {% endif %}
-    </div>
-</header>
+{# Резервируем место, если нужно добавить дополнительные элементы перед списком #}
+<div class="category-header-spacer"></div>
 
 <div class="container mb-5">
     {# Контейнер для списка новостей #}

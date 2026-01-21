@@ -19,9 +19,14 @@
     {% elif item and item.category %} hero-cat-{{ item.category.slug }}
     {% elif services and services.category %} hero-cat-{{ services.category.slug }}
     {% endif %}"
-    {% if site_settings.hero_background %}
-    style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ site_settings.hero_background.url }}'); background-size: cover; background-position: center;"
-    {% endif %}>
+    style="{% if category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ category.image.url }}');
+           {% elif service.background %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ service.background.url }}');
+           {% elif service.category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ service.category.image.url }}');
+           {% elif news.category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ news.category.image.url }}');
+           {% elif portfolio_item.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ portfolio_item.image.url }}');
+           {% elif portfolio_item.category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ portfolio_item.category.image.url }}');
+           {% elif site_settings.hero_background %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ site_settings.hero_background.url }}');
+           {% endif %} background-size: cover; background-position: center;">
     <!-- Если фоновое изображение загружено в админке, оно применяется через inline-стили с полупрозрачным градиентом для читаемости текста -->
     <!-- Контейнер с полной шириной и адаптивными отступами -->
     <div class="container-fluid px-3 px-md-4 px-lg-5">
@@ -30,7 +35,13 @@
             <!-- Левая колонка с текстовым контентом - 12 колонок на маленьких экранах, 8 на больших -->
             <div class="col-12 col-lg-8 order-2 order-lg-1">
                 <!-- Основной заголовок сайта с адаптивным размером и жирным шрифтом -->
-                <h1 class="display-4 display-md-5 fw-bold mb-3 hero-title">{{ site_settings.title|default:site_settings.logo_text|default:"Добро пожаловать" }}</h1>
+                <h1 class="display-4 display-md-5 fw-bold mb-3 hero-title">
+                    {% if category %}{{ category.name }}
+                    {% elif news %}{{ news.title }}
+                    {% elif portfolio_item %}{{ portfolio_item.title }}
+                    {% elif service %}{{ service.name }}
+                    {% else %}{{ site_settings.title|default:site_settings.logo_text|default:"Добро пожаловать" }}{% endif %}
+                </h1>
                 
                 {% comment %}
                 <!-- Условная проверка наличия текста логотипа в настройках -->
@@ -41,12 +52,17 @@
                 {% endcomment %}
                 
                 <!-- Условная проверка наличия слогана сайта -->
-                {% if site_settings.slogan %}
-                <!-- Слоган сайта с адаптивным размером шрифта и отступом снизу -->
                 <p class="lead mb-3 mb-md-4">
-                    <i>{{ site_settings.slogan }}</i>
+                    {% if category and category.description %}
+                        <i>{{ category.description|striptags|truncatewords:20 }}</i>
+                    {% elif news and news.short_description %}
+                        <i>{{ news.short_description|striptags|truncatewords:20 }}</i>
+                    {% elif service and service.short_description %}
+                        <i>{{ service.short_description|striptags|truncatewords:20 }}</i>
+                    {% elif site_settings.slogan %}
+                        <i>{{ site_settings.slogan }}</i>
+                    {% endif %}
                 </p>
-                {% endif %}
                 
                 <!-- Условная проверка наличия девиза сайта -->
                 {% if site_settings.motto %}
