@@ -157,6 +157,18 @@ class ServiceAdmin(admin.ModelAdmin):
             },
         ),
         (
+            _("Настройки Hero-секции"),
+            {
+                "fields": (
+                    "hero_title",
+                    "hero_subtitle",
+                    "hero_image",
+                    "hero_is_active",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+        (
             _("Системная информация"),
             {
                 "fields": ("views", "created_at", "updated_at"),

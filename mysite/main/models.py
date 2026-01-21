@@ -113,6 +113,8 @@ class AppHeroSettings(HeroMixin):
         ("services", _("Услуги (общий список)")),
         ("reviews", _("Отзывы")),
         ("contacts", _("Контакты")),
+        ("about", _("О нас")),
+        ("profile", _("Профиль")),
         ("home", _("Главная страница")),
     ]
     app_name = models.CharField(

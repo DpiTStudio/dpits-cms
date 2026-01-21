@@ -364,6 +364,10 @@ def hero_overrides(request):
         app_hero = AppHeroSettings.objects.filter(app_name="reviews").first()
     elif "/contacts/" in path:
         app_hero = AppHeroSettings.objects.filter(app_name="contacts").first()
+    elif "/about/" in path:
+        app_hero = AppHeroSettings.objects.filter(app_name="about").first()
+    elif "/profile/" in path:
+        app_hero = AppHeroSettings.objects.filter(app_name="profile").first()
 
     return {"app_hero": app_hero}
 
