@@ -14,6 +14,7 @@
 Примечание: ManagedFileAdmin находится в отдельном файле admin_files.py
 для избежания дублирования регистрации и организации кода.
 """
+
 import os  # Модуль для работы с операционной системой (файлы, директории)
 from datetime import datetime  # Класс для работы с датой и временем
 from django.contrib import (
@@ -31,14 +32,14 @@ from django.utils.html import (
 )
 from django.utils.translation import gettext_lazy as _  # Функция для перевода строк
 from .models import ErrorLog, LogStats, Page, SiteSettings, StatisticsBanner  # Импорт моделей для админки
+from .admin_utils import get_server_info, get_installed_apps_info, get_middleware_info, get_site_url, format_bytes # Импорт утилит для админки
+
 
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
     """
-    Админ## 5. Добавьте миграцию для новой модели:
-
-панель для настроек сайта.
+    Админ## 5. Добавьте миграцию для новой модели: панель для настроек сайта.
     Обеспечивает singleton-режим (только одна запись настроек).
     """
 
@@ -127,8 +128,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         Возвращает:
             bool: True если можно добавить, False если нельзя
         """
-        return not SiteSettings.objects.exists()
-        # Разрешаем добавление только если нет ни одной записи
+        return not SiteSettings.objects.exists() # Разрешаем добавление только если нет ни одной записи
 
     def has_delete_permission(self, request, obj=None):
         """
@@ -174,6 +174,67 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         cache.delete("menu_pages")  # Удаляем кэш меню
         cache.delete("featured_pages")  # Удаляем кэш рекомендуемых страниц
 
+        def get_urls(self):
+        """
+        Добавляет URL для страницы информации о сервере.
+        """
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                'server-info/',
+                self.admin_site.admin_view(self.server_info_view),
+                name='server_info',
+            ),
+        ]
+        return custom_urls + urls
+    
+    def server_info_view(self, request):
+        """
+        Отображает страницу с информацией о сервере и хостинге.
+        """
+        # Получаем информацию о сервере
+        server_info = get_server_info()
+        apps_info = get_installed_apps_info()
+        middleware_info = get_middleware_info()
+        site_url = get_site_url()
+        
+        # Форматируем данные для отображения
+        formatted_info = self._format_server_info(server_info)
+        
+        context = {
+            'title': 'Информация о сервере и хостинге',
+            'server_info': formatted_info,
+            'apps_info': apps_info,
+            'middleware_info': middleware_info,
+            'site_url': site_url,
+            'opts': self.model._meta,
+            'has_view_permission': True,
+        }
+        
+        return render(request, 'admin/main/server_info.html', context)
+    
+    def _format_server_info(self, server_info):
+        """
+        Форматирует информацию о сервере для отображения.
+        """
+        formatted = server_info.copy()
+        
+        # Форматируем размеры
+        if 'system' in formatted and 'virtual_memory' in formatted['system']:
+            mem = formatted['system']['virtual_memory']
+            mem['total'] = format_bytes(mem.get('total', 0))
+            mem['available'] = format_bytes(mem.get('available', 0))
+        
+        if 'system' in formatted and 'disk_usage' in formatted['system']:
+            disk = formatted['system']['disk_usage']
+            disk['total'] = format_bytes(disk.get('total', 0))
+            disk['free'] = format_bytes(disk.get('free', 0))
+        
+        # Форматируем пути Python
+        if 'python' in formatted and 'path' in formatted['python']:
+            formatted['python']['path'] = '<br>'.join(formatted['python']['path'])
+        
+        return formatted
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
@@ -871,6 +932,7 @@ class StatisticsBannerAdmin(admin.ModelAdmin):
             f'Деактивировано {updated} баннеров'
         )
     deactivate_banners.short_description = _('Деактивировать выбранные баннеры')
+
     """
     Админ-панель для управления статистическими баннерами.
     """

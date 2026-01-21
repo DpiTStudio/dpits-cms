@@ -793,6 +793,60 @@
         </div>
     </div>
     {% endif %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card admin-apps-card">
+                <div class="card-body">
+                    <div class="app-header">
+                        <h3 class="app-title">
+                            <i class="fas fa-cogs"></i> {% trans "Системная информация" %}
+                        </h3>
+                        <span class="app-badge">{% trans "Информация о системе" %}</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="system-info-item">
+                                <div class="system-info-label">{% trans "Версия Django" %}</div>
+                                <div class="system-info-value">{{ django_version }}</div>
+                            </div>
+                            <div class="system-info-item">
+                                <div class="system-info-label">{% trans "Версия Python" %}</div>
+                                <div class="system-info-value">{{ python_version }}</div>
+                            </div>
+                            <div class="system-info-item">
+                                <div class="system-info-label">{% trans "Операционная система" %}</div>
+                                <div class="system-info-value">{{ os_info }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="system-info-item">
+                                <div class="system-info-label">{% trans "Загрузка CPU" %}</div>
+                                <div class="system-info-value">
+                                    <div class="system-info-progress">
+                                        <div class="system-info-progress-bar" style="width: {{ cpu_percent }}%"></div>
+                                    </div>
+                                    {{ cpu_percent }}%
+                                </div>
+                            </div>
+                            <div class="system-info-item">
+                                <div class="system-info-label">{% trans "Использование памяти" %}</div>
+                                <div class="system-info-value">
+                                    <div class="system-info-progress">
+                                        <div class="system-info-progress-bar" style="width: {{ memory_percent }}%"></div>
+                                    </div>
+                                    {{ memory_percent }}% ({{ memory_used }} / {{ memory_total }})
+                                </div>
+                            </div>
+                            <div class="system-info-item">
+                                <div class="system-info-label">{% trans "Время работы" %}</div>
+                                <div class="system-info-value">{{ uptime }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
