@@ -3,14 +3,14 @@
 Утилиты для получения информации о сервере и хостинге.
 """
 
-import os
-import sys
-import platform
-import socket
-import psutil
-import django
-from datetime import datetime
-from django.conf import settings
+import os  # Работа с файловой системой
+import sys  # Доступ к системным параметрам
+import platform  # Информация о платформе
+import socket  # Сетевая информация
+import psutil  # Системные ресурсы (память, CPU, диск)
+import django  # Django framework
+from datetime import datetime  # Работа с датами и временем
+from django.conf import settings  # Настройки Django
 
 
 def get_server_info():
@@ -21,83 +21,83 @@ def get_server_info():
         dict: Словарь с информацией о сервере
     """
     info = {
-        'platform': {
-            'system': platform.system(),
-            'release': platform.release(),
-            'version': platform.version(),
-            'machine': platform.machine(),
-            'processor': platform.processor(),
+        'platform': {  # Информация о платформе
+            'system': platform.system(),  # Название ОС
+            'release': platform.release(),  # Версия релиза ОС
+            'version': platform.version(),  # Детальная версия ОС
+            'machine': platform.machine(),  # Архитектура процессора
+            'processor': platform.processor(),  # Название процессора
         },
-        'python': {
-            'version': sys.version,
-            'executable': sys.executable,
-            'path': sys.path[:3],  # Первые 3 пути
+        'python': {  # Информация о Python
+            'version': sys.version,  # Версия Python
+            'executable': sys.executable,  # Путь к интерпретатору
+            'path': sys.path[:3],  # Первые 3 пути из sys.path
         },
-        'django': {
-            'version': django.get_version(),
-            'settings_module': os.environ.get('DJANGO_SETTINGS_MODULE', 'Не указан'),
+        'django': {  # Информация о Django
+            'version': django.get_version(),  # Версия Django
+            'settings_module': os.environ.get('DJANGO_SETTINGS_MODULE', 'Не указан'),  # Модуль настроек
         },
-        'host': {
-            'name': socket.gethostname(),
-            'fqdn': socket.getfqdn(),
+        'host': {  # Информация о хосте
+            'name': socket.gethostname(),  # Имя хоста
+            'fqdn': socket.getfqdn(),  # Полное доменное имя
         },
-        'environment': {
-            'debug': settings.DEBUG,
-            'timezone': settings.TIME_ZONE,
-            'language_code': settings.LANGUAGE_CODE,
-            'static_root': settings.STATIC_ROOT,
-            'media_root': settings.MEDIA_ROOT,
-            'allowed_hosts': settings.ALLOWED_HOSTS,
+        'environment': {  # Окружение Django
+            'debug': settings.DEBUG,  # Режим отладки
+            'timezone': settings.TIME_ZONE,  # Часовой пояс
+            'language_code': settings.LANGUAGE_CODE,  # Код языка
+            'static_root': settings.STATIC_ROOT,  # Каталог статических файлов
+            'media_root': settings.MEDIA_ROOT,  # Каталог медиафайлов
+            'allowed_hosts': settings.ALLOWED_HOSTS,  # Разрешенные хосты
         }
     }
     
-    # Информация о процессе
+    # Информация о процессе Django
     try:
-        process = psutil.Process()
+        process = psutil.Process()  # Получаем текущий процесс
         info['process'] = {
-            'pid': process.pid,
-            'name': process.name(),
-            'memory_percent': process.memory_percent(),
-            'cpu_percent': process.cpu_percent(interval=0.1),
-            'create_time': datetime.fromtimestamp(process.create_time()),
-            'status': process.status(),
+            'pid': process.pid,  # ID процесса
+            'name': process.name(),  # Имя процесса
+            'memory_percent': process.memory_percent(),  # Процент используемой памяти
+            'cpu_percent': process.cpu_percent(interval=0.1),  # Процент использования CPU
+            'create_time': datetime.fromtimestamp(process.create_time()),  # Время создания
+            'status': process.status(),  # Статус процесса
         }
-    except (ImportError, AttributeError):
-        info['process'] = {'error': 'psutil не установлен или недоступен'}
+    except (ImportError, AttributeError, psutil.NoSuchProcess):
+        info['process'] = {'error': 'Информация о процессе недоступна'}
     
     # Информация о системе
     try:
         info['system'] = {
-            'cpu_count': psutil.cpu_count(),
-            'cpu_percent': psutil.cpu_percent(interval=0.1),
+            'cpu_count': psutil.cpu_count(),  # Количество ядер CPU
+            'cpu_percent': psutil.cpu_percent(interval=0.1),  # Общая загрузка CPU
             'virtual_memory': {
-                'total': psutil.virtual_memory().total,
-                'available': psutil.virtual_memory().available,
-                'percent': psutil.virtual_memory().percent,
+                'total': psutil.virtual_memory().total,  # Общий объем памяти
+                'available': psutil.virtual_memory().available,  # Доступная память
+                'percent': psutil.virtual_memory().percent,  # Процент использования памяти
             },
             'disk_usage': {
-                'total': psutil.disk_usage('/').total,
-                'free': psutil.disk_usage('/').free,
-                'percent': psutil.disk_usage('/').percent,
+                'total': psutil.disk_usage('/').total,  # Общий объем диска
+                'free': psutil.disk_usage('/').free,  # Свободное место
+                'percent': psutil.disk_usage('/').percent,  # Процент использования диска
             },
         }
-    except (ImportError, AttributeError):
-        info['system'] = {'error': 'psutil не установлен или недоступен'}
+    except (ImportError, AttributeError, PermissionError):
+        info['system'] = {'error': 'Информация о системе недоступна'}
     
     # Информация о базе данных
     try:
-        from django.db import connection
-        db_settings = settings.DATABASES.get('default', {})
+        from django.db import connection  # Импортируем соединение с БД
+        db_settings = settings.DATABASES.get('default', {})  # Настройки БД по умолчанию
         info['database'] = {
-            'engine': db_settings.get('ENGINE', 'Не указан'),
-            'name': db_settings.get('NAME', 'Не указан'),
-            'host': db_settings.get('HOST', 'localhost'),
-            'port': db_settings.get('PORT', 'default'),
-            'user': db_settings.get('USER', 'Не указан'),
-            'vendor': connection.vendor,
+            'engine': db_settings.get('ENGINE', 'Не указан'),  # Движок БД
+            'name': db_settings.get('NAME', 'Не указан'),  # Имя базы данных
+            'host': db_settings.get('HOST', 'localhost'),  # Хост БД
+            'port': db_settings.get('PORT', 'default'),  # Порт БД
+            'user': db_settings.get('USER', 'Не указан'),  # Пользователь БД
+            'vendor': connection.vendor,  # Поставщик БД (postgresql, mysql и т.д.)
         }
     except Exception as e:
-        info['database'] = {'error': str(e)}
+        info['database'] = {'error': str(e)}  # Сохраняем ошибку
     
     return info
 
@@ -110,15 +110,15 @@ def get_installed_apps_info():
         list: Список с информацией о приложениях
     """
     apps_info = []
-    for app in settings.INSTALLED_APPS:
+    for app in settings.INSTALLED_APPS:  # Перебираем установленные приложения
         try:
-            app_module = __import__(app)
+            app_module = __import__(app)  # Импортируем модуль приложения
             apps_info.append({
-                'name': app,
-                'path': app_module.__file__ if hasattr(app_module, '__file__') else 'Встроенное',
-                'version': getattr(app_module, '__version__', 'Не указана'),
+                'name': app,  # Имя приложения
+                'path': app_module.__file__ if hasattr(app_module, '__file__') else 'Встроенное',  # Путь к модулю
+                'version': getattr(app_module, '__version__', 'Не указана'),  # Версия приложения
             })
-        except ImportError:
+        except (ImportError, ModuleNotFoundError):
             apps_info.append({
                 'name': app,
                 'path': 'Не найден',
@@ -135,7 +135,7 @@ def get_middleware_info():
     Returns:
         list: Список middleware
     """
-    return settings.MIDDLEWARE
+    return settings.MIDDLEWARE  # Возвращаем список middleware из настроек
 
 
 def get_site_url():
@@ -145,11 +145,14 @@ def get_site_url():
     Returns:
         str: URL сайта
     """
-    from django.contrib.sites.models import Site
+    from django.contrib.sites.models import Site  # Импортируем модель Site
     try:
-        current_site = Site.objects.get_current()
-        return f"http{'s' if settings.SECURE_SSL_REDIRECT else ''}://{current_site.domain}"
-    except:
+        current_site = Site.objects.get_current()  # Получаем текущий сайт
+        # Формируем URL с учетом SSL
+        protocol = 'https' if getattr(settings, 'SECURE_SSL_REDIRECT', False) else 'http'
+        return f"{protocol}://{current_site.domain}"
+    except Exception:
+        # Возвращаем первый разрешенный хост или localhost по умолчанию
         return settings.ALLOWED_HOSTS[0] if settings.ALLOWED_HOSTS else 'localhost'
 
 
@@ -163,8 +166,15 @@ def format_bytes(bytes_size):
     Returns:
         str: Отформатированный размер
     """
-    for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
-        if bytes_size < 1024.0:
-            return f"{bytes_size:.1f} {unit}"
-        bytes_size /= 1024.0
-    return f"{bytes_size:.1f} PB"
+    if bytes_size is None:
+        return "0 B"
+    
+    # Единицы измерения
+    units = ['B', 'KB', 'MB', 'GB', 'TB']
+    
+    for unit in units:
+        if bytes_size < 1024.0:  # Если размер меньше 1024 в текущей единице
+            return f"{bytes_size:.1f} {unit}"  # Форматируем с одной десятичной цифрой
+        bytes_size /= 1024.0  # Переводим в следующую единицу
+    
+    return f"{bytes_size:.1f} PB"  # Если больше TB, показываем в PB

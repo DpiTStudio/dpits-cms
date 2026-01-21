@@ -32,14 +32,13 @@ from django.utils.html import (
 )
 from django.utils.translation import gettext_lazy as _  # Функция для перевода строк
 from .models import ErrorLog, LogStats, Page, SiteSettings, StatisticsBanner  # Импорт моделей для админки
-from .admin_utils import get_server_info, get_installed_apps_info, get_middleware_info, get_site_url, format_bytes # Импорт утилит для админки
-
+from .admin_utils import get_server_info, get_installed_apps_info, get_middleware_info, get_site_url, format_bytes  # Импорт утилит для админки
 
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
     """
-    Админ## 5. Добавьте миграцию для новой модели: панель для настроек сайта.
+    Админ-панель для настроек сайта.
     Обеспечивает singleton-режим (только одна запись настроек).
     """
 
@@ -128,7 +127,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         Возвращает:
             bool: True если можно добавить, False если нельзя
         """
-        return not SiteSettings.objects.exists() # Разрешаем добавление только если нет ни одной записи
+        return not SiteSettings.objects.exists()  # Разрешаем добавление только если нет ни одной записи
 
     def has_delete_permission(self, request, obj=None):
         """
@@ -174,11 +173,14 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         cache.delete("menu_pages")  # Удаляем кэш меню
         cache.delete("featured_pages")  # Удаляем кэш рекомендуемых страниц
 
-        def get_urls(self):
+    def get_urls(self):
         """
         Добавляет URL для страницы информации о сервере.
+        
+        Возвращает:
+            list: Список URL маршрутов для админки
         """
-        urls = super().get_urls()
+        urls = super().get_urls()  # Получаем стандартные URL
         custom_urls = [
             path(
                 'server-info/',
@@ -186,21 +188,27 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 name='server_info',
             ),
         ]
-        return custom_urls + urls
-    
+        return custom_urls + urls  # Объединяем кастомные и стандартные URL
+
     def server_info_view(self, request):
         """
         Отображает страницу с информацией о сервере и хостинге.
+
+        Параметры:
+            request: Объект HTTP запроса
+
+        Возвращает:
+            HttpResponse: Страница с информацией о сервере
         """
         # Получаем информацию о сервере
         server_info = get_server_info()
         apps_info = get_installed_apps_info()
         middleware_info = get_middleware_info()
         site_url = get_site_url()
-        
+
         # Форматируем данные для отображения
         formatted_info = self._format_server_info(server_info)
-        
+
         context = {
             'title': 'Информация о сервере и хостинге',
             'server_info': formatted_info,
@@ -210,31 +218,38 @@ class SiteSettingsAdmin(admin.ModelAdmin):
             'opts': self.model._meta,
             'has_view_permission': True,
         }
-        
+
         return render(request, 'admin/main/server_info.html', context)
-    
+
     def _format_server_info(self, server_info):
         """
         Форматирует информацию о сервере для отображения.
+
+        Параметры:
+            server_info: dict - Словарь с информацией о сервере
+
+        Возвращает:
+            dict: Отформатированная информация о сервере
         """
         formatted = server_info.copy()
-        
+
         # Форматируем размеры
         if 'system' in formatted and 'virtual_memory' in formatted['system']:
             mem = formatted['system']['virtual_memory']
             mem['total'] = format_bytes(mem.get('total', 0))
             mem['available'] = format_bytes(mem.get('available', 0))
-        
+
         if 'system' in formatted and 'disk_usage' in formatted['system']:
             disk = formatted['system']['disk_usage']
             disk['total'] = format_bytes(disk.get('total', 0))
             disk['free'] = format_bytes(disk.get('free', 0))
-        
+
         # Форматируем пути Python
         if 'python' in formatted and 'path' in formatted['python']:
             formatted['python']['path'] = '<br>'.join(formatted['python']['path'])
-        
+
         return formatted
+
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
@@ -615,6 +630,7 @@ class LogStatsAdmin(admin.ModelAdmin):
             get_log_file_info,
             get_log_file_path,
         )
+        import shutil
 
         log_file_path = get_log_file_path()
 
@@ -631,9 +647,6 @@ class LogStatsAdmin(admin.ModelAdmin):
 
             try:
                 # Создаем бэкап перед изменением
-                import shutil
-                from datetime import datetime
-
                 backup_dir = os.path.join(os.path.dirname(log_file_path), "backups")
                 os.makedirs(backup_dir, exist_ok=True)
 
@@ -690,9 +703,28 @@ class ErrorLogAdmin(LogStatsAdmin):
     """
 
     def get_queryset(self, request):
+        """
+        Возвращает пустой QuerySet, так как ErrorLog не имеет собственных записей в БД.
+
+        Параметры:
+            request: Объект HTTP запроса
+
+        Возвращает:
+            QuerySet: Пустой QuerySet
+        """
         return super().get_queryset(request).none()
 
     def changelist_view(self, request, extra_context=None):
+        """
+        Переопределяет представление списка для добавления кнопок для error.log.
+
+        Параметры:
+            request: Объект HTTP запроса
+            extra_context: Дополнительный контекст для шаблона
+
+        Возвращает:
+            HttpResponse: Ответ с рендером страницы списка
+        """
         extra_context = extra_context or {}
 
         # URL для кнопок
@@ -719,7 +751,13 @@ class ErrorLogAdmin(LogStatsAdmin):
         return admin.ModelAdmin.changelist_view(self, request, extra_context)
 
     def get_urls(self):
-        urls = super(LogStatsAdmin, self).get_urls()
+        """
+        Возвращает кастомные URL маршруты для админки error.log.
+
+        Возвращает:
+            list: Список URL маршрутов
+        """
+        urls = super(LogStatsAdmin, self).get_urls()  # Используем родительский метод
         custom_urls = [
             path(
                 "clear-log/",
@@ -740,6 +778,15 @@ class ErrorLogAdmin(LogStatsAdmin):
         return custom_urls + urls
 
     def clear_log_file_view(self, request):
+        """
+        Обрабатывает очистку лог-файла error.log.
+
+        Параметры:
+            request: Объект HTTP запроса
+
+        Возвращает:
+            HttpResponseRedirect: Перенаправление обратно к списку
+        """
         from .log_utils import clear_error_log_file
 
         success, message = clear_error_log_file()
@@ -751,6 +798,15 @@ class ErrorLogAdmin(LogStatsAdmin):
         return HttpResponseRedirect(reverse("admin:main_errorlog_changelist"))
 
     def view_log_statistics(self, request):
+        """
+        Отображает полную статистику из файла error.log.
+
+        Параметры:
+            request: Объект HTTP запроса
+
+        Возвращает:
+            HttpResponse: Страница с полной статистикой
+        """
         from .log_utils import get_error_log_file_info, get_error_log_file_path
 
         log_info = get_error_log_file_info()
@@ -783,6 +839,15 @@ class ErrorLogAdmin(LogStatsAdmin):
         return render(request, "admin/main/errorlog_statistics.html", context)
 
     def edit_log_file_view(self, request):
+        """
+        Отображает страницу для редактирования содержимого error.log.
+
+        Параметры:
+            request: Объект HTTP запроса
+
+        Возвращает:
+            HttpResponse: Страница редактирования или перенаправление
+        """
         from .log_utils import get_error_log_file_info, get_error_log_file_path
         import shutil
 
@@ -839,193 +904,114 @@ class StatisticsBannerAdmin(admin.ModelAdmin):
     """
     Админ-панель для управления статистическими баннерами.
     """
-    
-    list_display = [
-        'name',
-        'banner_type',
-        'position',
-        'is_active',
-        'order',
-        'counter_id',
-        'updated_at',
-    ]
-    
-    list_editable = [
-        'is_active',
-        'order',
-    ]
-    
-    list_filter = [
-        'banner_type',
-        'position',
-        'is_active',
-        'created_at',
-    ]
-    
-    search_fields = [
-        'name',
-        'code',
-        'counter_id',
-        'description',
-    ]
-    
-    readonly_fields = ['created_at', 'updated_at']
-    
-    fieldsets = (
-        (_('Основная информация'), {
-            'fields': (
-                'name',
-                'banner_type',
-                'counter_id',
-                'description',
-            )
-        }),
-        (_('Код баннера'), {
-            'fields': ('code',),
-            'classes': ('wide',),
-            'description': _('Вставьте HTML/JavaScript код счетчика')
-        }),
-        (_('Позиция отображения'), {
-            'fields': ('position', 'order'),
-        }),
-        (_('Настройки видимости'), {
-            'fields': (
-                'is_active',
-                'show_on_all_pages',
-                'show_on_index',
-                'show_on_pages',
-                'show_on_news',
-                'show_on_portfolio',
-            ),
-            'classes': ('collapse',),
-        }),
-        (_('Настройки доступа'), {
-            'fields': (
-                'enabled_for_admin',
-                'enabled_for_staff',
-                'enabled_for_users',
-            ),
-            'classes': ('collapse',),
-        }),
-        (_('Мета-информация'), {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',),
-        }),
-    )
-    
-    actions = ['activate_banners', 'deactivate_banners']
-    
-    def activate_banners(self, request, queryset):
-        """Активировать выбранные баннеры."""
-        updated = queryset.update(is_active=True)
-        self.message_user(
-            request,
-            f'Активировано {updated} баннеров'
-        )
-    activate_banners.short_description = _('Активировать выбранные баннеры')
-    
-    def deactivate_banners(self, request, queryset):
-        """Деактивировать выбранные баннеры."""
-        updated = queryset.update(is_active=False)
-        self.message_user(
-            request,
-            f'Деактивировано {updated} баннеров'
-        )
-    deactivate_banners.short_description = _('Деактивировать выбранные баннеры')
 
-    """
-    Админ-панель для управления статистическими баннерами.
-    """
-    
     list_display = [
-        'name',
-        'banner_type',
-        'position',
-        'is_active',
-        'order',
-        'counter_id',
-        'updated_at',
+        'name',  # Название баннера
+        'banner_type',  # Тип баннера (счетчик, аналитика и т.д.)
+        'position',  # Позиция отображения (header, footer и т.д.)
+        'is_active',  # Активен ли баннер
+        'order',  # Порядок отображения
+        'counter_id',  # Идентификатор счетчика
+        'updated_at',  # Дата обновления
     ]
-    
+
     list_editable = [
-        'is_active',
-        'order',
+        'is_active',  # Можно редактировать активность
+        'order',  # Можно редактировать порядок
     ]
-    
+
     list_filter = [
-        'banner_type',
-        'position',
-        'is_active',
-        'created_at',
+        'banner_type',  # Фильтр по типу баннера
+        'position',  # Фильтр по позиции
+        'is_active',  # Фильтр по активности
+        'created_at',  # Фильтр по дате создания
     ]
-    
+
     search_fields = [
-        'name',
-        'code',
-        'counter_id',
-        'description',
+        'name',  # Поиск по названию
+        'code',  # Поиск по коду
+        'counter_id',  # Поиск по ID счетчика
+        'description',  # Поиск по описанию
     ]
-    
-    readonly_fields = ['created_at', 'updated_at']
-    
+
+    readonly_fields = ['created_at', 'updated_at']  # Поля только для чтения
+
     fieldsets = (
         (_('Основная информация'), {
             'fields': (
-                'name',
-                'banner_type',
-                'counter_id',
-                'description',
+                'name',  # Название баннера
+                'banner_type',  # Тип баннера
+                'counter_id',  # Идентификатор счетчика
+                'description',  # Описание
             )
         }),
         (_('Код баннера'), {
-            'fields': ('code',),
-            'classes': ('wide',),
-            'description': _('Вставьте HTML/JavaScript код счетчика')
+            'fields': ('code',),  # HTML/JavaScript код
+            'classes': ('wide',),  # Широкая область
+            'description': _('Вставьте HTML/JavaScript код счетчика')  # Описание поля
         }),
         (_('Позиция отображения'), {
-            'fields': ('position', 'order'),
+            'fields': ('position', 'order'),  # Позиция и порядок
         }),
         (_('Настройки видимости'), {
             'fields': (
-                'is_active',
-                'show_on_all_pages',
-                'show_on_index',
-                'show_on_pages',
-                'show_on_news',
-                'show_on_portfolio',
+                'is_active',  # Активен ли баннер
+                'show_on_all_pages',  # Показывать на всех страницах
+                'show_on_index',  # Показывать на главной
+                'show_on_pages',  # Показывать на страницах
+                'show_on_news',  # Показывать в новостях
+                'show_on_portfolio',  # Показывать в портфолио
             ),
-            'classes': ('collapse',),
+            'classes': ('collapse',),  # Сворачиваемая секция
         }),
         (_('Настройки доступа'), {
             'fields': (
-                'enabled_for_admin',
-                'enabled_for_staff',
-                'enabled_for_users',
+                'enabled_for_admin',  # Доступно для администраторов
+                'enabled_for_staff',  # Доступно для персонала
+                'enabled_for_users',  # Доступно для пользователей
             ),
-            'classes': ('collapse',),
+            'classes': ('collapse',),  # Сворачиваемая секция
         }),
         (_('Мета-информация'), {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',),
+            'fields': ('created_at', 'updated_at'),  # Даты создания и обновления
+            'classes': ('collapse',),  # Сворачиваемая секция
         }),
     )
-    
-    actions = ['activate_banners', 'deactivate_banners']
-    
+
+    actions = ['activate_banners', 'deactivate_banners']  # Действия для массового редактирования
+
     def activate_banners(self, request, queryset):
-        """Активировать выбранные баннеры."""
-        updated = queryset.update(is_active=True)
+        """
+        Активировать выбранные баннеры.
+
+        Параметры:
+            request: Объект HTTP запроса
+            queryset: QuerySet выбранных объектов
+
+        Возвращает:
+            None
+        """
+        updated = queryset.update(is_active=True)  # Активируем баннеры
         self.message_user(
             request,
-            f'Активировано {updated} баннеров'
+            f'Активировано {updated} баннеров'  # Показываем сообщение
         )
-    activate_banners.short_description = _('Активировать выбранные баннеры')
-    
+    activate_banners.short_description = _('Активировать выбранные баннеры')  # Название действия
+
     def deactivate_banners(self, request, queryset):
-        """Деактивировать выбранные баннеры."""
-        updated = queryset.update(is_active=False)
+        """
+        Деактивировать выбранные баннеры.
+
+        Параметры:
+            request: Объект HTTP запроса
+            queryset: QuerySet выбранных объектов
+
+        Возвращает:
+            None
+        """
+        updated = queryset.update(is_active=False)  # Деактивируем баннеры
         self.message_user(
             request,
-            f'Деактивировано {updated} баннеров'
+            f'Деактивировано {updated} баннеров'  # Показываем сообщение
         )
-    deactivate_banners.short_description = _('Деактивировать выбранные баннеры')
+    deactivate_banners.short_description = _('Деактивировать выбранные баннеры')  # Название действия
