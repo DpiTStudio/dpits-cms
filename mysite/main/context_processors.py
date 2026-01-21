@@ -369,5 +369,12 @@ def hero_overrides(request):
     elif "/profile/" in path:
         app_hero = AppHeroSettings.objects.filter(app_name="profile").first()
 
-    return {"app_hero": app_hero}
+    return {
+        "app_hero": app_hero,
+        "news": None,
+        "portfolio_item": None,
+        "service": None,
+        "category": None,
+        "page": None,
+    }
 

@@ -105,6 +105,10 @@ class PortfolioDetailView(DetailView):
             .order_by("-created_at")[:4]
         )
 
+        # Для совместимости с hero.html и другими шаблонами
+        context["portfolio_item"] = self.object
+        context["categories"] = PortfolioCategory.objects.filter(is_active=True).order_by("-order", "name")
+
         # Счётчик просмотров
         self.object.increment_views()
 
