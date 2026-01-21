@@ -205,6 +205,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "DPITS CMS",
     "welcome_sign": "Добро пожаловать в панель управления",
     "copyright": "DPITS CMS",
+    "show_version": False,
     # === НАСТРОЙКИ ПОИСКА ===
     # "search_model": ["auth.User", "portfolio.PortfolioItem", "news.News"],
     # === НАСТРОЙКИ ЛОГОТИПА И ИКОНОК ===

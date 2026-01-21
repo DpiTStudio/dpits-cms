@@ -416,3 +416,8 @@ a.deletelink:hover, .btn-danger:hover, .submit-row a.deletelink:hover {
     height: auto;
     line-height: 1.5;
 }
+
+/* Hide Jazzmin version in footer */
+.main-footer .float-right {
+    display: none !important;
+}
