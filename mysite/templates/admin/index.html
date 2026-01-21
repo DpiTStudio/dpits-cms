@@ -1,847 +1,374 @@
 {% extends "admin/base_site.html" %}
-{% load i18n %}
+{% load i18n static main_tags %}
+
+{% block title %}{% trans "Панель управления" %} | {{ site_title|default:_("DPITS CMS") }}{% endblock %}
 
 {% block extrastyle %}
 {{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/dashboard.css' %}">
 <style>
+    /* 
+       ОСНОВНЫЕ СТИЛИ ДАШБОРДА 
+       Здесь настраивается внешний вид карточек статистики и логов 
+    */
     :root {
-        --primary-gradient: linear-gradient(135deg, #007bff, #00c9ff);
-        --purple-gradient: linear-gradient(135deg, #6610f2, #6f42c1);
-        --orange-gradient: linear-gradient(135deg, #fd7e14, #ffc107);
-        --card-bg: #ffffff;
-        --card-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-        --card-hover-shadow: 0 18px 35px rgba(15, 23, 42, 0.15);
-        --text-muted: #64748b;
-        --text-dark: #1e293b;
+        --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        --success-gradient: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
+        --warning-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        --danger-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        --info-gradient: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
 
-    .dashboard-header {
-        display: flex;
-        align-items: left;
-        justify-content: space-between;
-        gap: 1rem;
-        /* margin-bottom: 2rem; */
-        padding-bottom: 3rem;
-        padding-top: 3rem;
+    /* Контейнер для сетки карточек */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
     }
 
-    .dashboard-title {
-        font-size: 1.8rem;
-        font-weight: 900;
-        display: flex;
-        align-items: left;
-        gap: 1rem;
-        color: var(--text-dark);
-    }
-
-    .dashboard-title-icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--primary-gradient);
-        color: #fff;
-        font-size: 20px;
-        box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
-    }
-
-    .dashboard-subtitle {
-        margin: 0.5rem 0 0;
-        font-size: 0.95rem;
-        color: var(--text-muted);
-    }
-
-    /* Stat Cards */
-    .card {
-        
-    }
+    /* Стили отдельной карточки статистики */
     .stat-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: var(--card-shadow);
+        transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        border: none;
-        border-radius: 1rem;
-        box-shadow: var(--card-shadow);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        background: var(--card-bg);
-        padding-bottom: 2rem;
+        border: 1px solid rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 140px;
     }
 
     .stat-card:hover {
-        /* transform: translateY(-5px); */
+        transform: translateY(-5px);
         box-shadow: var(--card-hover-shadow);
     }
 
-    .stat-card .card-body {
-        position: relative;
-        z-index: 1;
-        padding: 1.5rem;
-    }
-
-    /* Cards colorful backgrounds for top stats */
-    .stat-card.bg-primary { background: linear-gradient(135deg, #3b82f6, #2563eb); }
-    .stat-card.bg-info { background: linear-gradient(135deg, #06b6d4, #0891b2); }
-    .stat-card.bg-success { background: linear-gradient(135deg, #22c55e, #16a34a); }
-    .stat-card.bg-warning { background: linear-gradient(135deg, #f59e0b, #d97706);  color: white !important;}
-    .stat-card.bg-secondary { background: linear-gradient(135deg, #64748b, #475569); }
-    .stat-card.bg-danger { background: linear-gradient(135deg, #ef4444, #dc2626); }
-    .stat-card.bg-dark { background: linear-gradient(135deg, #1e293b, #0f172a); }
-
-    .stat-card::before {
-        content: "";
+    /* Фон иконки внутри карточки */
+    .stat-icon {
         position: absolute;
-        inset: 0;
-        background-image: radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.2), transparent 50%),
-                          radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.1), transparent 50%);
-        pointer-events: none;
+        top: 1rem;
+        right: 1rem;
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.5rem;
+        opacity: 0.9;
     }
+
+    /* Разные цветовые схемы для карточек */
+    .stat-users .stat-icon { background: var(--primary-gradient); }
+    .stat-news .stat-icon { background: var(--info-gradient); }
+    .stat-portfolio .stat-icon { background: var(--success-gradient); }
+    .stat-feedback .stat-icon { background: var(--warning-gradient); }
+    .stat-tickets .stat-icon { background: var(--danger-gradient); }
+    .stat-orders .stat-icon { background: var(--danger-gradient); }
+    .stat-clients .stat-icon { background: var(--primary-gradient); }
 
     .stat-label {
-        font-size: 0.85rem;
-        text-transform: uppercase;
+        font-size: 0.875rem;
+        color: #64748b;
         font-weight: 500;
-        letter-spacing: 0.05em;
-        opacity: 0.9;
         margin-bottom: 0.5rem;
     }
 
     .stat-value {
-        font-size: 2rem;
-        font-weight: 800;
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: #1e293b;
         margin-bottom: 0.5rem;
-        line-height: 1;
     }
 
-    .stat-muted {
-        font-size: 0.85rem;
-        opacity: 0.85;
-    }
-
-    .stat-icon-pill {
-        position: absolute;
-        right: 1rem;
-        top: 1rem;
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.2);
-        color: #fff;
-        font-size: 20px;
-        backdrop-filter: blur(4px);
-    }
-
+    /* Прогресс-бар внизу карточки */
     .stat-progress {
         height: 6px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.2);
+        background: #f1f5f9;
+        border-radius: 3px;
         overflow: hidden;
-        margin-top: 1rem;
+        margin-top: auto;
     }
 
     .stat-progress-bar {
         height: 100%;
-        border-radius: inherit;
-        background: rgba(255, 255, 255, 0.9);
-        width: 0;
+        border-radius: 3px;
+        transition: width 1s ease-in-out;
     }
 
-    /* Section Headers */
-    .section-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin: 2.5rem 0 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #e2e8f0;
+    /* Секция логов */
+    .logs-section {
+        margin-top: 2rem;
     }
 
-    .section-title {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin: 0;
-    }
-
-    /* Data Management Cards */
-    .admin-apps-card {
-        border-radius: 1rem;
-        box-shadow: var(--card-shadow);
-        border: 1px solid #f1f5f9;
-        height: 100%;
-        transition: all 0.3s ease;
-        background: #fff;
-    }
-
-    .admin-apps-card:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--card-hover-shadow);
-        border-color: #e2e8f0;
-    }
-
-    .app-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-        padding-bottom: 0.75rem;
-        border-bottom: 1px solid #f1f5f9;
-    }
-
-    .app-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    .app-icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        background: #f8fafc;
-        color: #64748b;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.9rem;
-    }
-
-    .app-badge {
-        font-size: 0.75rem;
-        padding: 0.25rem 0.75rem;
-        border-radius: 999px;
-        background: #f1f5f9;
-        color: #64748b;
-        font-weight: 600;
-    }
-
-    .model-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .model-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.6rem 0.5rem;
-        border-radius: 0.5rem;
-        transition: background 0.2s;
-        color: var(--text-dark);
-        text-decoration: none;
-    }
-
-    .model-item:hover {
-        background: #f8fafc;
-        text-decoration: none;
-        color: var(--text-dark);
-    }
-
-    .model-link {
-        color: var(--text-dark);
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        flex-grow: 1;
-    }
-
-    .model-link:hover {
-        color: #2563eb;
-    }
-    
-    .model-actions a {
-        color: #94a3b8;
-        padding: 4px;
-        transition: color 0.2s;
-    }
-    .model-actions a:hover {
-        color: #22c55e;
-    }
-
-    /* Logs Section */
     .logs-card {
-        border-radius: 1rem;
-        box-shadow: var(--card-shadow);
-        border: none;
         background: #fff;
+        border-radius: 12px;
+        box-shadow: var(--card-shadow);
+        border: 1px solid rgba(0,0,0,0.05);
         height: 100%;
-        transition: all 0.3s ease;
-    }
-    
-    .logs-card:hover {
-        box-shadow: var(--card-hover-shadow);
     }
 
     .logs-header {
+        padding: 1.25rem;
+        border-bottom: 1px solid #f1f5f9;
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        margin-bottom: 1.5rem;
-    }
-
-    .logs-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin: 0;
-        display: flex;
         align-items: center;
-        gap: 0.75rem;
     }
 
-    .log-stats-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-        background: #f8fafc;
-        padding: 1rem;
-        border-radius: 0.75rem;
-    }
-
-    .log-stat-item strong {
-        display: block;
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        margin-bottom: 0.2rem;
-    }
-
-    .log-stat-item span {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--text-dark);
-    }
-
+    /* Предпросмотр распределения ошибок в логах */
     .log-distribution {
-        margin-bottom: 1.5rem;
-    }
-
-    .log-dist-label {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        margin-bottom: 0.5rem;
-        display: block;
-    }
-
-    .log-bars {
         display: flex;
         height: 8px;
-        border-radius: 999px;
+        border-radius: 4px;
         overflow: hidden;
-        margin-bottom: 0.5rem;
-        background: #e2e8f0;
+        margin: 1rem 0;
+        background: #f1f5f9;
     }
 
-    .log-bar {
-        height: 100%;
-        transition: width 0.5s ease;
-    }
+    .dist-error { background-color: #ef4444; }
+    .dist-warning { background-color: #f59e0b; }
+    .dist-info { background-color: #3b82f6; }
+    .dist-debug { background-color: #94a3b8; }
 
-    .log-bar.error { background: #ef4444; }
-    .log-bar.warning { background: #f97316; }
-    .log-bar.info { background: #3b82f6; }
-    .log-bar.debug { background: #22c55e; }
-
-    .log-legend {
-        display: flex;
-        gap: 1rem;
-        font-size: 0.75rem;
-        flex-wrap: wrap;
-    }
-    
-    .log-legend-item {
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-        color: var(--text-muted);
-    }
-
-    .log-legend-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-    }
-
+    /* Кнопки действий */
     .log-actions {
+        padding: 1rem 1.25rem;
+        background: #f8fafc;
+        border-top: 1px solid #f1f5f9;
         display: flex;
         gap: 0.5rem;
-        border-top: 1px solid #f1f5f9;
-        padding-top: 1rem;
     }
 
     .btn-log-action {
-        font-size: 0.85rem;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        text-decoration: none;
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.375rem;
         transition: all 0.2s;
-        flex: 1;
-        justify-content: center;
-        font-weight: 500;
     }
 
-    .btn-log-view { background: #f0f9ff; color: #0284c7; border: none; }
-    .btn-log-view:hover { background: #e0f2fe; color: #0369a1; }
-
-    .btn-log-edit { background: #f8fafc; color: #475569; border: none; }
-    .btn-log-edit:hover { background: #f1f5f9; color: #334155; }
-
-    .btn-log-clear { background: #fef2f2; color: #dc2626; border: none; }
-    .btn-log-clear:hover { background: #fee2e2; color: #b91c1c; }
-
-    @media (max-width: 767.98px) {
-        .dashboard-header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .log-stats-grid {
-            grid-template-columns: 1fr;
-        }
-    }
+    .btn-log-view { background: #fff; color: #1e293b; border: 1px solid #e2e8f0; }
+    .btn-log-view:hover { background: #f1f5f9; }
+    .btn-log-clear { background: #fef2f2; color: #b91c1c; border: 1px solid #fee2e2; }
+    .btn-log-clear:hover { background: #fee2e2; }
 </style>
 {% endblock %}
 
 {% block content %}
-<div id="content-main" class="container-fluid p-4">
-    <div class="dashboard-header">
+<div id="content-main">
+    <!-- ЗАГОЛОВОК ДАШБОРДА -->
+    <div class="mb-4 d-flex justify-content-between align-items-center">
         <div>
-            <div class="dashboard-title">
-                <span class="dashboard-title-icon">
-                    <i class="fas fa-chart-line"></i>
-                </span>
-                <span>{% trans "Статистика сайта" %}</span>
-            </div>
-            <p class="dashboard-subtitle">
-                {% trans "Краткий обзор активности пользователей, контента и системных логов." %}
-            </p>
+            <h1 class="h3 mb-0 text-gray-800">{% trans "Рабочий стол администратора" %}</h1>
+            <p class="text-muted">{% trans "Общая статистика и состояние системы на" %} {{ now|date:"d.m.Y H:i" }}</p>
         </div>
     </div>
 
-    {% if admin_stats %}
-    <div class="row g-1">
-        <!-- Пользователи -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card stat-card bg-primary text-white h-100">
-                <div class="card-body">
-                    <div class="stat-icon-pill">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-label">{% trans "Пользователи" %}</div>
-                    <div class="stat-value countup" data-count="{{ admin_stats.users.total }}">0</div>
-                    <div class="stat-muted">
-                        {% trans "Активные" %}: {{ admin_stats.users.active }} ·
-                        {% trans "Сотрудники" %}: {{ admin_stats.users.staff }}
-                    </div>
-                    <div class="stat-progress">
-                        <div class="stat-progress-bar" data-progress="86"></div>
-                    </div>
-                </div>
+    <!-- СЕТКА КАРТОЧЕК СТАТИСТИКИ -->
+    <div class="dashboard-grid">
+        <!-- КАРТОЧКА: ПОЛЬЗОВАТЕЛИ -->
+        <div class="stat-card stat-users">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div>
+                <div class="stat-label">{% trans "Всего пользователей" %}</div>
+                <div class="stat-value countup" data-count="{{ admin_stats.users.total|default:0 }}">0</div>
+            </div>
+            <div class="text-xs text-muted">
+                <span class="text-success"><i class="fas fa-user-shield"></i> {{ admin_stats.users.staff|default:0 }}</span> {% trans "персонал" %}
+            </div>
+            <div class="stat-progress">
+                <div class="stat-progress-bar" style="background: var(--primary-gradient); width: 0%" data-progress="100"></div>
             </div>
         </div>
 
-        <!-- Новости -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card stat-card bg-info text-white h-100">
-                <div class="card-body">
-                    <div class="stat-icon-pill">
-                        <i class="fas fa-newspaper"></i>
-                    </div>
-                    <div class="stat-label">{% trans "Новости" %}</div>
-                    <div class="stat-value countup" data-count="{{ admin_stats.news.total }}">0</div>
-                    <div class="stat-muted">
-                        {% trans "Просмотры" %}: {{ admin_stats.news.views }}
-                    </div>
-                    <div class="stat-progress">
-                        <div class="stat-progress-bar" data-progress="72"></div>
-                    </div>
-                </div>
+        <!-- КАРТОЧКА: КЛИЕНТЫ -->
+        <div class="stat-card stat-clients">
+            <div class="stat-icon"><i class="fas fa-handshake"></i></div>
+            <div>
+                <div class="stat-label">{% trans "Клиенты" %}</div>
+                <div class="stat-value countup" data-count="{{ admin_stats.portfolio.clients|default:0 }}">0</div>
+            </div>
+            <div class="text-xs text-muted">
+                <i class="fas fa-check-circle"></i> {% trans "Активные заказчики" %}
+            </div>
+            <div class="stat-progress">
+                <div class="stat-progress-bar" style="background: var(--primary-gradient); width: 0%" data-progress="80"></div>
             </div>
         </div>
 
-        <!-- Портфолио -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card stat-card bg-success text-white h-100">
-                <div class="card-body">
-                    <div class="stat-icon-pill">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="stat-label">{% trans "Портфолио" %}</div>
-                    <div class="stat-value countup" data-count="{{ admin_stats.portfolio.items }}">0</div>
-                    <div class="stat-muted">
-                        {% trans "Просмотры" %}: {{ admin_stats.portfolio.views }} ·
-                        {% trans "Клиенты" %}: {{ admin_stats.portfolio.clients }}
-                    </div>
-                    <div class="stat-progress">
-                        <div class="stat-progress-bar" data-progress="64"></div>
-                    </div>
-                </div>
+        <!-- КАРТОЧКА: НОВОСТИ -->
+        <div class="stat-card stat-news">
+            <div class="stat-icon"><i class="fas fa-newspaper"></i></div>
+            <div>
+                <div class="stat-label">{% trans "Статей и новостей" %}</div>
+                <div class="stat-value countup" data-count="{{ admin_stats.news.total|default:0 }}">0</div>
+            </div>
+            <div class="text-xs text-muted">
+                <i class="fas fa-eye"></i> {{ admin_stats.news.views|default:0 }} {% trans "всего просмотров" %}
+            </div>
+            <div class="stat-progress">
+                <div class="stat-progress-bar" style="background: var(--info-gradient); width: 0%" data-progress="75"></div>
             </div>
         </div>
 
-        <!-- Заказы -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card stat-card bg-warning text-white h-100">
-                <div class="card-body">
-                    <div class="stat-icon-pill">
-                        <i class="fas fa-tasks"></i>
-                    </div>
-                    <div class="stat-label">{% trans "Заказы" %}</div>
-                    <div class="stat-value countup" data-count="{{ admin_stats.portfolio.orders }}">0</div>
-                    <div class="stat-muted">
-                        {% trans "Проекты клиентов" %}
-                    </div>
-                    <div class="stat-progress">
-                        <div class="stat-progress-bar" data-progress="58"></div>
-                    </div>
-                </div>
+        <!-- КАРТОЧКА: ПОРТФОЛИО -->
+        <div class="stat-card stat-portfolio">
+            <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
+            <div>
+                <div class="stat-label">{% trans "Проектов в портфолио" %}</div>
+                <div class="stat-value countup" data-count="{{ admin_stats.portfolio.items|default:0 }}">0</div>
+            </div>
+            <div class="text-xs text-muted">
+                <i class="fas fa-star"></i> {{ admin_stats.reviews.site_approved|default:0 }} {% trans "отзывов" %}
+            </div>
+            <div class="stat-progress">
+                <div class="stat-progress-bar" style="background: var(--success-gradient); width: 0%" data-progress="60"></div>
             </div>
         </div>
 
-        <!-- Отзывы -->
-        <div class="col-xl-4 col-md-6">
-            <div class="card stat-card bg-secondary text-white h-100">
-                <div class="card-body">
-                    <div class="stat-icon-pill">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="stat-label">{% trans "Отзывы" %}</div>
-                    <div class="stat-value countup" data-count="{{ admin_stats.reviews.site_total }}">0</div>
-                    <div class="stat-muted">
-                        {% trans "Одобрено" %}: {{ admin_stats.reviews.site_approved }} ·
-                        {% trans "По работам" %}: {{ admin_stats.reviews.portfolio_total }}
-                    </div>
-                    <div class="stat-progress">
-                        <div class="stat-progress-bar" data-progress="74"></div>
-                    </div>
-                </div>
+        <!-- КАРТОЧКА: ЗАКАЗЫ -->
+        <div class="stat-card stat-orders">
+            <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+            <div>
+                <div class="stat-label">{% trans "Всего заказов" %}</div>
+                <div class="stat-value countup" data-count="{{ admin_stats.portfolio.orders|default:0 }}">0</div>
+            </div>
+            <div class="text-xs text-muted">
+                <i class="fas fa-clock"></i> {% trans "История и текущие" %}
+            </div>
+            <div class="stat-progress">
+                <div class="stat-progress-bar" style="background: var(--danger-gradient); width: 0%" data-progress="90"></div>
             </div>
         </div>
 
-        <!-- Обратная связь -->
-        <div class="col-xl-4 col-md-6">
-            <div class="card stat-card bg-danger text-white h-100">
-                <div class="card-body">
-                    <div class="stat-icon-pill">
-                        <i class="fas fa-envelope-open-text"></i>
-                    </div>
-                    <div class="stat-label">{% trans "Обратная связь" %}</div>
-                    <div class="stat-value countup" data-count="{{ admin_stats.feedback.total }}">0</div>
-                    <div class="stat-muted">
-                        {% trans "Новых сообщений" %}: {{ admin_stats.feedback.new }}
-                    </div>
-                    <div class="stat-progress">
-                        <div class="stat-progress-bar" data-progress="63"></div>
-                    </div>
-                </div>
+        <!-- КАРТОЧКА: ОБРАТНАЯ СВЯЗЬ -->
+        <div class="stat-card stat-feedback">
+            <div class="stat-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+                <div class="stat-label">{% trans "Сообщения с сайта" %}</div>
+                <div class="stat-value countup" data-count="{{ admin_stats.feedback.total|default:0 }}">0</div>
             </div>
-        </div>
-
-        <!-- Тикеты поддержки -->
-        <div class="col-xl-4 col-md-6">
-            <div class="card stat-card bg-dark text-white h-100">
-                <div class="card-body">
-                    <div class="stat-icon-pill">
-                        <i class="fas fa-life-ring"></i>
-                    </div>
-                    <div class="stat-label">{% trans "Тикеты поддержки" %}</div>
-                    <div class="stat-value countup" data-count="{{ admin_stats.tickets.total }}">0</div>
-                    <div class="stat-muted">
-                        {% trans "Открытые" %}: {{ admin_stats.tickets.open }} ·
-                        {% trans "В работе" %}: {{ admin_stats.tickets.in_progress }}
-                    </div>
-                    <div class="stat-progress">
-                        <div class="stat-progress-bar" data-progress="69"></div>
-                    </div>
-                </div>
+            <div class="text-xs {% if admin_stats.feedback.new > 0 %}text-danger font-weight-bold animate-pulse{% else %}text-muted{% endif %}">
+                <i class="fas fa-bell"></i> {{ admin_stats.feedback.new|default:0 }} {% trans "новых" %}
+            </div>
+            <div class="stat-progress">
+                <div class="stat-progress-bar" style="background: var(--warning-gradient); width: 0%" data-progress="{% if admin_stats.feedback.total > 0 %}{{ admin_stats.feedback.new|get_percent:admin_stats.feedback.total }}{% else %}0{% endif %}"></div>
             </div>
         </div>
     </div>
-    {% endif %}
 
-    <!-- Список приложений админки -->
-    {% if app_list %}
-    <div class="dashboard-header">
-        <div>
-            <div class="dashboard-title">
-                <span class="dashboard-title-icon">
-                    <i class="fas fa-database"></i>
-                </span>
-                <span>{% trans "Управление данными" %}</span>
-            </div>
-            <p class="dashboard-subtitle">
-                {% trans "Управление данными" %}
-            </p>
-        </div>
-    </div>
-
-    <div class="row g-4">
-        {% for app in app_list %}
-        <div class="col-lg-4 col-md-6">
-            <div class="card admin-apps-card">
-                <div class="card-body">
-                    <div class="app-header">
-                        <div class="app-title">
-                            <span class="app-icon"><i class="fas fa-layer-group"></i></span>
-                            {{ app.name }}
-                        </div>
-                        <span class="app-badge">
-                            {{ app.models|length }} {% trans "мод." %}
-                        </span>
-                    </div>
-                    <ul class="model-list">
-                        {% for model in app.models %}
-                        <li class="model-item">
-                            {% if model.admin_url %}
-                            <a href="{{ model.admin_url }}" class="model-link">
-                                <i class="fas fa-angle-right text-muted"></i>
-                                {{ model.name }}
-                            </a>
-                            {% else %}
-                            <span class="model-link text-muted">
-                                <i class="fas fa-angle-right"></i>
-                                {{ model.name }}
-                            </span>
+    <!-- СЕКЦИЯ ЛОГОВ И СИСТЕМНОЙ ИНФОРМАЦИИ -->
+    <div class="row logs-section">
+        <!-- ЛОГ ДЕБАГА -->
+        <div class="col-md-4 mb-4">
+            <div class="logs-card">
+                <div class="logs-header">
+                    <h5 class="mb-0"><i class="fas fa-terminal mr-2"></i> debug.log</h5>
+                    <span class="badge badge-info">{{ admin_stats.logs.debug.human_size }}</span>
+                </div>
+                <div class="p-3">
+                    <div class="small text-muted mb-2">{% trans "Распределение событий:" %}</div>
+                    <!-- Наглядная полоса распределения ошибок/инфо -->
+                    <div class="log-distribution">
+                        {% with cats=admin_stats.logs.debug.categories total=admin_stats.logs.debug.total_lines %}
+                            {% if total > 0 %}
+                                <div class="dist-error" style="width: {{ cats.ERROR|get_percent:total }}%" title="Errors: {{ cats.ERROR }}"></div>
+                                <div class="dist-warning" style="width: {{ cats.WARNING|get_percent:total }}%" title="Warnings: {{ cats.WARNING }}"></div>
+                                <div class="dist-info" style="width: {{ cats.INFO|get_percent:total }}%" title="Info: {{ cats.INFO }}"></div>
+                                <div class="dist-debug" style="width: {{ cats.DEBUG|get_percent:total }}%" title="Debug: {{ cats.DEBUG }}"></div>
                             {% endif %}
-
-                            <div class="model-actions">
-                                {% if model.add_url %}
-                                <a href="{{ model.add_url }}" title="{% trans 'Добавить' %}">
-                                    <i class="fas fa-plus-circle"></i>
-                                </a>
-                                {% endif %}
-                            </div>
-                        </li>
-                        {% endfor %}
+                        {% endwith %}
+                    </div>
+                    <ul class="list-unstyled small">
+                        <li><strong>{{ admin_stats.logs.debug.total_lines }}</strong> {% trans "всего строк" %}</li>
+                        <li><strong>{{ admin_stats.logs.debug.last_modified|date:"d.m.Y H:i" }}</strong> {% trans "изменен" %}</li>
                     </ul>
                 </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-
-    {% if admin_stats %}
-    {% comment %} <div class="section-header">
-        <div class="dashboard-title-icon" style="background: var(--orange-gradient);">
-            <i class="fas fa-terminal"></i>
-        </div>
-        <h2 class="section-title">{% trans "Системные логи" %}</h2>
-        <hr class="">
-        <div class="dashboard-subtitle">
-            {% trans "Системные логи" %}
-        </div>
-    </div> {% endcomment %}
-
-    <div class="dashboard-header">
-        <div>
-            <div class="dashboard-title">
-                <span class="dashboard-title-icon">
-                    <i class="fas fa-terminal"></i>
-                </span>
-                <span>{% trans "Системные логи" %}</span>
-            </div>
-            <p class="dashboard-subtitle">
-                {% trans "Системные логи" %}
-            </p>
-        </div>
-    </div>
-
-    <div class="row g-4">
-        <!-- Логи debug.log -->
-        <div class="col-md-6">
-            <div class="card logs-card">
-                <div class="card-body">
-                    <div class="logs-header">
-                        <h5 class="logs-title">
-                            <i class="fas fa-bug text-danger"></i>
-                            {% trans "Логи отладки" %} (debug.log)
-                        </h5>
-                        <span class="app-badge bg-light">{% trans "Приложение" %}</span>
-                    </div>
-
-                    {% if admin_stats.logs.debug %}
-                    <div class="log-stats-grid">
-                        <div class="log-stat-item">
-                            <strong>{% trans "Размер" %}</strong>
-                            <span>{{ admin_stats.logs.debug.file_size_human }}</span>
-                        </div>
-                        <div class="log-stat-item">
-                            <strong>{% trans "Строк" %}</strong>
-                            <span>{{ admin_stats.logs.debug.total_lines }}</span>
-                        </div>
-                    </div>
-
-                    <div class="log-distribution">
-                        <span class="log-dist-label">{% trans "Распределение событий" %}</span>
-                        <div class="log-bars">
-                            {% widthratio admin_stats.logs.debug.categories.ERROR admin_stats.logs.debug.total_lines 100 as error_pct %}
-                            <div class="log-bar error" style="width: {{ error_pct }}%" title="ERROR: {{ admin_stats.logs.debug.categories.ERROR }}"></div>
-                            
-                            {% widthratio admin_stats.logs.debug.categories.WARNING admin_stats.logs.debug.total_lines 100 as warn_pct %}
-                            <div class="log-bar warning" style="width: {{ warn_pct }}%" title="WARNING: {{ admin_stats.logs.debug.categories.WARNING }}"></div>
-                            
-                            {% widthratio admin_stats.logs.debug.categories.INFO admin_stats.logs.debug.total_lines 100 as info_pct %}
-                            <div class="log-bar info" style="width: {{ info_pct }}%" title="INFO: {{ admin_stats.logs.debug.categories.INFO }}"></div>
-                            
-                            <div class="log-bar debug" style="flex: 1;" title="DEBUG: {{ admin_stats.logs.debug.categories.DEBUG }}"></div>
-                        </div>
-                        <div class="log-legend">
-                            <div class="log-legend-item">
-                                <span class="log-legend-dot" style="background: #ef4444;"></span>
-                                Err: {{ admin_stats.logs.debug.categories.ERROR }}
-                            </div>
-                            <div class="log-legend-item">
-                                <span class="log-legend-dot" style="background: #f97316;"></span>
-                                Warn: {{ admin_stats.logs.debug.categories.WARNING }}
-                            </div>
-                            <div class="log-legend-item">
-                                <span class="log-legend-dot" style="background: #3b82f6;"></span>
-                                Info: {{ admin_stats.logs.debug.categories.INFO }}
-                            </div>
-                        </div>
-                    </div>
-                    {% else %}
-                    <p class="text-muted text-center py-4">{% trans "Информация о debug.log недоступна" %}</p>
-                    {% endif %}
-
-                    <div class="log-actions">
-                        <a href="{% url 'admin:main_logstats_view' %}" class="btn-log-action btn-log-view">
-                            <i class="fas fa-chart-pie"></i> {% trans "Анализ" %}
-                        </a>
-                        <a href="{% url 'admin:main_logstats_edit' %}" class="btn-log-action btn-log-edit shadow-sm">
-                            <i class="fas fa-edit"></i> {% trans "Правка" %}
-                        </a>
-                        <a href="{% url 'admin:main_logstats_clear' %}" class="btn-log-action btn-log-clear"
-                            onclick="return confirm('{% trans 'Вы уверены, что хотите очистить debug.log?' %}');">
-                            <i class="fas fa-trash-alt"></i> {% trans "Сброс" %}
-                        </a>
-                    </div>
+                <!-- Кнопки управления debug.log -->
+                <div class="log-actions">
+                    <a href="{% url 'admin:main_logstats_view' %}" class="btn-log-action btn-log-view">
+                        <i class="fas fa-search"></i> {% trans "Анализ" %}
+                    </a>
+                    <a href="{% url 'admin:main_logstats_edit' %}" class="btn-log-action btn-log-view">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="{% url 'admin:main_logstats_clear' %}" class="btn-log-action btn-log-clear ml-auto" 
+                       onclick="return confirm('{% trans 'Очистить текущий debug.log?' %}');">
+                        <i class="fas fa-trash"></i>
+                    </a>
                 </div>
             </div>
         </div>
 
-        <!-- Логи error.log -->
-        <div class="col-md-6">
-            <div class="card logs-card">
-                <div class="card-body">
-                    <div class="logs-header">
-                        <h5 class="logs-title">
-                            <i class="fas fa-exclamation-triangle text-warning"></i>
-                            {% trans "Логи ошибок" %} (error.log)
-                        </h5>
-                        <span class="app-badge bg-light">{% trans "Сервер" %}</span>
-                    </div>
-
-                    {% if admin_stats.logs.error %}
-                    <div class="log-stats-grid">
-                        <div class="log-stat-item">
-                            <strong>{% trans "Размер" %}</strong>
-                            <span>{{ admin_stats.logs.error.file_size_human }}</span>
-                        </div>
-                        <div class="log-stat-item">
-                            <strong>{% trans "Строк" %}</strong>
-                            <span>{{ admin_stats.logs.error.total_lines }}</span>
-                        </div>
-                    </div>
-
+        <!-- ЛОГ ОШИБОК -->
+        <div class="col-md-4 mb-4">
+            <div class="logs-card">
+                <div class="logs-header">
+                    <h5 class="mb-0 text-danger"><i class="fas fa-exclamation-triangle mr-2"></i> error.log</h5>
+                    <span class="badge badge-danger">{{ admin_stats.logs.error.human_size }}</span>
+                </div>
+                <div class="p-3">
+                    <div class="small text-danger mb-2">{% trans "Критические ошибки:" %} <strong>{{ admin_stats.logs.error.categories.ERROR }}</strong></div>
                     <div class="log-distribution">
-                        <span class="log-dist-label">{% trans "Категории ошибок" %}</span>
-                        <div class="log-bars">
-                             {% widthratio admin_stats.logs.error.categories.ERROR admin_stats.logs.error.total_lines 100 as err_e_pct %}
-                            <div class="log-bar error" style="width: {{ err_e_pct }}%"></div>
-                            
-                            {% widthratio admin_stats.logs.error.categories.WARNING admin_stats.logs.error.total_lines 100 as err_w_pct %}
-                            <div class="log-bar warning" style="width: {{ err_w_pct }}%"></div>
-                            
-                            <div class="log-bar info" style="flex:1; opacity: 0.1; background: #cbd5e1;"></div>
-                        </div>
-                        <div class="log-legend">
-                            <div class="log-legend-item">
-                                <span class="log-legend-dot" style="background: #ef4444;"></span>
-                                Error: {{ admin_stats.logs.error.categories.ERROR }}
-                            </div>
-                            <div class="log-legend-item">
-                                <span class="log-legend-dot" style="background: #f97316;"></span>
-                                Warning: {{ admin_stats.logs.error.categories.WARNING }}
-                            </div>
-                        </div>
+                        <div class="dist-error" style="width: 100%"></div>
                     </div>
-                    {% else %}
-                    <p class="text-muted text-center py-4">{% trans "Информация об error.log недоступна" %}</p>
-                    {% endif %}
-
-                    <div class="log-actions">
-                        <a href="/error-log/" target="_blank" class="btn-log-action btn-log-view" style="flex: 1;">
-                            <i class="fas fa-external-link-alt"></i> {% trans "Открыть в новом окне" %}
-                        </a>
-                    </div>
+                    <p class="small text-muted">{% trans "Здесь фиксируются исключения Python и сбои сервера. Рекомендуется проверять ежедневно." %}</p>
+                </div>
+                <!-- Кнопки управления error.log -->
+                <div class="log-actions">
+                    <a href="{% url 'admin:main_errorlog_view' %}" class="btn-log-action btn-log-view">
+                        <i class="fas fa-search"></i> {% trans "Просмотр" %}
+                    </a>
+                    <a href="{% url 'admin:main_errorlog_clear' %}" class="btn-log-action btn-log-clear ml-auto"
+                       onclick="return confirm('{% trans 'ВНИМАНИЕ: Очистить журнал ошибок?' %}');">
+                        <i class="fas fa-trash"></i>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
-    {% endif %}
-    <div class="row">
-        <div class="col-12">
-            <div class="card admin-apps-card">
-                <div class="card-body">
-                    <div class="app-header">
-                        <h3 class="app-title">
-                            <i class="fas fa-cogs"></i> {% trans "Системная информация" %}
-                        </h3>
-                        <span class="app-badge">{% trans "Информация о системе" %}</span>
+
+        <!-- ИНФОРМАЦИЯ О СЕРВЕРЕ -->
+        <div class="col-md-4 mb-4">
+            <div class="logs-card">
+                <div class="logs-header">
+                    <h5 class="mb-0"><i class="fas fa-server mr-2"></i> {% trans "Система" %}</h5>
+                    <a href="{% url 'admin:server_info' %}" class="small">{% trans "Подробнее" %}</a>
+                </div>
+                <div class="p-3">
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>{% trans "ЦП" %}</span><span>{{ admin_stats.system.cpu_percent }}%</span>
+                        </div>
+                        <div class="stat-progress">
+                            <div class="stat-progress-bar" style="background: var(--danger-gradient); width: {{ admin_stats.system.cpu_percent }}%"></div>
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="system-info-item">
-                                <div class="system-info-label">{% trans "Версия Django" %}</div>
-                                <div class="system-info-value">{{ django_version }}</div>
-                            </div>
-                            <div class="system-info-item">
-                                <div class="system-info-label">{% trans "Версия Python" %}</div>
-                                <div class="system-info-value">{{ python_version }}</div>
-                            </div>
-                            <div class="system-info-item">
-                                <div class="system-info-label">{% trans "Операционная система" %}</div>
-                                <div class="system-info-value">{{ os_info }}</div>
-                            </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>{% trans "Память" %}</span><span>{{ admin_stats.system.memory_percent }}%</span>
                         </div>
-                        <div class="col-md-6">
-                            <div class="system-info-item">
-                                <div class="system-info-label">{% trans "Загрузка CPU" %}</div>
-                                <div class="system-info-value">
-                                    <div class="system-info-progress">
-                                        <div class="system-info-progress-bar" style="width: {{ cpu_percent }}%"></div>
-                                    </div>
-                                    {{ cpu_percent }}%
-                                </div>
-                            </div>
-                            <div class="system-info-item">
-                                <div class="system-info-label">{% trans "Использование памяти" %}</div>
-                                <div class="system-info-value">
-                                    <div class="system-info-progress">
-                                        <div class="system-info-progress-bar" style="width: {{ memory_percent }}%"></div>
-                                    </div>
-                                    {{ memory_percent }}% ({{ memory_used }} / {{ memory_total }})
-                                </div>
-                            </div>
-                            <div class="system-info-item">
-                                <div class="system-info-label">{% trans "Время работы" %}</div>
-                                <div class="system-info-value">{{ uptime }}</div>
-                            </div>
+                        <div class="stat-progress">
+                            <div class="stat-progress-bar" style="background: var(--info-gradient); width: {{ admin_stats.system.memory_percent }}%"></div>
                         </div>
+                    </div>
+                    <div class="small text-muted">
+                        <div><i class="fab fa-python"></i> Python {{ admin_stats.system.python_version }}</div>
+                        <div><i class="fas fa-rocket"></i> Django {{ admin_stats.system.django_version }}</div>
+                        <div><i class="fas fa-clock"></i> Up: {{ admin_stats.system.uptime }}</div>
                     </div>
                 </div>
             </div>
@@ -852,60 +379,27 @@
 
 {% block extrajs %}
 {{ block.super }}
+<!-- СКРИПТ АНИМАЦИИ ЧИСЕЛ -->
 <script>
-    (function () {
-        function animateCount(el) {
-            var target = parseInt(el.getAttribute("data-count") || "0", 10);
-            if (isNaN(target)) {
-                el.style.opacity = 1;
-                return;
-            }
-            var duration = 1200;
-            var start = 0;
-            var startTime = null;
-
-            function step(timestamp) {
-                if (!startTime) startTime = timestamp;
-                var progress = Math.min((timestamp - startTime) / duration, 1);
-                // Ease out quart
-                progress = 1 - Math.pow(1 - progress, 4);
-                
-                var value = Math.floor(progress * target);
-                el.textContent = value.toLocaleString("ru-RU");
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
+    document.addEventListener("DOMContentLoaded", function() {
+        const counters = document.querySelectorAll('.countup');
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-count');
+            const duration = 1500; // 1.5 сек
+            const stepSize = target / (duration / 16);
+            
+            let current = 0;
+            const updateCount = () => {
+                current += stepSize;
+                if (current < target) {
+                    counter.innerText = Math.ceil(current);
+                    requestAnimationFrame(updateCount);
                 } else {
-                    el.textContent = target.toLocaleString("ru-RU");
+                    counter.innerText = target;
                 }
-            }
-
-            el.style.opacity = 1;
-            window.requestAnimationFrame(step);
-        }
-
-        function animateProgress(bar) {
-            var value = parseInt(bar.getAttribute("data-progress") || "0", 10);
-            if (isNaN(value)) return;
-            bar.style.transition = "width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)";
-            bar.style.width = value + "%";
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            // Animate numbers
-            var counters = document.querySelectorAll(".countup");
-            counters.forEach(animateCount);
-
-            // Animate main progress bars
-            var bars = document.querySelectorAll(".stat-progress-bar");
-            setTimeout(function () {
-                bars.forEach(animateProgress);
-            }, 300);
-
-            // Animate log distribution bars
-            // We set their width via inline style in HTML, so they animate by default transition in CSS
-            // if we wanted to animate them from 0 we would need to set width=0 first then to value.
-            // For now CSS transition handles it if the element renders.
+            };
+            updateCount();
         });
-    })();
+    });
 </script>
 {% endblock %}

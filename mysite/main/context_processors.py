@@ -1,101 +1,108 @@
 # context_processors.py
-# Контекстные процессоры для добавления данных в шаблоны
-from django.core.cache import cache
-from django.utils.translation import gettext_lazy as _
-from .models import SiteSettings, Page, LogStats
+# КОНТЕКСТНЫЕ ПРОЦЕССОРЫ ДЛЯ ДОБАВЛЕНИЯ ДАННЫХ В ШАБЛОНЫ
+#
+# Этот файл содержит функции, которые автоматически добавляют определенные данные
+# во все шаблоны Django (или в зависимости от условий).
+# Это избавляет от необходимости передавать одни и те же данные в каждом представлении (view).
+
+from datetime import datetime
+from django.core.cache import cache  # Система кэширования Django
+from django.utils.translation import gettext_lazy as _  # Функция для интернационализации (перевода)
+from .models import SiteSettings, Page, LogStats  # Импорт моделей из текущего приложения
+from .admin_utils import format_bytes  # Утилита для форматирования байтов в читаемый вид (KB, MB, GB)
 
 
 def site_settings(request):
     """
-    Контекстный процессор для добавления настроек сайта в каждый шаблон.
-    Использует кэширование для оптимизации производительности.
+    Контекстный процессор для добавления настроек сайта в шаблоны.
+    Позволяет использовать {{ site_settings.field_name }} в любом шаблоне.
     """
-    cache_key = "site_settings"
-    settings = cache.get(cache_key)
+    cache_key = "site_settings"  # Ключ для хранения настроек в кэше
+    settings = cache.get(cache_key)  # Пытаемся получить данные из кэша
 
     if not settings:
-        # Получаем настройки из базы, если нет в кэше
+        # Если в кэше пусто, загружаем из базы данных
         settings = SiteSettings.load()
         if settings:
-            # Кэшируем на 5 минут (300 секунд)
+            # Если настройки найдены, сохраняем их в кэш на 5 минут (300 секунд)
             cache.set(cache_key, settings, 300)
-
+    
+    # Возвращаем словарь, который будет объединен с контекстом шаблона
     return {"site_settings": settings}
 
 
 def menu_items(request):
     """
-    Контекстный процессор для меню навигации.
-    Кэширует список страниц для меню для улучшения производительности.
+    Контекстный процессор для добавления страниц меню в шаблоны.
+    Извлекает активные страницы, помеченные флажком show_in_menu.
     """
-    cache_key = "menu_pages"
-    pages = cache.get(cache_key)
+    cache_key = "menu_pages"  # Ключ кэша для страниц меню
+    pages = cache.get(cache_key)  # Пытаемся получить список из кэша
 
     if not pages:
-        # Получаем страницы для меню из базы
+        # Если в кэше нет, выбираем страницы из БД
         pages = Page.objects.filter(show_in_menu=True, show_on_site=True).order_by(
             "order", "title"
         )
-
         if pages:
-            # Кэшируем на 10 минут (600 секунд)
+            # Сохраняем результат в кэш на 10 минут (600 секунд)
+            # Мы преобразуем QuerySet в список, чтобы его можно было закешировать корректно
             cache.set(cache_key, list(pages), 600)
         else:
             pages = []
-
+    
     return {"menu_pages": pages}
 
 
 def sidebar_data(request):
     """
-    Контекстный процессор для данных сайдбара.
-    Возвращает последние новости, работы портфолио и отзывы.
-    Использует кэширование для оптимизации производительности.
+    Контекстный процессор для данных сайдбара (боковой панели).
+    Собирает последние новости, работы портфолио и отзывы.
     """
     cache_key = "sidebar_data"
     sidebar_data = cache.get(cache_key)
 
     if not sidebar_data:
         sidebar_data = {}
-
-        # Получаем 3 последние новости
+        # Динамический импорт моделей других приложений
+        # Используется try-except, чтобы сайт не падал, если какое-то приложение не установлено
         try:
             from news.models import News
+            # Получаем 3 последние активные новости
             sidebar_data["sidebar_news"] = list(
                 News.objects.filter(is_active=True).order_by("-created_at")[:3]
             )
         except (ImportError, AttributeError):
             sidebar_data["sidebar_news"] = []
 
-        # Получаем 3 последние работы из портфолио
         try:
             from portfolio.models import PortfolioItem
+            # Получаем 3 последние завершенные работы
             sidebar_data["sidebar_portfolio"] = list(
-                PortfolioItem.objects.filter(status="published")
-                .order_by("-created_at")[:3]
+                PortfolioItem.objects.all().order_by("-created_at")[:3]
             )
         except (ImportError, AttributeError):
             sidebar_data["sidebar_portfolio"] = []
 
-        # Получаем 3 последних отзыва
         try:
             from reviews.models import Review
+            # Получаем 2 последних одобренных отзыва
+            # ИСПРАВЛЕНО: использование status='approved' вместо is_approved=True
             sidebar_data["sidebar_reviews"] = list(
-                Review.objects.filter(status="approved").order_by("-created_at")[:3]
+                Review.objects.filter(status='approved').order_by("-created_at")[:2]
             )
         except (ImportError, AttributeError):
             sidebar_data["sidebar_reviews"] = []
 
-        # Кэшируем на 10 минут (600 секунд)
+        # Кэшируем собранные данные на 10 минут
         cache.set(cache_key, sidebar_data, 600)
-
+    
     return sidebar_data
 
 
 def seo_context(request):
     """
-    Контекстный процессор для базовых SEO-данных.
-    Предоставляет общие SEO-настройки для всех страниц.
+    Добавляет базовую SEO-информацию из глобальных настроек сайта.
     """
     settings = SiteSettings.load()
     return {
@@ -108,111 +115,129 @@ def seo_context(request):
 def admin_dashboard_stats(request):
     """
     Контекстный процессор для статистики админ-панели.
-    Данные используются на главной странице админки (dashboard).
+    Собирает метрики по всем сущностям (пользователи, новости, заказы и т.д.).
+    Работает только для сотрудников (is_staff) при переходе в админку.
     """
-    # Не считаем статистику для анонимных пользователей и не-админов
-    if not request.user.is_authenticated or not request.path.startswith("/admin/"):
+    # Проверяем, является ли пользователь сотрудником и находится ли он в панели управления
+    if not request.user.is_authenticated or not request.user.is_staff or not request.path.startswith("/admin/"):
         return {}
 
     cache_key = "admin_dashboard_stats"
     stats = cache.get(cache_key)
 
-    if stats is None:
+    if not stats:
+        # 1. Статистика пользователей
         from django.contrib.auth import get_user_model
-        from django.db.models import Sum
-
         User = get_user_model()
+        total_users = User.objects.count()  # Общее количество
+        staff_users = User.objects.filter(is_staff=True).count()  # Персонал
+        active_users = User.objects.filter(is_active=True).count()  # Активные
 
-        # Импортируем модели внутри функции, чтобы избежать циклических импортов
+        # 2. Новости
+        total_news = 0
+        news_views = 0
         try:
             from news.models import News
-        except Exception:
-            News = None
+            total_news = News.objects.count()
+            # Пытаемся получить сумму просмотров (если поле существует)
+            from django.db.models import Sum
+            news_views = News.objects.aggregate(Sum('views'))['views__sum'] or 0
+        except (ImportError, Exception):
+            pass
 
+        # 3. Портфолио и Заказы
+        total_portfolio_items = 0
+        portfolio_views = 0
+        total_clients = 0
+        total_orders = 0
         try:
-            from portfolio.models import PortfolioItem, Order, PortfolioReview, Client
-        except Exception:
-            PortfolioItem = Order = PortfolioReview = Client = None
+            from portfolio.models import PortfolioItem, Client, Order
+            total_portfolio_items = PortfolioItem.objects.count()
+            total_clients = Client.objects.count()
+            total_orders = Order.objects.count()
+            from django.db.models import Sum
+            portfolio_views = PortfolioItem.objects.aggregate(Sum('views'))['views__sum'] or 0
+        except (ImportError, Exception):
+            pass
 
+        # 4. Отзывы
+        total_site_reviews = 0
+        approved_site_reviews = 0
+        total_portfolio_reviews = 0
         try:
             from reviews.models import Review
-        except Exception:
-            Review = None
+            total_site_reviews = Review.objects.count()
+            # ИСПРАВЛЕНО: использование status='approved' вместо is_approved=True
+            approved_site_reviews = Review.objects.filter(status='approved').count()
+            
+            # Также проверяем отзывы в портфолио
+            try:
+                from portfolio.models import PortfolioReview
+                total_portfolio_reviews = PortfolioReview.objects.count()
+            except ImportError:
+                pass
+        except (ImportError, Exception):
+            pass
 
+        # 5. Обратная связь (Сообщения)
+        total_feedback = 0
+        new_feedback = 0
         try:
             from feedback.models import FeedbackMessage
-        except Exception:
-            FeedbackMessage = None
+            total_feedback = FeedbackMessage.objects.count()
+            new_feedback = FeedbackMessage.objects.filter(is_read=False).count()
+        except (ImportError, Exception):
+            pass
 
+        # 6. Тикеты техподдержки
+        total_tickets = 0
+        open_tickets = 0
+        in_progress_tickets = 0
         try:
             from accounts.models import Ticket
-        except Exception:
-            Ticket = None
+            total_tickets = Ticket.objects.count()
+            open_tickets = Ticket.objects.filter(status='open').count()
+            in_progress_tickets = Ticket.objects.filter(status='in_progress').count()
+        except (ImportError, Exception):
+            pass
 
-        # Базовая статистика пользователей
-        total_users = User.objects.count()
-        staff_users = User.objects.filter(is_staff=True).count()
-        active_users = User.objects.filter(is_active=True).count()
+        # 7. Информация о логах приложений
+        from .log_utils import get_log_file_info, get_error_log_file_info
+        
+        # Получаем данные о debug.log
+        debug_log_info = get_log_file_info()
+        # Получаем данные о error.log
+        error_log_info = get_error_log_file_info()
 
-        # Новости
-        total_news = News.objects.count() if News else 0
-        news_views = (
-            News.objects.aggregate(total=Sum("views"))["total"] if News else 0
-        ) or 0
-
-        # Портфолио
-        total_portfolio_items = PortfolioItem.objects.count() if PortfolioItem else 0
-        portfolio_views = (
-            PortfolioItem.objects.aggregate(total=Sum("views"))["total"]
-            if PortfolioItem
-            else 0
-        ) or 0
-        total_clients = Client.objects.count() if Client else 0
-        total_orders = Order.objects.count() if Order else 0
-
-        # Отзывы
-        total_site_reviews = Review.objects.count() if Review else 0
-        approved_site_reviews = (
-            Review.objects.filter(status="approved").count() if Review else 0
-        )
-        total_portfolio_reviews = (
-            PortfolioReview.objects.count() if PortfolioReview else 0
-        )
-
-        # Обратная связь
-        total_feedback = FeedbackMessage.objects.count() if FeedbackMessage else 0
-        new_feedback = (
-            FeedbackMessage.objects.filter(status=FeedbackMessage.STATUS_NEW).count()
-            if FeedbackMessage
-            else 0
-        )
-
-        # Тикеты
-        total_tickets = Ticket.objects.count() if Ticket else 0
-        open_tickets = (
-            Ticket.objects.filter(status=Ticket.STATUS_OPEN).count()
-            if Ticket
-            else 0
-        )
-        in_progress_tickets = (
-            Ticket.objects.filter(status=Ticket.STATUS_IN_PROGRESS).count()
-            if Ticket
-            else 0
-        )
-
-        # Логи (используем последнюю запись LogStats + информацию из log_utils)
+        # Получаем последнюю запись статистики из БД
         last_log_stats = LogStats.objects.first()
 
+        # 8. Системные характеристики сервера (CPU, Память, Версии)
+        import django
+        import sys
+        import platform
         try:
-            from .log_utils import get_log_file_info, get_error_log_file_info
+            import psutil
+            cpu_percent = psutil.cpu_percent()  # Загрузка процессора в %
+            memory = psutil.virtual_memory()
+            memory_percent = memory.percent  # Использование памяти в %
+            memory_used = format_bytes(memory.used)  # Занято (читаемо)
+            memory_total = format_bytes(memory.total)  # Всего (читаемо)
+            
+            # Время аптайма системы (сколько сервер работает)
+            boot_time = datetime.fromtimestamp(psutil.boot_time())
+            uptime_delta = datetime.now() - boot_time
+            days = uptime_delta.days
+            hours, remainder = divmod(uptime_delta.seconds, 3600)
+            minutes, _ = divmod(remainder, 60)
+            uptime = f"{days}д {hours}ч {minutes}м"
         except Exception:
-            get_log_file_info = get_error_log_file_info = None
+            # Если библиотека psutil не установлена или произошла ошибка
+            cpu_percent = memory_percent = 0
+            memory_used = memory_total = "N/A"
+            uptime = "N/A"
 
-        debug_log_info = get_log_file_info() if get_log_file_info else None
-        error_log_info = (
-            get_error_log_file_info() if get_error_log_file_info else None
-        )
-
+        # Формируем итоговый словарь со всеми метриками
         stats = {
             "users": {
                 "total": total_users,
@@ -248,82 +273,74 @@ def admin_dashboard_stats(request):
                 "debug": debug_log_info,
                 "error": error_log_info,
             },
+            "system": {
+                "django_version": django.get_version(),
+                "python_version": sys.version.split()[0],
+                "os": platform.system(),
+                "cpu_percent": cpu_percent,
+                "memory_percent": memory_percent,
+                "memory_used": memory_used,
+                "memory_total": memory_total,
+                "uptime": uptime,
+            }
         }
 
-        # Кэшируем на 1 минуту, чтобы не нагружать БД
+        # Кэшируем собранную статистику на 1 минуту, чтобы не пересчитывать при каждом обновлении админки
         cache.set(cache_key, stats, 60)
 
+    # Имя переменной в шаблоне будет admin_stats
     return {"admin_stats": stats}
 
 
 def statistics_banners(request):
     """
-    Контекстный процессор для статистических баннеров.
-    Группирует баннеры по позициям для удобной вставки в шаблонах.
+    Контекстный процессор для вывода статистических баннеров и счетчиков.
+    Фильтрует баннеры в зависимости от страницы и типа пользователя.
     """
     from .models import StatisticsBanner
     
-    # Ключ кэширования зависит от пользователя
-    user_key = ''
+    # Определяем тип пользователя для ключа кэша
+    user_type = 'user'
     if request.user.is_authenticated:
         if request.user.is_superuser:
-            user_key = 'admin'
+            user_type = 'admin'
         elif request.user.is_staff:
-            user_key = 'staff'
-        else:
-            user_key = 'user'
+            user_type = 'staff'
+            
+    cache_key = f'statistics_banners_{user_type}'
+    banners_by_position = cache.get(cache_key)
     
-    cache_key = f'statistics_banners_{user_key}'
-    banners_data = cache.get(cache_key)
-    
-    if not banners_data:
-        # Получаем все активные баннеры
-        banners = StatisticsBanner.objects.filter(is_active=True).order_by('order')
+    if not banners_by_position:
+        # Активные баннеры, отсортированные по порядку
+        active_banners = StatisticsBanner.objects.filter(is_active=True).order_by('order')
         
-        # Группируем баннеры по позициям
+        # Группируем баннеры по их позициям на странице (head, footer и т.д.)
         banners_by_position = {
             'head': [],
             'body_start': [],
             'body_end': [],
             'header': [],
             'footer': [],
-            'custom': [],
+            'custom': []
         }
         
-        # Определяем тип текущей страницы
-        path = request.path
-        is_index = path == '/' or path == ''
-        is_page = '/page/' in path
-        is_news = '/news/' in path
-        is_portfolio = '/portfolio/' in path
+        for banner in active_banners:
+            # Проверяем права доступа к баннеру для текущего типа пользователя
+            show_to_user = False
+            if user_type == 'admin' and banner.enabled_for_admin:
+                show_to_user = True
+            elif user_type == 'staff' and banner.enabled_for_staff:
+                show_to_user = True
+            elif user_type == 'user' and banner.enabled_for_users:
+                show_to_user = True
+                
+            if show_to_user:
+                # Если доступ разрешен, добавляем баннер в соответствующую позицию
+                pos = banner.position
+                if pos in banners_by_position:
+                    banners_by_position[pos].append(banner)
         
-        for banner in banners:
-            # Проверяем видимость на текущей странице
-            if banner.show_on_all_pages:
-                pass  # Показываем везде
-            elif is_index and not banner.show_on_index:
-                continue
-            elif is_page and not banner.show_on_pages:
-                continue
-            elif is_news and not banner.show_on_news:
-                continue
-            elif is_portfolio and not banner.show_on_portfolio:
-                continue
-            
-            # Получаем код с учетом прав пользователя
-            banner_code = banner.get_rendered_code(request)
-            if banner_code:
-                banners_by_position[banner.position].append(banner_code)
+        # Кэшируем результат на 15 минут
+        cache.set(cache_key, banners_by_position, 900)
         
-        # Объединяем коды баннеров для каждой позиции
-        banners_data = {
-            position: '\n'.join(codes) if codes else ''
-            for position, codes in banners_by_position.items()
-        }
-        
-        # Кэшируем на 5 минут
-        cache.set(cache_key, banners_data, 300)
-    
-    return {
-        'statistics_banners': banners_data
-    }
+    return {'banners': banners_by_position}
