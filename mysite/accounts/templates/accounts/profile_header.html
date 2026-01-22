@@ -61,7 +61,7 @@
                     </li>
                     {% endfor %}
                 </ul>
-                {% comment %} <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'main:index' %}">Главная</a>
                     </li>
@@ -71,8 +71,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'portfolio:list' %}">Портфолио</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'reviews:list' %}">Отзывы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:contacts' %}">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:about' %}">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:services' %}">Услуги</a>
+                    </li>
                 </ul>
-                {% endcomment %}
                 <div class="d-flex">
                     <div class="dropdown">
                         <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center" 
