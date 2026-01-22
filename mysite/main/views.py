@@ -42,6 +42,7 @@ try:
 except ImportError:
     News = None
 
+# Импорт модели портфолио (если приложение portfolio установлено)
 try:
     from portfolio.models import PortfolioItem
 except ImportError:
@@ -75,7 +76,11 @@ class MaintenanceMixin:
         if site_settings and site_settings.site_closed and not request.user.is_staff:
             # Для закрытого сайта показываем специальную страницу
             return render(
-                request, "main/site_closed.html", {"site_settings": site_settings}
+                request, 
+                "main/site_closed.html", 
+                {
+                    "site_settings": site_settings
+                }
             )
 
         return super().dispatch(request, *args, **kwargs)
