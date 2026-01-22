@@ -82,6 +82,8 @@
                 {% include 'includes/backgrounds/reviews_bg.html' %}
             {% elif '/services/' in request.path %}
                 {% include 'includes/backgrounds/services_bg.html' %}
+            {% elif '/accounts/' in request.path %}
+                {% include 'includes/backgrounds/accounts_bg.html' %}
             {% else %}
                 {% include 'includes/backgrounds/home_bg.html' %}
             {% endif %}
