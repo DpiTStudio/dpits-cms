@@ -1,9 +1,9 @@
 # portfolio/views.py
 # Представления (контроллеры) для приложения portfolio (портфолио)
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from main.breadcrumbs import get_breadcrumbs
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import permission_required  # Добавлен импорт
 from django.contrib.auth.decorators import user_passes_test  # Для гибкой проверки прав
 from django.contrib import messages
 from django.core.cache import cache
@@ -68,6 +68,9 @@ class PortfolioListView(ListView):
             .select_related("category")
             .order_by("-created_at")[:3]
         )
+        context["breadcrumbs"] = get_breadcrumbs([
+            ("Портфолио", reverse("portfolio:list"), "fas fa-layer-group"),
+        ])
 
         return context
 
@@ -112,6 +115,12 @@ class PortfolioDetailView(DetailView):
         # Счётчик просмотров
         self.object.increment_views()
 
+        context["breadcrumbs"] = get_breadcrumbs([
+            ("Портфолио", reverse("portfolio:list"), "fas fa-layer-group"),
+            (self.object.category.name, self.object.category.get_absolute_url()),
+            (self.object.title, reverse("portfolio:detail", kwargs={"slug": self.object.slug})),
+        ])
+
         return context
 
 
@@ -132,6 +141,10 @@ class CategoryDetailView(DetailView):
             .select_related("client")
             .order_by("-created_at")
         )
+        context["breadcrumbs"] = get_breadcrumbs([
+            ("Портфолио", reverse("portfolio:list"), "fas fa-layer-group"),
+            (self.object.name, self.object.get_absolute_url()),
+        ])
         return context
 
 
@@ -140,7 +153,14 @@ def categories_view(request):
     categories = PortfolioCategory.objects.filter(is_active=True).order_by(
         "-order", "name"
     )
-    return render(request, "portfolio/categories.html", {"categories": categories})
+    breadcrumbs = get_breadcrumbs([
+        ("Портфолио", reverse("portfolio:list"), "fas fa-layer-group"),
+        ("Категории", reverse("portfolio:categories")),
+    ])
+    return render(request, "portfolio/categories.html", {
+        "categories": categories,
+        "breadcrumbs": breadcrumbs
+    })
 
 
 # --- Профиль клиента ---
@@ -158,9 +178,15 @@ def client_profile(request):
     else:
         form = ClientProfileForm(instance=client)
 
-    return render(
-        request, "portfolio/client_profile.html", {"form": form, "client": client}
-    )
+    context = {
+        "form": form,
+        "client": client,
+        "breadcrumbs": get_breadcrumbs([
+            ("Портфолио", reverse("portfolio:list"), "fas fa-layer-group"),
+            ("Профиль клиента", None, "fas fa-user-circle"),
+        ])
+    }
+    return render(request, "portfolio/client_profile.html", context)
 
 
 # --- Личный кабинет клиента ---
@@ -199,6 +225,10 @@ def client_dashboard(request):
         "orders_count": stats["total"] or 0,
         "completed_orders": stats["completed"] or 0,
         "active_orders": stats["active"] or 0,
+        "breadcrumbs": get_breadcrumbs([
+            ("Портфолио", reverse("portfolio:list"), "fas fa-layer-group"),
+            ("Личный кабинет клиента", None, "fas fa-tachometer-alt"),
+        ])
     }
     return render(request, "portfolio/client_dashboard.html", context)
 
@@ -236,6 +266,11 @@ def order_list(request):
         "completed_orders": stats["completed"] or 0,
         "active_orders": stats["active"] or 0,
         "status_filter": status_filter,
+        "breadcrumbs": get_breadcrumbs([
+            ("Портфолио", reverse("portfolio:list"), "fas fa-layer-group"),
+            ("Личный кабинет", reverse("portfolio:client_dashboard"), "fas fa-tachometer-alt"),
+            ("Мои заказы", None, "fas fa-shopping-cart"),
+        ])
     }
     return render(request, "portfolio/order_list.html", context)
 
@@ -259,7 +294,16 @@ def order_detail(request, pk):
             messages.success(request, "Сообщение отправлено!")
             return redirect("portfolio:order_detail", pk=order.pk)
 
-    return render(request, "portfolio/order_detail.html", {"order": order})
+    context = {
+        "order": order,
+        "breadcrumbs": get_breadcrumbs([
+            ("Портфолио", reverse("portfolio:list"), "fas fa-layer-group"),
+            ("Личный кабинет", reverse("portfolio:client_dashboard"), "fas fa-tachometer-alt"),
+            ("Заказы", reverse("portfolio:order_list"), "fas fa-shopping-cart"),
+            (f"Заказ #{order.id}", None, "fas fa-file-invoice"),
+        ])
+    }
+    return render(request, "portfolio/order_detail.html", context)
 
 
 # --- Создание заказа ---
@@ -281,7 +325,15 @@ def create_order(request):
     else:
         form = OrderForm()
 
-    return render(request, "portfolio/create_order.html", {"form": form})
+    context = {
+        "form": form,
+        "breadcrumbs": get_breadcrumbs([
+            ("Портфолио", reverse("portfolio:list"), "fas fa-layer-group"),
+            ("Личный кабинет", reverse("portfolio:client_dashboard"), "fas fa-tachometer-alt"),
+            ("Новый заказ", None, "fas fa-plus-circle"),
+        ])
+    }
+    return render(request, "portfolio/create_order.html", context)
 
 
 # --- Создание отзыва ---
@@ -313,8 +365,12 @@ def create_review(request, slug):
         "portfolio/create_review.html",
         {
             "form": form,
-            "portfolio_item": portfolio_item,
             "is_editing": is_editing,
+            "breadcrumbs": get_breadcrumbs([
+                ("Портфолио", reverse("portfolio:list"), "fas fa-layer-group"),
+                (portfolio_item.title, portfolio_item.get_absolute_url()),
+                ("Оставить отзыв", None, "fas fa-star"),
+            ])
         },
     )
 

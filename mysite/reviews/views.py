@@ -1,6 +1,7 @@
 # reviews/views.py
 # Представления (контроллеры) для приложения reviews (отзывы)
-from django.shortcuts import render, redirect  # Импорт функций для рендеринга шаблонов и перенаправления
+from django.shortcuts import render, redirect, reverse  # Импорт функций для рендеринга шаблонов и перенаправления
+from main.breadcrumbs import get_breadcrumbs
 from django.contrib import messages  # Импорт системы сообщений Django
 from django.core.paginator import Paginator  # Импорт класса для пагинации (разбиения на страницы)
 from django.core.cache import cache  # Импорт кэша для оптимизации производительности
@@ -46,7 +47,12 @@ def review_list(request):
     return render(
         request,  # HTTP-запрос
         "reviews/list.html",  # Путь к шаблону
-        {"reviews": reviews},  # Объект страницы с отзывами
+        {
+            "reviews": reviews,
+            "breadcrumbs": get_breadcrumbs([
+                ("Отзывы", reverse("reviews:list"), "fas fa-star"),
+            ]),
+        },  # Объект страницы с отзывами
     )  # Рендерим шаблон со списком отзывов
 
 
@@ -102,5 +108,11 @@ def add_review(request):
     return render(
         request,  # HTTP-запрос
         "reviews/add.html",  # Путь к шаблону
-        {"form": form},  # Форма для создания отзыва
+        {
+            "form": form,
+            "breadcrumbs": get_breadcrumbs([
+                ("Отзывы", reverse("reviews:list"), "fas fa-star"),
+                ("Оставить отзыв", reverse("reviews:add")),
+            ]),
+        },  # Форма для создания отзыва
     )  # Рендерим шаблон с формой создания отзыва

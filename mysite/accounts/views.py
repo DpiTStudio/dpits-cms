@@ -1,7 +1,8 @@
 # accounts/views.py
 # Представления (контроллеры) для управления аккаунтами и системой тикетов
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
+from main.breadcrumbs import get_breadcrumbs
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib import messages
@@ -59,7 +60,13 @@ def register(request):
     else:
         form = UserRegisterForm()
 
-    return render(request, "accounts/register.html", {"form": form})
+    context = {
+        "form": form,
+        "breadcrumbs": get_breadcrumbs([
+            ("Регистрация", None, "fas fa-user-plus"),
+        ])
+    }
+    return render(request, "accounts/register.html", context)
 
 
 def get_reviews_count(user):
@@ -106,7 +113,14 @@ def profile_edit(request):
     else:
         form = ProfileEditForm(instance=request.user)
 
-    return render(request, "accounts/profile_edit.html", {"form": form})
+    context = {
+        "form": form,
+        "breadcrumbs": get_breadcrumbs([
+            ("Личный кабинет", reverse("accounts:profile"), "fas fa-user"),
+            ("Редактирование данных", None, "fas fa-user-edit"),
+        ])
+    }
+    return render(request, "accounts/profile_edit.html", context)
 
 
 @login_required
@@ -140,7 +154,14 @@ def profile_update(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=user_profile)
 
-    context = {"u_form": u_form, "p_form": p_form}
+    context = {
+        "u_form": u_form,
+        "p_form": p_form,
+        "breadcrumbs": get_breadcrumbs([
+            ("Личный кабинет", reverse("accounts:profile"), "fas fa-user"),
+            ("Настройки профиля", None, "fas fa-user-cog"),
+        ])
+    }
     return render(request, "accounts/profile_update.html", context)
 
 
@@ -171,7 +192,14 @@ def password_change(request):
     else:
         form = CustomPasswordChangeForm(request.user)
 
-    return render(request, "accounts/password_change.html", {"form": form})
+    context = {
+        "form": form,
+        "breadcrumbs": get_breadcrumbs([
+            ("Личный кабинет", reverse("accounts:profile"), "fas fa-user"),
+            ("Смена пароля", None, "fas fa-key"),
+        ])
+    }
+    return render(request, "accounts/password_change.html", context)
 
 
 @login_required
@@ -186,7 +214,14 @@ def ticket_list(request):
             .select_related("user")
             .order_by("-created_at")
         )
-        return render(request, "accounts/ticket_list.html", {"tickets": tickets})
+        context = {
+            "tickets": tickets,
+            "breadcrumbs": get_breadcrumbs([
+                ("Личный кабинет", reverse("accounts:profile"), "fas fa-user"),
+                ("Техподдержка", None, "fas fa-ticket-alt"),
+            ])
+        }
+        return render(request, "accounts/ticket_list.html", context)
     except Exception as e:
         logger.error(f"Ошибка загрузки списка тикетов: {e}")
         messages.error(request, "❌ Ошибка загрузки ваших обращений.")
@@ -240,6 +275,11 @@ def ticket_detail(request, pk):
             "responses": responses,
             "form": form,
             "title": f"Тикет #{ticket.id}",
+            "breadcrumbs": get_breadcrumbs([
+                ("Личный кабинет", reverse("accounts:profile"), "fas fa-user"),
+                ("Техподдержка", reverse("accounts:ticket_list"), "fas fa-ticket-alt"),
+                (f"Тикет #{ticket.id}", None, "fas fa-info-circle"),
+            ])
         }
         return render(request, "accounts/ticket_detail.html", context)
 
@@ -275,7 +315,15 @@ def create_ticket(request):
     else:
         form = TicketForm()
 
-    return render(request, "accounts/create_ticket.html", {"form": form})
+    context = {
+        "form": form,
+        "breadcrumbs": get_breadcrumbs([
+            ("Личный кабинет", reverse("accounts:profile"), "fas fa-user"),
+            ("Техподдержка", reverse("accounts:ticket_list"), "fas fa-ticket-alt"),
+            ("Новое обращение", None, "fas fa-plus"),
+        ])
+    }
+    return render(request, "accounts/create_ticket.html", context)
 
 
 @login_required
@@ -283,7 +331,12 @@ def logout_confirmation(request):
     """
     Страница с подтверждением выхода из системы для предотвращения случайного выхода.
     """
-    return render(request, "accounts/logout_confirm.html")
+    context = {
+        "breadcrumbs": get_breadcrumbs([
+            ("Выход", None, "fas fa-sign-out-alt"),
+        ])
+    }
+    return render(request, "accounts/logout_confirm.html", context)
 
 
 @require_http_methods(["POST"])
@@ -320,6 +373,9 @@ def profile_view(request):
             "reviews_count": reviews_count,
             "comments_count": comments_count,
             "title": "Мой профиль",
+            "breadcrumbs": get_breadcrumbs([
+                ("Личный кабинет", None, "fas fa-user"),
+            ])
         }
         return render(request, "accounts/profile.html", context)
 

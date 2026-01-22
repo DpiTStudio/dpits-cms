@@ -352,6 +352,7 @@ def statistics_banners(request):
 def hero_overrides(request):
     """
     Контекстный процессор для получения настроек Hero-секции для крупных разделов сайта.
+    Также инициализирует переменные, используемые в hero.html, чтобы избежать ошибок VariableDoesNotExist.
     """
     from .models import AppHeroSettings
 
@@ -377,6 +378,7 @@ def hero_overrides(request):
 
     return {
         "app_hero": app_hero,
+        # Инициализируем переменные для hero.html как None
         "news": None,
         "portfolio_item": None,
         "service": None,

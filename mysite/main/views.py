@@ -20,7 +20,7 @@
 import re  # Модуль для работы с регулярными выражениями
 from django.shortcuts import (
     render,
-    get_object_or_404,
+    reverse,
 )  # | Функции для работы с запросами
 from django.views.generic import (
     TemplateView,
@@ -32,9 +32,8 @@ from django.views.decorators.vary import (
     vary_on_cookie,
 )  # | Декоратор для вариаций по кукам
 from django.core.cache import cache  # | Система кэширования
-from django.http import Http404  # | Исключение для 404 ошибок
-from django.db.models import Q  # | Объекты для сложных запросов
 from .models import SiteSettings, Page  # | Импорт моделей
+from .breadcrumbs import get_breadcrumbs
 
 # Импорт модели новостей (если приложение news установлено)
 try:
@@ -193,6 +192,9 @@ class ProfileView(MaintenanceMixin, BaseView):
                 "page_title": "Профиль",
                 "meta_description": "Профиль пользователя",
                 "user": self.request.user,
+                "breadcrumbs": get_breadcrumbs([
+                    ("Профиль", reverse("accounts:profile"), "fas fa-user"),
+                ]),
             }
         )
         return context
@@ -301,6 +303,12 @@ class IndexView(MaintenanceMixin, BaseView):
                 "recent_portfolio_list": recent_portfolio_list,
                 "page_title": page_title,
                 "meta_description": meta_description,
+                # Эти переменные нужны для корректной работы hero.html
+                "portfolio_item": None,
+                "news": None,
+                "service": None,
+                "category": None,
+                "page": None,
             }
         )
 
@@ -378,6 +386,9 @@ class PageDetailView(MaintenanceMixin, DetailView):
                 "meta_keywords": page.seo_keywords,
                 "prev_page": prev_page,
                 "next_page": next_page,
+                "breadcrumbs": get_breadcrumbs([
+                    (page.title, page.get_absolute_url()),
+                ]),
             }
         )
 
@@ -426,6 +437,9 @@ class ContactView(MaintenanceMixin, TemplateView):
                 "site_settings": site_settings,
                 "page_title": page_title,
                 "meta_description": meta_description,
+                "breadcrumbs": get_breadcrumbs([
+                    ("Контакты", reverse("main:contacts"), "fas fa-phone"),
+                ]),
             }
         )
         return context
@@ -478,6 +492,9 @@ class AboutView(MaintenanceMixin, TemplateView):
                 "site_settings": site_settings,
                 "page_title": page_title,
                 "meta_description": meta_description,
+                "breadcrumbs": get_breadcrumbs([
+                    ("О нас", reverse("main:about"), "fas fa-info-circle"),
+                ]),
             }
         )
         return context
@@ -505,6 +522,9 @@ def custom_404_view(request, exception):
         "exception": exception,
         "page_title": "Страница не найдена (404)",
         "meta_description": "Запрашиваемая страница не найдена",
+        "breadcrumbs": get_breadcrumbs([
+            ("404 Error", None, "fas fa-exclamation-circle"),
+        ]),
     }
     return render(
         request,
@@ -534,6 +554,9 @@ def custom_500_view(request):
         "site_settings": site_settings,
         "page_title": "Ошибка сервера (500)",
         "meta_description": "Произошла внутренняя ошибка сервера",
+        "breadcrumbs": get_breadcrumbs([
+            ("500 Error", None, "fas fa-bug"),
+        ]),
     }
     return render(
         request,
@@ -631,6 +654,9 @@ class LogStatsView(MaintenanceMixin, BaseView):
                 "categories": categories,          # Счетчики по категориям (для удобства)
                 "page_title": page_title,          # Заголовок страницы для <title>
                 "meta_description": "Статистика и управление лог-файлами системы. Просмотр количества строк, анализ по категориям (ERROR, WARNING, INFO, DEBUG), очистка логов.",
+                "breadcrumbs": get_breadcrumbs([
+                    ("Статистика логов", reverse("main:log_stats"), "fas fa-list-alt"),
+                ]),
             }
         )
 
@@ -767,6 +793,9 @@ class ErrorLogView(MaintenanceMixin, BaseView):
                 "categories": categories,          # Счетчики по категориям (для удобства)
                 "page_title": page_title,          # Заголовок страницы для <title>
                 "meta_description": "Просмотр и управление лог-файлом ошибок системы. Статистика по категориям (ERROR, WARNING, INFO, DEBUG), очистка логов.",
+                "breadcrumbs": get_breadcrumbs([
+                    ("Лог ошибок", reverse("main:error_log"), "fas fa-exclamation-triangle"),
+                ]),
             }
         )
 

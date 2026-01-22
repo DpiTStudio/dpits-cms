@@ -293,41 +293,6 @@ class PortfolioItem(HeroMixin):
         </div>
         """
 
-        """
-        Генерирует HTML-контент для новости.
-        """
-        content = f"""
-        <div class="portfolio-news">
-            <h2>{self.title}</h2>
-            
-            <div class="portfolio-info">
-                <p><strong>Категория:</strong> {self.category.name}</p>
-                <p><strong>Дата проекта:</strong> {self.project_date}</p>
-                
-                {f"<p><strong>Клиент:</strong> {self.client}</p>" if self.client else ""}
-                
-                {f"<p><strong>Технологии:</strong> {self.technologies}</p>" if self.technologies else ""}
-                
-                {f'<p><strong>Ссылка на проект:</strong> <a href="{self.project_url}" target="_blank">{self.project_url}</a></p>' if self.project_url else ""}
-                
-                {f'<p><strong>GitHub:</strong> <a href="{self.github_url}" target="_blank">{self.github_url}</a></p>' if self.github_url else ""}
-            </div>
-            
-            <div class="portfolio-description">
-                <h3>Описание работы</h3>
-                {self.content}
-            </div>
-            
-            <div class="portfolio-actions mt-4">
-                <a href="{self.get_absolute_url()}" class="btn btn-primary">
-                    <i class="fas fa-external-link-alt"></i> Посмотреть детали работы
-                </a>
-            </div>
-        </div>
-        """
-
-        return content
-
 
 class Order(models.Model):
     """Модель заказа"""

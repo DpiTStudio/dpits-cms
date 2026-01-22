@@ -3,6 +3,7 @@
 from django.shortcuts import (
     render,
     get_object_or_404,
+    reverse,
 )  # Импорт функций для рендеринга шаблонов и получения объектов
 from django.core.paginator import (
     Paginator,
@@ -10,6 +11,7 @@ from django.core.paginator import (
 from django.core.cache import cache  # Импорт кэша для оптимизации производительности
 from django.db.models import Q  # Импорт Q-объекта для сложных запросов
 from .models import News, NewsCategory  # Импорт моделей новостей и категорий
+from main.breadcrumbs import get_breadcrumbs
 
 
 def news_list(request):
@@ -68,6 +70,9 @@ def news_list(request):
         "categories": categories,  # Список категорий для меню
         "recent_news_list": recent_news_list,  # Последние новости для сайдбара
         "category": None,  # На главной странице категория не выбрана
+        "breadcrumbs": get_breadcrumbs([
+            ("Новости", reverse("news:list"), "fas fa-newspaper"),
+        ]),
     }
     return render(
         request, "news/list.html", context
@@ -134,6 +139,11 @@ def news_detail(request, slug):
         "similar_news": similar_news,  # Похожие новости из той же категории
         "categories": categories,  # Список категорий для меню
         "recent_news_list": recent_news_list,  # Последние новости для сайдбара
+        "breadcrumbs": get_breadcrumbs([
+            ("Новости", reverse("news:list"), "fas fa-newspaper"),
+            (news.category.name, news.category.get_absolute_url()),
+            (news.title, reverse("news:detail", kwargs={"slug": news.slug})),
+        ]),
     }
     return render(
         request, "news/detail.html", context
@@ -198,6 +208,10 @@ def news_by_category(request, slug):
         "news_list": page_obj,  # Объект страницы с новостями
         "categories": categories,  # Список категорий для меню
         "recent_news_list": recent_news_list,  # Последние новости для сайдбара
+        "breadcrumbs": get_breadcrumbs([
+            ("Новости", reverse("news:list"), "fas fa-newspaper"),
+            (category.name, category.get_absolute_url()),
+        ]),
     }
     return render(
         request, "news/category.html", context
@@ -273,6 +287,10 @@ def news_search(request):
         "categories": categories,  # Список категорий для меню
         "recent_news_list": recent_news_list,  # Последние новости для сайдбара
         "query": query,  # Поисковый запрос для отображения в шаблоне
+        "breadcrumbs": get_breadcrumbs([
+            ("Новости", reverse("news:list"), "fas fa-newspaper"),
+            (f"Поиск: {query}" if query else "Поиск", request.path),
+        ]),
     }
     return render(
         request, "news/search.html", context
