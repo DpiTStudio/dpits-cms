@@ -101,16 +101,14 @@
 
   <!-- Основной контент страницы с растягиванием на всю доступную высоту -->
   <main class="flex-grow-1">
-    <!-- Блок хлебных крошек (переопределяется в дочерних шаблонах) -->
-    {% block breadcrumbs %}
-    {% include 'breadcrumbs.html' %}
-    {% endblock %}
-
     <!-- Блок hero секции (переопределяется в дочерних шаблонах) -->
     {% block hero_section %}
     <!-- Подключение шаблона hero секции -->
     {% include 'hero.html' %}
     {% endblock %}
+
+    <!-- Блок хлебных крошек (теперь внутри hero.html) -->
+    {% block breadcrumbs %}{% endblock %}
 
     <!-- Контейнер с полной шириной для основного контента -->
     <div class="container-fluid px-0">
