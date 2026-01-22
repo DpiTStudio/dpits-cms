@@ -332,15 +332,21 @@ def statistics_banners(request):
                 show_to_user = True
                 
             if show_to_user:
-                # Если доступ разрешен, добавляем баннер в соответствующую позицию
-                pos = banner.position
-                if pos in banners_by_position:
-                    banners_by_position[pos].append(banner)
+                # Если доступ разрешен, добавляем отрендеренный код баннера
+                rendered_code = banner.get_rendered_code(request)
+                if rendered_code:
+                    pos = banner.position
+                    if pos in banners_by_position:
+                        banners_by_position[pos].append(rendered_code)
+        
+        # Преобразуем списки кодов в готовые HTML-строки
+        for pos in banners_by_position:
+            banners_by_position[pos] = "\n".join(banners_by_position[pos])
         
         # Кэшируем результат на 15 минут
         cache.set(cache_key, banners_by_position, 900)
         
-    return {'banners': banners_by_position}
+    return {'statistics_banners': banners_by_position}
 
 
 def hero_overrides(request):
