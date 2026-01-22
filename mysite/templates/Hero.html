@@ -33,6 +33,7 @@
             <div class="col-12 col-lg-8 order-2 order-lg-1">
                 <!-- Заголовок: приоритет у HeroMixin, затем у названия объекта, затем у настроек сайта -->
                 <h1 class="display-4 display-md-5 fw-bold mb-3 hero-title">
+                    {% comment %} Выводим заголовок с приоритетом по порядку условий {% endcomment %}
                     {% if hero.hero_title %}{{ hero.hero_title|truncatewords:20|truncatechars:50 }}
                     {% elif category %}{{ category.name|truncatewords:20|truncatechars:50 }}
                     {% elif news %}{{ news.title|truncatewords:20|truncatechars:50 }}
@@ -44,6 +45,7 @@
                 
                 <!-- Подзаголовок (описание): приоритет у HeroMixin, затем у описания объекта -->
                 <p class="lead mb-3 mb-md-4 hero-subtitle">
+                    {% comment %} Выводим подзаголовок с приоритетом по порядку условий {% endcomment %}
                     {% if hero.hero_subtitle %}{{ hero.hero_subtitle|linebreaksbr }}
                     {% elif category and category.description %}{{ category.description|striptags }}
                     {% elif news and news.short_description %}{{ news.short_description|striptags }}
@@ -61,6 +63,7 @@
             </div>
             
             <div class="col-12 col-lg-4 text-center order-1 order-lg-2">
+                {% comment %} Выводим логотип с приоритетом у HeroMixin, затем у настроек сайта {% endcomment %}
                 {% if site_settings.logo %}
                 <div class="logo-container mb-3 mb-lg-0">
                     <img src="{{ site_settings.logo.url }}" 
@@ -74,6 +77,7 @@
         
         <!-- Фоновые эффекты/декорации -->
         <div class="mt-2 mt-md-3">
+            {% comment %} Выводим фоновые эффекты/декорации с приоритетом по порядку условий {% endcomment %}
             {% if '/news/' in request.path %}
                 {% include 'includes/backgrounds/news_bg.html' %}
             {% elif '/portfolio/' in request.path %}
