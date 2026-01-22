@@ -20,7 +20,7 @@
                     <div class="col-12">
                         <!-- Заголовок -->
                         <h6 class="fw-semibold mb-0 lh-sm text-dark hover-text-primary transition-color">
-                            {{ news.title|truncatechars:60 }}
+                            {{ news.title|truncatechars:50 }}
                         </h6>
                         <div class="position-relative overflow-hidden rounded-3" style="height: 100%;">
                             {% if news.image %}
@@ -33,7 +33,7 @@
                                  class="img-fluid w-100 h-100 object-fit-cover transition-scale">
                             {% endif %}
                             <!-- Наложение градиента -->
-                            <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-overlay"></div>
+                            {# <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-overlay"></div> #}
                         </div>
                     </div>
                     
@@ -46,12 +46,14 @@
                         </div>
                         {% if news.read_time %}
                         <!-- Индикатор чтения (опционально) -->
+                        {% comment %}
                         <div class="mt-2">
                             <span class="badge bg-light text-dark border py-1 px-2 fs-xs">
                                 <i class="fas fa-clock me-1 fa-xs"></i>
                                 {{ news.read_time }} мин
                             </span>
                         </div>
+                        {% endcomment %}
                         {% endif %}
                     </div>
                 </div>
