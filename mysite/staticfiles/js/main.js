@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ========== TOAST УВЕДОМЛЕНИЯ ==========
     initToasts();
+    
+    // ========== HEADER SCROLL EFFECT ==========
+    initHeaderScroll();
 });
 
 // ========== RIPPLE EFFECT ==========
@@ -336,6 +339,24 @@ function throttle(func, limit) {
             setTimeout(() => inThrottle = false, limit);
         }
     };
+}
+
+// ========== HEADER SCROLL EFFECT ==========
+function initHeaderScroll() {
+    const header = document.querySelector('.glass-header');
+    if (!header) return;
+    
+    const handleScroll = () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    // Вызываем один раз при загрузке на случай если страница уже прокручена
+    handleScroll();
 }
 
 // Экспортируем функции для использования в других скриптах
