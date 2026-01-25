@@ -18,24 +18,8 @@
 <section class="main-content">
     <div class="container-fluid py-5">
         <!-- Блок категорий под шапкой -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="categories-header">
-                    <h6 class="mb-3">Категории новостей:</h6>
-                    <div class="d-flex flex-wrap gap-2 mt-4">
-                        {% for category in categories %}
-                        <a href="{% url 'news:category' category.slug %}"
-                            class="card-news-link btn btn-outline-primary btn-sm">
-                            {{ category.name }}
-                        </a>
-                        {% empty %}
-                        <i class="fas fa-folder-open fa-3x text-muted mb-3"></i><br>
-                        <span class="text-muted">Категорий пока нет</span>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Блок категорий под шапкой -->
+        {% include 'news/news-category.html' %}
 
         <div class="row">
             <!-- Левая колонка с контентом -->
