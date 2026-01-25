@@ -203,15 +203,49 @@
 
 <!-- Основное меню навигации -->
 <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center nav-responsive">
-    <!-- Главная -->
-    <li class="nav-item">
-        <a class="nav-link nav-link-responsive {% if request.resolver_match.app_name == 'main' %}active{% endif %}" href="{% url 'main:index' %}">
+    <!-- Главная с подменю -->
+    <li class="nav-item dropdown">
+        <a class="nav-link nav-link-responsive dropdown-toggle {% if request.resolver_match.app_name == 'main' %}active{% endif %}" 
+           href="{% url 'main:index' %}" 
+           id="mainDropdown" 
+           role="button" 
+           data-bs-toggle="dropdown" 
+           aria-expanded="false"
+           onmouseover="showMainDropdown()"
+           onmouseleave="hideMainDropdown()">
             <div class="nav-icon-wrapper">
                 <i class="fas fa-home nav-icon"></i>
                 <span class="nav-text">Главная</span>
             </div>
             <span class="nav-indicator"></span>
         </a>
+        
+        <!-- Подменю с динамическими страницами -->
+        {% if menu_pages %}
+        <ul class="dropdown-menu" aria-labelledby="mainDropdown" id="mainDropdownMenu" onmouseover="keepDropdownOpen()" onmouseleave="closeDropdown()">
+            <li>
+                <a class="dropdown-item" href="{% url 'main:index' %}">
+                    <i class="fas fa-home me-2"></i>На главную
+                </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            {% for page in menu_pages %}
+            <li>
+                <a class="dropdown-item {% if request.resolver_match.kwargs.slug == page.slug %}active{% endif %}" 
+                   href="{% url 'main:page_detail' page.slug %}">
+                    <i class="fas fa-file-alt me-2"></i>{{ page.title }}
+                </a>
+            </li>
+            {% endfor %}
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <a class="dropdown-item {% if request.resolver_match.app_name == 'main' and request.resolver_match.url_name == 'contacts' %}active{% endif %}" 
+                   href="{% url 'main:contacts' %}">
+                    <i class="fas fa-phone me-2"></i>Контакты
+                </a>
+            </li>
+        </ul>
+        {% endif %}
     </li>
     
     <!-- Новости -->
@@ -257,28 +291,94 @@
             <span class="nav-indicator"></span>
         </a>
     </li>
-    
-    <!-- Контакты -->
-    <li class="nav-item">
-        <a class="nav-link nav-link-responsive {% if request.resolver_match.app_name == 'main' and request.resolver_match.url_name == 'contacts' %}active{% endif %}" href="{% url 'main:contacts' %}">
-            <div class="nav-icon-wrapper">
-                <i class="fas fa-phone nav-icon"></i>
-                <span class="nav-text">Контакты</span>
-            </div>
-            <span class="nav-indicator"></span>
-        </a>
-    </li>
-    
-    <!-- Динамические страницы -->
-    {% for page in menu_pages %}
-    <li class="nav-item">
-        <a class="nav-link nav-link-responsive {% if request.resolver_match.kwargs.slug == page.slug %}active{% endif %}" href="{% url 'main:page_detail' page.slug %}">
-            <div class="nav-icon-wrapper">
-                <i class="fas fa-file-alt nav-icon"></i>
-                <span class="nav-text">{{ page.title }}</span>
-            </div>
-            <span class="nav-indicator"></span>
-        </a>
-    </li>
-    {% endfor %}
 </ul>
+
+<!-- JavaScript для управления подменю при наведении -->
+<script>
+// Показываем подменю при наведении
+function showMainDropdown() {
+    const dropdownMenu = document.getElementById('mainDropdownMenu');
+    if (dropdownMenu) {
+        dropdownMenu.classList.add('show');
+    }
+}
+
+// Скрываем подменю при уходе мыши
+function hideMainDropdown() {
+    const dropdownMenu = document.getElementById('mainDropdownMenu');
+    if (dropdownMenu) {
+        // Не скрываем сразу, даем время для перехода на подменю
+        setTimeout(() => {
+            if (!dropdownMenu.matches(':hover')) {
+                dropdownMenu.classList.remove('show');
+            }
+        }, 100);
+    }
+}
+
+// Держим подменю открытым при наведении на него
+function keepDropdownOpen() {
+    const dropdownMenu = document.getElementById('mainDropdownMenu');
+    if (dropdownMenu) {
+        dropdownMenu.classList.add('show');
+    }
+}
+
+// Закрываем подменю при уходе мыши с него
+function closeDropdown() {
+    const dropdownMenu = document.getElementById('mainDropdownMenu');
+    if (dropdownMenu) {
+        dropdownMenu.classList.remove('show');
+    }
+}
+</script>
+
+<!-- Стили для улучшенного внешнего вида подменю -->
+<style>
+/* Стили для подменю */
+.dropdown-menu {
+    min-width: 250px;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 10px 0;
+    margin-top: 5px;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    margin: 2px 10px;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    padding-left: 25px;
+}
+
+.dropdown-item.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.dropdown-divider {
+    margin: 8px 0;
+}
+
+/* Стрелка у выпадающего меню */
+.dropdown-toggle::after {
+    margin-left: 5px;
+    transition: transform 0.2s ease;
+}
+
+.show .dropdown-toggle::after {
+    transform: rotate(180deg);
+}
+</style>
