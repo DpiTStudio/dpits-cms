@@ -45,18 +45,28 @@
     margin-bottom: 0.75rem;
 }
 
-.news-image-placeholder {
+/* .news-image-placeholder {
     height: 200px;
-    /* display: flex;
+    display: flex;
     align-items: center;
-    justify-content: center; */
+    justify-content: center; 
     background-color: #f8f9fa;
-}
+} */
 
+/* Изображение новости */
 .news-image-detail {
+    width: 100% !important;
     max-width: 100%;
     height: auto;
     border-radius: 8px;
+}
+
+/* Заголовок новости */
+.news-title-detail {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
 }
 
 .default-image {
