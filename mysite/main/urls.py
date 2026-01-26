@@ -39,6 +39,8 @@ urlpatterns = [
     # Страница контактов
     path("about/", views.AboutView.as_view(), name="about"),
     # Страница "О нас"
+    path("search/", views.SearchView.as_view(), name="search"),
+    # Страница поиска
     # Страница профиля пользователя
     path("profile/", views.ProfileView.as_view(), name="profile"),
     # Личный кабинет пользователя

@@ -46,13 +46,8 @@
                                             </span>
                                             {% endif %}
                                             <!-- Заголовок работы с ограничением количества слов -->
+                                            <!-- Заголовок работы с ограничением количества слов -->
                                             <h6 class="card-title d-flex align-items-center">
-                                                <!-- Изображение новости (15 пикселей) для соответствия стилю -->
-                                                {% if portfolio_item.image %}
-                                                <img src="{{ portfolio_item.image.url }}" class="sidebar-news-image" alt="{{ portfolio_item.title }}">
-                                                {% else %}
-                                                <img src="{% static 'images/default-portfolio.jpg' %}" class="sidebar-news-image" alt="{{ portfolio_item.title }}">
-                                                {% endif %}
                                                 <span class="flex-grow-1">{{ portfolio_item.title|truncatewords:8 }}</span>
                                             </h6>
                                             <!-- Текст работы с растягиванием и ограничением количества слов -->
