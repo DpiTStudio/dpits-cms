@@ -23,6 +23,7 @@ from django.shortcuts import (
     render,
     reverse,
 )  # | Функции для работы с запросами
+from django.http import JsonResponse
 from django.views.generic import (
     TemplateView,
     DetailView,
@@ -568,71 +569,69 @@ class SearchView(MaintenanceMixin, BaseView):
         return context
 
 
-class SearchView(MaintenanceMixin, BaseView):
+
+
+
+class SearchApiView(MaintenanceMixin, BaseView):
     """
-    Представление для поиска по сайту.
-    Ищет по новостям, портфолио и страницам.
+    API представление для живого поиска.
+    Возвращает результаты в формате JSON.
     """
 
-    template_name = "main/search_results.html"
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get("q", "")
+        results = []
 
-    def get_context_data(self, **kwargs):
-        """
-        Добавляет результаты поиска в контекст.
-        """
-        context = super().get_context_data(**kwargs)
-        query = self.request.GET.get("q", "")
-        
-        context["query"] = query
-        context["page_title"] = f"Поиск: {query}" if query else "Поиск по сайту"
-        
-        # Хлебные крошки
-        context["breadcrumbs"] = get_breadcrumbs([
-            ("Поиск", reverse("main:search"), "fas fa-search"),
-        ])
-
-        if query:
+        if len(query) >= 2:
             # Поиск по новостям
             if News:
-                news_results = News.objects.filter(
+                news_items = News.objects.filter(
                     Q(title__icontains=query) | 
-                    Q(short_description__icontains=query) |
-                    Q(content__icontains=query),
+                    Q(short_description__icontains=query),
                     is_active=True
-                ).distinct()
-                context["news_results"] = news_results
+                ).distinct()[:5]
+                
+                for item in news_items:
+                    results.append({
+                        "title": item.title,
+                        "url": item.get_absolute_url(),
+                        "type": "Новости",
+                        "icon": "fa-newspaper"
+                    })
             
             # Поиск по портфолио
             if PortfolioItem:
-                portfolio_results = PortfolioItem.objects.filter(
+                portfolio_items = PortfolioItem.objects.filter(
                     Q(title__icontains=query) | 
                     Q(short_description__icontains=query) |
-                    Q(content__icontains=query) |
                     Q(technologies__icontains=query),
                     status="published"
-                ).distinct()
-                context["portfolio_results"] = portfolio_results
+                ).distinct()[:5]
+                
+                for item in portfolio_items:
+                    results.append({
+                        "title": item.title,
+                        "url": item.get_absolute_url(),
+                        "type": "Портфолио",
+                        "icon": "fa-briefcase"
+                    })
 
             # Поиск по страницам
-            page_results = Page.objects.filter(
-                Q(title__icontains=query) | 
-                Q(content__icontains=query),
+            page_items = Page.objects.filter(
+                Q(title__icontains=query),
                 show_on_site=True
-            ).distinct()
-            context["page_results"] = page_results
+            ).distinct()[:5]
+            
+            for item in page_items:
+                results.append({
+                    "title": item.title,
+                    "url": item.get_absolute_url(),
+                    "type": "Страница",
+                    "icon": "fa-file-alt"
+                })
 
-            # Общее количество результатов
-            total_results = 0
-            if "news_results" in context:
-                total_results += context["news_results"].count()
-            if "portfolio_results" in context:
-                total_results += context["portfolio_results"].count()
-            if "page_results" in context:
-                total_results += context["page_results"].count()
-            
-            context["total_results"] = total_results
-            
-        return context
+        return JsonResponse({"results": results})
+
 
 
 def custom_404_view(request, exception):
