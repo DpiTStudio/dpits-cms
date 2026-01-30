@@ -2,9 +2,16 @@
 {% load static %}
 {% load services_filters %} 
 
-{% block title %}{{ site_settings.logo_text }} - Услуги{% endblock %}
-{% block meta_description %}Профессиональные услуги для развития вашего бизнеса в цифровой среде.{% endblock %}
-{% block meta_keywords %}услуги, разработка, дизайн, маркетинг, консалтинг{% endblock %}
+{% block title %}
+    {{ site_settings.logo_text }} - {{ site_settings.title }}
+{% endblock %}
+{% block meta_description %}
+    {{ site_settings.meta_description }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ site_settings.meta_keywords }}
+{% endblock %}
 
 {% block extra_css %}
 <style>
