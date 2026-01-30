@@ -1,59 +1,380 @@
 {% extends "base.html" %}
 {% load static %}
+{% load services_filters %} 
 
 {% block title %}{{ site_settings.logo_text }} - Услуги{% endblock %}
+{% block meta_description %}Профессиональные услуги для развития вашего бизнеса в цифровой среде.{% endblock %}
+{% block meta_keywords %}услуги, разработка, дизайн, маркетинг, консалтинг{% endblock %}
+
+{% block extra_css %}
+<style>
+    .category-nav {
+        position: sticky;
+        top: 80px;
+        z-index: 100;
+        background: white;
+        border-bottom: 1px solid var(--bs-border-color);
+    }
+    
+    .category-link {
+        padding: 0.75rem 1.5rem;
+        color: var(--bs-body-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-bottom: 3px solid transparent;
+        white-space: nowrap;
+    }
+    
+    .category-link:hover,
+    .category-link.active {
+        color: var(--bs-primary);
+        border-bottom-color: var(--bs-primary);
+        background-color: var(--bs-primary-bg-subtle);
+    }
+    
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .service-card {
+        background: white;
+        border: 1px solid var(--bs-border-color);
+        border-radius: 1rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.1);
+        border-color: var(--bs-primary);
+    }
+    
+    .service-card-body {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .service-card-title {
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        line-height: 1.3;
+    }
+    
+    .service-card-description {
+        color: var(--bs-secondary-color);
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+    
+    .service-price {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--bs-primary);
+    }
+    
+    .category-section {
+        scroll-margin-top: 120px;
+    }
+    
+    .category-header {
+        background: linear-gradient(135deg, var(--bs-light) 0%, white 100%);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border-left: 5px solid var(--bs-primary);
+    }
+    
+    @media (max-width: 768px) {
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .category-nav-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .category-nav-inner {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 0.5rem;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 <section class="py-5">
     <div class="container-fluid">
-        <div class="row mb-5 text-left">
-            <div class="col-lg-8 mx-auto">
-                <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">НАШИ УСЛУГИ</span>
-                <h1 class="display-4 fw-bold mb-3">Профессиональные решения</h1>
-                <p class="lead text-muted">Мы предлагаем полный спектр услуг для развития вашего бизнеса в цифровой среде.</p>
+        <!-- Заголовок -->
+        <div class="row mb-5">
+            <div class="col-12 mx-auto text-left">
+                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-4 py-2 mb-3 d-inline-flex align-items-left gap-2">
+                    <i class="fas fa-star fa-xs"></i>
+                    НАШИ УСЛУГИ
+                </span>
+                <h1 class="display-4 fw-bold mb-3">Профессиональные решения для вашего бизнеса</h1>
+                <p class="lead text-muted mb-0">Полный спектр услуг для цифровой трансформации и роста вашей компании</p>
             </div>
         </div>
 
-        {% for category in categories %}
-        <div class="mb-5">
-            <h3 class="fw-bold mb-4 position-relative d-inline-block">
-                {{ category.name }}
-                <span class="position-absolute bottom-0 start-0 w-100 bg-primary" style="height: 3px; opacity: 0.3;"></span>
-            </h3>
-            
-            <div class="cards-grid">
-                {% for service in services %}
-                    {% if service.category.id == category.id %}
-                    <div class="service-card h-100">
-                        <div class="service-card-content">
-                            <div class="service-card-icon-wrapper">
-                                {% if service.icon %}
-                                    <img src="{{ service.icon.url }}" alt="{{ service.name }}" class="service-card-icon">
-                                {% else %}
-                                    <i class="fas fa-concierge-bell fa-2x text-primary p-3"></i>
-                                {% endif %}
+        <!-- Навигация по категориям -->
+        <div class="category-nav mb-5">
+            <div class="category-nav-scroll">
+                <div class="category-nav-inner d-flex justify-content-center">
+                    <a href="#all" class="category-link active" data-category="all">
+                        <i class="fas fa-layer-group me-2"></i>
+                        Все услуги
+                    </a>
+                    {% for item in categories_with_services %}
+                    <a href="#category-{{ item.category.slug }}" class="category-link" data-category="{{ item.category.id }}">
+                        {% if item.category.icon_class %}
+                            <i class="{{ item.category.icon_class }} me-2"></i>
+                        {% endif %}
+                        {{ item.category.name }}
+                        <span class="badge bg-secondary bg-opacity-25 text-dark ms-2">{{ item.services|length }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Все услуги -->
+        <div id="all" class="category-section">
+            <div class="services-grid">
+                {% for service in all_services %}
+                <div class="service-card" data-categories="{{ service.category.id }}">
+                    <div class="service-card-body">
+                        {% if service.icon %}
+                        <div class="mb-3">
+                            <img src="{{ service.icon.url }}" alt="{{ service.name }}" class="service-card-icon" style="height: 64px; width: 64px; object-fit: contain;">
+                        </div>
+                        {% else %}
+                        <div class="icon-wrapper mb-3">
+                            <div class="icon-box-lg bg-primary bg-opacity-10 text-primary rounded-3 p-3 d-inline-flex">
+                                <i class="fas fa-concierge-bell fa-2x"></i>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <h3 class="service-card-title h5">{{ service.name }}</h3>
+                        
+                        <div class="service-card-description">
+                            {{ service.short_description|striptags|truncatechars:150 }}
+                        </div>
+                        
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="service-price">
+                                    {{ service.get_price_display }}
+                                </div>
+                                <span class="badge bg-light text-dark">
+                                    <i class="fas fa-eye me-1"></i>
+                                    {{ service.views }}
+                                </span>
                             </div>
                             
-                            <h5 class="service-card-title">{{ service.name }}</h5>
-                            <div class="service-text mb-4">{{ service.short_description|striptags|truncatechars:100 }}</div>
-                            
-                            <div class="mt-auto">
-                                <span class="service-card-price">{{ service.get_price_display }}</span>
-                                <a href="{{ service.get_absolute_url }}" class="service-card-link">
-                                    Подробнее <i class="fas fa-arrow-right"></i>
+                            <div class="d-grid">
+                                <a href="{{ service.get_absolute_url }}" class="btn btn-outline-primary btn-hover-lift">
+                                    <span>Подробнее</span>
+                                    <i class="fas fa-arrow-right ms-2"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
-                    {% endif %}
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <div class="icon-box-xl bg-light rounded-circle p-4 mb-3 mx-auto">
+                        <i class="fas fa-inbox fa-3x text-muted"></i>
+                    </div>
+                    <h3 class="h4 mb-3">Услуги пока не добавлены</h3>
+                    <p class="text-muted">Скоро здесь появятся наши предложения</p>
+                </div>
                 {% endfor %}
             </div>
         </div>
-        {% empty %}
-        <div class="text-center py-5">
-            <p class="lead">Услуги пока не добавлены.</p>
+
+        <!-- Услуги по категориям -->
+        {% for item in categories_with_services %}
+        <div id="category-{{ item.category.slug }}" class="category-section" style="display: none;">
+            <div class="category-header">
+                <div class="row align-items-center">
+                    {% if item.category.image %}
+                    <div class="col-auto">
+                        <img src="{{ item.category.image.url }}" alt="{{ item.category.name }}" 
+                             class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+                    </div>
+                    {% endif %}
+                    <div class="col">
+                        <h2 class="h3 fw-bold mb-1">{{ item.category.name }}</h2>
+                        {% if item.category.description %}
+                        <p class="text-muted mb-0">{{ item.category.description|striptags|truncatechars:200 }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-auto">
+                        <span class="badge bg-primary rounded-pill px-3 py-2">
+                            {{ item.services|length }} услуг
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="services-grid">
+                {% for service in item.services %}
+                <div class="service-card">
+                    <div class="service-card-body">
+                        {% if service.icon %}
+                        <div class="mb-3">
+                            <img src="{{ service.icon.url }}" alt="{{ service.name }}" 
+                                 style="height: 64px; width: 64px; object-fit: contain;">
+                        </div>
+                        {% endif %}
+                        
+                        <h3 class="service-card-title h5">{{ service.name }}</h3>
+                        
+                        <div class="service-card-description">
+                            {{ service.short_description|striptags|truncatechars:150 }}
+                        </div>
+                        
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="service-price">
+                                    {{ service.get_price_display }}
+                                </div>
+                                {% if service.can_order %}
+                                <span class="badge bg-success bg-opacity-10 text-success">
+                                    <i class="fas fa-check-circle me-1"></i>
+                                    Доступно
+                                </span>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="d-grid">
+                                <a href="{{ service.get_absolute_url }}" class="btn btn-primary btn-hover-lift">
+                                    <span>Заказать услугу</span>
+                                    <i class="fas fa-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         {% endfor %}
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Навигация по категориям
+    const categoryLinks = document.querySelectorAll('.category-link');
+    const categorySections = document.querySelectorAll('.category-section');
+    const allServicesSection = document.getElementById('all');
+    
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Убираем активный класс у всех ссылок
+            categoryLinks.forEach(l => l.classList.remove('active'));
+            // Добавляем активный класс текущей ссылке
+            this.classList.add('active');
+            
+            // Прячем все секции
+            categorySections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Показываем выбранную секцию
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+            
+            // Плавная прокрутка
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Фильтрация при клике на категорию в навигации
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const categoryId = this.dataset.category;
+            const allCards = allServicesSection.querySelectorAll('.service-card');
+            
+            if (categoryId === 'all') {
+                // Показываем все карточки
+                allCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            } else {
+                // Фильтруем карточки
+                allCards.forEach(card => {
+                    const cardCategory = card.dataset.categories;
+                    if (cardCategory === categoryId) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        });
+    });
+    
+    // Параллакс эффект для карточек
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+        card.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const xAxis = (rect.width / 2 - x) / 25;
+            const yAxis = (rect.height / 2 - y) / 25;
+            
+            this.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateY(-5px)`;
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(0)';
+            this.style.transition = 'all 0.5s ease';
+        });
+        
+        card.addEventListener('mouseenter', function() {
+            this.style.transition = 'none';
+        });
+    });
+    
+    // Инициализация анимации при загрузке
+    setTimeout(() => {
+        serviceCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    }, 300);
+});
+</script>
 {% endblock %}

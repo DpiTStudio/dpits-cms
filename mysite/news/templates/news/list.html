@@ -32,17 +32,15 @@
 {# Основной контент страницы #}
 <section class="main-content py-4 py-md-5">
     <div class="container-fluid px-3 px-md-4">
-        {# Заголовок секции новостей #}
+        <!-- Заголовок секции -->
         <div class="row mb-5 text-left">
-            <div class="col-lg-8">
-                <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">НОВОСТИ</span>
+            <div class="col-12">
+                <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">Новости</span>
                 <h1 class="display-4 fw-bold mb-3">Актуальные события</h1>
                 <p class="lead text-muted">Следите за последними новостями и обновлениями из мира технологий и разработки.</p>
             </div>
         </div>
-
-        {# Включаем блок с сеткой категорий #}
-        {% include 'news/news-category.html' %}
+        <hr class="mb-5">   
 
         {# Список всех новостей #}
         <div class="row g-4">
