@@ -105,9 +105,12 @@
         showLoading();
         
         try {
-            // Здесь должен быть реальный API запрос
-            // Для примера используем простой поиск по DOM
-            const results = searchInDOM(query);
+            const response = await fetch(`/api/search/?q=${encodeURIComponent(query)}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            const results = data.results || [];
             
             if (results.length === 0) {
                 showNoResults();
@@ -118,46 +121,6 @@
             console.error('Ошибка поиска:', error);
             showError();
         }
-    }
-    
-    // Поиск в DOM (заглушка для реального API)
-    function searchInDOM(query) {
-        const results = [];
-        const lowerQuery = query.toLowerCase();
-        
-        // Поиск по заголовкам новостей
-        document.querySelectorAll('.news-card .card-title, .news-title').forEach(el => {
-            const text = el.textContent.toLowerCase();
-            if (text.includes(lowerQuery)) {
-                const link = el.closest('a') || el.querySelector('a');
-                if (link) {
-                    results.push({
-                        title: el.textContent.trim(),
-                        url: link.href,
-                        type: 'news',
-                        icon: contentIcons.news
-                    });
-                }
-            }
-        });
-        
-        // Поиск по портфолио
-        document.querySelectorAll('.portfolio-card .card-title, .portfolio-title').forEach(el => {
-            const text = el.textContent.toLowerCase();
-            if (text.includes(lowerQuery)) {
-                const link = el.closest('a') || el.querySelector('a');
-                if (link) {
-                    results.push({
-                        title: el.textContent.trim(),
-                        url: link.href,
-                        type: 'portfolio',
-                        icon: contentIcons.portfolio
-                    });
-                }
-            }
-        });
-        
-        return results.slice(0, config.maxResults);
     }
     
     // Показать результаты

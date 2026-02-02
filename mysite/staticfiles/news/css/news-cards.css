@@ -53,7 +53,6 @@
     background-color: #f8f9fa;
 } */
 
-/* Изображение новости */
 .news-image-detail {
     width: 100% !important;
     max-width: 100%;
@@ -61,7 +60,6 @@
     border-radius: 8px;
 }
 
-/* Заголовок новости */
 .news-title-detail {
     font-size: 3rem;
     font-weight: 600;

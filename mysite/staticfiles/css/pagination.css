@@ -1,0 +1,48 @@
+/* ==========================================================================
+   ФАЙЛ: pagination.css
+   ОПИСАНИЕ: Премиум стили для пагинации
+   ========================================================================== */
+
+.pagination {
+    gap: 0.5rem; /* Отступ между кнопками */
+    align-items: center;
+}
+
+.page-item .page-link {
+    border: none;
+    background: #f1f5f9; /* Светло-серый фон */
+    color: #64748b; /* Серый текст */
+    border-radius: 50%; /* Круглые кнопки */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.page-item.active .page-link {
+    background: #3b82f6; /* Синий активный */
+    color: white;
+    transform: scale(1.1); /* Небольшое увеличение */
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+}
+
+.page-item .page-link:hover {
+    background: #e2e8f0;
+    color: #3b82f6;
+    transform: translateY(-2px);
+}
+
+.page-item.active .page-link:hover {
+    background: #2563eb;
+    color: white;
+}
+
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+    border-radius: 50%; /* Убедимся что стрелки тоже круглые */
+    font-size: 0.9rem;
+}

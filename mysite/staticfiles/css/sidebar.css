@@ -101,14 +101,14 @@
     object-fit: cover;                       /* Обрезка с сохранением пропорций */
 }
 
-/* Маленькое изображение новости в сайдбаре*/
+/* Маленькое изображение новости в сайдбаре */
 .sidebar-news-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
     border-radius: 2px;
     margin-right: var(--spacing-xs);
-    display: block;
+    display: inline-block;
     vertical-align: middle;
 }
 

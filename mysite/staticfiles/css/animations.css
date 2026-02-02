@@ -153,32 +153,6 @@
     }
 }
 
-/* Анимация плавания (для фоновых элементов) */
-@keyframes float {
-    0% {
-        transform: translateY(0px) translateX(0px);
-    }
-    50% {
-        transform: translateY(-20px) translateX(10px);
-    }
-    100% {
-        transform: translateY(0px) translateX(0px);
-    }
-}
-
-/* Анимация плавания (обратная) */
-@keyframes floatReverse {
-    0% {
-        transform: translateY(0px) translateX(0px);
-    }
-    50% {
-        transform: translateY(20px) translateX(-10px);
-    }
-    100% {
-        transform: translateY(0px) translateX(0px);
-    }
-}
-
 /* ============================================
    АНИМАЦИИ ДЛЯ КНОПОК
    ============================================ */
