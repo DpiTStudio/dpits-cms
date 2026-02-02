@@ -22,7 +22,7 @@
                         <h6 class="fw-semibold mb-0 lh-sm text-dark hover-text-primary transition-color">
                             {{ news.title|truncatechars:50 }}
                         </h6>
-                        <div class="position-relative overflow-hidden rounded-3" style="height: 100%;">
+                        <div class="position-relative overflow-hidden rounded-3 h-100">
                             {% if news.image %}
                             <img src="{{ news.image.url }}" 
                                  alt="{{ news.title }}"

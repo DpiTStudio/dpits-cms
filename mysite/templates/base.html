@@ -110,31 +110,21 @@
     <!-- Блок хлебных крошек (теперь внутри hero.html) -->
     {% block breadcrumbs %}{% endblock %}
 
-    <!-- Контейнер с полной шириной для основного контента -->
-    <div class="container-fluid px-0">
-      <!-- Строка Bootstrap для сетки -->
-      <div class="row g-0 g-md-4">
-        <!-- Основной контент - занимает 12 колонок на маленьких экранах, 10 на больших -->
-        <div class="col-12 col-lg-10">
-          <!-- Блок основного контента (переопределяется в дочерних шаблонах) -->
+    <div class="container-fluid">
+      <div class="row g-4">
+        <!-- Основной контент - 70% -->
+        <div class="col-12 col-lg-9">
           {% block content %}
           <!-- Основной контент будет здесь -->
           {% endblock %}
-
-          {% comment %} 
-          <!-- Блок рекомендуемых страниц (переопределяется в дочерних шаблонах) -->
-          {% block featured_pages %}
-          <!-- Подключение шаблона рекомендуемых страниц -->
-          {% include 'featured_pages.html' %} {% endblock %} 
-          {% endcomment %}
-
         </div>
 
-        <!-- Блок сайдбара (переопределяется в дочерних шаблонах) -->
-        {% block sidebar %}
-        <!-- Подключение шаблона сайдбара -->
-        {% include 'sidebar.html' %}
-        {% endblock %}
+        <!-- Сайдбар - 30% -->
+        <div class="col-12 col-lg-3">
+          {% block sidebar %}
+          {% include 'sidebar.html' %}
+          {% endblock %}
+        </div>
       </div>
     </div>
 

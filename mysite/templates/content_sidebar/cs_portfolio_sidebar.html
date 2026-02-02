@@ -21,9 +21,9 @@
             <h6 class="mb-1 d-flex align-items-start">
                 <!-- Изображение работы с адаптивными размерами -->
                 {% if portfolio_item.image %}
-                <img src="{{ portfolio_item.image.url }}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ portfolio_item.title }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                <img src="{{ portfolio_item.image.url }}" class="sidebar-news-image me-2 flex-shrink-0 object-fit-cover rounded-1" alt="{{ portfolio_item.title }}" style="width: 60px; height: 60px;">
                 {% else %}
-                <img src="{% static 'images/default-portfolio.jpg' %}" class="sidebar-news-image me-2 flex-shrink-0" alt="{{ portfolio_item.title }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                <img src="{% static 'images/default-portfolio.jpg' %}" class="sidebar-news-image me-2 flex-shrink-0 object-fit-cover rounded-1" alt="{{ portfolio_item.title }}" style="width: 60px; height: 60px;">
                 {% endif %}
                 <!-- Ссылка на детальную страницу работы без подчеркивания и темным текстом -->
                 <a href="{% url 'portfolio:detail' portfolio_item.slug %}" 

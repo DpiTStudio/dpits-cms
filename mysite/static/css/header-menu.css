@@ -83,7 +83,7 @@
 
 .nav-text {
     /* Жирность текста */
-    font-weight: 500;
+    font-weight: 900;
     /* Плавная анимация */
     transition: all 0.3s ease;
     /* Запрет переноса строк */
@@ -178,9 +178,9 @@
     /* Скругление */
     border-radius: 8px;
     /* Внутренние отступы сверху/снизу */
-    padding: 3px 0;
+    padding: 1px 0;
     /* Отступ сверху от кнопки */
-    margin-top: 16px;
+    margin-top: 50px;
     /* Анимация появления */
     animation: fadeIn 0.2s ease;
 }
