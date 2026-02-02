@@ -180,7 +180,7 @@
     /* Внутренние отступы сверху/снизу */
     padding: 3px 0;
     /* Отступ сверху от кнопки */
-    margin-top: 5px;
+    margin-top: 16px;
     /* Анимация появления */
     animation: fadeIn 0.2s ease;
 }

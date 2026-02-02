@@ -19,14 +19,12 @@
     {% elif '/accounts/' in request.path %}hero-accounts
     {% elif '/services/' in request.path %}hero-services
     {% else %}hero-home{% endif %}"
-    style="
-        {% if hero.hero_image %}background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ hero.hero_image.url }}');
-        {% elif category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ category.image.url }}');
-        {% elif service.background %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ service.background.url }}');
-        {% elif news.category.image %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ news.category.image.url }}');
-        {% elif site_settings.hero_background %}background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ site_settings.hero_background.url }}');
-        {% endif %} 
-        background-size: cover; background-position: center; min-height: 350px;">
+    style="{% if hero.hero_image %}--hero-bg-url: url('{{ hero.hero_image.url }}');
+        {% elif category.image %}--hero-bg-url: url('{{ category.image.url }}');
+        {% elif service.background %}--hero-bg-url: url('{{ service.background.url }}');
+        {% elif news.category.image %}--hero-bg-url: url('{{ news.category.image.url }}');
+        {% elif site_settings.hero_background %}--hero-bg-url: url('{{ site_settings.hero_background.url }}');
+        {% endif %}"
     
     <div class="container-fluid px-3 px-md-4 px-lg-5">
         <div class="row align-items-center g-4 py-4 py-md-5">

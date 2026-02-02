@@ -101,53 +101,6 @@
     </li>
 </ul>
 
-<!-- JavaScript для управления подменю при наведении -->
-<script>
-// Показываем подменю при наведении
-function showMainDropdown() {
-    const dropdownMenu = document.getElementById('mainDropdownMenu');
-    if (dropdownMenu) {
-        dropdownMenu.classList.add('show');
-    }
-}
 
-// Скрываем подменю при уходе мыши
-function hideMainDropdown() {
-    const dropdownMenu = document.getElementById('mainDropdownMenu');
-    if (dropdownMenu) {
-        // Не скрываем сразу, даем время для перехода на подменю
-        setTimeout(() => {
-            if (!dropdownMenu.matches(':hover')) {
-                dropdownMenu.classList.remove('show');
-            }
-        }, 100);
-    }
-}
-
-// Держим подменю открытым при наведении на него
-function keepDropdownOpen() {
-    const dropdownMenu = document.getElementById('mainDropdownMenu');
-    if (dropdownMenu) {
-        dropdownMenu.classList.add('show');
-    }
-}
-
-// Закрываем подменю при уходе мыши с него
-function closeDropdown() {
-    const dropdownMenu = document.getElementById('mainDropdownMenu');
-    if (dropdownMenu) {
-        dropdownMenu.classList.remove('show');
-    }
-}
-
-// Добавляем обработчики событий
-document.addEventListener('DOMContentLoaded', function() {
-    const mainDropdown = document.getElementById('mainDropdown');
-    if (mainDropdown) {
-        mainDropdown.addEventListener('mouseenter', showMainDropdown);
-        mainDropdown.addEventListener('mouseleave', hideMainDropdown);
-    }
-});
-</script>
 
 <!-- Стили для улучшенного внешнего вида подменю -->
