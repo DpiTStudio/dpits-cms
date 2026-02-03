@@ -24,13 +24,28 @@ from .models import StatisticsBanner #
 
 
 @receiver([post_save, post_delete], sender=SiteSettings)
-def clear_site_settings_cache(sender, **kwargs):
+def clear_site_settings_cache(sender, instance=None, **kwargs):
     """
     Очищает весь кэш при изменении настроек сайта.
     Это необходимо для немедленного вступления в силу изменений статуса сайта (открыт/закрыт),
     так как страницы могут быть закэшированы целиком через @cache_page.
+    
+    Параметры:
+        sender: Класс модели SiteSettings
+        instance: Экземпляр модели (может быть None при delete)
+        **kwargs: Дополнительные аргументы сигнала
     """
     cache.clear()  # Очищаем весь кэш для немедленного обновления состояния сайта
+    
+    # Логируем для отладки
+    import logging
+    logger = logging.getLogger(__name__)
+    
+    if instance:
+        status = "ЗАКРЫТ" if instance.site_closed else "ОТКРЫТ"
+        logger.info(f"Настройки сайта изменены. Статус: {status}. Кэш очищен.")
+    else:
+        logger.info("Настройки сайта удалены. Кэш очищен.")
 
 
 @receiver([post_save, post_delete], sender=Page)
