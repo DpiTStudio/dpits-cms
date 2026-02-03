@@ -352,10 +352,10 @@
                         <p class="text-muted mb-3">Свяжитесь с нами любым удобным способом</p>
                         
                         <div class="d-grid gap-2">
-                            <a href="tel:{{ site_settings.phone }}" class="btn btn-outline-dark rounded-pill">
+                            <a href="tel:{{ site_settings.phone1 }}" class="btn btn-outline-dark rounded-pill">
                                 <i class="fas fa-phone me-2"></i> Позвонить
                             </a>
-                            <a href="https://wa.me/{{ site_settings.whatsapp }}" class="btn btn-outline-success rounded-pill" target="_blank">
+                            <a href="https://wa.me/{{ site_settings.phone1|cut:' ' }}" class="btn btn-outline-success rounded-pill" target="_blank">
                                 <i class="fab fa-whatsapp me-2"></i> WhatsApp
                             </a>
                             <a href="mailto:{{ site_settings.email }}" class="btn btn-outline-primary rounded-pill">

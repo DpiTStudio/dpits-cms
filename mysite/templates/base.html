@@ -26,7 +26,7 @@
     content="{% block meta_description %}{{ site_settings.short_description|striptags|truncatewords:30 }}{% endblock %}" />
 
   <!-- Мета-ключевые слова для поисковых систем -->
-  <meta name="keywords" content="{% block meta_keywords %}{{ site_settings.meta_keywords }}{% endblock %}" />
+  <meta name="keywords" content="{% block meta_keywords %}{{ site_settings.seo_keywords }}{% endblock %}" />
 
   <!-- Автор сайта -->
   <meta name="author" content="{{ site_settings.logo_text }}" />
