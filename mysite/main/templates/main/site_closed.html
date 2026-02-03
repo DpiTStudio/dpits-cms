@@ -1,81 +1,262 @@
-<!-- templates/main/site_closed.html -->
-{% extends 'base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - Техническое обслуживание</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+        }
 
-{% block title %}
-    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - Сайт на техническом обслуживании
-{% endblock %}
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 40%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            overflow-x: hidden;
+        }
 
-{% block meta_description %}
-    {{ site_settings.seo_description|default:"Сайт временно недоступен из-за технического обслуживания. Приносим извинения за неудобства." }}
-{% endblock %}
+        .maintenance-container {
+            max-width: 900px;
+            width: 100%;
+            padding: 2rem;
+            animation: fadeIn 1s ease-out;
+        }
 
-{% block meta_keywords %}
-    {{ site_settings.seo_keywords|default:"сайт, техническое обслуживание, обслуживание, техническое, обслуживание, обслуживание, техническое, обслуживание" }}
-{% endblock %}
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-{% block content %}
-<div class="container-fluid py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10 text-center">
-            <div class="error-icon mb-4">
-                <i class="fas fa-tools fa-5x text-warning"></i>
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2rem;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-section {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(99, 102, 241, 0.1);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 2rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            border-radius: 99px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid transparent;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-5px);
+            color: var(--primary);
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .refresh-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .refresh-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+        }
+
+        .content-body {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .glass-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="maintenance-container text-center">
+        <div class="glass-card">
+            <div class="logo-section">
+                {% if site_settings.logo %}
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" style="max-height: 60px;">
+                {% else %}
+                    {{ site_settings.logo_text|default:"DPITS-CMS" }}
+                {% endif %}
             </div>
-            
-            <h1 class="display-4 fw-bold mb-4 text-warning">
-                <i class="fas fa-exclamation-triangle me-2"></i>
-                Сайт на техническом обслуживании
-            </h1>
-            
-            <div class="card shadow-sm border-warning mb-5">
-                <div class="card-body p-5">
-                    <div class="content-body">
-                        {% if site_settings.closure_message %}
-                            {{ site_settings.closure_message|safe }}
-                        {% else %}
-                            <p class="lead">В настоящее время сайт находится на техническом обслуживании.</p>
-                            <p>Мы работаем над улучшением сервиса и скоро вернемся.</p>
-                            <p>Приносим извинения за временные неудобства.</p>
-                        {% endif %}
-                    </div>
-                </div>
+
+            <div class="loader"></div>
+
+            <div class="status-badge">
+                <i class="fas fa-sync-alt fa-spin me-2"></i>Сайт обновляется
             </div>
+
+            <h1 class="h2 fw-bold mb-4">Техническое обслуживание</h1>
             
-            <div class="d-flex flex-wrap justify-content-center gap-3">
-                <button onclick="location.reload()" class="btn btn-warning btn-lg">
-                    <i class="fas fa-redo me-2"></i>
-                    Обновить страницу
-                </button>
-                <a href="mailto:{{ site_settings.email|default:'support@example.com' }}" 
-                   class="btn btn-outline-warning btn-lg">
-                    <i class="fas fa-envelope me-2"></i>
-                    Написать нам
+            <div class="content-body">
+                {% if site_settings.closure_message %}
+                    {{ site_settings.closure_message|safe }}
+                {% else %}
+                    Мы проводим плановые работы для улучшения вашего пользовательского опыта. 
+                    Совсем скоро всё заработает в штатном режиме. Благодарим за терпение!
+                {% endif %}
+            </div>
+
+            <button onclick="location.reload()" class="refresh-btn">
+                <i class="fas fa-redo me-2"></i>Проверить готовность
+            </button>
+
+            <div class="contact-grid">
+                {% if site_settings.phone1 %}
+                <a href="tel:{{ site_settings.phone1 }}" class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <div class="small fw-bold">Телефон</div>
+                    <div class="text-muted small">{{ site_settings.phone1 }}</div>
                 </a>
-            </div>
-            
-            {% if site_settings.phone1 %}
-            <div class="mt-5">
-                <p class="text-muted">
-                    <i class="fas fa-phone me-2"></i>
-                    Для экстренной связи: 
-                    <a href="tel:{{ site_settings.phone1 }}" class="text-decoration-none">
-                        {{ site_settings.phone1 }}
-                    </a>
-                </p>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-</div>
+                {% endif %}
 
-<style>
-    .error-icon {
-        animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
-</style>
-{% endblock %}
+                {% if site_settings.email %}
+                <a href="mailto:{{ site_settings.email }}" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div class="small fw-bold">Email</div>
+                    <div class="text-muted small">{{ site_settings.email }}</div>
+                </a>
+                {% endif %}
+
+                {% if site_settings.whatsapp %}
+                <a href="https://wa.me/{{ site_settings.whatsapp|cut:' '|cut:'+' }}" class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="small fw-bold">WhatsApp</div>
+                    <div class="text-muted small">{{ site_settings.whatsapp }}</div>
+                </a>
+                {% endif %}
+            </div>
+
+            <div class="social-links">
+                {% if site_settings.telegram %}<a href="{{ site_settings.telegram }}" class="social-btn" title="Telegram"><i class="fab fa-telegram-plane"></i></a>{% endif %}
+                {% if site_settings.vk %}<a href="{{ site_settings.vk }}" class="social-btn" title="VK"><i class="fab fa-vk"></i></a>{% endif %}
+                {% if site_settings.youtube %}<a href="{{ site_settings.youtube }}" class="social-btn" title="YouTube"><i class="fab fa-youtube"></i></a>{% endif %}
+                {% if site_settings.instagram %}<a href="{{ site_settings.instagram }}" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>{% endif %}
+            </div>
+        </div>
+        
+        <p class="mt-4 text-muted small">
+            &copy; {% now "Y" %} {{ site_settings.logo_text|default:"DPITS-CMS" }}. Все права защищены.
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
