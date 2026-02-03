@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",  # Добавлено: для работы с фильтрами дат (например, naturaltime)
+    "django.contrib.sitemaps",  # Добавлено: карта сайта
     # Пользовательские приложения проекта
     "main.apps.MainConfig",  # Главное приложение
     "news.apps.NewsConfig",  # Новости
