@@ -39,8 +39,8 @@ class SiteSettingsAdmin(admin.ModelAdmin):
     Админка для глобальных настроек сайта.
     Реализует шаблон Singleton (только одна запись в БД).
     """
-    
-    # Запрещаем создавать более одной записи
+        
+    # Отображаем только одну запись в списке
     def has_add_permission(self, request):
         return not SiteSettings.objects.exists()
 
