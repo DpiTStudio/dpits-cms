@@ -14,49 +14,17 @@ from django.conf import settings  # Импорт настроек Django
 from django.conf.urls.static import (
     static,
 )  # Импорт функции для обслуживания статических файлов
-from django.views.generic import TemplateView  # Для отображения robots.txt
-from django.contrib.sitemaps.views import sitemap  # View для карты сайта
-from .sitemaps import (
-    StaticViewSitemap,
-    PageSitemap,
-    NewsSitemap,
-    PortfolioSitemap,
-    ServiceSitemap,
-)  # Импорт классов карты сайта
 
 # Настройка заголовков админ-панели
 admin.site.site_header = "DPITS CMS"
 admin.site.site_title = "CMS"
 admin.site.index_title = "Панель управления"
 
-# Словарь карт сайта
-sitemaps = {
-    "static": StaticViewSitemap,
-    "pages": PageSitemap,
-    "news": NewsSitemap,
-    "portfolio": PortfolioSitemap,
-    "services": ServiceSitemap,
-}
-
 # Основные маршруты URL проекта
 urlpatterns = [
     path("admin/", admin.site.urls),  # Маршрут для админ-панели
     path("ckeditor5/", include("django_ckeditor_5.urls")),  # Маршруты для CKEditor 5
     path("captcha/", include("captcha.urls")),  # Маршруты для капчи
-    
-    # SEO маршруты
-    path(
-        "sitemap.xml",
-        sitemap,
-        {"sitemaps": sitemaps},
-        name="django.contrib.sitemaps.views.sitemap",
-    ),
-    path(
-        "robots.txt",
-        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
-    ),
-
-
     path("", include("main.urls")),  # Главная страница и основные маршруты
     path("news/", include("news.urls")),  # Маршруты для новостей
     path("portfolio/", include("portfolio.urls")),  # Маршруты для портфолио

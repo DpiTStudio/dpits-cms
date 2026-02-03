@@ -24,28 +24,29 @@ from .models import StatisticsBanner #
 
 
 @receiver([post_save, post_delete], sender=SiteSettings)
-def clear_site_settings_cache(sender, instance=None, **kwargs):
+def clear_site_settings_cache(sender, **kwargs):
     """
-    Очищает весь кэш при изменении настроек сайта.
-    Это необходимо для немедленного вступления в силу изменений статуса сайта (открыт/закрыт),
-    так как страницы могут быть закэшированы целиком через @cache_page.
-    
+    Очищает кэш настроек сайта при сохранении или удалении.
+    Вызывается автоматически при изменениях в модели SiteSettings.
+
+    Действия:
+    1. Удаляет кэш настроек сайта
+    2. Удаляет кэш меню страниц
+    3. Удаляет кэш рекомендуемых страниц
+
     Параметры:
-        sender: Класс модели SiteSettings
-        instance: Экземпляр модели (может быть None при delete)
-        **kwargs: Дополнительные аргументы сигнала
+        sender: Класс модели, отправившей сигнал
+        **kwargs: Дополнительные аргументы (instance, created и т.д.)
     """
-    cache.clear()  # Очищаем весь кэш для немедленного обновления состояния сайта
-    
-    # Логируем для отладки
-    import logging
-    logger = logging.getLogger(__name__)
-    
-    if instance:
-        status = "ЗАКРЫТ" if instance.site_closed else "ОТКРЫТ"
-        logger.info(f"Настройки сайта изменены. Статус: {status}. Кэш очищен.")
-    else:
-        logger.info("Настройки сайта удалены. Кэш очищен.")
+    cache_keys = [
+        "site_settings",  # Основные настройки сайта
+        "site_settings_IndexView",  # Кэш для IndexView
+        "site_settings_PageDetailView",  # Кэш для PageDetailView
+        "menu_pages",  # Кэш меню навигации
+        "featured_pages",  # Кэш рекомендуемых страниц
+    ]
+    for key in cache_keys:
+        cache.delete(key)  # Удаляем каждый ключ из кэша
 
 
 @receiver([post_save, post_delete], sender=Page)
@@ -84,6 +85,8 @@ def clear_managed_files_cache(sender, **kwargs):
     """
     # Проверяем, что это модель ManagedFile
     if sender.__name__ == "ManagedFile":
+        from .models import ManagedFile
+
         cache_keys = [
             "managed_files_list",  # Кэш списка всех файлов
             "managed_files_active",  # Кэш активных файлов

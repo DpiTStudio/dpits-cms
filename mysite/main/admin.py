@@ -39,68 +39,8 @@ class SiteSettingsAdmin(admin.ModelAdmin):
     Админка для глобальных настроек сайта.
     Реализует шаблон Singleton (только одна запись в БД).
     """
-    list_display = ("title", "favicon", "logo",)
-    list_editable = ("favicon", "logo",)
-    fieldsets = (
-        (_("Основные настройки"), {
-            "fields": (
-                "title",
-                "description",
-                "slogan",
-                "logo",
-                "favicon",
-                "logo_text",
-            )}),
-        (_("Контент главной страницы"), {
-            "fields": (
-                "motto",
-                "short_description",
-                "content",
-            )}),
-        (_("Hero-секция"), {
-            "fields": (
-                "hero_title",
-                "hero_subtitle",
-                "hero_image",
-                "hero_background",
-                "hero_is_active",
-            )}),
-        (_("Контакты"), {
-            "fields": (
-                "phone1",
-                "phone2",
-                "whatsapp",
-                "email",
-                "address",
-                "contacts",
-            )}),
-        (_("Социальные сети"), {
-            "fields": (
-                "facebook",
-                "twitter",
-                "linkedin",
-                "pinterest",
-                "instagram",
-                "youtube",
-                "rutube",
-                "vk_video",
-                "vk",
-                "ok",
-            )}),
-        (_("SEO настройки"), {
-            "fields": (
-                "seo_title",
-                "seo_description",
-                "seo_keywords",
-            )}),
-        (_("Статус сайта"), {
-            "fields": (
-                "site_closed",
-                "closure_message",
-            )}),
-    )
     
-    # Отображаем только одну запись в списке
+    # Запрещаем создавать более одной записи
     def has_add_permission(self, request):
         return not SiteSettings.objects.exists()
 
@@ -108,7 +48,6 @@ class SiteSettingsAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
-    # Метод для сохранения модели
     def save_model(self, request, obj, form, change):
         """При сохранении настроек очищаем кэш, чтобы изменения сразу вступили в силу."""
         super().save_model(request, obj, form, change)
@@ -118,7 +57,6 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         cache.delete("menu_pages")
         cache.delete("featured_pages")
 
-    # Метод для получения URL
     def get_urls(self):
         """Добавляет кастомный URL /admin/main/sitesettings/server-info/ для просмотра параметров сервера."""
         urls = super().get_urls()
@@ -131,7 +69,6 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         ]
         return custom_urls + urls
 
-    # Метод для отображения страницы с информацией о сервере
     def server_info_view(self, request):
         """Представление для страницы с полной технической информацией о сервере."""
         context = {

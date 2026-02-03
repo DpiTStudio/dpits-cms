@@ -1,8 +1,10 @@
 {% load services_extras %}
 {% load static %}
 
-{# Получаем популярные услуги #}
-{% get_popular_services_by_category limit=10 as popular_categories %}
+{% get_popular_services_by_category limit=3 as popular_categories %}
+
+{# Показываем только если мы НЕ в приложении services и есть категории #}
+{% if request.resolver_match.app_name != 'services' and popular_categories %}
 <div class="card mb-4 shadow-sm border-0 rounded-4 overflow-hidden">
     <!-- Заголовок -->
     <div class="card-header bg-primary text-white">
@@ -25,7 +27,7 @@
                 {% for service in cat_item.services %}
                 <a href="{{ service.get_absolute_url }}" class="list-group-item list-group-item-action border-0 px-2 py-2 mb-1 rounded-2 d-flex align-items-center">
                     {% if service.icon %}
-                        <img src="{{ service.icon.url }}" alt="" class="me-2" style="width: 100%; height: auto; object-fit: contain;">
+                        <img src="{{ service.icon.url }}" alt="" class="me-2" style="width: 24px; height: 24px; object-fit: contain;">
                     {% else %}
                         <i class="fas fa-check-circle text-primary me-2 opacity-50"></i>
                     {% endif %}
@@ -58,3 +60,4 @@
     margin-bottom: 0 !important;
 }
 </style>
+{% endif %}

@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize",  # Добавлено: для работы с фильтрами дат (например, naturaltime)
-    "django.contrib.sitemaps",  # Добавлено: карта сайта
     # Пользовательские приложения проекта
     "main.apps.MainConfig",  # Главное приложение
     "news.apps.NewsConfig",  # Новости
@@ -128,30 +127,6 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",  # Движок базы данных
         "NAME": BASE_DIR / "db.sqlite3",  # Путь к файлу базы данных
     }
-    # "users": {
-    #     "ENGINE": "django.db.backends.sqlite3",  # Движок базы данных
-    #     "NAME": BASE_DIR / "users.sqlite3",  # Путь к файлу базы данных
-    # },
-    # "reviews": {
-    #     "ENGINE": "django.db.backends.sqlite3",  # Движок базы данных
-    #     "NAME": BASE_DIR / "reviews.sqlite3",  # Путь к файлу базы данных
-    # },
-    # "news": {
-    #     "ENGINE": "django.db.backends.sqlite3",  # Движок базы данных
-    #     "NAME": BASE_DIR / "news.sqlite3",  # Путь к файлу базы данных
-    # },
-    # "portfolio": {
-    #     "ENGINE": "django.db.backends.sqlite3",  # Движок базы данных
-    #     "NAME": BASE_DIR / "portfolio.sqlite3",  # Путь к файлу базы данных
-    # },
-    # "services": {
-    #     "ENGINE": "django.db.backends.sqlite3",  # Движок базы данных
-    #     "NAME": BASE_DIR / "services.sqlite3",  # Путь к файлу базы данных
-    # },
-    # "feedback": {
-    #     "ENGINE": "django.db.backends.sqlite3",  # Движок базы данных
-    #     "NAME": BASE_DIR / "feedback.sqlite3",  # Путь к файлу базы данных
-    # },   
 }
 
 # =============================================================================

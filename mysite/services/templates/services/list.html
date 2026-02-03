@@ -174,15 +174,6 @@
                         
                         <h3 class="service-card-title h5">{{ service.name }}</h3>
                         
-                        {% if service.get_active_discount > 0 %}
-                        <div class="position-absolute top-0 end-0 m-3">
-                            <span class="badge bg-danger rounded-pill px-3 py-2">
-                                <i class="fas fa-percent me-1"></i>
-                                -{{ service.get_active_discount }}%
-                            </span>
-                        </div>
-                        {% endif %}
-                        
                         <div class="service-card-description">
                             {{ service.short_description|striptags|truncatechars:150 }}
                         </div>
@@ -190,7 +181,7 @@
                         <div class="mt-auto">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div class="service-price">
-                                    {{ service.get_full_price_display|safe }}
+                                    {{ service.get_price_display }}
                                 </div>
                                 <span class="badge bg-light text-dark">
                                     <i class="fas fa-eye me-1"></i>
@@ -257,15 +248,6 @@
                         
                         <h3 class="service-card-title h5">{{ service.name }}</h3>
                         
-                        {% if service.get_active_discount > 0 %}
-                        <div class="position-absolute top-0 end-0 m-3">
-                            <span class="badge bg-danger rounded-pill px-3 py-2">
-                                <i class="fas fa-percent me-1"></i>
-                                -{{ service.get_active_discount }}%
-                            </span>
-                        </div>
-                        {% endif %}
-                        
                         <div class="service-card-description">
                             {{ service.short_description|striptags|truncatechars:150 }}
                         </div>
@@ -273,7 +255,7 @@
                         <div class="mt-auto">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div class="service-price">
-                                    {{ service.get_full_price_display|safe }}
+                                    {{ service.get_price_display }}
                                 </div>
                                 {% if service.can_order %}
                                 <span class="badge bg-success bg-opacity-10 text-success">
