@@ -157,9 +157,16 @@
                 <p class="lead mb-4 opacity-75">{{ service.short_description|striptags|truncatechars:200 }}</p>
                 
                 <div class="d-flex flex-wrap gap-3 align-items-center">
-                    <span class="price-badge bg-white text-primary">
-                        {{ service.get_price_display }}
-                    </span>
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="price-badge bg-white text-primary">
+                            {{ service.get_full_price_display|safe }}
+                        </span>
+                        {% if service.get_active_discount > 0 %}
+                        <span class="badge bg-danger rounded-pill py-2 px-3">
+                            <i class="fas fa-percent me-1"></i> -{{ service.get_active_discount }}% АКЦИЯ
+                        </span>
+                        {% endif %}
+                    </div>
                     {% if service.can_order %}
                     <span class="badge bg-success bg-opacity-25 text-success py-2 px-3">
                         <i class="fas fa-check-circle me-1"></i> Доступно для заказа
@@ -281,7 +288,7 @@
                                 </div>
                                 <div>
                                     <small class="text-muted d-block">Стоимость</small>
-                                    <span class="fw-bold fs-4">{{ service.get_price_display }}</span>
+                                    <span class="fw-bold fs-4">{{ service.get_full_price_display|safe }}</span>
                                 </div>
                             </div>
                             
@@ -386,7 +393,7 @@
                             <p class="text-muted small mb-3">{{ related.short_description|striptags|truncatechars:100 }}</p>
                             
                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold text-primary">{{ related.get_price_display }}</span>
+                                <span class="fw-bold text-primary">{{ related.get_full_price_display|safe }}</span>
                                 <a href="{{ related.get_absolute_url }}" class="btn btn-sm btn-outline-primary rounded-pill">
                                     Подробнее <i class="fas fa-arrow-right ms-1"></i>
                                 </a>

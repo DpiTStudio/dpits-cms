@@ -14,6 +14,8 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
         "slug",
         "order",
         "is_active",
+        "discount_percentage",
+        "discount_active",
         "services_count",
         "views",
         "created_at",
@@ -57,6 +59,12 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
             },
         ),
         (
+            _("Акции"),
+            {
+                "fields": ("discount_percentage", "discount_active"),
+            },
+        ),
+        (
             _("Системная информация"),
             {
                 "fields": ("views", "created_at", "updated_at", "services_count_display"),
@@ -85,7 +93,8 @@ class ServiceAdmin(admin.ModelAdmin):
     list_display = [
         "name",
         "category",
-        "price_display",
+        "price_display_full",
+        "is_on_sale",
         "can_order",
         "is_displayed",
         "views",
@@ -141,6 +150,15 @@ class ServiceAdmin(admin.ModelAdmin):
                     "price_from",
                     "price_to",
                     "currency",
+                ),
+            },
+        ),
+        (
+            _("Акции"),
+            {
+                "fields": (
+                    "discount_percentage",
+                    "is_on_sale",
                 ),
             },
         ),
@@ -210,8 +228,8 @@ class ServiceAdmin(admin.ModelAdmin):
 
     background_preview_large.short_description = _("Превью фона")
 
-    def price_display(self, obj):
-        """Отображение цены в списке"""
-        return obj.get_price_display()
+    def price_display_full(self, obj):
+        """Отображение полной цены со скидкой в списке"""
+        return format_html(obj.get_full_price_display())
 
-    price_display.short_description = _("Цена")
+    price_display_full.short_description = _("Цена")
