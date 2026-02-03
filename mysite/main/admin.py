@@ -69,8 +69,10 @@ class SiteSettingsAdmin(admin.ModelAdmin):
             "fields": (
                 "phone1",
                 "phone2",
+                "whatsapp",
                 "email",
                 "address",
+                "contacts",
             )}),
         (_("Социальные сети"), {
             "fields": (

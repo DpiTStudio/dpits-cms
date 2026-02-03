@@ -155,6 +155,9 @@ class SiteSettings(SingletonModel, HeroMixin):
     address = models.CharField(_("Адрес"), max_length=255, blank=True)
     # Текстовое поле для физического адреса
 
+    whatsapp = models.CharField(_("WhatsApp"), max_length=20, blank=True)
+    # Поле для WhatsApp (телефон или ссылка)
+
     # Брендинг и контент
     logo = models.ImageField(
         _("Логотип"),
@@ -281,6 +284,9 @@ class SiteSettings(SingletonModel, HeroMixin):
         help_text=_("Сообщение, которое увидят пользователи при закрытии сайта"),
     )
     # Сообщение для пользователей при закрытом сайте
+
+    contacts = CKEditor5Field(_("Текст в разделе контактов"), blank=True)
+    # Поле для произвольного текста в разделе контактов
     
     # Социальные сети
     twitter = models.URLField(_("Twitter"), blank=True)
