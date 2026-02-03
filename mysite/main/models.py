@@ -129,7 +129,7 @@ class AppHeroSettings(HeroMixin):
         return self.get_app_name_display()
 
 
-class SiteSettings(SingletonModel):
+class SiteSettings(SingletonModel, HeroMixin):
     """
     Модель для хранения глобальных настроек сайта.
     Наследует SingletonModel для гарантии единственного экземпляра.
@@ -139,6 +139,9 @@ class SiteSettings(SingletonModel):
     # Контактная информация
     title = models.CharField(_("Название сайта"), max_length=100, blank=True)
     # Поле для названия сайта
+
+    description = models.CharField(_("Краткое описание (для списка)"), max_length=255, blank=True)
+    # Поле для краткого текстового описания
 
     phone1 = models.CharField(_("Основной телефон"), max_length=20, blank=True)
     # Поле для основного телефона, максимальная длина 20 символов, может быть пустым
@@ -160,6 +163,14 @@ class SiteSettings(SingletonModel):
         help_text=_("Рекомендуемый размер: 200x60 пикселей"),
     )
     # Поле для загрузки изображения логотипа
+
+    favicon = models.ImageField(
+        _("Фавикон"),
+        upload_to="logos/",
+        blank=True,
+        help_text=_("Иконка сайта (32x32 или 64x64)"),
+    )
+    # Поле для загрузки фавикона
 
     hero_background = models.ImageField(
         _("Фон Hero-секции"),
@@ -188,27 +199,51 @@ class SiteSettings(SingletonModel):
 
     # Социальные сети
     facebook = models.URLField(_("Facebook"), blank=True)
+    facebook_icon = models.ImageField(
+        _("Иконка Facebook"), upload_to="social_icons/", blank=True
+    )
     # Ссылка на Facebook
 
     instagram = models.URLField(_("Instagram"), blank=True)
+    instagram_icon = models.ImageField(
+        _("Иконка Instagram"), upload_to="social_icons/", blank=True
+    )
     # Ссылка на Instagram
 
     youtube = models.URLField(_("YouTube"), blank=True)
+    youtube_icon = models.ImageField(
+        _("Иконка YouTube"), upload_to="social_icons/", blank=True
+    )
     # Ссылка на YouTube
 
     rutube = models.URLField(_("Rutube"), blank=True)
+    rutube_icon = models.ImageField(
+        _("Иконка Rutube"), upload_to="social_icons/", blank=True
+    )
     # Ссылка на Rutube
 
     vk_video = models.URLField(_("VK Видео"), blank=True)
+    vk_video_icon = models.ImageField(
+        _("Иконка VK Видео"), upload_to="social_icons/", blank=True
+    )
     # Ссылка на VK Видео
 
     telegram = models.URLField(_("Telegram"), blank=True)
+    telegram_icon = models.ImageField(
+        _("Иконка Telegram"), upload_to="social_icons/", blank=True
+    )
     # Ссылка на Telegram
 
     vk = models.URLField(_("ВКонтакте"), blank=True)
+    vk_icon = models.ImageField(
+        _("Иконка ВКонтакте"), upload_to="social_icons/", blank=True
+    )
     # Ссылка на ВКонтакте
 
     ok = models.URLField(_("Одноклассники"), blank=True)
+    ok_icon = models.ImageField(
+        _("Иконка Одноклассники"), upload_to="social_icons/", blank=True
+    )
     # Ссылка на Одноклассники
 
     # SEO оптимизация
@@ -246,6 +281,25 @@ class SiteSettings(SingletonModel):
         help_text=_("Сообщение, которое увидят пользователи при закрытии сайта"),
     )
     # Сообщение для пользователей при закрытом сайте
+    
+    # Социальные сети
+    twitter = models.URLField(_("Twitter"), blank=True)
+    twitter_icon = models.ImageField(
+        _("Иконка Twitter"), upload_to="social_icons/", blank=True
+    )
+    # Ссылка на Twitter
+
+    pinterest = models.URLField(_("Pinterest"), blank=True)
+    pinterest_icon = models.ImageField(
+        _("Иконка Pinterest"), upload_to="social_icons/", blank=True
+    )
+    # Ссылка на Pinterest
+
+    linkedin = models.URLField(_("LinkedIn"), blank=True)
+    linkedin_icon = models.ImageField(
+        _("Иконка LinkedIn"), upload_to="social_icons/", blank=True
+    )
+    # Ссылка на LinkedIn
 
     # Временные метки
     created_at = models.DateTimeField(_("Создано"), auto_now_add=True)

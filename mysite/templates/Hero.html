@@ -7,7 +7,7 @@
 {% load static %}
 
 {# Определяем объект, из которого будем брать настройки Hero. Приоритет: Новость -> Портфолио -> Услуга -> Категория -> Страница -> Настройки раздела (app_hero) #}
-{% with hero=news|default:portfolio_item|default:service|default:category|default:page|default:app_hero %}
+{% with hero=news|default:portfolio_item|default:service|default:category|default:page|default:app_hero|default:site_settings %}
 
 {# Проверяем, разрешено ли отображение Hero на этой странице #}
 {% if hero.hero_is_active|default:True %}
