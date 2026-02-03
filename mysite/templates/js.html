@@ -14,9 +14,15 @@
 <!-- HTMX Library (for dynamic interactions) -->
 <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
 
-<!-- 2. Переключение темы -->
-<!-- Функционал переключения между светлой и темной темой -->
-<script src="{% static 'js/theme-toggle.js' %}"></script>
+<!-- 2. Принудительная установка светлой темы -->
+<script>
+    // Удаляем сохраненную тему из localStorage
+    localStorage.removeItem('theme');
+    // Удаляем атрибут data-theme, если он был установлен
+    if (document.documentElement.hasAttribute('data-theme')) {
+        document.documentElement.removeAttribute('data-theme');
+    }
+</script>
 
 <!-- 3. Индикатор прогресса чтения -->
 <!-- Отображение прогресса прокрутки страницы в верхней части экрана -->
