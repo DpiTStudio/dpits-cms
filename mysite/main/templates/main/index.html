@@ -38,6 +38,7 @@
       <!-- Основной контент -->
       <div class="col-12">
         <div class="row g-4">
+          {% comment %}  
           <!-- Краткое описание -->
           {% if site_settings.short_description %}
           <div class="col-12">
@@ -53,7 +54,8 @@
               </div>
             </div>
           </div>
-          {% endif %}
+          {% endif %} 
+          {% endcomment %}
 
           <!-- Основной контент -->
           {% if site_settings.content %}
