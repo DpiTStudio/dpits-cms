@@ -49,16 +49,14 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         return False
 
     def save_model(self, request, obj, form, change):
-        """При сохранении настроек очищаем кэш, чтобы изменения сразу вступили в силу."""
+        """При сохранении настроек очищаем кэш."""
         super().save_model(request, obj, form, change)
         from django.core.cache import cache
-        # Список ключей кэша, которые зависят от настроек
-        cache.delete("site_settings")
-        cache.delete("menu_pages")
-        cache.delete("featured_pages")
+        keys = ["site_settings", "menu_pages", "featured_pages"]
+        for key in keys:
+            cache.delete(key)
 
     def get_urls(self):
-        """Добавляет кастомный URL /admin/main/sitesettings/server-info/ для просмотра параметров сервера."""
         urls = super().get_urls()
         custom_urls = [
             path(
@@ -70,9 +68,8 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         return custom_urls + urls
 
     def server_info_view(self, request):
-        """Представление для страницы с полной технической информацией о сервере."""
         context = {
-            **self.admin_site.each_context(request), # Базовый контекст админки
+            **self.admin_site.each_context(request),
             "title": _("Информация о сервере"),
             "server_info": get_server_info(),
             "installed_apps": get_installed_apps_info(),
@@ -80,6 +77,52 @@ class SiteSettingsAdmin(admin.ModelAdmin):
             "site_url": get_site_url(),
         }
         return render(request, "admin/main/server_info.html", context)
+
+    # Группировка полей
+    fieldsets = (
+        (_("Основные данные"), {
+            "fields": ("title", "logo", "hero_background", "logo_text", "slogan", "motto"),
+        }),
+        (_("Контактная информация"), {
+            "fields": ("phone1", "phone2", "email", "address"),
+        }),
+        (_("Социальные сети и мессенджеры"), {
+            "fields": (
+                ("facebook"), ("icon_facebook"),
+                ("instagram"), ("icon_instagram"),
+                ("youtube"), ("icon_youtube"),
+                ("rutube"), ("icon_rutube"),
+                ("vk_video"), ("icon_vk_video"),
+                ("telegram"), ("icon_telegram"),
+                ("vk"), ("icon_vk"),
+                ("ok"), ("icon_ok"),
+                ("twitter"), ("icon_twitter"),
+                ("pinterest"), ("icon_pinterest"),
+                ("linkedin"), ("icon_linkedin"),
+                ("threads"), ("icon_threads"),
+                ("whatsapp"), ("icon_whatsapp"),
+                ("viber"), ("icon_viber"),
+                ("skype"), ("icon_skype"),
+            ),
+            "description": _("Укажите ссылки на страницы в соцсетях и иконки для них."),
+        }),
+        (_("Контент"), {
+            "fields": ("short_description", "content"),
+        }),
+        (_("Статус сайта"), {
+            "fields": ("site_closed", "closure_message"),
+        }),
+        (_("SEO оптимизация"), {
+            "fields": ("seo_title", "seo_keywords", "seo_description"),
+            "classes": ("collapse",),
+        }),
+        (_("Системная информация"), {
+            "fields": ("created_at", "updated_at"),
+            "classes": ("collapse",),
+        }),
+    )
+    
+    readonly_fields = ("created_at", "updated_at")
 
 
 @admin.register(Page)
@@ -106,7 +149,7 @@ class PageAdmin(admin.ModelAdmin):
         (None, {"fields": ("title", "slug", "content")}),
         (_("Отображение"), {"fields": ("show_in_menu", "show_on_site", "order")}),
         (
-            _("Настройки Hero-секции"),
+            _("Hero-секция"),
             {
                 "fields": (
                     "hero_title",
@@ -115,9 +158,6 @@ class PageAdmin(admin.ModelAdmin):
                     "hero_is_active",
                 ),
                 "classes": ("collapse",),
-                "description": _(
-                    "Эти настройки позволяют переопределить стандартный баннер вверху этой страницы."
-                ),
             },
         ),
         (
@@ -127,7 +167,9 @@ class PageAdmin(admin.ModelAdmin):
                 "classes": ("collapse",),
             },
         ),
+        (_("Даты"), {"fields": ("created_at", "updated_at"), "classes": ("collapse",)}),
     )
+    readonly_fields = ("created_at", "updated_at")
 
 
 @admin.register(AppHeroSettings)
@@ -348,3 +390,9 @@ class StatisticsBannerAdmin(admin.ModelAdmin):
             'description': 'Настройка прав доступа для разных групп пользователей'
         }),
     )
+
+# Импортируем админку файлов из отдельного модуля
+try:
+    from . import admin_files
+except ImportError:
+    pass

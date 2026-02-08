@@ -19,6 +19,8 @@
 import os  # Модуль для работы с операционной системой (файлы, директории)
 import shutil  # Модуль для операций с файлами (копирование, перемещение)
 import mimetypes  # Модуль для определения MIME-типов файлов (текстовый/бинарный)
+from django.core.files.storage import default_storage
+from django.utils.text import slugify, get_valid_filename
 from django.utils.translation import (
     gettext_lazy as _,
 )  # Функция для интернационализации строк
@@ -30,6 +32,66 @@ from datetime import datetime  # Класс для работы с датой и
 from django.db import models  # Базовые классы моделей Django ORM
 from django.utils import timezone  # Утилиты для работы с часовыми поясами
 from django.core.exceptions import ValidationError  # Исключение для ошибок валидации
+
+# Функции для загрузки файлов с переименованием
+def upload_to_with_date(instance, filename, prefix=None):
+    """
+    Генерирует путь для загрузки файла с переименованием в формате:
+    upload_to/prefix_YYYY-MM-DD_HH-MM-SS.ext
+    """
+    # Если префикс не указан, пытаемся определить его
+    if not prefix:
+        if isinstance(instance, SiteSettings):
+            prefix = "site"
+        elif isinstance(instance, Page):
+            prefix = "page"
+        else:
+            prefix = "file"
+
+    # Определяем папку загрузки на основе модели
+    upload_to = "uploads/"
+    if isinstance(instance, SiteSettings):
+        if "logo" in filename.lower():
+            upload_to = "logos/"
+        elif "hero" in filename.lower():
+            upload_to = "hero_bg/"
+        elif "icon" in filename.lower():
+            upload_to = "icons/social/"
+    elif isinstance(instance, Page):
+        upload_to = "pages/"
+
+    # Получаем текущую дату и время
+    now = timezone.now()
+    date_str = now.strftime("%Y-%m-%d_%H-%M-%S")
+    
+    # Получаем расширение файла
+    _, ext = os.path.splitext(filename)
+    ext = ext.lower()
+    
+    # Генерируем новое имя файла
+    new_filename = f"{prefix}_{date_str}{ext}"
+    
+    # Возвращаем полный путь
+    return os.path.join(upload_to, new_filename)
+
+# Функции-заглушки для загрузки файлов (для поддержки миграций)
+def upload_to_logos(instance, filename): return upload_to_with_date(instance, filename, "logo")
+def upload_to_hero_bg(instance, filename): return upload_to_with_date(instance, filename, "hero_bg")
+def upload_to_facebook_icon(instance, filename): return upload_to_with_date(instance, filename, "facebook_icon")
+def upload_to_instagram_icon(instance, filename): return upload_to_with_date(instance, filename, "instagram_icon")
+def upload_to_youtube_icon(instance, filename): return upload_to_with_date(instance, filename, "youtube_icon")
+def upload_to_rutube_icon(instance, filename): return upload_to_with_date(instance, filename, "rutube_icon")
+def upload_to_vk_video_icon(instance, filename): return upload_to_with_date(instance, filename, "vk_video_icon")
+def upload_to_telegram_icon(instance, filename): return upload_to_with_date(instance, filename, "telegram_icon")
+def upload_to_vk_icon(instance, filename): return upload_to_with_date(instance, filename, "vk_icon")
+def upload_to_ok_icon(instance, filename): return upload_to_with_date(instance, filename, "ok_icon")
+def upload_to_twitter_icon(instance, filename): return upload_to_with_date(instance, filename, "twitter_icon")
+def upload_to_pinterest_icon(instance, filename): return upload_to_with_date(instance, filename, "pinterest_icon")
+def upload_to_linkedin_icon(instance, filename): return upload_to_with_date(instance, filename, "linkedin_icon")
+def upload_to_whatsapp_icon(instance, filename): return upload_to_with_date(instance, filename, "whatsapp_icon")
+def upload_to_viber_icon(instance, filename): return upload_to_with_date(instance, filename, "viber_icon")
+def upload_to_skype_icon(instance, filename): return upload_to_with_date(instance, filename, "skype_icon")
+def upload_to_threads_icon(instance, filename): return upload_to_with_date(instance, filename, "threads_icon")
 
 
 class SingletonModel(models.Model):
@@ -136,116 +198,153 @@ class SiteSettings(SingletonModel):
     Содержит контакты, логотип, SEO-настройки и статус сайта.
     """
 
-    # Контактная информация
-    title = models.CharField(_("Название сайта"), max_length=100, blank=True)
-    # Поле для названия сайта
-
-    phone1 = models.CharField(_("Основной телефон"), max_length=20, blank=True)
-    # Поле для основного телефона, максимальная длина 20 символов, может быть пустым
-
-    phone2 = models.CharField(_("Дополнительный телефон"), max_length=20, blank=True)
-    # Поле для дополнительного телефона
-
-    email = models.EmailField(_("Электронная почта"), max_length=255, blank=True)
-    # Поле для email с валидацией формата
-
-    address = models.CharField(_("Адрес"), max_length=255, blank=True)
-    # Текстовое поле для физического адреса
-
     # Брендинг и контент
     logo = models.ImageField(
         _("Логотип"),
-        upload_to="logos/",  # Файлы сохраняются в MEDIA_ROOT/logos/
+        upload_to=upload_to_logos,
         blank=True,
         help_text=_("Рекомендуемый размер: 200x60 пикселей"),
     )
-    # Поле для загрузки изображения логотипа
 
     hero_background = models.ImageField(
         _("Фон Hero-секции"),
-        upload_to="hero_bg/",  # Файлы сохраняются в MEDIA_ROOT/hero_bg/
+        upload_to=upload_to_hero_bg,
         blank=True,
         help_text=_("Изображение для фонового баннера на главной странице"),
     )
-    # Поле для загрузки фонового изображения главной секции (Hero)
-
-    logo_text = models.CharField(_("Текст логотипа"), max_length=100, blank=True)
-    # Текстовое представление логотипа (для SEO и доступности)
-
-    slogan = models.CharField(_("Слоган"), max_length=255, blank=True)
-    # Короткий слоган компании
-
-    motto = CKEditor5Field(_("Девиз сайта"), blank=True, config_name="extends")
-    # Расширенный девиз с поддержкой WYSIWYG редактора
-
-    short_description = CKEditor5Field(
-        _("Краткое описание"), blank=True, config_name="extends"
-    )
-    # Краткое описание сайта для главной страницы
-
-    content = CKEditor5Field(_("Основной контент"), blank=True, config_name="extends")
-    # Основной контент для страниц
 
     # Социальные сети
     facebook = models.URLField(_("Facebook"), blank=True)
-    icon_facebook = models.ImageField(_("Иконка Facebook"), 
-                                      upload_to="icons/social/",
-                                      help_text=_("Иконка для соцсети Facebook"),
-                                      blank=True
-                                      )
-    # Ссылка на Facebook
-
+    icon_facebook = models.ImageField(
+        _("Иконка Facebook"),
+        upload_to=upload_to_facebook_icon,
+        help_text=_("Иконка для соцсети Facebook"),
+        blank=True
+    )
+    
     instagram = models.URLField(_("Instagram"), blank=True)
-    icon_instagram = models.ImageField(_("Иконка Instagram"), 
-                                       upload_to="icons/social/",
-                                       help_text=_("Иконка для соцсети Instagram"),
-                                       blank=True
-                                       )
-    # Ссылка на Instagram
-
+    icon_instagram = models.ImageField(
+        _("Иконка Instagram"),
+        upload_to=upload_to_instagram_icon,
+        help_text=_("Иконка для соцсети Instagram"),
+        blank=True
+    )
+    
     youtube = models.URLField(_("YouTube"), blank=True)
-    icon_youtube = models.ImageField(_("Иконка YouTube"), 
-                                     upload_to="icons/social/",
-                                     help_text=_("Иконка для соцсети YouTube"),
-                                     blank=True
-                                     )
-    # Ссылка на YouTube
+    icon_youtube = models.ImageField(
+        _("Иконка YouTube"),
+        upload_to=upload_to_youtube_icon,
+        help_text=_("Иконка для соцсети YouTube"),
+        blank=True
+    )
 
     rutube = models.URLField(_("Rutube"), blank=True)
-    icon_rutube = models.ImageField(_("Иконка Rutube"), 
-                                    upload_to="icons/social/", 
-                                    help_text=_("Иконка для соцсети Rutube"),
-                                    blank=True)
-    # Ссылка на Rutube
+    icon_rutube = models.ImageField(
+        _("Иконка Rutube"),
+        upload_to=upload_to_rutube_icon,
+        help_text=_("Иконка для соцсети Rutube"),
+        blank=True
+    )
 
     vk_video = models.URLField(_("VK Видео"), blank=True)
-    icon_vk_video = models.ImageField(_("Иконка VK Видео"), 
-                                      upload_to="icons/social/", 
-                                      help_text=_("Иконка для соцсети VK Видео"),
-                                      blank=True)
-    # Ссылка на VK Видео
+    icon_vk_video = models.ImageField(
+        _("Иконка VK Видео"),
+        upload_to=upload_to_vk_video_icon,
+        help_text=_("Иконка для соцсети VK Видео"),
+        blank=True
+    )
 
     telegram = models.URLField(_("Telegram"), blank=True)
-    icon_telegram = models.ImageField(_("Иконка Telegram"), 
-                                      upload_to="icons/social/", 
-                                      help_text=_("Иконка для соцсети Telegram"),
-                                      blank=True)
-    # Ссылка на Telegram
+    icon_telegram = models.ImageField(
+        _("Иконка Telegram"),
+        upload_to=upload_to_telegram_icon,
+        help_text=_("Иконка для соцсети Telegram"),
+        blank=True
+    )
 
     vk = models.URLField(_("ВКонтакте"), blank=True)
-    icon_vk = models.ImageField(_("Иконка ВКонтакте"), 
-                                      upload_to="icons/social/", 
-                                      help_text=_("Иконка для соцсети ВКонтакте"),
-                                      blank=True)
-    # Ссылка на ВКонтакте
+    icon_vk = models.ImageField(
+        _("Иконка ВКонтакте"),
+        upload_to=upload_to_vk_icon,
+        help_text=_("Иконка для соцсети ВКонтакте"),
+        blank=True
+    )
 
     ok = models.URLField(_("Одноклассники"), blank=True)
-    icon_ok = models.ImageField(_("Иконка Одноклассники"), 
-                                      upload_to="icons/social/", 
-                                      help_text=_("Иконка для соцсети Одноклассники"),
-                                      blank=True)
-    # Ссылка на Одноклассники
+    icon_ok = models.ImageField(
+        _("Иконка Одноклассники"),
+        upload_to=upload_to_ok_icon,
+        help_text=_("Иконка для соцсети Одноклассники"),
+        blank=True
+    )
 
+    # Новые поля для соцсетей и мессенджеров
+    twitter = models.URLField(_("Twitter (X)"), blank=True)
+    icon_twitter = models.ImageField(
+        _("Иконка Twitter (X)"),
+        upload_to=upload_to_twitter_icon,
+        help_text=_("Иконка для соцсети Twitter (X)"),
+        blank=True
+    )
+    pinterest = models.URLField(_("Pinterest"), blank=True)
+    icon_pinterest = models.ImageField(
+        _("Иконка Pinterest"),
+        upload_to=upload_to_pinterest_icon,
+        help_text=_("Иконка для соцсети Pinterest"),
+        blank=True
+    )
+    linkedin = models.URLField(_("LinkedIn"), blank=True)
+    icon_linkedin = models.ImageField(
+        _("Иконка LinkedIn"),
+        upload_to=upload_to_linkedin_icon,
+        help_text=_("Иконка для соцсети LinkedIn"),
+        blank=True
+    )
+    whatsapp = models.CharField(_("WhatsApp"), max_length=100, blank=True, help_text=_("Номер телефона или ссылка"))
+    icon_whatsapp = models.ImageField(
+        _("Иконка WhatsApp"),
+        upload_to=upload_to_whatsapp_icon,
+        help_text=_("Иконка для соцсети WhatsApp"),
+        blank=True
+    )
+    viber = models.CharField(_("Viber"), max_length=100, blank=True, help_text=_("Номер телефона или ссылка"))
+    icon_viber = models.ImageField(
+        _("Иконка Viber"),
+        upload_to=upload_to_viber_icon,
+        help_text=_("Иконка для соцсети Viber"),
+        blank=True
+    )
+    skype = models.CharField(_("Skype"), max_length=100, blank=True, help_text=_("Логин или ссылка"))
+    icon_skype = models.ImageField(
+        _("Иконка Skype"),
+        upload_to=upload_to_skype_icon,
+        help_text=_("Иконка для соцсети Skype"),
+        blank=True
+    )
+    threads = models.URLField(_("Threads"), blank=True)
+    icon_threads = models.ImageField(
+        _("Иконка Threads"),
+        upload_to=upload_to_threads_icon,
+        help_text=_("Иконка для соцсети Threads"),
+        blank=True
+    )
+
+    # Контактная информация
+    title = models.CharField(_("Название сайта"), max_length=100, blank=True)
+    phone1 = models.CharField(_("Основной телефон"), max_length=20, blank=True)
+    phone2 = models.CharField(_("Дополнительный телефон"), max_length=20, blank=True)
+    email = models.EmailField(_("Электронная почта"), max_length=255, blank=True)
+    address = models.CharField(_("Адрес"), max_length=255, blank=True)
+    
+    # Текстовые поля
+    logo_text = models.CharField(_("Текст логотипа"), max_length=100, blank=True)
+    slogan = models.CharField(_("Слоган"), max_length=255, blank=True)
+    motto = CKEditor5Field(_("Девиз сайта"), blank=True, config_name="extends")
+    short_description = CKEditor5Field(
+        _("Краткое описание"), blank=True, config_name="extends"
+    )
+    content = CKEditor5Field(_("Основной контент"), blank=True, config_name="extends")
+    
     # SEO оптимизация
     seo_title = models.CharField(
         _("SEO заголовок (title)"),
@@ -253,84 +352,108 @@ class SiteSettings(SingletonModel):
         blank=True,
         help_text=_("Если не указан, используется заголовок страницы"),
     )
-    # Заголовок для SEO и вкладки браузера
-
     seo_keywords = models.CharField(
         _("SEO ключевые слова"),
         max_length=200,
         blank=True,
         help_text=_("Ключевые слова через запятую"),
     )
-    # Ключевые слова для поисковых систем
-
     seo_description = models.CharField(
         _("SEO описание (description)"),
         max_length=255,
         blank=True,
         help_text=_("Краткое описание для поисковых систем"),
     )
-    # Мета-описание для поисковых систем
-
+    
     # Статус сайта
     site_closed = models.BooleanField(_("Сайт закрыт"), default=False)
-    # Флаг, указывающий закрыт ли сайт на обслуживание
-
     closure_message = models.TextField(
         _("Сообщение при закрытии"),
         blank=True,
         help_text=_("Сообщение, которое увидят пользователи при закрытии сайта"),
     )
-    # Сообщение для пользователей при закрытом сайте
-
+    
     # Временные метки
     created_at = models.DateTimeField(_("Создано"), auto_now_add=True)
-    # Дата и время создания (заполняется автоматически при создании)
-
     updated_at = models.DateTimeField(_("Обновлено"), auto_now=True)
-    # Дата и время последнего обновления (автоматически обновляется)
 
     class Meta:
         """Метаданные модели настроек сайта."""
-
-        verbose_name = _("Настройки сайта")  # Имя в единственном числе
-        verbose_name_plural = _("Настройки сайта")  # Имя во множественном числе
+        verbose_name = _("Настройки сайта")
+        verbose_name_plural = _("Настройки сайта")
 
     def __str__(self):
-        """
-        Возвращает строковое представление объекта.
+        return str(_("Настройки сайта"))
 
-        Возвращает:
-            str: "Настройки сайта" (переведенная строка)
+    def get_social_links(self):
         """
-        return str(_("Настройки сайта"))  # Явное преобразование в строку
+        Возвращает словарь активных ссылок на социальные сети.
+        Удобно для итерации в шаблонах.
+        """
+        links = []
+        social_fields = [
+            ('facebook', 'icon_facebook', 'Facebook'),
+            ('instagram', 'icon_instagram', 'Instagram'),
+            ('youtube', 'icon_youtube', 'YouTube'),
+            ('rutube', 'icon_rutube', 'Rutube'),
+            ('vk_video', 'icon_vk_video', 'VK Видео'),
+            ('telegram', 'icon_telegram', 'Telegram'),
+            ('vk', 'icon_vk', 'ВКонтакте'),
+            ('ok', 'icon_ok', 'Одноклассники'),
+            ('twitter', None, 'Twitter'),
+            ('pinterest', None, 'Pinterest'),
+            ('linkedin', None, 'LinkedIn'),
+            ('threads', None, 'Threads'),
+        ]
+        
+        for field, icon_field, name in social_fields:
+            val = getattr(self, field)
+            if val:
+                icon = None
+                if icon_field:
+                    icon_obj = getattr(self, icon_field)
+                    icon = icon_obj.url if icon_obj else None
+                links.append({
+                    'name': name,
+                    'url': val,
+                    'icon': icon,
+                    'slug': field
+                })
+        
+        # Обработка мессенджеров
+        messengers = [
+            ('whatsapp', 'WhatsApp', 'https://wa.me/'),
+            ('viber', 'Viber', 'viber://chat?number='),
+            ('skype', 'Skype', 'skype:'),
+        ]
+        for field, name, base_url in messengers:
+            val = getattr(self, field)
+            if val:
+                url = val if val.startswith(('http', 'viber:', 'skype:')) else f"{base_url}{val}"
+                links.append({
+                    'name': name,
+                    'url': url,
+                    'icon': None,
+                    'slug': field
+                })
+                
+        return links
 
     def clean(self):
         """
         Валидация данных перед сохранением.
-        Проверяет корректность данных и бизнес-правила.
-
-        Действия:
-        1. Проверяет наличие сообщения при закрытии сайта
-        2. Валидирует email адрес
-        3. Вызывает родительский метод clean()
         """
-        super().clean()  # Вызываем валидацию родительского класса
+        super().clean()
 
-        # Проверка наличия сообщения при закрытии сайта
         if self.site_closed and not self.closure_message:
-            # Если сайт закрыт, но сообщение не указано - ошибка
-            raise ValidationError(
-                {
-                    "closure_message": _(
-                        "Необходимо указать сообщение при закрытии сайта, "
-                        "если сайт помечен как закрытый"
-                    )
-                }
-            )
+            raise ValidationError({
+                "closure_message": _(
+                    "Необходимо указать сообщение при закрытии сайта, "
+                    "если сайт помечен как закрытый"
+                )
+            })
 
-        # Валидация email
         if self.email and "@" not in self.email:
-            # Проверяем базовый формат email
             raise ValidationError({"email": _("Введите корректный email адрес")})
 
 
@@ -939,6 +1062,61 @@ class ManagedFile(models.Model):
                 return f"{size:.1f} {unit}"  # Возвращаем с одним десятичным знаком
             size /= 1024.0  # Переводим в следующую единицу
         return f"{size:.1f} TB"  # Если очень большой, возвращаем TB
+
+    def save_content(self, new_content):
+        """
+        Сохраняет новое содержимое в файл на диске.
+
+        Действия:
+        1. Создает резервную копию (если включен auto_backup)
+        2. Записывает новое содержимое в файл
+        3. Обновляет информацию о файле в БД
+
+        Возвращает:
+            tuple: (success: bool, message: str)
+        """
+        try:
+            if not self.exists:
+                return False, "Файл не существует на диске"
+
+            # Создаем бэкап
+            if self.auto_backup:
+                self.create_backup()
+
+            # Записываем контент
+            with open(self.file_path, "w", encoding=self.encoding) as f:
+                f.write(new_content)
+
+            # Обновляем инфо
+            self.refresh_file_info()
+            return True, "Содержимое файла успешно сохранено"
+
+        except Exception as e:
+            return False, f"Ошибка при сохранении файла: {str(e)}"
+
+    def restore_backup(self, backup_path):
+        """
+        Восстанавливает файл из резервной копии.
+
+        Параметры:
+            backup_path: Путь к файлу бэкапа
+
+        Возвращает:
+            tuple: (success: bool, message: str)
+        """
+        try:
+            if not os.path.exists(backup_path):
+                return False, "Файл резервной копии не найден"
+
+            # Копируем бэкап на место оригинала
+            shutil.copy2(backup_path, self.file_path)
+
+            # Обновляем инфо
+            self.refresh_file_info()
+            return True, "Файл успешно восстановлен из резервной копии"
+
+        except Exception as e:
+            return False, f"Ошибка при восстановлении: {str(e)}"
 
     def delete_file_from_disk(self):
         """

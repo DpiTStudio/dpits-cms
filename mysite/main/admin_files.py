@@ -13,20 +13,18 @@
 Файл вынесен отдельно от admin.py для избежания дублирования регистрации моделей.
 """
 
-import mimetypes  # Модуль для определения MIME-типов файлов
+
 import os  # Модуль для работы с операционной системой
-import re  # Модуль для работы с регулярными выражениями
-from datetime import datetime  # Класс для работы с датой и временем
-from pathlib import Path  # Современный класс для работы с путями
 
 from django.contrib import admin, messages  # Админка и система сообщений Django
 from django.contrib.admin import SimpleListFilter  # Базовый класс для фильтров
 from django.core.cache import cache  # Система кэширования Django
-from django.db.models import Q  # Объекты для сложных запросов
+
 from django.http import HttpResponseRedirect  # Класс для перенаправления
 from django.shortcuts import get_object_or_404, render  # Функции для работы с запросами
 from django.urls import path, reverse  # Функции для работы с URL
-from django.utils.html import format_html, mark_safe  # Функции для безопасного HTML
+from django.utils.html import format_html  # Функции для безопасного HTML
+
 from django.utils.translation import gettext_lazy as _  # Функция для перевода
 
 from .models import ManagedFile  # Импорт модели управляемых файлов
@@ -126,7 +124,8 @@ class ManagedFileAdmin(admin.ModelAdmin):
         "size_display",  # Размер в удобочитаемом формате
         "exists_display",  # Индикатор существования
         "mtime_display",  # Дата изменения
-        "actions",  # Кнопки действий
+        "is_active",  # Активность
+        "display_actions",  # Кнопки действий
     ]
 
     list_filter = [
@@ -352,7 +351,7 @@ class ManagedFileAdmin(admin.ModelAdmin):
         return _("Неизвестно")
     mtime_display.short_description = _("Изменен")  # Заголовок столбца
 
-    def actions(self, obj):
+    def display_actions(self, obj):
         """
         Возвращает HTML-код кнопок действий для файла.
         
@@ -393,7 +392,7 @@ class ManagedFileAdmin(admin.ModelAdmin):
             )
         
         return format_html(" ".join(buttons))
-    actions.short_description = _("Действия")  # Заголовок столбца
+    display_actions.short_description = _("Действия")  # Заголовок столбца
 
     def view_file_content(self, request, object_id):
         """
