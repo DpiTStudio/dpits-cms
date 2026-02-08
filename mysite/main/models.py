@@ -188,27 +188,62 @@ class SiteSettings(SingletonModel):
 
     # Социальные сети
     facebook = models.URLField(_("Facebook"), blank=True)
+    icon_facebook = models.ImageField(_("Иконка Facebook"), 
+                                      upload_to="icons/social/",
+                                      help_text=_("Иконка для соцсети Facebook"),
+                                      blank=True
+                                      )
     # Ссылка на Facebook
 
     instagram = models.URLField(_("Instagram"), blank=True)
+    icon_instagram = models.ImageField(_("Иконка Instagram"), 
+                                       upload_to="icons/social/",
+                                       help_text=_("Иконка для соцсети Instagram"),
+                                       blank=True
+                                       )
     # Ссылка на Instagram
 
     youtube = models.URLField(_("YouTube"), blank=True)
+    icon_youtube = models.ImageField(_("Иконка YouTube"), 
+                                     upload_to="icons/social/",
+                                     help_text=_("Иконка для соцсети YouTube"),
+                                     blank=True
+                                     )
     # Ссылка на YouTube
 
     rutube = models.URLField(_("Rutube"), blank=True)
+    icon_rutube = models.ImageField(_("Иконка Rutube"), 
+                                    upload_to="icons/social/", 
+                                    help_text=_("Иконка для соцсети Rutube"),
+                                    blank=True)
     # Ссылка на Rutube
 
     vk_video = models.URLField(_("VK Видео"), blank=True)
+    icon_vk_video = models.ImageField(_("Иконка VK Видео"), 
+                                      upload_to="icons/social/", 
+                                      help_text=_("Иконка для соцсети VK Видео"),
+                                      blank=True)
     # Ссылка на VK Видео
 
     telegram = models.URLField(_("Telegram"), blank=True)
+    icon_telegram = models.ImageField(_("Иконка Telegram"), 
+                                      upload_to="icons/social/", 
+                                      help_text=_("Иконка для соцсети Telegram"),
+                                      blank=True)
     # Ссылка на Telegram
 
     vk = models.URLField(_("ВКонтакте"), blank=True)
+    icon_vk = models.ImageField(_("Иконка ВКонтакте"), 
+                                      upload_to="icons/social/", 
+                                      help_text=_("Иконка для соцсети ВКонтакте"),
+                                      blank=True)
     # Ссылка на ВКонтакте
 
     ok = models.URLField(_("Одноклассники"), blank=True)
+    icon_ok = models.ImageField(_("Иконка Одноклассники"), 
+                                      upload_to="icons/social/", 
+                                      help_text=_("Иконка для соцсети Одноклассники"),
+                                      blank=True)
     # Ссылка на Одноклассники
 
     # SEO оптимизация

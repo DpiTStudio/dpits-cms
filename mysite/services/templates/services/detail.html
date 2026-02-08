@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block title %}
-   {{ service.name }} - {{  }}
+   {{ service.name }} - {{ site_settings.title|striptags|truncatechars:100 }}
 {% endblock %}
 
 {% block meta_description %}
-    {{ service.seo_description|default:service.short_description|striptags }}
+    {{ service.seo_description|default:service.short_description|striptags|truncatechars:150 }}
 {% endblock %}
 
 {% block meta_keywords %}

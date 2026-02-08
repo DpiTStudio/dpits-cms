@@ -3,14 +3,15 @@
 {% load services_filters %} 
 
 {% block title %}
-    {{ site_settings.logo_text }} - {{ site_settings.title }}
+    {{ site_settings.logo_text }} - {{ service.seo_title }}
 {% endblock %}
+
 {% block meta_description %}
-    {{ site_settings.meta_description }}
+    {{ service.seo_description }}
 {% endblock %}
 
 {% block meta_keywords %}
-    {{ site_settings.meta_keywords }}
+    {{ service.seo_keywords }}
 {% endblock %}
 
 {% block extra_css %}
