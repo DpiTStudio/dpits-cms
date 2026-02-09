@@ -86,7 +86,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         (_("Контактная информация"), {
             "fields": ("phone1", "phone2", "email", "address"),
         }),
-        (_("Социальные сети и мессенджеры"), {
+        (_("Соц. сети и месс."), {
             "fields": (
                 ("facebook"), ("icon_facebook"),
                 ("instagram"), ("icon_instagram"),
