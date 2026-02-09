@@ -81,7 +81,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
     # Группировка полей
     fieldsets = (
         (_("Основные данные"), {
-            "fields": ("title", "logo", "hero_background", "logo_text", "slogan", "motto"),
+            "fields": ("title", "logo", "company_name", "hero_background", "logo_text", "slogan", "motto"),
         }),
         (_("Контактная информация"), {
             "fields": ("phone1", "phone2", "email", "address"),

@@ -205,6 +205,13 @@ class SiteSettings(SingletonModel):
         blank=True,
         help_text=_("Рекомендуемый размер: 200x60 пикселей"),
     )
+    
+    company_name = models.CharField(
+        _("Название компании"), 
+        max_length=100, 
+        default="",
+        help_text=_("Название компании для отображения в заголовках страниц")
+    )
 
     hero_background = models.ImageField(
         _("Фон Hero-секции"),
