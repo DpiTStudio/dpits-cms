@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block title %}
-   {{ service.name }} - {{ site_settings.title|striptags|truncatechars:100 }}
+   {{ site_settings.company_name }} - {{ service.name }} - Услуги компании
 {% endblock %}
 
 {% block meta_description %}
-    {{ service.seo_description|default:service.short_description|striptags|truncatechars:150 }}
+    {{ site_settings.company_name }} - {{ service.seo_description|default:service.short_description|striptags|truncatechars:150 }}
 {% endblock %}
 
 {% block meta_keywords %}
-    {{ service.seo_keywords }}
+    {{ site_settings.company_name }}, {{ service.seo_keywords }}
 {% endblock %}
 
 {% block extra_css %}

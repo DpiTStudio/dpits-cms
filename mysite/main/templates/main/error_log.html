@@ -14,15 +14,15 @@
 {% load static %}
 
 {% block title %}
-    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - {{ page_title }}
+    {{ site_settings.company_name }} - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - {{ page_title }}
 {% endblock %}
 
 {% block meta_description %}
-    {{ site_settings.seo_description|default:"Страница просмотра лог-файла ошибок" }}
+    {{ site_settings.company_name }} - {{ site_settings.seo_description|default:"Страница просмотра лог-файла ошибок" }}
 {% endblock %}
 
 {% block meta_keywords %}
-    {{ site_settings.seo_keywords|default:"лог-файл, ошибка, ошибки, просмотр, лог" }}
+    {{ site_settings.company_name }}, {{ site_settings.seo_keywords|default:"лог-файл, ошибка, ошибки, просмотр, лог" }}
 {% endblock %}
 
 {% block extra_css %}

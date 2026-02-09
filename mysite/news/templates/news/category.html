@@ -6,8 +6,16 @@
 
 {% block title %}
 {# Блок для заголовка вкладки браузера #}
-    {{ category.name }} - Новости | {{ site_settings.logo_text|default:"DpiTS-CMS.RU" }}
+    {{ category.name }} - Новости | {{ site_settings.company_name }} - {{ site_settings.logo_text|default:"DpiTS-CMS.RU" }}
 {# Выводим название категории и текст из настроек сайта или значение по умолчанию #}
+{% endblock %}
+
+{% block meta_description %}
+    {{ site_settings.company_name }} - {{ site_settings.seo_description|default:"Страница просмотра новостей" }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ site_settings.company_name }}, {{ site_settings.seo_keywords|default:"новость, новости, просмотр, новость" }}
 {% endblock %}
 
 {% block extra_css %}

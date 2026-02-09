@@ -2,7 +2,15 @@
 {% load static %}
 
 {% block title %}
-    {{ page_title }} - {{ site_settings.title }}
+    {{ site_settings.company_name }} - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - {{ page_title }}
+{% endblock %}
+
+{% block meta_description %}
+    {{ site_settings.company_name }} - {{ site_settings.seo_description|default:"Результаты поиска" }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ site_settings.company_name }}, {{ site_settings.seo_keywords|default:"поиск, результаты, поисковый запрос" }}
 {% endblock %}
 
 {% block content %}

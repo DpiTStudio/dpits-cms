@@ -7,7 +7,7 @@
     - {{ site_settings.seo_title }} 
   {% else %} 
     {{ site_settings.logo_text|default:"Главная страница" }} 
-  {% endif %} 
+  {% endif %} - {{ site_settings.company_name }}
 {% endblock %}
 
 {% block meta_description %}

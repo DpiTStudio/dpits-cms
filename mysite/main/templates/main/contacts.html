@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block title %}
-    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - Контакты
+    {{ site_settings.company_name }} - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - Контакты
 {% endblock %}
 
 {% block meta_description %}
-    {{ site_settings.seo_description|default:"Контактная информация и способы связи с нами" }}
+    {{ site_settings.company_name }} - {{ site_settings.seo_description|default:"Контактная информация и способы связи с нами" }}
 {% endblock %}
 
 {% block meta_keywords %}
-    {{ site_settings.seo_keywords|default:"Контакты, связь, адрес, телефон, email" }}
+    {{ site_settings.company_name }}, {{ site_settings.seo_keywords|default:"Контакты, связь, адрес, телефон, email" }}
 {% endblock %}
 
 {% block extra_head %}

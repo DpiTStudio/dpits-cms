@@ -3,15 +3,15 @@
 {% load services_filters %} 
 
 {% block title %}
-    {{ site_settings.logo_text }} - Услуги компании {{ site_settings.company_name }}
+    {{ site_settings.company_name }} - {{ site_settings.logo_text }} - Услуги компании
 {% endblock %}
 
 {% block meta_description %}
-    {{ service.seo_description }}
+    {{ site_settings.company_name }} - {{ service.seo_description }}
 {% endblock %}
 
 {% block meta_keywords %}
-    {{ service.seo_keywords }}
+    {{ site_settings.company_name }}, {{ service.seo_keywords }}
 {% endblock %}
 
 {% block extra_css %}
