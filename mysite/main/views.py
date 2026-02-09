@@ -569,9 +569,6 @@ class SearchView(MaintenanceMixin, BaseView):
         return context
 
 
-
-
-
 class SearchApiView(MaintenanceMixin, BaseView):
     """
     API представление для живого поиска.
@@ -631,7 +628,6 @@ class SearchApiView(MaintenanceMixin, BaseView):
                 })
 
         return JsonResponse({"results": results})
-
 
 
 def custom_404_view(request, exception):
