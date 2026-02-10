@@ -83,7 +83,7 @@
   }
 
   /* Элементы авторизации в мобильном меню */
-  .navbar-collapse .d-flex {
+  .navbar-collapse > .d-flex {
     flex-direction: column;
     gap: 1rem;
     margin-top: 2rem;
