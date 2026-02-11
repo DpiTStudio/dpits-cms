@@ -83,6 +83,7 @@ class ServiceAdmin(admin.ModelAdmin):
     """Админ-панель для услуг"""
 
     list_display = [
+        "id",
         "name",
         "category",
         "price_display",
