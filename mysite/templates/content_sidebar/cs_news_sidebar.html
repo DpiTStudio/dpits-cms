@@ -38,11 +38,13 @@
                                  class="img-fluid w-100 h-100 object-fit-cover transition-scale">
                             {% endif %}
                         </div>
-                        <hr class="border-primary">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fas fa-eye fa-xs text-primary me-2"></i>
-                            <small class="text-muted fw-medium">{{ news.c }}</small>
+                        <hr class="border-secondary">
+                        <div class="d-flex align-items-left mb-2">
+                            <i class="">
+                                {{ news.description|truncatechars:50|striptags }}
+                            </i>
                         </div>
+                        <hr class="border-secondary">
                     </div>
                     {% comment %}
                     <!-- Контент -->
@@ -60,16 +62,17 @@
                     {% endcomment %}
                 </div>
             </a>
-            
-            <!-- Разделитель -->
-            {% if not forloop.last %}
-            <div class="border-bottom mt-3 opacity-25"></div>
-            {% endif %}
+            {% comment %}
+                <!-- Разделитель -->
+                {% if not forloop.last %}
+                <div class="border-bottom mt-3 opacity-25"></div>
+                {% endif %}
+            {% endcomment %}
         </div>
         {% endfor %}
         
         <!-- Кнопка "Все новости" -->
-        <div class="text-center mt-4 pt-2">
+        <div class="text-center mt-1 pt-1">
             <a href="{% url 'news:list' %}" 
                class="btn btn-primary px-4 py-2 rounded-pill fw-medium shadow-sm hover-lift">
                 <span>Все новости</span>
