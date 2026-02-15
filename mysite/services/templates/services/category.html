@@ -1,171 +1,159 @@
 {% extends "base.html" %}
 {% load static %}
+{% load services_filters %} 
 
 {% block title %}
-    {{ category.seo_title|default:category.name }} - {{ site_settings.logo_text }}
-{% endblock %}
-
-{% block meta_description %}
-    {{ category.seo_description|default:category.description|striptags|truncatewords:30 }}
-{% endblock %}
-
-{% block meta_keywords %}
-    {{ category.seo_keywords }}
+    {{ category.name }} - Услуги | {{ site_settings.logo_text }}
 {% endblock %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/portfolio_list.css' %}">
 <style>
     .services-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 1.5rem;
     }
-    
     .service-card {
         background: white;
         border: 1px solid var(--bs-border-color);
         border-radius: 1rem;
-        overflow: hidden;
         transition: all 0.3s ease;
         height: 100%;
         display: flex;
         flex-direction: column;
     }
-    
     .service-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 1rem 3rem rgba(0,0,0,.1);
-        border-color: var(--bs-primary);
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
+        border-color: #6366f1;
     }
-    
     .service-card-body {
         padding: 1.5rem;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
     }
-    
-    .service-card-title {
-        font-weight: 700;
-        margin-bottom: 0.75rem;
-        line-height: 1.3;
-    }
-    
-    .service-card-description {
-        color: var(--bs-secondary-color);
-        margin-bottom: 1.5rem;
-        flex-grow: 1;
-    }
-    
     .service-price {
         font-size: 1.25rem;
         font-weight: 700;
-        color: var(--bs-primary);
+        color: #6366f1;
     }
 </style>
 {% endblock %}
 
 {% block content %}
 <section class="py-5">
-    {% if services %}
-    <div class="services-grid">
-        {% for service in services %}
-        <div class="service-card">
-            <div class="service-card-body">
-                {% if service.icon %}
-                <div class="mb-3">
-                    <img src="{{ service.icon.url }}" alt="{{ service.name }}" style="height: 64px; width: 64px; object-fit: contain;">
-                </div>
-                {% else %}
-                <div class="icon-wrapper mb-3">
-                    <div class="icon-box-lg bg-primary bg-opacity-10 text-primary rounded-3 p-3 d-inline-flex">
-                        <i class="fas fa-concierge-bell fa-2x"></i>
-                    </div>
-                </div>
-                {% endif %}
-                
-                <h3 class="service-card-title h5">{{ service.name }}</h3>
-                
-                <div class="service-card-description">
-                    {{ service.short_description|striptags|truncatechars:150 }}
-                </div>
-                
-                <div class="mt-auto">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="service-price">
-                            {{ service.get_price_display }}
+    <div class="container-fluid">
+        <div class="row mb-5 text-left">
+            <div class="col-lg-8">
+                <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">КАТЕГОРИЯ: {{ category.name|upper }}</span>
+                <h1 class="display-4 fw-bold mb-3">{{ category.name }}</h1>
+                <p class="lead text-muted">{{ category.description|striptags|truncatechars:200|default:"Профессиональные услуги в данной категории." }}</p>
+            </div>
+        </div>
+
+        {# Фильтр #}
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="filter-glass-bax p-4">
+                    <form id="services-filters" class="row g-3 align-items-center" novalidate>
+                        <input type="hidden" name="category" value="{{ category.slug }}">
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 rounded-start-4 ps-3">
+                                    <i class="fas fa-search text-muted"></i>
+                                </span>
+                                <input type="text" name="q" class="form-control form-control-modern border-start-0 ps-2" 
+                                       id="searchInput" value="{{ search_query }}" placeholder="Поиск в категории...">
+                            </div>
                         </div>
-                        {% if service.can_order %}
-                        <span class="badge bg-success bg-opacity-10 text-success">
-                            <i class="fas fa-check-circle me-1"></i>
-                            Доступно
-                        </span>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="d-grid">
-                        <a href="{{ service.get_absolute_url }}" class="btn btn-primary btn-hover-lift">
-                            <span>Заказать услугу</span>
-                            <i class="fas fa-arrow-right ms-2"></i>
-                        </a>
+                        <div class="col-lg-6">
+                            <select class="form-select form-select-modern" name="sort" id="sortBy">
+                                <option value="-created_at" {% if current_sort == "-created_at" %}selected{% endif %}>✨ Новые первыми</option>
+                                <option value="created_at" {% if current_sort == "created_at" %}selected{% endif %}>📅 Старые первыми</option>
+                                <option value="name" {% if current_sort == "name" %}selected{% endif %}>🅰️ По названию</option>
+                                <option value="-views" {% if current_sort == "-views" %}selected{% endif %}>🔥 Популярные</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="d-none d-md-flex flex-wrap gap-2 mt-4 pt-3 border-top border-light">
+                        <a href="{% url 'services:list' %}" class="category-pill">Все услуги</a>
+                        {% for cat in categories %}
+                            <a href="{% url 'services:category' cat.slug %}"
+                               class="category-pill {% if category.slug == cat.slug %}active{% endif %}">
+                                {{ cat.name }}
+                            </a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
-    </div>
-    {% else %}
-    <div class="text-center py-5">
-        <div class="icon-box-xl bg-light rounded-circle p-4 mb-3 mx-auto">
-            <i class="fas fa-inbox fa-3x text-muted"></i>
+
+        <div class="services-grid mb-5">
+            {% for service in services %}
+            <div class="service-card">
+                <div class="service-card-body">
+                    {% if service.icon %}
+                    <div class="mb-3">
+                        <img src="{{ service.icon.url }}" alt="{{ service.name }}" style="height: 64px; width: 64px; object-fit: contain;">
+                    </div>
+                    {% endif %}
+                    <h3 class="h5 fw-bold mb-3">{{ service.name }}</h3>
+                    <p class="text-muted small flex-grow-1">{{ service.short_description|striptags|truncatechars:150 }}</p>
+                    <div class="mt-auto pt-3 border-top">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="service-price">{{ service.get_price_display }}</span>
+                            <span class="text-muted small"><i class="far fa-eye me-1"></i>{{ service.views }}</span>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a href="{{ service.get_absolute_url }}" class="btn btn-outline-primary">Подробнее</a>
+                            <a href="{% if user.is_authenticated %}{% url 'portfolio:create_order' %}?service={{ service.slug }}{% else %}{% url 'accounts:login' %}?next={{ request.path }}{% endif %}" class="btn btn-primary">Заказать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="fas fa-search fa-3x text-muted mb-3 opacity-25"></i>
+                <h3 class="text-muted">Ничего не найдено</h3>
+                <a href="?" class="btn btn-primary rounded-pill px-4 mt-2">Сбросить поиск</a>
+            </div>
+            {% endfor %}
         </div>
-        <h3 class="h4 mb-3">В этой категории пока нет услуг</h3>
-        <p class="text-muted">Мы работаем над наполнением этого раздела</p>
-        <a href="{% url 'services:list' %}" class="btn btn-outline-primary mt-3">Вернуться ко всем услугам</a>
     </div>
-    {% endif %}
 </section>
 {% endblock %}
 
 {% block extra_js %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Параллакс эффект для карточек
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const xAxis = (rect.width / 2 - x) / 25;
-            const yAxis = (rect.height / 2 - y) / 25;
-            
-            this.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateY(-5px)`;
+    const filterForm = document.getElementById('services-filters');
+    const searchInput = document.getElementById('searchInput');
+    const sortBy = document.getElementById('sortBy');
+
+    if (filterForm) {
+        const updateFilters = () => {
+            const formData = new FormData(filterForm);
+            const params = new URLSearchParams();
+            for (const [key, value] of formData.entries()) {
+                if (value) params.append(key, value);
+            }
+            window.location.href = `?${params.toString()}`;
+        };
+        if (sortBy) sortBy.addEventListener('change', updateFilters);
+        if (searchInput) {
+            let timeout = null;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(timeout);
+                timeout = setTimeout(updateFilters, 800);
+            });
+        }
+        filterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            updateFilters();
         });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(0)';
-            this.style.transition = 'all 0.5s ease';
-        });
-        
-        card.addEventListener('mouseenter', function() {
-            this.style.transition = 'none';
-        });
-    });
-    
-    // Инициализация анимации при загрузке
-    setTimeout(() => {
-        serviceCards.forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, index * 100);
-        });
-    }, 300);
+    }
 });
 </script>
 {% endblock %}

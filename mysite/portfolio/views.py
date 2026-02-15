@@ -64,10 +64,29 @@ class PortfolioListView(ListView):
         queryset = PortfolioItem.objects.filter(status="published").select_related(
             "category", "client"
         )
+        # Поиск по запросу
+        query = self.request.GET.get("q")
+        if query:
+            queryset = queryset.filter(
+                Q(title__icontains=query) |
+                Q(short_description__icontains=query) |
+                Q(technologies__icontains=query)
+            )
+
+        # Фильтр по категории
         category_slug = self.request.GET.get("category")
         if category_slug:
             queryset = queryset.filter(category__slug=category_slug)
-        return queryset.order_by("-created_at")
+        
+        # Сортировка
+        sort_by = self.request.GET.get("sort", "-created_at")
+        valid_sorts = {"created_at", "-created_at", "title", "-views"}
+        if sort_by in valid_sorts:
+            queryset = queryset.order_by(sort_by)
+        else:
+            queryset = queryset.order_by("-created_at")
+            
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -85,6 +104,8 @@ class PortfolioListView(ListView):
 
         context["categories"] = categories
         context["selected_category"] = self.request.GET.get("category", "")
+        context["current_sort"] = self.request.GET.get("sort", "-created_at")
+        context["search_query"] = self.request.GET.get("q", "")
         context["recent_portfolio_list"] = (
             PortfolioItem.objects.filter(status="published")
             .select_related("category")

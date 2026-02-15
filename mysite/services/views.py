@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.core.cache import cache
+from django.db.models import Q
 from main.breadcrumbs import get_breadcrumbs
 from .models import Service, ServiceCategory
 
@@ -15,29 +16,51 @@ def service_list(request):
         categories = list(ServiceCategory.objects.filter(is_active=True).order_by('order', 'name'))
         cache.set(cache_key_categories, categories, 600)
 
-    cache_key_services = "services_list_active"
-    services = cache.get(cache_key_services)
-    if not services:
-        services = list(Service.objects.filter(is_displayed=True)
-                       .select_related('category')
-                       .order_by('category__order', 'category__name', 'name'))
-        cache.set(cache_key_services, services, 600)
+    # Получаем параметры
+    query = request.GET.get("q", "")
+    sort_by = request.GET.get("sort", "-created_at")
+    category_slug = request.GET.get("category")
     
-    # Создаем структуру данных для шаблона
+    valid_sorts = {"created_at", "-created_at", "name", "-views"}
+    if sort_by not in valid_sorts:
+        sort_by = "-created_at"
+    
+    # Фильтрация
+    services_queryset = Service.objects.filter(is_displayed=True).select_related('category')
+    
+    if query:
+        services_queryset = services_queryset.filter(
+            Q(name__icontains=query) |
+            Q(short_description__icontains=query) |
+            Q(description__icontains=query)
+        )
+        
+    if category_slug:
+        services_queryset = services_queryset.filter(category__slug=category_slug)
+    
+    # Сортировка (name вместо title для Services)
+    services_queryset = services_queryset.order_by(sort_by if sort_by != "title" else "name")
+    services = list(services_queryset)
+    
+    # Пересобираем categories_with_services для обратной совместимости если нужно, 
+    # но мы будем использовать all_services в новом дизайне
     categories_with_services = []
     for category in categories:
         category_services = [s for s in services if s.category_id == category.id]
-        if category_services:  # Показываем только категории с услугами
+        if category_services:
             categories_with_services.append({
                 'category': category,
                 'services': category_services
             })
     
     context = {
+        'categories': categories,
         'categories_with_services': categories_with_services,
-        'all_services': services,  # Все услуги для отображения в "Все услуги"
+        'all_services': services,
         'page_title': 'Услуги',
-        'category': None,
+        'selected_category': category_slug or "",
+        'current_sort': sort_by,
+        'search_query': query,
         'breadcrumbs': get_breadcrumbs([
             ("Услуги", reverse("services:list"), "fas fa-concierge-bell"),
         ]),
@@ -80,12 +103,36 @@ def service_category(request, slug):
     Отображает список услуг в конкретной категории.
     """
     category = get_object_or_404(ServiceCategory, slug=slug, is_active=True)
-    services = Service.objects.filter(category=category, is_displayed=True).select_related('category')
+    # Получаем параметры
+    query = request.GET.get("q", "")
+    sort_by = request.GET.get("sort", "-created_at")
+    
+    valid_sorts = {"created_at", "-created_at", "name", "-views"}
+    if sort_by not in valid_sorts:
+        sort_by = "-created_at"
+        
+    services_queryset = Service.objects.filter(category=category, is_displayed=True).select_related('category')
+    
+    if query:
+        services_queryset = services_queryset.filter(
+            Q(name__icontains=query) |
+            Q(short_description__icontains=query) |
+            Q(description__icontains=query)
+        )
+        
+    services = services_queryset.order_by(sort_by if sort_by != "title" else "name")
+
+    # Получаем все категории для фильтра
+    categories = list(ServiceCategory.objects.filter(is_active=True).order_by('order', 'name'))
     
     context = {
         'category': category,
+        'selected_category': category.slug,
         'services': services,
+        'categories': categories,
         'page_title': category.name,
+        'current_sort': sort_by,
+        'search_query': query,
         'meta_description': category.seo_description or category.description,
         'meta_keywords': category.seo_keywords,
         'breadcrumbs': get_breadcrumbs([

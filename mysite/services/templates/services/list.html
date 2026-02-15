@@ -15,31 +15,10 @@
 {% endblock %}
 
 {% block extra_css %}
+{# Подключаем стили для фильтров #}
+<link rel="stylesheet" href="{% static 'css/portfolio_list.css' %}">
 <style>
-    .category-nav {
-        position: sticky;
-        top: 80px;
-        z-index: 100;
-        background: white;
-        border-bottom: 1px solid var(--bs-border-color);
-    }
-    
-    .category-link {
-        padding: 0.75rem 1.5rem;
-        color: var(--bs-body-color);
-        text-decoration: none;
-        transition: all 0.3s ease;
-        border-bottom: 3px solid transparent;
-        white-space: nowrap;
-    }
-    
-    .category-link:hover,
-    .category-link.active {
-        color: var(--bs-primary);
-        border-bottom-color: var(--bs-primary);
-        background-color: var(--bs-primary-bg-subtle);
-    }
-    
+    /* Наши кастомные стили для услуг */
     .services-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -55,12 +34,13 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        position: relative;
     }
     
     .service-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 1rem 3rem rgba(0,0,0,.1);
-        border-color: var(--bs-primary);
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
+        border-color: #6366f1;
     }
     
     .service-card-body {
@@ -80,41 +60,22 @@
         color: var(--bs-secondary-color);
         margin-bottom: 1.5rem;
         flex-grow: 1;
+        font-size: 0.9rem;
     }
     
     .service-price {
         font-size: 1.25rem;
         font-weight: 700;
-        color: var(--bs-primary);
+        color: #6366f1;
     }
     
-    .category-section {
-        scroll-margin-top: 120px;
+    .btn-hover-lift {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     
-    .category-header {
-        background: linear-gradient(135deg, var(--bs-light) 0%, white 100%);
-        border-radius: 1rem;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        border-left: 5px solid var(--bs-primary);
-    }
-    
-    @media (max-width: 768px) {
-        .services-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .category-nav-scroll {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .category-nav-inner {
-            display: flex;
-            flex-wrap: nowrap;
-            padding-bottom: 0.5rem;
-        }
+    .btn-hover-lift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 </style>
 {% endblock %}
@@ -125,168 +86,135 @@
         <!-- Заголовок -->
         <div class="row mb-5">
             <div class="col-12 mx-auto text-left">
-                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-4 py-2 mb-3 d-inline-flex align-items-left gap-2">
+                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-4 py-2 mb-3 d-inline-flex align-items-center gap-2 fw-bold">
                     <i class="fas fa-star fa-xs"></i>
                     НАШИ УСЛУГИ
                 </span>
-                <h1 class="display-4 fw-bold mb-3">Профессиональные решения для вашего бизнеса</h1>
+                <h1 class="display-4 fw-bold mb-3">Профессиональные решения</h1>
                 <p class="lead text-muted mb-0">Полный спектр услуг для цифровой трансформации и роста вашей компании</p>
             </div>
         </div>
 
-        <!-- Навигация по категориям -->
-        <div class="category-nav mb-5">
-            <div class="category-nav-scroll">
-                <div class="category-nav-inner d-flex justify-content-center">
-                    <a href="#all" class="category-link active" data-category="all">
-                        <i class="fas fa-layer-group me-2"></i>
-                        Все услуги
-                    </a>
-                    {% for item in categories_with_services %}
-                    <a href="#category-{{ item.category.slug }}" class="category-link" data-category="{{ item.category.id }}">
-                        {% if item.category.icon_class %}
-                            <i class="{{ item.category.icon_class }} me-2"></i>
-                        {% endif %}
-                        {{ item.category.name }}
-                        <span class="badge bg-secondary bg-opacity-25 text-dark ms-2">{{ item.services|length }}</span>
-                    </a>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-        <!-- Все услуги -->
-        <div id="all" class="category-section">
-            <div class="services-grid">
-                {% for service in all_services %}
-                <div class="service-card" data-categories="{{ service.category.id }}">
-                    <div class="service-card-body">
-                        {% if service.icon %}
-                        <div class="mb-3">
-                            <img src="{{ service.icon.url }}" alt="{{ service.name }}" class="service-card-icon" style="height: 64px; width: 64px; object-fit: contain;">
-                        </div>
-                        {% else %}
-                        <div class="icon-wrapper mb-3">
-                            <div class="icon-box-lg bg-primary bg-opacity-10 text-primary rounded-3 p-3 d-inline-flex">
-                                <i class="fas fa-concierge-bell fa-2x"></i>
-                            </div>
-                        </div>
-                        {% endif %}
-                        
-                        <h3 class="service-card-title h5">{{ service.name }}</h3>
-                        
-                        <div class="service-card-description">
-                            {{ service.short_description|striptags|truncatechars:150 }}
-                        </div>
-                        
-                        <div class="mt-auto">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="service-price">
-                                    {{ service.get_price_display }}
-                                </div>
-                                <span class="badge bg-light text-dark">
-                                    <i class="fas fa-eye me-1"></i>
-                                    {{ service.views }}
+        <!-- ========================================= -->
+        <!-- ПАНЕЛЬ ФИЛЬТРАЦИИ И ПОИСКА                -->
+        <!-- ========================================= -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="filter-glass-bax p-4">
+                    <form id="services-filters" class="row g-3 align-items-center" novalidate>
+                        <!-- А. Поле поиска -->
+                        <div class="col-lg-5">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 rounded-start-4 ps-3">
+                                    <i class="fas fa-search text-muted"></i>
                                 </span>
-                            </div>
-                            
-                            <div class="d-grid gap-2">
-                                <a href="{{ service.get_absolute_url }}" class="btn btn-outline-primary btn-hover-lift">
-                                    <span>Подробнее</span>
-                                    <i class="fas fa-arrow-right ms-2"></i>
-                                </a>
-                                <a href="{% if user.is_authenticated %}{% url 'portfolio:create_order' %}?service={{ service.slug }}{% else %}{% url 'accounts:login' %}?next={{ request.path }}{% endif %}" class="btn btn-primary btn-hover-lift">
-                                    <span>Заказать</span>
-                                    <i class="fas fa-shopping-cart ms-2"></i>
-                                </a>
+                                <input type="text"
+                                       name="q"
+                                       class="form-control form-control-modern border-start-0 ps-2"
+                                       id="searchInput"
+                                       value="{{ search_query }}"
+                                       placeholder="Поиск услуги..."
+                                       aria-label="Поиск">
                             </div>
                         </div>
+                        
+                        <!-- Б. Выбор категории -->
+                        <div class="col-lg-4">
+                            <select class="form-select form-select-modern" name="category" id="categoryFilter" aria-label="Категория">
+                                <option value="">Все категории</option>
+                                {% for cat in categories %}
+                                    <option value="{{ cat.slug }}" {% if selected_category == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- В. Сортировка -->
+                        <div class="col-lg-3">
+                            <select class="form-select form-select-modern" name="sort" id="sortBy" aria-label="Сортировка">
+                                <option value="-created_at" {% if current_sort == "-created_at" %}selected{% endif %}>✨ Новые первыми</option>
+                                <option value="created_at" {% if current_sort == "created_at" %}selected{% endif %}>📅 Старые первыми</option>
+                                <option value="name" {% if current_sort == "name" %}selected{% endif %}>🅰️ По названию</option>
+                                <option value="-views" {% if current_sort == "-views" %}selected{% endif %}>🔥 Популярные</option>
+                            </select>
+                        </div>
+                    </form>
+
+                    <!-- Г. Быстрые ссылки категорий (Тэги) -->
+                    <div class="d-none d-md-flex flex-wrap gap-2 mt-4 pt-3 border-top border-light">
+                        <a href="?" 
+                           class="category-pill {% if not selected_category %}active{% endif %}">
+                            Все
+                        </a>
+                        {% for cat in categories %}
+                            <a href="?category={{ cat.slug }}"
+                               class="category-pill {% if selected_category == cat.slug %}active{% endif %}">
+                                {{ cat.name }}
+                            </a>
+                        {% endfor %}
                     </div>
                 </div>
-                {% empty %}
-                <div class="col-12 text-center py-5">
-                    <div class="icon-box-xl bg-light rounded-circle p-4 mb-3 mx-auto">
-                        <i class="fas fa-inbox fa-3x text-muted"></i>
-                    </div>
-                    <h3 class="h4 mb-3">Услуги пока не добавлены</h3>
-                    <p class="text-muted">Скоро здесь появятся наши предложения</p>
-                </div>
-                {% endfor %}
             </div>
         </div>
 
-        <!-- Услуги по категориям -->
-        {% for item in categories_with_services %}
-        <div id="category-{{ item.category.slug }}" class="category-section" style="display: none;">
-            <div class="category-header">
-                <div class="row align-items-center">
-                    {% if item.category.image %}
-                    <div class="col-auto">
-                        <img src="{{ item.category.image.url }}" alt="{{ item.category.name }}" 
-                             class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+        {# Список всех услуг #}
+        <div class="services-grid mb-5">
+            {% for service in all_services %}
+            <div class="service-card">
+                <div class="service-card-body">
+                    {% if service.icon %}
+                    <div class="mb-3">
+                        <img src="{{ service.icon.url }}" alt="{{ service.name }}" 
+                             style="height: 64px; width: 64px; object-fit: contain;">
                     </div>
                     {% endif %}
-                    <div class="col">
-                        <h2 class="h3 fw-bold mb-1">{{ item.category.name }}</h2>
-                        {% if item.category.description %}
-                        <p class="text-muted mb-0">{{ item.category.description|striptags|truncatechars:200 }}</p>
-                        {% endif %}
+                    
+                    <h3 class="service-card-title h5">
+                        <a href="{{ service.get_absolute_url }}" class="text-decoration-none text-dark">
+                            {{ service.name }}
+                        </a>
+                    </h3>
+                    
+                    <div class="service-card-description">
+                        {{ service.short_description|striptags|truncatechars:120 }}
                     </div>
-                    <div class="col-auto">
-                        <span class="badge bg-primary rounded-pill px-3 py-2">
-                            {{ item.services|length }} услуг
-                        </span>
+                    
+                    <div class="mt-auto">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="service-price">
+                                {{ service.get_price_display }}
+                            </div>
+                            <span class="badge bg-light text-dark">
+                                <i class="fas fa-eye me-1"></i>
+                                {{ service.views }}
+                            </span>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <a href="{{ service.get_absolute_url }}" class="btn btn-outline-primary btn-hover-lift">
+                                <span>Подробнее</span>
+                                <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                            <a href="{% if user.is_authenticated %}{% url 'portfolio:create_order' %}?service={{ service.slug }}{% else %}{% url 'accounts:login' %}?next={{ request.path }}{% endif %}" class="btn btn-primary btn-hover-lift">
+                                <span>Заказать</span>
+                                <i class="fas fa-shopping-cart ms-2"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="services-grid">
-                {% for service in item.services %}
-                <div class="service-card">
-                    <div class="service-card-body">
-                        {% if service.icon %}
-                        <div class="mb-3">
-                            <img src="{{ service.icon.url }}" alt="{{ service.name }}" 
-                                 style="height: 64px; width: 64px; object-fit: contain;">
-                        </div>
-                        {% endif %}
-                        
-                        <h3 class="service-card-title h5">{{ service.name }}</h3>
-                        
-                        <div class="service-card-description">
-                            {{ service.short_description|striptags|truncatechars:150 }}
-                        </div>
-                        
-                        <div class="mt-auto">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="service-price">
-                                    {{ service.get_price_display }}
-                                </div>
-                                {% if service.can_order %}
-                                <span class="badge bg-success bg-opacity-10 text-success">
-                                    <i class="fas fa-check-circle me-1"></i>
-                                    Доступно
-                                </span>
-                                {% endif %}
-                            </div>
-                            
-                            <div class="d-grid gap-2">
-                                <a href="{{ service.get_absolute_url }}" class="btn btn-outline-primary btn-hover-lift">
-                                    <span>Подробнее</span>
-                                    <i class="fas fa-arrow-right ms-2"></i>
-                                </a>
-                                <a href="{% if user.is_authenticated %}{% url 'portfolio:create_order' %}?service={{ service.slug }}{% else %}{% url 'accounts:login' %}?next={{ request.path }}{% endif %}" class="btn btn-primary btn-hover-lift">
-                                    <span>Заказать</span>
-                                    <i class="fas fa-shopping-cart ms-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <div class="py-5">
+                    <i class="fas fa-search fa-3x text-secondary mb-3 opacity-50"></i>
+                    <h3>Услуги не найдены</h3>
+                    <p class="text-muted">Попробуйте изменить параметры поиска или выбрать другую категорию</p>
+                    <a href="?" class="btn btn-primary rounded-pill px-4 mt-2">
+                        Сбросить фильтры
+                    </a>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </section>
 {% endblock %}
@@ -294,103 +222,37 @@
 {% block extra_js %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Навигация по категориям
-    const categoryLinks = document.querySelectorAll('.category-link');
-    const categorySections = document.querySelectorAll('.category-section');
-    const allServicesSection = document.getElementById('all');
-    
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Убираем активный класс у всех ссылок
-            categoryLinks.forEach(l => l.classList.remove('active'));
-            // Добавляем активный класс текущей ссылке
-            this.classList.add('active');
-            
-            // Прячем все секции
-            categorySections.forEach(section => {
-                section.style.display = 'none';
+    const filterForm = document.getElementById('services-filters');
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortBy = document.getElementById('sortBy');
+
+    if (filterForm) {
+        const updateFilters = () => {
+            const formData = new FormData(filterForm);
+            const params = new URLSearchParams();
+            for (const [key, value] of formData.entries()) {
+                if (value) params.append(key, value);
+            }
+            window.location.href = `?${params.toString()}`;
+        };
+
+        if (categoryFilter) categoryFilter.addEventListener('change', updateFilters);
+        if (sortBy) sortBy.addEventListener('change', updateFilters);
+
+        if (searchInput) {
+            let timeout = null;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(timeout);
+                timeout = setTimeout(updateFilters, 800);
             });
-            
-            // Показываем выбранную секцию
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                targetSection.style.display = 'block';
-            }
-            
-            // Плавная прокрутка
-            if (targetSection) {
-                window.scrollTo({
-                    top: targetSection.offsetTop - 100,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-    
-    // Фильтрация при клике на категорию в навигации
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            const categoryId = this.dataset.category;
-            const allCards = allServicesSection.querySelectorAll('.service-card');
-            
-            if (categoryId === 'all') {
-                // Показываем все карточки
-                allCards.forEach(card => {
-                    card.style.display = 'block';
-                });
-            } else {
-                // Фильтруем карточки
-                allCards.forEach(card => {
-                    const cardCategory = card.dataset.categories;
-                    if (cardCategory === categoryId) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            }
-        });
-    });
-    
-    // Параллакс эффект для карточек
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const xAxis = (rect.width / 2 - x) / 25;
-            const yAxis = (rect.height / 2 - y) / 25;
-            
-            this.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateY(-5px)`;
-        });
+        }
         
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(0)';
-            this.style.transition = 'all 0.5s ease';
+        filterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            updateFilters();
         });
-        
-        card.addEventListener('mouseenter', function() {
-            this.style.transition = 'none';
-        });
-    });
-    
-    // Инициализация анимации при загрузке
-    setTimeout(() => {
-        serviceCards.forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, index * 100);
-        });
-    }, 300);
+    }
 });
 </script>
 {% endblock %}

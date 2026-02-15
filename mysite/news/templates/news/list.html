@@ -21,7 +21,7 @@
 {# Подключение дополнительных стилей #}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/news-cards.css' %}">
-{# Стили для карточек новостей #}
+<link rel="stylesheet" href="{% static 'css/portfolio_list.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {# Стили для постраничной навигации #}
 <style>
@@ -40,19 +40,76 @@
 {# Основной контент страницы #}
 <section class="main-content py-4 py-md-5">
     <div class="container-fluid px-3 px-md-4">
+    <div class="container-fluid py-4">
         <!-- Заголовок секции -->
         <div class="row mb-5 text-left">
-            <div class="col-12">
-                <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">Новости</span>
+            <div class="col-lg-8">
+                <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">НОВОСТИ</span>
                 <h1 class="display-4 fw-bold mb-3">Актуальные события</h1>
                 <p class="lead text-muted">Следите за последними новостями и обновлениями из мира технологий и разработки.</p>
             </div>
         </div>
-        <hr class="mb-5"> 
 
-        {# Включаем блок с сеткой категорий #}
-        {% include 'news/news-category.html' %}
-        <hr class="mb-5"> 
+        <!-- ========================================= -->
+        <!-- ПАНЕЛЬ ФИЛЬТРАЦИИ И ПОИСКА                -->
+        <!-- ========================================= -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="filter-glass-bax p-4">
+                    <form id="news-filters" class="row g-3 align-items-center" novalidate>
+                        <!-- А. Поле поиска -->
+                        <div class="col-lg-5">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 rounded-start-4 ps-3">
+                                    <i class="fas fa-search text-muted"></i>
+                                </span>
+                                <input type="text"
+                                       name="q"
+                                       class="form-control form-control-modern border-start-0 ps-2"
+                                       id="searchInput"
+                                       value="{{ search_query }}"
+                                       placeholder="Поиск новостей..."
+                                       aria-label="Поиск">
+                            </div>
+                        </div>
+                        
+                        <!-- Б. Выбор категории -->
+                        <div class="col-lg-4">
+                            <select class="form-select form-select-modern" name="category" id="categoryFilter" aria-label="Категория">
+                                <option value="">Все категории</option>
+                                {% for cat in categories %}
+                                    <option value="{{ cat.slug }}" {% if selected_category == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- В. Сортировка -->
+                        <div class="col-lg-3">
+                            <select class="form-select form-select-modern" name="sort" id="sortBy" aria-label="Сортировка">
+                                <option value="-created_at" {% if current_sort == "-created_at" %}selected{% endif %}>✨ Новые первыми</option>
+                                <option value="created_at" {% if current_sort == "created_at" %}selected{% endif %}>📅 Старые первыми</option>
+                                <option value="title" {% if current_sort == "title" %}selected{% endif %}>🅰️ По названию</option>
+                                <option value="-views" {% if current_sort == "-views" %}selected{% endif %}>🔥 Популярные</option>
+                            </select>
+                        </div>
+                    </form>
+
+                    <!-- Г. Быстрые ссылки категорий (Тэги) -->
+                    <div class="d-none d-md-flex flex-wrap gap-2 mt-4 pt-3 border-top border-light">
+                        <a href="?" 
+                           class="category-pill {% if not selected_category %}active{% endif %}">
+                            Все
+                        </a>
+                        {% for cat in categories %}
+                            <a href="?category={{ cat.slug }}"
+                               class="category-pill {% if selected_category == cat.slug %}active{% endif %}">
+                                {{ cat.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
 
         {# Список всех новостей #}
         <div class="row g-4">
@@ -143,4 +200,42 @@
         {% endif %}
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterForm = document.getElementById('news-filters');
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortBy = document.getElementById('sortBy');
+
+    if (filterForm) {
+        const updateFilters = () => {
+            const formData = new FormData(filterForm);
+            const params = new URLSearchParams();
+            for (const [key, value] of formData.entries()) {
+                if (value) params.append(key, value);
+            }
+            window.location.href = `?${params.toString()}`;
+        };
+
+        if (categoryFilter) categoryFilter.addEventListener('change', updateFilters);
+        if (sortBy) sortBy.addEventListener('change', updateFilters);
+
+        if (searchInput) {
+            let timeout = null;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(timeout);
+                timeout = setTimeout(updateFilters, 800);
+            });
+        }
+        
+        filterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            updateFilters();
+        });
+    }
+});
+</script>
 {% endblock %}
