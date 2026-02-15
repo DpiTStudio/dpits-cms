@@ -10,18 +10,33 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
     """Админ-панель для категорий услуг"""
 
     list_display = [
+        # Основная информация
         "name",
         "slug",
+        # Статусы
         "order",
         "is_active",
+        # Статистика
         "services_count",
         "views",
+        # Даты
         "created_at",
     ]
-    list_filter = ["is_active", "created_at"]
+    list_filter = [
+        # Статусы
+        "is_active",
+        # Даты
+        "created_at",
+    ]
     search_fields = ["name", "description"]
     prepopulated_fields = {"slug": ("name",)}
-    readonly_fields = ["created_at", "updated_at", "services_count_display"]
+    readonly_fields = [
+        # Даты
+        "created_at",
+        "updated_at",
+        # Статистика
+        "services_count_display",
+    ]
     list_editable = ["order", "is_active"]
     list_per_page = 20
 
@@ -83,20 +98,26 @@ class ServiceAdmin(admin.ModelAdmin):
     """Админ-панель для услуг"""
 
     list_display = [
-        "id",
-        "name",
-        "category",
-        "price_display",
-        "can_order",
-        "is_displayed",
-        "views",
-        "created_at",
-        "icon_preview",
+    # Основная информация
+    "id", "name", "icon_preview",
+    
+    # Категория и цена
+    "category", "price_display",
+    
+    # Статусы
+    "can_order", "is_displayed",
+    
+    # Даты
+    "created_at",
     ]
+
     list_filter = [
+        # Категория
         "category",
+        # Цена
         "price_type",
         "currency",
+        # Статусы
         "can_order",
         "is_displayed",
         "created_at",
@@ -104,9 +125,11 @@ class ServiceAdmin(admin.ModelAdmin):
     search_fields = ["name", "short_description", "description"]
     prepopulated_fields = {"slug": ("name",)}
     readonly_fields = [
+        # Системная информация
         "views",
         "created_at",
         "updated_at",
+        # Превью
         "icon_preview_large",
         "background_preview_large",
     ]
