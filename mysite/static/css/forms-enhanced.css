@@ -169,8 +169,8 @@
 
 .form-select {
     padding: var(--spacing-md);
-    border: 2px solid var(--neutral-300);
-    border-radius: var(--border-radius);
+    border: 1px solid var(--neutral-300); /* Thinner border for cleaner look */
+    border-radius: 12px; /* Matches dropdown style */
     font-size: var(--font-size-base);
     background-color: var(--text-white);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
@@ -179,7 +179,13 @@
     background-size: 16px 12px;
     padding-right: calc(var(--spacing-md) * 2 + 16px);
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.form-select:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 [data-theme="dark"] .form-select {

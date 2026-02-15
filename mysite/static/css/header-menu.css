@@ -168,73 +168,113 @@
 /* --------------------------------------------------------------------------
    Выпадающее меню (Dropdown)
    -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   Выпадающее меню (Dropdown) - Unified Premium Style
+   -------------------------------------------------------------------------- */
 .dropdown-menu {
     /* Минимальная ширина */
-    min-width: 200px;
+    min-width: 220px;
     /* Убираем стандартную рамку */
-    border: none;
-    /* Мягкая тень */
-    box-shadow: 0 5px 15px hsla(0, 4%, 85%, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    /* Глубокая, мягкая тень */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0,0,0,0.05);
     /* Скругление */
-    border-radius: 8px;
-    /* Внутренние отступы сверху/снизу */
-    padding: 1px 0;
+    border-radius: 16px;
+    /* Внутренние отступы */
+    padding: 0.75rem;
     /* Отступ сверху от кнопки */
-    margin-top: 50px;
+    margin-top: 15px !important;
     /* Анимация появления */
-    animation: fadeIn 0.2s ease;
+    animation: dropdownFadeIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    /* Фон - эффект стекла */
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow: hidden;
 }
 
 /* Ключевые кадры анимации появления */
-@keyframes fadeIn {
+@keyframes dropdownFadeIn {
     from { 
         opacity: 0; 
-        transform: translateY(-10px); 
+        transform: translateY(10px) scale(0.98); 
     }
     to { 
         opacity: 1; 
-        transform: translateY(0); 
+        transform: translateY(0) scale(1); 
     }
 }
 
 .dropdown-item {
     /* Внутренние отступы пункта меню */
-    padding: 10px 20px;
+    padding: 0.75rem 1rem;
     /* Плавная анимация */
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
     /* Скругление */
-    border-radius: 4px;
+    border-radius: 10px;
     /* Отступы между пунктами */
-    margin: 2px 10px;
-    /* Z-index поверх всего */
-    z-index: 1002;
+    margin-bottom: 2px;
+    /* Жирность шрифта */
+    font-weight: 500;
+    /* Цвет текста */
+    color: #4b5563;
+    /* Flex для иконок */
+    display: flex;
+    align-items: center;
 }
 
-.dropdown-item:hover {
+.dropdown-item:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
     /* Цвет фона при наведении */
-    background-color: rgba(97, 96, 129, 0.12);
+    background-color: rgba(59, 130, 246, 0.08);
+    /* Цвет текста */
+    color: #3b82f6;
     /* Сдвиг текста вправо */
-    padding-left: 20px;
+    transform: translateX(4px);
+    padding-left: 1.25rem;
+}
+
+.dropdown-item i {
+    width: 24px;
+    text-align: center;
+    margin-right: 12px;
+    color: #9ca3af;
+    transition: color 0.25s ease;
+    font-size: 0.95em;
+}
+
+.dropdown-item:hover i {
+    color: #3b82f6;
 }
 
 .dropdown-item.active {
     /* Цвет фона активного элемента */
-    background-color: rgba(97, 96, 129, 0.12);
+    background-color: #3b82f6;
     /* Цвет текста */
+    color: white;
+    /* Тень при активности */
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.dropdown-item.active i {
     color: white;
 }
 
 .dropdown-divider {
     /* Отступы разделителя */
-    margin: 3px 0;
+    margin: 0.5rem 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 /* Стрелка у выпадающего меню */
 .dropdown-toggle::after {
     /* Отступ слева */
-    margin-left: 5px;
+    margin-left: 0.5rem;
     /* Анимация вращения */
-    transition: transform 0.2s ease;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 /* Поворот стрелки при открытии */
