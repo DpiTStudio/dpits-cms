@@ -190,11 +190,17 @@
                                 </span>
                             </div>
                             
-                            <div class="d-grid">
+                            <div class="d-grid gap-2">
                                 <a href="{{ service.get_absolute_url }}" class="btn btn-outline-primary btn-hover-lift">
                                     <span>Подробнее</span>
                                     <i class="fas fa-arrow-right ms-2"></i>
                                 </a>
+                                {% if service.can_order %}
+                                <a href="{% if user.is_authenticated %}{% url 'portfolio:create_order' %}?service={{ service.slug }}{% else %}{% url 'accounts:login' %}?next={{ request.path }}{% endif %}" class="btn btn-primary btn-hover-lift">
+                                    <span>Заказать</span>
+                                    <i class="fas fa-shopping-cart ms-2"></i>
+                                </a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -266,11 +272,17 @@
                                 {% endif %}
                             </div>
                             
-                            <div class="d-grid">
-                                <a href="{{ service.get_absolute_url }}" class="btn btn-primary btn-hover-lift">
-                                    <span>Заказать услугу</span>
+                            <div class="d-grid gap-2">
+                                <a href="{{ service.get_absolute_url }}" class="btn btn-outline-primary btn-hover-lift">
+                                    <span>Подробнее</span>
                                     <i class="fas fa-arrow-right ms-2"></i>
                                 </a>
+                                {% if service.can_order %}
+                                <a href="{% if user.is_authenticated %}{% url 'portfolio:create_order' %}?service={{ service.slug }}{% else %}{% url 'accounts:login' %}?next={{ request.path }}{% endif %}" class="btn btn-primary btn-hover-lift">
+                                    <span>Заказать</span>
+                                    <i class="fas fa-shopping-cart ms-2"></i>
+                                </a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
