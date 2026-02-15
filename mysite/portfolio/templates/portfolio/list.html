@@ -28,7 +28,8 @@
 {% endblock %}
 
 {% block extra_css %}
-{# Подключение внешних стилей для списка портфолио и пагинации #}
+{# Подключение общих стилей для списков и пагинации #}
+<link rel="stylesheet" href="{% static 'css/list-common.css' %}">
 <link rel="stylesheet" href="{% static 'css/portfolio_list.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}
@@ -252,39 +253,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const filterForm = document.getElementById('portfolio-filters');
-    const searchInput = document.getElementById('searchInput');
-    const categoryFilter = document.getElementById('categoryFilter');
-    const sortBy = document.getElementById('sortBy');
-
-    if (filterForm) {
-        const updateFilters = () => {
-            const formData = new FormData(filterForm);
-            const params = new URLSearchParams();
-            for (const [key, value] of formData.entries()) {
-                if (value) params.append(key, value);
-            }
-            window.location.href = `?${params.toString()}`;
-        };
-
-        if (categoryFilter) categoryFilter.addEventListener('change', updateFilters);
-        if (sortBy) sortBy.addEventListener('change', updateFilters);
-
-        if (searchInput) {
-            let timeout = null;
-            searchInput.addEventListener('input', () => {
-                clearTimeout(timeout);
-                timeout = setTimeout(updateFilters, 800);
-            });
-        }
-        
-        filterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            updateFilters();
-        });
-    }
-});
-</script>
+<script src="{% static 'js/list-filters.js' %}"></script>
 {% endblock %}

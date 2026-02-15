@@ -20,20 +20,9 @@
 
 {# Подключение дополнительных стилей #}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/news-cards.css' %}">
-<link rel="stylesheet" href="{% static 'css/portfolio_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/list-common.css' %}">
+<link rel="stylesheet" href="{% static 'css/news-list.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
-{# Стили для постраничной навигации #}
-<style>
-    /* Плавное появление контента */
-    .main-content {
-        animation: fadeIn 0.8s ease-out;
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-</style>
 {% endblock %}
 
 {% block content %}
@@ -203,39 +192,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const filterForm = document.getElementById('news-filters');
-    const searchInput = document.getElementById('searchInput');
-    const categoryFilter = document.getElementById('categoryFilter');
-    const sortBy = document.getElementById('sortBy');
-
-    if (filterForm) {
-        const updateFilters = () => {
-            const formData = new FormData(filterForm);
-            const params = new URLSearchParams();
-            for (const [key, value] of formData.entries()) {
-                if (value) params.append(key, value);
-            }
-            window.location.href = `?${params.toString()}`;
-        };
-
-        if (categoryFilter) categoryFilter.addEventListener('change', updateFilters);
-        if (sortBy) sortBy.addEventListener('change', updateFilters);
-
-        if (searchInput) {
-            let timeout = null;
-            searchInput.addEventListener('input', () => {
-                clearTimeout(timeout);
-                timeout = setTimeout(updateFilters, 800);
-            });
-        }
-        
-        filterForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            updateFilters();
-        });
-    }
-});
-</script>
+<script src="{% static 'js/list-filters.js' %}"></script>
 {% endblock %}

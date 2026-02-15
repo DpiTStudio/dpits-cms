@@ -1,69 +1,19 @@
 /* ========================================= */
-/* CSS ПЕРЕМЕННЫЕ И НАСТРОЙКИ ДИЗАЙНА        */
+/* ФАЙЛ: portfolio_list.css                  */
+/* ОПИСАНИЕ: Специфичные стили для портфолио  */
 /* ========================================= */
+
 :root {
-  /* Основной градиент, используемый в элементах акцента */
-  --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-  /* Смещение карточки вверх при наведении */
   --card-hover-transform: translateY(-8px);
-  /* Цвет фона с эффектом матового стекла */
-  --glass-bg: rgba(255, 255, 255, 0.95);
-  /* Тонкая рамка для эффекта стекла */
-  --glass-border: 1px solid rgba(255, 255, 255, 0.2);
-  /* Мягкая тень для состояния покоя */
-  --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
-  /* Усиленная тень для состояния наведения */
   --shadow-hover: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
 }
 
-/* Класс для наложения градиента на текст */
-.text-gradient {
-  background: var(--primary-gradient);
-  -webkit-background-clip: text; /* Обрезка фона по тексту для Webkit браузеров */
-  -webkit-text-fill-color: transparent; /* Прозрачный текст, чтобы был виден фон */
-  background-clip: text;
-}
-
-/* Стили контейнера фильтров с эффектом стекла (Glassmorphism) */
-.filter-glass-bax {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px); /* Размытие фона под элементом */
-  border: 1px solid rgba(99, 102, 241, 0.1);
-  box-shadow: var(--shadow-soft);
-  border-radius: 1rem;
-}
-
-/* Стили для кнопок-категорий (таблеток/pills) */
-.category-pill {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid transparent;
-  font-weight: 500;
-  padding: 0.5rem 1.25rem;
-  border-radius: 50px;
-  background-color: #f8fafc;
-  color: #64748b;
-  text-decoration: none;
-  display: inline-block;
-}
-
-/* Состояния наведения и активности для категорий */
-.category-pill:hover,
-.category-pill.active {
-  background: var(--primary-gradient); /* Градиентный фон при активности */
-  color: white;
-  transform: translateY(-2px); /* Небольшой подъем */
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
-  text-decoration: none;
-}
-
-/* ========================================= */
-/* СТИЛИ КАРТОЧКИ ПОРТФОЛИО                  */
-/* ========================================= */
+/* СТИЛИ КАРТОЧКИ ПОРТФОЛИО */
 .portfolio-card-modern {
   background: #fff;
   border: none;
   border-radius: 12px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Плавная анимация с отскоком */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   height: 100%;
   overflow: hidden;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -72,46 +22,39 @@
   flex-direction: column;
 }
 
-/* Эффекты при наведении на всю карточку */
 .portfolio-card-modern:hover {
-  transform: var(--card-hover-transform); /* Подъем карточки */
-  box-shadow: var(--shadow-hover); /* Увеличение тени */
+  transform: var(--card-hover-transform);
+  box-shadow: var(--shadow-hover);
 }
 
-/* Обертка для изображения проекта (фиксированная высота) */
 .card-img-wrapper {
   position: relative;
   height: 240px;
   overflow: hidden;
 }
 
-/* Само изображение внутри карточки */
 .card-img-wrapper img {
-  transition: transform 0.8s ease; /* Очень плавное увеличение */
+  transition: transform 0.8s ease;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Заполнение области без искажения пропорций */
+  object-fit: cover;
 }
 
-/* Зум изображения при наведении на карточку */
 .portfolio-card-modern:hover .card-img-wrapper img {
   transform: scale(1.08);
 }
 
-/* Затемняющий слой поверх изображения (с кнопками) */
 .card-overlay {
-  background: rgba(15, 23, 42, 0.6); /* Полупрозрачный темный фон */
-  opacity: 0; /* Скрыт по умолчанию */
+  background: rgba(15, 23, 42, 0.6);
+  opacity: 0;
   transition: all 0.3s ease;
-  backdrop-filter: blur(4px); /* Размытие фона под оверлеем */
+  backdrop-filter: blur(4px);
 }
 
-/* Показ оверлея при наведении */
 .portfolio-card-modern:hover .card-overlay {
   opacity: 1;
 }
 
-/* Бейдж технологии (например, Python, Django) */
 .tech-badge {
   font-size: 0.75rem;
   padding: 0.35em 0.8em;
@@ -121,52 +64,19 @@
   font-weight: 600;
 }
 
-/* Мета-информация внизу карточки (дата, глазик) */
 .card-meta {
   font-size: 0.85rem;
   color: #94a3b8;
 }
 
-/* ========================================= */
-/* СТИЛИ ДЛЯ САЙДБАРА И ЭЛЕМЕНТОВ ФОРМЫ      */
-/* ========================================= */
-/* Мини-карточка новости в сайдбаре */
+/* Мини-карточка новости в сайдбаре (специфично для этой страницы) */
 .news-mini-card {
   transition: transform 0.2s ease;
-  border-left: 3px solid transparent; /* Подготовка для цветной полоски слева */
+  border-left: 3px solid transparent;
 }
 
 .news-mini-card:hover {
-  transform: translateX(5px); /* Сдвиг вправо при наведении */
-  border-left-color: #6366f1; /* Появление цветной полоски */
+  transform: translateX(5px);
+  border-left-color: #6366f1;
   background-color: #f8fafc;
-}
-
-/* Современные инпуты и селекты */
-.form-control-modern, .form-select-modern {
-  border: 1px solid #e2e8f0;
-  padding: 0.75rem 1rem;
-  border-radius: 0.75rem;
-  transition: all 0.2s;
-}
-
-/* Фокус на элементах формы */
-.form-control-modern:focus, .form-select-modern:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-/* Утилиты для обрезки текста (многоточие) */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Ограничение до 2 строк */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-1 {
-  display: -webkit-box;
-  -webkit-line-clamp: 1; /* Ограничение до 1 строки */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }

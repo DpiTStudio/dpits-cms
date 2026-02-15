@@ -1,0 +1,38 @@
+/* ========================================= */
+/* ФАЙЛ: news-list.css                       */
+/* ОПИСАНИЕ: Стили для списка новостей       */
+/* ========================================= */
+
+/* Плавное появление контента при загрузке страницы */
+.main-content {
+    animation: fadeInNews 0.8s ease-out;
+}
+
+@keyframes fadeInNews {
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Стили карточек новостей (если требуются специфичные) */
+.news-card {
+    transition: all 0.3s ease-in-out;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.news-card .card-img-top {
+    transition: transform 0.5s ease;
+}
+
+.news-card:hover .card-img-top {
+    transform: scale(1.05);
+}
