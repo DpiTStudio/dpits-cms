@@ -75,23 +75,91 @@ def upload_to_with_date(instance, filename, prefix=None):
     return os.path.join(upload_to, new_filename)
 
 # Функции-заглушки для загрузки файлов (для поддержки миграций)
-def upload_to_logos(instance, filename): return upload_to_with_date(instance, filename, "logo")
-def upload_to_hero_bg(instance, filename): return upload_to_with_date(instance, filename, "hero_bg")
-def upload_to_facebook_icon(instance, filename): return upload_to_with_date(instance, filename, "facebook_icon")
-def upload_to_instagram_icon(instance, filename): return upload_to_with_date(instance, filename, "instagram_icon")
-def upload_to_youtube_icon(instance, filename): return upload_to_with_date(instance, filename, "youtube_icon")
-def upload_to_rutube_icon(instance, filename): return upload_to_with_date(instance, filename, "rutube_icon")
-def upload_to_vk_video_icon(instance, filename): return upload_to_with_date(instance, filename, "vk_video_icon")
-def upload_to_telegram_icon(instance, filename): return upload_to_with_date(instance, filename, "telegram_icon")
-def upload_to_vk_icon(instance, filename): return upload_to_with_date(instance, filename, "vk_icon")
-def upload_to_ok_icon(instance, filename): return upload_to_with_date(instance, filename, "ok_icon")
-def upload_to_twitter_icon(instance, filename): return upload_to_with_date(instance, filename, "twitter_icon")
-def upload_to_pinterest_icon(instance, filename): return upload_to_with_date(instance, filename, "pinterest_icon")
-def upload_to_linkedin_icon(instance, filename): return upload_to_with_date(instance, filename, "linkedin_icon")
-def upload_to_whatsapp_icon(instance, filename): return upload_to_with_date(instance, filename, "whatsapp_icon")
-def upload_to_viber_icon(instance, filename): return upload_to_with_date(instance, filename, "viber_icon")
-def upload_to_skype_icon(instance, filename): return upload_to_with_date(instance, filename, "skype_icon")
-def upload_to_threads_icon(instance, filename): return upload_to_with_date(instance, filename, "threads_icon")
+def upload_to_logos(instance, filename): 
+    """
+    Загрузка логотипа
+    """
+    return upload_to_with_date(instance, filename, "logo")
+def upload_to_hero_bg(instance, filename): 
+    """
+    Загрузка фона Hero-секции
+    """
+    return upload_to_with_date(instance, filename, "hero_bg")
+def upload_to_facebook_icon(instance, filename): 
+    """
+    Загрузка иконки Facebook
+    """
+    return upload_to_with_date(instance, filename, "facebook_icon")
+def upload_to_instagram_icon(instance, filename): 
+    """
+    Загрузка иконки Instagram
+    """
+    return upload_to_with_date(instance, filename, "instagram_icon")
+def upload_to_youtube_icon(instance, filename): 
+    """
+    Загрузка иконки YouTube
+    """
+    return upload_to_with_date(instance, filename, "youtube_icon")
+def upload_to_rutube_icon(instance, filename): 
+    """
+    Загрузка иконки Rutube
+    """
+    return upload_to_with_date(instance, filename, "rutube_icon")
+def upload_to_vk_video_icon(instance, filename): 
+    """
+    Загрузка иконки VK Видео
+    """
+    return upload_to_with_date(instance, filename, "vk_video_icon")
+def upload_to_telegram_icon(instance, filename): 
+    """
+    Загрузка иконки Telegram
+    """
+    return upload_to_with_date(instance, filename, "telegram_icon")
+def upload_to_vk_icon(instance, filename): 
+    """
+    Загрузка иконки VK
+    """
+    return upload_to_with_date(instance, filename, "vk_icon")
+def upload_to_ok_icon(instance, filename): 
+    """
+    Загрузка иконки OK
+    """
+    return upload_to_with_date(instance, filename, "ok_icon")
+def upload_to_twitter_icon(instance, filename): 
+    """
+    Загрузка иконки Twitter
+    """
+    return upload_to_with_date(instance, filename, "twitter_icon")
+def upload_to_pinterest_icon(instance, filename): 
+    """
+    Загрузка иконки Pinterest
+    """
+    return upload_to_with_date(instance, filename, "pinterest_icon")
+def upload_to_linkedin_icon(instance, filename): 
+    """
+    Загрузка иконки LinkedIn
+    """
+    return upload_to_with_date(instance, filename, "linkedin_icon")
+def upload_to_whatsapp_icon(instance, filename): 
+    """
+    Загрузка иконки WhatsApp
+    """
+    return upload_to_with_date(instance, filename, "whatsapp_icon")
+def upload_to_viber_icon(instance, filename): 
+    """
+    Загрузка иконки Viber
+    """
+    return upload_to_with_date(instance, filename, "viber_icon")
+def upload_to_skype_icon(instance, filename): 
+    """
+    Загрузка иконки Skype
+    """
+    return upload_to_with_date(instance, filename, "skype_icon")
+def upload_to_threads_icon(instance, filename): 
+    """
+    Загрузка иконки Threads
+    """
+    return upload_to_with_date(instance, filename, "threads_icon")
 
 
 class SingletonModel(models.Model):
