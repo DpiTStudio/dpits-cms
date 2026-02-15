@@ -162,6 +162,7 @@ def upload_to_threads_icon(instance, filename):
     return upload_to_with_date(instance, filename, "threads_icon")
 
 
+# Модели для хранения настроек сайта
 class SingletonModel(models.Model):
     """
     Абстрактная модель для создания singleton-объектов (только одна запись).
@@ -198,6 +199,7 @@ class SingletonModel(models.Model):
         return obj  # Возвращаем объект
 
 
+# Миксины для добавления настроек Hero-секции в любую модель
 class HeroMixin(models.Model):
     """
     Абстрактный класс (миксин) для добавления настроек Hero-секции в любую модель.
@@ -231,6 +233,7 @@ class HeroMixin(models.Model):
         abstract = True
 
 
+# Модель для хранения настроек Hero-секции для основных разделов сайта
 class AppHeroSettings(HeroMixin):
     """
     Модель для настройки Hero-секций основных разделов сайта (списков новостей, услуг и т.д.).
@@ -259,6 +262,7 @@ class AppHeroSettings(HeroMixin):
         return self.get_app_name_display()
 
 
+# Модель для хранения глобальных настроек сайта
 class SiteSettings(SingletonModel):
     """
     Модель для хранения глобальных настроек сайта.
@@ -532,6 +536,7 @@ class SiteSettings(SingletonModel):
             raise ValidationError({"email": _("Введите корректный email адрес")})
 
 
+# Модель для пользовательских страниц сайта
 class Page(HeroMixin):
     """
     Модель для пользовательских страниц сайта.
@@ -725,6 +730,7 @@ class Page(HeroMixin):
             raise ValidationError({"slug": _("Этот URL-адрес зарезервирован системой")})
 
 
+# Модель для управления файлами через админку Django
 class ManagedFile(models.Model):
     """
     Модель для управления файлами через админку Django.
@@ -1274,6 +1280,7 @@ class ManagedFile(models.Model):
         return count
 
 
+# Модель для хранения статистики лог-файлов
 class LogStats(models.Model):
     """
     Модель для хранения статистики лог-файлов.
@@ -1347,6 +1354,8 @@ class LogStats(models.Model):
         return f"Статистика логов за {self.log_date}"
 
 
+# Прокси-модель для LogStats, чтобы отобразить отдельный пункт
+# меню для управления логом ошибок (error.log).
 class ErrorLog(LogStats):
     """
     Прокси-модель для LogStats, чтобы отобразить отдельный пункт
@@ -1359,6 +1368,7 @@ class ErrorLog(LogStats):
         verbose_name_plural = "Лог ошибок"
 
 
+# Модель для статистических баннеров (Яндекс.Метрика, Google Analytics и др.).
 class StatisticsBanner(models.Model):
     """
     Модель для статистических баннеров (Яндекс.Метрика, Google Analytics и др.).
