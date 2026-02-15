@@ -10,6 +10,7 @@
     {% if query %}Поиск: {{ query }}{% else %}Поиск новостей{% endif %} - {{ site_settings.logo_text|default:"DpiTStudio" }}
 {% endblock %}
 
+
 {# Дополнительные стили страницы #}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/news-cards.css' %}">
