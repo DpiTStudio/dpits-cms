@@ -38,15 +38,7 @@
                                  class="img-fluid w-100 h-100 object-fit-cover transition-scale">
                             {% endif %}
                         </div>
-                        <hr class="border-secondary">
-                        <div class="d-flex align-items-left mb-2">
-                            <i class="">
-                                {{ news.description|truncatechars:50|striptags }}
-                            </i>
-                        </div>
-                        <hr class="border-secondary">
                     </div>
-                    {% comment %}
                     <!-- Контент -->
                     <div class="col-12">
                         {% if news.read_time %}
@@ -59,7 +51,6 @@
                         </div>
                         {% endif %}
                     </div>
-                    {% endcomment %}
                 </div>
             </a>
             {% comment %}

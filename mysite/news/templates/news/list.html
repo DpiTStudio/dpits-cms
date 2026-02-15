@@ -48,7 +48,11 @@
                 <p class="lead text-muted">Следите за последними новостями и обновлениями из мира технологий и разработки.</p>
             </div>
         </div>
-        <hr class="mb-5">   
+        <hr class="mb-5"> 
+
+        {# Включаем блок с сеткой категорий #}
+        {% include 'news/news-category.html' %}
+        <hr class="mb-5"> 
 
         {# Список всех новостей #}
         <div class="row g-4">
