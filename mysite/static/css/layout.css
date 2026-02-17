@@ -211,7 +211,7 @@ header::after {
 
 /* Выпадающее меню */
 .dropdown-menu {
-    background-color: var(--text-white);
+    background-color: rgba(59, 57, 57, 0.064);
     /* Белый фон меню */
     border: var(--border-width-thin) solid #dee2e6;
     /* Серая граница */
@@ -219,7 +219,7 @@ header::after {
     /* Скругление углов */
     box-shadow: var(--box-shadow-md);
     /* Средняя тень */
-    padding: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
     /* Внутренние отступы */
     min-width: 200px;
     /* Минимальная ширина */
@@ -227,7 +227,7 @@ header::after {
 
 /* Элемент выпадающего меню */
 .dropdown-item {
-    color: var(--text-color);
+    color: rgba(59, 57, 57, 0.064);
     /* Цвет текста */
     padding: var(--spacing-sm) var(--spacing-md);
     /* Внутренние отступы */

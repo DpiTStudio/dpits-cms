@@ -82,8 +82,10 @@
 }
 
 .nav-text {
+    /* Размер шрифта */
+    font-size: 0.8rem;
     /* Жирность текста */
-    font-weight: 900;
+    font-weight: 300;
     /* Плавная анимация */
     transition: all 0.3s ease;
     /* Запрет переноса строк */
