@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ article.title }} | {{ block.super }}{% endblock %}
+{% block meta_description %}{{ article.seo_description|default:article.title }}{% endblock %}
+{% block meta_keywords %}{{ article.seo_keywords }}{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent px-0 py-2">
+            <li class="breadcrumb-item"><a href="{% url 'knowledge_base:category_list' %}" class="text-decoration-none text-muted">База Знаний</a></li>
+            <li class="breadcrumb-item"><a href="{{ article.category.get_absolute_url }}" class="text-decoration-none text-primary">{{ article.category.name }}</a></li>
+            <li class="breadcrumb-item active text-truncate" style="max-width: 200px;" aria-current="page">{{ article.title }}</li>
+        </ol>
+    </nav>
+    
+    <h1 class="display-5 fw-bold mb-3">{{ article.title }}</h1>
+    
+    <div class="d-flex align-items-center text-muted small mb-4 pb-3 border-bottom">
+        <div class="d-flex align-items-center me-4">
+            <i class="far fa-calendar-alt me-2"></i>
+            Обновлено: {{ article.updated_at|date:"d E Y" }}
+        </div>
+        <div class="d-flex align-items-center me-4">
+            <i class="far fa-eye me-2"></i>
+            {{ article.views_count }} просмотров
+        </div>
+        {% if article.author %}
+        <div class="d-flex align-items-center">
+            <i class="far fa-user me-2"></i>
+            {{ article.author.username }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<article class="article-content mb-5 fs-5">
+    {{ article.content|safe }}
+</article>
+
+<div class="card bg-light border-0 mb-5">
+    <div class="card-body p-4">
+        <h5 class="card-title fw-bold mb-3">Была ли эта статья полезна?</h5>
+        <div class="d-flex gap-2">
+            <button class="btn btn-success px-4" id="vote-up">
+                <i class="far fa-thumbs-up me-2"></i> Да <span class="badge bg-white text-success ms-1">{{ article.helpful_count }}</span>
+            </button>
+            <button class="btn btn-outline-danger px-4" id="vote-down">
+                <i class="far fa-thumbs-down me-2"></i> Нет <span class="badge bg-danger text-white ms-1">{{ article.not_helpful_count }}</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .article-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        margin: 1.5rem 0;
+    }
+    .article-content h2, .article-content h3 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        color: #1f2937;
+    }
+    .article-content p {
+        margin-bottom: 1.25rem;
+        line-height: 1.7;
+        color: #374151;
+    }
+    .article-content ul, .article-content ol {
+        margin-bottom: 1.25rem;
+        padding-left: 1.5rem;
+    }
+    .article-content blockquote {
+        border-left: 4px solid #3b82f6;
+        padding-left: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+        font-style: italic;
+        color: #4b5563;
+        background-color: #f3f4f6;
+        padding: 1rem;
+        border-radius: 0 8px 8px 0;
+    }
+</style>
+{% endblock %}

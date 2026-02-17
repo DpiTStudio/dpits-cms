@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     "reviews.apps.ReviewsConfig",  # Отзывы
     "accounts.apps.AccountsConfig",  # Аккаунты пользователей
     "feedback.apps.FeedbackConfig",  # Обратная связь
+    "knowledge_base.apps.KnowledgeBaseConfig",  # База знаний
     # "files.apps.FilesConfig",  # Управление файлами
 ]
 
@@ -276,7 +277,9 @@ JAZZMIN_SETTINGS = {
         "services",
         "reviews",
         "accounts",
+
         "feedback",
+        "knowledge_base",
         "auth",
     ],
     # === ИКОНКИ МОДЕЛЕЙ (FontAwesome) ===
@@ -316,6 +319,10 @@ JAZZMIN_SETTINGS = {
         "feedback.FeedbackMessage": "fas fa-envelope-open-text",
         "feedback.Ticket": "fas fa-ticket-alt",
         "feedback.TicketResponse": "fas fa-reply",
+        # KNOWLEDGE BASE
+        "knowledge_base": "fas fa-book",
+        "knowledge_base.Category": "fas fa-bookmark",
+        "knowledge_base.Article": "fas fa-file-alt",
         # SITES
         "sites.Site": "fas fa-globe",
     },
@@ -338,6 +345,7 @@ JAZZMIN_SETTINGS = {
         {"app": "reviews", "label": "Отзывы", "icon": "fas fa-star"},
         {"app": "accounts", "label": "Учетные записи", "icon": "fas fa-users"},
         {"app": "feedback", "label": "Обратная связь", "icon": "fas fa-envelope"},
+        {"app": "knowledge_base", "label": "База знаний", "icon": "fas fa-book"},
         {"app": "auth", "label": "Администрирование", "icon": "fas fa-shield-alt"},
     ],
     # === ВНЕШНИЙ ВИД ===

@@ -99,6 +99,17 @@
             <span class="nav-indicator"></span>
         </a>
     </li>
+    <!-- База Знаний -->
+    <li class="nav-item">
+        <a class="nav-link nav-link-responsive {% if request.resolver_match.app_name == 'knowledge_base' %}active{% endif %}" href="{% url 'knowledge_base:category_list' %}">
+            <div class="nav-icon-wrapper">
+                <i class="fas fa-book nav-icon"></i>
+                <span class="nav-text">База Знаний</span>
+            </div>
+            <span class="nav-indicator"></span>
+        </a>
+    </li>
+
 </ul>
 
 

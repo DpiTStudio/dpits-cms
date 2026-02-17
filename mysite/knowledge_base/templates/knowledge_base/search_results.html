@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Поиск: {{ query }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="mb-5">
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <a href="{% url 'knowledge_base:category_list' %}" class="btn btn-light rounded-circle shadow-sm">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="display-6 fw-bold mb-0">Результаты поиска</h1>
+    </div>
+    
+    <div class="card bg-light border-0 mb-4">
+        <div class="card-body p-4">
+            <form action="{% url 'knowledge_base:search' %}" method="get" class="d-flex gap-2">
+                <input class="form-control form-control-lg" type="search" 
+                       value="{{ query }}" placeholder="Поиск по базе знаний..." aria-label="Search" name="q">
+                <button class="btn btn-primary btn-lg px-4" type="submit">Найти</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="list-group border-0 shadow-sm rounded-3 overflow-hidden">
+    {% for article in articles %}
+    <a href="{{ article.get_absolute_url }}" class="list-group-item list-group-item-action p-4 border-0 border-bottom">
+        <div class="d-flex w-100 justify-content-between align-items-center mb-2">
+            <h5 class="mb-0 text-primary fw-semibold">{{ article.title }}</h5>
+            <span class="badge bg-light text-dark border">{{ article.category.name }}</span>
+        </div>
+        <p class="mb-2 text-muted small">{{ article.seo_description|default:article.content|striptags|truncatewords:30 }}</p>
+        <small class="text-muted d-flex align-items-center gap-2">
+            <i class="far fa-clock"></i> {{ article.updated_at|date:"d.m.Y" }}
+        </small>
+    </a>
+    {% empty %}
+    <div class="list-group-item p-5 text-center bg-white">
+        <div class="text-muted mb-3 display-1">
+            <i class="fas fa-search"></i>
+        </div>
+        <h5 class="fw-bold text-dark mb-2">Ничего не найдено</h5>
+        <p class="text-muted mb-0">Попробуйте изменить запрос или вернитесь на <a href="{% url 'knowledge_base:category_list' %}">главную страницу</a>.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

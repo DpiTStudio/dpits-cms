@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ category.name }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <div class="d-flex align-items-center gap-3 mb-3">
+        <a href="{% url 'knowledge_base:category_list' %}" class="btn btn-light rounded-circle shadow-sm">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="display-6 fw-bold mb-0">
+            <i class="{{ category.icon }} me-2 text-secondary"></i>
+            {{ category.name }}
+        </h1>
+    </div>
+    {% if category.description %}
+    <p class="lead text-muted ms-1">{{ category.description }}</p>
+    {% endif %}
+</div>
+
+<div class="list-group border-0 shadow-sm rounded-3 overflow-hidden">
+    {% for article in articles %}
+    <a href="{{ article.get_absolute_url }}" class="list-group-item list-group-item-action p-4 border-0 border-bottom">
+        <div class="d-flex w-100 justify-content-between align-items-center mb-2">
+            <h5 class="mb-0 text-primary fw-semibold">{{ article.title }}</h5>
+            <small class="text-muted bg-light px-2 py-1 rounded-pill ms-2 text-nowrap">
+                {{ article.updated_at|date:"d.m.Y" }}
+            </small>
+        </div>
+        <p class="mb-2 text-muted small">{{ article.seo_description|default:article.content|striptags|truncatewords:25 }}</p>
+        <div class="d-flex align-items-center gap-3 text-muted small">
+            <span><i class="far fa-eye me-1"></i> {{ article.views_count }}</span>
+            {% if article.helpful_count %}
+            <span class="text-success"><i class="far fa-thumbs-up me-1"></i> {{ article.helpful_count }}</span>
+            {% endif %}
+        </div>
+    </a>
+    {% empty %}
+    <div class="list-group-item p-5 text-center text-muted bg-white">
+        <i class="far fa-file-alt fa-3x mb-3 text-light"></i>
+        <h5>В этой категории пока нет статей</h5>
+        <p class="mb-0">Загляните позже, мы работаем над контентом.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

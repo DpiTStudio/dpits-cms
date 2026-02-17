@@ -50,6 +50,7 @@ urlpatterns = [
     path("reviews/", include("reviews.urls")),  # Маршруты для отзывов
     path("accounts/", include("accounts.urls")),  # Маршруты для аккаунтов пользователей
     path("feedback/", include("feedback.urls")),  # Маршруты для обратной связи
+    path("knowledge-base/", include("knowledge_base.urls")),  # База знаний
     # path("files/", include("files.urls")),  # Маршруты для управления файлами
 ]
 

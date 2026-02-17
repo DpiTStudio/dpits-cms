@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}База Знаний | {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="mb-3">База Знаний</h1>
+    <p class="lead text-muted">Найдите ответы на свои вопросы в нашей документации</p>
+    
+    <div class="card bg-light border-0 mb-4">
+        <div class="card-body">
+            <form action="{% url 'knowledge_base:search' %}" method="get" class="d-flex gap-2">
+                <input class="form-control form-control-lg" type="search" 
+                       placeholder="Поиск по документации..." aria-label="Search" name="q">
+                <button class="btn btn-primary btn-lg px-4" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    {% for category in categories %}
+    <div class="col-md-6">
+        <div class="card h-100 shadow-sm border-0 hover-lift transition-all">
+            <div class="card-body text-center p-4">
+                <div class="mb-3 text-primary display-5">
+                    <i class="{{ category.icon }}"></i>
+                </div>
+                <h3 class="h5 card-title fw-bold mb-3">{{ category.name }}</h3>
+                <p class="card-text text-muted mb-4 small">
+                    {{ category.description|truncatewords:20 }}
+                </p>
+                <a href="{{ category.get_absolute_url }}" class="btn btn-outline-primary stretched-link rounded-pill px-4">
+                    Открыть раздел
+                </a>
+            </div>
+            <div class="card-footer bg-transparent border-0 text-muted small pb-3">
+                <i class="far fa-file-alt me-1"></i> {{ category.articles.count }} статей
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info py-4">
+            <i class="fas fa-info-circle me-2"></i>
+            Категории базы знаний еще не созданы.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+</style>
+{% endblock %}
