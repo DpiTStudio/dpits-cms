@@ -63,13 +63,19 @@
             <div class="col-12 col-lg-4 text-center order-1 order-lg-2">
                 {% comment %} Выводим логотип с приоритетом у HeroMixin, затем у настроек сайта {% endcomment %}
                 {% if site_settings.logo %}
-                <div class="logo-container mb-3 mb-lg-0">
+                <div class="logo-container mb-3 mb-lg-0 d-none d-lg-block">
                     <img src="{{ site_settings.logo.url }}" 
                          alt="{{ site_settings.logo_text }}" 
                          class="img-fluid rounded shadow logo-container-img"
-                         style="max-width: 180px; height: auto; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));">
+                         style="max-width: 150px; height: auto; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));">
                 </div>
                 {% endif %}
+                
+                <!-- Корзина услуг -->
+                <div class="mt-3 text-start">
+                    {% include "services/cart_widget.html" %}
+                </div>
+
             </div>
         </div>
         

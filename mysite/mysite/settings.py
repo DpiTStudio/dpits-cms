@@ -135,6 +135,7 @@ TEMPLATES = [
                 "main.context_processors.statistics_banners",  # Статистические баннеры
                 "main.context_processors.hero_overrides",  # Динамические баннеры разделов
                 "news.context_processors.latest_news",  # Последние новости
+                "services.context_processors.cart",  # Корзина услуг
             ],
         },
     },

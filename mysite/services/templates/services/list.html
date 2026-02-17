@@ -133,10 +133,27 @@
                                 <span>Подробнее</span>
                                 <i class="fas fa-arrow-right ms-2"></i>
                             </a>
-                            <a href="{% if user.is_authenticated %}{% url 'portfolio:create_order' %}?service={{ service.slug }}{% else %}{% url 'accounts:login' %}?next={{ request.path }}{% endif %}" class="btn btn-primary btn-hover-lift">
-                                <span>Заказать</span>
-                                <i class="fas fa-shopping-cart ms-2"></i>
-                            </a>
+                            
+                            {% if user.is_authenticated %}
+                                {% if service.can_order %}
+                                    <form action="{% url 'services:cart_add' service.id %}" method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary btn-hover-lift w-100">
+                                            <span>В корзину</span>
+                                            <i class="fas fa-cart-plus ms-2"></i>
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <button type="button" class="btn btn-secondary w-100" disabled>
+                                        <span>Нет возможности заказать</span>
+                                    </button>
+                                {% endif %}
+                            {% else %}
+                                <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn btn-outline-primary w-100">
+                                    <span>Войти для заказа</span>
+                                    <i class="fas fa-lock ms-2"></i>
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
