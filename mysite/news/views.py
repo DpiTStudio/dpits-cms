@@ -215,7 +215,7 @@ def news_by_category(request, slug):
         cache.set(cache_key, categories, 600)  # Кэш на 10 минут
 
     # Разбиваем на страницы
-    paginator = Paginator(news_list, 20)  # Создаем пагинатор с 20 новостями на страницу
+    paginator = Paginator(news_queryset, 20)  # Создаем пагинатор с 20 новостями на страницу
     page_number = request.GET.get("page", 1)  # Получаем номер страницы из GET-параметра
     page_obj = paginator.get_page(page_number)  # Получаем объект страницы с новостями
 
