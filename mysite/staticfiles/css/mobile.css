@@ -103,7 +103,7 @@
     background: transparent;
     border: none;
     box-shadow: none;
-    padding: 0;
+    padding: 20px;
     margin-top: 0.5rem;
   }
 
@@ -116,7 +116,13 @@
   }
 
   .navbar-collapse .dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: #ffffff;
+    color: #1a1a1a;
+  }
+
+  .navbar-collapse .dropdown-item.active {
+    background: var(--primary-color);
+    color: white !important;
   }
 }
 

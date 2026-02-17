@@ -211,25 +211,28 @@ header::after {
 
 /* Выпадающее меню */
 .dropdown-menu {
-    background-color: var(--text-white);
-    /* Белый фон меню */
-    border: var(--border-width-thin) solid #dee2e6;
-    /* Серая граница */
+    background-color: rgba(30, 41, 59, 0.95);
+    /* Темно-прозрачный фон */
+    backdrop-filter: blur(10px);
+    /* Эффект размытия */
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Тонкая светлая граница */
     border-radius: var(--border-radius);
     /* Скругление углов */
     box-shadow: var(--box-shadow-md);
     /* Средняя тень */
-    padding: var(--spacing-sm);
-    /* Внутренние отступы */
+    padding: 0.75rem;
+    /* Внутренние отступы (одинаковые) */
     min-width: 200px;
     /* Минимальная ширина */
 }
 
 /* Элемент выпадающего меню */
 .dropdown-item {
-    color: var(--text-color);
-    /* Цвет текста */
-    padding: var(--spacing-sm) var(--spacing-md);
+    color: #ffffff;
+    /* Белый цвет текста */
+    padding: 0.75rem 1rem;
     /* Внутренние отступы */
     border-radius: var(--border-radius-sm);
     /* Скругление углов */
@@ -243,18 +246,45 @@ header::after {
     /* Отступ между иконкой и текстом */
 }
 
+/* Иконка в выпадающем меню */
+.dropdown-item i {
+    color: #ffffff;
+    /* Белая иконка */
+    transition: var(--transition);
+}
+
 /* Состояние наведения на элемент меню */
 .dropdown-item:hover {
-    background-color: var(--light-color);
+    background-color: #ffffff;
     /* Светлый фон при наведении */
-    color: var(--primary-color);
-    /* Основной цвет текста */
+    color: #1a1a1a;
+    /* Темный текст */
+}
+
+.dropdown-item:hover i {
+    color: #1a1a1a;
+    /* Темная иконка при наведении */
+}
+
+/* Активный элемент меню (текущая страница) */
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: var(--primary-color);
+    /* Основной цвет фона */
+    color: #ffffff;
+    /* Белый текст */
+}
+
+.dropdown-item.active i,
+.dropdown-item:active i {
+    color: #ffffff;
+    /* Белая иконка */
 }
 
 /* Разделитель в выпадающем меню */
 .dropdown-divider {
-    border-top: var(--border-width-thin) solid #dee2e6;
-    /* Верхняя граница */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    /* Светлая полупрозрачная граница */
     margin: var(--spacing-sm) 0;
     /* Вертикальные отступы */
 }
