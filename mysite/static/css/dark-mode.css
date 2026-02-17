@@ -176,17 +176,17 @@
 
 /* Выпадающее меню в темной теме */
 [data-theme="dark"] .dropdown-menu {
-    background-color: var(--bg-card);
+    background-color: rgba(30, 41, 59, 0.95);
     border-color: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .dropdown-item {
-    color: var(--text-color);
+    color: #ffffff;
 }
 
 [data-theme="dark"] .dropdown-item:hover {
-    background-color: var(--bg-secondary);
-    color: var(--primary-color);
+    background-color: #ffffff;
+    color: #1a1a1a;
 }
 
 /* Таблицы в темной теме */

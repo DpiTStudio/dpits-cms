@@ -177,7 +177,7 @@
     /* Минимальная ширина */
     min-width: 220px;
     /* Убираем стандартную рамку */
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     /* Глубокая, мягкая тень */
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0,0,0,0.05);
     /* Скругление */
@@ -188,8 +188,8 @@
     margin-top: 15px !important;
     /* Анимация появления */
     animation: dropdownFadeIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    /* Фон - эффект стекла */
-    background: rgba(255, 255, 255, 0.95);
+    /* Фон - эффект стекла (темный прозрачный) */
+    background: rgba(30, 41, 59, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     overflow: hidden;
@@ -218,8 +218,8 @@
     margin-bottom: 2px;
     /* Жирность шрифта */
     font-weight: 500;
-    /* Цвет текста */
-    color: #4b5563;
+    /* Цвет текста (белый) */
+    color: #ffffff;
     /* Flex для иконок */
     display: flex;
     align-items: center;
@@ -230,10 +230,10 @@
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
-    /* Цвет фона при наведении */
-    background-color: rgba(59, 130, 246, 0.08);
-    /* Цвет текста */
-    color: #3b82f6;
+    /* Цвет фона при наведении (светлый) */
+    background-color: #ffffff;
+    /* Цвет текста (темный) */
+    color: #1a1a1a;
     /* Сдвиг текста вправо */
     transform: translateX(4px);
     padding-left: 1.25rem;
@@ -243,18 +243,20 @@
     width: 24px;
     text-align: center;
     margin-right: 12px;
-    color: #9ca3af;
+    /* Цвет иконки (белый) */
+    color: #ffffff;
     transition: color 0.25s ease;
     font-size: 0.95em;
 }
 
+/* Иконка при наведении становится темной */
 .dropdown-item:hover i {
-    color: #3b82f6;
+    color: #1a1a1a;
 }
 
 .dropdown-item.active {
     /* Цвет фона активного элемента */
-    background-color: #3b82f6;
+    background-color: var(--primary-color);
     /* Цвет текста */
     color: white;
     /* Тень при активности */

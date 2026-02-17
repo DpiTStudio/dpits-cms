@@ -479,7 +479,7 @@ button,
 
 /* Стеклянное выпадающее меню */
 .dropdown-menu-glass {
-  background: rgba(30, 41, 59, 0.8) !important;
+  background: rgba(30, 41, 59, 0.95) !important;
   backdrop-filter: blur(15px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(15px) saturate(180%) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -487,12 +487,12 @@ button,
 }
 
 .dropdown-menu-glass .dropdown-item {
-  color: rgba(255, 255, 255, 0.9) !important;
+  color: #ffffff !important;
 }
 
 .dropdown-menu-glass .dropdown-item:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
-  color: white !important;
+  background: #ffffff !important;
+  color: #1a1a1a !important;
 }
 
 /* Анимация появления для dropdown */
