@@ -53,6 +53,63 @@ def menu_items(request):
     return {"menu_pages": pages}
 
 
+def dynamic_menus(request):
+    """
+    Контекстный процессор для динамических меню (категории услуг, портфолио и т.д.).
+    """
+    cache_key = "dynamic_menus_data"
+    menus_data = cache.get(cache_key)
+
+    if not menus_data:
+        menus_data = {
+            "service_categories": [],
+            "portfolio_categories": [],
+            "news_categories": [],
+            "kb_categories": [],
+        }
+
+        # 1. Категории услуг
+        try:
+            from services.models import ServiceCategory
+            menus_data["service_categories"] = list(
+                ServiceCategory.objects.filter(is_active=True, show_in_menu=True).order_by("order", "name")
+            )
+        except (ImportError, AttributeError):
+            pass
+
+        # 2. Категории портфолио
+        try:
+            from portfolio.models import PortfolioCategory
+            menus_data["portfolio_categories"] = list(
+                PortfolioCategory.objects.filter(is_active=True).order_by("order", "name")
+            )
+        except (ImportError, AttributeError):
+            pass
+
+        # 3. Категории новостей
+        try:
+            from news.models import NewsCategory
+            menus_data["news_categories"] = list(
+                NewsCategory.objects.filter(is_active=True, show_in_menu=True).order_by("order", "name")
+            )
+        except (ImportError, AttributeError):
+            pass
+
+        # 4. Категории базы знаний
+        try:
+            from knowledge_base.models import Category as KBCategory
+            menus_data["kb_categories"] = list(
+                KBCategory.objects.all().order_by("order", "name")
+            )
+        except (ImportError, AttributeError):
+            pass
+
+        # Кэшируем на 10 минут
+        cache.set(cache_key, menus_data, 600)
+
+    return menus_data
+
+
 def sidebar_data(request):
     """
     Контекстный процессор для данных сайдбара (боковой панели).

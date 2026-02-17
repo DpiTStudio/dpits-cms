@@ -128,6 +128,7 @@ TEMPLATES = [
                 # Пользовательские процессоры контекста
                 "main.context_processors.site_settings",  # Настройки сайта
                 "main.context_processors.menu_items",  # Пункты меню
+                "main.context_processors.dynamic_menus",  # Динамические меню
                 "main.context_processors.sidebar_data",  # Данные сайдбара
                 "main.context_processors.seo_context",  # Базовые SEO-данные
                 "main.context_processors.admin_dashboard_stats",  # Статистика для админки

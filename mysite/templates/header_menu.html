@@ -19,8 +19,8 @@
            role="button" 
            data-bs-toggle="dropdown" 
            aria-expanded="false"
-           onmouseover="showMainDropdown()"
-           onmouseleave="hideMainDropdown()">
+           onmouseover="showDropdown('mainDropdownMenu')"
+           onmouseleave="hideDropdown('mainDropdownMenu')">
             <div class="nav-icon-wrapper">
                 <i class="fas fa-home nav-icon"></i>
                 <span class="nav-text">Главная</span>
@@ -30,7 +30,7 @@
         
         <!-- Подменю с динамическими страницами -->
         {% if menu_pages %}
-        <ul class="dropdown-menu" aria-labelledby="mainDropdown" id="mainDropdownMenu" onmouseover="keepDropdownOpen()" onmouseleave="closeDropdown()">
+        <ul class="dropdown-menu" aria-labelledby="mainDropdown" id="mainDropdownMenu" onmouseover="keepDropdownOpen('mainDropdownMenu')" onmouseleave="closeDropdown('mainDropdownMenu')">
             <li>
                 <a class="dropdown-item" href="{% url 'main:index' %}">
                     <i class="fas fa-home me-2"></i>На главную
@@ -56,58 +56,141 @@
         {% endif %}
     </li>
     
-    <!-- Новости -->
-    <li class="nav-item">
-        <a class="nav-link nav-link-responsive {% if request.resolver_match.app_name == 'news' %}active{% endif %}" href="{% url 'news:list' %}">
-            <div class="nav-icon-wrapper">
-                <i class="fas fa-newspaper nav-icon"></i>
-                <span class="nav-text">Новости</span>
-            </div>
-            <span class="nav-indicator"></span>
-        </a>
-    </li>
-    
-    <!-- Услуги -->
-    <li class="nav-item">
-        <a class="nav-link nav-link-responsive {% if request.resolver_match.app_name == 'services' %}active{% endif %}" href="{% url 'services:list' %}">
+    <!-- Услуги (Dropdown) -->
+    <li class="nav-item dropdown">
+        <a class="nav-link nav-link-responsive dropdown-toggle {% if request.resolver_match.app_name == 'services' %}active{% endif %}" 
+           href="{% url 'services:list' %}"
+           id="servicesDropdown"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false"
+           onmouseover="showDropdown('servicesDropdownMenu')"
+           onmouseleave="hideDropdown('servicesDropdownMenu')">
             <div class="nav-icon-wrapper">
                 <i class="fas fa-concierge-bell nav-icon"></i>
                 <span class="nav-text">Услуги</span>
             </div>
             <span class="nav-indicator"></span>
         </a>
+        <ul class="dropdown-menu" aria-labelledby="servicesDropdown" id="servicesDropdownMenu" onmouseover="keepDropdownOpen('servicesDropdownMenu')" onmouseleave="closeDropdown('servicesDropdownMenu')">
+             <li>
+                <a class="dropdown-item bold-item" href="{% url 'services:list' %}">
+                    <i class="fas fa-th-list me-2"></i>Все услуги
+                </a>
+            </li>
+            {% if service_categories %}
+            <li><hr class="dropdown-divider"></li>
+            <li><h6 class="dropdown-header">Категории</h6></li>
+            {% for category in service_categories %}
+            <li>
+                <a class="dropdown-item" href="{% url 'services:category' category.slug %}">
+                    <i class="fas fa-angle-right me-2 text-muted"></i>{{ category.name }}
+                </a>
+            </li>
+            {% endfor %}
+            {% endif %}
+        </ul>
     </li>
     
-    <!-- Портфолио -->
-    <li class="nav-item">
-        <a class="nav-link nav-link-responsive {% if request.resolver_match.app_name == 'portfolio' %}active{% endif %}" href="{% url 'portfolio:list' %}">
+    <!-- Портфолио (Dropdown) -->
+    <li class="nav-item dropdown">
+        <a class="nav-link nav-link-responsive dropdown-toggle {% if request.resolver_match.app_name == 'portfolio' %}active{% endif %}" 
+           href="{% url 'portfolio:list' %}"
+           id="portfolioDropdown"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false"
+           onmouseover="showDropdown('portfolioDropdownMenu')"
+           onmouseleave="hideDropdown('portfolioDropdownMenu')">
             <div class="nav-icon-wrapper">
-                <i class="fas fa-layer-group nav-icon"></i>
+                <i class="fas fa-briefcase nav-icon"></i>
                 <span class="nav-text">Портфолио</span>
             </div>
             <span class="nav-indicator"></span>
         </a>
+        <ul class="dropdown-menu" aria-labelledby="portfolioDropdown" id="portfolioDropdownMenu" onmouseover="keepDropdownOpen('portfolioDropdownMenu')" onmouseleave="closeDropdown('portfolioDropdownMenu')">
+            <li>
+                <a class="dropdown-item bold-item" href="{% url 'portfolio:list' %}">
+                    <i class="fas fa-th me-2"></i>Все работы
+                </a>
+            </li>
+            {% if portfolio_categories %}
+            <li><hr class="dropdown-divider"></li>
+             <li><h6 class="dropdown-header">Категории</h6></li>
+            {% for category in portfolio_categories %}
+            <li>
+                <a class="dropdown-item" href="{% url 'portfolio:list' %}?category={{ category.slug }}">
+                    <i class="fas fa-tag me-2 text-muted"></i>{{ category.name }}
+                </a>
+            </li>
+            {% endfor %}
+            {% endif %}
+        </ul>
     </li>
     
-    <!-- Отзывы -->
-    <li class="nav-item">
-        <a class="nav-link nav-link-responsive {% if request.resolver_match.app_name == 'reviews' %}active{% endif %}" href="{% url 'reviews:list' %}">
+    <!-- Инфоцентр (News, Docs, Reviews) -->
+    <li class="nav-item dropdown">
+        <a class="nav-link nav-link-responsive dropdown-toggle {% if request.resolver_match.app_name in 'news,knowledge_base,reviews' %}active{% endif %}" 
+           href="#"
+           id="infoDropdown"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false"
+           onmouseover="showDropdown('infoDropdownMenu')"
+           onmouseleave="hideDropdown('infoDropdownMenu')">
             <div class="nav-icon-wrapper">
-                <i class="fas fa-star nav-icon"></i>
-                <span class="nav-text">Отзывы</span>
+                <i class="fas fa-info-circle nav-icon"></i>
+                <span class="nav-text">Информация</span>
             </div>
             <span class="nav-indicator"></span>
         </a>
-    </li>
-    <!-- База Знаний -->
-    <li class="nav-item">
-        <a class="nav-link nav-link-responsive {% if request.resolver_match.app_name == 'knowledge_base' %}active{% endif %}" href="{% url 'knowledge_base:category_list' %}">
-            <div class="nav-icon-wrapper">
-                <i class="fas fa-book nav-icon"></i>
-                <span class="nav-text">База Знаний</span>
-            </div>
-            <span class="nav-indicator"></span>
-        </a>
+        <ul class="dropdown-menu" aria-labelledby="infoDropdown" id="infoDropdownMenu" onmouseover="keepDropdownOpen('infoDropdownMenu')" onmouseleave="closeDropdown('infoDropdownMenu')">
+            
+            <!-- Новости -->
+            <li><h6 class="dropdown-header"><i class="fas fa-newspaper me-2"></i>Новости</h6></li>
+            <li>
+                <a class="dropdown-item" href="{% url 'news:list' %}">
+                    Все новости
+                </a>
+            </li>
+            {% if news_categories %}
+            {% for category in news_categories|slice:":5" %}
+            <li>
+                <a class="dropdown-item ps-4" href="{% url 'news:category' category.slug %}">
+                   {{ category.name }}
+                </a>
+            </li>
+            {% endfor %}
+            {% endif %}
+            
+            <li><hr class="dropdown-divider"></li>
+            
+            <!-- База знаний -->
+            <li><h6 class="dropdown-header"><i class="fas fa-book me-2"></i>База Знаний</h6></li>
+            <li>
+                <a class="dropdown-item" href="{% url 'knowledge_base:category_list' %}">
+                    Главная страница
+                </a>
+            </li>
+            {% if kb_categories %}
+            {% for category in kb_categories|slice:":5" %}
+            <li>
+                <a class="dropdown-item ps-4" href="{% url 'knowledge_base:category_detail' category.slug %}">
+                    {{ category.name }}
+                </a>
+            </li>
+            {% endfor %}
+            {% endif %}
+            
+            <li><hr class="dropdown-divider"></li>
+            
+            <!-- Отзывы -->
+            <li>
+                <a class="dropdown-item" href="{% url 'reviews:list' %}">
+                    <i class="fas fa-star me-2"></i>Отзывы клиентов
+                </a>
+            </li>
+        </ul>
     </li>
 
 </ul>
