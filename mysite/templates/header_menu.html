@@ -110,18 +110,14 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="portfolioDropdown" id="portfolioDropdownMenu" onmouseover="keepDropdownOpen('portfolioDropdownMenu')" onmouseleave="closeDropdown('portfolioDropdownMenu')">
             <li>
-                <a class="dropdown-item bold-item" href="{% url 'portfolio:list' %}">
-                    <i class="fas fa-th me-2"></i>Все работы
-                </a>
+                <a class="dropdown-item bold-item" href="{% url 'portfolio:list' %}"><i class="fas fa-th me-2"></i> Все работы</a>
             </li>
             {% if portfolio_categories %}
             <li><hr class="dropdown-divider"></li>
              <li><h6 class="dropdown-header">Категории</h6></li>
             {% for category in portfolio_categories %}
             <li>
-                <a class="dropdown-item" href="{% url 'portfolio:list' %}?category={{ category.slug }}">
-                    <i class="fas fa-tag me-2 text-muted"></i>{{ category.name }}
-                </a>
+                <a class="dropdown-item" href="{% url 'portfolio:list' %}?category={{ category.slug }}"> <i class="fas fa-tag me-2 text-muted"></i>{{ category.name }}</a>
             </li>
             {% endfor %}
             {% endif %}
@@ -149,16 +145,12 @@
             <!-- Новости -->
             <li><h6 class="dropdown-header"><i class="fas fa-newspaper me-2"></i>Новости</h6></li>
             <li>
-                <a class="dropdown-item" href="{% url 'news:list' %}">
-                    Все новости
-                </a>
+                <a class="dropdown-item" href="{% url 'news:list' %}"><i class="fas news-icon"></i> Все новости </a>
             </li>
             {% if news_categories %}
             {% for category in news_categories|slice:":5" %}
             <li>
-                <a class="dropdown-item ps-4" href="{% url 'news:category' category.slug %}">
-                   {{ category.name }}
-                </a>
+                <a class="dropdown-item ps-4" href="{% url 'news:category' category.slug %}"><i class="fas fa-info-circle nav-icon"></i> {{ category.name }}</a>
             </li>
             {% endfor %}
             {% endif %}
@@ -176,7 +168,7 @@
             {% for category in kb_categories|slice:":5" %}
             <li>
                 <a class="dropdown-item ps-4" href="{% url 'knowledge_base:category_detail' category.slug %}">
-                    {{ category.name }}
+                  <i class="fas fa-info-circle nav-icon"></i>  {{ category.name }}
                 </a>
             </li>
             {% endfor %}
@@ -187,7 +179,7 @@
             <!-- Отзывы -->
             <li>
                 <a class="dropdown-item" href="{% url 'reviews:list' %}">
-                    <i class="fas fa-star me-2"></i>Отзывы клиентов
+                    <i class="fas fa-star me-2"></i> Отзывы клиентов
                 </a>
             </li>
         </ul>
