@@ -89,6 +89,8 @@
 
 3. **Установите зависимости**:
    ```bash
+   pip freeze > mysite/requirements.txt
+   pip install --upgrade pip
    pip install -r mysite/requirements.txt
    ```
 
