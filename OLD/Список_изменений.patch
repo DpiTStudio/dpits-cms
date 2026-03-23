@@ -1,0 +1,18 @@
+Subject: [PATCH] Список изменений
+---
+Index: mysite/templates/base.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/mysite/templates/base.html b/mysite/templates/base.html
+--- a/mysite/templates/base.html	(revision edd220df84e22bef2fea14a57b90f2aa0850a1c5)
++++ b/mysite/templates/base.html	(date 1771417431370)
+@@ -5,6 +5,7 @@
+ 
+ <!-- Загрузка статических файлов -->
+ {% load static %}
++
+ <!-- Объявление типа документа HTML5 -->
+ <!DOCTYPE html>
+ <!-- Открывающий тег HTML с указанием языка интерфейса -->
