@@ -29,6 +29,7 @@
 
 from pathlib import Path
 import os
+import importlib.util as _importlib_util
 from dotenv import load_dotenv
 
 # Загрузка переменных окружения из .env файла
@@ -52,13 +53,17 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG") == "True"
 
 # РАЗРЕШЕННЫЕ ХОСТЫ: Список доменов/хостов, которые может обслуживать система
-ALLOWED_HOSTS = [
-    "*",  # Разрешает все хосты (только для разработки!)
-    "dpits-cms.ru",
-    # "www.dpits-cms.ru",
-    "localhost",
-    "127.0.0.1",
-]
+if DEBUG:
+    # В режиме разработки разрешаем все хосты
+    ALLOWED_HOSTS = ["*"]
+else:
+    # В продакшене — только явно указанные домены
+    ALLOWED_HOSTS = [
+        "dpits-cms.ru",
+        "www.dpits-cms.ru",
+        "localhost",
+        "127.0.0.1",
+    ]
 
 # =============================================================================
 # ОПРЕДЕЛЕНИЕ ПРИЛОЖЕНИЙ
@@ -78,7 +83,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.humanize",  # Добавлено: для работы с фильтрами дат (например, naturaltime)
+    "django.contrib.humanize",  # для фильтров дат (naturaltime)
+    "django.contrib.sitemaps",  # Sitemap для поисковых систем (robots + SEO)
     # Пользовательские приложения проекта
     "main.apps.MainConfig",  # Главное приложение
     "news.apps.NewsConfig",  # Новости
@@ -545,12 +551,23 @@ CKEDITOR_5_FILE_UPLOAD_PERMISSIONS = 0o644  # Права для загружае
 # НАСТРОЙКИ КЕШИРОВАНИЯ
 # =============================================================================
 
-# Кеширование для разработки (использует заглушку, не требует Redis)
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django.core.cache.backends.dummy.DummyCache",  # Заглушка для кеша
-#     }
-# }
+# Redis как кэш-бэкенд (redis уже есть в requirements.txt)
+# При недоступности Redis — используется LocMemCache (fallback)
+if _importlib_util.find_spec("redis") is not None:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.getenv("REDIS_URL", "redis://127.0.0.1:6379/1"),
+            "KEY_PREFIX": "dpits_cms",
+        }
+    }
+else:
+    # Fallback: локальная память (данные теряются при рестарте)
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        }
+    }
 
 # Движок сессий без кеширования
 SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Использование БД для сессий

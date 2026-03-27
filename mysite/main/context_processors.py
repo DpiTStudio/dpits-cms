@@ -159,8 +159,9 @@ def sidebar_data(request):
 def seo_context(request):
     """
     Добавляет базовую SEO-информацию из глобальных настроек сайта.
+    Использует кэш чтобы не делать лишний запрос к БД на каждый HTTP-запрос.
     """
-    settings = SiteSettings.load()
+    settings = cache.get("site_settings") or SiteSettings.load()
     return {
         "default_seo_title": getattr(settings, "seo_title", ""),
         "default_seo_description": getattr(settings, "seo_description", ""),
@@ -409,29 +410,39 @@ def statistics_banners(request):
 def hero_overrides(request):
     """
     Контекстный процессор для получения настроек Hero-секции для крупных разделов сайта.
-    Также инициализирует переменные, используемые в hero.html, чтобы избежать ошибок VariableDoesNotExist.
+    Результат кэшируется на 5 минут по ключу, включающему path.
     """
     from .models import AppHeroSettings
 
-    app_hero = None
     path = request.path
 
+    # Определяем название раздела для поиска
+    app_name = None
     if path == "/":
-        app_hero = AppHeroSettings.objects.filter(app_name="home").first()
+        app_name = "home"
     elif "/news/" in path:
-        app_hero = AppHeroSettings.objects.filter(app_name="news").first()
+        app_name = "news"
     elif "/portfolio/" in path:
-        app_hero = AppHeroSettings.objects.filter(app_name="portfolio").first()
+        app_name = "portfolio"
     elif "/services/" in path:
-        app_hero = AppHeroSettings.objects.filter(app_name="services").first()
+        app_name = "services"
     elif "/reviews/" in path:
-        app_hero = AppHeroSettings.objects.filter(app_name="reviews").first()
+        app_name = "reviews"
     elif "/contacts/" in path:
-        app_hero = AppHeroSettings.objects.filter(app_name="contacts").first()
+        app_name = "contacts"
     elif "/about/" in path:
-        app_hero = AppHeroSettings.objects.filter(app_name="about").first()
+        app_name = "about"
     elif "/profile/" in path:
-        app_hero = AppHeroSettings.objects.filter(app_name="profile").first()
+        app_name = "profile"
+
+    app_hero = None
+    if app_name:
+        cache_key = f"app_hero_{app_name}"
+        app_hero = cache.get(cache_key)
+        if app_hero is None:
+            app_hero = AppHeroSettings.objects.filter(app_name=app_name).first()
+            # Кэшируем даже None, чтобы не повторять запрос при отсутствии записи
+            cache.set(cache_key, app_hero, 300)  # 5 минут
 
     return {
         "app_hero": app_hero,

@@ -1,6 +1,7 @@
 # news/models.py
 # Модели для приложения news (новости)
 from django.db import models  # Импорт базовых моделей Django
+from django.db.models import F  # Атомарное обновление полей
 from django.urls import reverse  # Функция для генерации URL
 from django.utils.text import (
     slugify,
@@ -10,6 +11,32 @@ from django_ckeditor_5.fields import (
 )  # Поле для расширенного текстового редактора
 
 from main.models import HeroMixin
+
+
+class NewsTag(models.Model):
+    """
+    Тег (метка) для новостей.
+    Используется для группировки новостей по темам и улучшения SEO.
+    """
+
+    name = models.CharField("Название тега", max_length=50, unique=True)
+    slug = models.SlugField("Слаг", max_length=50, unique=True)
+
+    class Meta:
+        verbose_name = "Тег"
+        verbose_name_plural = "Теги"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("news:by_tag", kwargs={"slug": self.slug})
 
 
 class NewsCategory(HeroMixin):
@@ -120,9 +147,9 @@ class News(HeroMixin):
         "URL", unique=True
     )  # URL-дружественный идентификатор, должен быть уникальным
     category = models.ForeignKey(
-        NewsCategory,  # Связь многие-к-одному с моделью NewsCategory (одна категория может содержать много новостей)
-        on_delete=models.CASCADE,  # При удалении категории удаляются все новости в ней
-        verbose_name="Категория",  # Человекочитаемое имя поля
+        NewsCategory,  # Связь многие-к-одному с моделью NewsCategory
+        on_delete=models.PROTECT,  # Защита: нельзя удалить категорию, пока в ней есть новости
+        verbose_name="Категория",
     )
     image = models.ImageField(
         "Изображение",  # Человекочитаемое имя поля
@@ -153,6 +180,14 @@ class News(HeroMixin):
     content = CKEditor5Field(
         "Содержание", blank=True, config_name="extends"
     )  # Полное содержание новости с расширенным редактором, может быть пустым
+
+    # Теги для улучшения навигации и SEO
+    tags = models.ManyToManyField(
+        NewsTag,
+        verbose_name="Теги",
+        blank=True,
+        related_name="news",
+    )
 
     # Системные поля
     views = models.PositiveIntegerField(
@@ -214,10 +249,8 @@ class News(HeroMixin):
 
     def increment_views(self):
         """
-        Увеличивает счетчик просмотров новости на 1.
-        Оптимизировано для производительности - сохраняет только поле views.
+        Атомарно увеличивает счётчик просмотров на 1.
+        Использует F() для защиты от race condition при одновременных запросах.
         """
-        self.views += 1  # Увеличиваем счетчик просмотров на 1
-        self.save(
-            update_fields=["views"]
-        )  # Сохраняем только поле views (оптимизация производительности)
+        News.objects.filter(pk=self.pk).update(views=F("views") + 1)
+        self.refresh_from_db(fields=["views"])

@@ -122,9 +122,13 @@ def service_category(request, slug):
         
     services = services_queryset.order_by(sort_by if sort_by != "title" else "name")
 
-    # Получаем все категории для фильтра
-    categories = list(ServiceCategory.objects.filter(is_active=True).order_by('order', 'name'))
-    
+    # Все категории для фильтра — берём из кэша
+    cache_key_categories = "services_categories_active"
+    categories = cache.get(cache_key_categories)
+    if not categories:
+        categories = list(ServiceCategory.objects.filter(is_active=True).order_by('order', 'name'))
+        cache.set(cache_key_categories, categories, 600)
+
     context = {
         'category': category,
         'selected_category': category.slug,

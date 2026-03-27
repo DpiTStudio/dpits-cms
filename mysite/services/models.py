@@ -1,5 +1,6 @@
 # services/models.py
 from django.db import models
+from django.db.models import F  # Атомарное обновление полей
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.text import slugify
@@ -213,6 +214,9 @@ class Service(HeroMixin):
         return _("Цена по запросу")
 
     def increment_views(self):
-        """Увеличивает счетчик просмотров на 1."""
-        self.views += 1
-        self.save(update_fields=["views"])
+        """
+        Атомарно увеличивает счётчик просмотров на 1.
+        Использует F() для защиты от race condition при одновременных запросах.
+        """
+        Service.objects.filter(pk=self.pk).update(views=F("views") + 1)
+        self.refresh_from_db(fields=["views"])

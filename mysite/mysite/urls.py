@@ -32,6 +32,10 @@ from django.conf import settings  # Импорт настроек Django
 from django.conf.urls.static import (
     static,
 )  # Импорт функции для обслуживания статических файлов
+from django.contrib.sitemaps.views import sitemap
+from django.views.generic import TemplateView
+from mysite.sitemaps import sitemaps
+from news.feeds import LatestNewsFeed, NewsByCategoryFeed
 
 # Настройка заголовков админ-панели
 admin.site.site_header = "DPITS CMS"
@@ -40,18 +44,35 @@ admin.site.index_title = "Панель управления"
 
 # Основные маршруты URL проекта
 urlpatterns = [
-    path("admin/", admin.site.urls),  # Маршрут для админ-панели
-    path("ckeditor5/", include("django_ckeditor_5.urls")),  # Маршруты для CKEditor 5
-    path("captcha/", include("captcha.urls")),  # Маршруты для капчи
-    path("", include("main.urls")),  # Главная страница и основные маршруты
-    path("news/", include("news.urls")),  # Маршруты для новостей
-    path("portfolio/", include("portfolio.urls")),  # Маршруты для портфолио
-    path("services/", include("services.urls")),  # Маршруты для услуг
-    path("reviews/", include("reviews.urls")),  # Маршруты для отзывов
-    path("accounts/", include("accounts.urls")),  # Маршруты для аккаунтов пользователей
-    path("feedback/", include("feedback.urls")),  # Маршруты для обратной связи
+    path("admin/", admin.site.urls),  # Админ-панель
+    path("ckeditor5/", include("django_ckeditor_5.urls")),  # CKEditor 5
+    path("captcha/", include("captcha.urls")),  # Капча
+    path("", include("main.urls")),  # Главная и основные маршруты
+    path("news/", include("news.urls")),  # Новости
+    path("portfolio/", include("portfolio.urls")),  # Портфолио
+    path("services/", include("services.urls")),  # Услуги
+    path("reviews/", include("reviews.urls")),  # Отзывы
+    path("accounts/", include("accounts.urls")),  # Аккаунты пользователей
+    path("feedback/", include("feedback.urls")),  # Обратная связь
     path("knowledge-base/", include("knowledge_base.urls")),  # База знаний
-    # path("files/", include("files.urls")),  # Маршруты для управления файлами
+    # path("files/", include("files.urls")),  # Управление файлами
+
+    # === SEO и индексация ===
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+        name="robots_txt",
+    ),
+
+    # === RSS ленты новостей ===
+    path("news/feed/", LatestNewsFeed(), name="news_feed"),
+    path("news/feed/<slug:slug>/", NewsByCategoryFeed(), name="news_feed_category"),
 ]
 
 # В режиме отладки (DEBUG) добавляем обслуживание медиа файлов

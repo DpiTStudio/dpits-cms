@@ -24,4 +24,8 @@ urlpatterns = [
     # Поиск новостей
     # URL: /news/search/
     path("search/", views.news_search, name="search"),
+
+    # Новости по тегу
+    # URL: /news/tag/<slug>/
+    path("tag/<slug:slug>/", views.news_by_tag, name="by_tag"),
 ]

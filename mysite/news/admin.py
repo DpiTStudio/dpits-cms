@@ -3,7 +3,14 @@ from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from django.urls import path
 from django.utils.html import format_html
-from .models import NewsCategory, News
+from .models import NewsCategory, News, NewsTag
+
+
+@admin.register(NewsTag)
+class NewsTagAdmin(admin.ModelAdmin):
+    """Управление тегами новостей."""
+    list_display = ["name", "slug"]
+    prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(NewsCategory)
@@ -64,10 +71,11 @@ class NewsAdmin(admin.ModelAdmin):
         "created_at",
         "clear_views_button",
     ]
-    list_filter = ["category", "is_active", "created_at"]
+    list_filter = ["category", "is_active", "created_at", "tags"]
     list_editable = ["is_active"]
     prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ["views", "created_at", "updated_at"]
+    filter_horizontal = ["tags"]  # Удобный виджет для выбора тегов
 
     fieldsets = (
         (
@@ -77,6 +85,7 @@ class NewsAdmin(admin.ModelAdmin):
                     "title",
                     "slug",
                     "category",
+                    "tags",
                     "image",
                     "short_description",
                     "content",

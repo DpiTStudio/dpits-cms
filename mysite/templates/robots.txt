@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /feedback/
+Disallow: /captcha/
+Disallow: /ckeditor5/
+Disallow: /cart/
+Allow: /
+
+# Sitemap
+Sitemap: {{ request.scheme }}://{{ request.get_host }}/sitemap.xml
