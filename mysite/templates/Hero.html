@@ -119,7 +119,7 @@
 {# Для всех остальных страниц: service, page, app_hero #}
 {# ВАЖНО: category намеренно убрана из цепочки |default: чтобы избежать #}
 {# VariableDoesNotExist на страницах где category нет в контексте (напр. /news/) #}
-{% with hero=service|default:page|default:app_hero %}
+{% firstof service page app_hero as hero %}
 {% if hero and hero.hero_is_active|default:True %}
 <section class="hero-section text-white
     {% if '/portfolio/' in request.path %}hero-portfolio
@@ -184,5 +184,5 @@
     </div>
 </section>
 {% endif %}{# /hero_is_active #}
-{% endwith %}{# /hero=service|page|app_hero #}
+
 {% endif %}{# /if news / elif portfolio_item / else #}
