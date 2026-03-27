@@ -33,7 +33,11 @@
                 </div>
                 {% elif active_hero.category %}
                 <div class="mb-3">
-                    <span class="badge bg-secondary rounded-pill shadow-sm px-3 py-2">{{ active_hero.category.name }}</span>
+                    {% if active_hero.category.name == "Новости" %}
+                    <span class="badge bg-secondary rounded-pill shadow-sm px-3 py-2">
+                        {{ active_hero.category.name }}
+                    </span>
+                    {% endif %}
                 </div>
                 {% endif %}
 
