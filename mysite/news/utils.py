@@ -30,7 +30,7 @@ def get_cached_sidebar_news():
     """
     cache_key = "news_sidebar_recent"
     recent_news = cache.get(cache_key)
-    if not recent_news:
+    if not isinstance(recent_news, list):
         recent_news = list(
             News.objects.filter(is_active=True)
             .select_related("category")

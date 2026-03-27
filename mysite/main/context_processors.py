@@ -19,7 +19,7 @@ def site_settings(request):
     cache_key = "site_settings"  # Ключ для хранения настроек в кэше
     settings = cache.get(cache_key)  # Пытаемся получить данные из кэша
 
-    if not settings:
+    if not isinstance(settings, SiteSettings):
         # Если в кэше пусто, загружаем из базы данных
         settings = SiteSettings.load()
         if settings:
@@ -60,7 +60,7 @@ def dynamic_menus(request):
     cache_key = "dynamic_menus_data"
     menus_data = cache.get(cache_key)
 
-    if not menus_data:
+    if not isinstance(menus_data, dict):
         menus_data = {
             "service_categories": [],
             "portfolio_categories": [],
@@ -118,7 +118,7 @@ def sidebar_data(request):
     cache_key = "sidebar_data"
     sidebar_data = cache.get(cache_key)
 
-    if not sidebar_data:
+    if not isinstance(sidebar_data, dict):
         sidebar_data = {}
         # Динамический импорт моделей других приложений
         # Используется try-except, чтобы сайт не падал, если какое-то приложение не установлено

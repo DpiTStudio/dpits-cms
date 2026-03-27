@@ -116,6 +116,11 @@ def news_by_category(request, slug):
 
     news_queryset = news_queryset.order_by(sort_by)
 
+    # Защита: убеждаемся, что получили QuerySet, а не случайный объект из кэша
+    from django.db.models import QuerySet
+    if not isinstance(news_queryset, QuerySet):
+        news_queryset = News.objects.none()
+
     paginator = Paginator(news_queryset, 20)
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
