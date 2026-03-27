@@ -553,16 +553,30 @@ CKEDITOR_5_FILE_UPLOAD_PERMISSIONS = 0o644  # Права для загружае
 
 # Redis как кэш-бэкенд (redis уже есть в requirements.txt)
 # При недоступности Redis — используется LocMemCache (fallback)
-if _importlib_util.find_spec("redis") is not None:
+def _check_redis_available(url: str) -> bool:
+    """Проверяет доступность Redis по URL. Возвращает True если Redis запущен."""
+    try:
+        import redis as _redis
+        _client = _redis.from_url(url, socket_connect_timeout=1)
+        _client.ping()
+        return True
+    except Exception:
+        return False
+
+
+_REDIS_URL = os.getenv("REDIS_URL", "redis://127.0.0.1:6379/1")
+
+if _importlib_util.find_spec("redis") is not None and _check_redis_available(_REDIS_URL):
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": os.getenv("REDIS_URL", "redis://127.0.0.1:6379/1"),
+            "LOCATION": _REDIS_URL,
             "KEY_PREFIX": "dpits_cms",
         }
     }
 else:
     # Fallback: локальная память (данные теряются при рестарте)
+    # Redis недоступен или не установлен — сайт продолжает работать без него
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
