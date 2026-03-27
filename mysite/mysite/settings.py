@@ -77,12 +77,12 @@ INSTALLED_APPS = [
     "captcha",  # Капча для защиты от спама
     "django_extensions",  # Расширения Django (для runserver_plus с HTTPS)
     # Встроенные приложения системы
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
+    "django.contrib.admin",  # Админ-панель
+    "django.contrib.auth",  # Аутентификация
+    "django.contrib.contenttypes",  # Типы контента
+    "django.contrib.sessions",  # Сессии
+    "django.contrib.messages",  # Сообщения
+    "django.contrib.staticfiles",  # Статические файлы
     "django.contrib.humanize",  # для фильтров дат (naturaltime)
     "django.contrib.sitemaps",  # Sitemap для поисковых систем (robots + SEO)
     # Пользовательские приложения проекта
@@ -102,13 +102,13 @@ INSTALLED_APPS = [
 # =============================================================================
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",  # Безопасность
-    "django.contrib.sessions.middleware.SessionMiddleware",  # Сессии
-    "django.middleware.common.CommonMiddleware",  # Общие функции
-    "django.middleware.csrf.CsrfViewMiddleware",  # Защита CSRF
+    "django.middleware.security.SecurityMiddleware",            # Безопасность
+    "django.contrib.sessions.middleware.SessionMiddleware",     # Сессии
+    "django.middleware.common.CommonMiddleware",                # Общие функции
+    "django.middleware.csrf.CsrfViewMiddleware",                # Защита CSRF
     "django.contrib.auth.middleware.AuthenticationMiddleware",  # Аутентификация
-    "django.contrib.messages.middleware.MessageMiddleware",  # Сообщения
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",  # Защита от кликджекинга
+    "django.contrib.messages.middleware.MessageMiddleware",     # Сообщения
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",   # Защита от кликджекинга
 ]
 
 # =============================================================================
@@ -127,10 +127,10 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 # Стандартные процессоры контекста
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.debug",  # Режим отладки
+                "django.template.context_processors.request",  # Запрос
+                "django.contrib.auth.context_processors.auth",  # Аутентификация
+                "django.contrib.messages.context_processors.messages",  # Сообщения
                 # Пользовательские процессоры контекста
                 "main.context_processors.site_settings",  # Настройки сайта
                 "main.context_processors.menu_items",  # Пункты меню
