@@ -446,11 +446,5 @@ def hero_overrides(request):
 
     return {
         "app_hero": app_hero,
-        # Инициализируем переменные для hero.html как None
-        "news": None,
-        "portfolio_item": None,
-        "service": None,
-        "category": None,
-        "page": None,
     }
 
