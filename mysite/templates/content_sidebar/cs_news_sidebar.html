@@ -15,19 +15,10 @@
         {% for news in sidebar_news %}
         <div class="news-sidebar-item position-relative mb-3">
             <a href="{% url 'news:detail' news.slug %}" class="text-decoration-none text-dark d-block">
-                <div class="row g-1 align-items-center">
-                    <!-- Изображение -->
-                    <div class="col-12">
-                        <!-- Заголовок -->
-                        <h6 class="fw-semibold mb-0 lh-sm text-dark hover-text-primary transition-color">
-                            {{ news.title|truncatechars:50 }}
-                        </h6>
-                        <!-- Дата -->
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fas fa-calendar-alt fa-xs text-primary me-2"></i>
-                            <small class="text-muted fw-medium">{{ news.created_at|date:"d.m.Y" }}</small>
-                        </div>
-                        <div class="position-relative overflow-hidden rounded-3 h-100">
+                <div class="row g-2 align-items-center">
+                    <!-- Изображение сбоку -->
+                    <div class="col-4">
+                        <div class="position-relative overflow-hidden rounded-3" style="aspect-ratio: 1/1;">
                             {% if news.image %}
                             <img src="{{ news.image.url }}" 
                                  alt="{{ news.title }}"
@@ -40,25 +31,21 @@
                         </div>
                     </div>
                     <!-- Контент -->
-                    <div class="col-12">
-                        {% if news.read_time %}
-                        <!-- Индикатор чтения (опционально) -->
-                        <div class="mt-1">
-                            <span class="badge bg-light text-dark border py-1 px-2 fs-xs">
-                                <i class="fas fa-clock me-1 fa-xs"></i>
-                                {{ news.read_time }} мин
-                            </span>
+                    <div class="col-8">
+                        <div class="d-flex flex-column justify-content-center h-100">
+                            <!-- Заголовок -->
+                            <h6 class="fw-semibold mb-1 lh-sm text-dark hover-text-primary transition-color" style="font-size: 0.85rem;">
+                                {{ news.title|truncatechars:45 }}
+                            </h6>
+                            <!-- Дата -->
+                            <div class="d-flex align-items-center text-muted mt-auto" style="font-size: 0.75rem;">
+                                <i class="fas fa-calendar-alt me-1"></i>
+                                <span>{{ news.created_at|date:"d.m.Y" }}</span>
+                            </div>
                         </div>
-                        {% endif %}
                     </div>
                 </div>
             </a>
-            {% comment %}
-                <!-- Разделитель -->
-                {% if not forloop.last %}
-                <div class="border-bottom mt-3 opacity-25"></div>
-                {% endif %}
-            {% endcomment %}
         </div>
         {% endfor %}
         
