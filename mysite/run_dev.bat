@@ -4,6 +4,9 @@ REM Проверка и установка зависимостей (испра�
 
 cd /d "%~dp0"
 
+echo Активация виртуального окружения...
+call "..\.venv\Scripts\activate.bat"
+
 echo Проверка установленных пакетов...
 pip install -r requirements.txt
 
