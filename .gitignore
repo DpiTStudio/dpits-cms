@@ -15,5 +15,6 @@ mysite/logs/
 mysite/work_filer/
 
 # Прочие директории
+OLD/
 work_filer/
 prompts/
