@@ -76,50 +76,53 @@
 
                     {% if user.is_authenticated %}
 
-                    {# Корзина #}
-                    <button class="cart-header-btn"
-                            data-cart-open
-                            aria-label="Открыть корзину{% if cart %} ({{ cart|length }} товар{{ cart|length|pluralize:',,ов' }}){% endif %}">
-                        <i class="fas fa-shopping-bag" aria-hidden="true"></i>
-                        <span class="cart-badge {% if not cart or cart|length == 0 %}hidden{% endif %}"
-                              aria-live="polite">
-                            {{ cart|length|default:0 }}
-                        </span>
-                    </button>
-
-                    {# Меню аккаунта #}
-                    <div class="dropdown w-100 w-lg-auto">
-                        <button class="btn btn-account dropdown-toggle d-flex align-items-center gap-2"
-                                type="button"
-                                id="accountDropdown"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                aria-label="Меню аккаунта">
-                            <div class="user-avatar-md" aria-hidden="true">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <span class="fw-medium d-none d-md-inline">{{ user.username }}</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-glass animate-slide-in"
-                            aria-labelledby="accountDropdown"
-                            role="menu">
-                            <li role="none">
-                                <a class="dropdown-item" href="{% url 'accounts:profile' %}" role="menuitem">
-                                    <i class="fas fa-id-card" aria-hidden="true"></i>Профиль
-                                </a>
-                            </li>
-                            <li role="none">
-                                <a class="dropdown-item" href="{% url 'accounts:ticket_list' %}" role="menuitem">
-                                    <i class="fas fa-ticket-alt" aria-hidden="true"></i>Мои тикеты
-                                </a>
-                            </li>
-                            <li role="none"><hr class="dropdown-divider bg-light-transparent"></li>
-                            <li role="none">
-                                <a class="dropdown-item text-danger" href="{% url 'accounts:logout_confirm' %}" role="menuitem">
-                                    <i class="fas fa-sign-out-alt" aria-hidden="true"></i>Выйти
-                                </a>
-                            </li>
-                        </ul>
+                    <div class="d-flex align-items-center gap-3">
+                        {# Корзина #}
+                        {% comment %}
+                        <button class="cart-header-btn"
+                                data-cart-open
+                                aria-label="Открыть корзину{% if cart %} ({{ cart|length }} товар{{ cart|length|pluralize:',,ов' }}){% endif %}">
+                            <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+                            <span class="cart-badge {% if not cart or cart|length == 0 %}hidden{% endif %}"
+                                aria-live="polite">
+                                {{ cart|length|default:0 }}
+                            </span>
+                        </button>   
+                        {% endcomment %}
+                        {# Меню аккаунта #}
+                        <div class="dropdown w-100 w-lg-auto">
+                            <button class="btn btn-account dropdown-toggle d-flex align-items-center gap-2"
+                                    type="button"
+                                    id="accountDropdown"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                    aria-label="Меню аккаунта">
+                                <div class="user-avatar-md" aria-hidden="true">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <span class="fw-medium d-none d-md-inline">{{ user.username }}</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-glass animate-slide-in"
+                                aria-labelledby="accountDropdown"
+                                role="menu">
+                                <li role="none">
+                                    <a class="dropdown-item" href="{% url 'accounts:profile' %}" role="menuitem">
+                                        <i class="fas fa-id-card" aria-hidden="true"></i>Профиль
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <a class="dropdown-item" href="{% url 'accounts:ticket_list' %}" role="menuitem">
+                                        <i class="fas fa-ticket-alt" aria-hidden="true"></i>Мои тикеты
+                                    </a>
+                                </li>
+                                <li role="none"><hr class="dropdown-divider bg-light-transparent"></li>
+                                <li role="none">
+                                    <a class="dropdown-item text-danger" href="{% url 'accounts:logout_confirm' %}" role="menuitem">
+                                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>Выйти
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
                     {% else %}
