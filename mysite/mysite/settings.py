@@ -122,7 +122,7 @@ ROOT_URLCONF = "mysite.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR.parent / "templates"],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,  # Поиск шаблонов в папках templates приложений
         "OPTIONS": {
             "context_processors": [
