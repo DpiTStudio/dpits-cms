@@ -1,93 +1,151 @@
-<!-- ============================================
-     ФАЙЛ: header.html
-     ОПИСАНИЕ: Шапка сайта с навигационным меню
-     ============================================ -->
+{% comment %}
+{# ============================================================
+   ФАЙЛ: header.html
+   ОПИСАНИЕ: Шапка сайта с навигационным меню
+   ============================================================ #}
+{% endcomment %}
 
-<!-- Открывающий тег шапки сайта с эффектом glassmorphism -->
-<header class="sticky-top glass-header">
-    <!-- Навигационная панель -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <!-- Контейнер с полной шириной и адаптивными отступами -->
+<header class="sticky-top glass-header" role="banner">
+    <nav class="navbar navbar-expand-lg navbar-dark" aria-label="Главное меню">
         <div class="container-fluid px-3 px-lg-5">
-            <!-- Логотип бренда -->
-            <a class="navbar-brand navbar-brand-premium d-flex align-items-center" href="{% url 'main:index' %}">
+
+            {# ── Логотип ── #}
+            <a class="navbar-brand navbar-brand-premium d-flex align-items-center gap-2"
+               href="{% url 'main:index' %}"
+               aria-label="{{ site_settings.logo_text }} — на главную">
                 {% if site_settings.logo %}
-                <div class="brand-logo-container me-2">
-                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" height="40"
-                        class="rounded brand-logo">
+                <div class="brand-logo-container">
+                    <img src="{{ site_settings.logo.url }}"
+                         alt="{{ site_settings.logo_text }}"
+                         height="40"
+                         class="rounded brand-logo"
+                         loading="eager">
                 </div>
                 {% endif %}
                 <span class="brand-text fw-bold text-gradient">{{ site_settings.logo_text }}</span>
             </a>
 
-            <!-- Кнопка мобильного меню -->
-            <button class="navbar-toggler border-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Открыть меню">
-                <div class="animated-hamburger">
+            {# ── Кнопка мобильного меню ── #}
+            <button class="navbar-toggler border-0 p-2"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Открыть меню">
+                <div class="animated-hamburger" aria-hidden="true">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
             </button>
 
-            <!-- Меню -->
+            {# ── Коллапс: меню + правая панель ── #}
             <div class="collapse navbar-collapse" id="navbarNav">
 
+                {# Пункты навигации #}
                 {% include 'header_menu.html' %}
 
-                <!-- Правая часть: Поиск, Аккаунт -->
-                <div class="d-flex align-items-center gap-2 gap-lg-3 flex-column flex-lg-row align-items-start align-items-lg-center mt-3 mt-lg-0">
-                    <!-- Поиск Expanding (только десктоп) -->
-                    <div class="search-wrapper search-container d-none d-md-block">
-                        <form class="search-form" action="{% url 'main:search' %}" method="get">
-                            <input type="text" name="q" class="search-input" placeholder="Поиск..." aria-label="Поиск" value="{{ request.GET.q }}">
-                            <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+                {# ── Правая панель: поиск / корзина / аккаунт ── #}
+                <div class="header-actions d-flex align-items-center gap-2 gap-lg-3
+                            flex-column flex-lg-row mt-3 mt-lg-0"
+                     role="group"
+                     aria-label="Действия пользователя">
+
+                    {# Поиск — только десктоп #}
+                    <div class="search-wrapper search-container d-none d-lg-block">
+                        <form class="search-form"
+                              action="{% url 'main:search' %}"
+                              method="get"
+                              role="search"
+                              aria-label="Поиск по сайту">
+                            <label for="headerSearchInput" class="visually-hidden">Поиск по сайту</label>
+                            <input id="headerSearchInput"
+                                   type="search"
+                                   name="q"
+                                   class="search-input"
+                                   placeholder="Поиск…"
+                                   aria-label="Поиск"
+                                   value="{{ request.GET.q }}"
+                                   autocomplete="off">
+                            <button type="submit" class="search-button" aria-label="Найти">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </button>
                         </form>
                     </div>
 
-                    <!-- Кнопка корзины (только для авторизованных) -->
                     {% if user.is_authenticated %}
-                    <button class="cart-header-btn" data-cart-open aria-label="Открыть корзину">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="cart-badge {% if not cart or cart|length == 0 %}hidden{% endif %}">
-                            {% if cart %}{{ cart|length }}{% else %}0{% endif %}
+
+                    {# Корзина #}
+                    <button class="cart-header-btn"
+                            data-cart-open
+                            aria-label="Открыть корзину{% if cart %} ({{ cart|length }} товар{{ cart|length|pluralize:',,ов' }}){% endif %}">
+                        <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+                        <span class="cart-badge {% if not cart or cart|length == 0 %}hidden{% endif %}"
+                              aria-live="polite">
+                            {{ cart|length|default:0 }}
                         </span>
                     </button>
-                    {% endif %}
 
-                    <!-- Аккаунт -->
-                    {% if user.is_authenticated %}
+                    {# Меню аккаунта #}
                     <div class="dropdown w-100 w-lg-auto">
-                        <button class="btn btn-account dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="user-avatar-md">
+                        <button class="btn btn-account dropdown-toggle d-flex align-items-center gap-2"
+                                type="button"
+                                id="accountDropdown"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                aria-label="Меню аккаунта">
+                            <div class="user-avatar-md" aria-hidden="true">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <span class="ms-2 fw-medium d-none d-md-inline">{{ user.username }}</span>
+                            <span class="fw-medium d-none d-md-inline">{{ user.username }}</span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-glass animate-slide-in">
-                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}"><i class="fas fa-id-card me-2"></i>Профиль</a></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:ticket_list' %}"><i class="fas fa-ticket-alt me-2"></i>Мои тикеты</a></li>
-                            <li><hr class="dropdown-divider bg-light-transparent"></li>
-                            <li><a class="dropdown-item text-danger" href="{% url 'accounts:logout_confirm' %}"><i class="fas fa-sign-out-alt me-2"></i>Выйти</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-glass animate-slide-in"
+                            aria-labelledby="accountDropdown"
+                            role="menu">
+                            <li role="none">
+                                <a class="dropdown-item" href="{% url 'accounts:profile' %}" role="menuitem">
+                                    <i class="fas fa-id-card" aria-hidden="true"></i>Профиль
+                                </a>
+                            </li>
+                            <li role="none">
+                                <a class="dropdown-item" href="{% url 'accounts:ticket_list' %}" role="menuitem">
+                                    <i class="fas fa-ticket-alt" aria-hidden="true"></i>Мои тикеты
+                                </a>
+                            </li>
+                            <li role="none"><hr class="dropdown-divider bg-light-transparent"></li>
+                            <li role="none">
+                                <a class="dropdown-item text-danger" href="{% url 'accounts:logout_confirm' %}" role="menuitem">
+                                    <i class="fas fa-sign-out-alt" aria-hidden="true"></i>Выйти
+                                </a>
+                            </li>
                         </ul>
                     </div>
+
                     {% else %}
+
+                    {# Кнопки входа / регистрации #}
                     <div class="auth-buttons d-flex gap-2 w-100 w-lg-auto">
-                        <a href="{% url 'accounts:login' %}" class="btn btn-glass-outline flex-grow-1 flex-lg-grow-0 text-center d-flex align-items-center justify-content-center">
-                            <i class="fas fa-sign-in-alt d-md-none me-1"></i>
+                        <a href="{% url 'accounts:login' %}"
+                           class="btn btn-glass-outline flex-grow-1 flex-lg-grow-0
+                                  d-flex align-items-center justify-content-center gap-1">
+                            <i class="fas fa-sign-in-alt d-lg-none" aria-hidden="true"></i>
                             <span>Войти</span>
                         </a>
-                        <a href="{% url 'accounts:register' %}" class="btn btn-gradient-primary shine-effect flex-grow-1 flex-lg-grow-0 text-center d-flex align-items-center justify-content-center">
-                            <i class="fas fa-user-plus d-md-none me-1"></i>
+                        <a href="{% url 'accounts:register' %}"
+                           class="btn btn-gradient-primary shine-effect flex-grow-1 flex-lg-grow-0
+                                  d-flex align-items-center justify-content-center gap-1">
+                            <i class="fas fa-user-plus d-lg-none" aria-hidden="true"></i>
                             <span>Регистрация</span>
                         </a>
                     </div>
+
                     {% endif %}
                 </div>
-            </div>
-        </div>
+            </div>{# /navbar-collapse #}
+        </div>{# /container-fluid #}
     </nav>
 </header>
-<!-- Баннеры в шапке -->
+
+{# Баннеры, привязанные к шапке #}
 {{ statistics_banners.header|safe }}
-{% block header %}{% endblock %}
