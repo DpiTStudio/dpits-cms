@@ -61,15 +61,16 @@ class Cart:
         # Получаем объекты продуктов и добавляем их в корзину
         services = Service.objects.filter(id__in=product_ids)
         
-        # Создаем копию корзины для итерации, чтобы можно было добавлять объекты service
-        cart_copy = self.cart.copy()
+        # Преобразуем QuerySet в словарь для быстрого поиска
+        services_dict = {str(s.id): s for s in services}
         
-        for service in services:
-            cart_copy[str(service.id)]['service'] = service
-            
-        for item in cart_copy.values():
+        for product_id, item_data in self.cart.items():
+            item = item_data.copy()
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']
+            
+            # Добавляем объект услуги из нашего словаря
+            item['service'] = services_dict.get(product_id)
             yield item
 
     def __len__(self):
