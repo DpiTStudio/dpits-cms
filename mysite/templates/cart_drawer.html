@@ -116,17 +116,6 @@
     </div>
 </div>
 
-{# ——— FAB кнопка (мобильные, только для авторизованных) ——— #}
-{% if user.is_authenticated %}
-<button id="cartFab" class="cart-fab {% if cart|length == 0 %}hidden{% endif %}"
-        data-cart-open aria-label="Открыть корзину ({{ cart|length }} поз.)">
-    <i class="fas fa-shopping-bag"></i>
-    <span class="cart-fab-badge" {% if cart|length == 0 %}style="display:none"{% endif %}>
-        {{ cart|length }}
-    </span>
-</button>
-{% endif %}
-
 {# ——— СКРИПТ С URL-АДРЕСАМИ ——— #}
 <script>
 window.CART_URLS = {

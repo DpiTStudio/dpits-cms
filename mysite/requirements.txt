@@ -12,7 +12,6 @@ pillow==12.1.0
 psutil==7.2.1
 python-dotenv==1.2.1
 python-json-logger==4.0.0
-redis==6.4.0
 sqlparse==0.5.3
 typing_extensions==4.15.0
 tzdata==2025.2

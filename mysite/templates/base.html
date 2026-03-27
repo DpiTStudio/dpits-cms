@@ -114,17 +114,17 @@
     <!-- Блок хлебных крошек (теперь внутри hero.html) -->
     {% block breadcrumbs %}{% endblock %}
 
-    <div class="container-fluid">
+    <div class="container my-5">
       <div class="row g-4">
-        <!-- Основной контент - 70% -->
-        <div class="col-12 col-lg-9">
+        <!-- Основной контент -->
+        <div class="col-12 col-lg-8">
           {% block content %}
           <!-- Основной контент будет здесь -->
           {% endblock %}
         </div>
 
-        <!-- Сайдбар - 30% -->
-        <div class="col-12 col-lg-3">
+        <!-- Сайдбар -->
+        <div class="col-12 col-lg-4">
           {% block sidebar %}
           {% include 'sidebar.html' %}
           {% endblock %}
