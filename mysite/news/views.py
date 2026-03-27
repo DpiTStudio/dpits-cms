@@ -55,7 +55,7 @@ def news_list(request):
     # Получаем активные категории для меню
     cache_key = "news_categories_menu"
     categories = cache.get(cache_key)
-    if not categories:
+    if not isinstance(categories, list):
         categories = list(
             NewsCategory.objects.filter(is_active=True, show_in_menu=True).order_by(
                 "order", "name"
@@ -122,7 +122,7 @@ def news_detail(request, slug):
     # ИСПРАВЛЕНО: Используем кэш для категорий
     cache_key = "news_categories_menu"
     categories = cache.get(cache_key)
-    if not categories:
+    if not isinstance(categories, list):
         categories = list(
             NewsCategory.objects.filter(is_active=True, show_in_menu=True).order_by(
                 "order", "name"
@@ -206,7 +206,7 @@ def news_by_category(request, slug):
     # ИСПРАВЛЕНО: Используем кэш для категорий
     cache_key = "news_categories_menu"
     categories = cache.get(cache_key)
-    if not categories:
+    if not isinstance(categories, list):
         categories = list(
             NewsCategory.objects.filter(is_active=True, show_in_menu=True).order_by(
                 "order", "name"
@@ -215,6 +215,9 @@ def news_by_category(request, slug):
         cache.set(cache_key, categories, 600)  # Кэш на 10 минут
 
     # Разбиваем на страницы
+    # Принудительно вычисляем queryset чтобы убедиться что это не функция
+    if not hasattr(news_queryset, '__iter__') or callable(news_queryset) and not hasattr(news_queryset, 'query'):
+        news_queryset = News.objects.filter(category=category, is_active=True).select_related("category").order_by(sort_by)
     paginator = Paginator(news_queryset, 20)  # Создаем пагинатор с 20 новостями на страницу
     page_number = request.GET.get("page", 1)  # Получаем номер страницы из GET-параметра
     page_obj = paginator.get_page(page_number)  # Получаем объект страницы с новостями
@@ -293,7 +296,7 @@ def news_search(request):
     # ИСПРАВЛЕНО: Используем кэш для категорий
     cache_key = "news_categories_menu"
     categories = cache.get(cache_key)
-    if not categories:
+    if not isinstance(categories, list):
         categories = list(
             NewsCategory.objects.filter(is_active=True, show_in_menu=True).order_by(
                 "order", "name"

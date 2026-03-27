@@ -1,4 +1,4 @@
-# services/templatetags/services_filters.py
+# mysite/services/templatetags/services_filters.py
 from django import template
 
 register = template.Library()
