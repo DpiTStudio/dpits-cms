@@ -35,7 +35,7 @@
         <div class="col-lg-8">
             <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">КАТЕГОРИЯ: {{ category.name|upper }}</span>
             <h1 class="display-4 fw-bold mb-3">{{ category.name }}</h1>
-            <p class="lead text-muted">{{ category.description|default:"Следите за последними новостями и обновлениями в этой категории." }}</p>
+            <p class="lead text-muted">{{ category.description|safe|default:"Следите за последними новостями и обновлениями в этой категории." }}</p>
         </div>
     </div>
 
