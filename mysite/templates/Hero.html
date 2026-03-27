@@ -6,13 +6,14 @@
 
 {% load static %}
 
-{# Определяем объект, из которого будем брать настройки Hero. Приоритет: Новость -> Портфолио -> Услуга -> Категория -> Страница -> Настройки раздела (app_hero) #}
-{% with hero=news|default:portfolio_item|default:service|default:category|default:page|default:app_hero %}
 
-{# Проверяем, разрешено ли отображение Hero на этой странице #}
+
+{# ---- Выбор объекта hero ---- #}
+{% if news %}
+{% with hero=news %}
+{# ---- Содержимое Hero-секции ---- #}
 {% if hero.hero_is_active|default:True %}
-
-<section class="hero-section text-white 
+<section class="hero-section text-white
     {% if '/news/' in request.path %}hero-news
     {% elif '/portfolio/' in request.path %}hero-portfolio
     {% elif '/reviews/' in request.path %}hero-reviews
@@ -20,68 +21,39 @@
     {% elif '/services/' in request.path %}hero-services
     {% else %}hero-home{% endif %}"
     style="{% if hero.hero_image %}--hero-bg-url: url('{{ hero.hero_image.url }}');
-        {% elif category.image %}--hero-bg-url: url('{{ category.image.url }}');
-        {% elif service.background %}--hero-bg-url: url('{{ service.background.url }}');
-        {% elif news.category.image %}--hero-bg-url: url('{{ news.category.image.url }}');
+        {% elif category and category.image %}--hero-bg-url: url('{{ category.image.url }}');
+        {% elif news and news.category and news.category.image %}--hero-bg-url: url('{{ news.category.image.url }}');
         {% elif site_settings.hero_background %}--hero-bg-url: url('{{ site_settings.hero_background.url }}');
         {% endif %}">
-    
     <div class="container-fluid px-3 px-md-4 px-lg-5">
         <div class="row align-items-center g-4 py-4 py-md-5">
             <div class="col-12 col-lg-8 order-2 order-lg-1">
-                <!-- Заголовок: приоритет у HeroMixin, затем у названия объекта, затем у настроек сайта -->
                 <h1 class="display-4 display-md-5 fw-bold mb-3 hero-title">
-                    {% comment %} Выводим заголовок с приоритетом по порядку условий {% endcomment %}
                     {% if hero.hero_title %}{{ hero.hero_title|truncatewords:20|truncatechars:50 }}
-                    {% elif category %}{{ category.name|truncatewords:20|truncatechars:50 }}
-                    {% elif news %}{{ news.title|truncatewords:20|truncatechars:50 }}
-                    {% elif portfolio_item %}{{ portfolio_item.title|truncatewords:20|truncatechars:50 }}
-                    {% elif service %}{{ service.name|truncatewords:20|truncatechars:50 }}
-                    {% elif page %}{{ page.title|truncatewords:20|truncatechars:50 }}
+                    {% elif hero.title %}{{ hero.title|truncatewords:20|truncatechars:50 }}
                     {% else %}{{ site_settings.title|default:"Добро пожаловать"|truncatewords:20 }}{% endif %}
                 </h1>
-                
-                <!-- Подзаголовок (описание): приоритет у HeroMixin, затем у описания объекта -->
                 <p class="lead mb-3 mb-md-4 hero-subtitle">
-                    {% comment %} Выводим подзаголовок с приоритетом по порядку условий {% endcomment %}
                     {% if hero.hero_subtitle %}{{ hero.hero_subtitle|linebreaksbr }}
-                    {% elif category and category.description %}{{ category.description|striptags }}
-                    {% elif news and news.short_description %}{{ news.short_description|striptags }}
-                    {% elif service and service.short_description %}{{ service.short_description|striptags }}
+                    {% elif hero.short_description %}{{ hero.short_description|striptags }}
                     {% elif site_settings.slogan %}<i>{{ site_settings.slogan }}</i>{% endif %}
                 </p>
-                
-                {% comment %}
-                {% if site_settings.motto and not hero.hero_subtitle %}
-                <div class="motto-content small opacity-75">
-                    {{ site_settings.motto|safe }}
-                </div>
-                {% endif %}
-                {% endcomment %}
             </div>
-            
             <div class="col-12 col-lg-4 text-center order-1 order-lg-2">
-                {% comment %} Выводим логотип с приоритетом у HeroMixin, затем у настроек сайта {% endcomment %}
                 {% if site_settings.logo %}
                 <div class="logo-container mb-3 mb-lg-0 d-none d-lg-block">
-                    <img src="{{ site_settings.logo.url }}" 
-                         alt="{{ site_settings.logo_text }}" 
+                    <img src="{{ site_settings.logo.url }}"
+                         alt="{{ site_settings.logo_text }}"
                          class="img-fluid rounded shadow logo-container-img"
                          style="max-width: 150px; height: auto; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));">
                 </div>
                 {% endif %}
-                
-                <!-- Корзина услуг -->
                 <div class="mt-3 text-start">
                     {% include "services/cart_widget.html" %}
                 </div>
-
             </div>
         </div>
-        
-        <!-- Фоновые эффекты/декорации -->
         <div class="mt-2 mt-md-3">
-            {% comment %} Выводим фоновые эффекты/декорации с приоритетом по порядку условий {% endcomment %}
             {% if '/news/' in request.path %}
                 {% include 'includes/backgrounds/news_bg.html' %}
             {% elif '/portfolio/' in request.path %}
@@ -96,13 +68,121 @@
                 {% include 'includes/backgrounds/home_bg.html' %}
             {% endif %}
         </div>
-
-        <!-- Хлебные крошки внутри Hero -->
         <div class="hero-breadcrumbs-wrapper mt-4">
             {% include 'breadcrumbs.html' %}
         </div>
     </div>
 </section>
+{% endif %}{# /hero_is_active #}
+{% endwith %}{# /hero=news #}
 
-{% endif %} {# Конец проверки hero_is_active #}
-{% endwith %}
+{% elif portfolio_item %}
+{% with hero=portfolio_item %}
+{% if hero.hero_is_active|default:True %}
+<section class="hero-section text-white hero-portfolio"
+    style="{% if hero.hero_image %}--hero-bg-url: url('{{ hero.hero_image.url }}');
+        {% elif site_settings.hero_background %}--hero-bg-url: url('{{ site_settings.hero_background.url }}');
+        {% endif %}">
+    <div class="container-fluid px-3 px-md-4 px-lg-5">
+        <div class="row align-items-center g-4 py-4 py-md-5">
+            <div class="col-12 col-lg-8 order-2 order-lg-1">
+                <h1 class="display-4 display-md-5 fw-bold mb-3 hero-title">
+                    {% if hero.hero_title %}{{ hero.hero_title|truncatewords:20|truncatechars:50 }}
+                    {% elif hero.title %}{{ hero.title|truncatewords:20|truncatechars:50 }}
+                    {% else %}{{ site_settings.title|default:"Добро пожаловать"|truncatewords:20 }}{% endif %}
+                </h1>
+                <p class="lead mb-3 mb-md-4 hero-subtitle">
+                    {% if hero.hero_subtitle %}{{ hero.hero_subtitle|linebreaksbr }}
+                    {% elif hero.short_description %}{{ hero.short_description|striptags }}
+                    {% elif site_settings.slogan %}<i>{{ site_settings.slogan }}</i>{% endif %}
+                </p>
+            </div>
+            <div class="col-12 col-lg-4 text-center order-1 order-lg-2">
+                {% if site_settings.logo %}
+                <div class="logo-container mb-3 mb-lg-0 d-none d-lg-block">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}"
+                         class="img-fluid rounded shadow logo-container-img"
+                         style="max-width: 150px; height: auto; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));">
+                </div>
+                {% endif %}
+                <div class="mt-3 text-start">{% include "services/cart_widget.html" %}</div>
+            </div>
+        </div>
+        <div class="mt-2 mt-md-3">{% include 'includes/backgrounds/portfolio_bg.html' %}</div>
+        <div class="hero-breadcrumbs-wrapper mt-4">{% include 'breadcrumbs.html' %}</div>
+    </div>
+</section>
+{% endif %}{# /hero_is_active #}
+{% endwith %}{# /hero=portfolio_item #}
+
+{% else %}
+{# Для всех остальных страниц: service, page, app_hero #}
+{# ВАЖНО: category намеренно убрана из цепочки |default: чтобы избежать #}
+{# VariableDoesNotExist на страницах где category нет в контексте (напр. /news/) #}
+{% with hero=service|default:page|default:app_hero %}
+{% if hero and hero.hero_is_active|default:True %}
+<section class="hero-section text-white
+    {% if '/portfolio/' in request.path %}hero-portfolio
+    {% elif '/reviews/' in request.path %}hero-reviews
+    {% elif '/accounts/' in request.path %}hero-accounts
+    {% elif '/services/' in request.path %}hero-services
+    {% elif '/news/' in request.path %}hero-news
+    {% else %}hero-home{% endif %}"
+    style="{% if hero.hero_image %}--hero-bg-url: url('{{ hero.hero_image.url }}');
+        {% elif hero.image %}--hero-bg-url: url('{{ hero.image.url }}');
+        {% elif hero.background %}--hero-bg-url: url('{{ hero.background.url }}');
+        {% elif site_settings.hero_background %}--hero-bg-url: url('{{ site_settings.hero_background.url }}');
+        {% endif %}">
+    <div class="container-fluid px-3 px-md-4 px-lg-5">
+        <div class="row align-items-center g-4 py-4 py-md-5">
+            <div class="col-12 col-lg-8 order-2 order-lg-1">
+                <h1 class="display-4 display-md-5 fw-bold mb-3 hero-title">
+                    {% if hero.hero_title %}{{ hero.hero_title|truncatewords:20|truncatechars:50 }}
+                    {% elif hero.name %}{{ hero.name|truncatewords:20|truncatechars:50 }}
+                    {% elif hero.title %}{{ hero.title|truncatewords:20|truncatechars:50 }}
+                    {% else %}{{ site_settings.title|default:"Добро пожаловать"|truncatewords:20 }}{% endif %}
+                </h1>
+                <p class="lead mb-3 mb-md-4 hero-subtitle">
+                    {% if hero.hero_subtitle %}{{ hero.hero_subtitle|linebreaksbr }}
+                    {% elif hero.description %}{{ hero.description|striptags }}
+                    {% elif hero.short_description %}{{ hero.short_description|striptags }}
+                    {% elif site_settings.slogan %}<i>{{ site_settings.slogan }}</i>{% endif %}
+                </p>
+            </div>
+            <div class="col-12 col-lg-4 text-center order-1 order-lg-2">
+                {% if site_settings.logo %}
+                <div class="logo-container mb-3 mb-lg-0 d-none d-lg-block">
+                    <img src="{{ site_settings.logo.url }}"
+                         alt="{{ site_settings.logo_text }}"
+                         class="img-fluid rounded shadow logo-container-img"
+                         style="max-width: 150px; height: auto; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));">
+                </div>
+                {% endif %}
+                <div class="mt-3 text-start">
+                    {% include "services/cart_widget.html" %}
+                </div>
+            </div>
+        </div>
+        <div class="mt-2 mt-md-3">
+            {% if '/news/' in request.path %}
+                {% include 'includes/backgrounds/news_bg.html' %}
+            {% elif '/portfolio/' in request.path %}
+                {% include 'includes/backgrounds/portfolio_bg.html' %}
+            {% elif '/reviews/' in request.path %}
+                {% include 'includes/backgrounds/reviews_bg.html' %}
+            {% elif '/services/' in request.path %}
+                {% include 'includes/backgrounds/services_bg.html' %}
+            {% elif '/accounts/' in request.path %}
+                {% include 'includes/backgrounds/accounts_bg.html' %}
+            {% else %}
+                {% include 'includes/backgrounds/home_bg.html' %}
+            {% endif %}
+        </div>
+        <div class="hero-breadcrumbs-wrapper mt-4">
+            {% include 'breadcrumbs.html' %}
+        </div>
+    </div>
+</section>
+{% endif %}{# /hero_is_active #}
+{% endwith %}{# /hero=service|page|app_hero #}
+{% endif %}{# /if news / elif portfolio_item / else #}
