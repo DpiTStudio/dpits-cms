@@ -45,6 +45,16 @@
                         </form>
                     </div>
 
+                    <!-- Кнопка корзины (только для авторизованных) -->
+                    {% if user.is_authenticated %}
+                    <button class="cart-header-btn" data-cart-open aria-label="Открыть корзину">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-badge {% if not cart or cart|length == 0 %}hidden{% endif %}">
+                            {% if cart %}{{ cart|length }}{% else %}0{% endif %}
+                        </span>
+                    </button>
+                    {% endif %}
+
                     <!-- Аккаунт -->
                     {% if user.is_authenticated %}
                     <div class="dropdown w-100 w-lg-auto">

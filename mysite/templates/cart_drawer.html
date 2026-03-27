@@ -1,0 +1,139 @@
+{% load humanize %}
+{% load static %}
+
+{# ============================================ #}
+{# CART DRAWER — Всплывающая панель корзины     #}
+{# Вставляется глобально в base.html            #}
+{# ============================================ #}
+
+{# ——— ОВЕРЛЕЙ ——— #}
+<div id="cartOverlay" class="cart-overlay" aria-hidden="true"></div>
+
+{# ——— DRAWER ——— #}
+<div id="cartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Корзина заказов">
+
+    {# Шапка #}
+    <div class="cart-drawer-header">
+        <div class="cart-drawer-title">
+            <div class="cart-drawer-title-icon">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <h4>Ваш заказ</h4>
+            <span class="cart-drawer-count-badge">{{ cart|length }} поз.</span>
+        </div>
+        <button id="cartDrawerClose" class="cart-drawer-close" aria-label="Закрыть корзину">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    {# Контент (обновляется через JS) #}
+    <div id="cartDrawerItems" class="cart-drawer-body">
+        {% if user.is_authenticated %}
+            {% if cart|length > 0 %}
+                {% for item in cart %}
+                <div class="cart-item" data-service-id="{{ item.service.id }}">
+                    <div class="cart-item-icon">
+                        {% if item.icon %}
+                            <img src="{{ item.icon }}" alt="{{ item.name }}">
+                        {% else %}
+                            <i class="fas fa-cube"></i>
+                        {% endif %}
+                    </div>
+                    <div class="cart-item-info">
+                        <a href="{{ item.url }}" class="cart-item-name">{{ item.name }}</a>
+                        <div class="cart-item-price">{{ item.price|intcomma }} ₽</div>
+                    </div>
+                    <button class="cart-item-remove" data-remove-id="{{ item.service.id }}" 
+                            title="Удалить" aria-label="Удалить {{ item.name }}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="cart-empty-state">
+                    <div class="cart-empty-icon">
+                        <i class="fas fa-shopping-basket"></i>
+                    </div>
+                    <h5>Корзина пуста</h5>
+                    <p>Добавьте услуги, чтобы сформировать заказ</p>
+                    <a href="{% url 'services:list' %}" class="btn btn-primary rounded-pill px-4">
+                        <i class="fas fa-th-large me-2"></i>Перейти к услугам
+                    </a>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="cart-auth-state">
+                <div class="cart-auth-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h5 class="mb-2 fw-bold">Требуется авторизация</h5>
+                <p class="text-muted mb-4 px-3">Для оформления заказа войдите или зарегистрируйтесь на сайте</p>
+                <div class="d-grid gap-2 w-100" style="max-width: 220px;">
+                    <a href="{% url 'accounts:login' %}" class="btn btn-primary rounded-pill">
+                        <i class="fas fa-sign-in-alt me-2"></i>Войти
+                    </a>
+                    <a href="{% url 'accounts:register' %}" class="btn btn-outline-primary rounded-pill">
+                        <i class="fas fa-user-plus me-2"></i>Регистрация
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    {# Футер с итогом и кнопками #}
+    <div class="cart-drawer-footer" id="cartDrawerFooterActions" {% if cart|length == 0 %}style="display: none;"{% endif %}>
+        {% if user.is_authenticated %}
+        <div class="cart-total-row">
+            <span class="cart-total-label">
+                <i class="fas fa-receipt me-2 text-secondary"></i>Итого:
+            </span>
+            <span class="cart-total-price" id="cartDrawerTotal">
+                {{ cart.get_total_price|intcomma }} ₽
+            </span>
+        </div>
+
+        <a href="{% url 'accounts:ticket_list' %}" class="cart-checkout-btn">
+            <i class="fas fa-file-alt"></i>
+            <span>Оформить заказ</span>
+            <i class="fas fa-arrow-right"></i>
+        </a>
+
+        <button id="cartClearBtn" class="cart-clear-btn" type="button">
+            <i class="fas fa-trash-alt me-2"></i>Очистить корзину
+        </button>
+        {% endif %}
+    </div>
+</div>
+
+{# ——— ТОСТ-УВЕДОМЛЕНИЕ ——— #}
+<div id="cartToast" class="cart-toast" role="alert" aria-live="polite">
+    <div class="cart-toast-icon">
+        <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="cart-toast-text">
+        <strong>Добавлено в корзину</strong>
+        <span></span>
+    </div>
+</div>
+
+{# ——— FAB кнопка (мобильные, только для авторизованных) ——— #}
+{% if user.is_authenticated %}
+<button id="cartFab" class="cart-fab {% if cart|length == 0 %}hidden{% endif %}"
+        data-cart-open aria-label="Открыть корзину ({{ cart|length }} поз.)">
+    <i class="fas fa-shopping-bag"></i>
+    <span class="cart-fab-badge" {% if cart|length == 0 %}style="display:none"{% endif %}>
+        {{ cart|length }}
+    </span>
+</button>
+{% endif %}
+
+{# ——— СКРИПТ С URL-АДРЕСАМИ ——— #}
+<script>
+window.CART_URLS = {
+    add:         '{% url "services:cart_add" 0 %}',
+    remove:      '{% url "services:cart_remove" 0 %}',
+    clear:       '{% url "services:cart_clear" %}',
+    detail:      '{% url "services:cart_detail" %}',
+    servicesList:'{% url "services:list" %}',
+};
+</script>

@@ -200,11 +200,16 @@
                         {% if service.can_order %}
                         <div class="d-grid gap-2">
                             {% if user.is_authenticated %}
-                                <form action="{% url 'services:cart_add' service.id %}" method="post">
+                                <form data-cart-form data-service-id="{{ service.id }}">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-primary btn-lg rounded-pill py-3 w-100">
-                                        <i class="fas fa-cart-plus me-2"></i>
-                                        В корзину
+                                    <button type="submit" data-cart-submit class="btn btn-primary btn-lg rounded-pill py-3 w-100 btn-cart-add">
+                                        <span class="btn-text">
+                                            <i class="fas fa-cart-plus me-2"></i>В корзину
+                                        </span>
+                                        <span class="btn-text-loading">
+                                            <span class="cart-spinner me-2"></span>
+                                            Добавляем...
+                                        </span>
                                     </button>
                                 </form>
                             {% else %}
@@ -298,11 +303,16 @@
 <div class="floating-order-btn d-lg-none">
     {% if user.is_authenticated %}
         {% if service.can_order %}
-        <form action="{% url 'services:cart_add' service.id %}" method="post">
+        <form data-cart-form data-service-id="{{ service.id }}">
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary btn-lg rounded-pill w-100 py-3 shadow">
-                <i class="fas fa-cart-plus me-2"></i>
-                В корзину {{ service.get_price_display }}
+            <button type="submit" data-cart-submit class="btn btn-primary btn-lg rounded-pill w-100 py-3 shadow btn-cart-add">
+                <span class="btn-text">
+                    <i class="fas fa-cart-plus me-2"></i>
+                    В корзину {{ service.get_price_display }}
+                </span>
+                <span class="btn-text-loading">
+                    <span class="cart-spinner me-2"></span>Добавляем...
+                </span>
             </button>
         </form>
         {% else %}
