@@ -446,5 +446,15 @@ def hero_overrides(request):
 
     return {
         "app_hero": app_hero,
+        # Гарантируем наличие переменных для hero.html.
+        # hero.html использует выражение вида: news|default:portfolio_item|default:service|...
+        # В Django 5.x если переменная не существует в контексте — VariableDoesNotExist.
+        # Если view уже передаёт эти переменные — context-processor НЕ переопределит их,
+        # т.к. view-контекст имеет приоритет над context-processor в стеке Django.
+        # Устанавливаем None только как значение по умолчанию (fallback).
+        "portfolio_item": None,
+        "service": None,
+        "page": None,
+        "news": None,
     }
 
