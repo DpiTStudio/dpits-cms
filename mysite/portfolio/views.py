@@ -74,7 +74,7 @@ class PortfolioListView(ListView):
             )
 
         # Фильтр по категории
-        category_slug = self.request.GET.get("category")
+        category_slug = self.kwargs.get("category_slug") or self.request.GET.get("category")
         if category_slug:
             queryset = queryset.filter(category__slug=category_slug)
         
@@ -103,7 +103,8 @@ class PortfolioListView(ListView):
             cache.set(cache_key, categories, 600)  # 10 минут
 
         context["categories"] = categories
-        context["selected_category"] = self.request.GET.get("category", "")
+        category_slug = self.kwargs.get("category_slug") or self.request.GET.get("category", "")
+        context["selected_category"] = category_slug
         context["current_sort"] = self.request.GET.get("sort", "-created_at")
         context["search_query"] = self.request.GET.get("q", "")
         context["recent_portfolio_list"] = (
@@ -111,9 +112,23 @@ class PortfolioListView(ListView):
             .select_related("category")
             .order_by("-created_at")[:3]
         )
-        context["breadcrumbs"] = get_breadcrumbs([
+        # Динамические хлебные крошки и SEO заголовок
+        breadcrumbs_list = [
             ("Портфолио", reverse("portfolio:list"), "fas fa-layer-group"),
-        ])
+        ]
+        
+        if category_slug:
+            category_obj = next((c for c in categories if c.slug == category_slug), None)
+            if not category_obj:
+                category_obj = get_object_or_404(PortfolioCategory, slug=category_slug)
+            
+            breadcrumbs_list.append((category_obj.name, ""))
+            context["page_title"] = category_obj.name
+            context["category"] = category_obj # Для использования SEO полей в шаблоне
+        else:
+            context["page_title"] = "Цифровые шедевры"
+
+        context["breadcrumbs"] = get_breadcrumbs(breadcrumbs_list)
 
         return context
 

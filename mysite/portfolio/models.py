@@ -123,7 +123,8 @@ class PortfolioCategory(HeroMixin):
         super().save(*args, **kwargs)  # Вызываем метод save родительского класса
 
     def get_absolute_url(self):
-        return reverse("portfolio:list") + f"?category={self.slug}"
+        """Возвращает URL категории в формате ЧПУ"""
+        return reverse("portfolio:category_list", kwargs={"category_slug": self.slug})
 
     def works_count(self):
         """Количество работ в категории"""

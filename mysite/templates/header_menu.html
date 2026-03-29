@@ -157,7 +157,7 @@
             <li role="none"><h6 class="dropdown-header">Категории</h6></li>
             {% for category in portfolio_categories %}
             <li role="none">
-                <a class="dropdown-item" href="{% url 'portfolio:list' %}?category={{ category.slug }}" role="menuitem">
+                <a class="dropdown-item" href="{{ category.get_absolute_url }}" role="menuitem">
                     <i class="fas fa-tag text-muted" aria-hidden="true"></i>{{ category.name }}
                 </a>
             </li>

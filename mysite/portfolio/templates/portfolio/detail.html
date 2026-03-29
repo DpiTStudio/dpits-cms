@@ -20,7 +20,7 @@
                     <h6 class="mb-3">Категории работ:</h6>
                     <div class="d-flex flex-wrap gap-2">
                         {% for category in categories %}
-                        <a href="{% url 'portfolio:list' %}?category={{ category.slug }}" 
+                        <a href="{{ category.get_absolute_url }}" 
                            class="btn btn-outline-primary btn-sm {% if selected_category == category.slug %}active{% endif %}">
                             {{ category.name }}
                         </a>
@@ -38,7 +38,7 @@
                 <nav aria-label="breadcrumb" class="mb-4">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{% url 'portfolio:list' %}">Портфолио</a></li>
-                        <li class="breadcrumb-item"><a href="{% url 'portfolio:list' %}?category={{ item.category.slug }}">{{ item.category.name }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ item.category.get_absolute_url }}">{{ item.category.name }}</a></li>
                         <li class="breadcrumb-item active">{{ item.title }}</li>
                     </ol>
                 </nav>
@@ -126,7 +126,7 @@
                         <ul class="list-unstyled">
                             <li class="mb-2">
                                 <strong>Категория:</strong>
-                                <a href="{% url 'portfolio:list' %}?category={{ item.category.slug }}" class="ms-1">{{ item.category.name }}</a>
+                                <a href="{{ item.category.get_absolute_url }}" class="ms-1">{{ item.category.name }}</a>
                             </li>
                             <li class="mb-2">
                                 <strong>Дата:</strong>
@@ -158,7 +158,7 @@
                                 <small class="text-muted">{{ item.category.works_count }} работ</small>
                             </div>
                         </div>
-                        <a href="{% url 'portfolio:list' %}?category={{ item.category.slug }}" class="btn btn-outline-primary btn-sm w-100">
+                        <a href="{{ item.category.get_absolute_url }}" class="btn btn-outline-primary btn-sm w-100">
                             Все работы категории
                         </a>
                     </div>

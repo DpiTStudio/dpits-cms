@@ -16,5 +16,15 @@ mysite/work_filer/
 
 # Прочие директории
 OLD/
+.OLD/
 work_filer/
 prompts/
+
+# База данных и секреты
+db.sqlite3
+*.sqlite3
+.env
+
+# Кеш python
+__pycache__/
+*.py[cod]

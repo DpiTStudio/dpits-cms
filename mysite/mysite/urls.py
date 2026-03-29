@@ -44,10 +44,10 @@ admin.site.index_title = "Панель управления"
 
 # Основные маршруты URL проекта
 urlpatterns = [
+    path("", include("main.urls")),  # Главная и основные маршруты
     path("admin/", admin.site.urls),  # Админ-панель
     path("ckeditor5/", include("django_ckeditor_5.urls")),  # CKEditor 5
     path("captcha/", include("captcha.urls")),  # Капча
-    path("", include("main.urls")),  # Главная и основные маршруты
     path("news/", include("news.urls")),  # Новости
     path("portfolio/", include("portfolio.urls")),  # Портфолио
     path("services/", include("services.urls")),  # Услуги

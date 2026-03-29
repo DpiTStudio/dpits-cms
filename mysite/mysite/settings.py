@@ -50,7 +50,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # РЕЖИМ ОТЛАДКИ: Загружается из .env файла (по умолчанию False)
-DEBUG = os.getenv("DEBUG") == "True"
+DEBUG = os.getenv("DEBUG")
 
 # РАЗРЕШЕННЫЕ ХОСТЫ: Список доменов/хостов, которые может обслуживать система
 if DEBUG:

@@ -24,14 +24,16 @@ urlpatterns = [
     path("", views.PortfolioListView.as_view(), name="list"),
     # Детальная страница работы
     path("work/<slug:slug>/", views.PortfolioDetailView.as_view(), name="detail"),
-    # Детальная страница категории
-    path(
-        "category/<slug:slug>/",
-        views.CategoryDetailView.as_view(),
-        name="category_detail",
-    ),
     # Список категорий
     path("categories/", views.categories_view, name="categories"),
+    # Детальная страница категории (Редирект на PortfolioListView с фильтром)
+    path(
+        "category/<slug:category_slug>/",
+        views.PortfolioListView.as_view(),
+        name="category_list_alt",
+    ),
+    # ЧПУ для категорий (например, /portfolio/cms/) - ставим в конец, чтобы не конфликтовать
+
     # Профиль клиента
     path("client-profile/", views.client_profile, name="client_profile"),
     # Личный кабинет клиента
@@ -49,4 +51,6 @@ urlpatterns = [
         views.create_news_from_portfolio,
         name="create_news_from_portfolio",
     ),
+    # ЧПУ для категорий (например, /portfolio/web-design/)
+    path("<slug:category_slug>/", views.PortfolioListView.as_view(), name="category_list"),
 ]
