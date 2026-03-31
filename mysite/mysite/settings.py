@@ -373,20 +373,20 @@ JAZZMIN_UI_TWEAKS = {
     # === НАСТРОЙКИ НАВИГАЦИИ ===
     "navbar": "navbar-white navbar-light",  # Светлая навигационная панель
     "navbar_fixed": True,  # Фиксированная навигационная панель
-    "no_navbar_border": False,  # Граница навигационной панели
+    "no_navbar_border": True,  # Убрать рамку навигационной панели
     # === НАСТРОЙКИ БОКОВОЙ ПАНЕЛИ ===
     "sidebar": "sidebar-dark-primary",  # Темная боковая панель
     "sidebar_fixed": True,  # Фиксированная боковая панель
-    "sidebar_nav_small_text": False,  # Размер текста в навигации
-    "sidebar_nav_child_indent": True,  # Отступы дочерних элементов
-    "sidebar_nav_compact_style": True,  # Компактный стиль
-    "sidebar_nav_legacy_style": True,  # Устаревший стиль
-    "sidebar_nav_flat_style": True,  # Плоский стиль
+    "sidebar_nav_small_text": False,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": True,
+    "sidebar_nav_legacy_style": False,  # Отключить устаревший стиль
+    "sidebar_nav_flat_style": False,   # Отключить плоский стиль (лучше выглядит кастомный)
     # === НАСТРОЙКИ ТЕМЫ ===
-    "theme": "default",  # Основная тема
+    "theme": "default",  # Используем custom CSS для полного контроля
     # === НАСТРОЙКИ КНОПОК ===
     "button_classes": {
-        "primary": "btn-primary", 
+        "primary": "btn-primary",
         "secondary": "btn-secondary",
         "info": "btn-info",
         "warning": "btn-warning",
@@ -394,9 +394,9 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success",
     },
     # === ПРОЧИЕ НАСТРОЙКИ ===
-    "actions_sticky_top": False,  # Закрепление действий вверху
-    "brand_colour": False,  # Цвет бренда
-    "accent": "accent-primary",  # Акцентный цвет
+    "actions_sticky_top": False,
+    "brand_colour": False,
+    "accent": "accent-primary",
 }
 
 # =============================================================================
