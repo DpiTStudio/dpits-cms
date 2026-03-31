@@ -156,11 +156,10 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",  # Движок базы данных
-        "NAME": BASE_DIR / "db.sqlite3",  # Путь к файлу базы данных
+        "ENGINE": os.getenv("DB_ENGINE"),
+        "NAME": BASE_DIR / os.getenv("DB_NAME"),
     }
 }
-
 # =============================================================================
 # ВАЛИДАЦИЯ ПАРОЛЕЙ
 # =============================================================================
@@ -184,10 +183,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # МЕЖДУНАРОДНЫЕ НАСТРОЙКИ (I18N/L10N)
 # =============================================================================
 
-LANGUAGE_CODE = "ru"  # Язык по умолчанию - русский
-TIME_ZONE = "Europe/Moscow"  # Часовой пояс - Москва
-USE_I18N = True  # Включение интернационализации
-USE_TZ = True  # Использование часовых поясов
+LANGUAGE_CODE = os.getenv('DJANGO_LANGUAGE_CODE', 'ru')
+TIME_ZONE = os.getenv('DJANGO_TIME_ZONE', 'Europe/Moscow')
+USE_I18N = os.getenv('DJANGO_USE_I18N', 'True') == 'True'
+USE_TZ = os.getenv('DJANGO_USE_TZ', 'True') == 'True'
 
 # =============================================================================
 # НАСТРОЙКИ АУТЕНТИФИКАЦИИ И СЕССИЙ

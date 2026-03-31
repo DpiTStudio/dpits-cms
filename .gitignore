@@ -21,9 +21,9 @@ work_filer/
 prompts/
 
 # База данных и секреты
-db.sqlite3
-*.sqlite3
-.env
+# db.sqlite3
+# *.sqlite3
+# .env
 
 # Кеш python
 __pycache__/
