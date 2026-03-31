@@ -1,24 +1,26 @@
 <!-- accounts/templates/accounts/login_header.html -->
-<header class="bg-dark text-white sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid px-4 px-lg-5">
+<header class="glass-header sticky-top" role="banner">
+    <nav class="navbar navbar-expand-lg navbar-dark px-lg-4 px-xl-5" aria-label="Навигация входа">
+        <div class="container-fluid">
             <!-- Ссылка-логотип бренда с премиальным стилем -->
-            <a class="navbar-brand navbar-brand-premium d-flex align-items-center" href="{% url 'main:index' %}">
+            <a class="navbar-brand navbar-brand-premium d-flex align-items-center gap-2" href="{% url 'main:index' %}">
                 {% if site_settings.logo %}
-                <div class="brand-logo-container me-2">
+                <div class="brand-logo-container">
                     <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}" height="40"
                         class="rounded brand-logo">
                 </div>
                 {% endif %}
-                <span class="brand-text">{{ site_settings.logo_text }}</span>
+                <span class="brand-text fw-bold text-gradient">{{ site_settings.logo_text }}</span>
             </a>
             
-            <div class="d-flex">
-                <a href="{% url 'main:index' %}" class="btn btn-outline-light me-2">
-                    <i class="fas fa-home me-1"></i>На главную
+            <div class="d-flex align-items-center gap-2">
+                <a href="{% url 'main:index' %}" class="btn btn-glass-outline d-flex align-items-center gap-1 text-white">
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline">На главную</span>
                 </a>
-                <a href="{% url 'accounts:register' %}" class="btn btn-primary">
-                    <i class="fas fa-user-plus me-1"></i>Регистрация
+                <a href="{% url 'accounts:register' %}" class="btn btn-gradient-primary shine-effect d-flex align-items-center gap-1 text-white">
+                    <i class="fas fa-user-plus" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline">Регистрация</span>
                 </a>
             </div>
         </div>
