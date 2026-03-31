@@ -2,7 +2,7 @@
 # *
 
 # Кроме самого .gitignore
-!.gitignore
+# !.gitignore
 
 # Виртуальные окружения и IDE
 .venv/
