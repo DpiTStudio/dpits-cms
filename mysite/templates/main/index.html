@@ -116,11 +116,15 @@
       </div>
     </div>
 
+    {% comment "Блок последних новостей" %}
     <!-- Блок последних новостей -->
     {% include "includes/home_news.html" %}
+    {% endcomment %}
 
+    {% comment "Блок последних работ" %}
     <!-- Блок последних работ -->
     {% include "includes/home_portfolio.html" %}
+    {% endcomment %}
   </div>
 </section>
 {% endblock %}
