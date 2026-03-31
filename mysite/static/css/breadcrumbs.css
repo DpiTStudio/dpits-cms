@@ -33,12 +33,12 @@
 .breadcrumb-item + .breadcrumb-item::before {
     content: '/';
     padding: 0 var(--spacing-xs);
-    color: var(--text-color-light);
+    color: var(--breadcrumbs-link-fg) !important;
     font-weight: var(--font-weight-bold);
 }
 
 .breadcrumb-item a {
-    color: var(--text-color-light);
+    color: var(--breadcrumbs-link-fg) !important;
     text-decoration: none;
     transition: var(--transition);
     display: flex;
@@ -52,12 +52,12 @@
 }
 
 .breadcrumb-item.active {
-    color: var(--text-color-light);
+    color: var(--breadcrumbs-link-fg) !important;
     font-weight: var(--font-weight-semibold);
 }
 
 .breadcrumb-item.active a {
-    color: var(--text-color-light);
+    color: var(--breadcrumbs-link-fg) !important;
     pointer-events: none;
 }
 
@@ -74,7 +74,7 @@
 /* Принудительный цвет разделителя для специфичных блоков (например, в Hero) */
 .breadcrumb-item + .breadcrumb-item::before {
     /* Полупрозрачный белый цвет для разделителя, важно для видимости на темном фоне */
-    color: rgba(255,255,255,0.5) !important; 
+    color: var(--breadcrumbs-link-fg) !important;
 }
 
 /* Класс-утилита для изменения прозрачности при наведении */
