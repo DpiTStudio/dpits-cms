@@ -116,7 +116,7 @@
   }
 
   .navbar-collapse .dropdown-item:hover {
-    background: #ffffff;
+    background: var(--bg-card);
     color: #1a1a1a;
   }
 

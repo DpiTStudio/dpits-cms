@@ -4,7 +4,7 @@
 
 /* Предпросмотр файла */
 .file-preview {
-    background: #f8f9fa;
+    background: var(--bg-body);
     border: 1px solid #dee2e6;
     border-radius: 5px;
     padding: 15px;
@@ -85,7 +85,7 @@
     gap: 20px;
     flex-wrap: wrap;
     padding: 15px;
-    background: #f8f9fa;
+    background: var(--bg-body);
     border-radius: 5px;
     margin: 15px 0;
 }
