@@ -11,7 +11,8 @@
 /* Карточка в сайдбаре */
 .sidebar .card {
     margin-bottom: var(--spacing-lg);        /* Отступ снизу между карточками */
-    border: none;                            /* Убираем границу */
+    background-color: var(--bg-card);        /* Фон карточки */
+    border: 1px solid var(--border-color);   /* Граница */
     box-shadow: var(--box-shadow-sm);        /* Маленькая тень */
     border-radius: var(--border-radius-md);  /* Среднее скругление */
     transition: var(--transition);           /* Плавный переход */
@@ -53,13 +54,13 @@
 .sidebar .card-body h6 {
     font-weight: var(--font-weight-semibold); /* Полужирный шрифт */
     margin-bottom: var(--spacing-sm);       /* Отступ снизу */
-    color: var(--dark-color);                /* Темный цвет текста */
+    color: var(--text-color);                /* Основной цвет текста вместо dark */
     line-height: var(--line-height-tight);   /* Плотная высота строки */
 }
 
 /* Ссылка в карточке сайдбара */
 .sidebar .card-body a {
-    color: var(--dark-color);                /* Темный цвет ссылки */
+    color: var(--text-color);                /* Цвет текста (адаптивный) */
     text-decoration: none;                   /* Убираем подчеркивание */
     transition: var(--transition);           /* Плавный переход */
     display: block;                          /* Блочный элемент */
@@ -81,7 +82,7 @@
 
 /* Разделитель между элементами в сайдбаре */
 .sidebar .card-body .border-bottom {
-    border-bottom: var(--border-width-thin) solid #dee2e6 !important; /* Серая нижняя граница */
+    border-bottom: var(--border-width-thin) solid var(--border-color) !important;
 }
 
 /* Изображение в сайдбаре */
@@ -150,7 +151,7 @@
 /* Ссылка контакта в сайдбаре */
 .sidebar .card-body a[href^="tel:"],
 .sidebar .card-body a[href^="mailto:"] {
-    color: var(--dark-color);                /* Темный цвет ссылки */
+    color: var(--text-color);                /* Адаптивный цвет текста */
     text-decoration: none;                   /* Убираем подчеркивание */
     display: flex;                            /* Flexbox для выравнивания */
     align-items: center;                      /* Вертикальное выравнивание */
