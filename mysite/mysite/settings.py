@@ -386,7 +386,7 @@ JAZZMIN_UI_TWEAKS = {
     "theme": "default",  # Основная тема
     # === НАСТРОЙКИ КНОПОК ===
     "button_classes": {
-        "primary": "btn-primary",
+        "primary": "btn-primary", 
         "secondary": "btn-secondary",
         "info": "btn-info",
         "warning": "btn-warning",
