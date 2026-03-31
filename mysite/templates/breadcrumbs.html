@@ -10,15 +10,15 @@
     <div class="container-fluid px-0">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item">
-                <a href="{% url 'main:index' %}" class="text-white text-decoration-none opacity-75 hover-opacity-100">
+                <a href="{% url 'main:index' %}" class="text-decoration-none">
                     <i class="fas fa-home me-1"></i>
                     <span>Главная</span>
                 </a>
             </li>
             {% for crumb in breadcrumbs %}
-            <li class="breadcrumb-item {% if forloop.last %}active text-white fw-bold{% else %}opacity-75{% endif %}">
+            <li class="breadcrumb-item {% if forloop.last %}active fw-bold{% else %}opacity-75{% endif %}">
                 {% if not forloop.last %}
-                <a href="{{ crumb.url }}" class="text-white text-decoration-none hover-opacity-100">
+                <a href="{{ crumb.url }}" class="text-decoration-none">
                     {% if crumb.icon %}<i class="{{ crumb.icon }} me-1"></i>{% endif %}
                     <span>{{ crumb.title }}</span>
                 </a>

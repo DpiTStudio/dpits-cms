@@ -814,6 +814,7 @@ select.form-control {
 
 /* ── BREADCRUMBS ───────────────────────────────────────────── */
 .breadcrumb {
+    color: var(--text-muted) !important;
     background: transparent !important;
     padding: 0.25rem 0 !important;
     font-size: 0.82rem !important;
@@ -821,13 +822,13 @@ select.form-control {
 }
 
 .breadcrumb-item a {
-    color: var(--text-muted) !important;
+    color: var(--breadcrumbs-link-fg) !important;
     text-decoration: none !important;
     transition: color 0.15s !important;
 }
 
 .breadcrumb-item a:hover {
-    color: var(--brand) !important;
+    color: var(--breadcrumbs-link-fg) !important;
 }
 
 .breadcrumb-item.active { color: var(--text-muted) !important; }
