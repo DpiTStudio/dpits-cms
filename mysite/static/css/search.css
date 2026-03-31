@@ -28,7 +28,7 @@
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-[data-theme="dark"] .search-input {
+.search-input {
     background-color: var(--bg-secondary);
     border-color: rgba(255, 255, 255, 0.2);
     color: var(--text-color);
@@ -75,7 +75,7 @@
     display: none;
 }
 
-[data-theme="dark"] .search-results {
+.search-results {
     background: var(--bg-card);
     border-color: rgba(255, 255, 255, 0.1);
 }
@@ -107,7 +107,7 @@
     gap: var(--spacing-md);
 }
 
-[data-theme="dark"] .search-result-item {
+.search-result-item {
     border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -119,7 +119,7 @@
     background-color: var(--light-color);
 }
 
-[data-theme="dark"] .search-result-item:hover {
+.search-result-item:hover {
     background-color: var(--bg-secondary);
 }
 

@@ -82,7 +82,7 @@
 /* Светлый (Light) */
 .badge-light,
 .bg-light.badge {
-  background: #f8f9fa !important;
+  background: var(--bg-body) !important;
   color: #333 !important;
   border: 1px solid #dee2e6;
 }

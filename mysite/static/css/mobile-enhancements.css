@@ -38,7 +38,7 @@
         animation: slideDown 0.3s ease;
     }
     
-    [data-theme="dark"] .navbar-collapse {
+    .navbar-collapse {
         background: rgba(15, 23, 42, 0.98);
     }
     

@@ -83,7 +83,7 @@
 /* ========== TOAST УВЕДОМЛЕНИЯ ========== */
 
 .toast {
-  background: white;
+  background: var(--bg-card);
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: none;
@@ -450,13 +450,13 @@ button,
   }
 
   body {
-    background: white;
+    background: var(--bg-card);
     color: black;
   }
 
   .card {
     box-shadow: none;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
   }
 }
 
@@ -491,7 +491,7 @@ button,
 }
 
 .dropdown-menu-glass .dropdown-item:hover {
-  background: #ffffff !important;
+  background: var(--bg-card) !important;
   color: #1a1a1a !important;
 }
 
@@ -526,7 +526,7 @@ button,
   position: absolute;
   height: 2px;
   width: 100%;
-  background: white;
+  background: var(--bg-card);
   border-radius: 9px;
   opacity: 1;
   left: 0;

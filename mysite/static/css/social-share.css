@@ -16,7 +16,7 @@
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-[data-theme="dark"] .social-share {
+.social-share {
     background-color: var(--bg-secondary);
     border-color: rgba(255, 255, 255, 0.1);
 }
@@ -141,7 +141,7 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-[data-theme="dark"] .social-share-floating {
+.social-share-floating {
     background: rgba(30, 41, 59, 0.95);
     border-color: rgba(255, 255, 255, 0.1);
 }

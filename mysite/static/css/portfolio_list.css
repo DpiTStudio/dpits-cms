@@ -10,7 +10,7 @@
 
 /* СТИЛИ КАРТОЧКИ ПОРТФОЛИО */
 .portfolio-card-modern {
-  background: #fff;
+  background: var(--bg-card);
   border: none;
   border-radius: 12px;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);

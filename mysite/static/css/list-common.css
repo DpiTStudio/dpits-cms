@@ -26,7 +26,7 @@
     padding: 0.5rem 1.25rem;
     border-radius: 50px;
     background-color: #f8fafc;
-    color: #64748b;
+    color: var(--text-muted);
     text-decoration: none;
     display: inline-block;
 }
@@ -57,16 +57,16 @@
 /* Утилиты для обрезки текста */
 .line-clamp-1 {
     display: -webkit-box;
-    -webkit-line-clamp: 1;
-    line-clamp: 1;
+    -webkit-line-clamp: line-clamp: 1;
+    
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
 .line-clamp-2 {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
+    -webkit-line-clamp: line-clamp: 2;
+    
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

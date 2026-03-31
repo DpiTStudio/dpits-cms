@@ -11,7 +11,7 @@
 }
 
 .login-card {
-    background: white;
+    background: var(--bg-card);
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     overflow: hidden;
@@ -31,12 +31,12 @@
 /* Страница профиля */
 .profile-section {
     padding: 60px 0;
-    background: #f8f9fa;
+    background: var(--bg-body);
     min-height: 100vh;
 }
 
 .profile-card {
-    background: white;
+    background: var(--bg-card);
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     overflow: hidden;
@@ -57,12 +57,12 @@
     border: 4px solid white;
     margin: 0 auto 20px;
     overflow: hidden;
-    background: #f8f9fa;
+    background: var(--bg-body);
 }
 
 /* Страница тикетов */
 .ticket-form-container {
-    background-color: #fff;
+    background-color: var(--bg-card);
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     padding: 30px;

@@ -66,7 +66,7 @@ a:active {
 }
 
 .card-title {
-    color: #2c3e50;
+    color: var(--text-color);
     font-weight: 600;
     margin-bottom: 1rem;
 }
@@ -86,7 +86,7 @@ a:active {
     transition: transform 0.3s ease;
     text-align: center;
     border-radius: 8px;
-    background: #f8f9fa;
+    background: var(--bg-body);
 }
 
 .contact-item:hover {
@@ -95,7 +95,7 @@ a:active {
 }
 
 .contact-item h5 {
-    color: #2c3e50;
+    color: var(--text-color);
     margin-bottom: 1rem;
     font-weight: 600;
 }
@@ -123,7 +123,7 @@ a:active {
 }
 
 .bg-light {
-    background-color: #f8f9fa !important;
+    background-color: var(--bg-body) !important;
 }
 
 .bg-primary {

@@ -7,28 +7,17 @@
 
 /* Контейнер шапки с эффектом матового стекла */
 header {
-    background: rgba(30, 41, 59, 0.95);
-    /* Полупрозрачный темный фон */
+    background: var(--glass-bg);
     backdrop-filter: blur(20px) saturate(180%);
-    /* Эффект размытия и насыщенности для glassmorphism */
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    /* Поддержка Safari */
-    color: var(--text-white);
-    /* Белый цвет текста */
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    /* Современная тень */
+    color: var(--text-color);
+    box-shadow: var(--box-shadow-sm);
     position: sticky;
-    /* Липкое позиционирование */
     top: 0;
-    /* Прилипает к верху */
     z-index: var(--z-index-sticky);
-    /* Слой выше остального контента */
     width: 100%;
-    /* Полная ширина */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    /* Тонкая полупрозрачная граница снизу */
-    transition: all 0.3s ease;
-    /* Плавный переход для всех свойств */
+    border-bottom: 1px solid var(--glass-border);
+    transition: var(--transition);
 }
 
 /* Эффект свечения снизу шапки */
@@ -255,7 +244,7 @@ header::after {
 
 /* Состояние наведения на элемент меню */
 .dropdown-item:hover {
-    background-color: #ffffff;
+    background-color: var(--bg-card);
     /* Светлый фон при наведении */
     color: #1a1a1a;
     /* Темный текст */
@@ -293,14 +282,14 @@ header::after {
 
 /* Контейнер подвала */
 footer {
-    background: linear-gradient(180deg, #1e272e 0%, #050a0f 100%);
+    background: var(--dark-gradient);
     position: relative;
     overflow: hidden;
-    color: var(--text-white);
+    color: var(--text-color);
     padding: var(--spacing-xxl) 0;
     margin-top: auto;
     width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--border-color);
 }
 
 /* Анимированные круги в фоне футера для глубины */

@@ -179,7 +179,7 @@ body {
 
 /* ── NAVBAR (Top bar) ──────────────────────────────────────── */
 .main-header.navbar {
-    background: #ffffff !important;
+    background: var(--bg-card) !important;
     border-bottom: 1px solid #e2e8f0 !important;
     box-shadow: 0 1px 12px rgba(15,23,42,0.06) !important;
     padding: 0 1.25rem !important;
@@ -196,7 +196,7 @@ body {
 }
 
 .navbar-white .navbar-nav .nav-link:hover {
-    background: #f1f5f9 !important;
+    background: var(--bg-body) !important;
     color: var(--brand) !important;
 }
 
@@ -241,7 +241,7 @@ body {
 }
 
 .card-header {
-    background: #fff !important;
+    background: var(--bg-card) !important;
     border-bottom: 1px solid var(--card-border) !important;
     padding: 1.1rem 1.5rem !important;
     border-radius: var(--radius) var(--radius) 0 0 !important;
@@ -612,7 +612,7 @@ td img { border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
 }
 
 .btn-default, .btn-secondary {
-    background: #fff !important;
+    background: var(--bg-card) !important;
     border: 1px solid var(--card-border) !important;
     color: var(--text-secondary) !important;
 }
@@ -681,7 +681,7 @@ label {
     padding: 0.55rem 0.9rem !important;
     font-size: 0.875rem !important;
     color: var(--text-primary) !important;
-    background: #fff !important;
+    background: var(--bg-card) !important;
     transition: border-color 0.15s, box-shadow 0.15s !important;
 }
 
@@ -737,7 +737,7 @@ select.form-control {
     border-radius: var(--radius-sm) !important;
     padding: 0.35rem 2.2rem 0.35rem 0.75rem !important;
     font-size: 0.85rem !important;
-    background-color: #fff !important;
+    background-color: var(--bg-card) !important;
     color: var(--text-primary) !important;
 }
 
@@ -760,7 +760,7 @@ select.form-control {
 
 /* ── FILTER SIDEBAR ────────────────────────────────────────── */
 #changelist-filter {
-    background: #fff !important;
+    background: var(--bg-card) !important;
     border-left: 1px solid var(--card-border) !important;
     border-radius: var(--radius) !important;
     overflow: hidden !important;
@@ -868,7 +868,7 @@ select.form-control {
 
 /* ── FOOTER ────────────────────────────────────────────────── */
 .main-footer {
-    background: #fff !important;
+    background: var(--bg-card) !important;
     border-top: 1px solid var(--card-border) !important;
     padding: 0.9rem 1.5rem !important;
     font-size: 0.8rem !important;

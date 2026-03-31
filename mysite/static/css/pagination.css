@@ -10,8 +10,8 @@
 
 .page-item .page-link {
     border: none;
-    background: #f1f5f9; /* Светло-серый фон */
-    color: #64748b; /* Серый текст */
+    background: var(--bg-body); /* Светло-серый фон */
+    color: var(--text-muted); /* Серый текст */
     border-radius: 50%; /* Круглые кнопки */
     width: 40px;
     height: 40px;
