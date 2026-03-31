@@ -40,6 +40,10 @@
     --text-white: #0f172a;
     --text-footer: #cbd5e1;
     
+    /* Цвета ссылок (для темной темы) */
+    --link-color: #38bdf8; /* Sky-400 */
+    --link-hover-color: #7dd3fc; /* Sky-300 */
+    
     /* Фон */
     --bg-color: #0f172a;
     --bg-secondary: #1e293b;
@@ -244,11 +248,11 @@
 
 /* Ссылки в темной теме */
 [data-theme="dark"] a {
-    color: var(--primary-light);
+    color: var(--link-color);
 }
 
 [data-theme="dark"] a:hover {
-    color: var(--primary-color);
+    color: var(--link-hover-color);
 }
 
 /* Хлебные крошки в темной теме */

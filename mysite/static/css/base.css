@@ -105,8 +105,8 @@ main {
 
 /* Ссылки */
 a {
-    color: var(--primary-color);
-    /* Цвет ссылок - основной цвет сайта */
+    color: var(--link-color);
+    /* Цвет ссылок - высококонтрастный удобочитаемый цвет */
     text-decoration: none;
     /* Убираем подчеркивание по умолчанию */
     transition: var(--transition);
@@ -115,8 +115,8 @@ a {
 
 /* Состояние наведения на ссылку */
 a:hover {
-    color: var(--secondary-color);
-    /* Цвет при наведении - вторичный цвет */
+    color: var(--link-hover-color);
+    /* Цвет при наведении */
     text-decoration: underline;
     /* Подчеркивание при наведении */
 }
