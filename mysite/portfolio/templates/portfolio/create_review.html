@@ -8,35 +8,6 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/forms.css' %}">
-<style>
-    .rating-select {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: flex-end;
-    }
-    .rating-select input {
-        display: none;
-    }
-    .rating-select label {
-        cursor: pointer;
-        width: 30px;
-        font-size: 25px;
-        color: #ccc;
-    }
-    .rating-select label:before {
-        content: '\f005';
-        font-family: "Font Awesome 5 Free";
-        font-weight: 900;
-    }
-    .rating-select input:checked ~ label,
-    .rating-select input:checked ~ label ~ label {
-        color: #ffc107;
-    }
-    .rating-select label:hover,
-    .rating-select label:hover ~ label {
-        color: #ffca2c;
-    }
-</style>
 {% endblock %}
 
 {% block content %}

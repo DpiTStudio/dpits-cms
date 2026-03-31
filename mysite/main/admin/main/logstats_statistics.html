@@ -126,32 +126,5 @@
         <a href="{% url 'admin:main_logstats_changelist' %}" class="button">← {% trans "Назад к списку статистики" %}</a>
     </div>
 </div>
-
-<style>
-    pre {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-    }
-    
-    /* Подсветка строк с ошибками */
-    pre:has-text("ERROR") {
-        background-color: #ffebee;
-    }
-    
-    /* Стили для таблиц */
-    table {
-        border-collapse: collapse;
-    }
-    
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
-    
-    th {
-        background-color: #e0e0e0;
-        font-weight: bold;
-    }
-</style>
 {% endblock %}
 
