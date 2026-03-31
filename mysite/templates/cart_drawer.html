@@ -6,6 +6,19 @@
 {# Вставляется глобально в base.html            #}
 {# ============================================ #}
 
+<style>
+/* Safe fallback styles to prevent layout breakage if static cart.css is delayed or missing in production */
+#cartOverlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55); z-index: 1080; opacity: 0; visibility: hidden; pointer-events: none; }
+#cartOverlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
+#cartDrawer { position: fixed; top: 0; right: 0; width: 420px; max-width: 100vw; height: 100dvh; background: #fff; z-index: 1090; transform: translateX(100%); display: flex; flex-direction: column; box-shadow: -8px 0 40px rgba(0, 0, 0, 0.2); transition: transform 0.4s; }
+#cartDrawer.open { transform: translateX(0); }
+#cartToast { position: fixed; bottom: 24px; right: 24px; z-index: 1100; transform: translateY(150px); opacity: 0; background: #fff; padding: 14px 20px; border-radius: 14px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); display: flex; align-items: center; gap: 14px; transition: all 0.4s; pointer-events: none; }
+#cartToast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+[data-theme="dark"] #cartDrawer { background: #1e293b; box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5); }
+[data-theme="dark"] #cartToast { background: #1e293b; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); border-left-color: #6366f1; }
+</style>
+
+
 {# ——— ОВЕРЛЕЙ ——— #}
 <div id="cartOverlay" class="cart-overlay" aria-hidden="true"></div>
 
