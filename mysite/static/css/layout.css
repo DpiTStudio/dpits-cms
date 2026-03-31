@@ -55,7 +55,7 @@ header::after {
 .navbar {
     padding: var(--spacing-sm) 0;
     /* Вертикальные отступы */
-    min-height: 60px;
+    min-height: 40px;
     /* Минимальная высота для единообразия */
 }
 
@@ -222,7 +222,7 @@ header::after {
     /* Скругление углов */
     box-shadow: var(--box-shadow-md);
     /* Средняя тень */
-    padding: 0.75rem;
+    padding: 2rem;
     /* Внутренние отступы (одинаковые) */
     min-width: 200px;
     /* Минимальная ширина */
@@ -232,7 +232,7 @@ header::after {
 .dropdown-item {
     color: #ffffff;
     /* Белый цвет текста */
-    padding: 0.75rem 1rem;
+    padding: 2rem 1rem;
     /* Внутренние отступы */
     border-radius: var(--border-radius-sm);
     /* Скругление углов */
@@ -262,7 +262,7 @@ header::after {
 }
 
 .dropdown-item:hover i {
-    color: #1a1a1a;
+    color: #d3d1d1;
     /* Темная иконка при наведении */
 }
 
@@ -347,7 +347,7 @@ footer h5 {
 
 /* Параграфы в подвале */
 footer p {
-    /* color: var(--text-muted); */
+    color: var(--text-white);
     /* Приглушенный цвет текста */
     margin-bottom: var(--spacing-md);
     /* Отступ снизу */

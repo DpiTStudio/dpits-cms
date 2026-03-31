@@ -232,7 +232,7 @@
     /* Цвет фона при наведении (светлый) */
     background-color: #ffffff;
     /* Цвет текста (темный) */
-    color: #1a1a1a;
+    color: #c7c7c7;
     /* Сдвиг текста вправо */
     transform: translateX(4px);
     padding-left: 1.25rem;
