@@ -26,25 +26,15 @@ html {
 /* Тело документа */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    /* Современный шрифт Inter с резервными вариантами */
     line-height: var(--line-height-normal);
-    /* Нормальная высота строки для читаемости */
     color: var(--text-color);
-    /* Основной цвет текста */
-    background-color: var(--light-color);
-    /* Светлый фон страницы */
+    background-color: var(--bg-body);
     display: flex;
-    /* Используем flexbox для макета */
     flex-direction: column;
-    /* Вертикальное направление flex контейнера */
     min-height: 100vh;
-    /* Минимальная высота на весь экран */
     -webkit-font-smoothing: antialiased;
-    /* Сглаживание шрифтов в WebKit браузерах */
     -moz-osx-font-smoothing: grayscale;
-    /* Сглаживание шрифтов в Firefox на macOS */
     font-feature-settings: 'kern' 1;
-    /* Включение кернинга для лучшей типографики */
 }
 
 /* Основной контент страницы */
@@ -105,8 +95,8 @@ main {
 
 /* Ссылки */
 a {
-    color: var(--primary-color);
-    /* Цвет ссылок - основной цвет сайта */
+    color: var(--link-color);
+    /* Цвет ссылок - высококонтрастный удобочитаемый цвет */
     text-decoration: none;
     /* Убираем подчеркивание по умолчанию */
     transition: var(--transition);
@@ -115,8 +105,8 @@ a {
 
 /* Состояние наведения на ссылку */
 a:hover {
-    color: var(--secondary-color);
-    /* Цвет при наведении - вторичный цвет */
+    color: var(--link-hover-color);
+    /* Цвет при наведении */
     text-decoration: underline;
     /* Подчеркивание при наведении */
 }
@@ -177,11 +167,8 @@ li {
 /* Горизонтальная линия */
 hr {
     border: none;
-    /* Убираем стандартную границу */
-    border-top: var(--border-width-thin) solid #dee2e6;
-    /* Верхняя граница */
+    border-top: var(--border-width-thin) solid var(--border-color);
     margin: var(--spacing-xl) 0;
-    /* Вертикальные отступы */
 }
 
 /* Выделение текста */
@@ -202,8 +189,7 @@ hr {
 
 /* Дорожка скроллбара */
 ::-webkit-scrollbar-track {
-    background: var(--light-color);
-    /* Фон дорожки скроллбара */
+    background: var(--bg-body);
 }
 
 /* Ползунок скроллбара */

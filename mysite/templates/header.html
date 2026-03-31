@@ -37,6 +37,12 @@
                     </span>
                 </button>
 
+                {# ── Переключатель темы (мобильный) ── #}
+                <button class="theme-toggle d-lg-none mx-2" id="themeToggleMobile" aria-label="Переключить тему">
+                    <i class="fas fa-sun theme-toggle-icon"></i>
+                    <i class="fas fa-moon theme-toggle-icon"></i>
+                </button>
+
                 {# ── Кнопка мобильного меню ── #}
                 <button class="navbar-toggler border-0 p-2"
                         type="button"
@@ -99,6 +105,13 @@
                             </span>
                         </button>
                     </div>
+
+                    {# Тема (Темная/Светлая) #}
+                    <button class="theme-toggle ms-2 d-none d-lg-flex" id="themeToggle" aria-label="Переключить тему">
+                        <i class="fas fa-sun theme-toggle-icon"></i>
+                        <i class="fas fa-moon theme-toggle-icon"></i>
+                    </button>
+
 
                     {% if user.is_authenticated %}
 

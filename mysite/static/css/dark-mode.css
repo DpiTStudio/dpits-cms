@@ -41,8 +41,8 @@
     --text-footer: #94a3b8;    /* Slate-400 */
     
     /* Цвета ссылок (для темной темы) */
-    --link-color: #38bdf8; /* Sky-400 */
-    --link-hover-color: #7dd3fc; /* Sky-300 */
+    --link-color: #ffffff; /* White - Улучшенная читаемость (белые ссылки) */
+    --link-hover-color: #e2e8f0; /* Slate-200 - при наведении */
     
     /* Фон */
     --bg-color: #0f172a;

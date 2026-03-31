@@ -1,4 +1,16 @@
 /* styles.css - Основные стили для всего сайта */
+* {
+    color: var(--text-body) !important;
+}
+a {
+    color: var(--text-body) !important;
+}
+a:hover {
+    color: var(--text-body) !important;
+}
+a:active {
+    color: var(--text-body) !important;
+}
 
 /* Hero Section Styles */
 .hero-section {

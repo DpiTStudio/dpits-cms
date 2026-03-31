@@ -6,7 +6,7 @@
 (function() {
     'use strict';
     
-    const themeToggle = document.getElementById('themeToggle');
+    const themeToggles = document.querySelectorAll('.theme-toggle');
     const html = document.documentElement;
     
     // Получаем сохраненную тему из localStorage или используем системную
@@ -29,10 +29,10 @@
         html.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         
-        // Обновляем иконку переключателя
-        if (themeToggle) {
-            const sunIcon = themeToggle.querySelector('.fa-sun');
-            const moonIcon = themeToggle.querySelector('.fa-moon');
+        // Обновляем иконки переключателей
+        themeToggles.forEach(toggle => {
+            const sunIcon = toggle.querySelector('.fa-sun');
+            const moonIcon = toggle.querySelector('.fa-moon');
             
             if (theme === 'dark') {
                 if (sunIcon) sunIcon.style.opacity = '0';
@@ -41,7 +41,7 @@
                 if (sunIcon) sunIcon.style.opacity = '1';
                 if (moonIcon) moonIcon.style.opacity = '0';
             }
-        }
+        });
     }
     
     // Переключаем тему
@@ -76,10 +76,10 @@
             });
         }
         
-        // Обработчик клика на переключатель
-        if (themeToggle) {
-            themeToggle.addEventListener('click', toggleTheme);
-        }
+        // Обработчик клика на переключатели
+        themeToggles.forEach(toggle => {
+            toggle.addEventListener('click', toggleTheme);
+        });
     }
     
     // Запускаем при загрузке DOM

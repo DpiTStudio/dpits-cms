@@ -78,11 +78,10 @@
 
 /* ========== СЕКЦИЯ ПРЕИМУЩЕСТВ ========== */
 
-/* Секция с преимуществами */
 .content-section {
-    background-color: var(--light-color);     /* Светлый фон */
-    padding: var(--spacing-xxl) 0;            /* Большие вертикальные отступы */
-    width: 100%;                              /* Полная ширина */
+    background-color: transparent;
+    padding: var(--spacing-xxl) 0;
+    width: 100%;
 }
 
 /* Заголовок секции преимуществ */
@@ -94,13 +93,12 @@
     font-size: clamp(1.75rem, 4vw, 2.5rem);   /* Адаптивный размер шрифта */
 }
 
-/* Карточка преимущества */
 .content-section .card {
-    height: 100%;                             /* Полная высота карточки */
-    border: none;                             /* Убираем границу */
-    text-align: center;                       /* Центрирование текста */
-    transition: var(--transition);           /* Плавный переход */
-    background-color: var(--text-white);     /* Белый фон */
+    height: 100%;
+    border: none;
+    text-align: center;
+    transition: var(--transition);
+    background-color: var(--bg-card);
 }
 
 /* Состояние наведения на карточку преимущества */
@@ -154,17 +152,16 @@
     padding: var(--spacing-xl) 0;            /* Вертикальные отступы */
 }
 
-/* Элемент контакта */
 .contact-item {
-    padding: var(--spacing-lg);              /* Внутренние отступы */
-    transition: var(--transition);           /* Плавный переход */
-    text-align: center;                      /* Центрирование текста */
-    border-radius: var(--border-radius-md);   /* Среднее скругление */
-    background: var(--light-color);          /* Светлый фон */
-    border: var(--border-width-thin) solid #dee2e6; /* Серая граница */
-    height: 100%;                            /* Полная высота */
-    display: flex;                            /* Flexbox для выравнивания */
-    flex-direction: column;                   /* Вертикальное направление */
+    padding: var(--spacing-lg);
+    transition: var(--transition);
+    text-align: center;
+    border-radius: var(--border-radius-md);
+    background: var(--bg-card);
+    border: var(--border-width-thin) solid var(--border-color);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     align-items: center;                      /* Горизонтальное выравнивание */
     justify-content: center;                  /* Вертикальное выравнивание */
 }
