@@ -5,8 +5,8 @@
 
 /* Основная секция hero */
 .hero-section {
-    padding: var(--spacing-xxl) 0 !important;
-    /* Большие вертикальные отступы */
+    padding: calc(var(--spacing-xxl) + var(--header-height)) 0 var(--spacing-xxl) 0 !important;
+    /* Большие вертикальные отступы + высота шапки */
     margin-bottom: 30px;
     /* Отступ снизу для разделения с контентом */
     color: var(--text-white);

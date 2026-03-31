@@ -12,8 +12,9 @@ header {
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     color: var(--text-color);
     box-shadow: var(--box-shadow-sm);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
     z-index: var(--z-index-sticky);
     width: 100%;
     border-bottom: 1px solid var(--glass-border);

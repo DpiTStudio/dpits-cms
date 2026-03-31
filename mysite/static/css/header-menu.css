@@ -183,8 +183,8 @@
     border-radius: 16px;
     /* Внутренние отступы */
     padding: 0.75rem;
-    /* Отступ сверху от кнопки */
-    margin-top: 15px !important;
+    /* Отступ сверху от кнопки - увеличен для спуска на уровень hero */
+    margin-top: 25px !important;
     /* Анимация появления */
     animation: dropdownFadeIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     /* Фон - эффект стекла (темный прозрачный) */

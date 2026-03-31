@@ -139,4 +139,8 @@
     --bs-card-bg: var(--bg-card);
     --bs-nav-link-color: var(--text-secondary);
     --bs-nav-link-hover-color: var(--text-color);
+    --bs-dropdown-spacer: 0.5rem;
+    
+    --header-height: 80px;
+    --z-index-sticky: 1030;
 }
