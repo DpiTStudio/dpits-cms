@@ -9,6 +9,7 @@
 }
 
 .content-body {
+    color: #272a2e !important;
     max-width: 100%;
 }
 
@@ -53,7 +54,7 @@
     margin-bottom: 1.5rem;
     font-style: italic;
     color: #6c757d;
-    background-color: #f8f9fa;
+    background-color: rgba(232, 232, 232, 0.166);
     padding: 1rem 1.5rem;
     border-radius: 0 8px 8px 0;
 }
