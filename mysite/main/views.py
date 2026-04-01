@@ -208,7 +208,7 @@ class IndexView(MaintenanceMixin, BaseView):
     Наследует функциональность обслуживания и базовые данные.
     """
 
-    template_name = "main/home.html"  # Изменили index.html на home.html для совместимости с сервером
+    # template_name = "main/home.html"
 
     def get_context_data(self, **kwargs):
         """
