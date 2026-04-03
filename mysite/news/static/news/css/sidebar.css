@@ -102,13 +102,13 @@
     background-size: cover;
     background-position: center;
     z-index: 0;
-    transition: transform 0.6s ease;
-    opacity: 0.6;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    opacity: 0.55; /* Сбалансированный стартовый уровень */
 }
 
 .sidebar-premium-item:hover .sidebar-premium-bg {
-    transform: scale(1.1);
-    opacity: 0.8;
+    transform: scale(1.08);
+    opacity: 0.9; /* Проявление изображения при наведении */
 }
 
 /* Item Overlay */
@@ -116,10 +116,17 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(180deg, 
-        rgba(15, 23, 42, 0) 0%, 
-        rgba(15, 23, 42, 0.4) 40%, 
+        rgba(15, 23, 42, 0.1) 0%, 
+        rgba(15, 23, 42, 0.5) 50%, 
         #0f172a 100%);
     z-index: 1;
+}
+
+.sidebar-premium-overlay.vibrant {
+    background: linear-gradient(180deg, 
+        rgba(99, 102, 241, 0.05) 0%, 
+        rgba(15, 23, 42, 0.4) 40%, 
+        rgba(15, 23, 42, 0.95) 100%);
 }
 
 /* Background Icon (Decorative) */
@@ -147,8 +154,21 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    min-height: 100px;
+    min-height: 120px;
     justify-content: flex-end;
+    transition: all 0.4s ease;
+}
+
+.sidebar-premium-content.glass-effect {
+    background: rgba(15, 23, 42, 0.15);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-premium-item:hover .sidebar-premium-content.glass-effect {
+    background: rgba(15, 23, 42, 0.05);
+    backdrop-filter: blur(0px);
 }
 
 .sidebar-premium-title {

@@ -11,21 +11,21 @@
     <div class="card-body sidebar-premium-body">
         {% for news in sidebar_news %}
         <a href="{% url 'news:detail' news.slug %}" class="sidebar-premium-item has-bg" style="animation-delay: {{ forloop.counter }}00ms;">
-            <!-- Слой с фоновым изображением -->
+            <!-- Основное фоновое изображение -->
             <div class="sidebar-premium-bg" 
                  style="background-image: url('{% if news.image %}{{ news.image.url }}{% else %}{% static 'images/default-news.jpg' %}{% endif %}');">
             </div>
 
-            <!-- Иконка на фоне (декоративная) -->
+            <!-- Декоративная иконка на заднем плане -->
             <div class="sidebar-premium-icon-bg">
                 <i class="fas fa-newspaper"></i>
             </div>
             
-            <!-- Оверлей для читаемости -->
-            <div class="sidebar-premium-overlay"></div>
+            <!-- Интеллектуальный градиентный оверлей для глубины -->
+            <div class="sidebar-premium-overlay vibrant"></div>
             
-            <!-- Контент новости -->
-            <div class="sidebar-premium-content">
+            <!-- Контентная часть с эффектом матового стекла (glassmorphism) -->
+            <div class="sidebar-premium-content glass-effect">
                 <h6 class="sidebar-premium-title">{{ news.title }}</h6>
                 <div class="sidebar-premium-meta">
                     <i class="far fa-calendar-alt"></i>

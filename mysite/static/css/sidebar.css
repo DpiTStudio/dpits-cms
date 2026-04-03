@@ -1,125 +1,356 @@
-/* ============================================
+/* =========================================
+   Unified Sidebar Design System (Premium Dark)
    ФАЙЛ: sidebar.css
-   ОПИСАНИЕ: Стили для боковой панели (сайдбара) - Premium Dark 2026
-   ============================================ */
+   ========================================= */
 
-/* Контейнер сайдбара */
-.sidebar {
-    padding-left: var(--spacing-lg);
+:root {
+    --sidebar-bg: rgba(15, 23, 42, 0.8);
+    --sidebar-item-bg: #0f172a;
+    --sidebar-accent: #3b82f6;
+    --sidebar-accent-glow: rgba(59, 130, 246, 0.5);
+    --sidebar-text-primary: #ffffff;
+    --sidebar-text-secondary: rgba(255, 255, 255, 0.7);
+    --sidebar-text-muted: rgba(255, 255, 255, 0.5);
+    --sidebar-border: rgba(255, 255, 255, 0.1);
+    --sidebar-blur: 12px;
 }
 
-/* Карточка в сайдбаре */
-.sidebar .card {
-    margin-bottom: var(--spacing-xl);
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-    border-radius: var(--radius-lg);
-    transition: var(--transition-base);
+/* Base Sidebar Card */
+.sidebar-premium-card {
+    background: var(--sidebar-bg) !important;
+    backdrop-filter: blur(var(--sidebar-blur));
+    -webkit-backdrop-filter: blur(var(--sidebar-blur));
+    border: 1px solid var(--sidebar-border) !important;
+    border-radius: 20px !important;
     overflow: hidden;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.sidebar .card:hover {
-    box-shadow: var(--shadow-md), var(--shadow-glow-primary);
-    transform: translateY(-4px);
-    border-color: var(--primary-color);
+.sidebar-premium-card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Заголовок карточки сайдбара */
-.sidebar .card-header {
-    background: var(--gradient-primary);
-    color: var(--text-white);
-    padding: var(--spacing-md) var(--spacing-lg);
-    border-bottom: none;
-    font-weight: 800;
-    font-family: var(--font-heading);
+/* Card Header */
+.sidebar-premium-header {
+    background: transparent !important;
+    border: none !important;
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem !important;
+}
+
+.sidebar-premium-header h6 {
+    color: var(--sidebar-text-primary);
     text-transform: uppercase;
+    font-weight: 700;
     letter-spacing: 0.05em;
     font-size: 0.85rem;
-}
-
-/* Тело карточки сайдбара */
-.sidebar .card-body {
-    padding: var(--spacing-lg);
-}
-
-/* Элементы внутри тела */
-.sidebar .card-body h6 {
-    font-weight: 700;
-    margin-bottom: var(--spacing-xs);
-    color: var(--text-primary);
-    font-family: var(--font-heading);
-    font-size: 1rem;
-}
-
-.sidebar .card-body a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: var(--transition-base);
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: 0.4rem 0;
+    gap: 10px;
+    opacity: 0.9;
 }
 
-.sidebar .card-body a:hover {
-    color: var(--primary-color);
-    transform: translateX(6px);
+.sidebar-premium-header i {
+    color: var(--sidebar-accent);
 }
 
-/* Разделитель */
-.sidebar .card-body .border-bottom {
-    border-bottom: 1px solid var(--border-color) !important;
-    margin-bottom: var(--spacing-md);
-    padding-bottom: var(--spacing-md);
+/* Card Body */
+.sidebar-premium-body {
+    padding: 1.25rem 1.5rem 1.5rem 1.5rem !important;
+    background: transparent !important;
 }
 
-/* Изображения в сайдбаре */
-.sidebar img {
-    border-radius: var(--radius-md);
-    margin-bottom: var(--spacing-sm);
-    transition: var(--transition-base);
-    border: 1px solid var(--border-color);
+/* Common Sidebar Item */
+.sidebar-premium-item {
+    display: block;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background: var(--sidebar-item-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none !important;
+    animation: fadeInSlide 0.6s ease-out backwards;
 }
 
-.sidebar img:hover {
-    transform: scale(1.03);
-    border-color: var(--primary-color);
-}
-
-/* Мета-информация */
-.sidebar small {
-    color: var(--text-muted);
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-}
-
-/* Кнопки в сайдбаре */
-.sidebar .btn {
-    width: 100%;
-    border-radius: var(--radius-md);
-    padding: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.8rem;
-}
-
-/* Параграфы */
-.sidebar p {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: var(--spacing-md);
-}
-
-/* Адаптивность */
-@media (max-width: 991px) {
-    .sidebar {
-        padding-left: 0;
-        margin-top: var(--spacing-xxl);
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
+.sidebar-premium-item:last-child {
+    margin-bottom: 0;
+}
+
+.sidebar-premium-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    border-color: var(--sidebar-accent-glow);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(59, 130, 246, 0.15);
+}
+
+/* Item Background (for images) */
+.sidebar-premium-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    opacity: 0.55;
+}
+
+.sidebar-premium-item:hover .sidebar-premium-bg {
+    transform: scale(1.08);
+    opacity: 0.95;
+}
+
+/* Item Overlay */
+.sidebar-premium-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, 
+        rgba(15, 23, 42, 0) 0%, 
+        rgba(15, 23, 42, 0.4) 40%, 
+        #0f172a 100%);
+    z-index: 1;
+}
+
+.sidebar-premium-overlay.vibrant {
+    background: linear-gradient(180deg, 
+        rgba(99, 102, 241, 0.05) 0%, 
+        rgba(15, 23, 42, 0.4) 40%, 
+        rgba(15, 23, 42, 0.95) 100%);
+}
+
+/* Background Icon (Decorative) */
+.sidebar-premium-icon-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6rem;
+    color: rgba(255, 255, 255, 0.03);
+    z-index: 1;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+.sidebar-premium-item:hover .sidebar-premium-icon-bg {
+    color: rgba(59, 130, 246, 0.08);
+    transform: translate(-50%, -50%) scale(1.1) rotate(-10deg);
+}
+
+/* Item Content */
+.sidebar-premium-content {
+    position: relative;
+    z-index: 2;
+    padding: 1.2rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 130px;
+    justify-content: flex-end;
+    transition: all 0.3s ease;
+}
+
+.sidebar-premium-content.glass-effect {
+    background: rgba(15, 23, 42, 0.15);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-premium-item:hover .sidebar-premium-content.glass-effect {
+    background: rgba(15, 23, 42, 0.0);
+    backdrop-filter: blur(0px);
+}
+
+.sidebar-premium-title {
+    color: var(--sidebar-text-primary) !important;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.sidebar-premium-meta {
+    font-size: 0.7rem;
+    color: var(--sidebar-text-secondary) !important;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-premium-meta i {
+    color: var(--sidebar-accent);
+}
+
+/* Button Styles */
+.btn-sidebar-premium {
+    width: 100%;
+    background: rgba(59, 130, 246, 0.1);
+    color: #60a5fa !important;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+    margin-top: 1rem;
+}
+
+.btn-sidebar-premium:hover {
+    background: var(--sidebar-accent);
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+/* Contacts Style (Specific) */
+.sidebar-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.sidebar-contact-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--sidebar-text-secondary) !important;
+    text-decoration: none !important;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.sidebar-contact-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff !important;
+    transform: translateX(4px);
+}
+
+.sidebar-contact-link i {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--sidebar-accent);
+    border-radius: 8px;
+}
+
+/* Reviews Style */
+.sidebar-review-text {
+    font-size: 0.85rem;
+    color: var(--sidebar-text-secondary);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
+.sidebar-review-author {
+    color: var(--sidebar-text-primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+}
+
+/* Services Style */
+.sidebar-service-category {
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-service-cat-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--sidebar-accent);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sidebar-service-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--sidebar-text-secondary) !important;
+    text-decoration: none !important;
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.sidebar-service-item:hover {
+    background: rgba(59, 130, 246, 0.1);
+    color: #fff !important;
+    transform: translateX(4px);
+}
+
+.sidebar-service-item img, .sidebar-service-item i {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    opacity: 0.8;
+}
+
+/* Specific adjustments for News/Portfolio Item Backgrounds */
+.sidebar-premium-item.has-bg {
+    min-height: 140px;
+}
+
+/* Category List Styles */
+.sidebar .list-group-item {
+    background: transparent;
+    border: none;
+    padding: 0.5rem 0;
+}
+
+.sidebar .list-group-item a {
+    color: var(--sidebar-text-secondary);
+    transition: var(--transition-base);
+}
+
+.sidebar .list-group-item a:hover {
+    color: var(--sidebar-accent);
+    padding-left: 5px;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 991px) {
+    .sidebar {
+        margin-top: 2rem;
+    }
+}
