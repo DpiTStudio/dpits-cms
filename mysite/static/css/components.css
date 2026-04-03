@@ -225,9 +225,9 @@
 .brand-text-domain {
     display: block;
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 900;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.09em;
     background: var(--gradient-cosmic);
     -webkit-background-clip: text;
     background-clip: text;
@@ -238,7 +238,7 @@
 .brand-text-slogan {
     display: flex;
     font-family: var(--font-heading);
-    font-size: 0.5rem;
+    font-size: 0.8rem;
     font-weight: 200;
     letter-spacing: -0.01em;
     background: var(--gradient-cosmic);
