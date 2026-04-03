@@ -36,3 +36,82 @@
 .news-card:hover .card-img-top {
     transform: scale(1.05);
 }
+
+/* Новые стили для группировки по дням */
+.date-badge {
+    min-width: 200px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--primary-color), #4dabf7) !important;
+}
+
+.lead-card {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px);
+}
+
+.sub-news-item {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.sub-news-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--primary-color) !important;
+    transform: translateX(10px);
+}
+
+.sub-news-item h5 a {
+    color: #e9ecef !important;
+    transition: color 0.2s;
+}
+
+.sub-news-item:hover h5 a {
+    color: var(--primary-color) !important;
+}
+
+.other-news-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.other-news-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.other-news-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.other-news-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.border-dashed {
+    border-style: dashed !important;
+}
+
+.text-truncate-1 {
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.text-truncate-2 {
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.hover-primary:hover {
+    color: var(--primary-color) !important;
+    transition: color 0.2s ease;
+}

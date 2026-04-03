@@ -38,11 +38,14 @@ def news_list(request):
     if category_slug:
         news_queryset = news_queryset.filter(category__slug=category_slug)
 
-    # Устанавливаем сортировку
+    # Уровневая сортировка для корректной группировки в шаблоне
     if sort_by == "category":
         news_queryset = news_queryset.order_by("category__name", "-created_at")
-    else:
+    elif sort_by in ["-created_at", "created_at"]:
         news_queryset = news_queryset.order_by(sort_by)
+    else:
+        # Для сортировки по названию или просмотрам добавляем дату как второй ключ
+        news_queryset = news_queryset.order_by("-created_at", sort_by)
 
     paginator = Paginator(news_queryset, 20)
     page_number = request.GET.get("page", 1)

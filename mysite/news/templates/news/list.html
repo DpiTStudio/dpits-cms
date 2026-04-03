@@ -101,75 +101,127 @@
             </div>
         </div>
 
-        {# Список всех новостей #}
-        <div class="row g-4">
-            {% for news_item in news_list %}
-                {# Группировка по категории #}
-                {% ifchanged news_item.category.name %}
-                    {% if not selected_category %}
-                    <div class="col-12 mt-5 mb-2">
-                        <div class="category-group-header d-flex align-items-center gap-3">
-                            <h2 class="h4 fw-bold text-primary mb-0 text-uppercase">
-                                <i class="fas fa-folder-open me-2"></i>{{ news_item.category.name }}
-                            </h2>
-                            <div class="flex-grow-1 border-bottom border-primary opacity-25"></div>
-                        </div>
-                    </div>
-                    {% endif %}
-                {% endifchanged %}
+        {# Группировка списка по дням публикации #}
+        {% regroup news_list by created_at|date:"Y-m-d" as news_by_day %}
 
-                {# Группировка по дате #}
-                {% ifchanged news_item.created_at|date:"d.m.Y" %}
-                    <div class="col-12 mt-5 mb-2">
-                        <div class="date-group-header d-flex align-items-center gap-3">
-                            <div class="date-badge bg-primary text-white rounded-pill px-4 py-2 fw-bold shadow-sm">
-                                <i class="far fa-calendar-alt me-2"></i>
-                                {{ news_item.created_at|date:"d F Y" }}
+        <div class="news-timeline">
+            {% for day in news_by_day %}
+                <div class="day-group mb-5">
+                    <!-- Заголовок дня -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="date-group-header d-flex align-items-center gap-3">
+                                <div class="date-badge bg-primary text-white rounded-pill px-4 py-2 fw-bold shadow-sm">
+                                    <i class="far fa-calendar-alt me-2"></i>
+                                    {{ day.list.0.created_at|date:"d F Y" }}
+                                </div>
+                                <div class="flex-grow-1 border-bottom border-primary opacity-25"></div>
                             </div>
-                            <div class="flex-grow-1 border-bottom border-primary opacity-25"></div>
                         </div>
                     </div>
-                {% endifchanged %}
-                
-                {# Цикл по новостям #}
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card h-100 news-card shadow-sm border-0 rounded-4 overflow-hidden">
-                        {# Карточка новости #}
-                        {% if news_item.image %}
-                            <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}"
-                                style="height: 220px; object-fit: cover;">
-                            {# Картинка новости #}
-                        {% endif %}
-                        
-                        <div class="card-body d-flex flex-column p-4">
-                            {# Тело карточки с отступами #}
-                            {% if news_item.category %}
-                                <span class="badge bg-primary-subtle text-primary mb-2 align-self-start fw-bold">
-                                    {{ news_item.category.name }}
-                                </span>
-                                {# Метка категории #}
+
+                    <div class="row g-4">
+                        {# Первое (главное) событие дня #}
+                        {% with lead_news=day.list.0 %}
+                        <div class="col-12 col-lg-7">
+                            <div class="card h-100 news-card shadow-sm border-0 rounded-4 overflow-hidden lead-card">
+                                <div class="row g-0 h-100">
+                                    {% if lead_news.image %}
+                                    <div class="col-md-5">
+                                        <div class="lead-image-container h-100">
+                                            <img src="{{ lead_news.image.url }}" 
+                                                 class="img-fluid h-100" 
+                                                 alt="{{ lead_news.title }}" 
+                                                 style="object-fit: cover; min-height: 300px; width: 100%;">
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="{% if lead_news.image %}col-md-7{% else %}col-12{% endif %}">
+                                        <div class="card-body d-flex flex-column p-4 h-100">
+                                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                                {% if lead_news.category %}
+                                                <span class="badge bg-primary-subtle text-primary fw-bold">{{ lead_news.category.name }}</span>
+                                                {% endif %}
+                                                <small class="text-muted opacity-75"><i class="far fa-clock me-1"></i>{{ lead_news.created_at|date:"H:i" }}</small>
+                                            </div>
+                                            
+                                            <h3 class="card-title h2 fw-bold mb-3">
+                                                <a href="{% url 'news:detail' lead_news.slug %}" class="text-decoration-none text-white hover-primary">
+                                                    {{ lead_news.title }}
+                                                </a>
+                                            </h3>
+                                            
+                                            <p class="card-text flex-grow-1 text-muted lead-text mb-4">
+                                                {{ lead_news.short_description|striptags|truncatewords:30 }}
+                                            </p>
+                                            
+                                            <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                                                <div class="views-info text-muted small">
+                                                    <i class="far fa-eye me-1"></i>{{ lead_news.views }} просмотров
+                                                </div>
+                                                <a href="{% url 'news:detail' lead_news.slug %}" class="btn btn-primary rounded-pill px-4">
+                                                    Читать далее <i class="fas fa-arrow-right ms-2"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endwith %}
+
+                        {# Остальные новости этого же дня #}
+                        <div class="col-12 col-lg-5">
+                            {% if day.list|length > 1 %}
+                                <div class="other-news-container">
+                                    <div class="d-flex flex-column gap-3">
+                                        {% for sub_news in day.list %}
+                                            {% if not forloop.first %}
+                                                <div class="sub-news-item p-3 rounded-4 border">
+                                                    <div class="d-flex gap-3 align-items-start">
+                                                        {% if sub_news.image %}
+                                                            <div class="sub-image-wrapper flex-shrink-0">
+                                                                <img src="{{ sub_news.image.url }}" 
+                                                                     class="rounded-3 shadow-sm" 
+                                                                     alt="{{ sub_news.title }}" 
+                                                                     style="width: 70px; height: 70px; object-fit: cover;">
+                                                            </div>
+                                                        {% endif %}
+                                                        <div class="flex-grow-1 overflow-hidden">
+                                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                                <span class="badge bg-secondary-subtle text-white-50 x-small" style="font-size: 0.65rem;">
+                                                                    {{ sub_news.category.name|upper }}
+                                                                </span>
+                                                                <small class="text-muted" style="font-size: 0.75rem;">
+                                                                    <i class="far fa-clock me-1"></i>{{ sub_news.created_at|date:"H:i" }}
+                                                                </small>
+                                                            </div>
+                                                            <h5 class="h6 fw-bold mb-1 text-truncate-2">
+                                                                <a href="{% url 'news:detail' sub_news.slug %}" class="text-decoration-none">
+                                                                    {{ sub_news.title }}
+                                                                </a>
+                                                            </h5>
+                                                            <p class="small text-muted mb-0 text-truncate-1">
+                                                                {{ sub_news.short_description|striptags }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="h-100 d-flex align-items-center justify-content-center border rounded-4 border-dashed opacity-50 p-4 text-center py-5">
+                                    <div>
+                                        <div class="mb-3">
+                                            <i class="fas fa-calendar-day fa-3x text-muted opacity-25"></i>
+                                        </div>
+                                        <h5 class="text-muted mb-1">Одиночное событие</h5>
+                                        <p class="text-muted small mb-0">За этот день больше нет публикаций</p>
+                                    </div>
+                                </div>
                             {% endif %}
-
-                            <h5 class="card-title fw-bold mb-3">{{ news_item.title }}</h5>
-                            {# Заголовок новости #}
-                            
-                            <p class="card-text flex-grow-1 text-muted">
-                                {{ news_item.short_description|striptags|truncatewords:20 }}
-                            </p>
-                            {# Краткое описание #}
-                            
-                            <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
-                                <small class="text-muted">
-                                    <i class="far fa-calendar-alt me-1"></i>{{ news_item.created_at|date:"d.m.Y" }}
-                                </small>
-                                {# Дата публикации #}
-                                
-                                <a href="{% url 'news:detail' news_item.slug %}"
-                                    class="btn btn-sm btn-link text-primary fw-bold text-decoration-none p-0">
-                                    Подробнее <i class="fas fa-arrow-right ms-1"></i>
-                                </a>
-                                {# Ссылка на полную новость #}
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -179,8 +231,8 @@
                     <div class="mb-4">
                         <i class="fas fa-newspaper fa-4x text-muted opacity-25"></i>
                     </div>
-                    <h3 class="text-muted">Новостей пока нет</h3>
-                    <p class="text-muted">Следите за обновлениями, скоро здесь появятся свежие публикации!</p>
+                    <h3 class="text-muted h2">Новостей пока нет</h3>
+                    <p class="text-muted lead">Следите за обновлениями, скоро здесь появятся свежие публикации!</p>
                 </div>
             {% endfor %}
         </div>
