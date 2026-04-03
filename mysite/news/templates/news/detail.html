@@ -73,9 +73,36 @@
                     alt="{{ news.title }}">
                 {% endif %}
                 <!-- Содержание новости -->
-                <div class="news-content">
+                <div class="news-content mb-5">
                     {{ news.content|safe }}
                 </div>
+
+                <!-- Навигация по дню -->
+                {% if daily_news %}
+                <div class="daily-news-navigation p-4 rounded-4 border border-light opacity-75 mb-5" style="background: rgba(255, 255, 255, 0.02);">
+                    <h3 class="h5 fw-bold mb-4 text-primary">
+                        <i class="far fa-calendar-check me-2"></i>Лента событий за {{ news.created_at|date:"d.m.Y" }}
+                    </h3>
+                    <div class="list-group list-group-flush gap-2">
+                        {% for item in daily_news %}
+                        <div class="d-flex align-items-center py-2 px-3 rounded-3 {% if item.id == news.id %}bg-primary-subtle bg-opacity-10 border-start border-primary border-4{% else %}hover-bg-light{% endif %}" style="transition: all 0.2s;">
+                            <span class="text-muted small me-3" style="min-width: 40px;">#{{ item.id }}</span>
+                            <h4 class="h6 mb-0 flex-grow-1">
+                                {% if item.id == news.id %}
+                                    <span class="text-primary fw-bold">{{ item.title }}</span>
+                                    <span class="badge bg-primary ms-2 small" style="font-size: 0.6rem;">ЧИТАЕТЕ СЕЙЧАС</span>
+                                {% else %}
+                                    <a href="{% url 'news:detail' item.slug %}" class="text-decoration-none text-white-50 hover-primary">
+                                        {{ item.title }}
+                                    </a>
+                                {% endif %}
+                            </h4>
+                            <small class="text-muted ms-3">{{ item.created_at|date:"H:i" }}</small>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
 
                 <!-- Похожие новости -->
                 {% if similar_news %}

@@ -83,9 +83,19 @@ def news_detail(request, slug):
         .order_by("-created_at")[:4]
     )
 
+    # Получаем все новости за ту же дату
+    daily_news = (
+        News.objects.filter(
+            created_at__date=news.created_at.date(),
+            is_active=True
+        )
+        .order_by("created_at")
+    )
+
     context = {
         "news": news,
         "similar_news": similar_news,
+        "daily_news": daily_news,
         "categories": get_cached_news_categories(),
         "recent_news_list": get_cached_sidebar_news(),
         "breadcrumbs": get_breadcrumbs([
