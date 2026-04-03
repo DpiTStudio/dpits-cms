@@ -10,14 +10,10 @@ select,
 .form-control,
 .form-select {
     background-color: var(--bg-secondary) !important;
-    color: var(--text-primary) !important;
-    border: 2px solid var(--border-color) !important;
-    border-radius: var(--radius-md) !important;
-    padding: var(--spacing-3) var(--spacing-4) !important;
-    font-size: 1rem !important;
-    line-height: 1.5 !important;
-    width: 100%;
-    transition: var(--transition-base) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition);
 }
 
 /* Состояние фокуса */
@@ -26,16 +22,16 @@ textarea:focus,
 select:focus,
 .form-control:focus,
 .form-select:focus {
-    background-color: var(--bg-card) !important;
+    background-color: var(--bg-card-hover) !important;
     border-color: var(--primary-color) !important;
-    box-shadow: var(--shadow-glow) !important;
-    outline: none !important;
+    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25) !important;
+    outline: none;
 }
 
 /* Стили для placeholder */
 ::placeholder {
     color: var(--text-muted) !important;
-    opacity: 0.8 !important;
+    opacity: 0.7;
 }
 
 /* Стили для checkbox и radio */
@@ -67,26 +63,18 @@ label,
 }
 
 /* Стили для кнопок в формах (если не переопределены) */
-.btn-primary, .btn {
-    background: var(--gradient-primary);
+.btn-primary {
+    background: var(--primary-gradient);
     border: none;
-    color: var(--text-primary);
-    font-weight: 700;
-    padding: var(--spacing-3) var(--spacing-6);
-    border-radius: var(--radius-md);
-    transition: var(--transition-base);
-    box-shadow: var(--shadow);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    color: var(--text-white);
+    font-weight: var(--font-weight-bold);
+    transition: var(--transition);
 }
 
-.btn-primary:hover, .btn:hover {
+.btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
-    color: var(--text-primary);
-    opacity: 0.95;
+    box-shadow: var(--box-shadow);
+    opacity: 0.9;
 }
 
 /* Стили для легенд и заголовков форм */

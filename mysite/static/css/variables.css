@@ -6,27 +6,27 @@
 :root {
     /* ========== ОСНОВНЫЕ ЦВЕТА (Oceanic/Cosmic Premium Dark Scheme) ========== */
     /* Primary Colors - Vibrant Indigo/Cyan */
-    --primary-color: #00e5ff;     /* Neon Cyan */
-    --primary-hover: #33eaff;     
-    --primary-active: #00b3cc;    
-    --primary-light: rgba(0, 229, 255, 0.2);
+    --primary-color: #6366f1;     /* Indigo-500 */
+    --primary-hover: #818cf8;     /* Indigo-400 */
+    --primary-active: #4f46e5;    /* Indigo-600 */
+    --primary-light: rgba(99, 102, 241, 0.2);
     
     /* Secondary Colors - Deep Purple/Violet */
-    --secondary-color: #b026ff;   /* Neon Violet */
-    --secondary-hover: #c44dff;   
-    --secondary-active: #8b00e6;  
+    --secondary-color: #8b5cf6;   /* Violet-500 */
+    --secondary-hover: #a78bfa;   /* Violet-400 */
+    --secondary-active: #7c3aed;  /* Violet-600 */
     
     /* Accent Colors - Vibrant Rose/Pink */
-    --accent-color: #ff007f;      /* Neon Pink */
-    --accent-hover: #ff3399;      
-    --accent-active: #cc0066;     
+    --accent-color: #f43f5e;      /* Rose-500 */
+    --accent-hover: #fb7185;      /* Rose-400 */
+    --accent-active: #e11d48;     /* Rose-600 */
     
     /* Neutral Colors (Dark Centric - Slate/Zinc mix) */
-    --neutral-50: #ffffff;
-    --neutral-100: #f8fafc;
-    --neutral-200: #f1f5f9;
-    --neutral-300: #e2e8f0;
-    --neutral-400: #cbd5e1;
+    --neutral-50: #f8fafc;
+    --neutral-100: #f1f5f9;
+    --neutral-200: #e2e8f0;
+    --neutral-300: #cbd5e1;
+    --neutral-400: #94a3b8;
     --neutral-500: #64748b;
     --neutral-600: #475569;
     --neutral-700: #334155;
@@ -35,47 +35,47 @@
     --neutral-950: #020617;
     
     /* ========== BACKGROUNDS ========== */
-    --bg-body: #05050A;           /* Void Black */
-    --bg-card: #0A0D18;           /* Deep Space */
-    --bg-card-hover: #12182B;      /* Slightly lighter space */
-    --bg-secondary: #020205;      /* Pitch Black Abyss */
-    --bg-glass: rgba(10, 13, 24, 0.7);
-    --bg-glass-light: rgba(255, 255, 255, 0.08);
+    --bg-body: #0f172a;           /* Deep Slate-900 */
+    --bg-card: #1e293b;           /* Slate-800 */
+    --bg-card-hover: #2d3a4f;      /* Lighter Slate */
+    --bg-secondary: #020617;      /* Slate-950 */
+    --bg-glass: rgba(15, 23, 42, 0.7);
+    --bg-glass-light: rgba(255, 255, 255, 0.05);
 
     /* ========== TEXT COLORS ========== */
-    --text-primary: #ffffff;      /* Pure White */
-    --text-secondary: #f1f5f9;    /* Very Light Slate */
-    --text-muted: #cbd5e1;        /* Light Slate */
+    --text-primary: #f8fafc;      /* Slate-50 */
+    --text-secondary: #cbd5e1;    /* Slate-300 */
+    --text-muted: #94a3b8;        /* Slate-400 */
     --text-inverse: #020617;      /* Dark for light backgrounds */
     --text-white: #ffffff;
     
     /* ========== LINKS ========== */
-    --link-color: #00e5ff;        /* Neon Cyan */
-    --link-hover: #b026ff;        /* Neon Violet */
+    --link-color: #38bdf8;        /* Sky-400 */
+    --link-hover: #7dd3fc;        /* Sky-300 */
     
     /* ========== BORDERS ========== */
-    --border-color: rgba(255, 255, 255, 0.15);
-    --border-color-light: rgba(255, 255, 255, 0.08);
-    --border-color-strong: rgba(255, 255, 255, 0.25);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-color-light: rgba(255, 255, 255, 0.05);
+    --border-color-strong: rgba(255, 255, 255, 0.2);
 
     /* ========== SEMANTIC COLORS ========== */
-    --success-color: #00ff88;
-    --warning-color: #ffaa00;
-    --danger-color: #ff0055;
-    --info-color: #00e5ff;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #f43f5e;
+    --info-color: #0ea5e9;
 
     /* ========== GRADIENTS ========== */
-    --gradient-primary: linear-gradient(135deg, #00e5ff 0%, #b026ff 100%);
-    --gradient-accent: linear-gradient(135deg, #ff007f 0%, #b026ff 100%);
-    --gradient-dark: linear-gradient(180deg, #0A0D18 0%, #05050A 100%);
-    --gradient-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
+    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    --gradient-accent: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+    --gradient-dark: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    --gradient-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
 
     /* ========== SHADOWS ========== */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.8);
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.8), 0 2px 4px -1px rgba(0, 0, 0, 0.6);
-    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.8), 0 4px 6px -2px rgba(0, 0, 0, 0.6);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.9), 0 10px 10px -5px rgba(0, 0, 0, 0.8);
-    --shadow-glow: 0 0 20px rgba(0, 229, 255, 0.5);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 15px rgba(99, 102, 241, 0.4);
 
     /* ========== BORDER RADIUS ========== */
     --radius-sm: 6px;

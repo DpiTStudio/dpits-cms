@@ -213,26 +213,42 @@
 
 /* Базовая кнопка */
 .btn {
-    font-weight: 700 !important;
-    transition: var(--transition-base) !important;
-    border-radius: var(--radius-md) !important;
-    padding: var(--spacing-3) var(--spacing-6) !important;
+    font-weight: var(--font-weight-medium);
+    /* Средний вес шрифта */
+    transition: var(--transition);
+    /* Плавный переход */
+    border-radius: var(--border-radius);
+    /* Скругление углов */
+    padding: var(--spacing-sm) var(--spacing-lg);
+    /* Внутренние отступы */
     cursor: pointer;
+    /* Указатель при наведении */
     display: inline-flex;
+    /* Flexbox для выравнивания */
     align-items: center;
+    /* Вертикальное выравнивание */
     justify-content: center;
+    /* Горизонтальное выравнивание */
     gap: var(--spacing-sm);
+    /* Отступ между иконкой и текстом */
     text-decoration: none;
+    /* Убираем подчеркивание */
     border: var(--border-width) solid transparent;
+    /* Прозрачная граница */
 }
 
 /* Основная кнопка */
 .btn-primary {
-    background: var(--gradient-primary) !important;
-    color: var(--text-primary) !important;
+    background: var(--primary-gradient);
+    /* Градиентный фон */
+    color: var(--text-white);
+    /* Белый текст */
     border: none;
-    border-radius: var(--radius-md) !important;
-    transition: var(--transition-base);
+    /* Убираем границу */
+    border-radius: var(--border-radius);
+    /* Скругление углов */
+    transition: var(--transition);
+    /* Плавный переход */
 }
 
 /* Состояние наведения на основную кнопку */
@@ -345,23 +361,30 @@
 
 /* Поле ввода */
 .form-control {
-    border-radius: var(--radius-md) !important;
-    border: 2px solid var(--border-color) !important;
-    transition: var(--transition-base) !important;
-    padding: var(--spacing-3) var(--spacing-4) !important;
+    border-radius: var(--border-radius);
+    /* Скругление углов */
+    border: var(--border-width) solid var(--border-color);
+    /* Светло-серая граница */
+    transition: var(--transition);
+    /* Плавный переход */
+    padding: var(--spacing-sm) var(--spacing-md);
+    /* Внутренние отступы */
     width: 100%;
-    font-size: 1rem !important;
-    background-color: var(--bg-secondary) !important;
-    color: var(--text-primary) !important;
+    /* Полная ширина */
+    font-size: var(--font-size-base);
+    /* Базовый размер шрифта */
 }
 
 /* Состояние фокуса поля ввода */
 .form-control:focus {
-    border-color: var(--primary-color) !important;
-    box-shadow: var(--shadow-glow) !important;
-    outline: none !important;
-    background-color: var(--bg-card) !important;
+    border-color: var(--primary-color);
+    /* Граница основного цвета */
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    /* Тень при фокусе */
+    outline: none;
+    /* Убираем стандартный контур */
     transform: translateY(-1px);
+    /* Небольшое смещение вверх */
 }
 
 
