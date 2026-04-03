@@ -79,12 +79,17 @@ class PortfolioListView(ListView):
             queryset = queryset.filter(category__slug=category_slug)
         
         # Сортировка
-        sort_by = self.request.GET.get("sort", "-created_at")
-        valid_sorts = {"created_at", "-created_at", "title", "-views"}
-        if sort_by in valid_sorts:
-            queryset = queryset.order_by(sort_by)
+        sort_by = self.request.GET.get("sort", "category") # Default to category grouping
+        valid_sorts = {"created_at", "-created_at", "title", "-views", "category"}
+        if sort_by == "category":
+            queryset = queryset.order_by("category__name", "-project_date")
+        elif sort_by in valid_sorts:
+            if sort_by == "category": # (Extra safety but redundant)
+                queryset = queryset.order_by("category__name", "-project_date")
+            else:
+               queryset = queryset.order_by(sort_by)
         else:
-            queryset = queryset.order_by("-created_at")
+            queryset = queryset.order_by("category__name", "-project_date")
             
         return queryset
 

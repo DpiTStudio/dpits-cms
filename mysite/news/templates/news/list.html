@@ -76,6 +76,7 @@
                         <div class="col-lg-3">
                             <select class="form-select form-select-modern" name="sort" id="sortBy" aria-label="Сортировка">
                                 <option value="-created_at" {% if current_sort == "-created_at" %}selected{% endif %}>✨ Новые первыми</option>
+                                <option value="category" {% if current_sort == "category" %}selected{% endif %}>📁 По категориям</option>
                                 <option value="created_at" {% if current_sort == "created_at" %}selected{% endif %}>📅 Старые первыми</option>
                                 <option value="title" {% if current_sort == "title" %}selected{% endif %}>🅰️ По названию</option>
                                 <option value="-views" {% if current_sort == "-views" %}selected{% endif %}>🔥 Популярные</option>
@@ -103,6 +104,33 @@
         {# Список всех новостей #}
         <div class="row g-4">
             {% for news_item in news_list %}
+                {# Группировка по категории #}
+                {% ifchanged news_item.category.name %}
+                    {% if not selected_category %}
+                    <div class="col-12 mt-5 mb-2">
+                        <div class="category-group-header d-flex align-items-center gap-3">
+                            <h2 class="h4 fw-bold text-primary mb-0 text-uppercase">
+                                <i class="fas fa-folder-open me-2"></i>{{ news_item.category.name }}
+                            </h2>
+                            <div class="flex-grow-1 border-bottom border-primary opacity-25"></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endifchanged %}
+
+                {# Группировка по дате #}
+                {% ifchanged news_item.created_at|date:"d.m.Y" %}
+                    <div class="col-12 mt-5 mb-2">
+                        <div class="date-group-header d-flex align-items-center gap-3">
+                            <div class="date-badge bg-primary text-white rounded-pill px-4 py-2 fw-bold shadow-sm">
+                                <i class="far fa-calendar-alt me-2"></i>
+                                {{ news_item.created_at|date:"d F Y" }}
+                            </div>
+                            <div class="flex-grow-1 border-bottom border-primary opacity-25"></div>
+                        </div>
+                    </div>
+                {% endifchanged %}
+                
                 {# Цикл по новостям #}
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card h-100 news-card shadow-sm border-0 rounded-4 overflow-hidden">

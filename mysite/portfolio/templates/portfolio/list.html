@@ -86,6 +86,7 @@
             <!-- В. Сортировка -->
             <div class="col-lg-3">
               <select class="form-select form-select-modern" name="sort" id="sortBy" aria-label="Сортировка">
+                <option value="category" {% if current_sort == "category" or not current_sort %}selected{% endif %}>📁 По категориям</option>
                 <option value="-created_at" {% if current_sort == "-created_at" %}selected{% endif %}>✨ Новые первыми</option>
                 <option value="created_at" {% if current_sort == "created_at" %}selected{% endif %}>📅 Старые первыми</option>
                 <option value="title" {% if current_sort == "title" %}selected{% endif %}>🅰️ По названию</option>
@@ -112,6 +113,29 @@
     <!-- ========================================= -->
     <div class="row g-4 mb-5" id="portfolio-grid">
       {% for item in portfolio_items %}
+        {# Группировка по категории #}
+        {% ifchanged item.category.name %}
+          {% if not selected_category %}
+          <div class="col-12 mt-5 mb-2">
+            <h2 class="h4 fw-bold text-primary text-uppercase border-start border-4 border-primary ps-3 mb-4">
+              {{ item.category.name }}
+            </h2>
+          </div>
+          {% endif %}
+        {% endifchanged %}
+
+        {# Группировка по дате #}
+        {% ifchanged item.project_date|date:"F Y" %}
+          <div class="col-12 mt-4 mb-2">
+            <div class="date-sep d-flex align-items-center gap-3">
+              <span class="text-muted fw-bold small text-uppercase letter-spacing-1">
+                <i class="far fa-calendar-alt me-1"></i> {{ item.project_date|date:"F Y" }}
+              </span>
+              <div class="flex-grow-1 border-bottom opacity-10"></div>
+            </div>
+          </div>
+        {% endifchanged %}
+
         <div class="col-md-6 col-lg-4">
           <article class="portfolio-card-modern" data-category="{{ item.category.id }}" data-title="{{ item.title }}">
             <div class="card-img-wrapper">

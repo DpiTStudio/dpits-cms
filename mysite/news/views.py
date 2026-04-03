@@ -20,7 +20,7 @@ def news_list(request):
     query = request.GET.get("q", "")
 
     sort_by = request.GET.get("sort", "-created_at")
-    valid_sorts = {"created_at", "-created_at", "title", "-views"}
+    valid_sorts = {"created_at", "-created_at", "title", "-views", "category"}
     if sort_by not in valid_sorts:
         sort_by = "-created_at"
 
@@ -38,7 +38,11 @@ def news_list(request):
     if category_slug:
         news_queryset = news_queryset.filter(category__slug=category_slug)
 
-    news_queryset = news_queryset.order_by(sort_by)
+    # Устанавливаем сортировку
+    if sort_by == "category":
+        news_queryset = news_queryset.order_by("category__name", "-created_at")
+    else:
+        news_queryset = news_queryset.order_by(sort_by)
 
     paginator = Paginator(news_queryset, 20)
     page_number = request.GET.get("page", 1)

@@ -18,12 +18,12 @@ def service_list(request):
 
     # Получаем параметры
     query = request.GET.get("q", "")
-    sort_by = request.GET.get("sort", "-created_at")
+    # Сортировка
+    sort_by = request.GET.get("sort", "category") 
     category_slug = request.GET.get("category")
-    
-    valid_sorts = {"created_at", "-created_at", "name", "-views"}
+    valid_sorts = {"created_at", "-created_at", "name", "-views", "category"}
     if sort_by not in valid_sorts:
-        sort_by = "-created_at"
+        sort_by = "category"
     
     # Фильтрация
     services_queryset = Service.objects.filter(is_displayed=True).select_related('category')
@@ -38,8 +38,14 @@ def service_list(request):
     if category_slug:
         services_queryset = services_queryset.filter(category__slug=category_slug)
     
-    # Сортировка (name вместо title для Services)
-    services_queryset = services_queryset.order_by(sort_by if sort_by != "title" else "name")
+    # Сортировка
+    if sort_by == "category":
+        services_queryset = services_queryset.order_by("category__name", "name")
+    elif sort_by == "title":
+        services_queryset = services_queryset.order_by("name")
+    else:
+        services_queryset = services_queryset.order_by(sort_by)
+
     services = list(services_queryset)
     
     # Пересобираем categories_with_services для обратной совместимости если нужно, 
