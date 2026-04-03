@@ -5,12 +5,12 @@
 
 /* Контейнер сайдбара */
 .sidebar {
-    padding-left: var(--spacing-6);
+    padding-left: var(--spacing-lg);
 }
 
 /* Карточка в сайдбаре */
 .sidebar .card {
-    margin-bottom: var(--spacing-8);
+    margin-bottom: var(--spacing-xl);
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow);
@@ -20,7 +20,7 @@
 }
 
 .sidebar .card:hover {
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-md), var(--shadow-glow-primary);
     transform: translateY(-4px);
     border-color: var(--primary-color);
 }
@@ -29,45 +29,37 @@
 .sidebar .card-header {
     background: var(--gradient-primary);
     color: var(--text-white);
-    padding: var(--spacing-4) var(--spacing-6);
+    padding: var(--spacing-md) var(--spacing-lg);
     border-bottom: none;
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    font-weight: 700;
+    font-weight: 800;
     font-family: var(--font-heading);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    font-size: 0.875rem;
-}
-
-/* Цветовые вариации заголовков */
-.sidebar .card-header.bg-success {
-    background: var(--success-color);
-}
-
-.sidebar .card-header.bg-warning {
-    background: var(--warning-color);
-    color: var(--text-inverse);
+    font-size: 0.85rem;
 }
 
 /* Тело карточки сайдбара */
 .sidebar .card-body {
-    padding: var(--spacing-6);
+    padding: var(--spacing-lg);
 }
 
 /* Элементы внутри тела */
 .sidebar .card-body h6 {
     font-weight: 700;
-    margin-bottom: var(--spacing-2);
+    margin-bottom: var(--spacing-xs);
     color: var(--text-primary);
     font-family: var(--font-heading);
+    font-size: 1rem;
 }
 
 .sidebar .card-body a {
     color: var(--text-secondary);
     text-decoration: none;
     transition: var(--transition-base);
-    display: block;
-    padding: var(--spacing-2) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 0.4rem 0;
 }
 
 .sidebar .card-body a:hover {
@@ -77,17 +69,17 @@
 
 /* Разделитель */
 .sidebar .card-body .border-bottom {
-    border-bottom: 1px solid var(--border-color-light) !important;
-    margin-bottom: var(--spacing-4);
-    padding-bottom: var(--spacing-4);
+    border-bottom: 1px solid var(--border-color) !important;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
 }
 
 /* Изображения в сайдбаре */
 .sidebar img {
     border-radius: var(--radius-md);
-    margin-bottom: var(--spacing-3);
+    margin-bottom: var(--spacing-sm);
     transition: var(--transition-base);
-    border: 1px solid var(--border-color-light);
+    border: 1px solid var(--border-color);
 }
 
 .sidebar img:hover {
@@ -98,10 +90,10 @@
 /* Мета-информация */
 .sidebar small {
     color: var(--text-muted);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     display: flex;
     align-items: center;
-    gap: var(--spacing-2);
+    gap: var(--spacing-xs);
 }
 
 /* Кнопки в сайдбаре */
@@ -112,36 +104,22 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    font-size: 0.8125rem;
+    font-size: 0.8rem;
 }
 
 /* Параграфы */
 .sidebar p {
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     line-height: 1.6;
-    margin-bottom: var(--spacing-4);
-}
-
-/* Ссылки контактов */
-.sidebar .card-body a[href^="tel:"],
-.sidebar .card-body a[href^="mailto:"] {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-3);
-    font-weight: 500;
-}
-
-.sidebar .card-body a[href^="tel:"] i,
-.sidebar .card-body a[href^="mailto:"] i {
-    color: var(--primary-color);
-    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
 }
 
 /* Адаптивность */
 @media (max-width: 991px) {
     .sidebar {
         padding-left: 0;
-        margin-top: var(--spacing-12);
+        margin-top: var(--spacing-xxl);
     }
 }
+

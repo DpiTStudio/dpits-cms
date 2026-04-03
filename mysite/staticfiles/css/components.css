@@ -7,599 +7,216 @@
 
 /* Базовая карточка */
 .card {
-    border-radius: var(--border-radius);
-    /* Скругление углов */
-    box-shadow: var(--box-shadow);
-    /* Стандартная тень */
-    border: none;
-    /* Убираем стандартную границу */
-    transition: var(--transition);
-    /* Плавный переход */
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    transition: var(--transition-base);
     display: flex;
-    /* Flexbox для выравнивания */
     flex-direction: column;
-    /* Вертикальное направление */
     overflow: hidden;
-    /* Скрываем переполнение */
     background-color: var(--bg-card);
-    /* Белый фон */
     margin-bottom: var(--spacing-lg);
-    /* Отступ снизу */
+    position: relative;
 }
 
 /* Состояние наведения на карточку */
 .card:hover {
-    transform: translateY(-5px);
-    /* Смещение вверх при наведении */
-    box-shadow: var(--box-shadow-lg);
-    /* Увеличенная тень */
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg), var(--shadow-glow-primary);
+    border-color: var(--border-color-hover);
 }
 
 /* Заголовок карточки */
 .card-header {
-    background: var(--primary-gradient);
-    /* Градиентный фон */
+    background: var(--gradient-primary);
     color: var(--text-white);
-    /* Белый текст */
-    padding: var(--spacing-md);
-    /* Внутренние отступы */
+    padding: var(--spacing-md) var(--spacing-lg);
     font-weight: var(--font-weight-semibold);
-    /* Полужирный шрифт */
     border-bottom: none;
-    /* Убираем нижнюю границу */
 }
 
 /* Тело карточки */
 .card-body {
     padding: var(--spacing-lg);
-    /* Внутренние отступы */
     flex: 1;
-    /* Занимает все доступное пространство */
     display: flex;
-    /* Flexbox для выравнивания */
     flex-direction: column;
-    /* Вертикальное направление */
 }
 
 /* Заголовок в карточке */
 .card-title {
-    color: var(--dark-color);
-    /* Темный цвет текста */
-    font-weight: var(--font-weight-semibold);
-    /* Полужирный шрифт */
+    color: var(--text-primary);
+    font-weight: var(--font-weight-bold);
     margin-bottom: var(--spacing-md);
-    /* Отступ снизу */
-    font-size: var(--font-size-lg);
-    /* Увеличенный размер */
+    font-size: 1.25rem;
+    font-family: var(--font-heading);
 }
 
 /* Текст в карточке */
 .card-text {
-    color: var(--text-muted);
-    /* Приглушенный цвет текста */
-    line-height: var(--line-height-relaxed);
-    /* Расслабленная высота строки */
+    color: var(--text-secondary);
+    line-height: 1.6;
     flex-grow: 1;
-    /* Растягивается для заполнения пространства */
 }
 
 /* Футер карточки */
 .card-footer {
-    background-color: transparent;
-    /* Прозрачный фон */
-    border-top: var(--border-width-thin) solid var(--border-color);
-    /* Верхняя граница */
-    padding: var(--spacing-md);
-    /* Внутренние отступы */
-}
-
-/* Карточка с эффектом наведения */
-.card-hover {
-    transition: var(--transition);
-    /* Плавный переход */
-    cursor: pointer;
-    /* Указатель при наведении */
-}
-
-/* Состояние наведения на карточку с эффектом */
-.card-hover:hover {
-    transform: translateY(-5px);
-    /* Смещение вверх */
-    box-shadow: var(--box-shadow-xl);
-    /* Очень большая тень */
+    background-color: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid var(--border-color);
+    padding: var(--spacing-md) var(--spacing-lg);
 }
 
 /* Карточка новости */
 .news-card {
-    transition: var(--transition);
-    /* Плавный переход */
-    border: none;
-    /* Убираем границу */
-    border-radius: var(--border-radius-md);
-    /* Среднее скругление */
+    transition: var(--transition-base);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
     overflow: hidden;
-    /* Скрываем переполнение */
+    background: var(--bg-card);
 }
 
-/* Состояние наведения на карточку новости */
 .news-card:hover {
-    transform: translateY(-3px);
-    /* Небольшое смещение вверх */
-    box-shadow: var(--box-shadow-md);
-    /* Средняя тень */
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md), var(--shadow-glow-primary);
+    border-color: var(--primary-color);
 }
 
 /* Изображение в карточке новости */
 .news-card .card-img-top {
-    height: 180px;
-    /* Фиксированная высота */
+    height: 200px;
     object-fit: cover;
-    /* Обрезка с сохранением пропорций */
     object-position: center;
-    /* Центрирование изображения */
-    transition: var(--transition);
-    /* Плавный переход */
+    transition: var(--transition-slow);
     width: 100%;
-    /* Полная ширина */
 }
 
-/* Состояние наведения на изображение новости */
 .news-card:hover .card-img-top {
-    transform: scale(1.05);
-    /* Увеличение при наведении */
-}
-
-/* Карточка категории */
-.category-card {
-    transition: var(--transition);
-    /* Плавный переход */
-    border: none;
-    /* Убираем границу */
-    border-radius: var(--border-radius-md);
-    /* Среднее скругление */
-    overflow: hidden;
-    /* Скрываем переполнение */
-}
-
-/* Состояние наведения на карточку категории */
-.category-card:hover {
-    transform: translateY(-5px);
-    /* Смещение вверх */
-    box-shadow: var(--box-shadow-lg);
-    /* Большая тень */
-}
-
-/* Изображение категории */
-.category-image {
-    transition: var(--transition);
-    /* Плавный переход */
-    width: 100%;
-    /* Полная ширина */
-    height: auto;
-    /* Автоматическая высота */
-}
-
-/* Состояние наведения на изображение категории */
-.category-card:hover .category-image {
-    transform: scale(1.05);
-    /* Увеличение при наведении */
-}
-
-/* Заголовок категорий */
-.categories-header {
-    background-color: var(--light-color);
-    /* Светлый фон */
-    padding: var(--spacing-md);
-    /* Внутренние отступы */
-    border-radius: var(--border-radius-sm);
-    /* Маленькое скругление */
-    border: var(--border-width-thin) solid var(--border-color);
-    /* Серая граница */
-    margin-bottom: var(--spacing-lg);
-    /* Отступ снизу */
-}
-
-/* Заголовок в блоке категорий */
-.categories-header h6 {
-    font-weight: var(--font-weight-semibold);
-    /* Полужирный шрифт */
-    color: var(--text-secondary);
-    /* Темно-серый цвет */
-    margin-bottom: var(--spacing-md);
-    /* Отступ снизу */
+    transform: scale(1.1);
 }
 
 /* ========== КНОПКИ ========== */
 
 /* Базовая кнопка */
 .btn {
-    font-weight: var(--font-weight-medium);
-    /* Средний вес шрифта */
-    transition: var(--transition);
-    /* Плавный переход */
-    border-radius: var(--border-radius);
-    /* Скругление углов */
-    padding: var(--spacing-sm) var(--spacing-lg);
-    /* Внутренние отступы */
+    font-weight: var(--font-weight-semibold);
+    transition: var(--transition-base);
+    border-radius: var(--radius-md);
+    padding: 0.6rem 1.5rem;
     cursor: pointer;
-    /* Указатель при наведении */
     display: inline-flex;
-    /* Flexbox для выравнивания */
     align-items: center;
-    /* Вертикальное выравнивание */
     justify-content: center;
-    /* Горизонтальное выравнивание */
     gap: var(--spacing-sm);
-    /* Отступ между иконкой и текстом */
     text-decoration: none;
-    /* Убираем подчеркивание */
-    border: var(--border-width) solid transparent;
-    /* Прозрачная граница */
+    border: 2px solid transparent;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
 }
 
 /* Основная кнопка */
 .btn-primary {
-    background: var(--primary-gradient);
-    /* Градиентный фон */
-    color: var(--text-white);
-    /* Белый текст */
-    border: none;
-    /* Убираем границу */
-    border-radius: var(--border-radius);
-    /* Скругление углов */
-    transition: var(--transition);
-    /* Плавный переход */
+    background: var(--gradient-primary) !important;
+    color: var(--text-white) !important;
+    border: none !important;
+    box-shadow: var(--shadow-glow-primary);
 }
 
-/* Состояние наведения на основную кнопку */
 .btn-primary:hover {
     transform: translateY(-2px);
-    /* Смещение вверх */
-    box-shadow: var(--box-shadow-primary);
-    /* Тень с основным цветом */
-    color: var(--text-white);
-    /* Белый текст */
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.5);
+    filter: brightness(1.1);
+}
+
+/* Вторичная кнопка */
+.btn-secondary {
+    background: var(--gradient-secondary) !important;
+    color: var(--text-white) !important;
+    border: none !important;
+    box-shadow: var(--shadow-glow-secondary);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.5);
+    filter: brightness(1.1);
 }
 
 /* Кнопка с обводкой */
 .btn-outline-primary {
-    border: var(--border-width) solid var(--primary-color);
-    /* Граница основного цвета */
-    color: var(--primary-color);
-    /* Цвет текста - основной */
-    background-color: transparent;
-    /* Прозрачный фон */
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+    background-color: transparent !important;
 }
 
-/* Состояние наведения на кнопку с обводкой */
 .btn-outline-primary:hover {
-    background-color: var(--primary-color);
-    /* Фон основного цвета */
-    border-color: var(--primary-color);
-    /* Граница основного цвета */
-    color: var(--text-white);
-    /* Белый текст */
+    background: var(--primary-color) !important;
+    color: var(--text-white) !important;
+    box-shadow: var(--shadow-glow-primary);
 }
-
-/* Активная кнопка с обводкой */
-.btn-outline-primary.active {
-    background-color: var(--primary-color);
-    /* Фон основного цвета */
-    border-color: var(--primary-color);
-    /* Граница основного цвета */
-    color: var(--text-white);
-    /* Белый текст */
-}
-
-/* Маленькая кнопка */
-.btn-sm {
-    padding: var(--spacing-xs) var(--spacing-md);
-    /* Уменьшенные отступы */
-    font-size: var(--font-size-sm);
-    /* Маленький размер шрифта */
-}
-
-/* Большая кнопка */
-.btn-lg {
-    padding: var(--spacing-md) var(--spacing-xl);
-    /* Увеличенные отступы */
-    font-size: var(--font-size-lg);
-    /* Большой размер шрифта */
-}
-
-/* Кнопка с градиентом */
-.btn-primary-gradient {
-    background: var(--primary-gradient);
-    /* Градиентный фон */
-    border: none;
-    /* Убираем границу */
-    border-radius: var(--border-radius-md);
-    /* Среднее скругление */
-    padding: var(--spacing-md) var(--spacing-xl);
-    /* Внутренние отступы */
-    color: var(--text-white);
-    /* Белый текст */
-    font-weight: var(--font-weight-semibold);
-    /* Полужирный шрифт */
-    transition: var(--transition);
-    /* Плавный переход */
-    position: relative;
-    /* Относительное позиционирование */
-    overflow: hidden;
-    /* Скрываем переполнение */
-}
-
-/* Состояние наведения на кнопку с градиентом */
-.btn-primary-gradient:hover {
-    transform: translateY(-2px);
-    /* Смещение вверх */
-    box-shadow: var(--box-shadow-primary);
-    /* Тень с основным цветом */
-}
-
-/* ========== ФОРМЫ ========== */
-
-/* Группа формы */
-.form-group {
-    margin-bottom: var(--spacing-lg);
-    /* Отступ снизу */
-    position: relative;
-    /* Относительное позиционирование */
-}
-
-/* Метка формы */
-.form-label {
-    font-weight: var(--font-weight-semibold);
-    /* Полужирный шрифт */
-    color: var(--dark-color);
-    /* Темный цвет текста */
-    margin-bottom: var(--spacing-sm);
-    /* Отступ снизу */
-    display: block;
-    /* Блочный элемент */
-}
-
-/* Поле ввода */
-.form-control {
-    border-radius: var(--border-radius);
-    /* Скругление углов */
-    border: var(--border-width) solid var(--border-color);
-    /* Светло-серая граница */
-    transition: var(--transition);
-    /* Плавный переход */
-    padding: var(--spacing-sm) var(--spacing-md);
-    /* Внутренние отступы */
-    width: 100%;
-    /* Полная ширина */
-    font-size: var(--font-size-base);
-    /* Базовый размер шрифта */
-}
-
-/* Состояние фокуса поля ввода */
-.form-control:focus {
-    border-color: var(--primary-color);
-    /* Граница основного цвета */
-    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-    /* Тень при фокусе */
-    outline: none;
-    /* Убираем стандартный контур */
-    transform: translateY(-1px);
-    /* Небольшое смещение вверх */
-}
-
 
 /* ========== АЛЕРТЫ ========== */
 
-/* Базовый алерт */
 .alert {
-    border-radius: var(--border-radius);
-    /* Скругление углов */
-    border: none;
-    /* Убираем границу */
-    padding: var(--spacing-md);
-    /* Внутренние отступы */
-    margin-bottom: var(--spacing-md);
-    /* Отступ снизу */
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
 }
 
-/* Алерт успеха */
 .alert-success {
-    background-color: rgba(40, 167, 69, 0.1);
-    /* Полупрозрачный зеленый фон */
-    color: var(--success-color);
-    /* Зеленый цвет текста */
-    border-left: 4px solid var(--success-color);
-    /* Зеленая левая граница */
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #34d399;
+    border-color: rgba(16, 185, 129, 0.2);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
 }
 
-/* Алерт ошибки */
 .alert-danger {
-    background-color: rgba(220, 53, 69, 0.1);
-    /* Полупрозрачный красный фон */
-    color: var(--danger-color);
-    /* Красный цвет текста */
-    border-left: 4px solid var(--danger-color);
-    /* Красная левая граница */
-}
-
-/* Алерт предупреждения */
-.alert-warning {
-    background-color: rgba(255, 193, 7, 0.1);
-    /* Полупрозрачный желтый фон */
-    color: #856404;
-    /* Темно-желтый цвет текста */
-    border-left: 4px solid var(--warning-color);
-    /* Желтая левая граница */
-}
-
-/* Алерт информации */
-.alert-info {
-    background-color: rgba(23, 162, 184, 0.1);
-    /* Полупрозрачный голубой фон */
-    color: var(--info-color);
-    /* Голубой цвет текста */
-    border-left: 4px solid var(--info-color);
-    /* Голубая левая граница */
-}
-
-/* ========== УТИЛИТАРНЫЕ КЛАССЫ ДЛЯ КОМПОНЕНТОВ ========== */
-
-/* Тень при наведении */
-.shadow-sm-hover {
-    box-shadow: var(--box-shadow-sm);
-    /* Маленькая тень по умолчанию */
-    transition: var(--transition);
-    /* Плавный переход */
-}
-
-/* Состояние наведения с тенью */
-.shadow-sm-hover:hover {
-    box-shadow: var(--box-shadow-md);
-    /* Средняя тень при наведении */
-}
-
-/* Переход для всех свойств */
-.transition-all {
-    transition: var(--transition);
-    /* Плавный переход */
-}
-
-/* Эффект поднятия при наведении */
-.hover-lift:hover {
-    transform: translateY(-5px);
-    /* Смещение вверх */
-    box-shadow: var(--box-shadow-lg);
-    /* Большая тень */
-}
-
-/* Профиль */
-.profile-info {
-    width: 100% !important;
-    /* Ширина блока профиля */
+    background-color: rgba(244, 63, 94, 0.1);
+    color: #fb7185;
+    border-color: rgba(244, 63, 94, 0.2);
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.1);
 }
 
 /* ========== NAVIGATION BRAND (PREMIUM) ========== */
 
-/* Основной контейнер бренда с премиальными эффектами */
 .navbar-brand-premium {
     position: relative;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--border-radius-md);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-md);
     transition: var(--transition-slow);
     overflow: hidden;
     z-index: 1;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.03);
     margin-right: var(--spacing-lg);
-}
-
-/* Эффект свечения при наведении */
-.navbar-brand-premium:hover {
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
-}
-
-/* Контейнер логотипа с 3D перспективой */
-.brand-logo-container {
-    perspective: 1000px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: var(--transition-slow);
+    gap: 0.75rem;
 }
 
-/* Анимация логотипа */
-.brand-logo {
-    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-    filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.4));
+.navbar-brand-premium:hover {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-glow-primary);
+    border-color: var(--primary-hover);
+    transform: translateY(-2px);
 }
 
-.navbar-brand-premium:hover .brand-logo {
-    transform: rotateY(360deg) scale(1.15);
-    filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.8));
-}
-
-/* Стилизация текста бренда с градиентом */
 .brand-text {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-heading);
     font-size: 1.5rem;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    background: var(--gradient-cosmic);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: var(--transition-slow);
-    position: relative;
-    display: inline-block;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transition: var(--transition-base);
 }
 
-/* Анимация текста при наведении */
 .navbar-brand-premium:hover .brand-text {
-    background: linear-gradient(135deg, #ffffff 0%, #6366f1 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 0.02em;
-    transform: translateZ(20px);
-    filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.5));
-}
-
-/* Инновационный индикатор под текстом */
-.navbar-brand-premium::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 3px;
-    background: var(--primary-gradient);
-    transition: var(--transition-slow);
-    border-radius: 10px;
-    transform: translateX(-50%);
-    box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
-}
-
-.navbar-brand-premium:hover::after {
-    width: 80%;
-}
-
-/* Эффект блика при наведении */
-.navbar-brand-premium::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent);
-    transition: all 0.6s;
-    z-index: -1;
-}
-
-.navbar-brand-premium:hover::before {
-    left: 100%;
-}
-
-/* Анимация пульсации для привлечения внимания ( idle animation ) */
-@keyframes brandPulse {
-
-    0%,
-    100% {
-        filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.2));
-    }
-
-    50% {
-        filter: drop-shadow(0 2px 10px rgba(102, 126, 234, 0.6));
-    }
-}
-
-.brand-text {
-    animation: brandPulse 3s infinite ease-in-out;
-}
+    letter-spacing: 0.01em;
+    filter: drop-shadow(0 0 8px var(--primary-glow));
+}

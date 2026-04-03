@@ -7,7 +7,7 @@
    Адаптивное меню (контейнер)
    -------------------------------------------------------------------------- */
 .nav-responsive {
-    gap: var(--spacing-2);
+    gap: var(--spacing-xs);
 }
 
 /* --------------------------------------------------------------------------
@@ -21,7 +21,8 @@
     align-items: center;
     position: relative;
     color: var(--text-secondary);
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 
 /* Эффект наведения на ссылку */
@@ -45,17 +46,17 @@
     text-align: center;
     color: var(--primary-hover);
     transition: var(--transition-base);
-    margin-right: var(--spacing-3);
+    margin-right: var(--spacing-sm);
 }
 
 .nav-link-responsive:hover .nav-icon,
 .nav-link-responsive.active .nav-icon {
     color: var(--primary-color);
     transform: scale(1.15);
+    filter: drop-shadow(0 0 5px var(--primary-glow));
 }
 
 .nav-text {
-    font-size: 0.875rem;
     white-space: nowrap;
 }
 
@@ -64,7 +65,7 @@
    -------------------------------------------------------------------------- */
 .nav-indicator {
     position: absolute;
-    bottom: -8px;
+    bottom: -5px;
     left: 50%;
     width: 0;
     height: 3px;
@@ -76,41 +77,44 @@
 
 .nav-link-responsive.active .nav-indicator {
     width: 60%;
+    box-shadow: 0 0 10px var(--primary-glow);
 }
 
 /* --------------------------------------------------------------------------
    Кнопки аккаунта
    -------------------------------------------------------------------------- */
 .btn-account {
-    background: var(--bg-glass-light);
+    background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.25rem;
     color: var(--text-primary);
     transition: var(--transition-base);
     display: flex;
     align-items: center;
-    gap: var(--spacing-2);
+    gap: var(--spacing-sm);
+    font-weight: 600;
 }
 
 .btn-account:hover {
     background: var(--bg-card);
     border-color: var(--primary-color);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
+    box-shadow: var(--shadow-glow-primary);
 }
 
 .user-avatar-md {
-    width: 38px;
-    height: 38px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: var(--gradient-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.125rem;
+    font-size: 1rem;
     color: var(--text-white);
     font-weight: 700;
+    box-shadow: 0 0 10px var(--primary-glow);
 }
 
 /* --------------------------------------------------------------------------
@@ -118,13 +122,13 @@
    -------------------------------------------------------------------------- */
 .dropdown-menu {
     min-width: 260px;
-    background: rgba(30, 41, 59, 0.98); /* Less transparent for better readability */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: var(--bg-glass);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--border-color-strong);
     box-shadow: var(--shadow-lg);
     border-radius: var(--radius-lg);
-    padding: var(--spacing-3);
+    padding: var(--spacing-sm);
     margin-top: 15px !important;
     animation: dropdownFadeIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     position: relative;
@@ -141,52 +145,44 @@
     transition: var(--transition-fast);
     border-radius: var(--radius-md);
     margin-bottom: 2px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-secondary);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .dropdown-item i {
-    width: 20px; /* Centered width */
+    width: 20px;
     text-align: center;
-    color: var(--primary-hover);
+    color: var(--primary-color);
     transition: var(--transition-fast);
     flex-shrink: 0;
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
-    background-color: var(--primary-light);
-    color: var(--primary-hover);
+    background-color: var(--bg-card-hover);
+    color: var(--text-primary);
     transform: translateX(6px);
 }
 
-.dropdown-item:hover i {
-    color: var(--primary-color);
-}
-
 .dropdown-item.active {
-    background-color: var(--primary-color) !important;
+    background: var(--gradient-primary) !important;
     color: var(--text-white) !important;
 }
 
 .dropdown-divider {
-    margin: var(--spacing-2) 0;
-    border-top: 1px solid var(--border-color-light);
-    opacity: 0.5;
+    margin: var(--spacing-xs) 0;
+    border-top: 1px solid var(--border-color);
+    opacity: 0.3;
 }
 
 /* --------------------------------------------------------------------------
    Медиа-запросы
    -------------------------------------------------------------------------- */
 @media (max-width: 991px) {
-    .nav-responsive {
-        gap: var(--spacing-1);
-    }
-    
     .nav-link-responsive {
-        padding: 0.5rem !important;
+        padding: 0.75rem !important;
         justify-content: center;
     }
     
@@ -194,11 +190,11 @@
         font-size: 1.5rem;
         width: 32px;
         margin-right: 0;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
     }
     
     .nav-text {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         text-align: center;
     }
     
@@ -207,25 +203,8 @@
     }
 
     .nav-link-responsive.active {
-        border-bottom: 3px solid var(--primary-color);
-        border-radius: 0;
-    }
-
-    /* Мобильный поиск */
-    .mobile-search-form .input-group {
-        box-shadow: var(--shadow-md);
+        background: var(--bg-glass-light);
         border-radius: var(--radius-md);
-        overflow: hidden;
-    }
-    
-    .mobile-search-form .form-control {
-        border: 1px solid var(--border-color) !important;
-        background-color: var(--bg-card) !important;
-    }
-    
-    .mobile-search-form .btn {
-        background: var(--gradient-primary);
-        border: none;
-        padding: 0 1.25rem;
     }
 }
+
