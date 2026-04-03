@@ -44,20 +44,21 @@
         <!-- ========================================= -->
         <div class="row mb-5">
             <div class="col-12">
-                <div class="filter-glass-bax p-4">
+                <div class="filter-glass-box p-4">
                     <form id="news-filters" class="row g-3 align-items-center" novalidate>
                         <!-- А. Поле поиска -->
                         <div class="col-lg-5">
                             <div class="input-group">
-                                <span class="input-group-text bg-white border-end-0 rounded-start-4 ps-3">
+                                <span class="input-group-text bg-transparent border-end-0 rounded-start-4 ps-3">
                                     <i class="fas fa-search text-muted"></i>
                                 </span>
                                 <input type="text"
                                        name="q"
-                                       class="form-control form-control-modern border-start-0 ps-2"
+                                       class="form-control form-control-modern bg-transparent border-start-0 ps-2 text-white"
                                        id="searchInput"
                                        value="{{ search_query }}"
                                        placeholder="Поиск новостей..."
+                                       style="border-color: var(--border-color);"
                                        aria-label="Поиск">
                             </div>
                         </div>
