@@ -4,24 +4,24 @@
    ============================================ */
 
 :root {
-    /* ========== ОСНОВНЫЕ ЦВЕТА (Oceanic/Cosmic Premium Dark Scheme) ========== */
-    /* Primary Colors - Vibrant Indigo/Cyan */
+    /* ========== ОСНОВНЫЕ ЦВЕТА (Vibrant Oceanic/Cosmic Scheme) ========== */
+    /* Primary Colors - Vibrant Indigo/Electric Purple */
     --primary-color: #6366f1;     /* Indigo-500 */
     --primary-hover: #818cf8;     /* Indigo-400 */
     --primary-active: #4f46e5;    /* Indigo-600 */
-    --primary-light: rgba(99, 102, 241, 0.2);
+    --primary-glow: rgba(99, 102, 241, 0.5);
     
-    /* Secondary Colors - Deep Purple/Violet */
-    --secondary-color: #8b5cf6;   /* Violet-500 */
-    --secondary-hover: #a78bfa;   /* Violet-400 */
-    --secondary-active: #7c3aed;  /* Violet-600 */
+    /* Secondary Colors - Bright Cyan/Sky Blue */
+    --secondary-color: #06b6d4;   /* Cyan-500 */
+    --secondary-hover: #22d3ee;   /* Cyan-400 */
+    --secondary-active: #0891b2;  /* Cyan-600 */
     
     /* Accent Colors - Vibrant Rose/Pink */
     --accent-color: #f43f5e;      /* Rose-500 */
     --accent-hover: #fb7185;      /* Rose-400 */
     --accent-active: #e11d48;     /* Rose-600 */
     
-    /* Neutral Colors (Dark Centric - Slate/Zinc mix) */
+    /* Neutral Colors (Deep Dark Centric) */
     --neutral-50: #f8fafc;
     --neutral-100: #f1f5f9;
     --neutral-200: #e2e8f0;
@@ -33,20 +33,23 @@
     --neutral-800: #1e293b;
     --neutral-900: #0f172a;
     --neutral-950: #020617;
+    --neutral-1000: #010411;      /* Ultra Deep Black */
     
     /* ========== BACKGROUNDS ========== */
-    --bg-body: #0f172a;           /* Deep Slate-900 */
-    --bg-card: #1e293b;           /* Slate-800 */
-    --bg-card-hover: #2d3a4f;      /* Lighter Slate */
-    --bg-secondary: #020617;      /* Slate-950 */
-    --bg-glass: rgba(15, 23, 42, 0.7);
-    --bg-glass-light: rgba(255, 255, 255, 0.05);
+    --bg-body: #020617;           /* Slate-950 - Ultra Dark */
+    --bg-card: #0f172a;           /* Slate-900 */
+    --bg-card-hover: #1e293b;      /* Slate-800 */
+    --bg-secondary: #010411;      /* Even darker */
+    --bg-accent: #111827;
+    --bg-glass: rgba(2, 6, 23, 0.75);
+    --bg-glass-light: rgba(255, 255, 255, 0.03);
 
     /* ========== TEXT COLORS ========== */
-    --text-primary: #f8fafc;      /* Slate-50 */
-    --text-secondary: #cbd5e1;    /* Slate-300 */
+    --text-primary: #ffffff;      /* Pure white for max contrast */
+    --text-secondary: #e2e8f0;    /* Slate-200 */
     --text-muted: #94a3b8;        /* Slate-400 */
-    --text-inverse: #020617;      /* Dark for light backgrounds */
+    --text-accent: #6366f1;
+    --text-inverse: #020617;
     --text-white: #ffffff;
     
     /* ========== LINKS ========== */
@@ -54,8 +57,8 @@
     --link-hover: #7dd3fc;        /* Sky-300 */
     
     /* ========== BORDERS ========== */
-    --border-color: rgba(255, 255, 255, 0.1);
-    --border-color-light: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-color-hover: rgba(255, 255, 255, 0.15);
     --border-color-strong: rgba(255, 255, 255, 0.2);
 
     /* ========== SEMANTIC COLORS ========== */
@@ -64,39 +67,41 @@
     --danger-color: #f43f5e;
     --info-color: #0ea5e9;
 
-    /* ========== GRADIENTS ========== */
-    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    --gradient-accent: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
-    --gradient-dark: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    /* ========== GRADIENTS (Rich & Vibrant) ========== */
+    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); /* Indigo to Violet */
+    --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); /* Cyan to Blue */
+    --gradient-accent: linear-gradient(135deg, #f43f5e 0%, #ef4444 100%); /* Rose to Red */
+    --gradient-cosmic: linear-gradient(135deg, #6366f1 0%, #f43f5e 100%); /* Indigo to Rose */
+    --gradient-dark: linear-gradient(180deg, #0f172a 0%, #020617 100%);
     --gradient-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
 
-    /* ========== SHADOWS ========== */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
-    --shadow-glow: 0 0 15px rgba(99, 102, 241, 0.4);
+    /* ========== SHADOWS & GLOWS ========== */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+    --shadow-glow-primary: 0 0 20px rgba(99, 102, 241, 0.3);
+    --shadow-glow-secondary: 0 0 20px rgba(6, 182, 212, 0.3);
 
     /* ========== BORDER RADIUS ========== */
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 32px;
     --radius-full: 9999px;
 
     /* ========== SPACING ========== */
-    --spacing-1: 0.25rem;
-    --spacing-2: 0.5rem;
-    --spacing-3: 0.75rem;
-    --spacing-4: 1rem;
-    --spacing-6: 1.5rem;
-    --spacing-8: 2rem;
-    --spacing-12: 3rem;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
 
     /* ========== TRANSITIONS ========== */
-    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s ease;
+    --transition-base: all 0.3s ease;
+    --transition-slow: all 0.5s ease;
 
     /* ========== FONTS ========== */
     --font-heading: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
@@ -115,10 +120,16 @@
     --bs-border-color: var(--border-color);
     
     /* Legacy Compat */
-    --dark-color: var(--text-primary);
-    --light-color: var(--bg-body);
+    --dark-color: var(--bg-body);
+    --light-color: var(--text-primary);
     --text-color: var(--text-primary);
-    --border-radius: var(--radius-lg);
+    --border-radius: var(--radius-md);
     --header-height: 80px;
     --z-index-sticky: 1030;
+    
+    /* Custom Weights */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
 }

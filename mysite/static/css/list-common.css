@@ -3,55 +3,54 @@
 /* ОПИСАНИЕ: Общие стили для страниц-списков */
 /* ========================================= */
 
-:root {
-    --primary-gradient: var(--gradient-primary);
-    --shadow-soft: var(--shadow-md);
-    --glass-bg: var(--bg-glass);
-}
-
 /* Стили контейнера фильтров (Glassmorphism) */
 .filter-glass-box {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-lg);
     border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
 }
-
 
 /* Стили для кнопок-категорий (таблеток/pills) */
 .category-pill {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid transparent;
-    font-weight: 500;
+    transition: var(--transition-base);
+    border: 1px solid var(--border-color);
+    font-weight: var(--font-weight-medium);
     padding: 0.5rem 1.25rem;
-    border-radius: 50px;
-    background-color: #f8fafc;
-    color: var(--text-muted);
+    border-radius: var(--radius-full);
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
     text-decoration: none;
     display: inline-block;
+    font-size: 0.9rem;
 }
 
 .category-pill:hover,
 .category-pill.active {
-    background: var(--primary-gradient);
-    color: white;
+    background: var(--gradient-primary);
+    color: var(--text-white);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+    box-shadow: var(--shadow-glow-primary);
+    border-color: transparent;
     text-decoration: none;
 }
 
 /* Современные инпуты и селекты */
 .form-control-modern, .form-select-modern {
-    border: 1px solid #e2e8f0;
-    padding: 0.75rem 1rem;
-    border-radius: 0.75rem;
-    transition: all 0.2s;
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    padding: 0.75rem 1.25rem !important;
+    border-radius: var(--radius-md) !important;
+    color: var(--text-primary) !important;
+    transition: var(--transition-base) !important;
 }
 
 .form-control-modern:focus, .form-select-modern:focus {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 4px var(--primary-glow) !important;
     outline: none;
 }
 
@@ -71,3 +70,4 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+

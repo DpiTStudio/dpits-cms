@@ -1,6 +1,6 @@
 /* ============================================
    ФАЙЛ: forms.css
-   ОПИСАНИЕ: Базовые стили для всех форм на сайте (Dark Theme)
+   ОПИСАНИЕ: Базовые стили для всех форм на сайте (Premium Dark Style)
    ============================================ */
 
 /* Глобальные стили для полей ввода */
@@ -10,10 +10,13 @@ select,
 .form-control,
 .form-select {
     background-color: var(--bg-secondary) !important;
-    color: var(--text-color) !important;
+    color: var(--text-primary) !important;
     border: 1px solid var(--border-color) !important;
-    border-radius: var(--border-radius-sm);
-    transition: var(--transition);
+    border-radius: var(--radius-sm) !important;
+    padding: 0.75rem 1rem !important;
+    font-family: var(--font-body);
+    transition: var(--transition-base) !important;
+    box-shadow: var(--shadow-sm);
 }
 
 /* Состояние фокуса */
@@ -22,36 +25,42 @@ textarea:focus,
 select:focus,
 .form-control:focus,
 .form-select:focus {
-    background-color: var(--bg-card-hover) !important;
+    background-color: var(--bg-card) !important;
     border-color: var(--primary-color) !important;
-    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25) !important;
+    box-shadow: 0 0 0 4px var(--primary-glow) !important;
+    color: var(--text-primary) !important;
     outline: none;
 }
 
 /* Стили для placeholder */
 ::placeholder {
     color: var(--text-muted) !important;
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
 /* Стили для checkbox и radio */
 input[type="checkbox"],
 input[type="radio"] {
     background-color: var(--bg-secondary) !important;
-    border: 2px solid var(--neutral-400) !important;
+    border: 2px solid var(--neutral-600) !important;
+    width: 1.25rem;
+    height: 1.25rem;
     cursor: pointer;
+    border-radius: 4px;
+    margin-right: 0.5rem;
 }
 
 input[type="checkbox"]:checked,
 input[type="radio"]:checked {
     background-color: var(--primary-color) !important;
     border-color: var(--primary-color) !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
 }
 
 /* Стили для выпадающих списков (опции) */
 option {
     background-color: var(--bg-card);
-    color: var(--text-color);
+    color: var(--text-primary);
 }
 
 /* Стили для меток (labels) */
@@ -60,59 +69,78 @@ label,
     color: var(--text-secondary);
     font-weight: var(--font-weight-medium);
     margin-bottom: var(--spacing-xs);
+    display: inline-block;
+    font-size: 0.95rem;
 }
 
-/* Стили для кнопок в формах (если не переопределены) */
-.btn-primary {
-    background: var(--primary-gradient);
-    border: none;
-    color: var(--text-white);
-    font-weight: var(--font-weight-bold);
-    transition: var(--transition);
+/* Стили для кнопок в формах */
+.btn-primary,
+.form-submit {
+    background: var(--gradient-primary) !important;
+    border: none !important;
+    color: var(--text-white) !important;
+    padding: 0.75rem 1.75rem !important;
+    border-radius: var(--radius-md) !important;
+    font-weight: var(--font-weight-bold) !important;
+    transition: var(--transition-base) !important;
+    cursor: pointer;
+    box-shadow: var(--shadow-glow-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.form-submit:hover {
     transform: translateY(-2px);
-    box-shadow: var(--box-shadow);
-    opacity: 0.9;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+    filter: brightness(1.1);
 }
 
 /* Стили для легенд и заголовков форм */
 legend,
 .form-title {
-    color: var(--text-color);
+    color: var(--text-primary);
     font-weight: var(--font-weight-bold);
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: var(--spacing-xs);
-    margin-bottom: var(--spacing-md);
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-lg);
+    display: block;
+    width: 100%;
 }
 
 /* Стили для подсказок */
 .form-text {
     color: var(--text-muted) !important;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
 }
 
 /* Контейнеры форм и карточки с формами */
 .form-container,
 .card-form,
-.auth-form {
-    background-color: var(--bg-card);
+.auth-form,
+.django-form-container {
+    background: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--radius-lg);
     padding: var(--spacing-xl);
-    box-shadow: var(--box-shadow-md);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: var(--spacing-xl);
 }
 
 /* Ошибки валидации */
 .invalid-feedback,
 .errorlist {
     color: var(--danger-color) !important;
-    font-size: var(--font-size-sm);
+    font-size: 0.85rem;
     margin-top: var(--spacing-xs);
     list-style: none;
-    padding-left: 0;
+    padding: 0.5rem 1rem;
+    background: rgba(244, 63, 94, 0.1);
+    border-radius: var(--radius-sm);
 }
 
 .is-invalid {
     border-color: var(--danger-color) !important;
 }
+
