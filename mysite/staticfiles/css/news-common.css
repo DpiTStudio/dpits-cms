@@ -31,3 +31,31 @@
 .news-card:hover .news-card-img-wrapper img {
     transform: scale(1.05);
 }
+
+/* Навигация по ленте одного дня */
+.daily-news-navigation {
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.hover-bg-light:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    transform: translateX(5px);
+}
+
+.hover-primary {
+    transition: color 0.3s ease;
+}
+
+.hover-primary:hover {
+    color: var(--primary-color, #007bff) !important;
+}
+
+.active-item-news {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.news-day-link {
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
