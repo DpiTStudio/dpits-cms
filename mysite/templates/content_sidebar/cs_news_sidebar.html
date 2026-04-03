@@ -4,10 +4,18 @@
 <div class="card mb-4 shadow-sm border-0 sidebar-news-card overflow-hidden">
     <!-- Заголовок с улучшенным дизайном -->
     <div class="card-header border-0 pb-1 bg-transparent px-4 pt-4">
-        <h6 class="mb-0 text-white opacity-90 text-uppercase fw-bold" style="font-size: 0.8rem; letter-spacing: 0.15em;">
-            <i class="fas fa-bolt text-primary me-2"></i> Последние новости
-        </h6>
+        <div class="d-flex align-items-center gap-2">
+            <div class="bg-primary bg-opacity-10 p-1 rounded-2 d-flex align-items-center justify-content-center" style="width: 22px; height: 22px;">
+                <i class="fas fa-bolt text-primary" style="font-size: 0.7rem;"></i>
+            </div>
+            <h6 class="mb-0 text-white opacity-90 text-uppercase fw-semibold" style="font-size: 0.75rem; letter-spacing: 0.12em;">
+                Последние новости
+            </h6>
+        </div>
     </div>
+
+    <!-- Оверлей для читаемости -->
+    <div class="news-sidebar-overlay"></div>
 
     <!-- Тело карточки -->
     <div class="card-body p-4 bg-transparent">
