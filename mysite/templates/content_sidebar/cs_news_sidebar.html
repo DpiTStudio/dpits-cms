@@ -12,7 +12,7 @@
     <!-- Тело карточки -->
     <div class="card-body p-4 bg-transparent">
         {% for news in sidebar_news %}
-        <div class="news-sidebar-item">
+        <div class="news-sidebar-item" style="animation-delay: {{ forloop.counter|add:forloop.counter }}00ms;">
             <!-- Слой с фоновым изображением -->
             <div class="news-sidebar-bg" 
                  style="background-image: url('{% if news.image %}{{ news.image.url }}{% else %}{% static 'images/default-news.jpg' %}{% endif %}');">
