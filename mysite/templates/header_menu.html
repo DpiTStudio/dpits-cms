@@ -47,7 +47,10 @@
                 <i class="fas fa-home nav-icon" aria-hidden="true"></i>
                 <span class="nav-text">Главная</span>
             </div>
-            <span class="nav-indicator" aria-hidden="true"></span>
+            <div class="brand-text-container text-gradient">
+                <div class="brand-text-domain">{{ site_settings.domain }}</div>
+                <div class="brand-text-slogan">{{ site_settings.slogan_domain }}</div>
+            </div>
         </a>
 
         {% if menu_pages %}
