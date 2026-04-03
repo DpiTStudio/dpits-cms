@@ -1,403 +1,231 @@
 /* ==========================================================================
    ФАЙЛ: header-menu.css
-   ОПИСАНИЕ: Стили для навигационного меню в шапке сайта
+   ОПИСАНИЕ: Стили для навигационного меню в шапке сайта (Premium Dark 2026)
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
    Адаптивное меню (контейнер)
    -------------------------------------------------------------------------- */
 .nav-responsive {
-    /* Расстояние между элементами навигации */
-    gap: 0.25rem;
+    gap: var(--spacing-2);
 }
 
 /* --------------------------------------------------------------------------
    Ссылки в навигации
    -------------------------------------------------------------------------- */
 .nav-link-responsive {
-    /* Внутренние отступы (!important для переопределения Bootstrap) */
-    padding: 0.75rem 1rem !important;
-    /* Скругление углов */
-    border-radius: 0.5rem;
-    /* Плавная анимация всех свойств */
-    transition: all 0.3s ease;
-    /* Флекс-контейнер для выравнивания */
+    padding: 0.75rem 1.25rem !important;
+    border-radius: var(--radius-md);
+    transition: var(--transition-base);
     display: flex;
-    /* Центрирование по вертикали */
     align-items: center;
-    /* Относительное позиционирование для индикатора */
     position: relative;
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
 /* Эффект наведения на ссылку */
 .nav-link-responsive:hover {
-    /* Полупрозрачный белый фон */
-    background: rgba(255, 255, 255, 0.1);
-    /* Легкий подъем вверх */
-    transform: translateY(-1px);
+    background: var(--bg-glass-light);
+    color: var(--text-primary);
+    transform: translateY(-2px);
 }
 
 /* Активная ссылка */
 .nav-link-responsive.active {
-    /* Делаем фон прозрачным для чистоты дизайна на десктопе */
-    background: transparent;
-    border-left: none;
+    color: var(--primary-color);
 }
 
 /* --------------------------------------------------------------------------
-   Иконки и текст в навигации
+   Иконки в навигации
    -------------------------------------------------------------------------- */
-.nav-icon-wrapper {
-    /* Флекс-контейнер */
-    display: flex;
-    /* Центрирование по вертикали */
-    align-items: center;
-    /* Отступ между иконкой и текстом */
-    gap: 0.75rem;
-    /* На всю ширину */
-    width: 100%;
-}
-
 .nav-icon {
-    /* Размер иконки */
     font-size: 1.25rem;
-    /* Фиксированная ширина для выравнивания */
     width: 24px;
-    /* Центрирование текста внутри */
     text-align: center;
-    /* Светло-фиолетовый цвет по умолчанию */
-    color: #a5b4fc;
-    /* Плавная анимация */
-    transition: all 0.3s ease;
+    color: var(--primary-hover);
+    transition: var(--transition-base);
+    margin-right: var(--spacing-3);
 }
 
-/* Изменение цвета иконки при наведении или активности */
 .nav-link-responsive:hover .nav-icon,
 .nav-link-responsive.active .nav-icon {
-    /* Голубой цвет */
-    color: #60a5fa;
-    /* Увеличение масштаба */
-    transform: scale(1.1);
+    color: var(--primary-color);
+    transform: scale(1.15);
 }
 
 .nav-text {
-    /* Размер шрифта */
-    font-size: 0.8rem;
-    /* Жирность текста */
-    font-weight: 300;
-    /* Плавная анимация */
-    transition: all 0.3s ease;
-    /* Запрет переноса строк */
+    font-size: 0.875rem;
     white-space: nowrap;
-    /* Скрытие выходящего текста */
-    overflow: hidden;
-    /* Многоточие при переполнении */
-    text-overflow: ellipsis;
 }
 
 /* --------------------------------------------------------------------------
    Индикатор активности (подчеркивание)
    -------------------------------------------------------------------------- */
 .nav-indicator {
-    /* Абсолютное позиционирование внизу ссылки */
     position: absolute;
-    bottom: 0;
+    bottom: -8px;
     left: 50%;
-    /* Изначальная ширина 0 (скрыт) */
     width: 0;
-    /* Высота полосы */
-    height: 2px;
-    /* Градиентный цвет */
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-    /* Плавная анимация появления */
-    transition: all 0.3s ease;
-    /* Центрирование по горизонтали */
+    height: 3px;
+    background: var(--gradient-primary);
+    transition: var(--transition-base);
     transform: translateX(-50%);
-    /* Скругление краев */
-    border-radius: 2px;
+    border-radius: var(--radius-full);
 }
 
-/* Показ индикатора на активной ссылке */
 .nav-link-responsive.active .nav-indicator {
-    /* Растягиваем на 80% ширины */
-    width: 80%;
+    width: 60%;
 }
 
 /* --------------------------------------------------------------------------
    Кнопки аккаунта
    -------------------------------------------------------------------------- */
 .btn-account {
-    /* Полупрозрачный фон */
-    background: rgba(255, 255, 255, 0.1);
-    /* Тонкая рамка */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    /* Скругление */
-    border-radius: 0.75rem;
-    /* Отступы */
+    background: var(--bg-glass-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
     padding: 0.5rem 1rem;
-    /* Белый текст */
-    color: white;
-    /* Плавная анимация */
-    transition: all 0.3s ease;
+    color: var(--text-primary);
+    transition: var(--transition-base);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
 }
 
 .btn-account:hover {
-    /* Более заметный фон при наведении */
-    background: rgba(255, 255, 255, 0.15);
-    /* Более яркая рамка */
-    border-color: rgba(255, 255, 255, 0.3);
-    /* Легкий подъем */
-    transform: translateY(-1px);
+    background: var(--bg-card);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
 }
 
 .user-avatar-md {
-    /* Размеры аватара */
-    width: 36px;
-    height: 36px;
-    /* Круглая форма */
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    /* Градиентный фон */
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    /* Флекс для центрирования содержимого (буквы или иконки) */
+    background: var(--gradient-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Размер шрифта внутри аватара */
-    font-size: 1.1rem;
+    font-size: 1.125rem;
+    color: var(--text-white);
+    font-weight: 700;
 }
 
 /* --------------------------------------------------------------------------
    Выпадающее меню (Dropdown)
    -------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------
-   Выпадающее меню (Dropdown) - Unified Premium Style
-   -------------------------------------------------------------------------- */
 .dropdown-menu {
-    /* Минимальная ширина */
-    min-width: 220px;
-    /* Убираем стандартную рамку */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    /* Глубокая, мягкая тень */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0,0,0,0.05);
-    /* Скругление */
-    border-radius: 16px;
-    /* Внутренние отступы */
-    padding: 0.75rem;
-    /* Отступ сверху от кнопки - увеличен для спуска на уровень hero */
-    margin-top: 25px !important;
-    /* Анимация появления */
+    min-width: 260px;
+    background: rgba(30, 41, 59, 0.98); /* Less transparent for better readability */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color-strong);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-3);
+    margin-top: 15px !important;
     animation: dropdownFadeIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    /* Фон - эффект стекла (темный прозрачный) */
-    background: rgba(30, 41, 59, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    overflow: hidden;
+    position: relative;
+    z-index: 1000;
 }
 
-/* Ключевые кадры анимации появления */
 @keyframes dropdownFadeIn {
-    from { 
-        opacity: 0; 
-        transform: translateY(10px) scale(0.98); 
-    }
-    to { 
-        opacity: 1; 
-        transform: translateY(0) scale(1); 
-    }
+    from { opacity: 0; transform: translateY(10px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .dropdown-item {
-    /* Внутренние отступы пункта меню */
     padding: 0.75rem 1rem;
-    /* Плавная анимация */
-    transition: all 0.25s ease;
-    /* Скругление */
-    border-radius: 10px;
-    /* Отступы между пунктами */
+    transition: var(--transition-fast);
+    border-radius: var(--radius-md);
     margin-bottom: 2px;
-    /* Жирность шрифта */
     font-weight: 500;
-    /* Цвет текста (белый) */
-    color: #ffffff;
-    /* Flex для иконок */
+    color: var(--text-secondary);
     display: flex;
     align-items: center;
-}
-
-.dropdown-item:last-child {
-    margin-bottom: 0;
-}
-
-.dropdown-item:hover, .dropdown-item:focus {
-    /* Цвет фона при наведении (акцентный) */
-    background-color: var(--primary-color);
-    /* Цвет текста (белый) */
-    color: #ffffff;
-    /* Сдвиг текста вправо */
-    transform: translateX(4px);
-    padding-left: 1.25rem;
+    gap: 8px;
 }
 
 .dropdown-item i {
-    width: 24px;
+    width: 20px; /* Centered width */
     text-align: center;
-    margin-right: 12px;
-    /* Цвет иконки (белый) */
-    color: #ffffff;
-    transition: color 0.25s ease;
-    font-size: 0.95em;
+    color: var(--primary-hover);
+    transition: var(--transition-fast);
+    flex-shrink: 0;
 }
 
-/* Иконка при наведении становится темной */
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: var(--primary-light);
+    color: var(--primary-hover);
+    transform: translateX(6px);
+}
+
 .dropdown-item:hover i {
-    color: #ffffff;
+    color: var(--primary-color);
 }
 
 .dropdown-item.active {
-    /* Цвет фона активного элемента */
-    background-color: var(--primary-color);
-    /* Цвет текста */
-    color: white;
-    /* Тень при активности */
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
-}
-
-.dropdown-item.active i {
-    color: white;
+    background-color: var(--primary-color) !important;
+    color: var(--text-white) !important;
 }
 
 .dropdown-divider {
-    /* Отступы разделителя */
-    margin: 0.5rem 0.5rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-/* Стрелка у выпадающего меню */
-.dropdown-toggle::after {
-    /* Отступ слева */
-    margin-left: 0.5rem;
-    /* Анимация вращения */
-    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-/* Поворот стрелки при открытии */
-.show .dropdown-toggle::after {
-    transform: rotate(180deg);
+    margin: var(--spacing-2) 0;
+    border-top: 1px solid var(--border-color-light);
+    opacity: 0.5;
 }
 
 /* --------------------------------------------------------------------------
-   Медиа-запросы (Адаптивность)
+   Медиа-запросы
    -------------------------------------------------------------------------- */
-
-/* Планшеты (ландшафт) и меньше */
-@media (max-width: 1199px) {
-    .nav-text {
-        /* Ограничиваем ширину текста, чтобы вместить все пункты */
-        max-width: 120px;
-    }
-}
-
-/* Планшеты (портрет) и меньше */
 @media (max-width: 991px) {
     .nav-responsive {
-        /* Увеличиваем отступы */
-        gap: 0.5rem;
+        gap: var(--spacing-1);
     }
     
     .nav-link-responsive {
-        /* Уменьшаем паддинги */
         padding: 0.5rem !important;
-        /* Центрируем содержимое */
         justify-content: center;
     }
     
-    .nav-icon-wrapper {
-        /* Вертикальное расположение иконки и текста */
-        flex-direction: column;
-        gap: 0.25rem;
-        align-items: center;
-    }
-    
     .nav-icon {
-        /* Увеличиваем иконки */
         font-size: 1.5rem;
         width: 32px;
+        margin-right: 0;
+        margin-bottom: 4px;
     }
     
     .nav-text {
-        /* Уменьшаем текст */
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         text-align: center;
-        max-width: 80px;
-        line-height: 1.2;
-    }
-    
-    .nav-link-responsive.active {
-        /* Убираем левую границу */
-        border-left: none;
-        /* Добавляем нижнюю границу */
-        border-bottom: 3px solid #3b82f6;
     }
     
     .nav-indicator {
-        /* Скрываем индикатор подчеркивания на мобильных */
         display: none;
     }
-}
 
-/* Десктопы */
-@media (min-width: 992px) {
-    .nav-link-responsive.active .nav-indicator {
-        /* Немного уменьшаем ширину индикатора на больших экранах */
-        width: 60%;
+    .nav-link-responsive.active {
+        border-bottom: 3px solid var(--primary-color);
+        border-radius: 0;
     }
-}
 
-/* Мобильные телефоны (ландшафт) */
-@media (max-width: 768px) {
-    .nav-responsive {
-        /* На всю ширину */
-        width: 100%;
+    /* Мобильный поиск */
+    .mobile-search-form .input-group {
+        box-shadow: var(--shadow-md);
+        border-radius: var(--radius-md);
+        overflow: hidden;
     }
     
-    .nav-link-responsive {
-        /* Растягиваем равномерно */
-        flex: 1;
-        min-width: 0;
+    .mobile-search-form .form-control {
+        border: 1px solid var(--border-color) !important;
+        background-color: var(--bg-card) !important;
     }
     
-    .nav-text {
-        /* Еще меньше текст */
-        font-size: 0.7rem;
-        max-width: 70px;
-    }
-    
-    .auth-buttons {
-        /* Кнопки авторизации на всю ширину */
-        width: 100%;
-    }
-    
-    .auth-buttons .btn {
-        /* Увеличиваем высоту кнопок для удобства нажатия */
-        min-height: 44px;
-        padding: 0.75rem;
-    }
-}
-
-/* Очень маленькие экраны */
-@media (max-width: 480px) {
-    .nav-responsive {
-        gap: 0.25rem;
-    }
-    
-    .nav-text {
-        /* Совсем маленький текст */
-        font-size: 0.65rem;
-        max-width: 60px;
-    }
-    
-    .nav-icon {
-        font-size: 1.25rem;
-        width: 28px;
+    .mobile-search-form .btn {
+        background: var(--gradient-primary);
+        border: none;
+        padding: 0 1.25rem;
     }
 }

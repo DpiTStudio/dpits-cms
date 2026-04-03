@@ -1,150 +1,124 @@
 /* ============================================
    ФАЙЛ: variables.css
-   ОПИСАНИЕ: CSS переменные для всего сайта (Обновлено 2025)
+   ОПИСАНИЕ: CSS переменные для всего сайта (Premium Dark 2026)
    ============================================ */
 
-/* Корневой элемент для определения CSS переменных */
 :root {
     /* ========== ОСНОВНЫЕ ЦВЕТА (Oceanic/Cosmic Premium Dark Scheme) ========== */
-    /* Primary Colors - Vibrant Cyan/Indigo */
-    --primary-color: #818cf8;
-    /* Indigo-400 */
-    --primary-hover: #a5b4fc;
-    /* Indigo-300 */
-    --primary-light: #c7d2fe;
-    /* Indigo-200 */
-    --primary-dark: #6366f1;
-    /* Indigo-500 */
+    /* Primary Colors - Vibrant Indigo/Cyan */
+    --primary-color: #6366f1;     /* Indigo-500 */
+    --primary-hover: #818cf8;     /* Indigo-400 */
+    --primary-active: #4f46e5;    /* Indigo-600 */
+    --primary-light: rgba(99, 102, 241, 0.2);
     
-    /* Secondary Colors - Deep Purple */
-    --secondary-color: #a78bfa;
-    /* Violet-400 */
-    --secondary-hover: #c4b5fd;
-    /* Violet-300 */
+    /* Secondary Colors - Deep Purple/Violet */
+    --secondary-color: #8b5cf6;   /* Violet-500 */
+    --secondary-hover: #a78bfa;   /* Violet-400 */
+    --secondary-active: #7c3aed;  /* Violet-600 */
     
     /* Accent Colors - Vibrant Rose/Pink */
-    --accent-color: #f472b6;
-    /* Pink-400 */
-    --accent-hover: #f9a8d4;
-    /* Pink-300 */
+    --accent-color: #f43f5e;      /* Rose-500 */
+    --accent-hover: #fb7185;      /* Rose-400 */
+    --accent-active: #e11d48;     /* Rose-600 */
     
-    /* Нейтральные цвета (Dark Centric) */
-    --neutral-50: #020617;   /* Slate-950 */
-    --neutral-100: #0f172a;  /* Slate-900 */
-    --neutral-200: #1e293b;  /* Slate-800 */
-    --neutral-300: #334155;  /* Slate-700 */
-    --neutral-400: #475569;  /* Slate-600 */
-    --neutral-500: #64748b;  /* Slate-500 */
-    --neutral-600: #94a3b8;  /* Slate-400 */
-    --neutral-700: #cbd5e1;  /* Slate-300 */
-    --neutral-800: #e2e8f0;  /* Slate-200 */
-    --neutral-900: #f8fafc;  /* Slate-50 */
+    /* Neutral Colors (Dark Centric - Slate/Zinc mix) */
+    --neutral-50: #f8fafc;
+    --neutral-100: #f1f5f9;
+    --neutral-200: #e2e8f0;
+    --neutral-300: #cbd5e1;
+    --neutral-400: #94a3b8;
+    --neutral-500: #64748b;
+    --neutral-600: #475569;
+    --neutral-700: #334155;
+    --neutral-800: #1e293b;
+    --neutral-900: #0f172a;
+    --neutral-950: #020617;
     
-    /* Устаревшие переменные (для обратной совместимости) */
-    --dark-color: #f8fafc;
-    --light-color: #0f172a;
+    /* ========== BACKGROUNDS ========== */
+    --bg-body: #0f172a;           /* Deep Slate-900 */
+    --bg-card: #1e293b;           /* Slate-800 */
+    --bg-card-hover: #2d3a4f;      /* Lighter Slate */
+    --bg-secondary: #020617;      /* Slate-950 */
+    --bg-glass: rgba(15, 23, 42, 0.7);
+    --bg-glass-light: rgba(255, 255, 255, 0.05);
 
-    /* ========== СТРУКТУРНЫЕ ЦВЕТА (Фоны и границы) ========== */
-    --bg-body: #0f172a;
-    /* Глубокий темно-синий фон страницы */
-    --bg-card: #1e293b;
-    /* Цвет карточек (чуть светлее фона) */
-    --bg-card-hover: #334155;
-    /* Цвет карточек при наведении */
+    /* ========== TEXT COLORS ========== */
+    --text-primary: #f8fafc;      /* Slate-50 */
+    --text-secondary: #cbd5e1;    /* Slate-300 */
+    --text-muted: #94a3b8;        /* Slate-400 */
+    --text-inverse: #020617;      /* Dark for light backgrounds */
+    --text-white: #ffffff;
+    
+    /* ========== LINKS ========== */
+    --link-color: #38bdf8;        /* Sky-400 */
+    --link-hover: #7dd3fc;        /* Sky-300 */
+    
+    /* ========== BORDERS ========== */
     --border-color: rgba(255, 255, 255, 0.1);
-    /* Полупрозрачные границы для элегантности */
-    --glass-bg: rgba(30, 41, 59, 0.7);
-    /* Эффект матового стекла */
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --border-color-light: rgba(255, 255, 255, 0.05);
+    --border-color-strong: rgba(255, 255, 255, 0.2);
 
-    /* ========== СЕМАНТИЧЕСКИЕ ЦВЕТА ========== */
+    /* ========== SEMANTIC COLORS ========== */
     --success-color: #10b981;
     --warning-color: #f59e0b;
     --danger-color: #f43f5e;
-    --info-color: #38bdf8;
-    
-    /* Background variants (for forms and layered components) */
-    --bg-secondary: #1e293b; /* Same as bg-card */
-    --bg-color: #0f172a;     /* Same as bg-body */
+    --info-color: #0ea5e9;
 
-    /* ========== ЦВЕТА ТЕКСТА ========== */
-    --text-color: #f8fafc;     /* Slate-50 - Основной текст */
-    --text-secondary: #cbd5e1; /* Slate-300 - Вторичный текст */
-    --text-muted: #94a3b8;     /* Slate-400 - Приглушенный текст */
-    --text-white: #ffffff;
-    --text-footer: #94a3b8;
-    
-    /* Цвета ссылок */
-    --link-color: #38bdf8;     /* Sky-400 */
-    --link-hover-color: #7dd3fc; /* Sky-300 */
+    /* ========== GRADIENTS ========== */
+    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    --gradient-accent: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+    --gradient-dark: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    --gradient-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
 
-    /* ========== ГРАДИЕНТЫ (Premium Dark) ========== */
-    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #f43f5e 100%);
-    --secondary-gradient: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-    --hero-gradient: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent),
-                     radial-gradient(circle at bottom left, rgba(244, 63, 94, 0.1), transparent);
-    --dark-gradient: linear-gradient(180deg, #0f172a 0%, #020617 100%);
-    --mesh-gradient: linear-gradient(-45deg, #6366f1, #a855f7, #f43f5e, #38bdf8);
+    /* ========== SHADOWS ========== */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 15px rgba(99, 102, 241, 0.4);
 
-    /* Радиусы скругления */
-    --border-radius-sm: 8px;
-    --border-radius: 12px;
-    --border-radius-md: 16px;
-    --border-radius-lg: 24px;
-    --border-radius-xl: 32px;
-    --border-radius-full: 9999px;
+    /* ========== BORDER RADIUS ========== */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
 
-    /* Тени (для темной темы тени должны быть глубже и меньше по разбросу) */
-    --box-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
-    --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-    --box-shadow-md: 0 15px 30px rgba(0, 0, 0, 0.5);
-    --box-shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.6);
-    --box-shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.7);
+    /* ========== SPACING ========== */
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-6: 1.5rem;
+    --spacing-8: 2rem;
+    --spacing-12: 3rem;
 
-    /* Переходы */
-    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* ========== TRANSITIONS ========== */
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Отступы */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-xxl: 3rem;
+    /* ========== FONTS ========== */
+    --font-heading: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-    /* Размеры шрифтов */
-    --font-size-xs: 0.75rem;
-    --font-size-sm: 0.875rem;
-    --font-size-md: 0.9375rem;
-    --font-size-base: 1rem;
-    --font-size-lg: 1.125rem;
-    --font-size-xl: 1.25rem;
-    --font-size-xxl: 1.5rem;
-
-    /* Веса шрифтов */
-    --font-weight-normal: 400;
-    --font-weight-medium: 500;
-    --font-weight-semibold: 600;
-    --font-weight-bold: 700;
-    --font-weight-extrabold: 900;
-
-    /* Высота строк */
-    --line-height-tight: 1.25;
-    --line-height-normal: 1.5;
-    --line-height-relaxed: 1.75;
-
-    /* BOOTSTRAP OVERRIDES */
-    --bs-primary: var(--primary-color);
-    --bs-body-color: var(--text-color);
+    /* ========== BOOTSTRAP OVERRIDES ========== */
     --bs-body-bg: var(--bg-body);
+    --bs-body-color: var(--text-primary);
+    --bs-primary: var(--primary-color);
+    --bs-secondary: var(--secondary-color);
+    --bs-success: var(--success-color);
+    --bs-info: var(--info-color);
+    --bs-warning: var(--warning-color);
+    --bs-danger: var(--danger-color);
     --bs-border-color: var(--border-color);
-    --bs-card-bg: var(--bg-card);
-    --bs-nav-link-color: var(--text-secondary);
-    --bs-nav-link-hover-color: var(--text-color);
-    --bs-dropdown-spacer: 0.5rem;
     
+    /* Legacy Compat */
+    --dark-color: var(--text-primary);
+    --light-color: var(--bg-body);
+    --text-color: var(--text-primary);
+    --border-radius: var(--radius-lg);
     --header-height: 80px;
     --z-index-sticky: 1030;
 }

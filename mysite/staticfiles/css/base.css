@@ -1,33 +1,25 @@
 /* ============================================
    ФАЙЛ: base.css
-   ОПИСАНИЕ: Базовые стили для всего сайта
+   ОПИСАНИЕ: Базовые стили для всего сайта (Premium Dark 2026)
    ============================================ */
 
 /* Сброс стилей для всех элементов */
 * {
     box-sizing: border-box;
-    /* Включает padding и border в общую ширину элемента */
     margin: 0;
-    /* Убирает внешние отступы по умолчанию */
     padding: 0;
-    /* Убирает внутренние отступы по умолчанию */
 }
 
-/* Основной элемент страницы */
 html {
     font-size: 16px;
-    /* Базовый размер шрифта для rem единиц */
     scroll-behavior: smooth;
-    /* Плавная прокрутка при переходе по якорям */
     overflow-x: hidden;
-    /* П */
 }
 
-/* Тело документа */
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: var(--line-height-normal);
-    color: var(--text-color);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--text-primary);
     background-color: var(--bg-body);
     display: flex;
     flex-direction: column;
@@ -37,171 +29,163 @@ body {
     font-feature-settings: 'kern' 1;
 }
 
-/* Основной контент страницы */
 main {
     flex: 1;
-    /* Занимает все доступное пространство */
     width: 100%;
-    /* Полная ширина */
 }
 
-/* Контейнер с полной шириной */
 .container-fluid {
     width: 100%;
-    /* Полная ширина контейнера */
-    padding-left: var(--spacing-md);
-    /* Внутренний отступ слева */
-    padding-right: var(--spacing-md);
-    /* Внутренний отступ справа */
-}
-
-/* Секция на всю ширину */
-.full-width-section {
-    width: 100%;
-    /* Полная ширина секции */
-    margin-left: 0;
-    /* Убираем внешний отступ слева */
-    margin-right: 0;
-    /* Убираем внешний отступ справа */
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
 }
 
 /* Заголовок страницы */
 .title_page {
     color: var(--primary-color) !important;
-    /* Основной цвет для заголовка */
-    font-size: 7ch;
-    /* Размер шрифта относительно ширины символа "0" */
-    font-weight: var(--font-weight-bold);
-    /* Жирный шрифт */
-    margin-bottom: var(--spacing-lg);
-    /* Отступ снизу */
-}
-
-/* Изображение новости в детальном просмотре */
-.img_news_detail {
-    border: var(--border-width-thin) solid #ccc;
-    /* Тонкая серая граница */
-    width: 20%;
-    /* Ширина 20% от родителя */
-    height: auto;
-    /* Автоматическая высота для сохранения пропорций */
-    border-radius: var(--border-radius);
-    /* Скругление углов */
-    object-fit: cover;
-    /* Обрезка изображения с сохранением пропорций */
-    margin-bottom: var(--spacing-md);
-    /* Отступ снизу */
-}
-
-/* Ссылки */
-a {
-    color: var(--link-color);
-    /* Цвет ссылок - высококонтрастный удобочитаемый цвет */
-    text-decoration: none;
-    /* Убираем подчеркивание по умолчанию */
-    transition: var(--transition);
-    /* Плавный переход при изменении */
-}
-
-/* Состояние наведения на ссылку */
-a:hover {
-    color: var(--link-hover-color);
-    /* Цвет при наведении */
-    text-decoration: underline;
-    /* Подчеркивание при наведении */
-}
-
-/* Заголовки */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: 'Outfit', 'Inter', sans-serif;
-    /* Современный шрифт Outfit для заголовков */
-    font-weight: var(--font-weight-bold);
-    /* Жирный шрифт для заголовков */
-    line-height: var(--line-height-tight);
-    /* Плотная высота строки */
-    margin-bottom: var(--spacing-md);
-    /* Отступ снизу */
-    color: var(--dark-color);
-    /* Темный цвет для заголовков */
-    letter-spacing: -0.02em;
-    /* Немного сжатое межсимвольное расстояние для современного вида */
-}
-
-/* Параграфы */
-p {
-    margin-bottom: var(--spacing-md);
-    /* Отступ снизу между параграфами */
-    line-height: var(--line-height-relaxed);
-    /* Расслабленная высота строки для читаемости */
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 8vw, 4.5rem); /* Responsive font size */
+    font-weight: 900;
+    margin-bottom: var(--spacing-6);
+    letter-spacing: -0.04em;
+    line-height: 1.1;
 }
 
 /* Изображения */
 img {
     max-width: 100%;
-    /* Максимальная ширина - 100% контейнера */
     height: auto;
-    /* Автоматическая высота */
     display: block;
-    /* Блочный элемент */
+    border-radius: var(--radius-md);
+}
+
+/* Ссылки */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: var(--transition-base);
+}
+
+a:hover {
+    color: var(--link-hover);
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: var(--spacing-4);
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1.1rem; }
+
+/* Параграфы */
+p {
+    margin-bottom: var(--spacing-4);
+    color: var(--text-secondary);
 }
 
 /* Списки */
-ul,
-ol {
-    /* list-style-position: unset;             Маркеры списка внутри элемента */
-    padding-left: var(--spacing-lg);
-    /* Отступ слева для списков */
+ul, ol {
+    padding-left: var(--spacing-6);
+    margin-bottom: var(--spacing-4);
 }
 
-/* Элементы списка */
 li {
-    margin-bottom: var(--spacing-sm);
-    /* Отступ между элементами списка */
-}
-
-/* Горизонтальная линия */
-hr {
-    border: none;
-    border-top: var(--border-width-thin) solid var(--border-color);
-    margin: var(--spacing-xl) 0;
+    margin-bottom: var(--spacing-2);
 }
 
 /* Выделение текста */
 ::selection {
     background-color: var(--primary-color);
-    /* Фон выделенного текста */
     color: var(--text-white);
-    /* Цвет выделенного текста */
 }
 
-/* Скроллбар для вебкит браузеров */
+/* Скроллбар */
 ::-webkit-scrollbar {
     width: 10px;
-    /* Ширина скроллбара */
     height: 10px;
-    /* Высота горизонтального скроллбара */
 }
 
-/* Дорожка скроллбара */
 ::-webkit-scrollbar-track {
     background: var(--bg-body);
 }
 
-/* Ползунок скроллбара */
 ::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    /* Цвет ползунка */
-    border-radius: var(--border-radius);
-    /* Скругление ползунка */
+    background: var(--neutral-700);
+    border-radius: var(--radius-full);
+    border: 2px solid var(--bg-body);
 }
 
-/* Состояние наведения на ползунок */
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--secondary-color);
-    /* Цвет при наведении */
+    background: var(--primary-color);
 }
+
+/* Вспомогательные классы */
+.text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text; /* Fixed compatibility */
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* Изображение новости в детальном просмотре */
+.img_news_detail {
+    border: 1px solid var(--border-color);
+    width: 20%;
+    height: auto;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+    margin-bottom: var(--spacing-4);
+    box-shadow: var(--shadow);
+}
+
+
+.glass-morphism {
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+}
+
+.card-premium {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    transition: var(--transition-base);
+    overflow: hidden;
+}
+
+.card-premium:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Стили для бейджей (badges) */
+.badge {
+    padding: 0.6em 1rem !important;
+    font-weight: 700 !important;
+    border-radius: var(--radius-sm) !important;
+    letter-spacing: 0.03em !important;
+    text-transform: uppercase;
+    font-size: 0.7rem !important;
+}
+
+.bg-primary { background: var(--primary-color) !important; }
+.bg-secondary { background: var(--neutral-700) !important; }
+.bg-success { background: var(--success-color) !important; }
+.bg-danger { background: var(--danger-color) !important; }
+.bg-warning { background: var(--warning-color) !important; color: var(--text-inverse) !important; }
+.bg-info { background: var(--info-color) !important; }

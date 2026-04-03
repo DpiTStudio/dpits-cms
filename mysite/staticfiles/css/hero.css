@@ -1,323 +1,142 @@
 /* ============================================
    ФАЙЛ: hero.css
-   ОПИСАНИЕ: Стили для hero секции (главный баннер сайта)
+   ОПИСАНИЕ: Стили для hero секции (главный баннер сайта) - Premium Dark 2026
    ============================================ */
 
 /* Основная секция hero */
 .hero-section {
-    padding: calc(var(--spacing-xxl) + var(--header-height)) 0 var(--spacing-xxl) 0 !important;
-    /* Большие вертикальные отступы + высота шапки */
-    margin-bottom: 30px;
-    /* Отступ снизу для разделения с контентом */
+    padding: calc(var(--spacing-12) + var(--header-height)) 0 var(--spacing-8) 0 !important;
+    margin-bottom: var(--spacing-8);
     color: var(--text-white);
-    /* Белый цвет текста */
     position: relative;
-    /* Относительное позиционирование */
     overflow: hidden;
-    /* Скрываем переполнение */
     width: 100%;
-    /* Полная ширина */
-    transition: background 0.5s ease;
-    /* Плавный переход фона */
+    transition: var(--transition-slow);
 }
 
-/* Разные фоны для разных разделов (категорий) */
+/* Эстетичный фоновый эффект для всех Hero */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 70%),
+                radial-gradient(circle at 85% 30%, rgba(244, 63, 94, 0.1) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Разные градиенты для разных разделов - теперь более глубокие и насыщенные */
 .hero-home {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(139, 92, 246, 0.95) 100%),
-        url('/static/images/logo_h.png');
-    /* Современный градиент Indigo to Violet с фоновым изображением */
+    background: var(--bg-body);
+    background-image: var(--gradient-dark), url('/static/images/hero-mesh.png');
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-blend-mode: overlay;
 }
 
 .hero-news {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.95) 0%, rgba(37, 99, 235, 0.95) 100%);
-    /* Яркий синий градиент для новостей (Blue-500 to Blue-600) */
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
 }
 
 .hero-portfolio {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.95) 0%, rgba(14, 165, 233, 0.95) 100%);
-    /* Свежий голубой для портфолио (Cyan-500 to Sky-500) */
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
 }
 
 .hero-reviews {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%);
-    /* Приятный зеленый для отзывов (Green-500 to Green-600) */
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
 }
 
 .hero-accounts {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.95) 0%, rgba(124, 58, 237, 0.95) 100%);
-    /* Элегантный фиолетовый для профиля (Violet-500 to Violet-600) */
+    background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
 }
 
-/* Примеры фонов для конкретных категорий портфолио (по slug) */
-.hero-cat-web-design {
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.95) 0%, rgba(219, 39, 119, 0.95) 100%);
-    /* Pink gradient */
-}
-
-.hero-cat-mobile-apps {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.95) 0%, rgba(99, 102, 241, 0.95) 100%);
-    /* Blue to Indigo */
-}
-
-.hero-cat-seo {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.95) 0%, rgba(217, 119, 6, 0.95) 100%);
-    /* Amber gradient */
-}
-
-
-/* Псевдоэлемент для дополнительного декоративного эффекта */
-.hero-section::before {
-    content: '';
-    /* Пустой контент */
-    position: absolute;
-    /* Абсолютное позиционирование */
-    top: 0;
-    /* Позиция сверху */
-    left: 0;
-    /* Позиция слева */
-    right: 0;
-    /* Позиция справа */
-    bottom: 0;
-    /* Позиция снизу */
-    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-    /* Радиальный градиент для глубины */
-    pointer-events: none;
-    /* Игнорируем события мыши */
-}
-
-/* Заголовок в hero секции */
-.hero-section h1 {
-    font-weight: var(--font-weight-bold);
-    /* Жирный шрифт */
-    margin-bottom: var(--spacing-md);
-    /* Отступ снизу */
+/* Контейнер контента hero */
+.hero-content {
     position: relative;
-    /* Относительное позиционирование */
     z-index: 1;
-    /* Слой выше фона */
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    /* Адаптивный размер шрифта */
-    line-height: var(--line-height-tight);
-    /* Плотная высота строки */
+    max-width: 800px;
 }
 
-/* Красивый и стильный заголовок с тенью */
+/* Заголовок hero */
+.hero-section h1 {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    margin-bottom: var(--spacing-4);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+}
+
 .hero-title {
-    text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5),
-        0px 0px 20px rgba(255, 255, 255, 0.2);
-    /* Многослойная тень для глубины */
-    letter-spacing: -0.02em;
-    /* Немного сжатое межсимвольное расстояние для современного вида */
-    background: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
+    background: linear-gradient(to bottom, #ffffff, #cbd5e1);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    /* Градиентный текст (белый к светло-серому) */
-    animation: titleFadeIn 1.2s ease-out;
-    /* Анимация появления */
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-@keyframes titleFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes heroFadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Подзаголовок в hero секции */
-.hero-section h2,
-.hero-section h3,
-.hero-section h4 {
-    font-weight: var(--font-weight-semibold);
-    /* Полужирный шрифт */
-    margin-bottom: var(--spacing-md);
-    /* Отступ снизу */
-    position: relative;
-    /* Относительное позиционирование */
-    z-index: 1;
-    /* Слой выше фона */
+/* Подзаголовок / Девиз */
+.text_motto {
+    font-size: 1.25rem;
+    color: var(--text-primary); /* Brighter than secondary */
+    margin-bottom: var(--spacing-6);
+    max-width: 600px;
+    line-height: 1.6;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Better contrast */
+    animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
 }
 
-/* Текст слогана в hero секции */
-.hero-section .text_motto {
-    font-size: var(--font-size-lg);
-    /* Увеличенный размер шрифта */
-    opacity: 0.9;
-    /* Небольшая прозрачность */
-    line-height: var(--line-height-relaxed);
-    /* Расслабленная высота строки */
-    position: relative;
-    /* Относительное позиционирование */
-    z-index: 1;
-    /* Слой выше фона */
-}
 
-/* Контент девиза */
 .motto-content {
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius-md);
-    font-size: var(--font-size-base);
-    /* Базовый размер шрифта */
-    line-height: var(--line-height-loose);
-    /* Свободная высота строки */
-    position: relative;
-    /* Относительное позиционирование */
-    z-index: 1;
-    /* Слой выше фона */
-    color: rgba(255, 255, 255, 0.95);
-    /* Полупрозрачный белый цвет */
+    background: var(--bg-glass);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    color: var(--text-secondary);
+    margin-top: var(--spacing-4);
+    animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
 }
 
-/* Изображение в hero секции */
-.img_hero {
-    width: 100px;
-    /* Ширина изображения */
-    height: 100px;
-    /* Высота изображения */
-    object-fit: cover;
-    /* Обрезка с сохранением пропорций */
-    object-position: center;
-    /* Центрирование изображения */
-    border-radius: var(--border-radius-md);
-    /* Среднее скругление */
-    box-shadow: var(--box-shadow-lg);
-    /* Большая тень */
-    transition: var(--transition);
-    /* Плавный переход */
-    position: relative;
-    /* Относительное позиционирование */
-    z-index: 1;
-    /* Слой выше фона */
+/* Изображения в hero */
+.img_hero, .logo-container img {
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color-strong);
+    transition: var(--transition-base);
+    animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 }
 
-/* Состояние наведения на изображение hero */
-.img_hero:hover {
-    transform: scale(1.05);
-    /* Увеличение при наведении */
-    box-shadow: var(--box-shadow-xl);
-    /* Очень большая тень */
+.img_hero:hover, .logo-container img:hover {
+    transform: scale(1.02) translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-glow);
 }
 
-/* Контейнер для логотипа */
-.logo-container {
-    position: relative;
-    /* Относительное позиционирование */
-    z-index: 1;
-    /* Слой выше фона */
-    display: flex;
-    /* Flexbox для выравнивания */
-    align-items: center;
-    /* Вертикальное выравнивание */
-    justify-content: center;
-    /* Горизонтальное выравнивание */
+/* Хлебные крошки внутри hero */
+.hero-breadcrumbs {
+    margin-top: var(--spacing-8);
+    animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
 }
 
-/* Изображение логотипа в контейнере */
-.logo-container img,
-.logo-container-img {
-    max-height: 200px;
-    /* Максимальная высота */
-    width: auto;
-    /* Автоматическая ширина */
-    border-radius: var(--border-radius-md);
-    /* Среднее скругление */
-    box-shadow: var(--box-shadow-lg);
-    /* Большая тень */
-    transition: var(--transition);
-    /* Плавный переход */
-}
-
-/* Состояние наведения на логотип */
-.logo-container img:hover {
-    transform: scale(1.05) rotate(2deg);
-    /* Увеличение и небольшой поворот */
-    box-shadow: var(--box-shadow-xl);
-    /* Очень большая тень */
-}
-
-/* Адаптивные стили для hero секции на мобильных устройствах */
+/* Адаптивность */
 @media (max-width: 768px) {
-
-    /* Hero секция на мобильных */
     .hero-section {
-        padding: var(--spacing-xl) 0 !important;
-        /* Уменьшенные отступы */
+        padding: var(--spacing-12) 0 var(--spacing-6) 0 !important;
         text-align: center;
-        /* Центрирование текста */
     }
-
-    /* Заголовок на мобильных */
-    .hero-section h1 {
-        font-size: 2rem;
-        /* Уменьшенный размер шрифта */
-        margin-bottom: var(--spacing-sm);
-        /* Уменьшенный отступ */
+    
+    .hero-content {
+        margin: 0 auto;
     }
-
-    /* Изображение hero на мобильных */
-    .img_hero {
-        width: 120px !important;
-        /* Уменьшенная ширина */
-        height: 120px !important;
-        /* Уменьшенная высота */
-        margin: var(--spacing-md) auto;
-        /* Центрирование с отступами */
+    
+    .text_motto {
+        margin: 0 auto var(--spacing-6) auto;
+        font-size: 1.125rem;
     }
-
-    /* Текст слогана на мобильных */
-    .hero-section .text_motto {
-        font-size: var(--font-size-base);
-        /* Базовый размер шрифта */
-    }
-
-    /* Контент девиза на мобильных */
-    .motto-content {
-        font-size: var(--font-size-sm);
-        /* Маленький размер шрифта */
-        line-height: var(--line-height-normal);
-        /* Нормальная высота строки */
-    }
-}
-
-/* Адаптивные стили для планшетов */
-@media (min-width: 769px) and (max-width: 992px) {
-
-    /* Hero секция на планшетах */
-    .hero-section {
-        padding: var(--spacing-xxl) 0 !important;
-        /* Стандартные отступы */
-    }
-
-    /* Изображение hero на планшетах */
-    .img_hero {
-        width: 180px;
-        /* Средняя ширина */
-        height: 180px;
-        /* Средняя высота */
-    }
-}
-
-/* ============================================
-   Дополнительные стили для динамического фона
-   ============================================ */
-
-/* Стиль для секции, если задана переменная фона (переопределяет стандартные классы) */
-.hero-section[style*="--hero-bg-url"] {
-    /* Градиент затемнения и изображение по ссылке из переменной */
-    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), var(--hero-bg-url) !important;
-    /* Покрытие всего блока */
-    background-size: cover;
-    /* Центрирование изображения */
-    background-position: center;
-    /* Минимальная высота блока */
-    min-height: 350px;
 }
