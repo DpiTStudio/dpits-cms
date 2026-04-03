@@ -1,190 +1,147 @@
 /* ============================================
    ФАЙЛ: sidebar.css
-   ОПИСАНИЕ: Стили для боковой панели (сайдбара)
+   ОПИСАНИЕ: Стили для боковой панели (сайдбара) - Premium Dark 2026
    ============================================ */
 
 /* Контейнер сайдбара */
 .sidebar {
-    padding-left: var(--spacing-lg);         /* Отступ слева */
+    padding-left: var(--spacing-6);
 }
 
 /* Карточка в сайдбаре */
 .sidebar .card {
-    margin-bottom: var(--spacing-lg);        /* Отступ снизу между карточками */
-    background-color: var(--bg-card);        /* Фон карточки */
-    border: 1px solid var(--border-color);   /* Граница */
-    box-shadow: var(--box-shadow-sm);        /* Маленькая тень */
-    border-radius: var(--border-radius-md);  /* Среднее скругление */
-    transition: var(--transition);           /* Плавный переход */
+    margin-bottom: var(--spacing-8);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-base);
+    overflow: hidden;
 }
 
-/* Состояние наведения на карточку сайдбара */
 .sidebar .card:hover {
-    box-shadow: var(--box-shadow-md);        /* Средняя тень при наведении */
-    transform: translateY(-2px);            /* Небольшое смещение вверх */
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
 }
 
 /* Заголовок карточки сайдбара */
 .sidebar .card-header {
-    background: var(--primary-gradient);      /* Градиентный фон */
-    color: var(--text-white);                /* Белый текст */
-    padding: var(--spacing-md);              /* Внутренние отступы */
-    border-bottom: none;                     /* Убираем нижнюю границу */
-    border-radius: var(--border-radius-md) var(--border-radius-md) 0 0; /* Скругление только верхних углов */
-    font-weight: var(--font-weight-semibold); /* Полужирный шрифт */
+    background: var(--gradient-primary);
+    color: var(--text-white);
+    padding: var(--spacing-4) var(--spacing-6);
+    border-bottom: none;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
 }
 
-/* Заголовок карточки с зеленым фоном */
+/* Цветовые вариации заголовков */
 .sidebar .card-header.bg-success {
-    background: linear-gradient(135deg, var(--success-color) 0%, #20c997 100%); /* Зеленый градиент */
+    background: var(--success-color);
 }
 
-/* Заголовок карточки с желтым фоном */
 .sidebar .card-header.bg-warning {
-    background: linear-gradient(135deg, var(--warning-color) 0%, #ffca2c 100%); /* Желтый градиент */
-    color: var(--dark-color);                /* Темный текст для контраста */
+    background: var(--warning-color);
+    color: var(--text-inverse);
 }
 
 /* Тело карточки сайдбара */
 .sidebar .card-body {
-    padding: var(--spacing-md);              /* Внутренние отступы */
+    padding: var(--spacing-6);
 }
 
-/* Заголовок в карточке сайдбара */
+/* Элементы внутри тела */
 .sidebar .card-body h6 {
-    font-weight: var(--font-weight-semibold); /* Полужирный шрифт */
-    margin-bottom: var(--spacing-sm);       /* Отступ снизу */
-    color: var(--text-color);                /* Основной цвет текста вместо dark */
-    line-height: var(--line-height-tight);   /* Плотная высота строки */
+    font-weight: 700;
+    margin-bottom: var(--spacing-2);
+    color: var(--text-primary);
+    font-family: var(--font-heading);
 }
 
-/* Ссылка в карточке сайдбара */
 .sidebar .card-body a {
-    color: var(--text-color);                /* Цвет текста (адаптивный) */
-    text-decoration: none;                   /* Убираем подчеркивание */
-    transition: var(--transition);           /* Плавный переход */
-    display: block;                          /* Блочный элемент */
-    padding: var(--spacing-xs) 0;           /* Вертикальные отступы */
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition-base);
+    display: block;
+    padding: var(--spacing-2) 0;
 }
 
-/* Состояние наведения на ссылку в сайдбаре */
 .sidebar .card-body a:hover {
-    color: var(--primary-color);             /* Основной цвет при наведении */
-    text-decoration: underline;              /* Подчеркивание при наведении */
-    transform: translateX(5px);              /* Смещение вправо */
+    color: var(--primary-color);
+    transform: translateX(6px);
 }
 
-/* Элемент списка в сайдбаре */
-.sidebar .card-body > div {
-    margin-bottom: var(--spacing-md);        /* Отступ снизу между элементами */
-    padding-bottom: var(--spacing-md);       /* Внутренний отступ снизу */
-}
-
-/* Разделитель между элементами в сайдбаре */
+/* Разделитель */
 .sidebar .card-body .border-bottom {
-    border-bottom: var(--border-width-thin) solid var(--border-color) !important;
+    border-bottom: 1px solid var(--border-color-light) !important;
+    margin-bottom: var(--spacing-4);
+    padding-bottom: var(--spacing-4);
 }
 
-/* Изображение в сайдбаре */
+/* Изображения в сайдбаре */
 .sidebar img {
-    max-height: 100px;                        /* Максимальная высота */
-    width: 100%;                              /* Полная ширина */
-    object-fit: cover;                       /* Обрезка с сохранением пропорций */
-    border-radius: var(--border-radius-sm);  /* Маленькое скругление */
-    margin-bottom: var(--spacing-sm);       /* Отступ снизу */
-    transition: var(--transition);           /* Плавный переход */
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-3);
+    transition: var(--transition-base);
+    border: 1px solid var(--border-color-light);
 }
 
-/* Изображение портфолио в сайдбаре */
-.sidebar-portfolio-image {
-    max-height: 100px;                        /* Максимальная высота */
-    width: 100%;                              /* Полная ширина */
-    object-fit: cover;                       /* Обрезка с сохранением пропорций */
-}
-
-/* Маленькое изображение новости в сайдбаре */
-.sidebar-news-image {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain;
-    border-radius: 2px;
-    margin-right: var(--spacing-xs);
-    display: inline-block;
-    vertical-align: middle;
-}
-
-/* Состояние наведения на изображение в сайдбаре */
 .sidebar img:hover {
-    transform: scale(1.05);                  /* Увеличение при наведении */
-    box-shadow: var(--box-shadow-sm);        /* Маленькая тень */
+    transform: scale(1.03);
+    border-color: var(--primary-color);
 }
 
-/* Маленький текст в сайдбаре */
+/* Мета-информация */
 .sidebar small {
-    color: var(--text-muted);                /* Приглушенный цвет текста */
-    font-size: var(--font-size-xs);          /* Маленький размер шрифта */
-    display: flex;                            /* Flexbox для выравнивания */
-    align-items: center;                      /* Вертикальное выравнивание */
-    gap: var(--spacing-xs);                  /* Отступ между иконкой и текстом */
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
 }
 
-/* Иконка в маленьком тексте */
-.sidebar small i {
-    font-size: 0.7rem;                       /* Еще меньший размер иконки */
-}
-
-/* Кнопка в сайдбаре */
+/* Кнопки в сайдбаре */
 .sidebar .btn {
-    width: 100%;                              /* Полная ширина кнопки */
-    margin-top: var(--spacing-md);           /* Отступ сверху */
-    text-align: center;                       /* Центрирование текста */
+    width: 100%;
+    border-radius: var(--radius-md);
+    padding: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8125rem;
 }
 
-/* Параграф в сайдбаре */
+/* Параграфы */
 .sidebar p {
-    color: var(--text-muted);                /* Приглушенный цвет текста */
-    font-size: var(--font-size-sm);          /* Маленький размер шрифта */
-    line-height: var(--line-height-normal);   /* Нормальная высота строки */
-    margin-bottom: var(--spacing-sm);       /* Отступ снизу */
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-4);
 }
 
-/* Ссылка контакта в сайдбаре */
+/* Ссылки контактов */
 .sidebar .card-body a[href^="tel:"],
 .sidebar .card-body a[href^="mailto:"] {
-    color: var(--text-color);                /* Адаптивный цвет текста */
-    text-decoration: none;                   /* Убираем подчеркивание */
-    display: flex;                            /* Flexbox для выравнивания */
-    align-items: center;                      /* Вертикальное выравнивание */
-    gap: var(--spacing-sm);                  /* Отступ между иконкой и текстом */
-    transition: var(--transition);           /* Плавный переход */
-    padding: var(--spacing-xs) 0;           /* Вертикальные отступы */
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    font-weight: 500;
 }
 
-/* Состояние наведения на ссылку контакта */
-.sidebar .card-body a[href^="tel:"]:hover,
-.sidebar .card-body a[href^="mailto:"]:hover {
-    color: var(--primary-color);             /* Основной цвет при наведении */
-    transform: translateX(5px);              /* Смещение вправо */
-}
-
-/* Иконка в ссылке контакта */
 .sidebar .card-body a[href^="tel:"] i,
 .sidebar .card-body a[href^="mailto:"] i {
-    color: var(--primary-color);             /* Основной цвет иконки */
-    font-size: var(--font-size-base);        /* Базовый размер иконки */
+    color: var(--primary-color);
+    font-size: 1.1rem;
 }
 
-/* Адаптивные стили для сайдбара на мобильных устройствах */
-@media (max-width: 991.98px) {
-    /* Контейнер сайдбара на мобильных */
+/* Адаптивность */
+@media (max-width: 991px) {
     .sidebar {
-        padding-left: 0;                      /* Убираем отступ слева */
-        margin-top: var(--spacing-xl);        /* Отступ сверху */
-    }
-    
-    /* Карточка сайдбара на мобильных */
-    .sidebar .card {
-        margin-bottom: var(--spacing-md);    /* Уменьшенный отступ */
+        padding-left: 0;
+        margin-top: var(--spacing-12);
     }
 }
-

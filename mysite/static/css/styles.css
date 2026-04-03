@@ -211,12 +211,12 @@ pre {
         .error-code {
             font-size: 8rem;
             font-weight: bold;
-            color: #dc3545;
+            color: var(--danger-color);
             line-height: 1;
         }
         .error-icon {
             font-size: 6rem;
-            color: #dc3545;
+            color: var(--danger-color);
             margin-bottom: 2rem;
         }
 
@@ -348,7 +348,7 @@ pre {
     
     /* Заголовки внутри карточек */
     .log-info-card h5 {
-        color: #dc3545;
+        color: var(--danger-color);
         margin-bottom: 15px;
         font-weight: 600;
         font-size: 1.2rem;
@@ -450,8 +450,8 @@ pre {
     
     /* Контейнер для строк лога */
     .log-lines {
-        background: #1e1e1e;
-        border: 2px solid #444;
+        background: var(--bg-card);
+        border: 2px solid var(--neutral-700);
         border-radius: 8px;
         padding: 20px;
         max-height: 600px;
@@ -471,25 +471,25 @@ pre {
     }
     
     .log-lines::-webkit-scrollbar-track {
-        background: #2d2d2d;
+        background: var(--neutral-800);
         border-radius: 6px;
     }
     
     .log-lines::-webkit-scrollbar-thumb {
-        background: #555;
+        background: var(--neutral-700);
         border-radius: 6px;
         transition: background 0.3s ease;
     }
     
     .log-lines::-webkit-scrollbar-thumb:hover {
-        background: #777;
+        background: var(--neutral-600);
     }
     
     /* Отдельная строка лога */
     .log-line {
         padding: 5px 0;
-        border-bottom: 1px solid #333;
-        color: #d4d4d4;
+        border-bottom: 1px solid var(--border-color-light);
+        color: var(--text-primary);
         transition: background 0.2s ease;
         animation: fadeInLine 0.3s ease-in;
     }
@@ -506,7 +506,7 @@ pre {
     
     /* Эффект при наведении на строку */
     .log-line:hover {
-        background: #2d2d2d;
+        background: var(--neutral-800);
         padding-left: 10px;
     }
     
@@ -671,7 +671,7 @@ pre {
     
     .alert-error {
         background: var(--bg-card);
-        border-color: #dc3545;
+        border-color: var(--danger-color);
         color: #721c24;
     }
 
@@ -769,7 +769,7 @@ pre {
     
     /* Заголовки внутри карточек */
     .log-info-card h5 {
-        color: #3498db;
+        color: var(--info-color);
         margin-bottom: 15px;
         font-weight: 600;
         font-size: 1.2rem;
@@ -871,8 +871,8 @@ pre {
     
     /* Контейнер для строк лога */
     .log-lines {
-        background: #1e1e1e;
-        border: 2px solid #444;
+        background: var(--bg-card);
+        border: 2px solid var(--neutral-700);
         border-radius: 8px;
         padding: 20px;
         max-height: 500px;
@@ -892,25 +892,25 @@ pre {
     }
     
     .log-lines::-webkit-scrollbar-track {
-        background: #2d2d2d;
+        background: var(--neutral-800);
         border-radius: 6px;
     }
     
     .log-lines::-webkit-scrollbar-thumb {
-        background: #555;
+        background: var(--neutral-700);
         border-radius: 6px;
         transition: background 0.3s ease;
     }
     
     .log-lines::-webkit-scrollbar-thumb:hover {
-        background: #777;
+        background: var(--neutral-600);
     }
     
     /* Отдельная строка лога */
     .log-line {
         padding: 5px 0;
-        border-bottom: 1px solid #333;
-        color: #d4d4d4;
+        border-bottom: 1px solid var(--border-color-light);
+        color: var(--text-primary);
         transition: background 0.2s ease;
         animation: fadeInLine 0.3s ease-in;
     }
@@ -927,7 +927,7 @@ pre {
     
     /* Эффект при наведении на строку */
     .log-line:hover {
-        background: #2d2d2d;
+        background: var(--neutral-800);
         padding-left: 10px;
     }
     
@@ -1105,7 +1105,7 @@ pre {
     
     .alert-error {
         background: var(--bg-card);
-        border-color: #dc3545;
+        border-color: var(--danger-color);
         color: #721c24;
     }
 
@@ -1749,7 +1749,7 @@ pre {
 
     .dist-error { background-color: #ef4444; }
     .dist-warning { background-color: #f59e0b; }
-    .dist-info { background-color: #3b82f6; }
+    .dist-info { background-color: var(--primary-color); }
     .dist-debug { background-color: #94a3b8; }
 
     /* Кнопки действий */
@@ -1791,7 +1791,7 @@ pre {
         border: 1px solid var(--border-color);
     }
     .dark-mode .file-info {
-        background: #2d2d2d;
+        background: var(--neutral-800);
         border-color: #444;
         color: #eee;
     }
@@ -1808,8 +1808,8 @@ pre {
         resize: vertical;
     }
     .dark-mode .edit-area {
-        background: #1e1e1e;
-        color: #d4d4d4;
+        background: var(--bg-card);
+        color: var(--text-primary);
         border-color: #333;
     }
     .btn-group {
@@ -1871,7 +1871,7 @@ pre {
     .stat-card:hover {
         transform: translateY(-5px);
     }
-    .stat-card.error { border-left-color: #dc3545; }
+    .stat-card.error { border-left-color: var(--danger-color); }
     .stat-card.warning { border-left-color: #ffc107; }
     .stat-card.info { border-left-color: #17a2b8; }
     .stat-card.debug { border-left-color: #28a745; }
@@ -1889,8 +1889,8 @@ pre {
         color: #343a40;
     }
     .log-viewer {
-        background: #1e1e1e;
-        color: #d4d4d4;
+        background: var(--bg-card);
+        color: var(--text-primary);
         padding: 20px;
         border-radius: 8px;
         font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
@@ -1911,7 +1911,7 @@ pre {
     .log-line-debug { color: #4caf50; }
 
     .dark-mode .stat-card {
-        background: #2d2d2d;
+        background: var(--neutral-800);
         color: #eee;
     }
     .dark-mode .stat-value { color: #fff; }
@@ -2129,7 +2129,7 @@ pre {
         align-items: center;
     }
     .dark-mode .file-header {
-        background: #2d2d2d;
+        background: var(--neutral-800);
         border-color: #444;
         color: #eee;
     }
@@ -2140,8 +2140,8 @@ pre {
         color: #6c757d;
     }
     .content-viewer {
-        background: #1e1e1e;
-        color: #d4d4d4;
+        background: var(--bg-card);
+        color: var(--text-primary);
         padding: 0;
         border-radius: 8px;
         font-family: 'Consolas', 'Monaco', 'Courier New', monospace;

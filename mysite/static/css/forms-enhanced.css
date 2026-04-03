@@ -1,328 +1,115 @@
 /* ============================================
    ФАЙЛ: forms-enhanced.css
-   ОПИСАНИЕ: Улучшенные стили для форм с валидацией и анимациями
+   ОПИСАНИЕ: Улучшенные стили для форм (Premium Dark 2026)
    ============================================ */
-
-/* ========== УЛУЧШЕННЫЕ ПОЛЯ ВВОДА ========== */
 
 .form-group-enhanced {
     position: relative;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-6);
 }
 
 .form-label-enhanced {
     position: absolute;
-    left: var(--spacing-md);
+    left: var(--spacing-4);
     top: 50%;
     transform: translateY(-50%);
-    color: var(--text-secondary);
-    font-size: var(--font-size-base);
+    color: var(--text-muted);
+    font-size: 1rem;
     pointer-events: none;
-    transition: var(--transition);
-    background: var(--bg-color);
-    padding: 0 var(--spacing-xs);
+    transition: var(--transition-base);
+    background: var(--bg-card);
+    padding: 0 var(--spacing-2);
     z-index: 1;
-}
-
-.form-label-enhanced {
-    background: var(--bg-color);
 }
 
 .form-control-enhanced {
     width: 100%;
-    padding: var(--spacing-md);
-    border: 2px solid var(--neutral-300);
-    border-radius: var(--border-radius);
-    font-size: var(--font-size-base);
-    transition: var(--transition);
+    padding: var(--spacing-4);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    transition: var(--transition-base);
     background-color: var(--bg-secondary);
-    color: var(--text-color);
-}
-
-.form-control-enhanced {
-    background-color: var(--bg-secondary);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: var(--text-color);
+    color: var(--text-primary);
 }
 
 .form-control-enhanced:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-    transform: translateY(-1px);
+    box-shadow: var(--shadow-glow);
+    background-color: var(--bg-card);
 }
 
 .form-control-enhanced:focus + .form-label-enhanced,
 .form-control-enhanced:not(:placeholder-shown) + .form-label-enhanced {
     top: 0;
-    font-size: var(--font-size-sm);
+    font-size: 0.75rem;
     color: var(--primary-color);
-    transform: translateY(-50%);
+    font-weight: 700;
 }
 
-/* ========== ВАЛИДАЦИЯ ФОРМ ========== */
-
+/* ВАЛИДАЦИЯ */
 .form-control.is-valid {
-    border-color: var(--success-color);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2310b981' d='m2.3 6.73.98-.98-.98-.98-.98.98.98.98zm1.38-1.38L2.3 4.37l-.98.98 1.38 1.38 3.76-3.76-.98-.98-2.78 2.78z'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right calc(0.375em + 0.1875rem) center;
-    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-    padding-right: calc(1.5em + 0.75rem);
+    border-color: var(--success-color) !important;
 }
 
 .form-control.is-invalid {
-    border-color: var(--danger-color);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23ef4444'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.8 3.6.4.4.4-.4m0 4.8-.4-.4-.4.4'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right calc(0.375em + 0.1875rem) center;
-    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-    padding-right: calc(1.5em + 0.75rem);
+    border-color: var(--danger-color) !important;
 }
 
 .invalid-feedback {
-    display: block;
-    width: 100%;
-    margin-top: var(--spacing-xs);
-    font-size: var(--font-size-sm);
     color: var(--danger-color);
-    animation: shake 0.5s ease-in-out;
+    font-size: 0.8125rem;
+    margin-top: 4px;
 }
 
 .valid-feedback {
-    display: block;
-    width: 100%;
-    margin-top: var(--spacing-xs);
-    font-size: var(--font-size-sm);
     color: var(--success-color);
 }
 
-/* ========== ИНДИКАТОР ПРОГРЕССА ФОРМЫ ========== */
-
+/* ПРОГРЕСС */
 .form-progress {
-    height: 4px;
-    background-color: var(--neutral-200);
-    border-radius: var(--border-radius-full);
-    margin-bottom: var(--spacing-lg);
+    height: 6px;
+    background-color: var(--neutral-800);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--spacing-6);
     overflow: hidden;
 }
 
 .form-progress-bar {
     height: 100%;
-    background: var(--primary-gradient);
-    border-radius: var(--border-radius-full);
-    transition: width 0.3s ease;
-    position: relative;
+    background: var(--gradient-primary);
+    transition: width 0.4s ease;
 }
 
-.form-progress-bar::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(90deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent);
-    animation: progressShine 2s infinite;
-}
-
-/* ========== ЧЕКБОКСЫ И РАДИО КНОПКИ ========== */
-
+/* ЧЕКБОКСЫ */
 .form-check-input {
-    width: 1.25em;
-    height: 1.25em;
-    margin-top: 0.25em;
-    vertical-align: top;
     background-color: var(--bg-secondary);
-    border: 2px solid var(--neutral-400);
-    border-radius: var(--border-radius-sm);
-    appearance: none;
+    border: 2px solid var(--border-color);
     cursor: pointer;
-    transition: var(--transition);
 }
 
 .form-check-input:checked {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
-    background-size: 100% 100%;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
-.form-check-input:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-.form-check-label {
-    cursor: pointer;
-    margin-left: var(--spacing-sm);
-    color: var(--text-color);
-}
-
-/* ========== SELECT СТИЛИЗАЦИЯ ========== */
-
-.form-select {
-    padding: var(--spacing-md);
-    border: 1px solid var(--neutral-300); /* Thinner border for cleaner look */
-    border-radius: 12px; /* Matches dropdown style */
-    font-size: var(--font-size-base);
-    background-color: var(--bg-secondary);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right var(--spacing-md) center;
-    background-size: 16px 12px;
-    padding-right: calc(var(--spacing-md) * 2 + 16px);
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-}
-
-.form-select:hover {
-    border-color: var(--primary-color);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
+/* SELECT */
 .form-select {
     background-color: var(--bg-secondary);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: var(--text-color);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23e2e8f0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-4);
 }
 
 .form-select:focus {
     border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    box-shadow: var(--shadow-glow);
 }
 
-/* ========== TEXTAREA ========== */
-
-textarea.form-control {
-    min-height: 120px;
-    resize: vertical;
-    font-family: inherit;
-}
-
+/* TEXTAREA */
 textarea.form-control-enhanced {
-    min-height: 150px;
-    resize: vertical;
-    font-family: inherit;
-    line-height: var(--line-height-relaxed);
-}
-
-/* ========== ФАЙЛОВЫЙ ИНПУТ ========== */
-
-.form-control-file {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.form-control-file input[type="file"] {
-    position: absolute;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
-
-.file-input-label {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-md) var(--spacing-lg);
-    background: var(--light-color);
-    border: 2px dashed var(--neutral-300);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: var(--transition);
-    color: var(--text-color);
-}
-
-.file-input-label {
-    background: var(--bg-secondary);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.file-input-label:hover {
-    border-color: var(--primary-color);
-    background-color: rgba(99, 102, 241, 0.05);
-}
-
-.file-input-label i {
-    color: var(--primary-color);
-}
-
-/* ========== ГРУППА КНОПОК ========== */
-
-.input-group {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    width: 100%;
-}
-
-.input-group-text {
-    display: flex;
-    align-items: center;
-    padding: var(--spacing-md);
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.5;
-    color: var(--text-color);
-    text-align: center;
-    white-space: nowrap;
-    background-color: var(--neutral-100);
-    border: 2px solid var(--neutral-300);
-    border-radius: var(--border-radius);
-}
-
-.input-group-text {
-    background-color: var(--bg-secondary);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-/* ========== АНИМАЦИИ ФОРМ ========== */
-
-@keyframes formFieldFocus {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.02);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.form-control-enhanced:focus {
-    animation: formFieldFocus 0.3s ease;
-}
-
-/* ========== ПОДСКАЗКИ ========== */
-
-.form-text {
-    margin-top: var(--spacing-xs);
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-}
-
-.form-text-help {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    margin-top: var(--spacing-xs);
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-}
-
-.form-text-help i {
-    color: var(--info-color);
+    min-height: 160px;
+    line-height: 1.6;
 }
