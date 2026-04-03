@@ -172,3 +172,20 @@ li {
     border-color: var(--primary-color);
     box-shadow: var(--shadow-lg);
 }
+
+/* Стили для бейджей (badges) */
+.badge {
+    padding: 0.6em 1rem !important;
+    font-weight: 700 !important;
+    border-radius: var(--radius-sm) !important;
+    letter-spacing: 0.03em !important;
+    text-transform: uppercase;
+    font-size: 0.7rem !important;
+}
+
+.bg-primary { background: var(--primary-color) !important; }
+.bg-secondary { background: var(--neutral-700) !important; }
+.bg-success { background: var(--success-color) !important; }
+.bg-danger { background: var(--danger-color) !important; }
+.bg-warning { background: var(--warning-color) !important; color: var(--text-inverse) !important; }
+.bg-info { background: var(--info-color) !important; }

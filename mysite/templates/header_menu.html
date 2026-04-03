@@ -20,7 +20,7 @@
                 value="{{ request.GET.q }}"
                 autocomplete="off"
             >
-            <button class="btn btn-primary" type="submit" aria-label="Найти">
+            <button class="btn" type="submit" aria-label="Найти">
                 <i class="fas fa-search" aria-hidden="true"></i>
             </button>
         </div>
@@ -32,15 +32,17 @@
 
     {# ── Главная с подменю ── #}
     <li class="nav-item dropdown" role="none">
-        <a class="nav-link nav-link-responsive dropdown-toggle {% if request.resolver_match.app_name == 'main' %}active{% endif %}"
+        <a class="nav-link nav-link-responsive {% if menu_pages %}dropdown-toggle{% endif %} {% if request.resolver_match.app_name == 'main' %}active{% endif %}"
            href="{% url 'main:index' %}"
            id="mainDropdown"
            role="menuitem"
+           {% if menu_pages %}
            data-bs-toggle="dropdown"
            aria-haspopup="true"
            aria-expanded="false"
            onmouseover="showDropdown('mainDropdownMenu')"
-           onmouseleave="hideDropdown('mainDropdownMenu')">
+           onmouseleave="hideDropdown('mainDropdownMenu')"
+           {% endif %}>
             <div class="nav-icon-wrapper">
                 <i class="fas fa-home nav-icon" aria-hidden="true"></i>
                 <span class="nav-text">Главная</span>
