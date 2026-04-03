@@ -1,57 +1,45 @@
 {% load static %}
 
 {% if sidebar_news %}
-<div class="card mb-4 shadow-sm border-0 sidebar-news-card overflow-hidden">
-    <!-- Заголовок с улучшенным дизайном -->
-    <div class="card-header border-0 pb-1 bg-transparent px-4 pt-4">
-        <div class="d-flex align-items-center gap-2">
-            <div class="bg-primary bg-opacity-10 p-1 rounded-2 d-flex align-items-center justify-content-center" style="width: 22px; height: 22px;">
-                <i class="fas fa-bolt text-primary" style="font-size: 0.7rem;"></i>
-            </div>
-            <h6 class="mb-0 text-white opacity-90 text-uppercase fw-semibold" style="font-size: 0.75rem; letter-spacing: 0.12em;">
-                Последние новости
-            </h6>
-        </div>
+<div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header">
+        <h6>
+            <i class="fas fa-newspaper"></i> Последние новости
+        </h6>
     </div>
 
-    <!-- Оверлей для читаемости -->
-    <div class="news-sidebar-overlay"></div>
-
-    <!-- Тело карточки -->
-    <div class="card-body p-4 bg-transparent">
+    <div class="card-body sidebar-premium-body">
         {% for news in sidebar_news %}
-        <div class="news-sidebar-item" style="animation-delay: {{ forloop.counter|add:forloop.counter }}00ms;">
+        <a href="{% url 'news:detail' news.slug %}" class="sidebar-premium-item has-bg" style="animation-delay: {{ forloop.counter }}00ms;">
             <!-- Слой с фоновым изображением -->
-            <div class="news-sidebar-bg" 
+            <div class="sidebar-premium-bg" 
                  style="background-image: url('{% if news.image %}{{ news.image.url }}{% else %}{% static 'images/default-news.jpg' %}{% endif %}');">
+            </div>
+
+            <!-- Иконка на фоне (декоративная) -->
+            <div class="sidebar-premium-icon-bg">
+                <i class="fas fa-newspaper"></i>
             </div>
             
             <!-- Оверлей для читаемости -->
-            <div class="news-sidebar-overlay"></div>
+            <div class="sidebar-premium-overlay"></div>
             
             <!-- Контент новости -->
-            <a href="{% url 'news:detail' news.slug %}" class="news-sidebar-link">
-                <div class="news-sidebar-content">
-                    <h6 class="news-sidebar-title">{{ news.title }}</h6>
-                    <div class="news-sidebar-meta">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>{{ news.created_at|date:"d.m.Y" }}</span>
-                    </div>
+            <div class="sidebar-premium-content">
+                <h6 class="sidebar-premium-title">{{ news.title }}</h6>
+                <div class="sidebar-premium-meta">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>{{ news.created_at|date:"d.m.Y" }}</span>
                 </div>
-            </a>
-        </div>
+            </div>
+        </a>
         {% endfor %}
         
         <!-- Кнопка "Все новости" -->
-        <div class="text-center mt-2">
-            <a href="{% url 'news:list' %}" 
-               class="btn-sidebar-news shadow-sm">
-                <span>Посмотреть всё</span>
-                <i class="fas fa-chevron-right ms-2 fa-xs"></i>
-            </a>
-        </div>
+        <a href="{% url 'news:list' %}" class="btn-sidebar-premium">
+            <span>Посмотреть всё</span>
+            <i class="fas fa-chevron-right fa-xs"></i>
+        </a>
     </div>
 </div>
-
-
-{% endif %}
+{% endif %}

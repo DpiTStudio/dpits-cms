@@ -54,7 +54,7 @@ def news_list(request):
     context = {
         "news_list": page_obj,
         "categories": get_cached_news_categories(),
-        "recent_news_list": get_cached_sidebar_news(),
+        "sidebar_news": get_cached_sidebar_news(),
         "selected_category": category_slug or "",
         "current_sort": sort_by,
         "search_query": query,
@@ -97,7 +97,7 @@ def news_detail(request, slug):
         "similar_news": similar_news,
         "daily_news": daily_news,
         "categories": get_cached_news_categories(),
-        "recent_news_list": get_cached_sidebar_news(),
+        "sidebar_news": get_cached_sidebar_news(),
         "breadcrumbs": get_breadcrumbs([
             ("Новости", reverse("news:list"), "fas fa-newspaper"),
             (news.category.name, news.category.get_absolute_url()),
@@ -147,7 +147,7 @@ def news_by_category(request, slug):
         "selected_category": category.slug,
         "news_list": page_obj,
         "categories": get_cached_news_categories(),
-        "recent_news_list": get_cached_sidebar_news(),
+        "sidebar_news": get_cached_sidebar_news(),
         "current_sort": sort_by,
         "search_query": query,
         "breadcrumbs": get_breadcrumbs([
@@ -191,7 +191,7 @@ def news_search(request):
     context = {
         "news_list": page_obj,
         "categories": get_cached_news_categories(),
-        "recent_news_list": get_cached_sidebar_news(),
+        "sidebar_news": get_cached_sidebar_news(),
         "query": query,
         "breadcrumbs": get_breadcrumbs([
             ("Новости", reverse("news:list"), "fas fa-newspaper"),
@@ -221,7 +221,7 @@ def news_by_tag(request, slug):
         "tag": tag,
         "news_list": page_obj,
         "categories": get_cached_news_categories(),
-        "recent_news_list": get_cached_sidebar_news(),
+        "sidebar_news": get_cached_sidebar_news(),
         "breadcrumbs": get_breadcrumbs([
             ("Новости", reverse("news:list"), "fas fa-newspaper"),
             (f"Тег: {tag.name}", request.path),

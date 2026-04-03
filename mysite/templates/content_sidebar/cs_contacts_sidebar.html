@@ -1,43 +1,41 @@
-<!-- Секция контактной информации -->
-<!-- Условная проверка наличия телефона или email в настройках -->
+{% load static %}
+
 {% if site_settings.phone1 or site_settings.email %}
-<!-- Карточка с отступом снизу, тенью, без границы и скругленными углами -->
-<div class="card mb-4 shadow-sm border-0 rounded-3">
-    <!-- Заголовок карточки с основным цветом фона и белым текстом -->
-    <div class="card-header bg-primary text-white">
-        <!-- Заголовок с иконкой телефона и без отступа снизу -->
-        <h6 class="mb-0">
-            <i class="fas fa-phone me-2"></i> Контакты
+<div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header">
+        <h6>
+            <i class="fas fa-id-card"></i> Контакты
         </h6>
     </div>
-    <!-- Тело карточки -->
-    <div class="card-body">
-        <!-- Условная проверка наличия первого телефона -->
-        {% if site_settings.phone1 %}
-        <!-- Параграф с отступом снизу -->
-        <p class="mb-2">
-            <!-- Ссылка на телефон без подчеркивания и темным текстом -->
-            <a href="tel:{{ site_settings.phone1 }}" 
-                class="text-decoration-none text-dark">
-                <!-- Иконка телефона с отступом справа и основным цветом -->
-                <i class="fas fa-phone-alt me-2 text-primary"></i>
-                {{ site_settings.phone1 }}
+
+    <div class="card-body sidebar-premium-body">
+        <div class="sidebar-contact-info">
+            {% if site_settings.phone1 %}
+            <a href="tel:{{ site_settings.phone1 }}" class="sidebar-contact-link" style="animation-delay: 100ms;">
+                <i class="fas fa-phone-alt"></i>
+                <div class="flex-grow-1">
+                    <small class="d-block opacity-50 uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Телефон</small>
+                    <span class="d-block fw-bold">{{ site_settings.phone1 }}</span>
+                </div>
             </a>
-        </p>
-        {% endif %}
-        <!-- Условная проверка наличия email -->
-        {% if site_settings.email %}
-        <!-- Параграф без отступа снизу -->
-        <p class="mb-0">
-            <!-- Ссылка на email без подчеркивания и темным текстом -->
-            <a href="mailto:{{ site_settings.email }}" 
-                class="text-decoration-none text-dark">
-                <!-- Иконка конверта с отступом справа и основным цветом -->
-                <i class="fas fa-envelope me-2 text-primary"></i>
-                {{ site_settings.email }}
+            {% endif %}
+
+            {% if site_settings.email %}
+            <a href="mailto:{{ site_settings.email }}" class="sidebar-contact-link" style="animation-delay: 200ms;">
+                <i class="fas fa-envelope"></i>
+                <div class="flex-grow-1">
+                    <small class="d-block opacity-50 uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Email</small>
+                    <span class="d-block fw-bold">{{ site_settings.email }}</span>
+                </div>
             </a>
-        </p>
-        {% endif %}
+            {% endif %}
+        </div>
+        
+        <!-- Кнопка "Связаться с нами" (опционально) -->
+        <a href="{% url 'main:contact_form' %}" class="btn-sidebar-premium">
+            <span>Написать нам</span>
+            <i class="fas fa-paper-plane fa-xs"></i>
+        </a>
     </div>
 </div>
-{% endif %}
+{% endif %}
