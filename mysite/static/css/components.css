@@ -205,9 +205,41 @@
 }
 
 .brand-text {
+    display: block;
     font-family: var(--font-heading);
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    background: var(--gradient-cosmic);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: var(--transition-base);
+}
+.brand-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.brand-text-domain {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    background: var(--gradient-cosmic);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: var(--transition-base);
+}
+
+.brand-text-slogan {
+    display: flex;
+    font-family: var(--font-heading);
+    font-size: 0.5rem;
+    font-weight: 200;
     letter-spacing: -0.01em;
     background: var(--gradient-cosmic);
     -webkit-background-clip: text;
@@ -219,4 +251,4 @@
 .navbar-brand-premium:hover .brand-text {
     letter-spacing: 0.01em;
     filter: drop-shadow(0 0 8px var(--primary-glow));
-}
+}

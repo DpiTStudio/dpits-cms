@@ -22,7 +22,10 @@
                          loading="eager">
                 </div>
                 {% endif %}
-                <span class="brand-text fw-bold text-gradient">{{ site_settings.logo_text }}</span>
+                <div class="brand-text-container text-gradient">
+                    <div class="brand-text-domain">{{ site_settings.domain }}</div>
+                    <div class="brand-text-slogan">{{ site_settings.slogan_domain }}</div>
+                </div>
             </a>
 
             <div class="d-flex align-items-center gap-2">

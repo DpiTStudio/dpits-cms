@@ -416,6 +416,8 @@ class SiteSettings(SingletonModel):
     address = models.CharField(_("Адрес"), max_length=255, blank=True)
     
     # Текстовые поля
+    domain = models.CharField(_("Домен"), max_length=100, blank=True, default="dpits-cms.ru")
+    slogan_domain = models.CharField(_("Слоган домена"), max_length=255, blank=True, default="Разработка сайтов и веб-приложений")
     logo_text = models.CharField(_("Текст логотипа"), max_length=100, blank=True)
     slogan = models.CharField(_("Слоган"), max_length=255, blank=True)
     motto = CKEditor5Field(_("Девиз сайта"), blank=True, config_name="extends")

@@ -83,6 +83,9 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         (_("Основные данные"), {
             "fields": ("title", "logo", "company_name", "hero_background", "logo_text", "slogan", "motto"),
         }),
+        (_("Домен"), {
+            "fields": ("domain", "slogan_domain"),
+        }),
         (_("Контактная информация"), {
             "fields": ("phone1", "phone2", "email", "address"),
         }),
