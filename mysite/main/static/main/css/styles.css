@@ -93,6 +93,9 @@
 .bg-primary {
     background-color: #007bff !important;
 }
+.bg-primary-sidebar-news {
+    background-color: #007bff !important;
+}
 
 .text-primary {
     color: #007bff !important;

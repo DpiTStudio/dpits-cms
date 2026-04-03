@@ -1,48 +1,26 @@
 {% load static %}
 
 {% if sidebar_news %}
-<div class="card mb-4 shadow-sm border-0 rounded-4 overflow-hidden">
+<div class="card mb-4 shadow-sm border-0 rounded-4 overflow-hidden sidebar-news-card">
     <!-- Заголовок с улучшенным дизайном -->
-    <div class="card-header bg-primary text-white">
-        <!-- Заголовок с иконкой -->
-        <h6 class="mb-0">
-            <i class="fas fa-newspaper fa-sm"></i> Последние новости
+    <div class="card-header border-0 pb-0 bg-transparent">
+        <h6 class="mb-0 text-white opacity-75 text-uppercase fw-bold ls-1" style="font-size: 0.75rem; letter-spacing: 0.1em;">
+            <i class="fas fa-newspaper me-2"></i> Последние новости
         </h6>
     </div>
 
     <!-- Тело карточки -->
-    <div class="card-body p-3">
+    <div class="card-body p-3 bg-transparent">
         {% for news in sidebar_news %}
-        <div class="news-sidebar-item position-relative mb-3">
-            <a href="{% url 'news:detail' news.slug %}" class="text-decoration-none text-dark d-block">
-                <div class="row g-2 align-items-center">
-                    <!-- Изображение сбоку -->
-                    <div class="col-4">
-                        <div class="position-relative overflow-hidden rounded-3" style="aspect-ratio: 1/1;">
-                            {% if news.image %}
-                            <img src="{{ news.image.url }}" 
-                                 alt="{{ news.title }}"
-                                 class="img-fluid w-100 h-100 object-fit-cover transition-scale">
-                            {% else %}
-                            <img src="{% static 'images/default-news.jpg' %}" 
-                                 alt="{{ news.title }}"
-                                 class="img-fluid w-100 h-100 object-fit-cover transition-scale">
-                            {% endif %}
-                        </div>
-                    </div>
-                    <!-- Контент -->
-                    <div class="col-8">
-                        <div class="d-flex flex-column justify-content-center h-100">
-                            <!-- Заголовок -->
-                            <h6 class="fw-semibold mb-1 lh-sm text-dark hover-text-primary transition-color" style="font-size: 0.85rem;">
-                                {{ news.title|truncatechars:45 }}
-                            </h6>
-                            <!-- Дата -->
-                            <div class="d-flex align-items-center text-muted mt-auto" style="font-size: 0.75rem;">
-                                <i class="fas fa-calendar-alt me-1"></i>
-                                <span>{{ news.created_at|date:"d.m.Y" }}</span>
-                            </div>
-                        </div>
+        <div class="news-sidebar-item" 
+             style="background-image: url('{% if news.image %}{{ news.image.url }}{% else %}{% static 'images/default-news.jpg' %}{% endif %}');">
+            <div class="news-sidebar-overlay"></div>
+            <a href="{% url 'news:detail' news.slug %}" class="news-sidebar-link">
+                <div class="news-sidebar-content">
+                    <h6 class="news-sidebar-title">{{ news.title }}</h6>
+                    <div class="news-sidebar-meta">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>{{ news.created_at|date:"d.m.Y" }}</span>
                     </div>
                 </div>
             </a>
@@ -50,9 +28,9 @@
         {% endfor %}
         
         <!-- Кнопка "Все новости" -->
-        <div class="text-center mt-1 pt-1">
+        <div class="text-center mt-3">
             <a href="{% url 'news:list' %}" 
-               class="btn btn-primary px-4 py-2 rounded-pill fw-medium shadow-sm hover-lift">
+               class="btn-sidebar-news">
                 <span>Все новости</span>
                 <i class="fas fa-arrow-right ms-2 fa-sm"></i>
             </a>
