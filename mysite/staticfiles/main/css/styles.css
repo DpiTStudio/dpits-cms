@@ -41,6 +41,7 @@
 
 .card-body {
     padding: 1.5rem;
+    background-color: #5a5a5b !important;
 }
 
 .card-title {

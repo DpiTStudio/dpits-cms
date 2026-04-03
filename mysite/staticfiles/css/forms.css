@@ -1,0 +1,118 @@
+/* ============================================
+   ФАЙЛ: forms.css
+   ОПИСАНИЕ: Базовые стили для всех форм на сайте (Dark Theme)
+   ============================================ */
+
+/* Глобальные стили для полей ввода */
+input,
+textarea,
+select,
+.form-control,
+.form-select {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition);
+}
+
+/* Состояние фокуса */
+input:focus,
+textarea:focus,
+select:focus,
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--bg-card-hover) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25) !important;
+    outline: none;
+}
+
+/* Стили для placeholder */
+::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.7;
+}
+
+/* Стили для checkbox и radio */
+input[type="checkbox"],
+input[type="radio"] {
+    background-color: var(--bg-secondary) !important;
+    border: 2px solid var(--neutral-400) !important;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Стили для выпадающих списков (опции) */
+option {
+    background-color: var(--bg-card);
+    color: var(--text-color);
+}
+
+/* Стили для меток (labels) */
+label, 
+.form-label {
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Стили для кнопок в формах (если не переопределены) */
+.btn-primary {
+    background: var(--primary-gradient);
+    border: none;
+    color: var(--text-white);
+    font-weight: var(--font-weight-bold);
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+    opacity: 0.9;
+}
+
+/* Стили для легенд и заголовков форм */
+legend,
+.form-title {
+    color: var(--text-color);
+    font-weight: var(--font-weight-bold);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Стили для подсказок */
+.form-text {
+    color: var(--text-muted) !important;
+}
+
+/* Контейнеры форм и карточки с формами */
+.form-container,
+.card-form,
+.auth-form {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    box-shadow: var(--box-shadow-md);
+}
+
+/* Ошибки валидации */
+.invalid-feedback,
+.errorlist {
+    color: var(--danger-color) !important;
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-xs);
+    list-style: none;
+    padding-left: 0;
+}
+
+.is-invalid {
+    border-color: var(--danger-color) !important;
+}

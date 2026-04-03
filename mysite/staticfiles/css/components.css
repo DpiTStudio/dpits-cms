@@ -21,7 +21,7 @@
     /* Вертикальное направление */
     overflow: hidden;
     /* Скрываем переполнение */
-    background-color: var(--text-white);
+    background-color: var(--bg-card);
     /* Белый фон */
     margin-bottom: var(--spacing-lg);
     /* Отступ снизу */
@@ -87,7 +87,7 @@
 .card-footer {
     background-color: transparent;
     /* Прозрачный фон */
-    border-top: var(--border-width-thin) solid #dee2e6;
+    border-top: var(--border-width-thin) solid var(--border-color);
     /* Верхняя граница */
     padding: var(--spacing-md);
     /* Внутренние отступы */
@@ -193,7 +193,7 @@
     /* Внутренние отступы */
     border-radius: var(--border-radius-sm);
     /* Маленькое скругление */
-    border: var(--border-width-thin) solid #dee2e6;
+    border: var(--border-width-thin) solid var(--border-color);
     /* Серая граница */
     margin-bottom: var(--spacing-lg);
     /* Отступ снизу */
@@ -203,7 +203,7 @@
 .categories-header h6 {
     font-weight: var(--font-weight-semibold);
     /* Полужирный шрифт */
-    color: #495057;
+    color: var(--text-secondary);
     /* Темно-серый цвет */
     margin-bottom: var(--spacing-md);
     /* Отступ снизу */
@@ -363,7 +363,7 @@
 .form-control {
     border-radius: var(--border-radius);
     /* Скругление углов */
-    border: var(--border-width) solid #e9ecef;
+    border: var(--border-width) solid var(--border-color);
     /* Светло-серая граница */
     transition: var(--transition);
     /* Плавный переход */

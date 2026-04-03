@@ -5,11 +5,12 @@
 .page-content {
     line-height: 1.8;
     font-size: 1.1rem;
-    color: #333;
+    color: #ffffff;
 }
 
 .content-body {
-    color: #272a2e !important;
+    color: hsla(0, 33%, 86%, 0.96) !important;
+    background-color: hsla(210, 100%, 99%, 0.116) !important;
     max-width: 100%;
 }
 

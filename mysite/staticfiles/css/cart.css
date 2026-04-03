@@ -636,7 +636,7 @@
 .cart-widget-header {
     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     padding: 18px 20px;
-    display: flex;
+    display: grid;
     align-items: center;
     justify-content: space-between;
     position: relative;
@@ -655,7 +655,7 @@
 }
 
 .cart-widget-title {
-    display: flex;
+    display: grid;
     align-items: center;
     gap: 10px;
     color: #fff;

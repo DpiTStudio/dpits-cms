@@ -62,6 +62,10 @@
     --warning-color: #f59e0b;
     --danger-color: #f43f5e;
     --info-color: #38bdf8;
+    
+    /* Background variants (for forms and layered components) */
+    --bg-secondary: #1e293b; /* Same as bg-card */
+    --bg-color: #0f172a;     /* Same as bg-body */
 
     /* ========== ЦВЕТА ТЕКСТА ========== */
     --text-color: #f8fafc;     /* Slate-50 - Основной текст */
