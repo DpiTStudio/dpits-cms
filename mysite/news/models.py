@@ -152,9 +152,11 @@ class News(HeroMixin):
         verbose_name="Категория",
     )
     image = models.ImageField(
-        "Изображение",  # Человекочитаемое имя поля
-        upload_to="news/",  # Папка для загрузки изображений новостей
-        default="news/default-category.png",  # Изображение по умолчанию, если не указано
+        "Изображение",
+        upload_to="news/",
+        blank=True,
+        null=True,
+        help_text="Оставьте пустым для использования изображения категории по умолчанию",
     )
     is_active = models.BooleanField(
         "Активно", default=True
@@ -233,6 +235,11 @@ class News(HeroMixin):
                 if self.pk:  # Если объект уже существует
                     queryset = queryset.exclude(pk=self.pk)  # Исключаем текущий объект
                 counter += 1  # Увеличиваем счетчик
+
+        # Автоматически добавляем картинку категории, если своя не задана
+        if not self.image and self.category and self.category.image:
+            self.image = self.category.image
+
         super().save(*args, **kwargs)  # Вызываем метод save родительского класса
 
     def get_absolute_url(self):

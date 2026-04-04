@@ -28,4 +28,7 @@ urlpatterns = [
     # Новости по тегу
     # URL: /news/tag/<slug>/
     path("tag/<slug:slug>/", views.news_by_tag, name="by_tag"),
+
+    # API для категорий (используется в админке)
+    path("api/category-images/", views.get_category_images, name="category_images_api"),
 ]

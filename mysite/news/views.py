@@ -228,3 +228,19 @@ def news_by_tag(request, slug):
         ]),
     }
     return render(request, "news/list.html", context)
+
+
+def get_category_images(request):
+    """
+    API View: возвращает словарь {id: image_url} для всех категорий.
+    Используется в админке для динамического предпросмотра картинки.
+    """
+    from django.http import JsonResponse
+    from django.conf import settings
+    categories = NewsCategory.objects.values('id', 'image')
+    # Добавляем полный URL для изображений
+    data = {}
+    for cat in categories:
+        if cat['image']:
+            data[cat['id']] = f"{settings.MEDIA_URL}{cat['image']}"
+    return JsonResponse(data)
