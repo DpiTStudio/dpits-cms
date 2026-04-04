@@ -6,87 +6,104 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Находим поля в админке Django
-    const categorySelect = document.getElementById('id_category');
-    const imageInput = document.getElementById('id_image');
+    // Ждем полной загрузки, включая возможные табы
+    setTimeout(initCategoryImage, 100);
     
-    if (!categorySelect || !imageInput) return;
+    function initCategoryImage() {
+        const categorySelect = document.getElementById('id_category');
+        const imageInput = document.getElementById('id_image');
+        
+        if (!categorySelect || !imageInput) return;
 
-    // Создаем контейнер для предпросмотра, если его нет
-    let previewContainer = document.getElementById('category-image-preview-container');
-    if (!previewContainer) {
-        previewContainer = document.createElement('div');
-        previewContainer.id = 'category-image-preview-container';
-        previewContainer.style.marginTop = '10px';
-        previewContainer.style.padding = '10px';
-        previewContainer.style.border = '1px dashed #ccc';
-        previewContainer.style.borderRadius = '4px';
-        previewContainer.style.display = 'none';
+        // Определяем контейнер поля для вставки превью
+        const imageFieldRow = imageInput.closest('.form-row') || imageInput.parentElement;
         
-        const label = document.createElement('div');
-        label.innerText = 'Предпросмотр изображения категории (будет использовано, если своё не загружено):';
-        label.style.fontSize = '12px';
-        label.style.color = '#666';
-        label.style.marginBottom = '5px';
-        
-        const img = document.createElement('img');
-        img.id = 'category-image-preview';
-        img.style.maxWidth = '200px';
-        img.style.maxHeight = '200px';
-        img.style.display = 'block';
-        img.style.borderRadius = '4px';
-        
-        previewContainer.appendChild(label);
-        previewContainer.appendChild(img);
-        
-        // Вставляем после поля выбора изображения
-        const imageFieldRow = imageInput.closest('.form-row');
-        if (imageFieldRow) {
+        // Создаем контейнер для превью
+        let previewContainer = document.getElementById('category-image-preview-container');
+        if (!previewContainer) {
+            previewContainer = document.createElement('div');
+            previewContainer.id = 'category-image-preview-container';
+            previewContainer.className = 'category-preview-box';
+            previewContainer.style.marginTop = '10px';
+            previewContainer.style.padding = '15px';
+            previewContainer.style.background = '#f8f9fa';
+            previewContainer.style.border = '2px dashed #007bff';
+            previewContainer.style.borderRadius = '8px';
+            previewContainer.style.display = 'none';
+            previewContainer.style.maxWidth = 'fit-content';
+            
+            const header = document.createElement('div');
+            header.innerHTML = '<strong style="color: #007bff; display: block; margin-bottom: 5px;">📷 Автоматическое изображение категории:</strong>';
+            header.style.fontSize = '13px';
+            
+            const img = document.createElement('img');
+            img.id = 'category-image-preview';
+            img.style.maxWidth = '300px';
+            img.style.maxHeight = '300px';
+            img.style.display = 'block';
+            img.style.borderRadius = '6px';
+            img.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+            
+            const footer = document.createElement('div');
+            footer.innerText = 'Это изображение будет сохранено автоматически, так как вы не выбрали своё.';
+            footer.style.fontSize = '11px';
+            footer.style.color = '#666';
+            footer.style.marginTop = '8px';
+            
+            previewContainer.appendChild(header);
+            previewContainer.appendChild(img);
+            previewContainer.appendChild(footer);
+            
+            // Вставляем после поля выбора изображения
             imageFieldRow.appendChild(previewContainer);
         }
-    }
 
-    const previewImg = document.getElementById('category-image-preview');
-    let categoryImages = {};
+        const previewImg = document.getElementById('category-image-preview');
+        let categoryImages = {};
 
-    // Загружаем данные о картинках категорий через API
-    fetch('/news/api/category-images/')
-        .then(response => response.json())
-        .then(data => {
-            categoryImages = data;
-            updatePreview();
-        })
-        .catch(error => console.error('Error fetching category images:', error));
+        // Загружаем данные о картинках категорий через API
+        fetch('/news/api/category-images/')
+            .then(response => response.json())
+            .then(data => {
+                categoryImages = data;
+                updatePreview();
+            })
+            .catch(error => console.error('Error fetching category images:', error));
 
-    function updatePreview() {
-        const categoryId = categorySelect.value;
-        const imageUrl = categoryImages[categoryId];
-        
-        // Показываем предпросмотр только если своё изображение не выбрано
-        // В Django админке ImageField имеет input[type=file]
-        // Если есть ссылка на текущий файл (при редактировании), imageInput.nextElementSibling содержит ссылку
-        const hasOwnImage = imageInput.getAttribute('data-has-file') === 'true' || imageInput.value !== '';
-        
-        if (imageUrl && !hasOwnImage) {
-            previewImg.src = imageUrl;
-            previewContainer.style.display = 'block';
-        } else {
-            previewContainer.style.display = 'none';
+        function updatePreview() {
+            const categoryId = categorySelect.value;
+            const imageUrl = categoryImages[categoryId];
+            
+            // Проверяем, есть ли уже загруженное изображение у новости
+            // В Django админке при наличии файла появляется элемент "Сейчас:" (Currently:)
+            const currentFileLink = imageFieldRow.querySelector('a[href*="/media/"]');
+            const hasExistingFile = !!currentFileLink;
+            
+            // Проверяем, выбрал ли пользователь новый файл прямо сейчас
+            const hasNewFile = imageInput.files && imageInput.files.length > 0;
+            
+            // Показываем превью категории ТОЛЬКО если нет своего файла (ни старого, ни нового)
+            if (imageUrl && !hasExistingFile && !hasNewFile) {
+                previewImg.src = imageUrl;
+                previewContainer.style.display = 'block';
+                // Подсвечиваем поле выбора категории, чтобы было понятно, откуда картинка
+                categorySelect.style.borderColor = '#007bff';
+                categorySelect.style.boxShadow = '0 0 0 2px rgba(0,123,255,0.25)';
+            } else {
+                previewContainer.style.display = 'none';
+                categorySelect.style.borderColor = '';
+                categorySelect.style.boxShadow = '';
+            }
         }
-    }
 
-    // Отслеживаем изменения категории
-    categorySelect.addEventListener('change', updatePreview);
-    
-    // Отслеживаем выбор своего файла (скрываем предпросмотр категории если выбран файл)
-    imageInput.addEventListener('change', function() {
-        updatePreview();
-    });
-
-    // Специальная проверка для существующего файла (Django ClearableFileInput)
-    // Если есть текущий файл, он обычно отображается выше инпута
-    const currentLink = imageInput.closest('.form-row')?.querySelector('a');
-    if (currentLink && (currentLink.href.includes('/media/'))) {
-        imageInput.setAttribute('data-has-file', 'true');
+        // Слушатели событий
+        categorySelect.addEventListener('change', updatePreview);
+        imageInput.addEventListener('change', updatePreview);
+        
+        // Малозаметный хак: если пользователь очищает файл (checkbox 'clear'), превью должно вернуться
+        const clearCheckbox = imageFieldRow.querySelector('input[type="checkbox"][name$="-clear"]');
+        if (clearCheckbox) {
+            clearCheckbox.addEventListener('change', updatePreview);
+        }
     }
 });
