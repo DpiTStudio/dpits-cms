@@ -89,9 +89,9 @@
 
 3. **Установите зависимости**:
    ```bash
-   pip freeze > mysite/requirements.txt
-   pip install --upgrade pip
-   pip install -r mysite/requirements.txt
+   pip freeze > mysite/requirements.txt # Создание файла зависимостей
+   pip install --upgrade pip # Обновление pip
+   pip install -r mysite/requirements.txt # Установка зависимостей
    ```
 
 4. **Примените миграции**:
