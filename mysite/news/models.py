@@ -13,6 +13,7 @@ from django_ckeditor_5.fields import (
 from main.models import HeroMixin
 
 
+# Теги
 class NewsTag(models.Model):
     """
     Тег (метка) для новостей.
@@ -39,6 +40,7 @@ class NewsTag(models.Model):
         return reverse("news:by_tag", kwargs={"slug": self.slug})
 
 
+# Категории
 class NewsCategory(HeroMixin):
     """
     Категория новостей.
@@ -133,6 +135,7 @@ class NewsCategory(HeroMixin):
         )  # Генерируем URL используя имя маршрута и slug категории
 
 
+# Новости
 class News(HeroMixin):
     """
     Новость.
