@@ -5,7 +5,7 @@
 
 {# Показываем только если мы НЕ в приложении services и есть категории #}
 {% if request.resolver_match.app_name != 'services' and popular_categories %}
-<div class="card sidebar-premium-card">
+<div class="card sidebar-premium-header-services">
     <!-- Заголовок -->
     <div class="card-header sidebar-premium-header">
         <h6>
