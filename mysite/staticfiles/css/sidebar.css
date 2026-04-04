@@ -58,7 +58,22 @@
 /* Card Body */
 .sidebar-premium-body {
     padding: 1.25rem 1.5rem 1.5rem 1.5rem !important;
-    background: transparent !important;
+}
+
+.sidebar-premium-header-contacts {
+    background: hwb(84 2% 7% / 0.452) !important;
+}
+
+.sidebar-premium-header-portfolio {
+    background: hwb(32 0% 4% / 0.452) !important;
+}
+
+.sidebar-premium-header-news {
+    background: hwb(185 0% 0% / 0.452) !important;
+}
+
+.sidebar-premium-header-services {
+    background: hwb(317 0% 0% / 0.452) !important;
 }
 
 /* Common Sidebar Item */
