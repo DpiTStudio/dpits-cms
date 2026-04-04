@@ -1,5 +1,14 @@
 Django установленный системой автоматической установки cms LTD BEGET
- 
+
+ssh localhost -p222
+Tigran1984!01!07
+cd /home/d/dpitstudio/dpits-cms.ru/public_html
+source venv/bin/activate
+cd mysite
+cd /home/d/dpitstudio/dpitscms.ru//public_html
+touch tmp/restart.txt
+
+
 => Действия описанные ниже необходимо выполнять в docker-окружении выполнив команду ниже <=
 $ ssh localhost -p222
  
