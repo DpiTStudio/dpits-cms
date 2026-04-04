@@ -1,185 +1,326 @@
-/* accounts/static/accounts/css/accounts.css */
-:root {
-    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --success-color: #28a745;
-    --warning-color: #ffc107;
-    --danger-color: #dc3545;
-    --info-color: #17a2b8;
-}
+/* accounts/static/accounts/css/accounts.css
+   Базовые общие стили для приложения accounts
+   Использует переменные из variables.css основного сайта
+*/
 
-.accounts-section {
-    padding: 60px 0;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    min-height: 100vh;
-}
+/* =============================================
+   ОБЩИЕ СТИЛИ ДЛЯ ФОРМ / СТРАНИЦ АККАУНТОВ
+   ============================================= */
 
-/* Улучшенные карточки */
-.accounts-card {
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    border: none;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.accounts-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-/* Анимации */
-.fade-in {
-    animation: fadeIn 0.6s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Улучшенные кнопки */
-.btn-primary-gradient {
-    background: var(--primary-gradient);
-    border: none;
-    border-radius: 12px;
-    padding: 15px 30px;
-    color: white;
-    font-weight: 600;
-    transition: all 0.3s ease;
+/* Секция с формой — центрирует контент на тёмном фоне */
+.account-section {
+    min-height: calc(100vh - var(--header-height, 70px));
+    background: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl) var(--spacing-md);
     position: relative;
     overflow: hidden;
 }
 
-.btn-primary-gradient:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-}
-
-/* Индикаторы загрузки */
-.loading {
-    opacity: 0.7;
+/* Декоративные радиальные свечения */
+.account-section::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    top: -250px;
+    right: -200px;
+    background: radial-gradient(circle, rgba(129, 140, 248, 0.08) 0%, transparent 70%);
     pointer-events: none;
 }
 
-.loading::after {
+.account-section::after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    margin: -10px 0 0 -10px;
-    border: 2px solid #ffffff;
+    width: 500px;
+    height: 500px;
     border-radius: 50%;
-    border-right-color: transparent;
-    animation: spin 1s linear infinite;
+    bottom: -200px;
+    left: -150px;
+    background: radial-gradient(circle, rgba(244, 114, 182, 0.06) 0%, transparent 70%);
+    pointer-events: none;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+/* =============================================
+   GLASSMORPHIC КАРТОЧКА
+   ============================================= */
+.account-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow-xl);
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+    animation: fadeInUp 0.7s ease-out forwards;
 }
 
-/* Улучшенная форма */
-.form-control:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+/* Заголовок карточки */
+.account-card-header {
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.12) 0%, rgba(167, 139, 250, 0.06) 100%);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+
+.account-card-header h2 {
+    font-size: 1.85rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.account-card-header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin: 0;
+    opacity: 0.85;
+}
+
+/* Тело карточки */
+.account-card-body {
+    padding: 2.5rem 2rem;
+}
+
+/* =============================================
+   ФОРМА В СТИЛЕ ОСНОВНОГО САЙТА
+   ============================================= */
+.account-form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.account-form-label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    transition: color var(--transition);
+}
+
+.account-input-wrapper {
+    position: relative;
+}
+
+.account-input-wrapper i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    transition: color var(--transition);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.account-input-wrapper .form-control {
+    padding-left: 2.75rem !important;
+}
+
+.account-form-group:focus-within .account-form-label {
+    color: var(--primary-color);
+}
+
+.account-form-group:focus-within .account-input-wrapper i {
+    color: var(--primary-color);
+}
+
+/* =============================================
+   ФОРМ-КОНТРОЛ (переопределение Bootstrap)
+   ============================================= */
+.account-card .form-control,
+.account-card .form-select {
+    background: rgba(15, 23, 42, 0.5) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--text-color) !important;
+    border-radius: var(--border-radius) !important;
+    padding: 0.75rem 1rem !important;
+    transition: var(--transition) !important;
+    font-size: 0.95rem;
+}
+
+.account-card .form-control::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.7;
+}
+
+.account-card .form-control:focus,
+.account-card .form-select:focus {
+    background: rgba(15, 23, 42, 0.8) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1) !important;
+    color: var(--text-color) !important;
+}
+
+.account-card .form-control.is-invalid,
+.account-card .form-select.is-invalid {
+    border-color: var(--danger-color) !important;
+}
+
+/* =============================================
+   КНОПКИ
+   ============================================= */
+.btn-account-primary {
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.875rem 1.5rem;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    width: 100%;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-account-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+    filter: brightness(1.1);
+    color: white;
+}
+
+.btn-account-primary:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.btn-account-secondary {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 0.875rem 1.5rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-account-secondary:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: var(--primary-color);
+    color: var(--text-color);
     transform: translateY(-1px);
 }
 
-/* Статусы тикетов */
-.status-open { 
-    background-color: var(--warning-color); 
-    color: #000; 
-}
-.status-in_progress { 
-    background-color: var(--info-color); 
-    color: #fff; 
-}
-.status-closed { 
-    background-color: var(--success-color); 
-    color: #fff; 
+/* =============================================
+   СТАТУСЫ ТИКЕТОВ
+   ============================================= */
+.status-open {
+    background: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.25);
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-    .accounts-section {
-        padding: 30px 0;
+.status-in_progress {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.status-closed {
+    background: rgba(52, 211, 153, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+/* =============================================
+   ALERTS / СООБЩЕНИЯ
+   ============================================= */
+.account-card .alert {
+    border-radius: var(--border-radius);
+    border: 1px solid transparent;
+    font-size: 0.9rem;
+}
+
+.account-card .alert-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.25);
+    color: #f87171;
+}
+
+.account-card .alert-success {
+    background: rgba(52, 211, 153, 0.1);
+    border-color: rgba(52, 211, 153, 0.25);
+    color: #34d399;
+}
+
+.account-card .alert-info {
+    background: rgba(56, 189, 248, 0.1);
+    border-color: rgba(56, 189, 248, 0.25);
+    color: #38bdf8;
+}
+
+.account-card .alert-warning {
+    background: rgba(251, 191, 36, 0.1);
+    border-color: rgba(251, 191, 36, 0.25);
+    color: #fbbf24;
+}
+
+/* =============================================
+   CAPTCHA
+   ============================================= */
+.captcha-container {
+    background: rgba(15, 23, 42, 0.3);
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    border: 1px solid var(--glass-border);
+}
+
+.captcha-container img {
+    border-radius: 6px;
+    filter: invert(0.05);
+}
+
+/* =============================================
+   АНИМАЦИИ
+   ============================================= */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
     }
-    
-    .accounts-card {
-        border-radius: 15px;
-        margin: 0 10px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
-.accounts-section {
-    padding: 60px 0;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    min-height: 100vh;
-}
 
-.accounts-card {
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    border: none;
-    overflow: hidden;
-}
-
-.accounts-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 40px;
-    text-align: center;
-    position: relative;
-}
-
-.accounts-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('../images/pattern.png') repeat;
-    opacity: 0.1;
-}
-
-.form-group {
-    margin-bottom: 25px;
-    position: relative;
-}
-
-.form-label {
-    font-weight: 600;
-    color: #2d3748;
-    margin-bottom: 8px;
-    display: block;
-}
-
-.form-control {
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 15px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    width: 100%;
-}
-
-.form-control:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.btn-primary-gradient {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: none;
-    border-radius: 12px;
-    padding: 15px 30px;
-    color: white;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-primary-gradient:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+/* =============================================
+   АДАПТИВНОСТЬ
+   ============================================= */
+@media (max-width: 576px) {
+    .account-card-header {
+        padding: 2rem 1.5rem;
+    }
+    .account-card-body {
+        padding: 2rem 1.5rem;
+    }
+    .account-card-header h2 {
+        font-size: 1.5rem;
+    }
 }

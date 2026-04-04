@@ -142,55 +142,52 @@
 
 {% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Добавляем классы к полям формы
-        const formFields = document.querySelectorAll('#profileUpdateForm input, #profileUpdateForm textarea');
-        formFields.forEach(field => {
-            if (field.type !== 'hidden' && field.type !== 'submit' && field.type !== 'file') {
-                field.classList.add('form-control-custom');
-            } else if (field.type === 'file') {
-                field.classList.add('form-control'); // Для стандартного инпута файла
-            }
+        document.querySelectorAll('#profileUpdateForm input:not([type=hidden]):not([type=submit]):not([type=file]), #profileUpdateForm textarea').forEach(field => {
+            field.classList.add('form-control-custom');
+        });
+
+        // Стандартный Bootstrap стиль для file-input
+        document.querySelectorAll('#profileUpdateForm input[type=file]').forEach(field => {
+            field.classList.add('form-control');
         });
 
         // Превью аватара
         const avatarInput = document.querySelector('input[type="file"]');
-        const avatarImg = document.getElementById('avatarImg');
         const avatarContainer = document.getElementById('avatarPreviewContainer');
-        
-        if (avatarInput) {
-            avatarInput.addEventListener('change', function() {
+
+        if (avatarInput && avatarContainer) {
+            avatarInput.addEventListener('change', function () {
                 const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        if (avatarImg) {
-                            avatarImg.src = e.target.result;
-                        } else {
-                            // Если изображения не было, создаем его
-                            const img = document.createElement('img');
-                            img.id = 'avatarImg';
-                            img.src = e.target.result;
-                            avatarContainer.innerHTML = '';
-                            avatarContainer.appendChild(img);
-                        }
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const existingImg = document.getElementById('avatarImg');
+                    if (existingImg) {
+                        existingImg.src = e.target.result;
+                    } else {
+                        const img = document.createElement('img');
+                        img.id = 'avatarImg';
+                        img.src = e.target.result;
+                        avatarContainer.innerHTML = '';
+                        avatarContainer.appendChild(img);
                     }
-                    reader.readAsDataURL(file);
-                }
+                };
+                reader.readAsDataURL(file);
             });
         }
 
-        // Плавная анимация появления
-        const animatedElements = document.querySelectorAll('.form-group-custom, .avatar-edit-wrapper');
-        animatedElements.forEach((el, index) => {
+        // Плавная анимация появления элементов
+        document.querySelectorAll('.form-group-custom, .avatar-edit-wrapper').forEach((el, index) => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
             setTimeout(() => {
                 el.style.opacity = '1';
                 el.style.transform = 'translateY(0)';
-            }, index * 80);
+            }, index * 70);
         });
     });
 </script>
-{% endblock %}
+{% endblock %}

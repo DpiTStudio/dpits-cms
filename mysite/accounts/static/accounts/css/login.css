@@ -1,39 +1,49 @@
-/* accounts/static/accounts/css/login.css */
+/* accounts/static/accounts/css/login.css
+   Специфичные стили для страницы входа
+   Общие стили форм — в accounts.css
+*/
 
+/* =============================================
+   СЕКЦИЯ ВХОДА
+   ============================================= */
 .login-section {
-    min-height: calc(100vh - var(--header-height, 0px));
-    background: var(--dark-gradient); /* Глубокий темный фон */
+    min-height: calc(100vh - var(--header-height, 70px));
+    background: var(--bg-dark);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-xl);
+    padding: var(--spacing-xl) var(--spacing-md);
     position: relative;
     overflow: hidden;
 }
 
-/* Декоративные круги для глубины фона */
-.login-section::before,
-.login-section::after {
+.login-section::before {
     content: '';
     position: absolute;
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    z-index: 0;
-}
-
-.login-section::before {
-    top: -300px;
+    top: -250px;
     right: -200px;
     background: radial-gradient(circle, rgba(129, 140, 248, 0.1) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .login-section::after {
-    bottom: -300px;
-    left: -200px;
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    bottom: -200px;
+    left: -150px;
     background: radial-gradient(circle, rgba(244, 114, 182, 0.08) 0%, transparent 70%);
+    pointer-events: none;
 }
 
+/* =============================================
+   КАРТОЧКА ВХОДА
+   ============================================= */
 .login-card {
     background: var(--glass-bg);
     backdrop-filter: blur(20px) saturate(180%);
@@ -46,20 +56,33 @@
     width: 100%;
     position: relative;
     z-index: 10;
-    transition: transform 0.3s ease;
+    animation: loginFadeIn 0.6s ease-out forwards;
 }
 
+@keyframes loginFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =============================================
+   ЗАГОЛОВОК КАРТОЧКИ
+   ============================================= */
 .login-header {
-    background: linear-gradient(135deg, rgba(129, 140, 248, 0.1) 0%, rgba(167, 139, 250, 0.05) 100%);
-    color: var(--text-color);
-    padding: 3rem 2rem 2rem;
-    text-align: center;
+    background: linear-gradient(135deg, rgba(129, 140, 248, 0.12) 0%, rgba(167, 139, 250, 0.06) 100%);
     border-bottom: 1px solid var(--glass-border);
+    padding: 2.75rem 2rem 2rem;
+    text-align: center;
 }
 
 .login-header h2 {
+    font-size: 1.85rem;
     font-weight: 700;
-    font-size: 1.75rem;
     margin-bottom: 0.5rem;
     background: var(--primary-gradient);
     -webkit-background-clip: text;
@@ -70,12 +93,19 @@
 .login-header p {
     color: var(--text-secondary);
     font-size: 0.95rem;
+    margin: 0;
 }
 
+/* =============================================
+   ТЕЛО ФОРМЫ
+   ============================================= */
 .login-body {
     padding: 2.5rem;
 }
 
+/* =============================================
+   ГРУППЫ ПОЛЕЙ
+   ============================================= */
 .form-group {
     margin-bottom: 1.5rem;
     position: relative;
@@ -89,7 +119,8 @@
     display: block;
 }
 
-.form-control {
+/* Стили form-control для login (уточнение скопа) */
+.login-body .form-control {
     background: rgba(15, 23, 42, 0.5) !important;
     border: 1px solid var(--glass-border) !important;
     color: var(--text-color) !important;
@@ -98,32 +129,58 @@
     transition: var(--transition) !important;
 }
 
-.form-control:focus {
+.login-body .form-control::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.7;
+}
+
+.login-body .form-control:focus {
     background: rgba(15, 23, 42, 0.8) !important;
     border-color: var(--primary-color) !important;
     box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1) !important;
 }
 
+.login-body .form-control.is-invalid {
+    border-color: var(--danger-color) !important;
+}
+
+/* =============================================
+   ПЕРЕКЛЮЧАТЕЛЬ ВИДИМОСТИ ПАРОЛЯ
+   ============================================= */
 .password-toggle {
     position: absolute;
     right: 1rem;
-    top: 2.4rem; /* Aligned with input center */
+    top: 2.4rem;
     cursor: pointer;
     color: var(--text-muted);
-    transition: color 0.3s ease;
+    transition: color var(--transition);
     z-index: 10;
+    line-height: 1;
 }
 
 .password-toggle:hover {
     color: var(--primary-color);
 }
 
+/* =============================================
+   ЗАПОМНИТЬ / ЗАБЫЛ ПАРОЛЬ
+   ============================================= */
 .remember-forgot {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
     font-size: 0.875rem;
+}
+
+.form-check-input {
+    background-color: rgba(15, 23, 42, 0.6);
+    border-color: var(--glass-border);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .form-check-label {
@@ -135,12 +192,17 @@
     color: var(--primary-color);
     cursor: pointer;
     font-weight: 500;
+    transition: var(--transition);
 }
 
 .forgot-password:hover {
+    color: var(--primary-light);
     text-decoration: underline;
 }
 
+/* =============================================
+   КНОПКА ВХОДА
+   ============================================= */
 .btn-login {
     background: var(--primary-gradient);
     border: none;
@@ -153,36 +215,50 @@
     transition: var(--transition);
     box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
     margin-bottom: 1.5rem;
+    cursor: pointer;
 }
 
 .btn-login:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
     filter: brightness(1.1);
+    color: white;
 }
 
 .btn-login:disabled {
-    opacity: 0.6;
+    opacity: 0.55;
     cursor: not-allowed;
-    background: var(--neutral-400);
+    background: var(--neutral-600, rgba(100, 116, 139, 0.6));
 }
 
-.login-links, .contact-support {
+/* =============================================
+   ССЫЛКИ ПОД ФОРМОЙ
+   ============================================= */
+.login-links,
+.contact-support {
     text-align: center;
     font-size: 0.875rem;
     color: var(--text-secondary);
+    margin-bottom: 0.75rem;
 }
 
-.login-links a, .contact-support a {
+.login-links a,
+.contact-support a {
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 500;
+    transition: var(--transition);
 }
 
-.login-links a:hover, .contact-support a:hover {
+.login-links a:hover,
+.contact-support a:hover {
+    color: var(--primary-light);
     text-decoration: underline;
 }
 
+/* =============================================
+   РАЗДЕЛИТЕЛЬ "ИЛИ"
+   ============================================= */
 .social-divider {
     position: relative;
     text-align: center;
@@ -190,7 +266,7 @@
     color: var(--text-muted);
     font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
 }
 
 .social-divider::before {
@@ -204,13 +280,16 @@
 }
 
 .social-divider span {
-    background: var(--bg-card);
+    background: var(--bg-card, rgba(15, 23, 42, 0.6));
     padding: 0 1rem;
     position: relative;
     border: 1px solid var(--glass-border);
     border-radius: 20px;
 }
 
+/* =============================================
+   КНОПКИ СОЦИАЛЬНЫХ СЕТЕЙ
+   ============================================= */
 .social-buttons {
     display: flex;
     gap: 1rem;
@@ -230,15 +309,19 @@
     justify-content: center;
     gap: 0.5rem;
     font-size: 0.9rem;
+    cursor: pointer;
 }
 
 .btn-social:hover {
-    background: rgba(15, 23, 42, 0.8);
-    border-color: var(--primary-light);
+    background: rgba(129, 140, 248, 0.12);
+    border-color: var(--primary-color);
+    color: var(--text-color);
     transform: translateY(-2px);
 }
 
-/* Captcha styling */
+/* =============================================
+   CAPTCHA
+   ============================================= */
 .captcha-container {
     background: rgba(15, 23, 42, 0.3);
     padding: 0.5rem;
@@ -246,9 +329,45 @@
     display: flex;
     justify-content: center;
     margin-top: 0.5rem;
+    border: 1px solid var(--glass-border);
 }
 
 .captcha-container img {
-    border-radius: 8px;
-    filter: invert(0.1);
+    border-radius: 6px;
+    filter: invert(0.05);
+}
+
+/* =============================================
+   АЛЕРТ ОШИБОК
+   ============================================= */
+.login-body .alert {
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.login-body .alert-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #f87171;
+}
+
+/* =============================================
+   АДАПТИВНОСТЬ
+   ============================================= */
+@media (max-width: 480px) {
+    .login-body {
+        padding: 2rem 1.5rem;
+    }
+    .login-header {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+    .social-buttons {
+        flex-direction: column;
+    }
+    .remember-forgot {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
 }

@@ -2,10 +2,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-
-{% block title %}
-{{ site_settings.logo_text }} - Вход
-{% endblock %}
+{% block title %}{{ site_settings.logo_text }} - Вход{% endblock %}
 
 {% block header %}
 {% include "accounts/login_header.html" %}
@@ -14,6 +11,9 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
 {% endblock %}
+
+{% block hero_section %}{% endblock %}
+{% block sidebar %}{% endblock %}
 
 {% block content %}
 <section class="login-section">
@@ -28,11 +28,12 @@
         <div class="login-body">
             {% if form.errors %}
             <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle me-2"></i>
                 <strong>Ошибка входа:</strong>
                 {% if form.non_field_errors %}
                 {{ form.non_field_errors.0 }}
                 {% else %}
-                Пожалуйста, проверьте правильность введенных данных.
+                Пожалуйста, проверьте правильность введённых данных.
                 {% endif %}
             </div>
             {% endif %}
@@ -40,6 +41,7 @@
             {% if messages %}
             {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
+                <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} me-2"></i>
                 {{ message }}
             </div>
             {% endfor %}
@@ -52,10 +54,11 @@
                     <label for="id_username" class="form-label">Имя пользователя или Email</label>
                     <input type="text" name="username" id="id_username"
                         class="form-control {% if form.username.errors %}is-invalid{% endif %}"
-                        placeholder="Введите имя пользователя или email" value="{{ form.username.value|default:'' }}"
-                        required>
+                        placeholder="Введите имя пользователя или email"
+                        value="{{ form.username.value|default:'' }}"
+                        required autocomplete="username">
                     {% if form.username.errors %}
-                    <div class="invalid-feedback">{{ form.username.errors.0 }}</div>
+                    <div class="invalid-feedback d-block">{{ form.username.errors.0 }}</div>
                     {% endif %}
                 </div>
 
@@ -63,12 +66,13 @@
                     <label for="id_password" class="form-label">Пароль</label>
                     <input type="password" name="password" id="id_password"
                         class="form-control {% if form.password.errors %}is-invalid{% endif %}"
-                        placeholder="Введите ваш пароль" required>
-                    <span class="password-toggle" onclick="togglePassword()">
+                        placeholder="Введите ваш пароль"
+                        required autocomplete="current-password">
+                    <span class="password-toggle" onclick="togglePassword()" aria-label="Показать/скрыть пароль">
                         <i class="fas fa-eye"></i>
                     </span>
                     {% if form.password.errors %}
-                    <div class="invalid-feedback">{{ form.password.errors.0 }}</div>
+                    <div class="invalid-feedback d-block">{{ form.password.errors.0 }}</div>
                     {% endif %}
                 </div>
 
@@ -78,7 +82,7 @@
                         {{ form.captcha }}
                     </div>
                     {% if form.captcha.errors %}
-                    <div class="invalid-feedback d-block">{{ form.captcha.errors.0 }}</div>
+                    <div class="invalid-feedback d-block mt-2">{{ form.captcha.errors.0 }}</div>
                     {% endif %}
                 </div>
 
@@ -90,14 +94,13 @@
                     <span class="forgot-password" onclick="showPasswordHelp()">Забыли пароль?</span>
                 </div>
 
-                <button type="submit" class="btn btn-login" id="login-button">
-                    <i class="fas fa-sign-in-alt me-2"></i>
-                    Войти
+                <button type="submit" class="btn-login" id="login-button">
+                    <i class="fas fa-sign-in-alt me-2"></i>Войти
                 </button>
             </form>
 
             <div class="login-links">
-                <p>Еще нет аккаунта? <a href="{% url 'accounts:register' %}">Зарегистрируйтесь здесь</a></p>
+                <p>Ещё нет аккаунта? <a href="{% url 'accounts:register' %}">Зарегистрируйтесь здесь</a></p>
             </div>
 
             <div class="contact-support">
@@ -113,7 +116,7 @@
                     <i class="fab fa-google"></i> Google
                 </button>
                 <button class="btn-social" onclick="alert('Функция входа через VK будет добавлена позже')">
-                    <i class="fab fa-vk"></i> VK
+                    <i class="fab fa-vk"></i> ВКонтакте
                 </button>
             </div>
         </div>
@@ -129,35 +132,29 @@
         const passwordInput = document.getElementById('id_password');
         const loginButton = document.getElementById('login-button');
 
-        // Функция для переключения видимости пароля
+        // Переключение видимости пароля
         window.togglePassword = function () {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
             const eyeIcon = document.querySelector('.password-toggle i');
             eyeIcon.classList.toggle('fa-eye');
             eyeIcon.classList.toggle('fa-eye-slash');
-        }
+        };
 
-        // Функция помощи с паролем
+        // Помощь с паролем
         window.showPasswordHelp = function () {
-            alert('Если вы забыли пароль, пожалуйста, свяжитесь с технической поддержкой по email: support@example.com или создайте новый аккаунт.');
-        }
+            alert('Если вы забыли пароль, пожалуйста, свяжитесь с технической поддержкой по email: support@dpits-cms.ru или создайте новый аккаунт.');
+        };
 
-        // Функция контакта поддержки
+        // Контакты поддержки
         window.showSupportContact = function () {
-            alert(
-            'Техническая поддержка:\n
-            Email: info@dpits-cms.ru\n
-            Телефон: +7 (909) 661-79-95\n
-            Время работы: Пн-Пт, 13:00-21:00'
-        );
-        }
+            alert('Техническая поддержка:\nEmail: info@dpits-cms.ru\nТелефон: +7 (909) 661-79-95\nВремя работы: Пн-Пт, 13:00–21:00');
+        };
 
-        // Валидация в реальном времени
+        // Валидация форм в реальном времени
         function validateForm() {
             let isValid = true;
 
-            // Проверка имени пользователя
             if (!usernameInput.value.trim()) {
                 markInvalid(usernameInput, 'Поле обязательно для заполнения');
                 isValid = false;
@@ -165,7 +162,6 @@
                 markValid(usernameInput);
             }
 
-            // Проверка пароля
             if (!passwordInput.value.trim()) {
                 markInvalid(passwordInput, 'Поле обязательно для заполнения');
                 isValid = false;
@@ -182,10 +178,10 @@
 
         function markInvalid(input, message) {
             input.classList.add('is-invalid');
-            let feedback = input.nextElementSibling;
-            if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+            let feedback = input.parentNode.querySelector('.invalid-feedback');
+            if (!feedback) {
                 feedback = document.createElement('div');
-                feedback.className = 'invalid-feedback';
+                feedback.className = 'invalid-feedback d-block';
                 input.parentNode.appendChild(feedback);
             }
             feedback.textContent = message;
@@ -193,29 +189,20 @@
 
         function markValid(input) {
             input.classList.remove('is-invalid');
-            const feedback = input.nextElementSibling;
-            if (feedback && feedback.classList.contains('invalid-feedback')) {
-                feedback.remove();
-            }
+            const feedback = input.parentNode.querySelector('.invalid-feedback');
+            if (feedback) feedback.remove();
         }
 
-        // События для валидации
         usernameInput.addEventListener('input', validateForm);
         usernameInput.addEventListener('blur', validateForm);
         passwordInput.addEventListener('input', validateForm);
         passwordInput.addEventListener('blur', validateForm);
 
-        // Валидация при отправке формы
         form.addEventListener('submit', function (e) {
-            if (!validateForm()) {
-                e.preventDefault();
-            }
+            if (!validateForm()) e.preventDefault();
         });
 
-        // Инициализация валидации
         validateForm();
-
-        // Автофокус на поле имени пользователя
         usernameInput.focus();
     });
 </script>

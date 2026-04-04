@@ -137,26 +137,21 @@
 
 {% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Добавляем классы к полям формы Django
-        const inputs = document.querySelectorAll('#profileEditForm input');
-        inputs.forEach(input => {
-            if (input.type !== 'hidden' && input.type !== 'submit') {
-                input.classList.add('form-control-custom');
-            }
+        document.querySelectorAll('#profileEditForm input:not([type=hidden]):not([type=submit])').forEach(input => {
+            input.classList.add('form-control-custom');
         });
 
-        // Плавная анимация фокуса
-        const formGroups = document.querySelectorAll('.form-group-custom');
-        formGroups.forEach((group, index) => {
+        // Плавная анимация появления групп полей
+        document.querySelectorAll('.form-group-custom').forEach((group, index) => {
             group.style.opacity = '0';
             group.style.transform = 'translateY(20px)';
             group.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-            
             setTimeout(() => {
                 group.style.opacity = '1';
                 group.style.transform = 'translateY(0)';
-            }, 100 + index * 100);
+            }, 80 + index * 80);
         });
     });
 </script>
