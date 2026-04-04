@@ -7,6 +7,7 @@ from django.shortcuts import (
 )
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import JsonResponse
 from .models import News, NewsCategory, NewsTag
 from .utils import get_cached_news_categories, get_cached_sidebar_news
 from main.breadcrumbs import get_breadcrumbs
@@ -230,17 +231,13 @@ def news_by_tag(request, slug):
     return render(request, "news/list.html", context)
 
 
-def get_category_images(request):
+def get_category_image(request, category_id):
     """
-    API View: возвращает словарь {id: image_url} для всех категорий.
-    Используется в админке для динамического предпросмотра картинки.
+    API endpoint для получения URL изображения категории.
+    Используется в админке для автоматической подстановки картинки.
     """
-    from django.http import JsonResponse
-    from django.conf import settings
-    categories = NewsCategory.objects.values('id', 'image')
-    # Добавляем полный URL для изображений
-    data = {}
-    for cat in categories:
-        if cat['image']:
-            data[cat['id']] = f"{settings.MEDIA_URL}{cat['image']}"
-    return JsonResponse(data)
+    category = get_object_or_404(NewsCategory, pk=category_id)
+    return JsonResponse({
+        "image_url": category.image.url if category.image else None,
+        "hero_image_url": category.hero_image.url if category.hero_image else None
+    })

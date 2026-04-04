@@ -152,11 +152,9 @@ class News(HeroMixin):
         verbose_name="Категория",
     )
     image = models.ImageField(
-        "Изображение",
-        upload_to="news/",
-        blank=True,
-        null=True,
-        help_text="Оставьте пустым для использования изображения категории по умолчанию",
+        "Изображение",  # Человекочитаемое имя поля
+        upload_to="news/",  # Папка для загрузки изображений новостей
+        default="news/default-category.png",  # Изображение по умолчанию, если не указано
     )
     is_active = models.BooleanField(
         "Активно", default=True
@@ -218,8 +216,16 @@ class News(HeroMixin):
     def save(self, *args, **kwargs):
         """
         Создаем slug из заголовка, если он не задан.
-        ИСПРАВЛЕНО: При проверке уникальности исключаем текущий объект.
+        Автоматически устанавливаем изображение из категории, если свое не задано.
         """
+        # Если изображение не задано или является дефолтным, пробуем взять его из категории
+        if (not self.image or self.image.name == 'news/default-category.png') and self.category and self.category.image:
+            self.image = self.category.image
+
+        # Наследование Hero-изображения из категории
+        if not self.hero_image and self.category and self.category.hero_image:
+            self.hero_image = self.category.hero_image
+
         if not self.slug:
             base_slug = slugify(self.title)  # Преобразуем заголовок в slug
             self.slug = base_slug  # Устанавливаем базовый slug
@@ -235,11 +241,6 @@ class News(HeroMixin):
                 if self.pk:  # Если объект уже существует
                     queryset = queryset.exclude(pk=self.pk)  # Исключаем текущий объект
                 counter += 1  # Увеличиваем счетчик
-
-        # Автоматически добавляем картинку категории, если своя не задана
-        if not self.image and self.category and self.category.image:
-            self.image = self.category.image
-
         super().save(*args, **kwargs)  # Вызываем метод save родительского класса
 
     def get_absolute_url(self):

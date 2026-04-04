@@ -125,6 +125,9 @@ class NewsAdmin(admin.ModelAdmin):
         ),
     )
 
+    class Media:
+        js = ("news/js/category-image.js",)
+
     actions = ["clear_views_action"]
 
     def clear_views_button(self, obj):
@@ -170,6 +173,3 @@ class NewsAdmin(admin.ModelAdmin):
         self.message_user(
             request, f"Количество просмотров сброшено для {updated_count} новостей."
         )
-
-    class Media:
-        js = ("news/js/category-image.js",)
