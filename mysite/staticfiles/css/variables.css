@@ -43,6 +43,7 @@
     --bg-accent: #111827;
     --bg-glass: rgba(2, 6, 23, 0.75);
     --bg-glass-light: rgba(255, 255, 255, 0.03);
+    --bg-cookie: #0489d0;
 
     /* ========== TEXT COLORS ========== */
     --text-primary: #ffffff;      /* Pure white for max contrast */
@@ -51,6 +52,7 @@
     --text-accent: #6366f1;
     --text-inverse: #020617;
     --text-white: #ffffff;
+    --text-cookie: #332525;
     
     /* ========== LINKS ========== */
     --link-color: #38bdf8;        /* Sky-400 */
@@ -60,6 +62,7 @@
     --border-color: rgba(255, 255, 255, 0.08);
     --border-color-hover: rgba(255, 255, 255, 0.15);
     --border-color-strong: rgba(255, 255, 255, 0.2);
+    --border-cookie: 1px solid rgba(255, 255, 255, 0.1);
 
     /* ========== SEMANTIC COLORS ========== */
     --success-color: #10b981;
@@ -82,6 +85,7 @@
     --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
     --shadow-glow-primary: 0 0 20px rgba(99, 102, 241, 0.3);
     --shadow-glow-secondary: 0 0 20px rgba(6, 182, 212, 0.3);
+    --shadow-cookie: 0 10px 25px rgba(0, 0, 0, 0.2);
 
     /* ========== BORDER RADIUS ========== */
     --radius-sm: 8px;
