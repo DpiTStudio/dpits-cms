@@ -20,6 +20,16 @@
             </a>
             {% endif %}
 
+            {% if site_settings.phone2 %}
+            <a href="tel:{{ site_settings.phone2 }}" class="sidebar-contact-link" style="animation-delay: 100ms;">
+                <i class="fas fa-phone-alt"></i>
+                <div class="flex-grow-1">
+                    <small class="d-block opacity-50 uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Телефон</small>
+                    <span class="d-block fw-bold">{{ site_settings.phone2 }}</span>
+                </div>
+            </a>
+            {% endif %}
+
             {% if site_settings.email %}
             <a href="mailto:{{ site_settings.email }}" class="sidebar-contact-link" style="animation-delay: 200ms;">
                 <i class="fas fa-envelope"></i>
