@@ -44,6 +44,7 @@
     --bg-glass: rgba(2, 6, 23, 0.75);
     --bg-glass-light: rgba(255, 255, 255, 0.03);
     --bg-cookie: #0489d0;
+    --bg-color-cs: hwb(195 5% 93% / 0.188);
 
     /* ========== TEXT COLORS ========== */
     --text-primary: #ffffff;      /* Pure white for max contrast */

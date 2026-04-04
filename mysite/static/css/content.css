@@ -79,9 +79,10 @@
 /* ========== СЕКЦИЯ ПРЕИМУЩЕСТВ ========== */
 
 .content-section {
-    background-color: transparent;
+    background-color: var(--bg-color-cs);
     padding: var(--spacing-xxl) 0;
     width: 100%;
+    margin-top: var(--spacing-xxl);
 }
 
 /* Заголовок секции преимуществ */
