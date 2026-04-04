@@ -4,6 +4,9 @@
 # Кроме самого .gitignore
 # !.gitignore
 
+# README
+README.txt
+
 # Виртуальные окружения и IDE
 .venv/
 .vscode/
