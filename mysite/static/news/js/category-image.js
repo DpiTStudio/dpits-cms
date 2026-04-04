@@ -24,6 +24,45 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (categorySelect) {
+        const updateStatus = () => {
+            const hasCustomImage = imageInput && imageInput.value;
+            const heroImageInput = document.getElementById('id_hero_image');
+            const hasCustomHeroImage = heroImageInput && heroImageInput.value;
+            
+            // Статус основного изображения
+            const previews = previewWrapper.querySelectorAll('.inheritance-status');
+            previews.forEach(span => {
+                if (hasCustomImage) {
+                    span.innerHTML = '⚠️ Будет заменено вашим файлом';
+                    span.style.color = '#ffc107';
+                } else {
+                    span.innerHTML = '✅ Будет унаследовано из категории';
+                    span.style.color = '#28a745';
+                }
+            });
+
+            // Статус Hero изображения
+            const heroPreviews = previewWrapper.querySelectorAll('.inheritance-status-hero');
+            heroPreviews.forEach(span => {
+                if (hasCustomHeroImage) {
+                    span.innerHTML = '⚠️ Будет заменено вашим файлом';
+                    span.style.color = '#ffc107';
+                } else {
+                    span.innerHTML = '✅ Будет унаследовано из категории';
+                    span.style.color = '#28a745';
+                }
+            });
+        };
+
+        if (imageInput) {
+            imageInput.addEventListener('change', updateStatus);
+        }
+        
+        const heroImageInput = document.getElementById('id_hero_image');
+        if (heroImageInput) {
+            heroImageInput.addEventListener('change', updateStatus);
+        }
+
         categorySelect.addEventListener('change', function() {
             const categoryId = this.value;
             if (!categoryId) {
@@ -44,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div style="padding: 10px; background: rgba(0,0,0,0.05); border: 1px dashed #ccc; border-radius: 4px; min-width: 220px;">
                                     <p style="margin: 0 0 5px 0; color: #666; font-size: 11px; font-weight: bold;">Основное изображение:</p>
                                     <img src="${data.image_url}" style="max-width: 200px; max-height: 150px; display: block; border-radius: 4px; margin-bottom: 5px;">
-                                    <span style="color: #28a745; font-size: 10px;">Будет унаследовано из категории</span>
+                                    <span class="inheritance-status" style="font-size: 10px; font-weight: 500;"></span>
                                 </div>
                             `;
                         }
@@ -54,12 +93,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div style="padding: 10px; background: rgba(0,0,0,0.05); border: 1px dashed #ccc; border-radius: 4px; min-width: 220px;">
                                     <p style="margin: 0 0 5px 0; color: #666; font-size: 11px; font-weight: bold;">Hero изображение:</p>
                                     <img src="${data.hero_image_url}" style="max-width: 200px; max-height: 150px; display: block; border-radius: 4px; margin-bottom: 5px;">
-                                    <span style="color: #28a745; font-size: 10px;">Будет унаследовано из категории</span>
+                                    <span class="inheritance-status-hero" style="font-size: 10px; color: #28a745; font-weight: 500;">✅ Будет унаследовано из категории</span>
                                 </div>
                             `;
                         }
                         
                         previewWrapper.innerHTML = html;
+                        updateStatus();
                     }
                 })
                 .catch(error => {

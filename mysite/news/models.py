@@ -155,6 +155,7 @@ class News(HeroMixin):
         "Изображение",  # Человекочитаемое имя поля
         upload_to="news/",  # Папка для загрузки изображений новостей
         default="news/default-category.png",  # Изображение по умолчанию, если не указано
+        help_text="Оставьте стандартное изображение, чтобы использовать картинку из категории",
     )
     is_active = models.BooleanField(
         "Активно", default=True
@@ -217,14 +218,47 @@ class News(HeroMixin):
         """
         Создаем slug из заголовка, если он не задан.
         Автоматически устанавливаем изображение из категории, если свое не задано.
+        Умное наследование: если категория меняется и изображение было унаследовано от старой,
+        оно обновится на изображение новой категории.
         """
-        # Если изображение не задано или является дефолтным, пробуем взять его из категории
-        if (not self.image or self.image.name == 'news/default-category.png') and self.category and self.category.image:
-            self.image = self.category.image
+        if self.category:
+            # 1. Если изображение не задано или является основным дефолтным
+            if not self.image or self.image.name == 'news/default-category.png':
+                if self.category.image:
+                    self.image = self.category.image
+            
+            # 2. Если объект уже существует, проверяем, не сменилась ли категория
+            elif self.pk:
+                try:
+                    old_instance = News.objects.get(pk=self.pk)
+                    # Если категория изменилась
+                    if old_instance.category_id != self.category_id:
+                        # Проверяем, было ли текущее изображение унаследовано от старой категории
+                        if old_instance.category and old_instance.category.image and \
+                           self.image.name == old_instance.category.image.name:
+                            # Да, это было наследство. Обновляем его из новой категории (или ставим дефолт)
+                            if self.category.image:
+                                self.image = self.category.image
+                            else:
+                                self.image = 'news/default-category.png'
+                except News.DoesNotExist:
+                    pass
 
-        # Наследование Hero-изображения из категории
-        if not self.hero_image and self.category and self.category.hero_image:
-            self.hero_image = self.category.hero_image
+            # Аналогичная логика для Hero-изображения
+            if not self.hero_image and self.category.hero_image:
+                self.hero_image = self.category.hero_image
+            elif self.pk:
+                try:
+                    old_instance = News.objects.get(pk=self.pk)
+                    if old_instance.category_id != self.category_id:
+                        if old_instance.category and old_instance.category.hero_image and \
+                           self.hero_image.name == old_instance.category.hero_image.name:
+                            if self.category.hero_image:
+                                self.hero_image = self.category.hero_image
+                            else:
+                                self.hero_image = None
+                except News.DoesNotExist:
+                    pass
 
         if not self.slug:
             base_slug = slugify(self.title)  # Преобразуем заголовок в slug
