@@ -85,8 +85,8 @@ class NewsAdmin(admin.ModelAdmin):
                     "title",
                     "slug",
                     "category",
-                    "tags",
                     "image",
+                    "tags",
                     "short_description",
                     "content",
                 )
@@ -122,7 +122,7 @@ class NewsAdmin(admin.ModelAdmin):
                 ),
                 "classes": ("collapse",),
             },
-        ),
+        ),   
     )
 
     class Media:

@@ -158,6 +158,7 @@ class News(HeroMixin):
         "Изображение",  # Человекочитаемое имя поля
         upload_to="news/",  # Папка для загрузки изображений новостей
         default="news/default-category.png",  # Изображение по умолчанию, если не указано
+        blank=True,
         help_text="Оставьте стандартное изображение, чтобы использовать картинку из категории",
     )
     is_active = models.BooleanField(
