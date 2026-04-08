@@ -1,68 +1,46 @@
 <!-- ============================================
      ФАЙЛ: content-section.html
-     ОПИСАНИЕ: Секция с преимуществами компании
-     Bootstrap 5 — адаптивная верстка
+     ОПИСАНИЕ: Секция преимуществ компании
+     СТИЛЬ: Управляемый через content-section.css (BEM)
      ============================================ -->
 
 <section class="cs-advantages" aria-labelledby="cs-advantages-title">
-    <div class="container-xl px-3 px-sm-4 px-lg-5 py-5">
-
-        <!-- Заголовок секции -->
-        <div class="row mb-4 mb-md-5">
-            <div class="col-12">
-                <h2 id="cs-advantages-title" class="cs-advantages__title">
-                    Наши преимущества
-                </h2>
-            </div>
-        </div>
-
-        <!-- Карточки преимуществ -->
-        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-3">
+    <div class="cs-advantages__container">
+        <!-- Сетка карточек -->
+        <div class="cs-advantages__grid">
 
             <!-- Карточка: Скорость -->
-            <div class="col">
-                <div class="cs-advantages__card h-100">
-                    <div class="cs-advantages__card-body">
-                        <div class="cs-advantages__icon-wrap">
-                            <i class="fas fa-rocket cs-advantages__icon" aria-hidden="true"></i>
-                        </div>
-                        <h3 class="cs-advantages__card-title">Скорость</h3>
-                        <p class="cs-advantages__card-text">
-                            Быстрая реализация проектов любой сложности
-                        </p>
-                    </div>
+            <article class="cs-advantages__card">
+                <div class="cs-advantages__icon-wrap">
+                    <i class="fas fa-rocket cs-advantages__icon" aria-hidden="true"></i>
                 </div>
-            </div>
+                <h3 class="cs-advantages__card-title">Скорость</h3>
+                <p class="cs-advantages__card-text">
+                    Быстрая реализация проектов любой сложности с использованием современных инструментов автоматизации.
+                </p>
+            </article>
 
             <!-- Карточка: Качество -->
-            <div class="col">
-                <div class="cs-advantages__card h-100">
-                    <div class="cs-advantages__card-body">
-                        <div class="cs-advantages__icon-wrap">
-                            <i class="fas fa-medal cs-advantages__icon" aria-hidden="true"></i>
-                        </div>
-                        <h3 class="cs-advantages__card-title">Качество</h3>
-                        <p class="cs-advantages__card-text">
-                            Высокое качество исполнения и внимание к деталям
-                        </p>
-                    </div>
+            <article class="cs-advantages__card">
+                <div class="cs-advantages__icon-wrap">
+                    <i class="fas fa-medal cs-advantages__icon" aria-hidden="true"></i>
                 </div>
-            </div>
+                <h3 class="cs-advantages__card-title">Качество</h3>
+                <p class="cs-advantages__card-text">
+                    Высокое качество исполнения, соответствующее международным стандартам разработки.
+                </p>
+            </article>
 
             <!-- Карточка: Поддержка -->
-            <div class="col">
-                <div class="cs-advantages__card h-100">
-                    <div class="cs-advantages__card-body">
-                        <div class="cs-advantages__icon-wrap">
-                            <i class="fas fa-headset cs-advantages__icon" aria-hidden="true"></i>
-                        </div>
-                        <h3 class="cs-advantages__card-title">Поддержка</h3>
-                        <p class="cs-advantages__card-text">
-                            Круглосуточная техническая поддержка
-                        </p>
-                    </div>
+            <article class="cs-advantages__card">
+                <div class="cs-advantages__icon-wrap">
+                    <i class="fas fa-headset cs-advantages__icon" aria-hidden="true"></i>
                 </div>
-            </div>
+                <h3 class="cs-advantages__card-title">Поддержка</h3>
+                <p class="cs-advantages__card-text">
+                    Круглосуточная техническая поддержка и сопровождение ваших проектов после запуска.
+                </p>
+            </article>
 
         </div>
     </div>
