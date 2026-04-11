@@ -5,7 +5,7 @@
 
 /* Основная секция hero */
 .hero-section {
-    padding: calc(var(--spacing-12) + var(--header-height)) 0 var(--spacing-8) 0 !important;
+    padding: calc(var(--spacing-12) + var(--header-height)) 0 var(--spacing-8) 0 !important; 
     margin-bottom: var(--spacing-8);
     color: var(--text-white);
     position: relative;
@@ -138,5 +138,53 @@
     .text_motto {
         margin: 0 auto var(--spacing-6) auto;
         font-size: 1.125rem;
+    }
+}
+
+/* Расширенные классы и анимации */
+.fw-black {
+    font-weight: 900;
+}
+
+.text-white-75 {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.transition-hover {
+    transition: all 0.3s ease;
+}
+
+.transition-hover:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+.dynamic-hover {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.dynamic-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.hero-side-image {
+    transition: transform 0.5s ease;
+}
+
+.hero-image-wrapper:hover .hero-side-image {
+    transform: scale(1.05);
+}
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

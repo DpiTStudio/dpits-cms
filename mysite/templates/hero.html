@@ -1,6 +1,6 @@
 <!-- ============================================
      ФАЙЛ: hero.html
-     ОПИСАНИЕ: Упрощенная Hero-секция (главный баннер) сайта
+     ОПИСАНИЕ: Улучшенная Hero-секция (главный баннер) сайта с расширенной мета-информацией
      ============================================ -->
 
 {% load static %}
@@ -11,61 +11,140 @@
 {# Проверяем, активен ли баннер #}
 {% if active_hero.hero_is_active|default:True %}
 <section class="hero-section text-white position-relative d-flex align-items-center"
-    style="min-height: 45vh; {% if active_hero.hero_image %}background: url('{{ active_hero.hero_image.url }}') center/cover no-repeat;
+    style="min-height: 50vh; {% if active_hero.hero_image %}background: url('{{ active_hero.hero_image.url }}') center/cover no-repeat;
            {% elif active_hero.image %}background: url('{{ active_hero.image.url }}') center/cover no-repeat;
            {% elif active_hero.background %}background: url('{{ active_hero.background.url }}') center/cover no-repeat;
            {% elif site_settings.hero_background %}background: url('{{ site_settings.hero_background.url }}') center/cover no-repeat;
            {% else %}background: linear-gradient(135deg, var(--primary-color) 0%, #1e3c72 100%);{% endif %}">
     
-    {# Современный градиентный затемняющий слой с легким блюром #}
-    <div class="position-absolute w-100 h-100 top-0 start-0" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.5) 100%); backdrop-filter: blur(2px); z-index: 0;"></div>
+    {# Современный градиентный затемняющий слой с блюром #}
+    <div class="position-absolute w-100 h-100 top-0 start-0" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%); backdrop-filter: blur(4px); z-index: 0;"></div>
 
     <div class="container position-relative w-100 py-5" style="z-index: 1;">
         <div class="row align-items-center">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-lg-8">
                 
-                {# Беджи #}
-                {% if active_hero.tags and active_hero.tags.all %}
-                <div class="mb-3 d-flex flex-wrap gap-2">
-                    {% for tag in active_hero.tags.all %}
-                        <span class="badge bg-light text-dark rounded-pill shadow-sm px-3 py-2">{{ tag.name }}</span>
-                    {% endfor %}
+                {# Бейджи категории и тегов #}
+                <div class="mb-4 d-flex flex-wrap align-items-center gap-2 fade-in-up" style="animation-delay: 0.1s;">
+                    {% if active_hero.category %}
+                        <a {% if active_hero.category.get_absolute_url %}href="{{ active_hero.category.get_absolute_url }}"{% endif %} 
+                           class="badge bg-primary bg-gradient text-white rounded-pill px-3 py-2 text-decoration-none shadow-sm">
+                            <i class="fas fa-folder-open me-1"></i> {{ active_hero.category.name|default:active_hero.category }}
+                        </a>
+                    {% endif %}
+                    
+                    {% if active_hero.tags and active_hero.tags.all %}
+                        <div class="vr bg-white bg-opacity-25 mx-1 d-none d-sm-block"></div>
+                        {% for tag in active_hero.tags.all %}
+                            <a {% if tag.get_absolute_url %}href="{{ tag.get_absolute_url }}"{% endif %} 
+                               class="badge bg-light bg-opacity-10 text-white border border-light border-opacity-25 rounded-pill px-3 py-2 text-decoration-none transition-hover">
+                                #{{ tag.name }}
+                            </a>
+                        {% endfor %}
+                    {% endif %}
                 </div>
-                {% elif active_hero.category %}
-                <div class="mb-3">
-                    {% if active_hero.category.name == "Новости" %}
-                    <span class="badge bg-secondary rounded-pill shadow-sm px-3 py-2">
-                        {{ active_hero.category.name }}
-                    </span>
+
+                {# Заголовок с улучшенной типографикой #}
+                <h1 class="display-3 fw-black mb-4 hero-title fade-in-up" style="animation-delay: 0.2s; letter-spacing: -1px;">
+                    {% if active_hero.hero_title %}{{ active_hero.hero_title }}
+                    {% elif active_hero.title %}{{ active_hero.title }}
+                    {% elif active_hero.name %}{{ active_hero.name }}
+                    {% else %}{{ site_settings.title|default:"Добро пожаловать" }}{% endif %}
+                </h1>
+                
+                {# Описание / Девиз #}
+                <div class="lead mb-4 text-white-75 fw-normal fade-in-up" style="animation-delay: 0.3s; font-size: 1.25rem; max-width: 90%;">
+                    {% if active_hero.hero_subtitle %}{{ active_hero.hero_subtitle|linebreaksbr }}
+                    {% elif active_hero.short_description %}{{ active_hero.short_description|striptags }}
+                    {% elif active_hero.description %}{{ active_hero.description|striptags|truncatewords:30 }}
+                    {% elif site_settings.slogan %}<i>{{ site_settings.slogan }}</i>{% endif %}
+                </div>
+
+                {# Расширенный блок мета-данных (стекловидный контейнер) #}
+                {% if active_hero.created_at or active_hero.views is not None or active_hero.client or active_hero.project_date %}
+                <div class="hero-glass-meta mt-2 mb-4 p-3 rounded-4 d-inline-flex flex-wrap gap-4 align-items-center fade-in-up" 
+                     style="animation-delay: 0.4s; background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+                    
+                    {% if active_hero.created_at %}
+                    <div class="d-flex align-items-center gap-2 text-white-75 small">
+                        <i class="far fa-calendar-alt text-primary opacity-75"></i>
+                        <span>{{ active_hero.created_at|date:"d M Y" }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    {% if active_hero.project_date %}
+                    <div class="d-flex align-items-center gap-2 text-white-75 small">
+                        <i class="fas fa-flag-checkered text-success opacity-75"></i>
+                        <span>Завершен: {{ active_hero.project_date|date:"m.Y" }}</span>
+                    </div>
+                    {% endif %}
+
+                    {% if active_hero.client %}
+                    <div class="d-flex align-items-center gap-2 text-white-75 small">
+                        <i class="far fa-building text-info opacity-75"></i>
+                        <span>{{ active_hero.client.company|default:active_hero.client }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    {% if active_hero.views is not None %}
+                    <div class="d-flex align-items-center gap-2 text-white-75 small">
+                        <i class="far fa-eye text-warning opacity-75"></i>
+                        <span>{{ active_hero.views }} просмотров</span>
+                    </div>
                     {% endif %}
                 </div>
                 {% endif %}
 
-                <h1 class="display-4 fw-bold mb-3 hero-title">
-                    {% if active_hero.hero_title %}{{ active_hero.hero_title|truncatewords:20 }}
-                    {% elif active_hero.title %}{{ active_hero.title|truncatewords:20 }}
-                    {% elif active_hero.name %}{{ active_hero.name|truncatewords:20 }}
-                    {% else %}{{ site_settings.title|default:"Добро пожаловать" }}{% endif %}
-                </h1>
-                
-                <p class="lead mb-4">
-                    {% if active_hero.hero_subtitle %}{{ active_hero.hero_subtitle|linebreaksbr }}
-                    {% elif active_hero.short_description %}{{ active_hero.short_description|striptags }}
-                    {% elif active_hero.description %}{{ active_hero.description|striptags }}
-                    {% elif site_settings.slogan %}<i>{{ site_settings.slogan }}</i>{% endif %}
-                </p>
+                {# Стек технологий (портфолио) #}
+                {% if active_hero.technologies %}
+                <div class="mt-2 mb-3 fade-in-up" style="animation-delay: 0.5s;">
+                    <strong class="d-block mb-2 text-white-50 small text-uppercase fw-semibold" style="letter-spacing: 1px;">Технологии</strong>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for tech in active_hero.get_technologies_list %}
+                        <span class="badge bg-dark bg-opacity-50 text-light border border-light border-opacity-10 px-3 py-2 rounded-2 system-ui">
+                            <i class="fas fa-code me-1 opacity-50"></i>{{ tech }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {# Кнопки действий (ссылки на проект) #}
+                {% if active_hero.project_url or active_hero.github_url %}
+                <div class="mt-4 gap-3 d-flex flex-wrap fade-in-up" style="animation-delay: 0.6s;">
+                    {% if active_hero.project_url %}
+                    <a href="{{ active_hero.project_url }}" target="_blank" class="btn btn-primary btn-lg rounded-pill px-4 shadow-lg dynamic-hover">
+                        <i class="fas fa-external-link-alt me-2"></i>Смотреть проект
+                    </a>
+                    {% endif %}
+                    {% if active_hero.github_url %}
+                    <a href="{{ active_hero.github_url }}" target="_blank" class="btn btn-outline-light btn-lg rounded-pill px-4 border-opacity-50 dynamic-hover">
+                        <i class="fab fa-github me-2"></i>Исходный код
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
             </div>
             
-            <div class="col-12 col-md-4 text-md-end text-center d-none d-md-block">
-                {% if site_settings.logo %}
-                <img src="{{ site_settings.logo.url }}" alt="Logo" class="img-fluid rounded shadow-sm" style="max-height: 120px;">
+            {# Графическая часть (Обложка проекта или логотип) #}
+            <div class="col-12 col-lg-4 mt-5 mt-lg-0 text-center text-lg-end fade-in-up" style="animation-delay: 0.4s;">
+                {% if active_hero.image and active_hero.image.name != 'news/default-category.png' and active_hero.image.name != 'portfolio/default-category.png' and active_hero.image != active_hero.category.image %}
+                    <div class="hero-image-wrapper rounded-4 overflow-hidden shadow-lg border border-light border-opacity-10 d-inline-block position-relative">
+                        <img src="{{ active_hero.image.url }}" alt="{{ active_hero.title|default:'Фото' }}" class="img-fluid hero-side-image" style="max-height: 350px; object-fit: cover;">
+                        <div class="position-absolute w-100 h-100 top-0 start-0" style="background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); pointer-events: none;"></div>
+                    </div>
+                {% elif site_settings.logo %}
+                    <div class="logo-glass-container p-4 rounded-circle d-inline-flex justify-content-center align-items-center" style="background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%); width: clamp(150px, 20vw, 220px); height: clamp(150px, 20vw, 220px);">
+                        <img src="{{ site_settings.logo.url }}" alt="Логотип" class="img-fluid drop-shadow-lg" style="max-height: 120px; filter: drop-shadow(0 0 20px rgba(255,255,255,0.15));">
+                    </div>
                 {% endif %}
             </div>
         </div>
         
-        <div class="mt-4">
+        <div class="mt-5 fade-in-up" style="animation-delay: 0.7s;">
             {% include 'breadcrumbs.html' %}
         </div>
     </div>
 </section>
 {% endif %}
+
