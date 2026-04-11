@@ -25,6 +25,7 @@
     transform: translateY(-8px);
     box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
     border-color: #6366f1;
+    background: var(--bg-card-hover);
 }
 
 .service-card-body {
@@ -41,10 +42,11 @@
 }
 
 .service-card-description {
-    color: var(--bs-secondary-color, #6c757d);
+    color: var(--text-secondary);
     margin-bottom: 1.5rem;
     flex-grow: 1;
     font-size: 0.9rem;
+    line-height: 1.6;
 }
 
 .service-price {

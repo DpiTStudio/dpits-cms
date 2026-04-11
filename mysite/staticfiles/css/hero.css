@@ -76,7 +76,8 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    /* text-shadow не работает с transparent fill — используем filter */
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
     animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -88,11 +89,11 @@
 /* Подзаголовок / Девиз */
 .text_motto {
     font-size: 1.25rem;
-    color: var(--text-primary); /* Brighter than secondary */
+    color: var(--text-secondary); /* Bright enough on dark bg */
     margin-bottom: var(--spacing-6);
     max-width: 600px;
     line-height: 1.6;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Better contrast */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
     animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
 }
 
@@ -152,7 +153,8 @@
 }
 
 .text-white-75 {
-    color: rgba(255, 255, 255, 0.75) !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .transition-hover {
