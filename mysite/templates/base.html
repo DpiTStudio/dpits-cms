@@ -114,6 +114,7 @@
     <!-- Блок хлебных крошек (теперь внутри hero.html) -->
     {% block breadcrumbs %}{% endblock %}
 
+    {% block content_wrapper %}
     <div class="container-fluid my-5">
       <div class="row g-4">
         <!-- Основной контент -->
@@ -131,6 +132,7 @@
         </div>
       </div>
     </div>
+    {% endblock %}
 
     <!-- Блок контентной секции (переопределяется в дочерних шаблонах) -->
     {% block content_section %}

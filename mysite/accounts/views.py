@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from django.db import transaction
 from django.conf import settings
+from django.utils import timezone
 import logging
 
 # Импорт моделей и форм
@@ -361,8 +362,19 @@ def profile_view(request):
     """
     try:
         user = request.user
-        # Считаем количество активных тикетов
+        # Считаем количество тикетов
         tickets_count = Ticket.objects.filter(user=user).count()
+
+        # Последние 5 тикетов для отображения на странице профиля
+        recent_tickets = (
+            Ticket.objects.filter(user=user)
+            .select_related("user")
+            .prefetch_related("responses")
+            .order_by("-created_at")[:5]
+        )
+
+        # Количество дней с момента регистрации
+        days_registered = (timezone.now() - user.date_joined).days
 
         # Получаем статистику из других приложений
         reviews_count = get_reviews_count(user)
@@ -370,6 +382,8 @@ def profile_view(request):
 
         context = {
             "tickets_count": tickets_count,
+            "recent_tickets": recent_tickets,
+            "days_registered": days_registered,
             "reviews_count": reviews_count,
             "comments_count": comments_count,
             "title": "Мой профиль",
