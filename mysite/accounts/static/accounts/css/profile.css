@@ -8,47 +8,35 @@
 /* profile-page расположен вне стандартного container col-8 */
 
 /* ================================================================
-   HERO — Шапка профиля
+   HERO — Профильный баннер (строится на базе .hero-section + .hero-accounts)
    ================================================================ */
-.profile-hero-banner {
-    position: relative;
-    width: 100%;
-    background: linear-gradient(135deg, #0a0f1e 0%, #0f172a 40%, #1a0a2e 100%);
+
+/* Дополнительная высота и отступ для профильная версии */
+.profile-hero-section {
+    min-height: 260px;
+    padding-top: 2rem;
+    padding-bottom: 0 !important; /* stats-bar вплотную */
+    flex-direction: column;
+    align-items: stretch;
     overflow: hidden;
-    padding: 3.5rem 2rem 3rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Orbs — декоративные размытые шары */
-.profile-hero-orbs { pointer-events: none; }
-.orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.45;
-}
-.orb-1 {
-    width: 500px; height: 500px;
-    top: -200px; left: -100px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.55) 0%, transparent 70%);
-    animation: orbFloat 8s ease-in-out infinite;
-}
-.orb-2 {
-    width: 350px; height: 350px;
-    top: -100px; right: 10%;
-    background: radial-gradient(circle, rgba(244, 63, 94, 0.35) 0%, transparent 70%);
-    animation: orbFloat 10s ease-in-out infinite reverse;
-}
-.orb-3 {
-    width: 280px; height: 280px;
-    bottom: -80px; right: 30%;
-    background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, transparent 70%);
-    animation: orbFloat 7s ease-in-out infinite 2s;
+/* Убираем передающий margin-bottom hero-section */
+.profile-hero-section.hero-section {
+    margin-bottom: 0;
 }
 
-@keyframes orbFloat {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(20px) scale(1.05); }
+/* Градиентный overlay поверх цвета .hero-accounts */
+.profile-hero-overlay {
+    background: linear-gradient(
+        135deg,
+        rgba(10, 15, 30, 0.82) 0%,
+        rgba(26, 10, 46, 0.65) 55%,
+        rgba(15, 23, 42, 0.88) 100%
+    );
+    backdrop-filter: blur(6px);
+    z-index: 1;
+    pointer-events: none;
 }
 
 /* Inner layout */
@@ -61,6 +49,7 @@
     max-width: 1600px;
     margin: 0 auto;
     flex-wrap: wrap;
+    padding: 2rem var(--bs-gutter-x, 1.5rem) 1.5rem;
 }
 
 /* ── Аватар ── */
@@ -130,7 +119,7 @@
 /* ── Информация в hero ── */
 .profile-hero-info {
     flex: 1;
-    min-width: 260px;
+    min-width: 220px;
 }
 
 .profile-hero-name-row {
@@ -142,12 +131,14 @@
 }
 
 .profile-hero-name {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
     font-weight: 800;
     font-family: var(--font-heading);
     color: #fff;
     margin: 0;
     line-height: 1.1;
+    /* hero-title даёт градиентный цвет, отключаем uppercase для имени */
+    text-transform: none;
 }
 
 .role-badge {
@@ -252,6 +243,98 @@
     border-color: rgba(255,255,255,0.16);
     color: rgba(255,255,255,0.85);
 }
+
+/* ================================================================
+   STATS BAR — Компактная полоска статистики внутри hero
+   ================================================================ */
+.profile-hero-stats-bar {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-top: 1.5rem;
+    padding: 1rem calc(var(--bs-gutter-x, 1.5rem));
+    background: rgba(255, 255, 255, 0.04);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(8px);
+}
+
+.phsb-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 2.5rem;
+    gap: 0.2rem;
+    min-width: 100px;
+}
+
+.phsb-num {
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    color: #fff;
+    line-height: 1;
+    background: linear-gradient(135deg, #ffffff, #a5b4fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.phsb-lbl {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+.phsb-lbl i { color: var(--primary-color); opacity: 0.7; }
+
+.phsb-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    align-self: center;
+}
+
+/* Orbs — декоративные размытые шары наследуются из profile.css */
+.profile-hero-orbs { pointer-events: none; position: absolute; inset: 0; overflow: hidden; z-index: 1; }
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.45;
+}
+.orb-1 {
+    width: 500px; height: 500px;
+    top: -200px; left: -100px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.55) 0%, transparent 70%);
+    animation: orbFloat 8s ease-in-out infinite;
+}
+.orb-2 {
+    width: 350px; height: 350px;
+    top: -100px; right: 10%;
+    background: radial-gradient(circle, rgba(244, 63, 94, 0.35) 0%, transparent 70%);
+    animation: orbFloat 10s ease-in-out infinite reverse;
+}
+.orb-3 {
+    width: 280px; height: 280px;
+    bottom: -80px; right: 30%;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, transparent 70%);
+    animation: orbFloat 7s ease-in-out infinite 2s;
+}
+
+@keyframes orbFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(20px) scale(1.05); }
+}
+
 
 /* ================================================================
    ОБЁРТКА СТРАНИЦЫ
@@ -861,6 +944,7 @@
     .profile-main-grid {
         grid-template-columns: 1fr 380px;
     }
+    .phsb-item { padding: 0.5rem 1.75rem; }
 }
 
 @media (max-width: 1024px) {
@@ -873,14 +957,22 @@
     .profile-bottom-row {
         grid-template-columns: 1fr;
     }
+    .profile-hero-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        min-width: unset;
+    }
+    .btn-hero { flex: 0 1 auto; }
 }
 
 @media (max-width: 768px) {
+    /* — Hero --- */
     .profile-hero-inner {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 1.5rem;
+        gap: 1.25rem;
+        padding: 1.5rem 1rem 1rem;
     }
     .profile-hero-meta {
         justify-content: center;
@@ -893,9 +985,23 @@
         flex-wrap: wrap;
         justify-content: center;
         min-width: unset;
+        width: 100%;
     }
-    .btn-hero { flex: 0 1 auto; }
+    .btn-hero {
+        flex: 1 1 calc(50% - 0.5rem);
+        min-width: 120px;
+    }
+    .profile-hero-bio {
+        max-width: 100%;
+        text-align: center;
+    }
 
+    /* — Stats bar — */
+    .phsb-item { padding: 0.4rem 1rem; }
+    .phsb-num  { font-size: 1.3rem; }
+    .phsb-divider { height: 30px; }
+
+    /* — Content — */
     .profile-page-wrap {
         padding: 1.5rem 1rem 3rem;
     }
@@ -914,8 +1020,37 @@
         gap: 0.85rem;
     }
     .pstat-number { font-size: 1.6rem; }
-    .profile-hero-banner { padding: 2.5rem 1.25rem 2rem; }
+
+    /* hero */
     .profile-avatar { width: 100px; height: 100px; }
-    .profile-hero-name { font-size: 1.6rem; }
+    .profile-hero-name {
+        font-size: clamp(1.35rem, 6vw, 1.75rem);
+    }
     .pblock-body { padding: 1.1rem; }
+
+    /* stats-bar */
+    .profile-hero-stats-bar {
+        gap: 0.25rem;
+    }
+    .phsb-item { padding: 0.35rem 0.65rem; min-width: 70px; }
+    .phsb-num  { font-size: 1.15rem; }
+    .phsb-lbl  { font-size: 0.65rem; }
+    .phsb-divider { height: 24px; }
+
+    /* kнопки hero — по одной в строку */
+    .btn-hero { flex: 1 1 100%; }
+}
+
+@media (max-width: 400px) {
+    .profile-hero-inner {
+        padding: 1rem 0.75rem 0.75rem;
+    }
+    .profile-hero-meta { gap: 0.6rem; font-size: 0.75rem; }
+    .phsb-item { padding: 0.3rem 0.4rem; min-width: 60px; }
+    .phsb-num  { font-size: 1rem; }
+    .phsb-divider { display: none; } /* слишком узко — разделители скрываем */
+    .profile-hero-stats-bar {
+        justify-content: space-around;
+        gap: 0.1rem;
+    }
 }

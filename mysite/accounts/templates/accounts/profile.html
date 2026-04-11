@@ -6,88 +6,126 @@
 
 {% block meta_description %}Личный кабинет пользователя {{ user.get_full_name|default:user.username }} — статистика, обращения и настройки профиля.{% endblock %}
 
+{% comment "profile_header" %}
 {% block header %}
     {% include "accounts/profile_header.html" %}
 {% endblock %}
+{% endcomment %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
 {% endblock %}
 
-{# Переопределяем hero-секцию — убираем стандартный hero #}
-{% block hero_section %}{% endblock %}
-
 {# Переопределяем content_section — убираем стандартный #}
 {% block content_section %}{% endblock %}
 
-{# Полная ширина — заменяем весь content_wrapper целиком #}
-{% block content_wrapper %}
-<!-- =========================================================
-     HERO BANNER — Шапка профиля на всю ширину
-     ========================================================= -->
-<div class="profile-hero-banner">
-    <div class="profile-hero-orbs">
+{# ============================================================
+   HERO — Профильный баннер в стандартном блоке hero_section
+   ============================================================ #}
+{% block hero_section %}
+<section class="hero-section hero-accounts text-white position-relative d-flex align-items-center profile-hero-section">
+
+    {# Декоративный разноцветный слой #}
+    <div class="position-absolute w-100 h-100 top-0 start-0 profile-hero-overlay"></div>
+
+    {# Орбы — декоративные светящиеся шары #}
+    <div class="profile-hero-orbs" aria-hidden="true">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
-    <div class="profile-hero-inner">
-        <!-- Аватар -->
-        <div class="profile-avatar-wrap">
-            <div class="profile-avatar-ring">
-                <div class="profile-avatar">
-                    {% if user.profile.avatar %}
-                        <img src="{{ user.profile.avatar.url }}" alt="Аватар {{ user.get_full_name|default:user.username }}">
-                    {% else %}
-                        <div class="avatar-initials">
-                            {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}{% if not user.first_name and not user.last_name %}{{ user.username|first|upper }}{% endif %}
-                        </div>
+
+    <div class="container-fluid position-relative py-5" style="z-index: 2;">
+        <div class="profile-hero-inner">
+
+            {# ── Аватар ── #}
+            <div class="profile-avatar-wrap flex-shrink-0">
+                <div class="profile-avatar-ring">
+                    <div class="profile-avatar">
+                        {% if user.profile.avatar %}
+                            <img src="{{ user.profile.avatar.url }}" alt="Аватар {{ user.get_full_name|default:user.username }}">
+                        {% else %}
+                            <div class="avatar-initials">
+                                {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}{% if not user.first_name and not user.last_name %}{{ user.username|first|upper }}{% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="online-indicator" title="Онлайн"></div>
+            </div>
+
+            {# ── Текстовая часть ── #}
+            <div class="profile-hero-info">
+                <div class="profile-hero-name-row">
+                    <h1 class="profile-hero-name hero-title">{{ user.get_full_name|default:user.username }}</h1>
+                    {% if user.is_staff %}
+                        <span class="role-badge role-admin"><i class="fas fa-shield-alt"></i> Администратор</span>
+                    {% elif user.is_active %}
+                        <span class="role-badge role-user"><i class="fas fa-user-check"></i> Пользователь</span>
+                    {% endif %}
+                </div>
+
+                <p class="profile-hero-username"><i class="fas fa-at"></i> {{ user.username }}</p>
+
+                {% if user.profile.bio %}
+                    <p class="profile-hero-bio">{{ user.profile.bio }}</p>
+                {% endif %}
+
+                <div class="profile-hero-meta">
+                    <span><i class="fas fa-calendar-plus"></i> На сайте с {{ user.date_joined|date:"d M Y" }}</span>
+                    {% if user.last_login %}
+                        <span><i class="fas fa-clock"></i> Вход {{ user.last_login|date:"d M Y, H:i" }}</span>
+                    {% endif %}
+                    {% if user.email %}
+                        <span><i class="fas fa-envelope"></i> {{ user.email }}</span>
                     {% endif %}
                 </div>
             </div>
-            <div class="online-indicator" title="Онлайн"></div>
-        </div>
 
-        <!-- Имя и статус -->
-        <div class="profile-hero-info">
-            <div class="profile-hero-name-row">
-                <h1 class="profile-hero-name">{{ user.get_full_name|default:user.username }}</h1>
-                {% if user.is_staff %}
-                    <span class="role-badge role-admin"><i class="fas fa-shield-alt"></i> Администратор</span>
-                {% elif user.is_active %}
-                    <span class="role-badge role-user"><i class="fas fa-user-check"></i> Пользователь</span>
-                {% endif %}
+            {# ── Кнопки hero ── #}
+            <div class="profile-hero-actions ms-auto">
+                <a href="{% url 'accounts:profile_update' %}" class="btn-hero btn-hero-primary">
+                    <i class="fas fa-user-edit"></i> Редактировать
+                </a>
+                <a href="{% url 'accounts:password_change' %}" class="btn-hero btn-hero-secondary">
+                    <i class="fas fa-key"></i> Пароль
+                </a>
+                <a href="{% url 'accounts:ticket_list' %}" class="btn-hero btn-hero-ghost">
+                    <i class="fas fa-life-ring"></i> Поддержка
+                </a>
             </div>
-            <p class="profile-hero-username"><i class="fas fa-at"></i> {{ user.username }}</p>
-            {% if user.profile.bio %}
-                <p class="profile-hero-bio">{{ user.profile.bio }}</p>
-            {% endif %}
-            <div class="profile-hero-meta">
-                <span><i class="fas fa-calendar-plus"></i> На сайте с {{ user.date_joined|date:"d M Y" }}</span>
-                {% if user.last_login %}
-                    <span><i class="fas fa-clock"></i> Последний вход {{ user.last_login|date:"d M Y, H:i" }}</span>
-                {% endif %}
-                {% if user.email %}
-                    <span><i class="fas fa-envelope"></i> {{ user.email }}</span>
-                {% endif %}
+
+        </div>{# /profile-hero-inner #}
+
+        {# Статистика внутри hero — компактная полоска #}
+        <div class="profile-hero-stats-bar">
+            <div class="phsb-item">
+                <span class="phsb-num">{{ tickets_count }}</span>
+                <span class="phsb-lbl"><i class="fas fa-ticket-alt"></i> Обращений</span>
             </div>
-        </div>
+            <div class="phsb-divider"></div>
+            <div class="phsb-item">
+                <span class="phsb-num">{{ reviews_count }}</span>
+                <span class="phsb-lbl"><i class="fas fa-star"></i> Отзывов</span>
+            </div>
+            <div class="phsb-divider"></div>
+            <div class="phsb-item">
+                <span class="phsb-num">{{ comments_count }}</span>
+                <span class="phsb-lbl"><i class="fas fa-comments"></i> Комментариев</span>
+            </div>
+            <div class="phsb-divider"></div>
+            <div class="phsb-item">
+                <span class="phsb-num">{{ days_registered }}</span>
+                <span class="phsb-lbl"><i class="fas fa-calendar-check"></i> Дней с нами</span>
+            </div>
+        </div>{# /profile-hero-stats-bar #}
 
-        <!-- Быстрые действия -->
-        <div class="profile-hero-actions">
-            <a href="{% url 'accounts:profile_update' %}" class="btn-hero btn-hero-primary">
-                <i class="fas fa-user-edit"></i> Редактировать
-            </a>
-            <a href="{% url 'accounts:password_change' %}" class="btn-hero btn-hero-secondary">
-                <i class="fas fa-key"></i> Пароль
-            </a>
-            <a href="{% url 'accounts:ticket_list' %}" class="btn-hero btn-hero-ghost">
-                <i class="fas fa-life-ring"></i> Поддержка
-            </a>
-        </div>
-    </div>
-</div>
+    </div>{# /container-fluid #}
+</section>
+{% endblock %}
 
+{# Полная ширина — заменяем весь content_wrapper целиком #}
+{% block content_wrapper %}
 <!-- =========================================================
      ОСНОВНОЙ КОНТЕНТ — сетка на всю ширину
      ========================================================= -->
