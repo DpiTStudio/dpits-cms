@@ -103,7 +103,7 @@
                                 </div>
                                 <div>
                                     <h5 class="fw-bold mb-1">Быстрый старт</h5>
-                                    <p class="text-muted mb-0">Начинаем работу в течение 24 часов после подтверждения заказа</p>
+                                    <p style="color: var(--text-secondary);" class="mb-0">Начинаем работу в течение 24 часов после подтверждения заказа</p>
                                 </div>
                             </li>
                             <li class="d-flex align-items-start">
@@ -112,7 +112,7 @@
                                 </div>
                                 <div>
                                     <h5 class="fw-bold mb-1">Персональный менеджер</h5>
-                                    <p class="text-muted mb-0">Вы получаете персонального специалиста на весь срок сотрудничества</p>
+                                    <p style="color: var(--text-secondary);" class="mb-0">Вы получаете персонального специалиста на весь срок сотрудничества</p>
                                 </div>
                             </li>
                             <li class="d-flex align-items-start">
@@ -121,7 +121,7 @@
                                 </div>
                                 <div>
                                     <h5 class="fw-bold mb-1">Отчетность и аналитика</h5>
-                                    <p class="text-muted mb-0">Регулярные отчеты о проделанной работе и результатах</p>
+                                    <p style="color: var(--text-secondary);" class="mb-0">Регулярные отчеты о проделанной работе и результатах</p>
                                 </div>
                             </li>
                         </ul>
@@ -136,19 +136,19 @@
                         <div class="timeline">
                             <div class="timeline-item">
                                 <h5 class="fw-bold mb-1">Консультация и анализ</h5>
-                                <p class="text-muted mb-0">Обсуждение целей, анализ текущей ситуации и постановка задач</p>
+                                <p style="color: var(--text-secondary);" class="mb-0">Обсуждение целей, анализ текущей ситуации и постановка задач</p>
                             </div>
                             <div class="timeline-item">
                                 <h5 class="fw-bold mb-1">Разработка стратегии</h5>
-                                <p class="text-muted mb-0">Создание детального плана работы с учетом ваших потребностей</p>
+                                <p style="color: var(--text-secondary);" class="mb-0">Создание детального плана работы с учетом ваших потребностей</p>
                             </div>
                             <div class="timeline-item">
                                 <h5 class="fw-bold mb-1">Реализация</h5>
-                                <p class="text-muted mb-0">Выполнение всех запланированных работ согласно утвержденному плану</p>
+                                <p style="color: var(--text-secondary);" class="mb-0">Выполнение всех запланированных работ согласно утвержденному плану</p>
                             </div>
                             <div class="timeline-item">
                                 <h5 class="fw-bold mb-1">Контроль и отчет</h5>
-                                <p class="text-muted mb-0">Мониторинг результатов и предоставление финального отчета</p>
+                                <p style="color: var(--text-secondary);" class="mb-0">Мониторинг результатов и предоставление финального отчета</p>
                             </div>
                         </div>
                     </div>
@@ -167,31 +167,31 @@
                         
                         <div class="mb-4">
                             <div class="d-flex align-items-center mb-3">
-                                <div class="icon-box-sm bg-light rounded-circle me-3">
+                                <div class="icon-box-sm rounded-circle me-3" style="background: var(--bg-glass); border: 1px solid var(--border-color);">
                                     <i class="fas fa-tag text-primary"></i>
                                 </div>
                                 <div>
-                                    <small class="text-muted d-block">Стоимость</small>
+                                    <small style="color: var(--text-muted);" class="d-block">Стоимость</small>
                                     <span class="fw-bold fs-4">{{ service.get_price_display }}</span>
                                 </div>
                             </div>
                             
                             <div class="d-flex align-items-center mb-3">
-                                <div class="icon-box-sm bg-light rounded-circle me-3">
+                                <div class="icon-box-sm rounded-circle me-3" style="background: var(--bg-glass); border: 1px solid var(--border-color);">
                                     <i class="fas fa-clock text-primary"></i>
                                 </div>
                                 <div>
-                                    <small class="text-muted d-block">Срок выполнения</small>
+                                    <small style="color: var(--text-muted);" class="d-block">Срок выполнения</small>
                                     <span class="fw-bold">от 3 рабочих дней</span>
                                 </div>
                             </div>
                             
                             <div class="d-flex align-items-center">
-                                <div class="icon-box-sm bg-light rounded-circle me-3">
+                                <div class="icon-box-sm rounded-circle me-3" style="background: var(--bg-glass); border: 1px solid var(--border-color);">
                                     <i class="fas fa-calendar-check text-primary"></i>
                                 </div>
                                 <div>
-                                    <small class="text-muted d-block">Гарантия</small>
+                                    <small style="color: var(--text-muted);" class="d-block">Гарантия</small>
                                     <span class="fw-bold">30 дней на правки</span>
                                 </div>
                             </div>
@@ -240,10 +240,10 @@
                 <div class="card border-0 shadow-sm rounded-3 mt-4">
                     <div class="card-body p-4">
                         <h5 class="fw-bold mb-3">Есть вопросы?</h5>
-                        <p class="text-muted mb-3">Свяжитесь с нами любым удобным способом</p>
+                        <p style="color: var(--text-secondary);" class="mb-3">Свяжитесь с нами любым удобным способом</p>
                         
                         <div class="d-grid gap-2">
-                            <a href="tel:{{ site_settings.phone }}" class="btn btn-outline-dark rounded-pill">
+                            <a href="tel:{{ site_settings.phone }}" class="btn btn-outline-light rounded-pill">
                                 <i class="fas fa-phone me-2"></i> Позвонить
                             </a>
                             <a href="https://wa.me/{{ site_settings.whatsapp }}" class="btn btn-outline-success rounded-pill" target="_blank">
@@ -264,7 +264,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h2 class="h3 fw-bold mb-2">Похожие услуги</h2>
-                    <p class="text-muted mb-0">Другие услуги из категории "{{ service.category.name }}"</p>
+                    <p style="color: var(--text-secondary);" class="mb-0">Другие услуги из категории "{{ service.category.name }}"</p>
                 </div>
                 <a href="{% url 'services:category' service.category.slug %}" class="btn btn-outline-primary rounded-pill">
                     Все услуги категории <i class="fas fa-arrow-right ms-2"></i>
@@ -281,7 +281,7 @@
                             {% endif %}
                             
                             <h5 class="fw-bold mb-2">{{ related.name }}</h5>
-                            <p class="text-muted small mb-3">{{ related.short_description|striptags|truncatechars:100 }}</p>
+                            <p style="color: var(--text-secondary);" class="small mb-3">{{ related.short_description|striptags|truncatechars:100 }}</p>
                             
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <span class="fw-bold text-primary">{{ related.get_price_display }}</span>
@@ -339,7 +339,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p class="text-muted mb-4">Оставьте контакты и мы перезвоним вам в течение 15 минут</p>
+                <p style="color: var(--text-secondary);" class="mb-4">Оставьте контакты и мы перезвоним вам в течение 15 минут</p>
                 <form>
                     <div class="mb-3">
                         <input type="text" class="form-control py-3 rounded-pill" placeholder="Ваше имя">

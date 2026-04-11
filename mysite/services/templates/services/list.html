@@ -30,7 +30,7 @@
                     НАШИ УСЛУГИ
                 </span>
                 <h1 class="display-4 fw-bold mb-3">Профессиональные решения</h1>
-                <p class="lead text-muted mb-0">Полный спектр услуг для цифровой трансформации и роста вашей компании</p>
+                <p class="lead mb-0" style="color: var(--text-secondary);">Полный спектр услуг для цифровой трансформации и роста вашей компании</p>
             </div>
         </div>
 
@@ -39,12 +39,12 @@
         <!-- ========================================= -->
         <div class="row mb-5">
             <div class="col-12">
-                <div class="filter-glass-bax p-4">
+                <div class="filter-glass-box p-4">
                     <form id="services-filters" class="row g-3 align-items-center" novalidate>
                         <!-- А. Поле поиска -->
                         <div class="col-lg-5">
                             <div class="input-group">
-                                <span class="input-group-text bg-white border-end-0 rounded-start-4 ps-3">
+                                <span class="input-group-text border-end-0 rounded-start-4 ps-3" style="background: var(--bg-secondary); border-color: var(--border-color);">
                                     <i class="fas fa-search text-muted"></i>
                                 </span>
                                 <input type="text"
@@ -80,7 +80,7 @@
                     </form>
 
                     <!-- Г. Быстрые ссылки категорий (Тэги) -->
-                    <div class="d-none d-md-flex flex-wrap gap-2 mt-4 pt-3 border-top border-light">
+                    <div class="d-none d-md-flex flex-wrap gap-2 mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
                         <a href="?" 
                            class="category-pill {% if not selected_category %}active{% endif %}">
                             Все
@@ -139,7 +139,7 @@
                     {% endif %}
                     
                     <h3 class="service-card-title h5">
-                        <a href="{{ service.get_absolute_url }}" class="text-decoration-none text-dark">
+                        <a href="{{ service.get_absolute_url }}" class="text-decoration-none" style="color: var(--text-primary);">
                             {{ service.name }}
                         </a>
                     </h3>
@@ -153,7 +153,7 @@
                             <div class="service-price">
                                 {{ service.get_price_display }}
                             </div>
-                            <span class="badge bg-light text-dark">
+                            <span class="badge" style="background: var(--bg-glass-light); color: var(--text-muted); border: 1px solid var(--border-color);">
                                 <i class="fas fa-eye me-1"></i>
                                 {{ service.views }}
                             </span>
