@@ -159,7 +159,7 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.1);
     border-radius: var(--radius-lg);
     padding: var(--spacing-sm);
-    margin-top: 18px !important; /* Unified vertical offset for all dropdowns */
+    margin-top: 50px !important; /* Unified vertical offset for all dropdowns */
     animation: dropdownFadeIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     border-top: 3px solid var(--primary-color) !important;
     z-index: 1050;

@@ -1,239 +1,202 @@
-/* ========== СЕКЦИЯ ПРЕИМУЩЕСТВ ========== */
+/* ==========================================================================
+   ФАЙЛ: content-section.css
+   ОПИСАНИЕ: Секция преимуществ (Advantages Section)
+   СТИЛЬ: Premium Dark / Modern Glassmorphism
+   ========================================================================== */
 
-.content-section {
-    background-color: var(--bg-color-cs);
-    padding: var(--spacing-xxl) 0;
+/* 1. ОСНОВНАЯ СЕКЦИЯ */
+.cs-advantages {
+    --cs-padding-y: var(--spacing-xxl);
+    --cs-bg: var(--bg-body);
+    --cs-bg-accent: var(--bg-secondary);
+    
+    background-color: var(--cs-bg);
+    padding: var(--cs-padding-y) 0;
     width: 100%;
-    margin-top: var(--spacing-xxl);
 }
 
-/* Заголовок секции преимуществ */
-.content-section h2 {
-    font-weight: var(--font-weight-bold);           /* Жирный шрифт */
-    margin-bottom: var(--spacing-xxl);              /* Большой отступ снизу */
-    color: var(--dark-color);                     /* Темный цвет текста */
-    text-align: left;                               /* Выравнивание слева */
-    font-size: clamp(1.75rem, 4vw, 2.5rem);         /* Адаптивный размер шрифта */
+/* 2. КОНТЕЙНЕР И СЕТКА (Перенос логики из HTML в CSS) */
+.cs-advantages__container {
+    max-width: 1320px; /* Эквивалент container-xl */
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
 }
 
-.content-section .card {
-    height: 100%;                               /* Высота 100% */
-    border: none;                               /* Без рамки */
-    text-align: center;                         /* Выравнивание по центру */
-    transition: var(--transition);              /* Плавный переход */
-    background-color: var(--bg-card);         /* Цвет фона */
+.cs-advantages__grid {
+    display: grid;
+    gap: var(--spacing-lg);
+    grid-template-columns: repeat(1, 1fr);
+    margin-top: var(--spacing-xl);
 }
 
-/* Состояние наведения на карточку преимущества */
-.content-section .card:hover {
-    transform: translateY(-8px);             /* Смещение вверх */
-    box-shadow: var(--box-shadow-lg);        /* Большая тень */
+@media (min-width: 576px) {
+    .cs-advantages__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-/* Тело карточки преимущества */
-.content-section .card-body {
-    padding: var(--spacing-xl) var(--spacing-lg); /* Внутренние отступы */
-    display: flex;                            /* Flexbox для выравнивания */
-    flex-direction: column;                   /* Вертикальное направление */
-    align-items: center;                      /* Горизонтальное выравнивание */
-    justify-content: center;                  /* Вертикальное выравнивание */
+@media (min-width: 992px) {
+    .cs-advantages__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
-/* Иконка в карточке преимущества */
-.content-section .card-body i {
-    font-size: 3rem;                          /* Большой размер иконки */
-    color: var(--primary-color);              /* Основной цвет иконки */
-    margin-bottom: var(--spacing-lg);        /* Отступ снизу */
-    transition: var(--transition);           /* Плавный переход */
+/* 3. ЗАГОЛОВОК СЕКЦИИ */
+.cs-advantages__header {
+    margin-bottom: var(--spacing-xxl);
+    max-width: 800px;
 }
 
-/* Состояние наведения на иконку */
-.content-section .card:hover .card-body i {
-    transform: scale(1.1) rotate(5deg);      /* Увеличение и поворот */
-    color: var(--secondary-color);           /* Вторичный цвет при наведении */
+.cs-advantages__title {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    display: inline-block;
 }
 
-/* Заголовок в карточке преимущества */
-.content-section .card-title {
-    font-weight: var(--font-weight-semibold); /* Полужирный шрифт */
-    margin-bottom: var(--spacing-md);        /* Отступ снизу */
-    color: var(--dark-color);                 /* Темный цвет текста */
-    font-size: var(--font-size-lg);          /* Увеличенный размер */
+.cs-advantages__title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
 }
 
-/* Текст в карточке преимущества */
-.content-section .card-text {
-    color: var(--text-muted);                 /* Приглушенный цвет текста */
-    line-height: var(--line-height-relaxed);  /* Расслабленная высота строки */
-    font-size: var(--font-size-base);        /* Базовый размер шрифта */
+/* 4. КАРТОЧКА ПРЕИМУЩЕСТВА */
+.cs-advantages__card {
+    background: var(--bg-glass-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    height: 100%;
+    transition: var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
 }
 
-
-.content-section-dark {
-    background-color: var(--bg-footer-dark);
-    color: var(--text-light);
+.cs-advantages__card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    background: var(--gradient-surface);
+    opacity: 0;
+    transition: var(--transition-base);
+    z-index: -1;
 }
 
-.content-section-dark .card {
-    background-color: var(--bg-card);
-    color: var(--text-dark);
+.cs-advantages__card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-lg), var(--shadow-glow-primary);
 }
 
-.content-section-dark .card-title {
-    color: var(--text-dark);
+.cs-advantages__card:hover::before {
+    opacity: 1;
 }
 
-.content-section-dark .card-text {
-    color: var(--text-dark);
+/* 5. ИКОНКА В КАРТОЧКЕ */
+.cs-advantages__icon-wrap {
+    width: 64px;
+    height: 64px;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-lg);
+    color: var(--primary-color);
+    font-size: 1.75rem;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
 }
 
-.content-section-dark .text-primary {
-    color: var(--text-light) !important;
+.cs-advantages__card:hover .cs-advantages__icon-wrap {
+    background: var(--gradient-primary);
+    color: var(--text-white);
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: var(--shadow-glow-primary);
+    border-color: transparent;
 }
 
-.content-section-dark .text-muted {
-    color: var(--text-light) !important;
+/* 6. ТЕКСТ В КАРТОЧКЕ */
+.cs-advantages__card-title {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--spacing-lg); /* ~1.5rem */
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
 }
 
-.content-section-dark .text-left,
-.content-section-dark .text-start {
-    color: var(--text-light) !important;
+.cs-advantages__card-text {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: var(--line-height-relaxed, 1.6);
+    margin-bottom: 0;
 }
 
-.content-section-dark .text-center {
-    color: var(--text-light) !important;
+/* 7. МОДИФИКАТОРЫ И ТЕМЫ */
+
+/* Светлая тема (если требуется переключение) */
+.cs-advantages--light {
+    --cs-bg: var(--neutral-50);
+    --cs-bg-accent: var(--neutral-100);
 }
 
-.content-section-dark .fw-bold {
-    color: var(--text-light) !important;
+.cs-advantages--light .cs-advantages__card {
+    background: var(--text-white);
+    box-shadow: var(--shadow);
 }
 
-.content-section-dark .fw-semibold {
-    color: var(--text-light) !important;
+.cs-advantages--light .cs-advantages__title,
+.cs-advantages--light .cs-advantages__card-title {
+    color: var(--neutral-900);
 }
 
-.content-section-dark .h-100 {
-    height: 100% !important;
+.cs-advantages--light .cs-advantages__card-text {
+    color: var(--neutral-600);
 }
 
-.content-section-dark .border-0 {
-    border: none !important;
+/* Тёмная тема (явно заданная) */
+.cs-advantages--dark {
+    --cs-bg: var(--neutral-950);
 }
 
-.content-section-dark .shadow-sm-hover {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-}
-
-.content-section-dark .transition-all {
-    transition: all 0.3s ease-in-out !important;
-}
-
-.content-section-dark .fa-3x {
-    font-size: 7rem !important;
-}
-
-.content-section-dark .mb-3 {
-    margin-bottom: 1rem !important;
-}
-
-.content-section-dark .mb-4 {
-    margin-bottom: 1rem !important;
-}
-
-.content-section-dark .mb-md-5 {
-    margin-bottom: 1rem !important;
-}
-
-.content-section-dark .mb-md-0 {
-    margin-bottom: 0 !important;
-}
-
-.content-section-dark .mb-3 {
-    margin-bottom: 1rem !important;
-}
-
-.content-section-dark .mb-md-0 {
-    margin-bottom: 0 !important;
-}
-
-.content-section-dark .mb-3 {
-    margin-bottom: 1rem !important;
-}
-
-.content-section-dark .mb-md-0 {
-    margin-bottom: 0 !important;
-}
-
-.content-section-dark .p-4 {
-    padding: 1rem !important;
-}
-
-.content-section-dark .p-lg-5 {
-    padding: 1rem !important;
-}
-
-.content-section-dark .g-4 {
-    gap: 1rem !important;
-}
-
-.content-section-dark .g-3 {
-    gap: 1rem !important;
-}
-
-.content-section-dark .g-md-4 {
-    gap: 1rem !important;
-}
-
-.content-section-dark .col-12 {
-    width: 100% !important;
-}
-
-.content-section-dark .col-md-4 {
-    width: 23.333333% !important;
-}
-
-.content-section-dark .container-fluid {
-    width: 100% !important;
-    max-width: 100% !important;
-}
-
-.content-section-dark .px-3 {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-}
-
-.content-section-dark .px-md-4 {
-    padding-left: 1.5rem !important;
-    padding-right: 1.5rem !important;
-}
-
-.content-section-dark .px-lg-5 {
-    padding-left: 3rem !important;
-    padding-right: 3rem !important;
-}
-
-.content-section-dark .py-4 {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-}
-
-.content-section-dark .py-md-5 {
-    padding-top: 3rem !important;
-    padding-bottom: 3rem !important;
-}
-
-.content-section-dark .shadow-sm-hover:hover {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-}
-
-.content-section-dark .transition-all:hover {
-    transform: translateY(-5px) !important;
-}
-
-.content-section-dark .shadow-sm-hover:hover {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-}
-
-.content-section-dark .transition-all:hover {
-    transform: translateY(-5px) !important;
+/* Адаптивность для текста */
+@media (max-width: 768px) {
+    .cs-advantages {
+        --cs-padding-y: var(--spacing-xl);
+    }
+    
+    .cs-advantages__header {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .cs-advantages__title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .cs-advantages__card {
+        align-items: center;
+        text-align: center;
+    }
 }
