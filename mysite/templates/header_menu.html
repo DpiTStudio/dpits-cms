@@ -170,7 +170,7 @@
 
     {# ── Информация (Новости / База знаний / Отзывы) ── #}
     <li class="nav-item dropdown" role="none">
-        <a class="nav-link nav-link-responsive dropdown-toggle {% if request.resolver_match.app_name in 'news,knowledge_base,reviews' %}active{% endif %}"
+        <a class="nav-link nav-link-responsive dropdown-toggle {% if request.resolver_match.app_name == 'news' or request.resolver_match.app_name == 'knowledge_base' or request.resolver_match.app_name == 'reviews' %}active{% endif %}"
            href="#"
            id="infoDropdown"
            role="menuitem"

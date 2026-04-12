@@ -426,6 +426,8 @@ def hero_overrides(request):
         app_name = "portfolio"
     elif "/services/" in path:
         app_name = "services"
+    elif "/knowledge_base/" in path:
+        app_name = "knowledge_base"
     elif "/reviews/" in path:
         app_name = "reviews"
     elif "/contacts/" in path:
