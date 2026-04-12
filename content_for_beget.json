@@ -7,7 +7,7 @@
         "company_name": "DPITS-CMS",
         "hero_background": "hero_bg/fon1.jpg",
         "facebook": "https://www.facebook.com/DpiTStudio",
-        "icon_facebook": "",
+        "icon_facebook": "uploads/facebook_icon_2026-04-11_13-07-23.png",
         "instagram": "",
         "icon_instagram": "",
         "youtube": "",
@@ -17,11 +17,11 @@
         "vk_video": "",
         "icon_vk_video": "",
         "telegram": "http://t.me/DpiTSCMS",
-        "icon_telegram": "",
+        "icon_telegram": "uploads/telegram_icon_2026-04-11_13-07-23.png",
         "vk": "https://vk.com/dpitstudio",
-        "icon_vk": "",
+        "icon_vk": "uploads/vk_icon_2026-04-11_13-07-23.png",
         "ok": "https://ok.ru/profile/371991705867",
-        "icon_ok": "",
+        "icon_ok": "uploads/ok_icon_2026-04-11_13-07-23.png",
         "twitter": "",
         "icon_twitter": "",
         "pinterest": "",
@@ -54,7 +54,7 @@
         "site_closed": false,
         "closure_message": "Временно!",
         "created_at": "2025-10-05T14:56:54.454Z",
-        "updated_at": "2026-04-03T18:33:12.013Z"
+        "updated_at": "2026-04-11T13:07:23.052Z"
     }
 },
 {
@@ -144,7 +144,7 @@
         "hero_is_active": true,
         "name": "Главные новости",
         "slug": "glavnye-novosti",
-        "image": "news/categories/fon_news.png",
+        "image": "news/categories/fon_news_IWpgvGs.png",
         "description": "<p><strong>Здесь кипит жизнь</strong>!&nbsp;<br>Следите за нашими свежими работами, успехами клиентов и узнавайте, как применить новые digital-инструменты на практике. Мы не просто создаем сайты — мы создаем истории успеха. Читайте наши новости, чтобы вдохновиться и найти идеи для роста вашей компании.</p>",
         "seo_title": "Главные новости",
         "seo_keywords": "Главные новости",
@@ -1217,9 +1217,96 @@
         "seo_description": "Я глубоко исследовал связи hero.html в проекте вашем и улучшил его как информативно, так и визуально, добавив множество новых элементов и современную стилизацию.",
         "short_description": "<p>Я глубоко исследовал связи <code>hero.html</code> в проекте вашем и улучшил его как информативно, так и визуально, добавив множество новых элементов и современную стилизацию.</p>",
         "content": "<p style=\"margin-left:0px;\">Я глубоко исследовал связи <code>hero.html</code> в проекте вашем и улучшил его как информативно, так и визуально, добавив множество новых элементов и современную стилизацию.</p><h3 style=\"margin-left:0px;\">Что было сделано:</h3><p style=\"margin-left:0px;\"><strong>1. Интеграция с различными моделями данных</strong> Исследование показало, что общий <code>hero.html</code> используется в привязке к самым разным моделям: <code>News</code>, <code>PortfolioItem</code>, <code>Service</code>, <code>NewsCategory</code>, <code>ServiceCategory</code> и <code>PortfolioCategory</code>. Я расширил шаблон, чтобы он <strong>автоматически распознавал объект</strong> и выводил для него все доступные метаданные:</p><ul><li><p style=\"margin-left:0px;\"><strong>Для новостей:</strong> Дата публикации (<code>created_at</code>) и количество просмотров (<code>views</code>).</p></li><li><p style=\"margin-left:0px;\"><strong>Для портфолио:</strong> Данные о заказчике (<code>client</code>), дата завершения (<code>project_date</code>), массив со стеком технологий (<code>technologies</code>), а также яркие кнопки «Смотреть проект» (<code>project_url</code>) и «Исходный код» (<code>github_url</code>).</p></li><li><p style=\"margin-left:0px;\"><strong>Для всех элементов:</strong> Улучшенное отображение тегов и родительских категорий в виде стильных бейджей с иконками.</p></li></ul><p style=\"margin-left:0px;\"><strong>2. Улучшение верстки (Premium UI &amp; Glassmorphism)</strong></p><ul><li><p style=\"margin-left:0px;\">Переделан блок мета-данных: теперь это современный стекловидный элемент с размытием (отвечают классы <code>hero-glass-meta</code>), внутри которого аккуратно выстраиваются просмотры, даты и детали клиента.</p></li><li><p style=\"margin-left:0px;\">Описание стало лаконичнее и подстраивается под формат текста: добавлено урезание (truncation) и безопасное отображение данных из CKEditor (<code>short_description</code>, <code>description</code>).</p></li></ul><p style=\"margin-left:0px;\"><strong>3. Визуальные эффекты и CSS (hero.css)</strong></p><ul><li><p style=\"margin-left:0px;\">Добавлены классы плавной анимации при появлении <code>.fade-in-up</code> с <i>каскадной задержкой</i> (каждый элемент плавно выезжает с небольшим промежутком времени).</p></li><li><p style=\"margin-left:0px;\">Улучшена типографика главного заголовка: используется <code>fw-black</code> (жирность 900) и отрицательный межбуквенный интервал <code>letter-spacing: -1px</code> для придания современного вида как у Apple / Vercel.</p></li><li><p style=\"margin-left:0px;\">Изображение обложки или логотипа переместилось в элегантный круг или карточку, также использующую <code>drop-shadow</code> и элементы градиентного стекла.</p></li><li><p style=\"margin-left:0px;\">Интерактивность кнопок повышена через класс <code>.dynamic-hover</code> (подъем и тень при наведении).</p></li></ul><p style=\"margin-left:0px;\">Теперь ваш Hero banner умный: он будет автоматически расширяться, показывая пользователям ключевые факты на странице конкретной статьи, работы или категории, оставаясь при этом минималистичным на обычных текстовых страницах.</p>",
-        "views": 0,
+        "views": 12,
         "created_at": "2026-04-11T11:01:05.702Z",
         "updated_at": "2026-04-11T11:01:05.702Z",
+        "tags": [
+            3,
+            4,
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "news.news",
+    "pk": 36,
+    "fields": {
+        "hero_title": "",
+        "hero_subtitle": "",
+        "hero_image": "hero_overrides/fon_news.png",
+        "hero_is_active": true,
+        "title": "Отлично! Судя по детальному изысканию, страница успешно отрендерилось. Вот резюме всех изменений",
+        "slug": "otlichno-sudya-po-detalnomu-izyskaniyu-stranica-us",
+        "category": 1,
+        "image": "news/fon_news_nOjRFMp.png",
+        "is_active": true,
+        "seo_title": "Отлично! Судя по детальному изысканию, страница успешно отрендерилось. Вот резюме всех изменений",
+        "seo_keywords": "",
+        "seo_description": "Отлично! Судя по детальному изысканию, страница успешно отрендерилось. Вот резюме всех изменений",
+        "short_description": "<p>Отлично! Судя по детальному изысканию, страница успешно отрендерилось. Вот резюме всех изменений</p>",
+        "content": "<p style=\"margin-left:0px;\">Отлично! Судя по детальному изысканию, страница успешно отрендерилось. Вот резюме всех изменений:</p><hr><h2 style=\"margin-left:0px;\"><strong>✅ Что сделано</strong></h2><h3 style=\"margin-left:0px;\"><code>profile.html</code> — полный редизайн</h3><ul><li><p style=\"margin-left:0px;\"><strong>Убран col-8 layout</strong> — через переопределение <code>{% block content_wrapper %}</code> страница занимает всю ширину</p></li><li><p style=\"margin-left:0px;\"><strong>Hero-баннер на всю ширину</strong> с аватаром, именем, мета-данными (дата регистрации, последний вход, email) и floating orb-анимациями</p></li><li><p style=\"margin-left:0px;\"><strong>4 карточки статистики</strong>: Обращения / Отзывы / Комментарии / Дней с нами — с counter-анимацией</p></li><li><p style=\"margin-left:0px;\"><strong>Блок «Личная информация»</strong> — сетка 2×3 со всеми полями профиля</p></li><li><p style=\"margin-left:0px;\"><strong>Блок «Безопасность»</strong> — смена пароля, email статус, активность аккаунта</p></li><li><p style=\"margin-left:0px;\"><strong>Блок «Быстрые действия»</strong> — 6 цветных карточек (настройки, данные, пароль, тикеты, новое обращение, выход)</p></li><li><p style=\"margin-left:0px;\"><strong>Блок «Последние обращения»</strong> — 5 последних тикетов со статусами</p></li><li><p style=\"margin-left:0px;\"><strong>Блок «Рекомендации»</strong> — подсказки для заполнения профиля (аватар/телефон/bio)</p></li><li><p style=\"margin-left:0px;\"><strong>Блок «Сводка аккаунта»</strong> — ID, дата, роль, прогресс-бар заполненности</p></li></ul><h3 style=\"margin-left:0px;\"><code>profile.css</code> — новый Premium CSS</h3><ul><li><p style=\"margin-left:0px;\">Glassmorphism + vibrant indigo/cosmic палитра</p></li><li><p style=\"margin-left:0px;\">Адаптивная сетка: 4-колонная статистика → 2-колонный main grid → 2-колонная нижняя строка</p></li><li><p style=\"margin-left:0px;\">Анимации: orb floating, online pulse, число-счётчики, Intersection Observer fadeIn</p></li><li><p style=\"margin-left:0px;\">Полная адаптивность до 576px</p></li></ul><h3 style=\"margin-left:0px;\"><code>views.py</code> — расширенный контекст</h3><ul><li><p style=\"margin-left:0px;\">Добавлены <code>days_registered</code>, <code>recent_tickets</code> (последние 5 с prefetch)</p></li></ul><h3 style=\"margin-left:0px;\"><code>base.html</code> — новый блок</h3><ul><li><p style=\"margin-left:0px;\">Добавлен <code>{% block content_wrapper %}</code> для переопределения всего container</p></li></ul>",
+        "views": 2,
+        "created_at": "2026-04-11T12:58:41.023Z",
+        "updated_at": "2026-04-11T12:58:41.023Z",
+        "tags": [
+            3,
+            4,
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "news.news",
+    "pk": 37,
+    "fields": {
+        "hero_title": "",
+        "hero_subtitle": "",
+        "hero_image": "hero_overrides/fon_news.png",
+        "hero_is_active": true,
+        "title": "Очередные обновление и оптимизация",
+        "slug": "ocherednye-obnovlenie-i-optimizaciya",
+        "category": 1,
+        "image": "news/fon_news_FLXAwxr.png",
+        "is_active": true,
+        "seo_title": "Очередные обновление и оптимизация",
+        "seo_keywords": "",
+        "seo_description": "Очередные обновление и оптимизация",
+        "short_description": "<p style=\"margin-left:0px;\">Очередные обновление и оптимизация&nbsp;</p>",
+        "content": "<p style=\"margin-left:0px;\">Вот что было сделано:</p><h2 style=\"margin-left:0px;\"><strong>Что изменилось</strong></h2><h3 style=\"margin-left:0px;\"><code>profile.html</code></h3><ul><li><p style=\"margin-left:0px;\"><strong>Возвращена hero-секция</strong> через стандартный блок <code>{% block hero_section %}</code> — теперь она корректно встраивается в базовый layout (между header и content_wrapper)</p></li><li><p style=\"margin-left:0px;\">Hero использует классы <code>hero-section hero-accounts</code> из <code>hero.css</code>, что обеспечивает единый стиль с остальными страницами сайта</p></li><li><p style=\"margin-left:0px;\"><strong>Добавлена компактная stats-bar</strong> внизу hero (Обращений / Отзывов / Комментариев / Дней с нами) — вместо повторяющегося блока карточек ниже</p></li><li><p style=\"margin-left:0px;\">Убрана старая <code>&lt;div class=\"profile-hero-banner\"&gt;</code> — контент перенесён в <code>&lt;section&gt;</code></p></li></ul><h3 style=\"margin-left:0px;\"><code>profile.css</code></h3><ul><li><p style=\"margin-left:0px;\">Класс <code>.profile-hero-banner</code> заменён на <code>.profile-hero-section</code> (строится поверх <code>.hero-section</code>)</p></li><li><p style=\"margin-left:0px;\">Добавлен <code>.profile-hero-overlay</code> — тёмный градиентный слой с <code>backdrop-filter: blur(6px)</code> поверх фиолетового <code>.hero-accounts</code></p></li><li><p style=\"margin-left:0px;\">Добавлены стили <code>.profile-hero-stats-bar</code>, <code>.phsb-item</code>, <code>.phsb-num</code>, <code>.phsb-lbl</code>, <code>.phsb-divider</code></p></li><li><p style=\"margin-left:0px;\"><strong>Улучшена адаптивность</strong> — 5 брейкпоинтов: <code>1280px</code>, <code>1024px</code>, <code>768px</code>, <code>576px</code>, <code>400px</code>:</p><ul><li><p style=\"margin-left:0px;\">На <code>768px</code> — кнопки раскладываются в 2 колонки, stats-bar компактнее</p></li><li><p style=\"margin-left:0px;\">На <code>576px</code> — кнопки в 1 колонку, аватар меньше (100px), stats-bar минимизируется</p></li><li><p style=\"margin-left:0px;\">На <code>400px</code> — разделители в stats-bar скрываются, всё выравнивается через <code>space-around</code></p></li></ul></li></ul>",
+        "views": 2,
+        "created_at": "2026-04-11T19:33:05.155Z",
+        "updated_at": "2026-04-11T19:34:14.129Z",
+        "tags": [
+            3,
+            4,
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "news.news",
+    "pk": 38,
+    "fields": {
+        "hero_title": "",
+        "hero_subtitle": "",
+        "hero_image": "hero_overrides/fon_news.png",
+        "hero_is_active": true,
+        "title": "Все исправления внесены. Вот краткое резюме сделанного",
+        "slug": "vse-ispravleniya-vneseny-vot-kratkoe-rezyume-sdela",
+        "category": 1,
+        "image": "news/fon_news_VRnyG18.png",
+        "is_active": true,
+        "seo_title": "Все исправления внесены. Вот краткое резюме сделанного",
+        "seo_keywords": "",
+        "seo_description": "Все исправления внесены. Вот краткое резюме сделанного",
+        "short_description": "<p>Все исправления внесены. Вот краткое резюме сделанного</p>",
+        "content": "<p style=\"margin-left:0px;\">Все исправления внесены. Вот краткое резюме сделанного:</p><hr><h2 style=\"margin-left:0px;\"><strong>Что было исправлено в </strong><code><strong>/services/</strong></code></h2><h3 style=\"margin-left:0px;\"><code>services/templates/services/list.html</code></h3><figure class=\"table\"><table style=\"border:0px solid inherit;\"><thead><tr><th style=\"background-color:rgba(107, 114, 128, 0.2);border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:0px;border-right-width:1px;border-top-width:0px;padding:0.5rem 0.75rem;\">Проблема</th><th style=\"background-color:rgba(107, 114, 128, 0.2);border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:1px;border-right-width:0px;border-top-width:0px;padding:0.5rem 0.75rem;\">Исправление</th></tr></thead><tbody><tr><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:0px;border-right-width:1px;border-top-width:1px;padding:0.5rem 0.75rem;\"><code>filter-glass-bax</code> (опечатка)</td><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:1px;border-right-width:0px;border-top-width:1px;padding:0.5rem 0.75rem;\">→ <code>filter-glass-box</code> (glassmorphism стиль работает)</td></tr><tr><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:0px;border-right-width:1px;border-top-width:1px;padding:0.5rem 0.75rem;\"><code>bg-white border</code> в поиске</td><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:1px;border-right-width:0px;border-top-width:1px;padding:0.5rem 0.75rem;\">→ <code>var(--bg-secondary)</code> + <code>var(--border-color)</code></td></tr><tr><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:0px;border-right-width:1px;border-top-width:1px;padding:0.5rem 0.75rem;\"><code>border-light</code> разделитель тегов</td><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:1px;border-right-width:0px;border-top-width:1px;padding:0.5rem 0.75rem;\">→ <code>var(--border-color)</code></td></tr><tr><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:0px;border-right-width:1px;border-top-width:1px;padding:0.5rem 0.75rem;\"><code>text-dark</code> на заголовке карточки</td><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:1px;border-right-width:0px;border-top-width:1px;padding:0.5rem 0.75rem;\">→ <code>var(--text-primary)</code></td></tr><tr><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:0px;border-right-width:1px;border-top-width:1px;padding:0.5rem 0.75rem;\"><code>bg-light text-dark</code> на бейдже просмотров</td><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:1px;border-right-width:0px;border-top-width:1px;padding:0.5rem 0.75rem;\">→ glassmorphism + <code>var(--text-muted)</code></td></tr><tr><td style=\"border-bottom-width:0px;border-color:rgba(107, 114, 128, 0.2);border-left-width:0px;border-right-width:1px;border-top-width:1px;padding:0.5rem 0.75rem;\"><code>text-muted</code> подзаголовок (слишком тёмный)</td><td style=\"border-bottom-width:0px;border-color:rgba(107, 114, 128, 0.2);border-left-width:1px;border-right-width:0px;border-top-width:1px;padding:0.5rem 0.75rem;\">→ <code>var(--text-secondary)</code></td></tr></tbody></table></figure><h3 style=\"margin-left:0px;\"><code>services/templates/services/detail.html</code></h3><figure class=\"table\"><table style=\"border:0px solid inherit;\"><thead><tr><th style=\"background-color:rgba(107, 114, 128, 0.2);border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:0px;border-right-width:1px;border-top-width:0px;padding:0.5rem 0.75rem;\">Проблема</th><th style=\"background-color:rgba(107, 114, 128, 0.2);border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:1px;border-right-width:0px;border-top-width:0px;padding:0.5rem 0.75rem;\">Исправление</th></tr></thead><tbody><tr><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:0px;border-right-width:1px;border-top-width:1px;padding:0.5rem 0.75rem;\"><code>text-muted</code> (~10 мест)</td><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:1px;border-right-width:0px;border-top-width:1px;padding:0.5rem 0.75rem;\">→ <code>var(--text-secondary)</code> / <code>var(--text-muted)</code></td></tr><tr><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:0px;border-right-width:1px;border-top-width:1px;padding:0.5rem 0.75rem;\"><code>bg-light</code> иконки в боковой панели</td><td style=\"border-bottom-width:1px;border-color:rgba(107, 114, 128, 0.2);border-left-width:1px;border-right-width:0px;border-top-width:1px;padding:0.5rem 0.75rem;\">→ glassmorphism (<code>var(--bg-glass)</code>)</td></tr><tr><td style=\"border-bottom-width:0px;border-color:rgba(107, 114, 128, 0.2);border-left-width:0px;border-right-width:1px;border-top-width:1px;padding:0.5rem 0.75rem;\"><code>btn-outline-dark</code> кнопка звонка</td><td style=\"border-bottom-width:0px;border-color:rgba(107, 114, 128, 0.2);border-left-width:1px;border-right-width:0px;border-top-width:1px;padding:0.5rem 0.75rem;\">→ <code>btn-outline-light</code></td></tr></tbody></table></figure><h3 style=\"margin-left:0px;\"><code>static/css/service.css</code></h3><ul><li><p style=\"margin-left:0px;\"><code>.feature-icon</code>: <code>--bs-primary-bg-subtle</code> → <code>rgba(99,102,241,0.15)</code> + цветная обводка</p></li><li><p style=\"margin-left:0px;\"><code>.related-service-card</code>: добавлен явный <code>var(--bg-card)</code> + <code>var(--text-primary)</code></p></li></ul><h3 style=\"margin-left:0px;\"><code>static/css/services-list.css</code></h3><ul><li><p style=\"margin-left:0px;\"><code>.service-card-description</code>: <code>--bs-secondary-color</code> (серый #6c757d) → <code>var(--text-secondary)</code> (Slate-200, читаемый)</p></li><li><p style=\"margin-left:0px;\"><code>.service-card:hover</code>: добавлен <code>var(--bg-card-hover)</code></p></li></ul><h3 style=\"margin-left:0px;\"><code>static/css/hero.css</code></h3><ul><li><p style=\"margin-left:0px;\"><code>.hero-title</code>: <code>text-shadow</code> (не работает с <code>transparent fill</code>) → <code>filter: drop-shadow()</code></p></li><li><p style=\"margin-left:0px;\"><code>.text-white-75</code>: непрозрачность 75% → 88% + <code>text-shadow</code> для контрастности</p></li></ul>",
+        "views": 0,
+        "created_at": "2026-04-11T20:49:07.910Z",
+        "updated_at": "2026-04-11T20:49:07.910Z",
         "tags": [
             3,
             4,
@@ -1512,7 +1599,7 @@
         "seo_title": "Интернет-магазин - Расширенный",
         "seo_keywords": "Интернет-магазин, Магазин Расширенный, интренет магазин,",
         "seo_description": "Интернет-магазин - Расширенный",
-        "views": 8,
+        "views": 10,
         "created_at": "2026-02-14T19:02:25.050Z",
         "updated_at": "2026-02-17T22:25:29.735Z"
     }
