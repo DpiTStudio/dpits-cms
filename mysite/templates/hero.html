@@ -46,9 +46,11 @@
 
                 {# Заголовок с улучшенной типографикой #}
                 <h1 class="display-3 fw-black mb-4 hero-title fade-in-up" style="animation-delay: 0.2s; letter-spacing: -1px;">
-                    {% if active_hero.hero_title %}{{ active_hero.hero_title }}
+                    {% if active_hero.seo_title %}{{ active_hero.seo_title }}
+                    {% elif active_hero.hero_title %}{{ active_hero.hero_title }}
                     {% elif active_hero.title %}{{ active_hero.title }}
                     {% elif active_hero.name %}{{ active_hero.name }}
+                    {% elif page_title %}{{ page_title }}
                     {% else %}{{ site_settings.title|default:"Добро пожаловать" }}{% endif %}
                 </h1>
                 
