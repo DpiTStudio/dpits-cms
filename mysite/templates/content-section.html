@@ -4,74 +4,124 @@
      СТИЛЬ: Управляемый через content-section.css (BEM)
      ============================================ -->
 
-<section class="cs-advantages py-5" aria-labelledby="cs-advantages-title">
-    <div class="container-fluid">
+<section class="cs-advantages py-5 py-lg-6" aria-labelledby="cs-advantages-title">
+    <div class="container container-fluid-xl">
         <!-- Заголовок секции -->
-        <h2 id="cs-advantages-title" class="cs-advantages__title text-center mb-5" data-aos="fade-up">
+        <h2 id="cs-advantages-title" class="cs-advantages__title text-center mb-5 fw-bold" data-aos="fade-up">
             Наши преимущества
         </h2>
-    </div>
-    <div class="cs-advantages__container container">
-        <!-- Сетка карточек -->
-        <div class="cs-advantages__grid row g-4">
+
+        <!-- Сетка карточек: полностью адаптивная (резиновая) -->
+        <div class="cs-advantages__grid row g-4 justify-content-center">
             <!-- Карточка: Скорость -->
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <article class="cs-advantages__card h-100 p-4 border rounded-3 text-center shadow-sm hover-lift">
-                    <div class="cs-advantages__icon-wrap mb-3">
-                        <i class="fas fa-rocket fa-3x text-primary" aria-hidden="true"></i>
+            <div class="col-12 col-sm-6 col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="100">
+                <article class="cs-advantages__card flex-fill p-4 p-lg-5 rounded-4 text-center hover-lift position-relative overflow-hidden d-flex flex-column">
+                    <div class="cs-advantages__icon-wrap mb-4 mt-2">
+                        <i class="fas fa-rocket fa-3x" aria-hidden="true"></i>
                     </div>
-                    <h3 class="cs-advantages__card-title h4 mb-3">Скорость</h3>
-                    <p class="cs-advantages__card-text text-muted mb-4">
+                    <h3 class="cs-advantages__card-title h4 mb-3 fw-bold">Скорость</h3>
+                    <p class="cs-advantages__card-text text-secondary mb-4 flex-grow-1">
                         Быстрая реализация проектов любой сложности с использованием современных инструментов автоматизации.
                     </p>
-                    <a href="#" class="text-decoration-none text-primary fw-bold mt-auto d-inline-block">
-                        Узнать больше <i class="fas fa-arrow-right ms-1 text-small"></i>
+                    <a href="#" class="text-decoration-none text-primary fw-bold mt-auto d-inline-flex align-items-center justify-content-center stretched-link group">
+                        <span>Узнать больше</span> 
+                        <i class="fas fa-arrow-right ms-2 transition-transform group-hover-translate"></i>
                     </a>
                 </article>
             </div>
 
             <!-- Карточка: Качество -->
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <article class="cs-advantages__card h-100 p-4 border rounded-3 text-center shadow-sm hover-lift">
-                    <div class="cs-advantages__icon-wrap mb-3">
-                        <i class="fas fa-medal fa-3x text-primary" aria-hidden="true"></i>
+            <div class="col-12 col-sm-6 col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="200">
+                <article class="cs-advantages__card flex-fill p-4 p-lg-5 rounded-4 text-center hover-lift position-relative overflow-hidden d-flex flex-column">
+                    <div class="cs-advantages__icon-wrap mb-4 mt-2">
+                        <i class="fas fa-medal fa-3x" aria-hidden="true"></i>
                     </div>
-                    <h3 class="cs-advantages__card-title h4 mb-3">Качество</h3>
-                    <p class="cs-advantages__card-text text-muted mb-4">
+                    <h3 class="cs-advantages__card-title h4 mb-3 fw-bold">Качество</h3>
+                    <p class="cs-advantages__card-text text-secondary mb-4 flex-grow-1">
                         Высокое качество исполнения, соответствующее международным стандартам разработки.
                     </p>
-                    <a href="#" class="text-decoration-none text-primary fw-bold mt-auto d-inline-block">
-                        Узнать больше <i class="fas fa-arrow-right ms-1 text-small"></i>
+                    <a href="#" class="text-decoration-none text-primary fw-bold mt-auto d-inline-flex align-items-center justify-content-center stretched-link group">
+                        <span>Узнать больше</span>
+                        <i class="fas fa-arrow-right ms-2 transition-transform group-hover-translate"></i>
                     </a>
                 </article>
             </div>
 
             <!-- Карточка: Поддержка -->
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <article class="cs-advantages__card h-100 p-4 border rounded-3 text-center shadow-sm hover-lift">
-                    <div class="cs-advantages__icon-wrap mb-3">
-                        <i class="fas fa-headset fa-3x text-primary" aria-hidden="true"></i>
+            <div class="col-12 col-sm-6 col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="300">
+                <article class="cs-advantages__card flex-fill p-4 p-lg-5 rounded-4 text-center hover-lift position-relative overflow-hidden d-flex flex-column">
+                    <div class="cs-advantages__icon-wrap mb-4 mt-2">
+                        <i class="fas fa-headset fa-3x" aria-hidden="true"></i>
                     </div>
-                    <h3 class="cs-advantages__card-title h4 mb-3">Поддержка</h3>
-                    <p class="cs-advantages__card-text text-muted mb-4">
+                    <h3 class="cs-advantages__card-title h4 mb-3 fw-bold">Поддержка</h3>
+                    <p class="cs-advantages__card-text text-secondary mb-4 flex-grow-1">
                         Круглосуточная техническая поддержка и сопровождение ваших проектов после запуска.
                     </p>
-                    <a href="#" class="text-decoration-none text-primary fw-bold mt-auto d-inline-block">
-                        Узнать больше <i class="fas fa-arrow-right ms-1 text-small"></i>
+                    <a href="#" class="text-decoration-none text-primary fw-bold mt-auto d-inline-flex align-items-center justify-content-center stretched-link group">
+                        <span>Узнать больше</span>
+                        <i class="fas fa-arrow-right ms-2 transition-transform group-hover-translate"></i>
                     </a>
                 </article>
             </div>
-
         </div>
     </div>
 </section>
 
-<!-- Required for AOS: ensure AOS css/js is included in base template. E.g.:
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>AOS.init();</script> 
--->
+<!-- Required for AOS: ensure AOS css/js is included in base template. -->
 <style>
-.hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.hover-lift:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+/* Glassmorphism & Animations for Dark Theme */
+.cs-advantages {
+    position: relative;
+    z-index: 1;
+}
+
+/* Адаптивные карточки с эффектом стекла */
+.hover-lift { 
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(30, 32, 35, 0.4); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.hover-lift:hover { 
+    transform: translateY(-8px); 
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4) !important; 
+    background: rgba(35, 38, 42, 0.7);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Динамические градиентные иконки */
+.cs-advantages__icon-wrap i {
+    background: linear-gradient(135deg, var(--bs-primary, #0d6efd), #0dcaf0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hover-lift:hover .cs-advantages__icon-wrap i {
+    transform: scale(1.15) rotate(5deg);
+}
+
+/* Микроанимации */
+.transition-transform {
+    transition: transform 0.3s ease;
+}
+
+.hover-lift:hover .group-hover-translate {
+    transform: translateX(6px);
+}
+
+/* Резиновые отступы для мобильных устройств */
+@media (max-width: 768px) {
+    .cs-advantages {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    .cs-advantages__card {
+        padding: 2rem !important;
+    }
+}
 </style>
