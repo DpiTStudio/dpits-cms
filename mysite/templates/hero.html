@@ -111,21 +111,37 @@
                 </div>
                 {% endif %}
 
-                {# Кнопки действий (ссылки на проект) #}
-                {% if active_hero.project_url or active_hero.github_url %}
+                {# Кнопки действий (корзина, заказ, ссылки на проект) #}
                 <div class="mt-4 gap-3 d-flex flex-wrap fade-in-up" style="animation-delay: 0.6s;">
+                    {% if active_hero.get_price_display and active_hero.can_order != False %}
+                    {# Кнопка добавления в корзину для услуг #}
+                    <button type="button" class="btn btn-success btn-lg rounded-pill px-4 shadow-lg dynamic-hover text-white fw-bold d-flex align-items-center" onclick="if(window.CartSystem) CartSystem.addToCart({{ active_hero.id }}, this);">
+                        <span class="btn-text d-flex align-items-center">
+                            <i class="fas fa-cart-plus me-2"></i><span>Заказать ({{ active_hero.get_price_display }})</span>
+                        </span>
+                    </button>
+                    
+                    {# Быстрый переход к корзине #}
+                    <button type="button" class="btn btn-warning btn-lg rounded-pill px-4 shadow-lg dynamic-hover text-dark fw-bold d-flex align-items-center position-relative" data-cart-open>
+                        <i class="fas fa-shopping-bag me-1"></i> <span class="d-none d-sm-inline ms-1">Оформить</span>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge {% if not cart or cart|length == 0 %}hidden{% endif %}">
+                            {{ cart|length|default:0 }}
+                        </span>
+                    </button>
+                    {% endif %}
+
                     {% if active_hero.project_url %}
                     <a href="{{ active_hero.project_url }}" target="_blank" class="btn btn-primary btn-lg rounded-pill px-4 shadow-lg dynamic-hover">
                         <i class="fas fa-external-link-alt me-2"></i>Смотреть проект
                     </a>
                     {% endif %}
+                    
                     {% if active_hero.github_url %}
                     <a href="{{ active_hero.github_url }}" target="_blank" class="btn btn-outline-light btn-lg rounded-pill px-4 border-opacity-50 dynamic-hover">
                         <i class="fab fa-github me-2"></i>Исходный код
                     </a>
                     {% endif %}
                 </div>
-                {% endif %}
             </div>
             
             {# Графическая часть (Обложка проекта или логотип) #}
