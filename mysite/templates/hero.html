@@ -55,11 +55,8 @@
                 </h1>
                 
                 {# Описание / Девиз #}
-                <div class="lead mb-4 text-white-75 fw-normal fade-in-up" style="animation-delay: 0.3s; font-size: 1.25rem; max-width: 90%;">
-                    {% if active_hero.hero_subtitle %}{{ active_hero.hero_subtitle|linebreaksbr }}
-                    {% elif active_hero.short_description %}{{ active_hero.short_description|striptags }}
-                    {% elif active_hero.description %}{{ active_hero.description|striptags|truncatewords:30 }}
-                    {% elif site_settings.slogan %}<i>{{ site_settings.slogan }}</i>{% endif %}
+                <div class="lead mb-4 text-white-75 fw-normal fade-in-up" id="hero-subtitle-container" style="animation-delay: 0.3s; font-size: 1.25rem; max-width: 90%; min-height: 50px;">
+                    <span id="hero-subtitle-text" data-text="{% if active_hero.hero_subtitle %}{{ active_hero.hero_subtitle|striptags }}{% elif active_hero.short_description %}{{ active_hero.short_description|striptags }}{% elif active_hero.description %}{{ active_hero.description|striptags|truncatewords:30 }}{% elif site_settings.slogan %}{{ site_settings.slogan }}{% endif %}"></span><span class="typing-cursor">|</span>
                 </div>
 
                 {# Расширенный блок мета-данных (стекловидный контейнер) #}
@@ -163,6 +160,57 @@
             {% include 'breadcrumbs.html' %}
         </div>
     </div>
+    
+    {# Индикатор прокрутки вниз (Скролл) #}
+    <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4 z-3 fade-in-up" style="animation-delay: 1.0s;">
+        <a href="#content" class="text-white text-opacity-50 text-decoration-none hover-text-white d-flex flex-column align-items-center scroll-indicator">
+            <span class="small text-uppercase mb-2" style="letter-spacing: 2px; font-size: 0.7rem;">Листать вниз</span>
+            <i class="fas fa-chevron-down bouncing-chevron"></i>
+        </a>
+    </div>
 </section>
+
+<style>
+/* CSS для печатной машинки и индикатора скролла */
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+}
+@keyframes blink { 50% { opacity: 0; } }
+.bouncing-chevron {
+    animation: bounce 2s infinite;
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+.scroll-indicator:hover {
+    color: white !important;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const textElement = document.getElementById("hero-subtitle-text");
+    if(!textElement) return;
+    const textToType = textElement.getAttribute("data-text");
+    if(!textToType) return;
+    
+    textElement.textContent = "";
+    let i = 0;
+    
+    // Задержка перед началом печати (соответствует анимации fade-in-up)
+    setTimeout(function typeWriter() {
+        if (i < textToType.length) {
+            textElement.textContent += textToType.charAt(i);
+            i++;
+            setTimeout(typeWriter, Math.random() * 30 + 30); // Скорость печати
+        }
+    }, 1000); 
+});
+</script>
 {% endif %}
 

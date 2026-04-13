@@ -4,49 +4,74 @@
      СТИЛЬ: Управляемый через content-section.css (BEM)
      ============================================ -->
 
-<section class="cs-advantages" aria-labelledby="cs-advantages-title">
+<section class="cs-advantages py-5" aria-labelledby="cs-advantages-title">
     <div class="container-fluid">
         <!-- Заголовок секции -->
-        <h2 id="cs-advantages-title" class="cs-advantages__title">
+        <h2 id="cs-advantages-title" class="cs-advantages__title text-center mb-5" data-aos="fade-up">
             Наши преимущества
         </h2>
     </div>
-    <div class="cs-advantages__container">
+    <div class="cs-advantages__container container">
         <!-- Сетка карточек -->
-        <div class="cs-advantages__grid">
+        <div class="cs-advantages__grid row g-4">
             <!-- Карточка: Скорость -->
-            <article class="cs-advantages__card">
-                <div class="cs-advantages__icon-wrap">
-                    <i class="fas fa-rocket cs-advantages__icon" aria-hidden="true"></i>
-                </div>
-                <h3 class="cs-advantages__card-title">Скорость</h3>
-                <p class="cs-advantages__card-text">
-                    Быстрая реализация проектов любой сложности с использованием современных инструментов автоматизации.
-                </p>
-            </article>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <article class="cs-advantages__card h-100 p-4 border rounded-3 text-center shadow-sm hover-lift">
+                    <div class="cs-advantages__icon-wrap mb-3">
+                        <i class="fas fa-rocket fa-3x text-primary" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="cs-advantages__card-title h4 mb-3">Скорость</h3>
+                    <p class="cs-advantages__card-text text-muted mb-4">
+                        Быстрая реализация проектов любой сложности с использованием современных инструментов автоматизации.
+                    </p>
+                    <a href="#" class="text-decoration-none text-primary fw-bold mt-auto d-inline-block">
+                        Узнать больше <i class="fas fa-arrow-right ms-1 text-small"></i>
+                    </a>
+                </article>
+            </div>
 
             <!-- Карточка: Качество -->
-            <article class="cs-advantages__card">
-                <div class="cs-advantages__icon-wrap">
-                    <i class="fas fa-medal cs-advantages__icon" aria-hidden="true"></i>
-                </div>
-                <h3 class="cs-advantages__card-title">Качество</h3>
-                <p class="cs-advantages__card-text">
-                    Высокое качество исполнения, соответствующее международным стандартам разработки.
-                </p>
-            </article>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <article class="cs-advantages__card h-100 p-4 border rounded-3 text-center shadow-sm hover-lift">
+                    <div class="cs-advantages__icon-wrap mb-3">
+                        <i class="fas fa-medal fa-3x text-primary" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="cs-advantages__card-title h4 mb-3">Качество</h3>
+                    <p class="cs-advantages__card-text text-muted mb-4">
+                        Высокое качество исполнения, соответствующее международным стандартам разработки.
+                    </p>
+                    <a href="#" class="text-decoration-none text-primary fw-bold mt-auto d-inline-block">
+                        Узнать больше <i class="fas fa-arrow-right ms-1 text-small"></i>
+                    </a>
+                </article>
+            </div>
 
             <!-- Карточка: Поддержка -->
-            <article class="cs-advantages__card">
-                <div class="cs-advantages__icon-wrap">
-                    <i class="fas fa-headset cs-advantages__icon" aria-hidden="true"></i>
-                </div>
-                <h3 class="cs-advantages__card-title">Поддержка</h3>
-                <p class="cs-advantages__card-text">
-                    Круглосуточная техническая поддержка и сопровождение ваших проектов после запуска.
-                </p>
-            </article>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <article class="cs-advantages__card h-100 p-4 border rounded-3 text-center shadow-sm hover-lift">
+                    <div class="cs-advantages__icon-wrap mb-3">
+                        <i class="fas fa-headset fa-3x text-primary" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="cs-advantages__card-title h4 mb-3">Поддержка</h3>
+                    <p class="cs-advantages__card-text text-muted mb-4">
+                        Круглосуточная техническая поддержка и сопровождение ваших проектов после запуска.
+                    </p>
+                    <a href="#" class="text-decoration-none text-primary fw-bold mt-auto d-inline-block">
+                        Узнать больше <i class="fas fa-arrow-right ms-1 text-small"></i>
+                    </a>
+                </article>
+            </div>
 
         </div>
     </div>
 </section>
+
+<!-- Required for AOS: ensure AOS css/js is included in base template. E.g.:
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init();</script> 
+-->
+<style>
+.hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.hover-lift:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+</style>

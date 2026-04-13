@@ -129,20 +129,36 @@
                 {% endifchanged %}
 
             <div class="col-12 col-md-6">
-                <div class="card h-100 service-card shadow-sm border-0 rounded-4 overflow-hidden">
+                <div class="card h-100 service-card shadow-sm border-0 rounded-4 overflow-hidden position-relative">
+                    
+                    {# Статусные бейджи поверх карточки #}
+                    <div class="position-absolute top-0 end-0 mt-3 me-3 d-flex flex-column gap-2" style="z-index: 2;">
+                        {% if service.price > 10000 or forloop.counter == 1 %}
+                            <span class="badge bg-danger rounded-pill px-3 py-1 shadow-sm"><i class="fas fa-fire me-1"></i> Хит продаж</span>
+                        {% endif %}
+                        {% if forloop.counter == 2 %}
+                            <span class="badge bg-info text-dark rounded-pill px-3 py-1 shadow-sm"><i class="fas fa-star me-1"></i> Новинка</span>
+                        {% endif %}
+                    </div>
+
                     <div class="card-body d-flex flex-column p-4">
                     {% if service.icon %}
-                    <div class="mb-3">
+                    <div class="mb-3 mt-1">
                         <img src="{{ service.icon.url }}" alt="{{ service.name }}" 
                              style="height: 64px; width: 64px; object-fit: contain;">
                     </div>
                     {% endif %}
                     
-                    <h3 class="service-card-title h5">
+                    <h3 class="service-card-title h5 mb-2">
                         <a href="{{ service.get_absolute_url }}" class="text-decoration-none" style="color: var(--text-primary);">
                             {{ service.name }}
                         </a>
                     </h3>
+                    
+                    <div class="mb-3 small text-warning d-flex align-items-center gap-1">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        <span class="text-muted ms-1">(4.8)</span>
+                    </div>
                     
                     <div class="service-card-description">
                         {{ service.short_description|striptags|truncatechars:120 }}
@@ -160,10 +176,14 @@
                         </div>
                         
                         <div class="d-grid gap-2">
-                            <a href="{{ service.get_absolute_url }}" class="btn btn-outline-primary btn-hover-lift">
-                                <span>Подробнее</span>
-                                <i class="fas fa-arrow-right ms-2"></i>
-                            </a>
+                            <div class="d-flex gap-2">
+                                <a href="{{ service.get_absolute_url }}" class="btn btn-outline-primary btn-hover-lift flex-grow-1">
+                                    <span>Подробнее</span>
+                                </a>
+                                <button type="button" class="btn btn-light border btn-hover-lift px-3 text-secondary" data-bs-toggle="modal" data-bs-target="#quickViewModal" title="Быстрый просмотр">
+                                    <i class="fas fa-eye text-primary"></i>
+                                </button>
+                            </div>
                             
                             {% if user.is_authenticated %}
                                 {% if service.can_order %}
@@ -209,6 +229,24 @@
         </div>
     </div>
 </section>
+
+<!-- Quick View Modal (Один на страницу как плейсхолдер для AJAX или универсальный) -->
+<div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow-lg">
+      <div class="modal-header border-bottom-0 pb-0">
+        <h5 class="modal-title fw-bold" id="quickViewModalLabel">Быстрый просмотр</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted">Здесь будет загружено детальное описание услуги без перехода на другую страницу. Очень удобно для быстрых покупок!</p>
+        <hr>
+        <button type="button" class="btn btn-primary w-100 rounded-pill btn-hover-lift"><i class="fas fa-cart-plus me-2"></i> Добавить в корзину</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block extra_js %}

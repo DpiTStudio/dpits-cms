@@ -23,6 +23,122 @@
 <link rel="stylesheet" href="{% static 'css/portfolio_list.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 <link rel="stylesheet" href="{% static 'css/news-category.css' %}">
+<style>
+/* Симметричные, аккуратные карточки новостей */
+.news-card {
+    background-color: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255,255,255,0.05) !important;
+}
+
+/* Фиксированная высота для симметрии изображений */
+.news-card-img-wrapper {
+    height: 250px;
+    width: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.news-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.news-card:hover .news-card-img {
+    transform: scale(1.05);
+}
+
+.news-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Жирный текст в нужных местах */
+.news-title {
+    font-weight: 800; /* Более жирный шрифт для выделения */
+    font-size: 1.35rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+.news-title a {
+    color: #ffffff !important;
+    transition: color 0.3s ease;
+}
+
+.news-title a:hover {
+    color: #0d6efd !important;
+}
+
+.news-date {
+    font-weight: 700;
+}
+
+.news-reading-time {
+    background-color: var(--neutral-800) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    font-weight: 600;
+}
+
+/* Панель фильрации */
+.filter-glass-bax {
+    background: var(--bg-glass-light) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+}
+
+.category-pill {
+    background-color: var(--neutral-800);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 50rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.category-pill:hover, .category-pill.active {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+    border-color: var(--primary-color);
+}
+
+.read-more-btn {
+    font-weight: 700;
+    margin-top: 1.5rem;
+    color: #0d6efd;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s;
+}
+
+.read-more-btn:hover {
+    transform: translateX(5px);
+    color: #0b5ed7;
+}
+
+/* Отступы */
+.category-header-spacer {
+    height: 40px;
+}
+</style>
 {% endblock %}
 
 {% block content %}
@@ -51,7 +167,7 @@
                     <!-- А. Поле поиска -->
                     <div class="col-lg-6">
                         <div class="input-group">
-                            <span class="input-group-text bg-white border-end-0 rounded-start-4 ps-3">
+                            <span class="input-group-text border-end-0 rounded-start-4 ps-3" style="background: var(--bg-secondary); border-color: var(--border-color);">
                                 <i class="fas fa-search text-muted"></i>
                             </span>
                             <input type="text"
@@ -105,14 +221,21 @@
                     </div>
                     
                     <div class="news-card-body d-flex flex-column">
-                        <div class="news-date">
-                            <i class="far fa-calendar-alt"></i>
-                            {{ news_item.created_at|date:"d M Y" }}
-                            {# Дата публикации новости #}
+                        <div class="d-flex justify-content-between align-items-center mb-2 text-muted small">
+                            <div class="news-date d-flex align-items-center gap-2">
+                                <div><i class="far fa-calendar-alt"></i> {{ news_item.created_at|date:"d M Y" }}</div>
+                                {% if news_item.author %}
+                                    <span class="vr mx-1"></span>
+                                    <div class="text-primary"><i class="far fa-user"></i> {{ news_item.author.username }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="news-reading-time bg-light px-2 py-1 rounded border">
+                                ⏱️ ~3 мин.
+                            </div>
                         </div>
                         
-                        <h2 class="news-title">
-                            <a href="{% url 'news:detail' news_item.slug %}" class="text-decoration-none text-dark">
+                        <h2 class="news-title mt-2">
+                            <a href="{% url 'news:detail' news_item.slug %}" class="text-decoration-none">
                                 {{ news_item.title }}
                             </a>
                             {# Заголовок новости со ссылкой на полную версию #}
