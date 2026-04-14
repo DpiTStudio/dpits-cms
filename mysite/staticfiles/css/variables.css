@@ -36,12 +36,12 @@
     --neutral-1000: #010411;        /* Ultra Deep Black */
     
     /* ========== BACKGROUNDS ========== */
-    --bg-body: #020617;                             /* Slate-950 - Ultra Dark */
-    --bg-card: #0f172a;                             /* Slate-900 */
-    --bg-card-hover: #1e293b;                       /* Slate-800 */
-    --bg-secondary: #010411;                        /* Even darker */
-    --bg-accent: #111827;                           /* Accent */
-    --bg-glass: rgba(2, 6, 23, 0.75);               /* Glass */
+    --bg-body: #0D1132;                             /* Public Site BG - Deep Navy */
+    --bg-card: #121640;                             /* Card BG - slightly lighter navy */
+    --bg-card-hover: #1a1f52;                       /* Card Hover */
+    --bg-secondary: #090e28;                        /* Even darker navy */
+    --bg-accent: #111640;                           /* Accent navy */
+    --bg-glass: rgba(13, 17, 50, 0.80);             /* Glass navy */
     --bg-glass-light: rgba(255, 255, 255, 0.03);    /* Glass Light */
     --bg-cookie: #0489d0;                           /* Cookie */
     --bg-color-cs: hwb(195 5% 93% / 0.188);         /* CS */
@@ -80,9 +80,9 @@
     /* Rose to Red */
     --gradient-cosmic: linear-gradient(135deg, #6366f1 0%, #f43f5e 100%); 
     /* Indigo to Rose */
-    --gradient-dark: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+    --gradient-dark: linear-gradient(180deg, #121640 0%, #0D1132 100%);
     /* Dark */
-    --gradient-cs: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+    --gradient-cs: linear-gradient(180deg, #121640 0%, #0D1132 100%);
     /* CS */
     --gradient-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
     /* Surface */
