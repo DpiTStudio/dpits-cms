@@ -141,18 +141,21 @@
    ЭЛЕМЕНТ ТИКЕТА
    ============================================= */
 .ticket-item {
-    background: rgba(15, 23, 42, 0.5);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--border-radius-md);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    transition: var(--transition);
-    text-decoration: none;
-    color: inherit;
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+    border-radius: var(--border-radius-lg, 1rem);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.ticket-item.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Левая акцентная линия */
@@ -168,15 +171,15 @@
 }
 
 .ticket-item:hover {
-    border-color: var(--primary-color);
-    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
-    transform: translateX(4px);
-    color: inherit;
-    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15), inset 0 0 20px rgba(99, 102, 241, 0.05);
+    transform: translateY(-4px);
+    background: rgba(15, 23, 42, 0.6);
 }
 
 .ticket-item:hover::before {
-    background: var(--primary-gradient);
+    background: var(--primary-gradient, linear-gradient(135deg, #6366f1 0%, #a855f7 100%));
+    box-shadow: 0 0 15px var(--primary-color, #6366f1);
 }
 
 /* =============================================
@@ -291,17 +294,15 @@
 }
 
 .btn-view-ticket {
-    color: var(--primary-color);
-    font-weight: 600;
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    transition: gap var(--transition);
+    transition: all 0.3s ease;
 }
 
 .ticket-item:hover .btn-view-ticket {
-    gap: 0.75rem;
+    color: #a855f7 !important;
+}
+
+.ticket-item:hover .transition-transform {
+    transform: translateX(4px);
 }
 
 /* =============================================
