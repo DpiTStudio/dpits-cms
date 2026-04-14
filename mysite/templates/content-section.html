@@ -1,0 +1,222 @@
+{% load static %}
+{% comment %}
+{# ============================================================
+   ФАЙЛ: content-section.html
+   ОПИСАНИЕ: Секция «Что мы делаем» — Bootstrap 5 адаптивная верстка
+   СТИЛЬ: Premium Dark / Glassmorphism / Animated Cards
+   ============================================================ #}
+{% endcomment %}
+
+<section class="cs-advantages" aria-labelledby="cs-section-title">
+
+  {# --- Декоративный фоновый паттерн --- #}
+  <div class="cs-advantages__bg-decoration" aria-hidden="true">
+    <div class="cs-deco cs-deco--1"></div>
+    <div class="cs-deco cs-deco--2"></div>
+    <div class="cs-deco cs-deco--3"></div>
+  </div>
+
+  <div class="container-xl cs-advantages__container position-relative">
+
+    {# ========== ЗАГОЛОВОК СЕКЦИИ ========== #}
+    <div class="row justify-content-left mb-5">
+      <div class="col-12 col-lg-8 text-left">
+        <div class="cs-advantages__badge mb-3" data-aos="fade-down">
+          <i class="fa-solid fa-star-of-life me-2"></i>Наши услуги
+        </div>
+        <h2 class="cs-advantages__title" id="cs-section-title" data-aos="fade-up">
+          Мы делаем для вас
+          <span class="cs-advantages__title-accent">лучшее</span>
+        </h2>
+        <p class="cs-advantages__subtitle text-left" data-aos="fade-up" data-aos-delay="100">
+          Комплексный подход к цифровому развитию вашего бизнеса — от создания сайтов
+          до автоматизации и технической поддержки
+        </p>
+      </div>
+    </div>
+
+    {# ========== СЕТКА КАРТОЧЕК ========== #}
+    <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+
+      {# --- КАРТОЧКА 1: Создание сайтов --- #}
+      <div class="col" data-aos="fade-up" data-aos-delay="0">
+        <div class="cs-advantages__card h-100 cs-card--primary">
+          <div class="cs-advantages__icon-wrap">
+            <i class="fa-solid fa-globe"></i>
+          </div>
+          <h3 class="cs-advantages__card-title">Создание сайтов</h3>
+          <p class="cs-advantages__card-text">
+            Разрабатываем сайты любой сложности: от лендингов до полноценных маркетплейсов.
+          </p>
+          <ul class="cs-advantages__list">
+            <li><i class="fa-solid fa-check"></i> Лендинги и промо-сайты</li>
+            <li><i class="fa-solid fa-check"></i> Интернет-магазины</li>
+            <li><i class="fa-solid fa-check"></i> Корпоративные сайты</li>
+            <li><i class="fa-solid fa-check"></i> Порталы и каталоги</li>
+            <li><i class="fa-solid fa-check"></i> Маркетплейсы</li>
+          </ul>
+          <div class="cs-advantages__card-footer mt-auto">
+            <span class="cs-advantages__tag">
+              <i class="fa-solid fa-code me-1"></i>Веб-разработка
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {# --- КАРТОЧКА 2: Автоматизация --- #}
+      <div class="col" data-aos="fade-up" data-aos-delay="100">
+        <div class="cs-advantages__card h-100 cs-card--secondary">
+          <div class="cs-advantages__icon-wrap">
+            <i class="fa-solid fa-gears"></i>
+          </div>
+          <h3 class="cs-advantages__card-title">Автоматизация бизнеса</h3>
+          <p class="cs-advantages__card-text">
+            Освобождаем ваше время — автоматизируем рутинные задачи и бизнес-процессы.
+          </p>
+          <ul class="cs-advantages__list">
+            <li><i class="fa-solid fa-check"></i> Автоматизация рутины</li>
+            <li><i class="fa-solid fa-check"></i> Документооборот</li>
+            <li><i class="fa-solid fa-check"></i> Отчётность и аналитика</li>
+            <li><i class="fa-solid fa-check"></i> Email и смс рассылки</li>
+            <li><i class="fa-solid fa-check"></i> Уведомления и триггеры</li>
+          </ul>
+          <div class="cs-advantages__card-footer mt-auto">
+            <span class="cs-advantages__tag cs-advantages__tag--secondary">
+              <i class="fa-solid fa-robot me-1"></i>Автоматизация
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {# --- КАРТОЧКА 3: Продвижение --- #}
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="cs-advantages__card h-100 cs-card--accent">
+          <div class="cs-advantages__icon-wrap">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <h3 class="cs-advantages__card-title">Продвижение сайтов</h3>
+          <p class="cs-advantages__card-text">
+            Приводим целевых посетителей и клиентов через эффективные каналы продвижения.
+          </p>
+          <ul class="cs-advantages__list">
+            <li><i class="fa-solid fa-check"></i> SEO-оптимизация</li>
+            <li><i class="fa-solid fa-check"></i> Контекстная реклама</li>
+            <li><i class="fa-solid fa-check"></i> SMM и социальные сети</li>
+            <li><i class="fa-solid fa-check"></i> Таргетированная реклама</li>
+            <li><i class="fa-solid fa-check"></i> Медийная реклама</li>
+          </ul>
+          <div class="cs-advantages__card-footer mt-auto">
+            <span class="cs-advantages__tag cs-advantages__tag--accent">
+              <i class="fa-solid fa-rocket me-1"></i>Маркетинг
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {# --- КАРТОЧКА 4: Тех. поддержка --- #}
+      <div class="col" data-aos="fade-up" data-aos-delay="300">
+        <div class="cs-advantages__card h-100 cs-card--success">
+          <div class="cs-advantages__icon-wrap">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+          <h3 class="cs-advantages__card-title">Техническая поддержка</h3>
+          <p class="cs-advantages__card-text">
+            Обеспечиваем стабильность и безопасность ваших ресурсов в режиме 24/7.
+          </p>
+          <ul class="cs-advantages__list">
+            <li><i class="fa-solid fa-check"></i> Поддержка сайтов</li>
+            <li><i class="fa-solid fa-check"></i> Интернет-магазины</li>
+            <li><i class="fa-solid fa-check"></i> Обновления и патчи</li>
+            <li><i class="fa-solid fa-check"></i> Резервное копирование</li>
+            <li><i class="fa-solid fa-check"></i> Мониторинг и безопасность</li>
+          </ul>
+          <div class="cs-advantages__card-footer mt-auto">
+            <span class="cs-advantages__tag cs-advantages__tag--success">
+              <i class="fa-solid fa-shield-halved me-1"></i>Поддержка 24/7
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>{# /row #}
+
+    {# ========== НИЖНИЙ БЛОК — ЦИФРЫ / СТАТИСТИКА ========== #}
+    <div class="row g-3 mt-5" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-6 col-md-3">
+        <div class="cs-stat-card text-center">
+          <div class="cs-stat-card__number">
+            <span class="cs-counter" data-target="150">0</span>+
+          </div>
+          <div class="cs-stat-card__label">Завершённых проектов</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="cs-stat-card text-center">
+          <div class="cs-stat-card__number">
+            <span class="cs-counter" data-target="5">0</span>+
+          </div>
+          <div class="cs-stat-card__label">Лет опыта</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="cs-stat-card text-center">
+          <div class="cs-stat-card__number">
+            <span class="cs-counter" data-target="98">0</span>%
+          </div>
+          <div class="cs-stat-card__label">Довольных клиентов</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="cs-stat-card text-center">
+          <div class="cs-stat-card__number">
+            <span class="cs-counter" data-target="24">0</span>/7
+          </div>
+          <div class="cs-stat-card__label">Техническая поддержка</div>
+        </div>
+      </div>
+    </div>
+
+    {# ========== CTA КНОПКА ========== #}
+    <div class="row mt-5">
+      <div class="col-12 text-left" data-aos="zoom-in" data-aos-delay="200">
+        <a href="/services/" class="cs-advantages__cta-btn">
+          <span>Все наши услуги</span>
+          <i class="fa-solid fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>{# /container #}
+</section>
+
+{# ========== СЧЁТЧИК (простой JS без зависимостей) ========== #}
+<script>
+(function () {
+  'use strict';
+  const counters = document.querySelectorAll('.cs-counter');
+  if (!counters.length) return;
+
+  const animateCounter = (el) => {
+    const target = +el.dataset.target;
+    const duration = 1800;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = Math.floor(current);
+    }, 16);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.counted) {
+        entry.target.dataset.counted = 'true';
+        animateCounter(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  counters.forEach(c => observer.observe(c));
+})();
+</script>
