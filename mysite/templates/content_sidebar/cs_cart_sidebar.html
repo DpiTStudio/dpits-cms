@@ -1,0 +1,144 @@
+{% load humanize %}
+<div class="card mb-4 cart-widget-dynamic" id="sidebarCartWidget">
+    <div class="card-header sidebar-premium-header-services" style="display: flex; justify-content: space-between; align-items: center;">
+        <h6 class="mb-0">
+            <i class="fas fa-shopping-cart text-primary me-2"></i> Корзина заказов
+        </h6>
+        {% if user.is_authenticated %}
+            <span class="badge bg-primary rounded-pill cart-widget-badge" style="transition: all 0.3s ease;">
+                {{ cart|length|default:0 }}
+            </span>
+        {% endif %}
+    </div>
+
+    <div class="card-body sidebar-premium-body">
+        {% if user.is_authenticated %}
+            <!-- Элементы корзины (заполняются через cart.js -> refreshSidebarWidget) -->
+            <div class="cart-widget-items mb-3" style="max-height: 250px; overflow-y: auto; padding-right: 5px;">
+                {% if cart and cart|length > 0 %}
+                    <!-- Резервный контент до загрузки AJAX -->
+                    {% for item in cart|slice:":3" %}
+                    <div class="cart-widget-item" data-service-id="{{ item.service.id }}">
+                        <div class="cart-widget-item-icon">
+                            {% if item.icon %}
+                                <img src="{{ item.icon }}" alt="">
+                            {% else %}
+                                <i class="fas fa-cube text-primary"></i>
+                            {% endif %}
+                        </div>
+                        <div class="cart-widget-item-name">{{ item.name }}</div>
+                        <div class="cart-widget-item-price">{{ item.price|intcomma }} ₽</div>
+                        <button class="cart-widget-item-remove" data-remove-id="{{ item.service.id }}">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="cart-widget-empty">
+                        <div class="cart-widget-empty-icon"><i class="fas fa-shopping-basket"></i></div>
+                        <p class="text-muted small mb-0">Корзина пуста</p>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center mb-3 pt-2" style="border-top: 1px solid rgba(255,255,255,0.05);">
+                <span class="text-muted"><i class="fas fa-receipt me-2"></i>Итого:</span>
+                <span class="fw-bold text-success cart-widget-total-price">{{ cart.get_total_price|default:0|intcomma }} ₽</span>
+            </div>
+            
+            <button class="btn-sidebar-premium w-100 text-decoration-none" data-cart-open style="border: none; background: transparent; padding: 0; outline: none; cursor: pointer;">
+                <span class="w-100 d-flex justify-content-center align-items-center py-2" style="background: rgba(var(--bs-primary-rgb), 0.1); border: 1px solid rgba(var(--bs-primary-rgb), 0.3); color: var(--bs-primary); border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
+                    <i class="fas fa-shopping-bag me-2"></i> Оформить заказ
+                </span>
+            </button>
+        {% else %}
+            <div class="text-center py-2">
+                <div class="text-muted mb-3">
+                    <i class="fas fa-lock fa-2x opacity-25"></i>
+                </div>
+                <p class="small text-muted mb-3">Войдите, чтобы собрать заказ</p>
+                <a href="{% url 'accounts:login' %}" class="btn-sidebar-premium w-100 text-center text-decoration-none d-block">
+                    <span>Авторизоваться</span>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+/* Микро-стили для элементов внутри динамического сайдбара корзины  */
+.cart-widget-items {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--bs-primary-rgb), 0.5) transparent;
+}
+.cart-widget-items::-webkit-scrollbar {
+    width: 4px;
+}
+.cart-widget-items::-webkit-scrollbar-thumb {
+    background: rgba(var(--bs-primary-rgb), 0.5);
+    border-radius: 4px;
+}
+.cart-widget-empty {
+    text-align: center;
+    padding: 1rem 0;
+}
+.cart-widget-empty-icon i {
+    font-size: 2rem;
+    opacity: 0.15;
+    margin-bottom: 0.5rem;
+}
+.cart-widget-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.cart-widget-item:last-child {
+    border-bottom: none;
+}
+.cart-widget-item-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.cart-widget-item-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.cart-widget-item-name {
+    flex-grow: 1;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--bs-body-color);
+}
+.cart-widget-item-price {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--bs-success);
+    white-space: nowrap;
+}
+.cart-widget-item-remove {
+    background: none;
+    border: none;
+    color: var(--bs-danger);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.2s, color 0.2s;
+    padding: 0 4px;
+    font-size: 0.9rem;
+}
+.cart-widget-item-remove:hover {
+    opacity: 1;
+    color: #ff4d4d;
+}
+</style>

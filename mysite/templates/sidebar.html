@@ -7,6 +7,8 @@
 {% load static %}
 <!-- Контейнер сайдбара - 12 колонок на маленьких экранах, 3 на больших -->
 <div class="sidebar mb-4 mb-lg-0">
+    <!-- Секция корзины -->
+    {% include 'content_sidebar/cs_cart_sidebar.html' %}
     <!-- Секция последних новостей -->
     {% include 'content_sidebar/cs_news_sidebar.html' %}
     <!-- Секция популярных услуг -->
