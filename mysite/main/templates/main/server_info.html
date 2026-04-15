@@ -4,6 +4,326 @@
 
 {% block extrastyle %}
 {{ block.super }}
+<style>
+    .server-info-container {
+        padding: 20px;
+        background: var(--body-bg, transparent);
+        color: var(--body-fg, inherit);
+        font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    }
+    
+    .server-info-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .server-info-title {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .server-info-header p {
+        margin: 5px 0 0 0;
+        color: #6c757d;
+        font-size: 14px;
+    }
+    
+    .refresh-btn {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0 2px 4px rgba(0,123,255,0.2);
+    }
+    
+    .refresh-btn:hover {
+        background: #0056b3;
+        box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+        transform: translateY(-1px);
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .server-info-card {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.08);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .server-info-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    }
+
+    .server-info-card-header {
+        background: #f8f9fa;
+        padding: 14px 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .server-info-card-title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #343a40;
+    }
+
+    .server-info-card-title i {
+        color: #007bff;
+    }
+
+    .server-info-card-body {
+        padding: 20px;
+        flex: 1;
+    }
+
+    .server-info-card-body h4 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 14px;
+        color: #495057;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .info-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .info-table td {
+        padding: 10px 8px;
+        border-bottom: 1px solid #f1f3f5;
+        font-size: 14px;
+        vertical-align: top;
+    }
+    
+    .info-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .info-table td:first-child {
+        font-weight: 500;
+        color: #6c757d;
+        width: 40%;
+    }
+    
+    .info-table td:last-child {
+        color: #212529;
+        word-break: break-word;
+        font-weight: 500;
+    }
+    
+    .info-table a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    
+    .info-table a:hover {
+        text-decoration: underline;
+    }
+
+    .info-badge {
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        display: inline-block;
+        letter-spacing: 0.5px;
+    }
+    
+    .badge-success { background: #d4edda; color: #155724; }
+    .badge-danger { background: #f8d7da; color: #721c24; }
+    .badge-info { background: #e0f3ff; color: #0056b3; margin: 2px; }
+
+    .progress-container {
+        width: 100%;
+        background-color: #e9ecef;
+        border-radius: 8px;
+        overflow: hidden;
+        height: 24px;
+        position: relative;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #007bff, #0056b3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        min-width: 30px;
+    }
+
+    .progress-text {
+        text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        left: 0;
+    }
+
+    /* Red logic for high progress */
+    .progress-fill.high {
+        background: linear-gradient(90deg, #dc3545, #c82333);
+    }
+    .progress-fill.medium {
+        background: linear-gradient(90deg, #fd7e14, #e8590c);
+    }
+    
+    .app-item {
+        background: #f8f9fa;
+        padding: 12px;
+        border-radius: 6px;
+        border-left: 4px solid #007bff;
+        margin-bottom: 12px;
+        transition: background 0.2s;
+    }
+    
+    .app-item:hover {
+        background: #e9ecef;
+    }
+    
+    .app-name {
+        font-weight: 600;
+        font-size: 14px;
+        color: #343a40;
+    }
+    
+    .app-path {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 6px;
+        word-break: break-all;
+        font-family: monospace;
+    }
+
+    /* ====== Dark mode adjustments (Jazzmin & pure dark theme) ====== */
+    body.dark-mode .server-info-header,
+    [data-theme="dark"] .server-info-header {
+        border-bottom-color: rgba(255,255,255,0.1);
+    }
+    body.dark-mode .server-info-title,
+    [data-theme="dark"] .server-info-title {
+        color: #e9ecef;
+    }
+    body.dark-mode .server-info-header p,
+    [data-theme="dark"] .server-info-header p {
+        color: #adb5bd;
+    }
+    
+    body.dark-mode .server-info-card,
+    [data-theme="dark"] .server-info-card {
+        background: #343a40;
+        border-color: rgba(255,255,255,0.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    
+    body.dark-mode .server-info-card-header,
+    [data-theme="dark"] .server-info-card-header {
+        background: #212529;
+        border-bottom-color: rgba(255,255,255,0.1);
+    }
+    
+    body.dark-mode .server-info-card-title,
+    [data-theme="dark"] .server-info-card-title {
+        color: #f8f9fa;
+    }
+    
+    body.dark-mode .server-info-card-body h4,
+    [data-theme="dark"] .server-info-card-body h4 {
+        color: #ced4da;
+    }
+    
+    body.dark-mode .info-table td,
+    [data-theme="dark"] .info-table td {
+        border-bottom-color: rgba(255,255,255,0.05);
+    }
+    
+    body.dark-mode .info-table td:first-child,
+    [data-theme="dark"] .info-table td:first-child {
+        color: #adb5bd;
+    }
+    
+    body.dark-mode .info-table td:last-child,
+    [data-theme="dark"] .info-table td:last-child {
+        color: #e9ecef;
+    }
+    
+    body.dark-mode .info-table a,
+    [data-theme="dark"] .info-table a {
+        color: #66b0ff;
+    }
+
+    body.dark-mode .progress-container,
+    [data-theme="dark"] .progress-container {
+        background-color: #212529;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    }
+    
+    body.dark-mode .app-item,
+    [data-theme="dark"] .app-item {
+        background: #212529;
+    }
+    
+    body.dark-mode .app-item:hover,
+    [data-theme="dark"] .app-item:hover {
+        background: #2c3238;
+    }
+    
+    body.dark-mode .app-name,
+    [data-theme="dark"] .app-name {
+        color: #f8f9fa;
+    }
+    
+    body.dark-mode .app-path,
+    [data-theme="dark"] .app-path {
+        color: #868e96;
+    }
+    
+    body.dark-mode .badge-success, [data-theme="dark"] .badge-success { background: #1b5e20; color: #a5d6a7; }
+    body.dark-mode .badge-danger, [data-theme="dark"] .badge-danger { background: #b71c1c; color: #ffcdd2; }
+    body.dark-mode .badge-info, [data-theme="dark"] .badge-info { background: #01579b; color: #b3e5fc; }
+</style>
 {% endblock %}
 
 {% block content %}
