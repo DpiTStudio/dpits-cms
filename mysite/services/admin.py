@@ -266,7 +266,7 @@ class ServiceOrderAdmin(admin.ModelAdmin):
     list_filter = ["status", "order_type", "created_at"]
     search_fields = ["client_name", "client_email", "client_phone", "comment"]
     readonly_fields = ["created_at", "updated_at", "total_price", "user"]
-    list_editable = ["status"]
+    list_editable = []
     list_per_page = 25
     date_hierarchy = "created_at"
     inlines = [ServiceOrderItemInline]
