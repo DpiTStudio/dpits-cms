@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-from .models import ServiceCategory, Service
+from .models import ServiceCategory, Service, ServiceOrder, ServiceOrderItem
 
 
 @admin.register(ServiceCategory)
@@ -239,3 +239,83 @@ class ServiceAdmin(admin.ModelAdmin):
         return obj.get_price_display()
 
     price_display.short_description = _("Цена")
+
+
+class ServiceOrderItemInline(admin.TabularInline):
+    """inline-позиции заказа"""
+    model = ServiceOrderItem
+    extra = 0
+    readonly_fields = ("service", "service_name", "price", "quantity", "item_total")
+    fields = ("service_name", "service", "price", "quantity", "item_total")
+    can_delete = False
+
+    def item_total(self, obj):
+        return f"{obj.total_price:,.0f} ₽".replace(",", " ")
+    item_total.short_description = _("Сумма")
+
+
+@admin.register(ServiceOrder)
+class ServiceOrderAdmin(admin.ModelAdmin):
+    """Админ-панель заказов"""
+
+    list_display = [
+        "id", "client_name", "client_email", "client_phone",
+        "order_type_badge", "status_badge", "total_price_display",
+        "items_count", "created_at",
+    ]
+    list_filter = ["status", "order_type", "created_at"]
+    search_fields = ["client_name", "client_email", "client_phone", "comment"]
+    readonly_fields = ["created_at", "updated_at", "total_price", "user"]
+    list_editable = ["status"]
+    list_per_page = 25
+    date_hierarchy = "created_at"
+    inlines = [ServiceOrderItemInline]
+
+    fieldsets = (
+        (_("Клиент"), {
+            "fields": ("user", "client_name", "client_email", "client_phone"),
+        }),
+        (_("Заказ"), {
+            "fields": ("order_type", "status", "total_price", "comment"),
+        }),
+        (_("Система"), {
+            "fields": ("created_at", "updated_at"),
+            "classes": ("collapse",),
+        }),
+    )
+
+    def order_type_badge(self, obj):
+        colors = {"quick": "#6366f1", "full": "#10b981"}
+        labels = {"quick": "Быстрый", "full": "Полный"}
+        color = colors.get(obj.order_type, "#6b7280")
+        label = labels.get(obj.order_type, obj.order_type)
+        return format_html(
+            '<span style="background:{};color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;">{}</span>',
+            color, label
+        )
+    order_type_badge.short_description = _("Тип")
+
+    def status_badge(self, obj):
+        colors = {
+            "new": "#3b82f6",
+            "in_progress": "#f59e0b",
+            "completed": "#10b981",
+            "cancelled": "#ef4444",
+        }
+        labels = dict(ServiceOrder.STATUS_CHOICES)
+        color = colors.get(obj.status, "#6b7280")
+        label = labels.get(obj.status, obj.status)
+        return format_html(
+            '<span style="background:{};color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;">{}</span>',
+            color, label
+        )
+    status_badge.short_description = _("Статус")
+
+    def total_price_display(self, obj):
+        return f"{obj.total_price:,.0f} ₽".replace(",", " ")
+    total_price_display.short_description = _("Итог")
+
+    def items_count(self, obj):
+        return obj.items.count()
+    items_count.short_description = _("Позиций")
+

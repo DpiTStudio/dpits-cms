@@ -4,6 +4,7 @@ from django.db.models import F  # Атомарное обновление пол
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 from django_ckeditor_5.fields import CKEditor5Field
 from main.models import HeroMixin
 
@@ -220,3 +221,103 @@ class Service(HeroMixin):
         """
         Service.objects.filter(pk=self.pk).update(views=F("views") + 1)
         self.refresh_from_db(fields=["views"])
+
+
+class ServiceOrder(models.Model):
+    """
+    Заказ услуг, созданный из корзины.
+    Поддерживает как авторизованных, так и гостевых пользователей.
+    """
+
+    STATUS_CHOICES = (
+        ("new", _("Новый")),
+        ("in_progress", _("В работе")),
+        ("completed", _("Выполнен")),
+        ("cancelled", _("Отменён")),
+    )
+
+    ORDER_TYPE_CHOICES = (
+        ("quick", _("Быстрый")),
+        ("full", _("Полный")),
+    )
+
+    # Привязка к пользователю (необязательна — поддерживаем гостевые заказы)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Пользователь"),
+        related_name="service_orders",
+    )
+
+    # Контактные данные клиента
+    client_name = models.CharField(_("Имя клиента"), max_length=150)
+    client_email = models.EmailField(_("Email клиента"))
+    client_phone = models.CharField(_("Телефон клиента"), max_length=30, blank=True)
+
+    # Описание заказа
+    comment = models.TextField(_("Комментарий"), blank=True)
+
+    # Тип и статус
+    order_type = models.CharField(
+        _("Тип заказа"), max_length=10, choices=ORDER_TYPE_CHOICES, default="quick"
+    )
+    status = models.CharField(
+        _("Статус"), max_length=20, choices=STATUS_CHOICES, default="new"
+    )
+
+    # Итоговая стоимость (рассчитывается при создании)
+    total_price = models.DecimalField(
+        _("Итого"), max_digits=12, decimal_places=2, default=0
+    )
+
+    # Системные поля
+    created_at = models.DateTimeField(_("Создано"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Обновлено"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Заказ")
+        verbose_name_plural = _("Заказы")
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Заказ #{self.id} — {self.client_name}"
+
+    def get_absolute_url(self):
+        return reverse("services:order_detail", kwargs={"pk": self.pk})
+
+
+class ServiceOrderItem(models.Model):
+    """
+    Позиция заказа — конкретная услуга с зафиксированной ценой.
+    """
+
+    order = models.ForeignKey(
+        ServiceOrder,
+        on_delete=models.CASCADE,
+        verbose_name=_("Заказ"),
+        related_name="items",
+    )
+    service = models.ForeignKey(
+        Service,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Услуга"),
+        related_name="order_items",
+    )
+    service_name = models.CharField(_("Название услуги"), max_length=255)
+    price = models.DecimalField(_("Цена"), max_digits=10, decimal_places=2, default=0)
+    quantity = models.PositiveIntegerField(_("Количество"), default=1)
+
+    class Meta:
+        verbose_name = _("Позиция заказа")
+        verbose_name_plural = _("Позиции заказа")
+
+    def __str__(self):
+        return f"{self.service_name} × {self.quantity}"
+
+    @property
+    def total_price(self):
+        return self.price * self.quantity

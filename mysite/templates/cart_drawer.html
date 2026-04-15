@@ -91,16 +91,22 @@
             </span>
         </div>
 
-        <a href="{% url 'accounts:ticket_list' %}" class="cart-checkout-btn">
-            <i class="fas fa-file-alt"></i>
-            <span>Оформить заказ</span>
-            <i class="fas fa-arrow-right"></i>
-        </a>
+        <div class="cart-checkout-actions">
+            <a href="{% url 'services:checkout' %}?type=quick" class="cart-checkout-btn cart-checkout-quick" data-no-close>
+                <i class="fas fa-bolt"></i>
+                <span>Быстрый заказ</span>
+            </a>
+            <a href="{% url 'services:checkout' %}?type=full" class="cart-checkout-btn cart-checkout-full" data-no-close>
+                <i class="fas fa-file-signature"></i>
+                <span>Оформить полностью</span>
+            </a>
+        </div>
 
         <button id="cartClearBtn" class="cart-clear-btn" type="button">
             <i class="fas fa-trash-alt me-2"></i>Очистить корзину
         </button>
         {% endif %}
+
     </div>
 </div>
 

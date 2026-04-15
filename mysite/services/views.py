@@ -1,8 +1,12 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.core.cache import cache
 from django.db.models import Q
+from django.db import transaction
+from django.contrib import messages
 from main.breadcrumbs import get_breadcrumbs
-from .models import Service, ServiceCategory
+from .models import Service, ServiceCategory, ServiceOrder, ServiceOrderItem
+from .cart import Cart
+from .forms import QuickOrderForm, FullOrderForm
 
 
 
@@ -151,3 +155,111 @@ def service_category(request, slug):
         ]),
     }
     return render(request, 'services/category.html', context)
+
+
+def checkout(request):
+    """
+    Страница оформления заказа из корзины.
+    Поддерживает два режима:
+    - quick: быстрый заказ (QuickOrderForm)
+    - full:  полный заказ (FullOrderForm)
+    """
+    cart = Cart(request)
+
+    # Список элементов корзины
+    cart_items = list(cart)
+    if not cart_items:
+        messages.warning(request, "Корзина пуста. Добавьте услуги перед оформлением заказа.")
+        return redirect("services:list")
+
+    # Определяем тип формы
+    order_type = request.GET.get("type", "quick")  # quick | full
+    if order_type not in ("quick", "full"):
+        order_type = "quick"
+
+    FormClass = FullOrderForm if order_type == "full" else QuickOrderForm
+
+    # Предзаполнение данных авторизованного пользователя
+    initial = {}
+    if request.user.is_authenticated:
+        initial["client_name"] = request.user.get_full_name() or request.user.username
+        initial["client_email"] = request.user.email
+        try:
+            initial["client_phone"] = request.user.profile.phone or ""
+        except Exception:
+            pass
+
+    if request.method == "POST" and request.POST.get("order_type") in ("quick", "full"):
+        posted_type = request.POST.get("order_type")
+        PostFormClass = FullOrderForm if posted_type == "full" else QuickOrderForm
+        form = PostFormClass(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            try:
+                with transaction.atomic():
+                    order = ServiceOrder(
+                        user=request.user if request.user.is_authenticated else None,
+                        client_name=data["client_name"],
+                        client_email=data["client_email"],
+                        client_phone=data.get("client_phone", ""),
+                        comment=data.get("comment", ""),
+                        order_type=posted_type,
+                        total_price=cart.get_total_price(),
+                    )
+                    order.save()
+
+                    # Сохраняем позиции заказа
+                    for item in cart_items:
+                        ServiceOrderItem.objects.create(
+                            order=order,
+                            service=item.get("service"),
+                            service_name=item["name"],
+                            price=item["price"],
+                            quantity=item["quantity"],
+                        )
+
+                    # Очищаем корзину
+                    cart.clear()
+
+                messages.success(
+                    request,
+                    f"✅ Заказ #{order.id} успешно оформлен! Мы свяжемся с вами в ближайшее время."
+                )
+                return redirect("services:order_success", pk=order.pk)
+            except Exception as e:
+                messages.error(request, f"Ошибка при оформлении заказа: {e}")
+        # Если форма невалидна — продолжаем отображать ошибки
+        order_type = posted_type
+    else:
+        form = FormClass(initial=initial)
+
+    context = {
+        "cart": cart,
+        "cart_items": cart_items,
+        "form": form,
+        "order_type": order_type,
+        "quick_form": QuickOrderForm(initial=initial) if order_type == "full" else form,
+        "full_form": FullOrderForm(initial=initial) if order_type == "quick" else form,
+        "page_title": "Оформление заказа",
+        "breadcrumbs": get_breadcrumbs([
+            ("Услуги", reverse("services:list"), "fas fa-concierge-bell"),
+            ("Оформление заказа", None, "fas fa-receipt"),
+        ]),
+    }
+    return render(request, "services/checkout.html", context)
+
+
+def order_success(request, pk):
+    """
+    Страница успешного оформления.
+    """
+    order = get_object_or_404(ServiceOrder.objects.prefetch_related("items"), pk=pk)
+    context = {
+        "order": order,
+        "page_title": f"Заказ #{order.id} подтверждён",
+        "breadcrumbs": get_breadcrumbs([
+            ("Услуги", reverse("services:list"), "fas fa-concierge-bell"),
+            (f"Заказ #{order.id}", None, "fas fa-check-circle"),
+        ]),
+    }
+    return render(request, "services/order_success.html", context)

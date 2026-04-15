@@ -1,0 +1,443 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Заказ #{{ order.id }} подтверждён — {{ site_settings.logo_text }}{% endblock %}
+
+{% block content_wrapper %}
+<div class="container my-5">
+    {% include "breadcrumbs.html" %}
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            {# ── Шапка успеха ── #}
+            <div class="order-success-hero text-center mb-5">
+                <div class="order-success-icon-wrap">
+                    <div class="order-success-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="order-success-rings">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <h1 class="order-success-title mt-4">Заказ принят!</h1>
+                <p class="order-success-sub">
+                    Ваш заказ <strong class="text-primary">#{{ order.id }}</strong> успешно оформлен.<br>
+                    Мы свяжемся с вами по адресу <strong>{{ order.client_email }}</strong> в ближайшее время.
+                </p>
+            </div>
+
+            {# ── Карточка заказа ── #}
+            <div class="order-success-card mb-4">
+                <div class="order-success-card-header">
+                    <div class="order-success-card-title">
+                        <i class="fas fa-receipt me-2"></i>Детали заказа
+                    </div>
+                    <div class="order-success-badge order-type-{{ order.order_type }}">
+                        {% if order.order_type == 'quick' %}
+                        <i class="fas fa-bolt me-1"></i>Быстрый
+                        {% else %}
+                        <i class="fas fa-file-signature me-1"></i>Полный
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="order-success-meta">
+                    <div class="order-meta-item">
+                        <i class="fas fa-user text-primary"></i>
+                        <span>{{ order.client_name }}</span>
+                    </div>
+                    <div class="order-meta-item">
+                        <i class="fas fa-envelope text-primary"></i>
+                        <span>{{ order.client_email }}</span>
+                    </div>
+                    {% if order.client_phone %}
+                    <div class="order-meta-item">
+                        <i class="fas fa-phone text-primary"></i>
+                        <span>{{ order.client_phone }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="order-meta-item">
+                        <i class="fas fa-calendar-alt text-primary"></i>
+                        <span>{{ order.created_at|date:"d.m.Y H:i" }}</span>
+                    </div>
+                </div>
+
+                {# Позиции заказа #}
+                <div class="order-success-items">
+                    <div class="order-success-items-title">Заказанные услуги</div>
+                    {% for item in order.items.all %}
+                    <div class="order-success-item">
+                        <div class="order-success-item-num">{{ forloop.counter }}</div>
+                        <div class="order-success-item-name">
+                            {% if item.service %}
+                            <a href="{{ item.service.get_absolute_url }}" target="_blank">{{ item.service_name }}</a>
+                            {% else %}
+                            {{ item.service_name }}
+                            {% endif %}
+                        </div>
+                        <div class="order-success-item-price">
+                            {% if item.price %}
+                            {{ item.price|intcomma }} ₽
+                            {% else %}
+                            <span class="text-muted">По запросу</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {# Итог #}
+                <div class="order-success-total">
+                    <span>Итоговая сумма:</span>
+                    <span class="order-success-total-price">
+                        {% if order.total_price %}
+                        {{ order.total_price|intcomma }} ₽
+                        {% else %}
+                        Согласуется
+                        {% endif %}
+                    </span>
+                </div>
+
+                {# Комментарий если есть #}
+                {% if order.comment %}
+                <div class="order-success-comment">
+                    <div class="order-success-comment-label">
+                        <i class="fas fa-comment-dots me-2"></i>Ваш комментарий:
+                    </div>
+                    <p>{{ order.comment }}</p>
+                </div>
+                {% endif %}
+            </div>
+
+            {# ── Следующие шаги ── #}
+            <div class="order-next-steps mb-5">
+                <h5 class="order-next-title">Что дальше?</h5>
+                <div class="order-next-grid">
+                    <div class="order-next-step">
+                        <div class="order-next-num">1</div>
+                        <div>
+                            <strong>Подтверждение</strong>
+                            <span>Мы получили ваш заказ и обрабатываем его</span>
+                        </div>
+                    </div>
+                    <div class="order-next-step">
+                        <div class="order-next-num">2</div>
+                        <div>
+                            <strong>Связь с вами</strong>
+                            <span>Менеджер свяжется в течение 1 рабочего дня</span>
+                        </div>
+                    </div>
+                    <div class="order-next-step">
+                        <div class="order-next-num">3</div>
+                        <div>
+                            <strong>Согласование</strong>
+                            <span>Обсудим детали, сроки и условия работы</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ── Кнопки ── #}
+            <div class="d-flex gap-3 flex-wrap justify-content-center">
+                <a href="{% url 'services:list' %}" class="btn btn-outline-primary px-4 py-2 rounded-pill">
+                    <i class="fas fa-th-large me-2"></i>Все услуги
+                </a>
+                <a href="{% url 'main:index' %}" class="btn btn-gradient-primary px-4 py-2 rounded-pill">
+                    <i class="fas fa-home me-2"></i>На главную
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+/* ══════════════════════════════════════
+   ORDER SUCCESS PAGE
+══════════════════════════════════════ */
+
+/* Иконка успеха с анимацией */
+.order-success-icon-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.order-success-icon {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+    animation: iconPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s both;
+    box-shadow: 0 12px 40px rgba(16,185,129,0.4);
+}
+
+@keyframes iconPop {
+    from { transform: scale(0); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.order-success-rings {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-success-rings span {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(16,185,129,0.3);
+    animation: ringPulse 2s ease-out infinite;
+}
+.order-success-rings span:nth-child(1) { width: 120px; height: 120px; animation-delay: 0.3s; }
+.order-success-rings span:nth-child(2) { width: 150px; height: 150px; animation-delay: 0.6s; }
+.order-success-rings span:nth-child(3) { width: 180px; height: 180px; animation-delay: 0.9s; }
+
+@keyframes ringPulse {
+    0%   { opacity: 0.6; transform: scale(0.85); }
+    100% { opacity: 0;   transform: scale(1.1); }
+}
+
+.order-success-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #10b981, #059669);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.order-success-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+}
+
+/* Карточка заказа */
+.order-success-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    animation: slideUp 0.4s ease 0.2s both;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+
+.order-success-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+}
+
+.order-success-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+}
+
+.order-success-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.order-type-quick { background: rgba(99,102,241,0.25); color: #a5b4fc; }
+.order-type-full  { background: rgba(16,185,129,0.2);  color: #6ee7b7; }
+
+.order-success-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    gap: 12px;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.order-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.7);
+}
+
+.order-meta-item i { width: 16px; text-align: center; }
+
+.order-success-items {
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.order-success-items-title {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.order-success-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.02);
+    margin-bottom: 8px;
+    transition: background 0.2s;
+}
+.order-success-item:last-child { margin-bottom: 0; }
+.order-success-item:hover { background: rgba(255,255,255,0.05); }
+
+.order-success-item-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(99,102,241,0.2);
+    color: #a5b4fc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.order-success-item-name {
+    flex: 1;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+}
+.order-success-item-name a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+}
+.order-success-item-name a:hover { color: #a5b4fc; }
+
+.order-success-item-price {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #a5b4fc;
+    white-space: nowrap;
+}
+
+.order-success-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: rgba(99,102,241,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.order-success-total span:first-child {
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+}
+
+.order-success-total-price {
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #6366f1, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.order-success-comment {
+    padding: 16px 24px;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.6);
+}
+.order-success-comment-label {
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 6px;
+}
+
+/* Следующие шаги */
+.order-next-steps {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.order-next-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
+}
+
+.order-next-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.order-next-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.order-next-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.88rem;
+    flex-shrink: 0;
+}
+
+.order-next-step div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 4px;
+}
+
+.order-next-step strong {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.85);
+}
+
+.order-next-step span {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+}
+</style>
+{% endblock %}
