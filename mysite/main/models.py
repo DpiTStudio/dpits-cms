@@ -481,10 +481,10 @@ class SiteSettings(SingletonModel):
             ('telegram', 'icon_telegram', 'Telegram'),
             ('vk', 'icon_vk', 'ВКонтакте'),
             ('ok', 'icon_ok', 'Одноклассники'),
-            ('twitter', None, 'Twitter'),
-            ('pinterest', None, 'Pinterest'),
-            ('linkedin', None, 'LinkedIn'),
-            ('threads', None, 'Threads'),
+            ('twitter', 'icon_twitter', 'Twitter'),
+            ('pinterest', 'icon_pinterest', 'Pinterest'),
+            ('linkedin', 'icon_linkedin', 'LinkedIn'),
+            ('threads', 'icon_threads', 'Threads'),
         ]
         
         for field, icon_field, name in social_fields:
@@ -511,10 +511,17 @@ class SiteSettings(SingletonModel):
             val = getattr(self, field)
             if val:
                 url = val if val.startswith(('http', 'viber:', 'skype:')) else f"{base_url}{val}"
+                
+                icon = None
+                icon_field_name = f"icon_{field}"
+                if hasattr(self, icon_field_name):
+                    icon_obj = getattr(self, icon_field_name)
+                    icon = icon_obj.url if icon_obj else None
+
                 links.append({
                     'name': name,
                     'url': url,
-                    'icon': None,
+                    'icon': icon,
                     'slug': field
                 })
                 

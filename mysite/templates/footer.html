@@ -127,70 +127,14 @@
             </div>
         </div>
 
-        <!-- Секция социальных сетей -->
-        <div class="row mt-4">
-            <!-- Колонка на всю ширину -->
-            <div class="col-12">
-                <!-- Заголовок секции социальных сетей -->
-                <h5 class="fw-bold mb-3">Мы в соцсетях</h5>
-                <!-- Описание секции с приглушенным цветом и отступом снизу -->
-                <p class="footer-content-2 mb-3">Подписывайтесь на наши социальные сети, чтобы быть в курсе последних
-                    новостей и событий.</p>
-
-                <!-- Контейнер для социальных ссылок с flexbox и отступами -->
-                <div class="social-links d-flex flex-wrap gap-3">
-                    <!-- Условная проверка наличия ссылки на Facebook -->
-                    {% if site_settings.facebook %}
-                    <!-- Ссылка на Facebook с белым текстом и большим размером шрифта -->
-                    <a href="{{ site_settings.facebook }}" class="text-white fs-4" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i
-                            class="fab fa-facebook"></i></a>
-                    {% endif %}
-                    <!-- Условная проверка наличия ссылки на ВКонтакте -->
-                    {% if site_settings.vk %}
-                    <!-- Ссылка на ВКонтакте с белым текстом и большим размером шрифта -->
-                    <a href="{{ site_settings.vk }}" class="text-white fs-4" target="_blank" rel="noopener noreferrer" aria-label="VK"><i
-                            class="fab fa-vk"></i></a>
-                    {% endif %}
-                    <!-- Условная проверка наличия ссылки на Одноклассники -->
-                    {% if site_settings.ok %}
-                    <!-- Ссылка на Одноклассники с белым текстом и большим размером шрифта -->
-                    <a href="{{ site_settings.ok }}" class="text-white fs-4" target="_blank" rel="noopener noreferrer" aria-label="Odnoklassniki"><i
-                            class="fab fa-odnoklassniki"></i></a>
-                    {% endif %}
-                    <!-- Условная проверка наличия ссылки на YouTube -->
-                    {% if site_settings.youtube %}
-                    <!-- Ссылка на YouTube с белым текстом и большим размером шрифта -->
-                    <a href="{{ site_settings.youtube }}" class="text-white fs-4" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    {% endif %}
-                    <!-- Условная проверка наличия ссылки на Telegram -->
-                    {% if site_settings.telegram %}
-                    <!-- Ссылка на Telegram с белым текстом и большим размером шрифта -->
-                    <a href="{{ site_settings.telegram }}" class="text-white fs-4" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-                    {% endif %}
-                    <!-- Условная проверка наличия ссылки на Instagram -->
-                    {% if site_settings.instagram %}
-                    <!-- Ссылка на Instagram с белым текстом и большим размером шрифта -->
-                    <a href="{{ site_settings.instagram }}" class="text-white fs-4" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+        {% include 'includes/social_networks_section.html' %}
 
         <!-- Горизонтальная разделительная линия с вертикальными отступами -->
         <hr class="my-4">
 
-        <!-- Контейнер для копирайта с выравниванием по центру на мобильных и по левому краю на больших экранах -->
-        <div class="text-left text-md-start mt-4">
-            <!-- Текст копирайта с отступом снизу и специальным классом для стилизации -->
-            <p class="mb-2 footer-text-copy small">
-                <!-- Символ копирайта, текущий год и название бренда -->
-                &copy; {% now "Y" %} {{ site_settings.logo_text }}.
-                <!-- Курсивный текст о правах -->
-                <span class="d-block d-md-inline">Все права защищены.</span>
-            </p>
-        </div>
-        <div class="text-center">
+        {% include 'includes/copywriter.html' %}
 
+        <div class="text-center">
             <!-- Баннеры в подвале -->
             {{ statistics_banners.footer|safe }}
             {% block footer %}{% endblock %}

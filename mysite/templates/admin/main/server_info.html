@@ -12,6 +12,380 @@
 
 {% block extrastyle %}
 {{ block.super }}
+<!-- FontAwesome for Icons and Google Fonts for Typography -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    /* Professional Server Info Styling */
+    :root {
+        --si-bg: #f8fafc;
+        --si-card-bg: #ffffff;
+        --si-text: #1e293b;
+        --si-text-muted: #64748b;
+        --si-border: #e2e8f0;
+        --si-primary: #4F46E5;
+        --si-primary-hover: #4338CA;
+        --si-success: #10B981;
+        --si-danger: #EF4444;
+        --si-warning: #F59E0B;
+        --si-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --info-gradient: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+        --success-gradient: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+        --primary-gradient: linear-gradient(135deg, #818cf8 0%, #4f46e5 100%);
+        --si-radius: 16px;
+    }
+
+    [data-theme="dark"], body.theme-dark {
+        --si-bg: #0f172a;
+        --si-card-bg: #1e293b;
+        --si-text: #f8fafc;
+        --si-text-muted: #94a3b8;
+        --si-border: #334155;
+        --si-card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        body:not([data-theme="light"]):not(.theme-light) {
+            --si-bg: #0f172a;
+            --si-card-bg: #1e293b;
+            --si-text: #f8fafc;
+            --si-text-muted: #94a3b8;
+            --si-border: #334155;
+            --si-card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    .server-info-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 24px;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        color: var(--si-text);
+        animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .server-info-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--si-card-bg);
+        padding: 28px 32px;
+        border-radius: var(--si-radius);
+        box-shadow: var(--si-card-shadow);
+        margin-bottom: 32px;
+        border: 1px solid var(--si-border);
+        flex-wrap: wrap;
+        gap: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .server-info-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: var(--primary-gradient);
+    }
+
+    .server-info-title {
+        margin: 0 !important;
+        font-size: 28px !important;
+        font-weight: 800 !important;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: var(--si-text);
+        letter-spacing: -0.5px;
+    }
+
+    .server-info-title i {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 2px 4px rgba(79, 70, 229, 0.2));
+    }
+
+    .text-muted {
+        color: var(--si-text-muted) !important;
+        font-size: 15px;
+    }
+
+    .refresh-btn {
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .refresh-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(79, 70, 229, 0.4);
+    }
+
+    .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+        gap: 28px;
+        margin-bottom: 28px;
+    }
+
+    .server-info-card {
+        background: var(--si-card-bg);
+        border-radius: var(--si-radius);
+        box-shadow: var(--si-card-shadow);
+        border: 1px solid var(--si-border);
+        overflow: hidden;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .server-info-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        border-color: rgba(79, 70, 229, 0.3);
+    }
+
+    .server-info-card-header {
+        background: rgba(128,128,128,0.02);
+        border-bottom: 1px solid var(--si-border);
+        padding: 20px 24px;
+    }
+
+    .server-info-card-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--si-text);
+        letter-spacing: -0.2px;
+    }
+
+    .server-info-card-title i {
+        color: var(--si-primary);
+        font-size: 20px;
+        background: rgba(79, 70, 229, 0.1);
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .server-info-card-body {
+        padding: 24px;
+        flex: 1;
+    }
+
+    .info-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .info-table tr {
+        border-bottom: 1px dashed var(--si-border);
+        transition: background 0.2s;
+    }
+
+    .info-table tr:hover {
+        background: rgba(128,128,128,0.03);
+    }
+
+    .info-table tr:last-child {
+        border-bottom: none;
+    }
+
+    .info-table td {
+        padding: 14px 8px;
+        font-size: 15px;
+    }
+
+    .info-table td:first-child {
+        color: var(--si-text-muted);
+        font-weight: 500;
+        width: 45%;
+    }
+
+    .info-table td:last-child {
+        font-weight: 600;
+        color: var(--si-text);
+        text-align: right;
+        word-break: break-all;
+    }
+
+    .progress-bar-container {
+        background: var(--si-border);
+        border-radius: 999px;
+        height: 12px;
+        width: 100%;
+        margin-top: 10px;
+        overflow: hidden;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        border-radius: 999px;
+        transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+        overflow: hidden;
+        width: 0; /* Will be set by inline style, but animates from 0 */
+    }
+
+    .progress-bar-fill::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+        animation: shimmer 2s infinite linear;
+    }
+
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    .info-badge {
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    .info-badge::before {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+
+    .badge-success { 
+        background: rgba(16, 185, 129, 0.1); 
+        color: var(--si-success); 
+        border: 1px solid rgba(16, 185, 129, 0.2); 
+    }
+    .badge-success::before { background: var(--si-success); box-shadow: 0 0 8px var(--si-success); }
+    
+    .badge-danger { 
+        background: rgba(239, 68, 68, 0.1); 
+        color: var(--si-danger); 
+        border: 1px solid rgba(239, 68, 68, 0.2); 
+    }
+    .badge-danger::before { background: var(--si-danger); box-shadow: 0 0 8px var(--si-danger); }
+
+    .app-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 16px;
+    }
+
+    .app-item {
+        background: var(--si-bg);
+        border: 1px solid var(--si-border);
+        border-radius: 12px;
+        padding: 16px;
+        border-left: 4px solid var(--si-primary);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+
+    .app-item:hover {
+        background: var(--si-card-bg);
+        transform: translateX(6px) scale(1.02);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        border-left-color: var(--si-success);
+    }
+
+    .app-name {
+        font-weight: 700;
+        color: var(--si-text);
+        margin-bottom: 4px;
+        font-size: 15px;
+    }
+
+    .app-path {
+        font-size: 12px;
+        color: var(--si-text-muted);
+        font-family: 'Consolas', 'Monaco', monospace;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 8px;
+        background: rgba(128,128,128,0.1);
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+
+    .d-flex { display: flex; }
+    .justify-content-between { justify-content: space-between; }
+    .mt-2 { margin-top: 8px; }
+    .text-xs { font-size: 13px; }
+
+    /* Interactive Copy Button */
+    .copy-val-btn {
+        background: transparent;
+        border: none;
+        color: var(--si-text-muted);
+        cursor: pointer;
+        padding: 4px;
+        margin-left: 8px;
+        border-radius: 4px;
+        transition: all 0.2s;
+        opacity: 0.5;
+    }
+    
+    .info-table tr:hover .copy-val-btn {
+        opacity: 1;
+    }
+    
+    .copy-val-btn:hover {
+        color: var(--si-primary);
+        background: rgba(79, 70, 229, 0.1);
+    }
+
+    /* Beautiful Resource Cards specifically */
+    .resource-block {
+        background: var(--si-bg);
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid var(--si-border);
+        transition: all 0.3s ease;
+    }
+    .resource-block:hover {
+        border-color: rgba(79, 70, 229, 0.3);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    @media (max-width: 992px) {
+        .grid-2 { grid-template-columns: 1fr; }
+        .server-info-header { flex-direction: column; align-items: flex-start; }
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -211,11 +585,95 @@
 
 {% block extrajs %}
 <script>
-    // Функция для копирования данных (опционально)
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            alert('Скопировано в буфер обмена');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Trigger progress bar animations with a slight delay for visual effect
+        setTimeout(() => {
+            document.querySelectorAll('.progress-bar-fill').forEach(bar => {
+                const targetWidth = bar.style.width; // Read inline width
+                bar.style.width = '0%'; // Reset
+                // Force reflow
+                void bar.offsetWidth;
+                bar.style.transition = 'width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                bar.style.width = targetWidth; // Animate to target
+            });
+        }, 100);
+
+        // Setup toast notification for copies
+        const copyMsg = document.createElement('div');
+        copyMsg.style.cssText = 'position:fixed; bottom:24px; right:24px; padding:12px 24px; background:var(--si-success); color:white; border-radius:10px; font-weight:600; font-family:Inter,sans-serif; transform:translateY(100px); opacity:0; transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index:9999; box-shadow:0 8px 16px rgba(16,185,129,0.25); display:flex; align-items:center; gap:10px;';
+        copyMsg.innerHTML = '<i class="fas fa-check-circle" style="font-size:18px;"></i> <span>Скопировано в буфер</span>';
+        document.body.appendChild(copyMsg);
+
+        let copyTimeout;
+        window.copyToClipboard = function(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual feedback on button
+                if (btn) {
+                    const icon = btn.querySelector('i');
+                    if (icon) {
+                        const origClass = icon.className;
+                        const origColor = icon.style.color;
+                        icon.className = 'fas fa-check';
+                        icon.style.color = 'var(--si-success)';
+                        setTimeout(() => {
+                            icon.className = origClass;
+                            icon.style.color = origColor;
+                        }, 2000);
+                    }
+                }
+                
+                // Show toast message
+                copyMsg.style.transform = 'translateY(0)';
+                copyMsg.style.opacity = '1';
+                clearTimeout(copyTimeout);
+                copyTimeout = setTimeout(() => {
+                    copyMsg.style.transform = 'translateY(100px)';
+                    copyMsg.style.opacity = '0';
+                }, 2500);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        };
+
+        // Auto-inject copy buttons to useful info rows
+        document.querySelectorAll('.info-table tr').forEach(row => {
+            const valCell = row.querySelector('td:last-child');
+            if (valCell && row.textContent.trim() !== '') {
+                // Don't inject if it's already got a link or badge
+                if (valCell.querySelector('a') || valCell.querySelector('.info-badge')) return;
+                
+                const valText = valCell.textContent.trim();
+                // Exclude very empty rows
+                if (valText.length > 0 && valText !== '-') {
+                    const btn = document.createElement('button');
+                    btn.className = 'copy-val-btn';
+                    btn.innerHTML = '<i class="far fa-copy"></i>';
+                    btn.title = 'Копировать';
+                    btn.setAttribute('aria-label', 'Копировать значение');
+                    btn.onclick = function(e) {
+                        e.stopPropagation();
+                        copyToClipboard(valText, this);
+                    };
+                    valCell.appendChild(btn);
+                }
+            }
         });
-    }
+        
+        // Make middleware items copyable too
+        document.querySelectorAll('.app-item code').forEach(code => {
+            code.style.cursor = 'pointer';
+            code.title = 'Нажмите, чтобы скопировать';
+            code.addEventListener('click', function(e) {
+                copyToClipboard(this.textContent.trim(), null);
+                
+                // Quick flash effect
+                const origBg = this.parentNode.style.backgroundColor;
+                this.parentNode.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+                setTimeout(() => {
+                    this.parentNode.style.backgroundColor = origBg;
+                }, 400);
+            });
+        });
+    });
 </script>
 {% endblock %}
