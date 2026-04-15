@@ -940,3 +940,40 @@
 .cart-empty-state h5 {
     color: #f1f5f9;
 }
+
+/* ====== ДВЕ КНОПКИ ОФОРМЛЕНИЯ ЗАКАЗА ====== */
+.cart-checkout-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 0;
+}
+
+.cart-checkout-actions .cart-checkout-btn {
+    box-shadow: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 0.88rem;
+}
+
+.cart-checkout-quick {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+    box-shadow: 0 4px 14px rgba(99,102,241,0.35) !important;
+}
+
+.cart-checkout-full {
+    background: linear-gradient(135deg, #059669, #10b981) !important;
+    box-shadow: 0 4px 14px rgba(16,185,129,0.3) !important;
+}
+
+.cart-checkout-full:hover {
+    box-shadow: 0 8px 24px rgba(16,185,129,0.45) !important;
+    color: #fff;
+}
+
+.cart-item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
