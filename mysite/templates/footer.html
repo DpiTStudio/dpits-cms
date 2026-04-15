@@ -127,16 +127,33 @@
             </div>
         </div>
 
-        {% include 'includes/social_networks_section.html' %}
-
         <!-- Горизонтальная разделительная линия с вертикальными отступами -->
         <hr class="my-4">
 
-        {% include 'includes/copywriter.html' %}
+        <div class="row">
+            <div class="col-6">
+                <!-- Секция с социальными сетями -->
+                {% include 'includes/social_networks_section.html' %}
+                <hr class="my-4">
+            </div>
+            <div class="col-6">
+                <!-- Секция мы принимаем -->
+                {% include 'includes/we_accept.html' %}
+                <hr class="my-4">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Секция с копирайтером -->
+                {% include 'includes/copywriter.html' %}
+                <hr class="my-4">
+                <!-- Секция с баннерами -->
+                {{ statistics_banners.footer|safe }}
+            </div>
+        </div>
 
         <div class="text-center">
-            <!-- Баннеры в подвале -->
-            {{ statistics_banners.footer|safe }}
             {% block footer %}{% endblock %}
         </div>
     </div>
