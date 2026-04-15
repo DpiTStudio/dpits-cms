@@ -460,3 +460,17 @@ def hero_overrides(request):
         "news": None,
     }
 
+
+def payment_methods(request):
+    """
+    Контекстный процессор для способов оплаты (мы принимаем).
+    """
+    from .models import PaymentMethod
+    cache_key = "payment_methods_data"
+    methods = cache.get(cache_key)
+
+    if methods is None:
+        methods = list(PaymentMethod.objects.filter(is_active=True).order_by("order", "name"))
+        cache.set(cache_key, methods, 600)  # кэшируем на 10 минут
+
+    return {"payment_methods": methods}

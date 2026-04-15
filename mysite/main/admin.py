@@ -22,6 +22,7 @@ from .models import (
     ErrorLog,           # Прокси-модель лога ошибок
     StatisticsBanner,   # Баннеры счетчиков
     AppHeroSettings,    # Настройки Hero
+    PaymentMethod,      # Способы оплаты
 )
 
 # Импорт утилит
@@ -399,3 +400,9 @@ try:
     from . import admin_files
 except ImportError:
     pass
+
+@admin.register(PaymentMethod)
+class PaymentMethodAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_active', 'order')
+    list_editable = ('is_active', 'order')
+    search_fields = ('name',)

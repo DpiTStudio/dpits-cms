@@ -1558,3 +1558,21 @@ class StatisticsBanner(models.Model):
         
         # Возвращаем код баннера
         return self.code.strip()
+
+
+class PaymentMethod(models.Model):
+    """
+    Модель для способов оплаты (Visa, Mastercard, Mir и т.д.)
+    """
+    name = models.CharField(_("Название"), max_length=100)
+    icon = models.ImageField(_("Иконка"), upload_to="payment_methods/")
+    is_active = models.BooleanField(_("Активно"), default=True)
+    order = models.IntegerField(_("Порядок отображения"), default=0)
+
+    class Meta:
+        verbose_name = _("Способ оплаты")
+        verbose_name_plural = _("Способы оплаты")
+        ordering = ["order", "name"]
+
+    def __str__(self):
+        return self.name
