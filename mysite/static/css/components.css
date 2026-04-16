@@ -237,6 +237,7 @@
 
 .brand-text-slogan {
     display: flex;
+    top: -100px;
     font-family: var(--font-heading);
     font-size: 0.8rem;
     font-weight: 200;
