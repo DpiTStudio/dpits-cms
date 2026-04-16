@@ -1,13 +1,17 @@
-{% if payment_methods %}
 <div class="we-accept">
     <h5>Мы принимаем</h5>
     <p class="footer-content-2 mb-3">Оплачивайте услуги удобным для вас способом.</p>
     <div class="we-accept-cards" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+        <!-- Если не активных способов оплаты то выведи информаю что нет способов оплаты -->
+        {% if not payment_methods %}
+            <p class="footer-content-2 mb-3">Нет активных способов оплаты.</p>
+        {% else %}
+        <!-- Если активных способов оплаты то выведи их -->
         {% for method in payment_methods %}
             {% if method.icon %}
                 <img src="{{ method.icon.url }}" alt="{{ method.name }}" title="{{ method.name }}" style="max-height: 50px; max-width: 80px; object-fit: contain;">
             {% endif %}
         {% endfor %}
+        {% endif %}
     </div>
 </div>
-{% endif %}

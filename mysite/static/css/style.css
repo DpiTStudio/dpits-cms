@@ -169,6 +169,11 @@ a:active {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
+.section-footer-1 {
+    height: 300px;
+    padding: 1rem;
+    margin: 1rem;
+}
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .hero-section {
