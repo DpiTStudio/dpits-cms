@@ -1,20 +1,20 @@
 <!-- Секция социальных сетей -->
-<div class="row mt-4">
+<div class="row mt-4 footer-container-1">
     <!-- Колонка на всю ширину -->
-    <div class="col-12">
+    <div class="col-12 row">
         <!-- Заголовок секции социальных сетей -->
         <h5 class="fw-bold mb-3">Мы в соцсетях</h5>
         <!-- Описание секции с приглушенным цветом и отступом снизу -->
         <p class="footer-content-2 mb-3">Подписывайтесь на наши социальные сети, чтобы быть в курсе последних новостей и событий.</p>
 
         <!-- Контейнер для социальных ссылок с flexbox и отступами -->
-        <div class="social-links d-flex flex-wrap gap-3">
+        <div class="social-links d-flex flex-wrap gap-3 align-items-center">
 
             {% for social in site_settings.get_social_links %}
             <!-- Ссылка на {{ social.name }} с белым текстом и большим размером шрифта -->
-            <a href="{{ social.url }}" class="text-white fs-4" target="_blank" rel="noopener noreferrer" aria-label="{{ social.name }}">
+            <a href="{{ social.url }}" class="text-white fs-4 d-flex align-items-center justify-content-center" target="_blank" rel="noopener noreferrer" aria-label="{{ social.name }}" style="min-width: 36px; height: 36px;">
               {% if social.icon %}
-                <img src="{{ social.icon }}" alt="{{ social.name }}" style="width: 24px; height: 24px; object-fit: contain;">
+                <img src="{{ social.icon }}" alt="{{ social.name }}" style="width: 28px; height: 28px; object-fit: contain;">
               {% else %}
                 {% if social.slug == 'ok' %}
                     <i class="fab fa-odnoklassniki"></i>

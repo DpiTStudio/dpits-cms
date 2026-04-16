@@ -1,17 +1,28 @@
-<div class="we-accept">
-    <h5>Мы принимаем</h5>
-    <p class="footer-content-2 mb-3">Оплачивайте услуги удобным для вас способом.</p>
-    <div class="we-accept-cards" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
-        <!-- Если не активных способов оплаты то выведи информаю что нет способов оплаты -->
-        {% if not payment_methods %}
-            <p class="footer-content-2 mb-3">Нет активных способов оплаты.</p>
-        {% else %}
-        <!-- Если активных способов оплаты то выведи их -->
-        {% for method in payment_methods %}
-            {% if method.icon %}
-                <img src="{{ method.icon.url }}" alt="{{ method.name }}" title="{{ method.name }}" style="max-height: 50px; max-width: 80px; object-fit: contain;">
+<!-- Секция способов оплаты -->
+<div class="row mt-4 footer-container-1">
+    <!-- Колонка на всю ширину -->
+    <div class="col-12 row">
+        <!-- Заголовок секции способов оплаты -->
+        <h5 class="fw-bold mb-3">Мы принимаем</h5>
+        <!-- Описание секции с приглушенным цветом и отступом снизу -->
+        <p class="footer-content-2 mb-3">Оплачивайте услуги удобным для вас способом.</p>
+
+        <!-- Контейнер для способов оплаты с flexbox и отступами -->
+        <div class="we-accept-cards d-flex flex-wrap gap-3 align-items-center">
+            <!-- Если нет активных способов оплаты то выведи информацию что нет способов оплаты -->
+            {% if not payment_methods %}
+                <p class="footer-content-2 mb-0">Нет активных способов оплаты.</p>
+            {% else %}
+            <!-- Если активны способы оплаты то выведи их -->
+            {% for method in payment_methods %}
+                {% if method.icon %}
+                    <!-- Изображение способа оплаты -->
+                    <div class="d-flex align-items-center justify-content-center" style="height: 36px;">
+                        <img src="{{ method.icon.url }}" alt="{{ method.name }}" title="{{ method.name }}" style="max-height: 36px; max-width: 60px; object-fit: contain;">
+                    </div>
+                {% endif %}
+            {% endfor %}
             {% endif %}
-        {% endfor %}
-        {% endif %}
+        </div>
     </div>
 </div>
