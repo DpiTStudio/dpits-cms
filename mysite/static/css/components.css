@@ -223,9 +223,11 @@
     justify-content: center;
 }
 .brand-text-domain {
+    position: relative;
+    top: 6px;
     display: block;
     font-family: var(--font-heading);
-    font-size: 1.7rem;
+    font-size: 1.9rem;
     font-weight: 900;
     letter-spacing: 0.09em;
     background: var(--gradient-cosmic);
@@ -237,7 +239,9 @@
 
 .brand-text-slogan {
     display: flex;
-    top: -100px;
+    position: relative;
+    right: -15px;
+    top: -10px;
     font-family: var(--font-heading);
     font-size: 0.8rem;
     font-weight: 200;
