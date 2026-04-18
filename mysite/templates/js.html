@@ -47,3 +47,57 @@
 <!-- 10. Корзина (AJAX drawer) -->
 <!-- AJAX-операции корзины, drawer, тосты, анимации -->
 <script src="{% static 'js/cart.js' %}?v=1.1"></script>
+
+<!-- 11. PREMIUM UI: глобальные эффекты (scroll-reveal, progress, header) -->
+<script>
+(function() {
+    'use strict';
+
+    // ── Reading progress ──
+    const readingBar = document.getElementById('readingProgress');
+    if (readingBar) {
+        window.addEventListener('scroll', () => {
+            const d = document.documentElement;
+            const pct = (d.scrollTop / (d.scrollHeight - d.clientHeight)) * 100;
+            readingBar.style.width = Math.min(pct, 100) + '%';
+        }, { passive: true });
+    }
+
+    // ── Header scroll class ──
+    const header = document.querySelector('.glass-header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        }, { passive: true });
+    }
+
+    // ── Global scroll reveal ──
+    if ('IntersectionObserver' in window) {
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right').forEach(el => {
+            revealObs.observe(el);
+        });
+    } else {
+        // Fallback: reveal all immediately
+        document.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right').forEach(el => {
+            el.classList.add('revealed');
+        });
+    }
+
+    // ── Navbar active link ──
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        }
+    });
+})();
+</script>

@@ -3,15 +3,15 @@
 {% load services_filters %} 
 
 {% block title %}
-    {{ category.name }} - Услуги | {{ site_settings.logo_text }}
+    {{ category.name }} — Услуги | {{ site_settings.logo_text }}
 {% endblock %}
 
 {% block meta_description %}
-    {{ site_settings.company_name }} - {{ category.seo_description|default:category.description|striptags|truncatechars:160 }}
+    {{ site_settings.company_name }} — {{ category.seo_description|default:category.description|striptags|truncatechars:160 }}
 {% endblock %}
 
 {% block meta_keywords %}
-    {{ site_settings.company_name }}, {{ category.seo_keywords }}
+    {{ site_settings.company_name }}, {{ category.seo_keywords|default:category.name }}
 {% endblock %}
 
 {% block extra_css %}
@@ -20,31 +20,51 @@
 {% endblock %}
 
 {% block content %}
-<section class="py-5">
-    <div class="container-fluid">
-        <!-- Заголовок -->
-        <div class="row mb-5">
-            <div class="col-12 mx-auto text-left">
-                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-4 py-2 mb-3 d-inline-flex align-items-center gap-2 fw-bold">
-                    <i class="fas fa-folder-open fa-xs"></i>
-                    КАТЕГОРИЯ: {{ category.name|upper }}
-                </span>
-                <h1 class="display-4 fw-bold mb-3">{{ category.name }}</h1>
-                <p class="lead mb-0" style="color: var(--text-secondary);">{{ category.description|striptags|default:"Профессиональные решения в данной категории для вашего бизнеса" }}</p>
+<section class="py-5 py-lg-6" id="content">
+    <div class="container-fluid px-3 px-md-4 px-xl-5">
+
+        <!-- ========== ЗАГОЛОВОК КАТЕГОРИИ ========== -->
+        <div class="row mb-4 mb-lg-5 reveal-on-scroll">
+            <div class="col-12">
+                <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3">
+                    <div>
+                        <!-- Бейдж категории -->
+                        <span class="section-badge mb-3">
+                            <i class="fas fa-folder-open fa-xs"></i>
+                            КАТЕГОРИЯ
+                        </span>
+                        <h1 class="display-4 fw-bold mb-2" style="letter-spacing:-0.03em; line-height:1.1;">
+                            <span style="background:var(--gradient-primary); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">{{ category.name }}</span>
+                        </h1>
+                        <p class="lead mb-0" style="color:var(--text-muted); max-width:540px;">
+                            {{ category.description|striptags|default:"Профессиональные решения в данной категории для вашего бизнеса" }}
+                        </p>
+                    </div>
+
+                    <!-- Счётчик + ссылка назад -->
+                    <div class="d-flex align-items-center gap-3 flex-shrink-0">
+                        <div class="text-center px-4 py-3 rounded-3" style="background:rgba(99,102,241,0.08); border:1px solid rgba(99,102,241,0.18);">
+                            <div class="fw-bold fs-3 lh-1" style="color:var(--primary-hover);">{{ services|length }}</div>
+                            <div class="small mt-1" style="color:var(--text-muted);">услуг</div>
+                        </div>
+                        <a href="{% url 'services:list' %}" class="btn btn-outline-primary rounded-pill px-3 d-none d-md-inline-flex align-items-center gap-2">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Все услуги</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- ========================================= -->
-        <!-- ПАНЕЛЬ ФИЛЬТРАЦИИ И ПОИСКА                -->
-        <!-- ========================================= -->
-        <div class="row mb-5">
+        <!-- ========== ПАНЕЛЬ ФИЛЬТРАЦИИ ========== -->
+        <div class="row mb-4 mb-lg-5 reveal-on-scroll">
             <div class="col-12">
-                <div class="filter-glass-box p-4">
+                <div class="filter-glass-box p-3 p-md-4">
                     <form id="services-filters" class="row g-3 align-items-center" novalidate>
-                        <!-- А. Поле поиска -->
-                        <div class="col-lg-7">
+                        <!-- Поиск -->
+                        <div class="col-12 col-lg-7">
                             <div class="input-group">
-                                <span class="input-group-text border-end-0 rounded-start-4 ps-3" style="background: var(--bg-secondary); border-color: var(--border-color);">
+                                <span class="input-group-text border-end-0 rounded-start-4 ps-3">
                                     <i class="fas fa-search text-muted"></i>
                                 </span>
                                 <input type="text"
@@ -52,27 +72,33 @@
                                        class="form-control form-control-modern border-start-0 ps-2"
                                        id="searchInput"
                                        value="{{ search_query }}"
-                                       placeholder="Поиск в категории {{ category.name }}..."
+                                       placeholder="Поиск в «{{ category.name }}»..."
                                        aria-label="Поиск">
+                                {% if search_query %}
+                                <button type="button" class="btn btn-link text-muted px-2"
+                                        onclick="document.getElementById('searchInput').value='';this.closest('form').submit();"
+                                        title="Очистить">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                {% endif %}
                             </div>
                         </div>
 
-                        <!-- Б. Сортировка -->
-                        <div class="col-lg-5">
+                        <!-- Сортировка -->
+                        <div class="col-12 col-lg-5">
                             <select class="form-select form-select-modern" name="sort" id="sortBy" aria-label="Сортировка">
                                 <option value="-created_at" {% if current_sort == "-created_at" %}selected{% endif %}>✨ Новые первыми</option>
-                                <option value="created_at" {% if current_sort == "created_at" %}selected{% endif %}>📅 Старые первыми</option>
-                                <option value="name" {% if current_sort == "name" %}selected{% endif %}>🅰️ По названию</option>
-                                <option value="-views" {% if current_sort == "-views" %}selected{% endif %}>🔥 Популярные</option>
+                                <option value="created_at"  {% if current_sort == "created_at"  %}selected{% endif %}>📅 Старые первыми</option>
+                                <option value="name"        {% if current_sort == "name"        %}selected{% endif %}>🅰 По названию</option>
+                                <option value="-views"      {% if current_sort == "-views"      %}selected{% endif %}>🔥 Популярные</option>
                             </select>
                         </div>
                     </form>
 
-                    <!-- Г. Быстрые ссылки категорий (Тэги) -->
-                    <div class="d-none d-md-flex flex-wrap gap-2 mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
-                        <a href="{% url 'services:list' %}" 
-                           class="category-pill">
-                            Все услуги
+                    <!-- Навигация по категориям -->
+                    <div class="d-flex flex-wrap gap-2 mt-3 pt-3" style="border-top:1px solid rgba(255,255,255,0.06);">
+                        <a href="{% url 'services:list' %}" class="category-pill">
+                            <i class="fas fa-th-large me-1 opacity-75"></i> Все услуги
                         </a>
                         {% for cat in categories %}
                             <a href="{% url 'services:category' cat.slug %}"
@@ -85,87 +111,111 @@
             </div>
         </div>
 
-        {# Список услуг в категории #}
-        <div class="row g-4 mb-5">
+        <!-- ========== СПИСОК УСЛУГ КАТЕГОРИИ ========== -->
+        <div class="row g-4 mb-5 reveal-stagger">
             {% for service in services %}
-                <div class="col-12 col-md-6">
-                    <div class="card h-100 service-card shadow-sm border-0 rounded-4 overflow-hidden position-relative">
-                        
-                        {# Статусные бейджи поверх карточки #}
-                        <div class="position-absolute top-0 end-0 mt-3 me-3 d-flex flex-column gap-2" style="z-index: 2;">
+                <!-- КАРТОЧКА УСЛУГИ -->
+                <div class="col-12 col-md-6 reveal-on-scroll">
+                    <div class="card h-100 service-card border-0 rounded-4 overflow-hidden position-relative">
+
+                        {# Статус-бейджи #}
+                        <div class="position-absolute top-0 end-0 mt-3 me-3 d-flex flex-column gap-2" style="z-index:3;">
                             {% if forloop.first and not search_query %}
-                                <span class="badge bg-danger rounded-pill px-3 py-1 shadow-sm"><i class="fas fa-fire me-1"></i> Рекомендуем</span>
+                                <span class="badge bg-danger rounded-pill px-3 py-1">
+                                    <i class="fas fa-medal me-1"></i>‍Рекомендуем
+                                </span>
                             {% endif %}
-                            {% if service.created_at|date:"Y-m-d" > "2024-01-01" %} {# Условный пример динамического бейджа #}
-                                <span class="badge bg-info text-dark rounded-pill px-3 py-1 shadow-sm"><i class="fas fa-star me-1"></i> Новинка</span>
+                            {% if service.created_at|date:"Y-m-d" > "2024-01-01" %}
+                                <span class="badge bg-info text-dark rounded-pill px-3 py-1">
+                                    <i class="fas fa-sparkles me-1"></i>Новинка
+                                </span>
                             {% endif %}
                         </div>
 
-                        <div class="card-body d-flex flex-column p-4">
-                            {% if service.icon %}
-                            <div class="mb-3 mt-1">
-                                <img src="{{ service.icon.url }}" alt="{{ service.name }}" 
-                                     style="height: 64px; width: 64px; object-fit: contain;">
+                        <div class="card-body d-flex flex-column p-4" style="position:relative; z-index:1;">
+
+                            {# Иконка #}
+                            <div class="service-icon-wrap mb-3">
+                                {% if service.icon %}
+                                    <img src="{{ service.icon.url }}" alt="{{ service.name }}"
+                                         style="height:40px; width:40px; object-fit:contain;">
+                                {% else %}
+                                    <i class="fas fa-cube fa-lg" style="color:var(--primary-hover);"></i>
+                                {% endif %}
                             </div>
-                            {% endif %}
-                            
-                            <h3 class="service-card-title h5 mb-2">
-                                <a href="{{ service.get_absolute_url }}" class="text-decoration-none" style="color: var(--text-primary);">
+
+                            {# Название #}
+                            <h2 class="service-card-title h5 mb-2">
+                                <a href="{{ service.get_absolute_url }}"
+                                   class="text-decoration-none"
+                                   style="color:var(--text-primary);">
                                     {{ service.name }}
                                 </a>
-                            </h3>
-                            
-                            <div class="mb-3 small text-warning d-flex align-items-center gap-1">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                                <span class="text-muted ms-1">(4.8)</span>
+                            </h2>
+
+                            {# Рейтинг #}
+                            <div class="stars-rating mb-3 small text-warning d-flex align-items-center gap-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span style="color:var(--text-muted);" class="ms-1">(4.8)</span>
                             </div>
-                            
-                            <div class="service-card-description mb-3">
-                                {{ service.short_description|striptags|truncatechars:120 }}
+
+                            {# Описание #}
+                            <div class="service-card-description">
+                                {{ service.short_description|striptags|truncatechars:130 }}
                             </div>
-                            
-                            <div class="mt-auto">
+
+                            {# Footer карточки #}
+                            <div class="mt-auto pt-3" style="border-top:1px solid rgba(255,255,255,0.05);">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <div class="service-price">
-                                        {{ service.get_price_display }}
-                                    </div>
-                                    <span class="badge" style="background: var(--bg-glass-light); color: var(--text-muted); border: 1px solid var(--border-color);">
-                                        <i class="fas fa-eye me-1"></i>
-                                        {{ service.views }}
+                                    <div class="service-price">{{ service.get_price_display }}</div>
+                                    <span class="rounded-pill px-2 py-1 small" style="background:rgba(255,255,255,0.04); color:var(--text-muted); border:1px solid rgba(255,255,255,0.07);">
+                                        <i class="fas fa-eye me-1 opacity-75"></i>{{ service.views }}
                                     </span>
                                 </div>
-                                
+
                                 <div class="d-grid gap-2">
                                     <div class="d-flex gap-2">
-                                        <a href="{{ service.get_absolute_url }}" class="btn btn-outline-primary btn-hover-lift flex-grow-1">
-                                            <span>Подробнее</span>
+                                        <a href="{{ service.get_absolute_url }}"
+                                           class="btn btn-outline-primary btn-hover-lift flex-grow-1">
+                                            <i class="fas fa-arrow-right me-1"></i>Подробнее
                                         </a>
-                                        <button type="button" class="btn btn-light border btn-hover-lift px-3 text-secondary" data-bs-toggle="modal" data-bs-target="#quickViewModal" title="Быстрый просмотр">
-                                            <i class="fas fa-eye text-primary"></i>
+                                        <button type="button"
+                                                class="btn btn-outline-secondary btn-hover-lift px-3"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#quickViewModal"
+                                                data-service-name="{{ service.name }}"
+                                                data-service-price="{{ service.get_price_display }}"
+                                                data-service-desc="{{ service.short_description|striptags|truncatechars:200 }}"
+                                                data-service-url="{{ service.get_absolute_url }}"
+                                                title="Быстрый просмотр">
+                                            <i class="fas fa-eye" style="color:var(--secondary-color);"></i>
                                         </button>
                                     </div>
-                                    
+
                                     {% if user.is_authenticated %}
                                         {% if service.can_order %}
                                             <form data-cart-form data-service-id="{{ service.id }}" class="d-inline">
                                                 {% csrf_token %}
-                                                <button type="submit" data-cart-submit class="btn btn-primary btn-hover-lift w-100 btn-cart-add">
+                                                <button type="submit" data-cart-submit
+                                                        class="btn btn-primary btn-hover-lift w-100 btn-cart-add">
                                                     <span class="btn-text">
                                                         <i class="fas fa-cart-plus me-2"></i>В корзину
                                                     </span>
                                                     <span class="btn-text-loading">
-                                                        <span class="cart-spinner me-2"></span>
-                                                        Добавляем...
+                                                        <span class="cart-spinner me-2"></span>Добавляем...
                                                     </span>
                                                 </button>
                                             </form>
                                         {% else %}
                                             <button type="button" class="btn btn-secondary w-100" disabled>
-                                                <i class="fas fa-ban me-2"></i>Недоступно
+                                                <i class="fas fa-ban me-2"></i>Временно недоступно
                                             </button>
                                         {% endif %}
                                     {% else %}
-                                        <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn btn-outline-primary w-100">
+                                        <a href="{% url 'accounts:login' %}?next={{ request.path }}"
+                                           class="btn btn-outline-primary w-100">
                                             <i class="fas fa-lock me-2"></i>Войти для заказа
                                         </a>
                                     {% endif %}
@@ -174,41 +224,99 @@
                         </div>
                     </div>
                 </div>
+
             {% empty %}
-                <div class="col-12 text-center py-5">
-                    <div class="py-5">
-                        <i class="fas fa-search fa-3x text-secondary mb-3 opacity-50"></i>
-                        <h3>Услуги не найдены</h3>
-                        <p class="text-muted">Попробуйте изменить параметры поиска или вернитесь ко всем услугам</p>
-                        <a href="?" class="btn btn-primary rounded-pill px-4 mt-2">
-                            Сбросить фильтры
+            <div class="col-12 text-center py-5">
+                <div class="py-5">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-search fa-2x" style="color:var(--text-muted);"></i>
+                    </div>
+                    <h3 class="h4 fw-bold mb-2">Услуги не найдены</h3>
+                    <p style="color:var(--text-muted);" class="mb-4">
+                        Попробуйте изменить параметры поиска или вернитесь ко всем услугам
+                    </p>
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <a href="?" class="btn btn-outline-primary rounded-pill px-4">
+                            <i class="fas fa-redo me-2"></i>Сбросить фильтры
+                        </a>
+                        <a href="{% url 'services:list' %}" class="btn btn-primary rounded-pill px-4">
+                            <i class="fas fa-th-large me-2"></i>Все услуги
                         </a>
                     </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
+
     </div>
 </section>
 
-<!-- Quick View Modal -->
+<!-- ========== QUICK VIEW MODAL ========== -->
 <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content rounded-4 border-0 shadow-lg">
-      <div class="modal-header border-bottom-0 pb-0">
-        <h5 class="modal-title fw-bold" id="quickViewModalLabel">Быстрый просмотр</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-content border-0 shadow-lg" style="border-radius:20px !important;">
+      <div class="modal-header" style="border-color:rgba(255,255,255,0.06);">
+        <div>
+          <h5 class="modal-title fw-bold mb-0" id="quickViewModalLabel">Быстрый просмотр</h5>
+          <small id="qv-name" style="color:var(--primary-hover);"></small>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <p class="text-muted">Здесь будет загружено детальное описание услуги без перехода на другую страницу. Очень удобно для быстрых покупок!</p>
-        <hr>
-        <button type="button" class="btn btn-primary w-100 rounded-pill btn-hover-lift"><i class="fas fa-cart-plus me-2"></i> Добавить в корзину</button>
+      <div class="modal-body p-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <span class="fw-bold fs-4" id="qv-price"
+                style="background:var(--gradient-primary); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+          </span>
+          <div class="stars-rating small text-warning">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+        </div>
+        <p id="qv-desc" style="color:var(--text-secondary); line-height:1.7;"></p>
+        <hr style="border-color:rgba(255,255,255,0.06);">
+        <div class="d-grid">
+          <a href="#" id="qv-link" class="btn btn-primary rounded-pill py-2">
+            <i class="fas fa-arrow-right me-2"></i>Перейти к услуге
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/list-filters.js' %}"></script>
+<script>
+// ── Quick View ──
+document.querySelectorAll('[data-service-name]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.getElementById('qv-name').textContent  = btn.dataset.serviceName  || '';
+        document.getElementById('qv-price').textContent = btn.dataset.servicePrice || '';
+        document.getElementById('qv-desc').textContent  = btn.dataset.serviceDesc  || '';
+        document.getElementById('qv-link').href         = btn.dataset.serviceUrl   || '#';
+    });
+});
+
+// ── Scroll Reveal ──
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal-on-scroll').forEach(el => obs.observe(el));
+
+// ── Header scroll ──
+window.addEventListener('scroll', () => {
+    const h = document.querySelector('.glass-header');
+    if (h) h.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+// ── Reading progress ──
+window.addEventListener('scroll', () => {
+    const bar = document.getElementById('readingProgress');
+    if (!bar) return;
+    const d = document.documentElement;
+    bar.style.width = Math.min((d.scrollTop / (d.scrollHeight - d.clientHeight)) * 100, 100) + '%';
+}, { passive: true });
+</script>
 {% endblock %}

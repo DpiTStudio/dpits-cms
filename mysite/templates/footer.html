@@ -1,165 +1,219 @@
 <!-- ============================================
      ФАЙЛ: footer.html
-     ОПИСАНИЕ: Подвал (футер) сайта с контактами и ссылками
+     ОПИСАНИЕ: Подвал (футер) сайта — Premium Dark 2026
      ============================================ -->
 
-<!-- Открывающий тег футера с темным фоном, белым текстом, вертикальными отступами и автоматическим верхним отступом -->
-<footer class="py-4 py-md-5 mt-auto bg-dark text-white">
-    <!-- Контейнер с полной шириной и адаптивными горизонтальными отступами -->
-    <div class="container-fluid px-3 px-md-4 px-lg-5">
-        <!-- Строка Bootstrap для сетки -->
-        <div class="row g-4">
-            <!-- Колонка с информацией о бренде - 4 колонки на больших экранах, 6 на средних, 12 на маленьких -->
-            <div class="col-lg-4 col-md-6 col-12 mb-3 mb-md-0">
-                <!-- Заголовок с названием бренда и жирным шрифтом -->
-                <h5 class="footer-content-2 mb-2">
-                    {{ site_settings.logo_text }}
-                </h5>
-                <!-- Краткое описание сайта с безопасным выводом HTML -->
-                <p class="footer-content-1 mb-3">
+<footer class="py-5 py-md-6 mt-auto" role="contentinfo">
+    <div class="container-fluid px-3 px-md-4 px-lg-5 position-relative" style="z-index:1;">
+
+        <!-- ── Верхняя строка: лого + колонки ── -->
+        <div class="row g-4 g-lg-5 mb-4">
+
+            <!-- Бренд и описание -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="footer-content-2 mb-2">{{ site_settings.logo_text }}</div>
+                {% if site_settings.logo %}
+                <div class="mb-3">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.logo_text }}"
+                         style="height:42px; filter:brightness(0.9) opacity(0.8);">
+                </div>
+                {% endif %}
+                <p class="footer-content-1 mb-4">
                     {{ site_settings.short_description|safe }}
                 </p>
+                <!-- Mini stats -->
+                <div class="d-flex gap-3">
+                    <div class="text-center px-3 py-2 rounded-3" style="background:rgba(99,102,241,0.08); border:1px solid rgba(99,102,241,0.15);">
+                        <div class="fw-bold" style="color:var(--primary-hover); font-size:1.1rem;">5+</div>
+                        <div style="color:var(--text-muted); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">лет</div>
+                    </div>
+                    <div class="text-center px-3 py-2 rounded-3" style="background:rgba(6,182,212,0.08); border:1px solid rgba(6,182,212,0.15);">
+                        <div class="fw-bold" style="color:var(--secondary-hover); font-size:1.1rem;">99%</div>
+                        <div style="color:var(--text-muted); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">клиентов</div>
+                    </div>
+                    <div class="text-center px-3 py-2 rounded-3" style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.15);">
+                        <div class="fw-bold" style="color:#34d399; font-size:1.1rem;">24/7</div>
+                        <div style="color:var(--text-muted); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">поддержка</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Колонка с контактами - 4 колонки на больших экранах, 6 на средних, 12 на маленьких -->
-            <div class="col-lg-4 col-md-6 col-12 mb-3 mb-md-0">
-                <!-- Заголовок секции контактов -->
-                <h5 class="fw-bold mb-2">Контакты</h5>
-                <!-- Контейнер с вертикальным flexbox и отступами между элементами -->
-                <div class="d-flex flex-column gap-2">
-                    <!-- Условная проверка наличия первого телефона -->
+            <!-- Контакты -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <h5 class="fw-bold mb-3">Контакты</h5>
+                <div class="d-flex flex-column gap-3">
                     {% if site_settings.phone1 %}
-                    <!-- Контейнер для телефона с горизонтальным выравниванием -->
-                    <div class="d-flex align-items-center">
-                        <!-- Иконка телефона с отступом справа и основным цветом -->
-                        <i class="fas fa-phone me-2 text-primary"></i>
-                        <!-- Ссылка на телефон с белым текстом и без подчеркивания -->
-                        <a href="tel:{{ site_settings.phone1 }}" class="text-white text-decoration-none">
-                            {{ site_settings.phone1 }}
-                        </a>
-                    </div>
+                    <a href="tel:{{ site_settings.phone1 }}" class="d-flex align-items-center gap-3 text-decoration-none footer-contact-item">
+                        <div class="footer-icon-box flex-shrink-0">
+                            <i class="fas fa-phone" style="color:var(--primary-hover);"></i>
+                        </div>
+                        <div>
+                            <div style="color:var(--text-muted); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">Телефон</div>
+                            <span style="color:var(--text-secondary);">{{ site_settings.phone1 }}</span>
+                        </div>
+                    </a>
                     {% endif %}
-                    <!-- Условная проверка наличия второго телефона -->
                     {% if site_settings.phone2 %}
-                    <!-- Контейнер для второго телефона с горизонтальным выравниванием -->
-                    <div class="d-flex align-items-center">
-                        <!-- Иконка телефона с отступом справа и основным цветом -->
-                        <i class="fas fa-phone me-2 text-primary"></i>
-                        <!-- Ссылка на второй телефон с белым текстом и без подчеркивания -->
-                        <a href="tel:{{ site_settings.phone2 }}" class="text-white text-decoration-none">
-                            {{ site_settings.phone2 }}
-                        </a>
-                    </div>
+                    <a href="tel:{{ site_settings.phone2 }}" class="d-flex align-items-center gap-3 text-decoration-none footer-contact-item">
+                        <div class="footer-icon-box flex-shrink-0">
+                            <i class="fas fa-phone" style="color:var(--primary-hover);"></i>
+                        </div>
+                        <div>
+                            <div style="color:var(--text-muted); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">Телефон 2</div>
+                            <span style="color:var(--text-secondary);">{{ site_settings.phone2 }}</span>
+                        </div>
+                    </a>
                     {% endif %}
-                    <!-- Условная проверка наличия email -->
                     {% if site_settings.email %}
-                    <!-- Контейнер для email с горизонтальным выравниванием -->
-                    <div class="d-flex align-items-center">
-                        <!-- Иконка конверта с отступом справа и основным цветом -->
-                        <i class="fas fa-envelope me-2 text-primary"></i>
-                        <!-- Ссылка на email с белым текстом и без подчеркивания -->
-                        <a href="mailto:{{ site_settings.email }}" class="text-white text-decoration-none">
-                            {{ site_settings.email }}
-                        </a>
-                    </div>
+                    <a href="mailto:{{ site_settings.email }}" class="d-flex align-items-center gap-3 text-decoration-none footer-contact-item">
+                        <div class="footer-icon-box flex-shrink-0">
+                            <i class="fas fa-envelope" style="color:var(--secondary-color);"></i>
+                        </div>
+                        <div>
+                            <div style="color:var(--text-muted); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">Email</div>
+                            <span style="color:var(--text-secondary);">{{ site_settings.email }}</span>
+                        </div>
+                    </a>
                     {% endif %}
-                    <!-- Условная проверка наличия адреса -->
                     {% if site_settings.address %}
-                    <!-- Контейнер для адреса с горизонтальным выравниванием -->
-                    <div class="d-flex align-items-center">
-                        <!-- Иконка карты с отступом справа и основным цветом -->
-                        <i class="fas fa-map-marker-alt me-2 text-primary"></i>
-                        <!-- Текст адреса с белым цветом -->
-                        <span class="text-white">{{ site_settings.address }}</span>
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="footer-icon-box flex-shrink-0">
+                            <i class="fas fa-map-marker-alt" style="color:#f43f5e;"></i>
+                        </div>
+                        <div>
+                            <div style="color:var(--text-muted); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em;">Адрес</div>
+                            <span style="color:var(--text-secondary);">{{ site_settings.address }}</span>
+                        </div>
                     </div>
                     {% endif %}
                 </div>
             </div>
 
-            <!-- Колонка с быстрыми ссылками - 4 колонки на больших экранах, 6 на средних, 12 на маленьких -->
-            <div class="col-lg-4 col-md-6 col-12 mb-3 mb-md-0">
-                <!-- Заголовок секции быстрых ссылок -->
-                <h5 class="fw-bold mb-3">Быстрые ссылки</h5>
-                <!-- Список без маркеров -->
-                <ul class="list-unstyled">
-                    <!-- Элемент списка с отступом снизу -->
-                    <li class="mb-2">
-                        <!-- Ссылка на главную страницу с flexbox выравниванием -->
-                        <a href="{% url 'main:index' %}"
-                            class="text-white text-decoration-none d-flex align-items-center">
-                            <i class="fas fa-home me-2 text-primary"></i><span>Главная</span>
+            <!-- Быстрые ссылки -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <h5 class="fw-bold mb-3">Навигация</h5>
+                <ul class="list-unstyled footer-nav-list">
+                    <li>
+                        <a href="{% url 'main:index' %}" class="d-flex align-items-center gap-2">
+                            <i class="fas fa-home fa-xs" style="color:var(--primary-hover); width:14px;"></i>
+                            <span>Главная</span>
                         </a>
                     </li>
-                    <!-- Элемент списка с отступом снизу -->
-                    <li class="mb-2">
-                        <!-- Ссылка на страницу новостей с flexbox выравниванием -->
-                        <a href="{% url 'news:list' %}"
-                            class="text-white text-decoration-none d-flex align-items-center">
-                            <i class="fas fa-newspaper me-2 text-primary"></i><span>Новости</span>
+                    <li>
+                        <a href="{% url 'services:list' %}" class="d-flex align-items-center gap-2">
+                            <i class="fas fa-concierge-bell fa-xs" style="color:var(--secondary-color); width:14px;"></i>
+                            <span>Услуги</span>
                         </a>
                     </li>
-                    <!-- Элемент списка с отступом снизу -->
-                    <li class="mb-2">
-                        <!-- Ссылка на страницу портфолио с flexbox выравниванием -->
-                        <a href="{% url 'portfolio:list' %}"
-                            class="text-white text-decoration-none d-flex align-items-center">
-                            <i class="fas fa-briefcase me-2 text-primary"></i><span>Портфолио</span>
+                    <li>
+                        <a href="{% url 'news:list' %}" class="d-flex align-items-center gap-2">
+                            <i class="fas fa-newspaper fa-xs" style="color:#f59e0b; width:14px;"></i>
+                            <span>Новости</span>
                         </a>
                     </li>
-                    <!-- Элемент списка с отступом снизу -->
-                    <li class="mb-2">
-                        <!-- Ссылка на страницу отзывов с flexbox выравниванием -->
-                        <a href="{% url 'reviews:list' %}"
-                            class="text-white text-decoration-none d-flex align-items-center">
-                            <i class="fas fa-star me-2 text-primary"></i><span>Отзывы</span>
+                    <li>
+                        <a href="{% url 'portfolio:list' %}" class="d-flex align-items-center gap-2">
+                            <i class="fas fa-briefcase fa-xs" style="color:#a78bfa; width:14px;"></i>
+                            <span>Портфолио</span>
                         </a>
                     </li>
-                    <!-- Элемент списка с отступом снизу -->
-                    <li class="mb-2">
-                        <!-- Ссылка на страницу отзывов с flexbox выравниванием -->
-                        <a href="{% url 'feedback:list' %}"
-                            class="text-white text-decoration-none d-flex align-items-center">
-                            <i class="fas fa-envelope me-2 text-primary"></i><span>Обратная связь</span>
+                    <li>
+                        <a href="{% url 'reviews:list' %}" class="d-flex align-items-center gap-2">
+                            <i class="fas fa-star fa-xs" style="color:#fbbf24; width:14px;"></i>
+                            <span>Отзывы</span>
                         </a>
                     </li>
-                    <!-- Элемент списка с отступом снизу -->
+                    <li>
+                        <a href="{% url 'feedback:list' %}" class="d-flex align-items-center gap-2">
+                            <i class="fas fa-envelope fa-xs" style="color:#34d399; width:14px;"></i>
+                            <span>Обратная связь</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
 
-        <!-- Горизонтальная разделительная линия с вертикальными отступами -->
-        <hr class="my-4">
+        <!-- ── Разделитель ── -->
+        <hr style="border-color:rgba(255,255,255,0.06);" class="my-4">
 
-        <div class="row">
-            <div class="col-6 mb-3 section-footer-1">
-                <!-- Секция с социальными сетями -->
+        <!-- ── Социальные сети + платёжные методы ── -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
                 {% include 'includes/social_networks_section.html' %}
-                <hr class="my-4">
             </div>
-            <div class="col-6 mb-3 section-footer-1">
-                <!-- Секция мы принимаем -->
+            <div class="col-md-6">
                 {% include 'includes/we_accept.html' %}
-                <hr class="my-4">
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 mb-3 section-footer-1">
-                <!-- Секция с копирайтером -->
+        <!-- ── Разделитель ── -->
+        <hr style="border-color:rgba(255,255,255,0.06);" class="my-3">
+
+        <!-- ── Нижняя строка: копирайт + доп ── -->
+        <div class="row align-items-center g-3">
+            <div class="col-12">
                 {% include 'includes/copywriter.html' %}
-                <hr class="my-4">
-                <!-- Секция с баннерами -->
+            </div>
+            <div class="col-12">
                 {{ statistics_banners.footer|safe }}
             </div>
         </div>
 
-        <div class="text-center">
+        <div class="text-center mt-2">
             {% block footer %}{% endblock %}
         </div>
-    </div>
+
+    </div><!-- /container -->
 </footer>
-<!-- Статистические баннеры в конце body -->
+
+<!-- Stat banners body_end -->
 {{ statistics_banners.body_end|safe }}
 
-<!-- Кастомные баннеры (вставляются вручную в шаблонах) -->
 {% block custom_banners %}{% endblock %}
+
+<style>
+/* Footer icon boxes */
+.footer-icon-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+.footer-contact-item:hover .footer-icon-box {
+    background: rgba(99,102,241,0.15);
+    border-color: rgba(99,102,241,0.3);
+    transform: scale(1.1);
+}
+.footer-contact-item:hover span {
+    color: var(--primary-hover) !important;
+}
+
+/* Footer nav list */
+.footer-nav-list li {
+    margin-bottom: 0.6rem;
+}
+.footer-nav-list a {
+    color: var(--text-muted) !important;
+    text-decoration: none !important;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    padding: 0.2rem 0;
+}
+.footer-nav-list a:hover {
+    color: var(--primary-hover) !important;
+    padding-left: 0.4rem;
+}
+
+/* Section footer responsive */
+.section-footer-1 { margin-bottom: 0.5rem; }
+
+@media (max-width: 767.98px) {
+    .footer-content-2 { font-size: 1.1rem !important; }
+}
+</style>
