@@ -1,7 +1,9 @@
-from django.urls import path
+from django.urls import path, include
+from django.shortcuts import redirect
 from . import views, cart_views
 
 app_name = 'services'
+
 
 urlpatterns = [
     path('', views.service_list, name='list'),
