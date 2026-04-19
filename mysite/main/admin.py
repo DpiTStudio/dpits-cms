@@ -256,43 +256,54 @@ class LogStatsAdmin(admin.ModelAdmin):
 
     def view_log_statistics(self, request):
         """Страница с детальным статистическим разбором debug.log."""
-        from .log_utils import get_log_file_info
+        from .log_utils import get_log_file_info, get_recent_log_lines
         log_info = get_log_file_info()
-        
+        # Нормализуем ключ размера файла для совместимости с шаблоном
+        log_info['file_size_human'] = log_info.get('human_size', '—')
+        all_lines = get_recent_log_lines(count=200)
+
         context = {
             **self.admin_site.each_context(request),
             "title": _("Анализ debug.log"),
             "log_info": log_info,
+            "all_lines": all_lines,
+            "total_lines_displayed": len(all_lines),
             "opts": self.model._meta,
         }
         return render(request, "admin/main/logstats_statistics.html", context)
 
     def edit_log_file_view(self, request):
         """Веб-редактор для файла логов. Позволяет вносить правки прямо из админки."""
-        from .log_utils import get_log_file_path
+        from .log_utils import get_log_file_path, get_log_file_info
         log_path = get_log_file_path()
-        
+
         if request.method == "POST":
-            content = request.POST.get("content")
+            content = request.POST.get("content", "")
             try:
                 # Создаем резервную копию перед сохранением изменений
-                shutil.copy2(log_path, log_path + ".bak")
+                if log_path and os.path.exists(log_path):
+                    shutil.copy2(log_path, log_path + ".bak")
                 with open(log_path, "w", encoding="utf-8") as f:
                     f.write(content)
-                messages.success(request, "Файл успешно сохранен")
+                messages.success(request, _("Файл успешно сохранен"))
             except Exception as e:
-                messages.error(request, f"Ошибка сохранения: {e}")
-                
+                messages.error(request, _("Ошибка сохранения: %(err)s") % {"err": e})
+
         # Читаем содержимое файла для отображения в textarea
-        content = ""
+        file_content = ""
         if log_path and os.path.exists(log_path):
             with open(log_path, "r", encoding="utf-8", errors="ignore") as f:
-                content = f.read()
-                
+                file_content = f.read()
+
+        log_info = get_log_file_info()
+        log_info['file_size_human'] = log_info.get('human_size', '—')
+
         context = {
             **self.admin_site.each_context(request),
-            "title": "Редактирование debug.log",
-            "content": content,
+            "title": _("Редактирование debug.log"),
+            "file_content": file_content,
+            "log_file_path": log_path,
+            "log_info": log_info,
             "opts": self.model._meta,
         }
         return render(request, "admin/main/edit_log_file.html", context)
@@ -314,15 +325,17 @@ class ErrorLogAdmin(LogStatsAdmin):
         extra_context = extra_context or {}
         clear_url = reverse("admin:main_errorlog_clear")
         statistics_url = reverse("admin:main_errorlog_view")
-        
+        edit_url = reverse("admin:main_errorlog_edit")
+
         buttons_html = format_html(
-            '<div style="margin: 10px 0;">'
-            '<a href="{}" class="button" style="background:#ba2121;" '
+            '<div style="margin: 10px 0;">'  
+            '<a href="{}" class="button" style="background:#ba2121;margin-right:8px;" '
             "onclick=\"return confirm('Внимание! Это удалит все записи об ошибках. Продолжить?');\">"
-            "🗑️ ОЧИСТИТЬ ЛОГ ОШИБОК</a> "
-            '<a href="{}" class="button">📊 Статистика ошибок</a>'
+            "🗑️ ОЧИСТИТЬ ЛОГ ОШИБОК</a>"
+            '<a href="{}" class="button" style="margin-right:8px;">📊 Статистика ошибок</a>'
+            '<a href="{}" class="button">✏️ Редактор файла</a>'
             "</div>",
-            clear_url, statistics_url
+            clear_url, statistics_url, edit_url
         )
         extra_context["action_buttons"] = buttons_html
         return admin.ModelAdmin.changelist_view(self, request, extra_context)
@@ -333,6 +346,7 @@ class ErrorLogAdmin(LogStatsAdmin):
         custom_urls = [
             path("clear-log/", self.admin_site.admin_view(self.clear_error_log_view), name="main_errorlog_clear"),
             path("view-statistics/", self.admin_site.admin_view(self.view_error_log_statistics), name="main_errorlog_view"),
+            path("edit-log/", self.admin_site.admin_view(self.edit_error_log_file_view), name="main_errorlog_edit"),
         ]
         return custom_urls + urls
 
@@ -346,14 +360,55 @@ class ErrorLogAdmin(LogStatsAdmin):
 
     def view_error_log_statistics(self, request):
         """Отображение статистики по критическим ошибкам."""
-        from .log_utils import get_error_log_file_info
+        from .log_utils import get_error_log_file_info, get_error_log_recent_lines
+        log_info = get_error_log_file_info()
+        # Нормализуем ключ размера файла для совместимости с шаблоном
+        log_info['file_size_human'] = log_info.get('human_size', '—')
+        all_lines = get_error_log_recent_lines(count=200)
+
         context = {
             **self.admin_site.each_context(request),
-            "title": "Анализ error.log",
-            "log_info": get_error_log_file_info(),
+            "title": _("Анализ error.log"),
+            "log_info": log_info,
+            "all_lines": all_lines,
+            "total_lines_displayed": len(all_lines),
             "opts": self.model._meta,
         }
         return render(request, "admin/main/errorlog_statistics.html", context)
+
+    def edit_error_log_file_view(self, request):
+        """Веб-редактор для файла error.log. Позволяет вносить правки прямо из админки."""
+        from .log_utils import get_error_log_file_path, get_error_log_file_info
+        log_path = get_error_log_file_path()
+
+        if request.method == "POST":
+            content = request.POST.get("content", "")
+            try:
+                if log_path and os.path.exists(log_path):
+                    shutil.copy2(log_path, log_path + ".bak")
+                with open(log_path, "w", encoding="utf-8") as f:
+                    f.write(content)
+                messages.success(request, _("Файл error.log успешно сохранен"))
+            except Exception as e:
+                messages.error(request, _("Ошибка сохранения: %(err)s") % {"err": e})
+
+        file_content = ""
+        if log_path and os.path.exists(log_path):
+            with open(log_path, "r", encoding="utf-8", errors="ignore") as f:
+                file_content = f.read()
+
+        log_info = get_error_log_file_info()
+        log_info['file_size_human'] = log_info.get('human_size', '—')
+
+        context = {
+            **self.admin_site.each_context(request),
+            "title": _("Редактирование error.log"),
+            "file_content": file_content,
+            "log_file_path": log_path,
+            "log_info": log_info,
+            "opts": self.model._meta,
+        }
+        return render(request, "admin/main/edit_error_log_file.html", context)
 
 
 @admin.register(StatisticsBanner)

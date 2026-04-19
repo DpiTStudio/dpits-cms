@@ -216,18 +216,22 @@
     -webkit-text-fill-color: transparent;
     transition: var(--transition-base);
 }
+
+/* Контейнер для доменного имени и слогана */
 .brand-text-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
+/* Стиль для доменного имени */
 .brand-text-domain {
     position: relative;
-    top: 6px;
+    top: 1px;
     display: block;
     font-family: var(--font-heading);
-    font-size: 1.9rem;
+    font-size: 2rem !important;
     font-weight: 900;
     letter-spacing: 0.09em;
     background: var(--gradient-cosmic);
@@ -237,11 +241,12 @@
     transition: var(--transition-base);
 }
 
+/* Стиль для слогана */
 .brand-text-slogan {
-    display: flex;
+    display: block;
     position: relative;
-    right: -15px;
-    top: -10px;
+    right: 0;
+    top: -3px;
     font-family: var(--font-heading);
     font-size: 0.8rem;
     font-weight: 200;
