@@ -27,10 +27,10 @@ from .models import (
 
 # Импорт утилит
 from .admin_utils import (
-    get_server_info,
-    get_installed_apps_info,
-    get_middleware_info,
-    get_site_url,
+    get_server_info,            # Информация о сервере
+    get_installed_apps_info,    # Установленные приложения
+    get_middleware_info,        # Мидлвары
+    get_site_url,               # URL сайта
 )
 
 
@@ -461,3 +461,4 @@ class PaymentMethodAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_active', 'order')
     list_editable = ('is_active', 'order')
     search_fields = ('name',)
+    
