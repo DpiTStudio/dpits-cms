@@ -1,110 +1,183 @@
 /* accounts/static/accounts/css/login.css
-   Специфичные стили для страницы входа
-   Общие стили форм — в accounts.css
+   Premium Split-Layout Login Styles
 */
 
 /* =============================================
-   СЕКЦИЯ ВХОДА
+   FULLSCREEN WRAPPER
    ============================================= */
-.login-section {
+.login-fullscreen-wrapper {
     min-height: calc(100vh - var(--header-height, 70px));
-    background: var(--bg-dark);
     display: flex;
+    width: 100%;
+    background: var(--bg-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+/* =============================================
+   LEFT SIDE: VISUAL
+   ============================================= */
+.login-visual-side {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 27, 75, 0.95)), url('/static/images/login-bg.jpg') center/cover no-repeat;
+    position: relative;
+    padding: 4rem;
+    color: white;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-xl) var(--spacing-md);
-    position: relative;
+    border-right: 1px solid var(--glass-border);
     overflow: hidden;
 }
 
-.login-section::before {
-    content: '';
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    top: -250px;
-    right: -200px;
-    background: radial-gradient(circle, rgba(129, 140, 248, 0.1) 0%, transparent 70%);
-    pointer-events: none;
-}
-
-.login-section::after {
-    content: '';
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    bottom: -200px;
-    left: -150px;
-    background: radial-gradient(circle, rgba(244, 114, 182, 0.08) 0%, transparent 70%);
-    pointer-events: none;
-}
-
-/* =============================================
-   КАРТОЧКА ВХОДА
-   ============================================= */
-.login-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--box-shadow-xl);
-    overflow: hidden;
-    max-width: 480px;
-    width: 100%;
+.visual-content {
     position: relative;
     z-index: 10;
-    animation: loginFadeIn 0.6s ease-out forwards;
+    max-width: 600px;
+    animation: slideInLeft 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@keyframes loginFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.98);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* =============================================
-   ЗАГОЛОВОК КАРТОЧКИ
-   ============================================= */
-.login-header {
-    background: linear-gradient(135deg, rgba(129, 140, 248, 0.12) 0%, rgba(167, 139, 250, 0.06) 100%);
-    border-bottom: 1px solid var(--glass-border);
-    padding: 2.75rem 2rem 2rem;
-    text-align: center;
-}
-
-.login-header h2 {
-    font-size: 1.85rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    background: var(--primary-gradient);
+.visual-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, #e2e8f0, #818cf8);
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+.visual-subtitle {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.feature-item i {
+    width: 24px;
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+/* Эффекты свечения фона */
+.visual-shape {
+    position: absolute;
+    filter: blur(100px);
+    opacity: 0.5;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.shape-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(99, 102, 241, 0.4);
+    top: -100px;
+    left: -100px;
+}
+
+.shape-2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(236, 72, 153, 0.3);
+    bottom: -50px;
+    right: -50px;
+}
+
+/* =============================================
+   RIGHT SIDE: FORM
+   ============================================= */
+.login-form-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    background: var(--bg-dark);
+}
+
+.login-form-side::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(129, 140, 248, 0.05) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.login-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 460px;
+    position: relative;
+    z-index: 10;
+    animation: slideInRight 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px) scale(0.98); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.login-header {
+    text-align: center;
+    padding: 2.5rem 2.5rem 1.5rem;
+}
+
+.login-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
 .login-header p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
     margin: 0;
 }
 
-/* =============================================
-   ТЕЛО ФОРМЫ
-   ============================================= */
 .login-body {
-    padding: 2.5rem;
+    padding: 0 2.5rem 2.5rem;
 }
 
 /* =============================================
-   ГРУППЫ ПОЛЕЙ
+   FORM ELEMENTS
    ============================================= */
 .form-group {
     margin-bottom: 1.5rem;
@@ -112,161 +185,160 @@
 }
 
 .form-label {
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    font-weight: 600;
     margin-bottom: 0.5rem;
     display: block;
 }
 
-/* Стили form-control для login (уточнение скопа) */
-.login-body .form-control {
-    background: rgba(15, 23, 42, 0.5) !important;
-    border: 1px solid var(--glass-border) !important;
-    color: var(--text-color) !important;
-    border-radius: var(--border-radius) !important;
-    padding: 0.75rem 1rem !important;
-    transition: var(--transition) !important;
+.input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-.login-body .form-control::placeholder {
-    color: var(--text-muted) !important;
-    opacity: 0.7;
+.input-icon {
+    position: absolute;
+    left: 1.25rem;
+    color: rgba(255, 255, 255, 0.4);
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.field-with-icon {
+    padding-left: 3rem !important;
+}
+
+.login-body .form-control {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .login-body .form-control:focus {
     background: rgba(15, 23, 42, 0.8) !important;
-    border-color: var(--primary-color) !important;
-    box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1) !important;
+    border-color: #818cf8 !important;
+    box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.15) !important;
 }
 
-.login-body .form-control.is-invalid {
-    border-color: var(--danger-color) !important;
+.login-body .form-control:focus ~ .input-icon,
+.login-body .form-control:not(:placeholder-shown) ~ .input-icon {
+    color: #818cf8;
 }
 
 /* =============================================
-   ПЕРЕКЛЮЧАТЕЛЬ ВИДИМОСТИ ПАРОЛЯ
+   PASSWORD TOGGLE
    ============================================= */
 .password-toggle {
     position: absolute;
-    right: 1rem;
-    top: 2.4rem;
+    right: 1.25rem;
     cursor: pointer;
-    color: var(--text-muted);
-    transition: color var(--transition);
+    color: rgba(255, 255, 255, 0.4);
+    transition: color 0.3s ease;
     z-index: 10;
-    line-height: 1;
 }
 
 .password-toggle:hover {
-    color: var(--primary-color);
+    color: white;
 }
 
 /* =============================================
-   ЗАПОМНИТЬ / ЗАБЫЛ ПАРОЛЬ
+   CHECKBOX & FORGOT PASSWORD
    ============================================= */
 .remember-forgot {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
 }
 
-.form-check-input {
+.custom-checkbox .form-check-input {
     background-color: rgba(15, 23, 42, 0.6);
-    border-color: var(--glass-border);
+    border-color: rgba(255, 255, 255, 0.2);
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.15rem;
 }
 
-.form-check-input:checked {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+.custom-checkbox .form-check-input:checked {
+    background-color: #818cf8;
+    border-color: #818cf8;
 }
 
-.form-check-label {
-    color: var(--text-secondary);
+.custom-checkbox .form-check-label {
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: 0.5rem;
     cursor: pointer;
 }
 
 .forgot-password {
-    color: var(--primary-color);
+    color: #818cf8;
     cursor: pointer;
     font-weight: 500;
-    transition: var(--transition);
+    transition: color 0.3s;
 }
 
 .forgot-password:hover {
-    color: var(--primary-light);
+    color: #a5b4fc;
     text-decoration: underline;
 }
 
 /* =============================================
-   КНОПКА ВХОДА
+   LOGIN BUTTON
    ============================================= */
-.btn-login {
-    background: var(--primary-gradient);
+.btn-login-modern {
+    background: linear-gradient(135deg, #6366f1, #a855f7);
     border: none;
-    border-radius: var(--border-radius);
-    padding: 0.875rem;
+    border-radius: 12px;
+    padding: 1rem;
     color: white;
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 1.05rem;
     width: 100%;
-    transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
     cursor: pointer;
 }
 
-.btn-login:hover:not(:disabled) {
+.btn-login-modern:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+    box-shadow: 0 15px 35px -5px rgba(99, 102, 241, 0.5);
     filter: brightness(1.1);
-    color: white;
 }
 
-.btn-login:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-    background: var(--neutral-600, rgba(100, 116, 139, 0.6));
+.btn-login-modern .btn-icon-animate {
+    transition: transform 0.3s;
 }
 
-/* =============================================
-   ССЫЛКИ ПОД ФОРМОЙ
-   ============================================= */
-.login-links,
-.contact-support {
-    text-align: center;
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin-bottom: 0.75rem;
-}
-
-.login-links a,
-.contact-support a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.login-links a:hover,
-.contact-support a:hover {
-    color: var(--primary-light);
-    text-decoration: underline;
+.btn-login-modern:hover .btn-icon-animate {
+    transform: translateX(5px);
 }
 
 /* =============================================
-   РАЗДЕЛИТЕЛЬ "ИЛИ"
+   SOCIAL & META
    ============================================= */
+.login-meta-actions {
+    margin-top: 2rem;
+}
+
 .social-divider {
     position: relative;
     text-align: center;
-    margin: 2rem 0;
-    color: var(--text-muted);
-    font-size: 0.8rem;
+    margin: 1.5rem 0;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 1px;
 }
 
 .social-divider::before {
@@ -276,88 +348,119 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: var(--glass-border);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .social-divider span {
-    background: var(--bg-card, rgba(15, 23, 42, 0.6));
+    background: var(--glass-bg);
     padding: 0 1rem;
     position: relative;
-    border: 1px solid var(--glass-border);
     border-radius: 20px;
 }
 
-/* =============================================
-   КНОПКИ СОЦИАЛЬНЫХ СЕТЕЙ
-   ============================================= */
 .social-buttons {
     display: flex;
     gap: 1rem;
-    justify-content: center;
 }
 
 .btn-social {
-    background: rgba(15, 23, 42, 0.4);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--border-radius);
-    padding: 0.75rem 1rem;
-    color: var(--text-color);
-    transition: var(--transition);
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    font-size: 0.9rem;
+    padding: 0.875rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
     cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
 }
 
-.btn-social:hover {
-    background: rgba(129, 140, 248, 0.12);
-    border-color: var(--primary-color);
-    color: var(--text-color);
-    transform: translateY(-2px);
+.btn-google {
+    background: rgba(234, 67, 53, 0.1);
+}
+.btn-google:hover {
+    background: rgba(234, 67, 53, 0.2);
+    border-color: rgba(234, 67, 53, 0.5);
+}
+.btn-google i { color: #ea4335; }
+
+.btn-vk {
+    background: rgba(39, 135, 245, 0.1);
+}
+.btn-vk:hover {
+    background: rgba(39, 135, 245, 0.2);
+    border-color: rgba(39, 135, 245, 0.5);
+}
+.btn-vk i { color: #2787f5; }
+
+.login-links {
+    text-align: center;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.register-link {
+    color: #818cf8;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.register-link:hover {
+    color: #a5b4fc;
+    text-decoration: underline;
 }
 
 /* =============================================
-   CAPTCHA
+   CAPTCHA & ALERTS
    ============================================= */
 .captcha-container {
-    background: rgba(15, 23, 42, 0.3);
-    padding: 0.5rem;
-    border-radius: var(--border-radius);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.75rem;
+    border-radius: 12px;
     display: flex;
     justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: 0.5rem;
-    border: 1px solid var(--glass-border);
 }
-
 .captcha-container img {
-    border-radius: 6px;
-    filter: invert(0.05);
+    border-radius: 8px;
+    filter: brightness(0.9) contrast(1.2);
 }
 
-/* =============================================
-   АЛЕРТ ОШИБОК
-   ============================================= */
-.login-body .alert {
-    border-radius: var(--border-radius);
-    font-size: 0.9rem;
+.alert {
+    border-radius: 12px;
+    font-size: 0.95rem;
+    border: none;
+    padding: 1rem;
     margin-bottom: 1.5rem;
 }
 
-.login-body .alert-danger {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.25);
-    color: #f87171;
+.alert-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 /* =============================================
-   АДАПТИВНОСТЬ
+   RESPONSIVE
    ============================================= */
-@media (max-width: 480px) {
+@media (max-width: 991px) {
+    .login-visual-side {
+        display: none !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-form-side {
+        padding: 1rem;
+    }
     .login-body {
-        padding: 2rem 1.5rem;
+        padding: 0 1.5rem 2rem;
     }
     .login-header {
         padding: 2rem 1.5rem 1.5rem;
@@ -365,9 +468,7 @@
     .social-buttons {
         flex-direction: column;
     }
-    .remember-forgot {
-        flex-direction: column;
-        gap: 0.75rem;
-        align-items: flex-start;
+    .btn-social span {
+        display: inline !important;
     }
 }
