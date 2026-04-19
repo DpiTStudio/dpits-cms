@@ -15,109 +15,146 @@
 {% block hero_section %}{% endblock %}
 {% block sidebar %}{% endblock %}
 
-{% block content %}
-<section class="login-section">
-    <div class="login-card">
-        <!-- Заголовок -->
-        <div class="login-header">
-            <h2>Добро пожаловать!</h2>
-            <p>Войдите в свой аккаунт</p>
+{% block content_wrapper %}
+<section class="login-fullscreen-wrapper">
+    <!-- Левая часть: Визуал (скрыто на мобилках) -->
+    <div class="login-visual-side d-none d-lg-flex">
+        <div class="visual-content">
+            <div class="brand-logo mb-4">
+                <i class="fas fa-layer-group fa-3x text-primary"></i>
+            </div>
+            <h1 class="visual-title">Добро пожаловать в {{ site_settings.logo_text|default:"DPITS-CMS" }}</h1>
+            <p class="visual-subtitle">Мощная панель управления для вашего бизнеса. Авторизуйтесь, чтобы получить доступ ко всем функциям системы.</p>
+            
+            <div class="features-list mt-5">
+                <div class="feature-item">
+                    <i class="fas fa-bolt text-warning"></i>
+                    <span>Молниеносная скорость работы</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt text-success"></i>
+                    <span>Максимальная безопасность данных</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-line text-info"></i>
+                    <span>Умная аналитика и статистика</span>
+                </div>
+            </div>
         </div>
+        
+        <!-- Декоративные элементы -->
+        <div class="visual-shape shape-1"></div>
+        <div class="visual-shape shape-2"></div>
+    </div>
 
-        <!-- Тело формы -->
-        <div class="login-body">
-            {% if form.errors %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle me-2"></i>
-                <strong>Ошибка входа:</strong>
-                {% if form.non_field_errors %}
-                {{ form.non_field_errors.0 }}
-                {% else %}
-                Пожалуйста, проверьте правильность введённых данных.
+    <!-- Правая часть: Форма -->
+    <div class="login-form-side login-section">
+        <div class="login-card">
+            <!-- Заголовок -->
+            <div class="login-header">
+                <h2>С возвращением!</h2>
+                <p>Войдите в свой аккаунт для продолжения</p>
+            </div>
+
+            <!-- Тело формы -->
+            <div class="login-body">
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <strong>Ошибка входа:</strong>
+                    {% if form.non_field_errors %}
+                    {{ form.non_field_errors.0 }}
+                    {% else %}
+                    Пожалуйста, проверьте правильность введённых данных.
+                    {% endif %}
+                </div>
                 {% endif %}
-            </div>
-            {% endif %}
 
-            {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} me-2"></i>
-                {{ message }}
-            </div>
-            {% endfor %}
-            {% endif %}
-
-            <form method="POST" novalidate>
-                {% csrf_token %}
-
-                <div class="form-group">
-                    <label for="id_username" class="form-label">Имя пользователя или Email</label>
-                    <input type="text" name="username" id="id_username"
-                        class="form-control {% if form.username.errors %}is-invalid{% endif %}"
-                        placeholder="Введите имя пользователя или email"
-                        value="{{ form.username.value|default:'' }}"
-                        required autocomplete="username">
-                    {% if form.username.errors %}
-                    <div class="invalid-feedback d-block">{{ form.username.errors.0 }}</div>
-                    {% endif %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} me-2"></i>
+                    {{ message }}
                 </div>
+                {% endfor %}
+                {% endif %}
 
-                <div class="form-group">
-                    <label for="id_password" class="form-label">Пароль</label>
-                    <input type="password" name="password" id="id_password"
-                        class="form-control {% if form.password.errors %}is-invalid{% endif %}"
-                        placeholder="Введите ваш пароль"
-                        required autocomplete="current-password">
-                    <span class="password-toggle" onclick="togglePassword()" aria-label="Показать/скрыть пароль">
-                        <i class="fas fa-eye"></i>
-                    </span>
-                    {% if form.password.errors %}
-                    <div class="invalid-feedback d-block">{{ form.password.errors.0 }}</div>
-                    {% endif %}
-                </div>
+                <form method="POST" novalidate>
+                    {% csrf_token %}
 
-                <div class="form-group">
-                    <label class="form-label">Подтвердите, что вы не робот</label>
-                    <div class="captcha-container">
-                        {{ form.captcha }}
+                    <div class="form-group">
+                        <label for="id_username" class="form-label">Имя пользователя или Email</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" name="username" id="id_username"
+                                class="form-control field-with-icon {% if form.username.errors %}is-invalid{% endif %}"
+                                placeholder="Введите имя пользователя или email"
+                                value="{{ form.username.value|default:'' }}"
+                                required autocomplete="username">
+                        </div>
+                        {% if form.username.errors %}
+                        <div class="invalid-feedback d-block">{{ form.username.errors.0 }}</div>
+                        {% endif %}
                     </div>
-                    {% if form.captcha.errors %}
-                    <div class="invalid-feedback d-block mt-2">{{ form.captcha.errors.0 }}</div>
-                    {% endif %}
-                </div>
 
-                <div class="remember-forgot">
-                    <div class="form-check">
-                        <input type="checkbox" name="remember" id="id_remember" class="form-check-input">
-                        <label for="id_remember" class="form-check-label">Запомнить меня</label>
+                    <div class="form-group mb-4">
+                        <label for="id_password" class="form-label">Пароль</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" name="password" id="id_password"
+                                class="form-control field-with-icon {% if form.password.errors %}is-invalid{% endif %}"
+                                placeholder="Введите ваш пароль"
+                                required autocomplete="current-password">
+                            <span class="password-toggle" onclick="togglePassword()" aria-label="Показать/скрыть пароль">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                        {% if form.password.errors %}
+                        <div class="invalid-feedback d-block">{{ form.password.errors.0 }}</div>
+                        {% endif %}
                     </div>
-                    <span class="forgot-password" onclick="showPasswordHelp()">Забыли пароль?</span>
+
+                    <div class="form-group captcha-group">
+                        <label class="form-label">Подтвердите, что вы человек</label>
+                        <div class="captcha-container">
+                            {{ form.captcha }}
+                        </div>
+                        {% if form.captcha.errors %}
+                        <div class="invalid-feedback d-block mt-2">{{ form.captcha.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="remember-forgot">
+                        <div class="form-check custom-checkbox">
+                            <input type="checkbox" name="remember" id="id_remember" class="form-check-input">
+                            <label for="id_remember" class="form-check-label">Запомнить меня</label>
+                        </div>
+                        <span class="forgot-password" onclick="showPasswordHelp()">Забыли пароль?</span>
+                    </div>
+
+                    <button type="submit" class="btn-login-modern" id="login-button">
+                        <span>Войти в систему</span> <i class="fas fa-arrow-right ms-2 btn-icon-animate"></i>
+                    </button>
+                </form>
+
+                <div class="login-meta-actions">
+                    <div class="social-divider">
+                        <span>Или войдите через</span>
+                    </div>
+
+                    <div class="social-buttons">
+                        <button class="btn-social btn-google" onclick="alert('Функция входа через Google будет добавлена позже')">
+                            <i class="fab fa-google"></i> <span class="d-none d-sm-inline">Google</span>
+                        </button>
+                        <button class="btn-social btn-vk" onclick="alert('Функция входа через VK будет добавлена позже')">
+                            <i class="fab fa-vk"></i> <span class="d-none d-sm-inline">ВКонтакте</span>
+                        </button>
+                    </div>
+
+                    <div class="login-links mt-4">
+                        <p>Ещё нет аккаунта? <a href="{% url 'accounts:register' %}" class="register-link">Зарегистрируйтесь здесь</a></p>
+                    </div>
                 </div>
-
-                <button type="submit" class="btn-login" id="login-button">
-                    <i class="fas fa-sign-in-alt me-2"></i>Войти
-                </button>
-            </form>
-
-            <div class="login-links">
-                <p>Ещё нет аккаунта? <a href="{% url 'accounts:register' %}">Зарегистрируйтесь здесь</a></p>
-            </div>
-
-            <div class="contact-support">
-                <p>Проблемы со входом? <a href="#" onclick="showSupportContact()">Свяжитесь с поддержкой</a></p>
-            </div>
-
-            <div class="social-divider">
-                <span>Или войдите через</span>
-            </div>
-
-            <div class="social-buttons">
-                <button class="btn-social" onclick="alert('Функция входа через Google будет добавлена позже')">
-                    <i class="fab fa-google"></i> Google
-                </button>
-                <button class="btn-social" onclick="alert('Функция входа через VK будет добавлена позже')">
-                    <i class="fab fa-vk"></i> ВКонтакте
-                </button>
             </div>
         </div>
     </div>

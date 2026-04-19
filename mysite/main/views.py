@@ -243,18 +243,10 @@ class IndexView(MaintenanceMixin, BaseView):
         # Получаем три последние новости
         recent_news_list = []
         if News:
-            try:
-                recent_news_list = list(
-                    News.objects.filter(is_active=True).order_by("-created_at")[:3]
-                )
-            except Exception:
-                # Если модель News не имеет поля is_active, используем другой фильтр
-                try:
-                    recent_news_list = list(
-                        News.objects.all().order_by("-created_at")[:3]
-                    )
-                except Exception:
-                    recent_news_list = []
+            if hasattr(News, 'is_active'):
+                recent_news_list = list(News.objects.filter(is_active=True).order_by("-created_at")[:3])
+            else:
+                recent_news_list = list(News.objects.all().order_by("-created_at")[:3])
 
         # SEO данные
         page_title = "Главная"
@@ -286,17 +278,11 @@ class IndexView(MaintenanceMixin, BaseView):
         # Получаем три последние работы из портфолио
         recent_portfolio_list = []
         if PortfolioItem:
-            try:
-                recent_portfolio_list = list(
-                    PortfolioItem.objects.filter(status="published").order_by("-created_at")[:3]
-                )
-            except Exception:
-                try:
-                    recent_portfolio_list = list(
-                        PortfolioItem.objects.all().order_by("-created_at")[:3]
-                    )
-                except Exception:
-                    recent_portfolio_list = []
+            field_names = [f.name for f in PortfolioItem._meta.get_fields()]
+            if 'status' in field_names:
+                recent_portfolio_list = list(PortfolioItem.objects.filter(status="published").order_by("-created_at")[:3])
+            else:
+                recent_portfolio_list = list(PortfolioItem.objects.all().order_by("-created_at")[:3])
 
         context.update(
             {

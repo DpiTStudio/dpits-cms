@@ -3,25 +3,16 @@
      ОПИСАНИЕ: Улучшенная Hero-секция (главный баннер) сайта с расширенной мета-информацией
      ============================================ -->
 
-{% load static %}
+{% load static hero_tags %}
 
 {# Безопасно получаем первый доступный объект со свойствами hero #}
 {% firstof news portfolio_item service page category app_hero site_settings as active_hero %}
 
 {# Проверяем, активен ли баннер #}
 {% if active_hero.hero_is_active|default:True %}
+{% get_hero_bg_url active_hero category app_hero site_settings as hero_bg %}
 <section class="hero-section text-white position-relative d-flex align-items-center"
-    style="min-height: 50vh; {% if active_hero.hero_image %}background: url('{{ active_hero.hero_image.url }}') center/cover no-repeat;
-           {% elif active_hero.image %}background: url('{{ active_hero.image.url }}') center/cover no-repeat;
-           {% elif active_hero.background %}background: url('{{ active_hero.background.url }}') center/cover no-repeat;
-           {% elif category and category.hero_image %}background: url('{{ category.hero_image.url }}') center/cover no-repeat;
-           {% elif category and category.image %}background: url('{{ category.image.url }}') center/cover no-repeat;
-           {% elif category and category.background %}background: url('{{ category.background.url }}') center/cover no-repeat;
-           {% elif app_hero and app_hero.hero_image %}background: url('{{ app_hero.hero_image.url }}') center/cover no-repeat;
-           {% elif app_hero and app_hero.image %}background: url('{{ app_hero.image.url }}') center/cover no-repeat;
-           {% elif app_hero and app_hero.background %}background: url('{{ app_hero.background.url }}') center/cover no-repeat;
-           {% elif site_settings.hero_background %}background: url('{{ site_settings.hero_background.url }}') center/cover no-repeat;
-           {% else %}background: linear-gradient(135deg, var(--primary-color) 0%, #1e3c72 100%);{% endif %}">
+    style="min-height: 50vh; {% if hero_bg %}background: url('{{ hero_bg }}') center/cover no-repeat;{% else %}background: linear-gradient(135deg, var(--primary-color) 0%, #1e3c72 100%);{% endif %}">
     
     {# Современный градиентный затемняющий слой с блюром #}
     <div class="position-absolute w-100 h-100 top-0 start-0" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.6) 100%); backdrop-filter: blur(4px); z-index: 0;"></div>

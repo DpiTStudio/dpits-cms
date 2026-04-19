@@ -74,92 +74,26 @@ def upload_to_with_date(instance, filename, prefix=None):
     # Возвращаем полный путь
     return os.path.join(upload_to, new_filename)
 
-# Функции-заглушки для загрузки файлов (для поддержки миграций)
-def upload_to_logos(instance, filename): 
-    """
-    Загрузка логотипа
-    """
-    return upload_to_with_date(instance, filename, "logo")
-def upload_to_hero_bg(instance, filename): 
-    """
-    Загрузка фона Hero-секции
-    """
-    return upload_to_with_date(instance, filename, "hero_bg")
-def upload_to_facebook_icon(instance, filename): 
-    """
-    Загрузка иконки Facebook
-    """
-    return upload_to_with_date(instance, filename, "facebook_icon")
-def upload_to_instagram_icon(instance, filename): 
-    """
-    Загрузка иконки Instagram
-    """
-    return upload_to_with_date(instance, filename, "instagram_icon")
-def upload_to_youtube_icon(instance, filename): 
-    """
-    Загрузка иконки YouTube
-    """
-    return upload_to_with_date(instance, filename, "youtube_icon")
-def upload_to_rutube_icon(instance, filename): 
-    """
-    Загрузка иконки Rutube
-    """
-    return upload_to_with_date(instance, filename, "rutube_icon")
-def upload_to_vk_video_icon(instance, filename): 
-    """
-    Загрузка иконки VK Видео
-    """
-    return upload_to_with_date(instance, filename, "vk_video_icon")
-def upload_to_telegram_icon(instance, filename): 
-    """
-    Загрузка иконки Telegram
-    """
-    return upload_to_with_date(instance, filename, "telegram_icon")
-def upload_to_vk_icon(instance, filename): 
-    """
-    Загрузка иконки VK
-    """
-    return upload_to_with_date(instance, filename, "vk_icon")
-def upload_to_ok_icon(instance, filename): 
-    """
-    Загрузка иконки OK
-    """
-    return upload_to_with_date(instance, filename, "ok_icon")
-def upload_to_twitter_icon(instance, filename): 
-    """
-    Загрузка иконки Twitter
-    """
-    return upload_to_with_date(instance, filename, "twitter_icon")
-def upload_to_pinterest_icon(instance, filename): 
-    """
-    Загрузка иконки Pinterest
-    """
-    return upload_to_with_date(instance, filename, "pinterest_icon")
-def upload_to_linkedin_icon(instance, filename): 
-    """
-    Загрузка иконки LinkedIn
-    """
-    return upload_to_with_date(instance, filename, "linkedin_icon")
-def upload_to_whatsapp_icon(instance, filename): 
-    """
-    Загрузка иконки WhatsApp
-    """
-    return upload_to_with_date(instance, filename, "whatsapp_icon")
-def upload_to_viber_icon(instance, filename): 
-    """
-    Загрузка иконки Viber
-    """
-    return upload_to_with_date(instance, filename, "viber_icon")
-def upload_to_skype_icon(instance, filename): 
-    """
-    Загрузка иконки Skype
-    """
-    return upload_to_with_date(instance, filename, "skype_icon")
-def upload_to_threads_icon(instance, filename): 
-    """
-    Загрузка иконки Threads
-    """
-    return upload_to_with_date(instance, filename, "threads_icon")
+from functools import partial
+
+# Функции-заглушки для загрузки файлов (для поддержки миграций и лаконичности)
+upload_to_logos = partial(upload_to_with_date, prefix="logo")
+upload_to_hero_bg = partial(upload_to_with_date, prefix="hero_bg")
+upload_to_facebook_icon = partial(upload_to_with_date, prefix="facebook_icon")
+upload_to_instagram_icon = partial(upload_to_with_date, prefix="instagram_icon")
+upload_to_youtube_icon = partial(upload_to_with_date, prefix="youtube_icon")
+upload_to_rutube_icon = partial(upload_to_with_date, prefix="rutube_icon")
+upload_to_vk_video_icon = partial(upload_to_with_date, prefix="vk_video_icon")
+upload_to_telegram_icon = partial(upload_to_with_date, prefix="telegram_icon")
+upload_to_vk_icon = partial(upload_to_with_date, prefix="vk_icon")
+upload_to_ok_icon = partial(upload_to_with_date, prefix="ok_icon")
+upload_to_twitter_icon = partial(upload_to_with_date, prefix="twitter_icon")
+upload_to_pinterest_icon = partial(upload_to_with_date, prefix="pinterest_icon")
+upload_to_linkedin_icon = partial(upload_to_with_date, prefix="linkedin_icon")
+upload_to_whatsapp_icon = partial(upload_to_with_date, prefix="whatsapp_icon")
+upload_to_viber_icon = partial(upload_to_with_date, prefix="viber_icon")
+upload_to_skype_icon = partial(upload_to_with_date, prefix="skype_icon")
+upload_to_threads_icon = partial(upload_to_with_date, prefix="threads_icon")
 
 
 # Модели для хранения настроек сайта
@@ -639,72 +573,24 @@ class Page(HeroMixin):
     def get_previous_page(self):
         """
         Возвращает предыдущую страницу по порядку или дате создания.
-
-        Логика поиска:
-        1. Ищем страницы с меньшим значением order
-        2. Если не найдено, ищем по более ранней дате создания
-        3. Возвращает первую найденную или None
-
-        Возвращает:
-            Page или None: Предыдущая страница или None если не найдена
+        Ищет оптимизированно одним запросом через Q.
         """
-        try:
-            # Пытаемся найти по порядку (основной критерий)
-            prev_page = (
-                Page.objects.filter(show_on_site=True, order__lt=self.order)
-                .order_by("-order", "-created_at")  # Сортируем по убыванию order и даты
-                .first()  # Берем первую запись
-            )
-
-            if not prev_page:
-                # Если не нашли по order, ищем по дате создания
-                prev_page = (
-                    Page.objects.filter(
-                        show_on_site=True, created_at__lt=self.created_at
-                    )
-                    .order_by("-created_at")  # Сортируем по убыванию даты
-                    .first()
-                )
-            return prev_page
-        except Exception:
-            # В случае ошибки возвращаем None
-            return None
+        from django.db.models import Q
+        return Page.objects.filter(show_on_site=True).filter(
+            Q(order__lt=self.order) | 
+            Q(order=self.order, created_at__lt=self.created_at)
+        ).order_by("-order", "-created_at").first()
 
     def get_next_page(self):
         """
         Возвращает следующую страницу по порядку или дате создания.
-
-        Логика поиска:
-        1. Ищем страницы с большим значением order
-        2. Если не найдено, ищем по более поздней дате создания
-        3. Возвращает первую найденную или None
-
-        Возвращает:
-            Page или None: Следующая страница или None если не найдена
+        Ищет оптимизированно одним запросом через Q.
         """
-        try:
-            # Пытаемся найти по порядку (основной критерий)
-            next_page = (
-                Page.objects.filter(show_on_site=True, order__gt=self.order)
-                .order_by(
-                    "order", "created_at"
-                )  # Сортируем по возрастанию order и даты
-                .first()
-            )
-
-            if not next_page:
-                # Если не нашли по order, ищем по дате создания
-                next_page = (
-                    Page.objects.filter(
-                        show_on_site=True, created_at__gt=self.created_at
-                    )
-                    .order_by("created_at")  # Сортируем по возрастанию даты
-                    .first()
-                )
-            return next_page
-        except Exception:
-            # В случае ошибки возвращаем None
-            return None
+        from django.db.models import Q
+        return Page.objects.filter(show_on_site=True).filter(
+            Q(order__gt=self.order) | 
+            Q(order=self.order, created_at__gt=self.created_at)
+        ).order_by("order", "created_at").first()
 
     @property
     def display_title(self):
@@ -1565,6 +1451,7 @@ class PaymentMethod(models.Model):
     Модель для способов оплаты (Visa, Mastercard, Mir и т.д.)
     """
     name = models.CharField(_("Название"), max_length=100)
+    slug = models.SlugField(_("URL-адрес"), unique=True, max_length=200)
     icon = models.ImageField(_("Иконка"), upload_to="payment_methods/")
     is_active = models.BooleanField(_("Активно"), default=True)
     order = models.IntegerField(_("Порядок отображения"), default=0)
