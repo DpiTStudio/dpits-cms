@@ -6,7 +6,7 @@
 {% load static %}
 
 {# Безопасно получаем первый доступный объект со свойствами hero #}
-{% firstof news portfolio_item service page app_hero category site_settings as active_hero %}
+{% firstof news portfolio_item service page category app_hero site_settings as active_hero %}
 
 {# Проверяем, активен ли баннер #}
 {% if active_hero.hero_is_active|default:True %}
@@ -14,6 +14,12 @@
     style="min-height: 50vh; {% if active_hero.hero_image %}background: url('{{ active_hero.hero_image.url }}') center/cover no-repeat;
            {% elif active_hero.image %}background: url('{{ active_hero.image.url }}') center/cover no-repeat;
            {% elif active_hero.background %}background: url('{{ active_hero.background.url }}') center/cover no-repeat;
+           {% elif category and category.hero_image %}background: url('{{ category.hero_image.url }}') center/cover no-repeat;
+           {% elif category and category.image %}background: url('{{ category.image.url }}') center/cover no-repeat;
+           {% elif category and category.background %}background: url('{{ category.background.url }}') center/cover no-repeat;
+           {% elif app_hero and app_hero.hero_image %}background: url('{{ app_hero.hero_image.url }}') center/cover no-repeat;
+           {% elif app_hero and app_hero.image %}background: url('{{ app_hero.image.url }}') center/cover no-repeat;
+           {% elif app_hero and app_hero.background %}background: url('{{ app_hero.background.url }}') center/cover no-repeat;
            {% elif site_settings.hero_background %}background: url('{{ site_settings.hero_background.url }}') center/cover no-repeat;
            {% else %}background: linear-gradient(135deg, var(--primary-color) 0%, #1e3c72 100%);{% endif %}">
     
@@ -51,12 +57,14 @@
                     {% elif active_hero.title %}{{ active_hero.title }}
                     {% elif active_hero.name %}{{ active_hero.name }}
                     {% elif page_title %}{{ page_title }}
+                    {% elif category and category.name %}{{ category.name }}
+                    {% elif app_hero and app_hero.hero_title %}{{ app_hero.hero_title }}
                     {% else %}{{ site_settings.title|default:"Добро пожаловать" }}{% endif %}
                 </h1>
                 
                 {# Описание / Девиз #}
                 <div class="lead mb-4 text-white-75 fw-normal fade-in-up" id="hero-subtitle-container" style="animation-delay: 0.3s; font-size: 1.25rem; max-width: 90%; min-height: 50px;">
-                    <span id="hero-subtitle-text" data-text="{% if active_hero.hero_subtitle %}{{ active_hero.hero_subtitle|striptags }}{% elif active_hero.short_description %}{{ active_hero.short_description|striptags }}{% elif active_hero.description %}{{ active_hero.description|striptags|truncatewords:30 }}{% elif site_settings.slogan %}{{ site_settings.slogan }}{% endif %}"></span><span class="typing-cursor">|</span>
+                    <span id="hero-subtitle-text" data-text="{% if active_hero.hero_subtitle %}{{ active_hero.hero_subtitle|striptags }}{% elif active_hero.short_description %}{{ active_hero.short_description|striptags }}{% elif active_hero.description %}{{ active_hero.description|striptags|truncatewords:30 }}{% elif category and category.description %}{{ category.description|striptags|truncatewords:30 }}{% elif app_hero and app_hero.hero_subtitle %}{{ app_hero.hero_subtitle|striptags }}{% elif site_settings.slogan %}{{ site_settings.slogan }}{% endif %}"></span><span class="typing-cursor">|</span>
                 </div>
 
                 {# Расширенный блок мета-данных (стекловидный контейнер) #}
