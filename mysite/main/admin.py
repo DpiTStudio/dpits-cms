@@ -12,7 +12,8 @@ from django.http import HttpResponseRedirect  # Перенаправка пол�
 from django.shortcuts import render  # Отрисовка шаблонов
 from django.urls import path, reverse  # Работа с URL
 from django.utils.html import format_html  # Безопасный вывод HTML в админке
-from django.utils.translation import gettext_lazy as _  # Перевод строк
+from django.utils.translation import gettext_lazy as _
+from .admin_utils import ResetAutoIncrementMixin  # Перевод строк
 
 # Импорт моделей
 from .models import (
@@ -35,7 +36,7 @@ from .admin_utils import (
 
 
 @admin.register(SiteSettings)
-class SiteSettingsAdmin(admin.ModelAdmin):
+class SiteSettingsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """
     Админка для глобальных настроек сайта.
     Реализует шаблон Singleton (только одна запись в БД).
@@ -130,7 +131,7 @@ class SiteSettingsAdmin(admin.ModelAdmin):
 
 
 @admin.register(Page)
-class PageAdmin(admin.ModelAdmin):
+class PageAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """Админка для управления статическими страницами сайта."""
     
     # Поля, отображаемые в списке
@@ -177,7 +178,7 @@ class PageAdmin(admin.ModelAdmin):
 
 
 @admin.register(AppHeroSettings)
-class AppHeroSettingsAdmin(admin.ModelAdmin):
+class AppHeroSettingsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """Админка для настройки общих баннеров разделов."""
 
     list_display = ("app_name", "hero_title", "hero_is_active")
@@ -199,7 +200,7 @@ class AppHeroSettingsAdmin(admin.ModelAdmin):
 
 
 @admin.register(LogStats)
-class LogStatsAdmin(admin.ModelAdmin):
+class LogStatsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """
     Админка для управления системными логами (debug.log).
     Позволяет мониторить ошибки и очищать журналы.
@@ -457,7 +458,7 @@ except ImportError:
     pass
 
 @admin.register(PaymentMethod)
-class PaymentMethodAdmin(admin.ModelAdmin):
+class PaymentMethodAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     list_display = ('name', 'is_active', 'order')
     list_editable = ('is_active', 'order')
     search_fields = ('name',)

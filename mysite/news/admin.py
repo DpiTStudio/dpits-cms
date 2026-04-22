@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+from main.admin_utils import ResetAutoIncrementMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from django.urls import path
@@ -7,14 +9,14 @@ from .models import NewsCategory, News, NewsTag
 
 
 @admin.register(NewsTag)
-class NewsTagAdmin(admin.ModelAdmin):
+class NewsTagAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """Управление тегами новостей."""
     list_display = ["name", "slug"]
     prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(NewsCategory)
-class NewsCategoryAdmin(admin.ModelAdmin):
+class NewsCategoryAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """
     Админ-панель для управления категориями новостей.
     Поддержка SEO, сортировки, отображения в меню и управления активностью.
@@ -57,7 +59,7 @@ class NewsCategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(News)
-class NewsAdmin(admin.ModelAdmin):
+class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """
     Админ-панель для управления новостями.
     Поддержка фильтрации, SEO, сброса просмотров (массово и для отдельных записей).
@@ -146,7 +148,7 @@ class NewsAdmin(admin.ModelAdmin):
         urls = super().get_urls()
         custom_urls = [
             path(
-                "<path:object_id>/clear_views/",
+                "<int:object_id>/clear_views/",
                 self.admin_site.admin_view(self.clear_views),
                 name="news_clear_views",
             ),

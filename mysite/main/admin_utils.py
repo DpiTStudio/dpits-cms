@@ -14,6 +14,7 @@ except ImportError:
     psutil = None
 from datetime import datetime  # Работа со временем
 from django.conf import settings  # Доступ к settings.py проекта
+from django.utils.translation import gettext_lazy as _
 
 
 def get_server_info():
@@ -164,3 +165,32 @@ def format_bytes(bytes_size):
             return f"{bytes_size:.2f} {unit}"
         bytes_size /= 1024.0
     return f"{bytes_size:.2f} EB"
+
+
+class ResetAutoIncrementMixin:
+    """Mixin providing an admin action to delete all records of a model and reset SQLite auto‑increment.
+
+    The action works for any model registered in the admin. It deletes all rows, then clears the
+    corresponding entry in ``sqlite_sequence`` so that the primary‑key counter starts from ``1``
+    again. The mixin can be added to any ``ModelAdmin`` subclass.
+    """
+
+    actions = ["reset_all_records"]
+
+    def reset_all_records(self, request, queryset):
+        """Delete **all** records of the model and reset its SQLite auto‑increment.
+
+        The ``queryset`` argument is ignored – the action always works on the whole table to
+        guarantee a full reset.
+        """
+        # Delete every instance of the model
+        self.model.objects.all().delete()
+        # Reset SQLite sequence for this table (works only with SQLite backend)
+        from django.db import connection
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "DELETE FROM sqlite_sequence WHERE name = %s",
+                [self.model._meta.db_table],
+            )
+        self.message_user(request, f"Все записи модели {self.model._meta.verbose_name} удалены и автоинкремент сброшен.")
+    reset_all_records.short_description = _("Сбросить все записи и автоинкремент")

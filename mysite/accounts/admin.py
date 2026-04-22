@@ -6,6 +6,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from django.utils.html import format_html
 from .models import UserProfile, Ticket, TicketResponse
+from mysite.main.admin_utils import ResetAutoIncrementMixin
 
 
 class UserProfileInline(admin.StackedInline):
@@ -31,7 +32,7 @@ class UserProfileInline(admin.StackedInline):
     avatar_preview.short_description = "Превью аватара"
 
 
-class UserAdmin(BaseUserAdmin):
+class UserAdmin(ResetAutoIncrementMixin, BaseUserAdmin):
     """
     Переопределенный класс управления пользователями с интеграцией профиля.
     """
@@ -50,7 +51,7 @@ class UserAdmin(BaseUserAdmin):
 
 
 @admin.register(Ticket)
-class TicketAdmin(admin.ModelAdmin):
+class TicketAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """
     Управление тикетами техподдержки в админке.
     """
@@ -73,7 +74,7 @@ class TicketAdmin(admin.ModelAdmin):
 
 
 @admin.register(TicketResponse)
-class TicketResponseAdmin(admin.ModelAdmin):
+class TicketResponseAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """
     Управление ответами на тикеты.
     """

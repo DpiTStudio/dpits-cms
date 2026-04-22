@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 from .models import ServiceCategory, Service, ServiceOrder, ServiceOrderItem
+from mysite.main.admin_utils import ResetAutoIncrementMixin
 
 
 @admin.register(ServiceCategory)
@@ -255,7 +256,7 @@ class ServiceOrderItemInline(admin.TabularInline):
 
 
 @admin.register(ServiceOrder)
-class ServiceOrderAdmin(admin.ModelAdmin):
+class ServiceOrderAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """Админ-панель заказов"""
 
     list_display = [
@@ -271,6 +272,8 @@ class ServiceOrderAdmin(admin.ModelAdmin):
     date_hierarchy = "created_at"
     inlines = [ServiceOrderItemInline]
 
+    actions = ["delete_all_orders"]
+
     fieldsets = (
         (_("Клиент"), {
             "fields": ("user", "client_name", "client_email", "client_phone"),
@@ -283,6 +286,20 @@ class ServiceOrderAdmin(admin.ModelAdmin):
             "classes": ("collapse",),
         }),
     )
+
+    def delete_all_orders(self, request, queryset):
+        """Удалить все заказы и сбросить автоинкремент (SQLite)"""
+        # Delete all ServiceOrder records
+        ServiceOrder.objects.all().delete()
+        # Reset SQLite sequence for this table if using SQLite
+        from django.db import connection
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "DELETE FROM sqlite_sequence WHERE name = %s",
+                [ServiceOrder._meta.db_table]
+            )
+        self.message_user(request, "Все заказы удалены и автоинкремент сброшен.")
+    delete_all_orders.short_description = _("Удалить все заказы")
 
     def order_type_badge(self, obj):
         colors = {"quick": "#6366f1", "full": "#10b981"}
