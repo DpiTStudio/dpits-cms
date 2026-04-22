@@ -1,15 +1,19 @@
 # services/forms.py
+# Назначение: Формы для оформления заказа.
+# Быстрый заказ (минимальные поля) и полный заказ (расширенный).
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
 
 class QuickOrderForm(forms.Form):
     """
-    Быстрый заказ: минимальные поля — имя, email, телефон + необязательный комментарий.
-    Доступен как гостям, так и авторизованным пользователям.
+    Форма быстрого заказа.
+    Используется для минимального сбора информации от клиента.
+    Доступна как авторизованным, так и неавторизованным пользователям.
     """
     client_name = forms.CharField(
-        label=_("Ваше имя"),
+        label="Ваше имя",
         max_length=150,
         widget=forms.TextInput(attrs={
             "class": "form-control",
@@ -19,7 +23,7 @@ class QuickOrderForm(forms.Form):
         error_messages={"required": "Укажите ваше имя"},
     )
     client_email = forms.EmailField(
-        label=_("Email"),
+        label="Email",
         widget=forms.EmailInput(attrs={
             "class": "form-control",
             "placeholder": "example@mail.ru",
@@ -31,9 +35,9 @@ class QuickOrderForm(forms.Form):
         },
     )
     client_phone = forms.CharField(
-        label=_("Телефон"),
+        label="Телефон",
         max_length=30,
-        required=False,
+        required=False,  # Телефон необязателен в быстром заказе
         widget=forms.TextInput(attrs={
             "class": "form-control",
             "placeholder": "+7 (999) 123-45-67",
@@ -41,7 +45,7 @@ class QuickOrderForm(forms.Form):
         }),
     )
     comment = forms.CharField(
-        label=_("Комментарий к заказу"),
+        label="Комментарий к заказу",
         required=False,
         widget=forms.Textarea(attrs={
             "class": "form-control",
@@ -53,10 +57,11 @@ class QuickOrderForm(forms.Form):
 
 class FullOrderForm(forms.Form):
     """
-    Полный заказ: расширенная форма с деталями.
+    Форма полного заказа.
+    Собирает детальную информацию о проекте.
     """
     client_name = forms.CharField(
-        label=_("Полное имя"),
+        label="Полное имя",
         max_length=150,
         widget=forms.TextInput(attrs={
             "class": "form-control",
@@ -66,7 +71,7 @@ class FullOrderForm(forms.Form):
         error_messages={"required": "Укажите ваше имя"},
     )
     client_email = forms.EmailField(
-        label=_("Email для связи"),
+        label="Email для связи",
         widget=forms.EmailInput(attrs={
             "class": "form-control",
             "placeholder": "example@mail.ru",
@@ -78,7 +83,7 @@ class FullOrderForm(forms.Form):
         },
     )
     client_phone = forms.CharField(
-        label=_("Контактный телефон"),
+        label="Контактный телефон",
         max_length=30,
         widget=forms.TextInput(attrs={
             "class": "form-control",
@@ -88,7 +93,7 @@ class FullOrderForm(forms.Form):
         error_messages={"required": "Телефон обязателен для полного заказа"},
     )
     comment = forms.CharField(
-        label=_("Подробное описание задачи"),
+        label="Подробное описание задачи",
         widget=forms.Textarea(attrs={
             "class": "form-control",
             "rows": 5,
@@ -97,7 +102,7 @@ class FullOrderForm(forms.Form):
         error_messages={"required": "Пожалуйста, опишите задачу"},
     )
     budget = forms.CharField(
-        label=_("Ориентировочный бюджет"),
+        label="Ориентировочный бюджет",
         max_length=100,
         required=False,
         widget=forms.TextInput(attrs={
@@ -106,7 +111,7 @@ class FullOrderForm(forms.Form):
         }),
     )
     deadline = forms.CharField(
-        label=_("Желаемые сроки"),
+        label="Желаемые сроки",
         max_length=100,
         required=False,
         widget=forms.TextInput(attrs={
@@ -115,7 +120,7 @@ class FullOrderForm(forms.Form):
         }),
     )
     how_found = forms.ChoiceField(
-        label=_("Как вы нас нашли?"),
+        label="Как вы нас нашли?",
         required=False,
         choices=[
             ("", "— не указано —"),

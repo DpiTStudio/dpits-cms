@@ -1,4 +1,7 @@
 # services/admin.py
+# Назначение: Регистрация моделей в панели администратора Django.
+# Позволяет управлять категориями услуг, услугами и заказами через админку.
+
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -8,300 +11,291 @@ from mysite.main.admin_utils import ResetAutoIncrementMixin
 
 @admin.register(ServiceCategory)
 class ServiceCategoryAdmin(admin.ModelAdmin):
-    """Админ-панель для категорий услуг"""
+    """
+    Админ-панель для категорий услуг.
+    Определяет, какие поля отображать, фильтровать, искать и редактировать.
+    """
 
+    # Поля, отображаемые в списке категорий
     list_display = [
-        # Основная информация
-        "name",
-        "slug",
-        # Статусы
-        "order",
-        "is_active",
-        # Статистика
-        "services_count",
-        "views",
-        # Даты
-        "created_at",
+        "name",          # Название категории
+        "slug",          # URL-идентификатор
+        "order",         # Порядок сортировки
+        "is_active",     # Активна ли категория
+        "services_count",# Количество услуг в категории (метод ниже)
+        "views",         # Количество просмотров
+        "created_at",    # Дата создания
     ]
+    
+    # Поля для фильтрации (сайдбар справа)
     list_filter = [
-        # Статусы
-        "is_active",
-        # Даты
-        "created_at",
+        "is_active",     # Фильтр по активности
+        "created_at",    # Фильтр по дате создания
     ]
+    
+    # Поля для поиска
     search_fields = ["name", "description"]
+    
+    # Поля, которые автоматически заполняются из других полей (slug из name)
     prepopulated_fields = {"slug": ("name",)}
+    
+    # Поля только для чтения (нельзя редактировать)
     readonly_fields = [
-        # Даты
         "created_at",
         "updated_at",
-        # Статистика
-        "services_count_display",
+        "services_count_display",  # Отображение количества услуг
     ]
+    
+    # Поля, которые можно редактировать прямо в списке (без открытия формы)
     list_editable = ["order", "is_active"]
+    
+    # Количество записей на странице
     list_per_page = 20
 
+    # Группировка полей в форме редактирования
     fieldsets = (
-        (
-            _("Основная информация"),
-            {
-                "fields": ("name", "slug", "image", "description"),
-            },
-        ),
-        (
-            _("SEO настройки"),
-            {
-                "fields": ("seo_title", "seo_keywords", "seo_description"),
-            },
-        ),
-        (
-            _("Настройки отображения"),
-            {
-                "fields": ("show_in_menu", "order", "is_active"),
-            },
-        ),
-        (
-            _("Настройки Hero-секции"),
-            {
-                "fields": (
-                    "hero_title",
-                    "hero_subtitle",
-                    "hero_image",
-                    "hero_is_active",
-                ),
-                "classes": ("collapse",),
-            },
-        ),
-        (
-            _("Системная информация"),
-            {
-                "fields": ("views", "created_at", "updated_at", "services_count_display"),
-                "classes": ("collapse",),
-            },
-        ),
+        ("Основная информация", {
+            "fields": ("name", "slug", "image", "description"),
+        }),
+        ("SEO настройки", {
+            "fields": ("seo_title", "seo_keywords", "seo_description"),
+        }),
+        ("Настройки отображения", {
+            "fields": ("show_in_menu", "order", "is_active"),
+        }),
+        ("Настройки Hero-секции", {
+            "fields": ("hero_title", "hero_subtitle", "hero_image", "hero_is_active"),
+            "classes": ("collapse",),  # Сворачиваемая секция
+        }),
+        ("Системная информация", {
+            "fields": ("views", "created_at", "updated_at", "services_count_display"),
+            "classes": ("collapse",),
+        }),
     )
 
     def services_count(self, obj):
-        """Количество услуг в категории"""
+        """
+        Возвращает количество услуг в категории.
+        Используется в list_display для отображения в таблице.
+        """
         return obj.service_set.count()
-
-    services_count.short_description = _("Количество услуг")
+    services_count.short_description = "Количество услуг"  # Подпись в админке
 
     def services_count_display(self, obj):
-        """Отображение количества услуг в форме редактирования"""
+        """
+        Отображение количества услуг в форме редактирования (readonly поле).
+        """
         return obj.services_count()
-
-    services_count_display.short_description = _("Количество услуг")
+    services_count_display.short_description = "Количество услуг"
 
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    """Админ-панель для услуг"""
+    """
+    Админ-панель для услуг.
+    Управление услугами: цены, изображения, SEO, статусы.
+    """
 
+    # Поля в списке услуг
     list_display = [
-    # Основная информация
-    "id", "name", "icon_preview",
-    
-    # Категория и цена
-    "category", "price_display",
-    
-    # Статусы
-    "can_order", "is_displayed",
-    
-    # Даты
-    "created_at",
+        "id", "name", "icon_preview",      # ID, название, иконка
+        "category", "price_display",       # Категория, цена
+        "can_order", "is_displayed",       # Доступность заказа, отображение
+        "created_at",                      # Дата создания
     ]
 
+    # Фильтры
     list_filter = [
-        # Категория
-        "category",
-        # Цена
-        "price_type",
-        "currency",
-        # Статусы
-        "can_order",
-        "is_displayed",
-        "created_at",
+        "category",          # По категории
+        "price_type",        # По типу цены (фикс, от, до, диапазон)
+        "currency",          # По валюте
+        "can_order",         # Можно ли заказать
+        "is_displayed",      # Отображается ли
+        "created_at",        # По дате создания
     ]
+    
+    # Поиск по названию и описаниям
     search_fields = ["name", "short_description", "description"]
+    
+    # Автозаполнение slug из name
     prepopulated_fields = {"slug": ("name",)}
+    
+    # Только для чтения (системные поля и превью)
     readonly_fields = [
-        # Системная информация
-        "views",
-        "created_at",
-        "updated_at",
-        # Превью
-        "icon_preview_large",
-        "background_preview_large",
+        "views",                     # Просмотры
+        "created_at",                # Дата создания
+        "updated_at",                # Дата обновления
+        "icon_preview_large",        # Большое превью иконки
+        "background_preview_large",  # Большое превью фона
     ]
+    
+    # Поля, редактируемые прямо в списке
     list_editable = ["can_order", "is_displayed"]
+    
     list_per_page = 20
-    date_hierarchy = "created_at"
+    date_hierarchy = "created_at"  # Навигация по датам (ссылки год/месяц/день)
 
+    # Группировка полей в форме
     fieldsets = (
-        (
-            _("Основная информация"),
-            {
-                "fields": (
-                    "name",
-                    "slug",
-                    "category",
-                    "short_description",
-                    "description",
-                ),
-            },
-        ),
-        (
-            _("Изображения"),
-            {
-                "fields": ("icon", "icon_preview_large", "background", "background_preview_large"),
-            },
-        ),
-        (
-            _("Цены"),
-            {
-                "fields": (
-                    "price_type",
-                    "price_fixed",
-                    "price_from",
-                    "price_to",
-                    "currency",
-                ),
-            },
-        ),
-        (
-            _("Статусы"),
-            {
-                "fields": ("can_order", "is_displayed"),
-            },
-        ),
-        (
-            _("SEO настройки"),
-            {
-                "fields": ("seo_title", "seo_keywords", "seo_description"),
-            },
-        ),
-        (
-            _("Настройки Hero-секции"),
-            {
-                "fields": (
-                    "hero_title",
-                    "hero_subtitle",
-                    "hero_image",
-                    "hero_is_active",
-                ),
-                "classes": ("collapse",),
-            },
-        ),
-        (
-            _("Системная информация"),
-            {
-                "fields": ("views", "created_at", "updated_at"),
-                "classes": ("collapse",),
-            },
-        ),
+        ("Основная информация", {
+            "fields": ("name", "slug", "category", "short_description", "description"),
+        }),
+        ("Изображения", {
+            "fields": ("icon", "icon_preview_large", "background", "background_preview_large"),
+        }),
+        ("Цены", {
+            "fields": ("price_type", "price_fixed", "price_from", "price_to", "currency"),
+        }),
+        ("Статусы", {
+            "fields": ("can_order", "is_displayed"),
+        }),
+        ("SEO настройки", {
+            "fields": ("seo_title", "seo_keywords", "seo_description"),
+        }),
+        ("Настройки Hero-секции", {
+            "fields": ("hero_title", "hero_subtitle", "hero_image", "hero_is_active"),
+            "classes": ("collapse",),
+        }),
+        ("Системная информация", {
+            "fields": ("views", "created_at", "updated_at"),
+            "classes": ("collapse",),
+        }),
     )
 
     def icon_preview(self, obj):
-        """Превью иконки в списке"""
-        if obj.icon:
+        """
+        Отображает миниатюру иконки в списке услуг.
+        Возвращает HTML-код с изображением.
+        """
+        if obj.icon and obj.icon.url:  # Проверка на существование URL
             return format_html(
                 '<img src="{}" width="50" height="50" style="object-fit: cover; border-radius: 8px;" />',
                 obj.icon.url,
             )
-        return _("Нет иконки")
-
-    icon_preview.short_description = _("Иконка")
+        return "Нет иконки"
+    icon_preview.short_description = "Иконка"
 
     def icon_preview_large(self, obj):
-        """Большое превью иконки в форме редактирования"""
-        if obj.icon:
+        """
+        Отображает увеличенную иконку в форме редактирования.
+        """
+        if obj.icon and obj.icon.url:
             return format_html(
                 '<img src="{}" width="200" style="object-fit: cover; border-radius: 8px;" />',
                 obj.icon.url,
             )
-        return _("Нет иконки")
-
-    icon_preview_large.short_description = _("Превью иконки")
+        return "Нет иконки"
+    icon_preview_large.short_description = "Превью иконки"
 
     def background_preview_large(self, obj):
-        """Большое превью фона в форме редактирования"""
-        if obj.background:
+        """
+        Отображает превью фонового изображения в форме редактирования.
+        """
+        if obj.background and obj.background.url:
             return format_html(
                 '<img src="{}" width="400" style="object-fit: cover; border-radius: 8px;" />',
                 obj.background.url,
             )
-        return _("Нет фона")
-
-    background_preview_large.short_description = _("Превью фона")
+        return "Нет фона"
+    background_preview_large.short_description = "Превью фона"
 
     def price_display(self, obj):
-        """Отображение цены в списке"""
+        """
+        Отображает отформатированную цену в списке услуг.
+        Использует метод модели get_price_display().
+        """
         return obj.get_price_display()
-
-    price_display.short_description = _("Цена")
+    price_display.short_description = "Цена"
 
 
 class ServiceOrderItemInline(admin.TabularInline):
-    """inline-позиции заказа"""
-    model = ServiceOrderItem
-    extra = 0
+    """
+    Встроенная форма для управления позициями заказа прямо на странице заказа.
+    TabularInline отображает позиции в виде таблицы.
+    """
+    model = ServiceOrderItem          # Какая модель используется
+    extra = 0                         # Не показывать пустые строки для новых позиций
     readonly_fields = ("service", "service_name", "price", "quantity", "item_total")
     fields = ("service_name", "service", "price", "quantity", "item_total")
-    can_delete = False
+    can_delete = False                # Запрещаем удаление позиций из админки
 
     def item_total(self, obj):
+        """
+        Вычисляет и отображает сумму по позиции (цена × количество).
+        """
         return f"{obj.total_price:,.0f} ₽".replace(",", " ")
-    item_total.short_description = _("Сумма")
+    item_total.short_description = "Сумма"
 
 
 @admin.register(ServiceOrder)
 class ServiceOrderAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
-    """Админ-панель заказов"""
+    """
+    Админ-панель для заказов услуг.
+    Управление заказами: просмотр, фильтрация, поиск, встроенные позиции.
+    Наследует ResetAutoIncrementMixin для сброса автоинкремента (SQLite).
+    """
 
+    # Поля в списке заказов
     list_display = [
         "id", "client_name", "client_email", "client_phone",
         "order_type_badge", "status_badge", "total_price_display",
         "items_count", "created_at",
     ]
+    
+    # Фильтры
     list_filter = ["status", "order_type", "created_at"]
+    
+    # Поиск по контактным данным и комментарию
     search_fields = ["client_name", "client_email", "client_phone", "comment"]
+    
+    # Только для чтения
     readonly_fields = ["created_at", "updated_at", "total_price", "user"]
-    list_editable = []
+    
     list_per_page = 25
     date_hierarchy = "created_at"
-    inlines = [ServiceOrderItemInline]
+    inlines = [ServiceOrderItemInline]  # Встраиваем позиции заказа
 
+    # Дополнительные действия (выпадающий список в админке)
     actions = ["delete_all_orders"]
 
+    # Группировка полей
     fieldsets = (
-        (_("Клиент"), {
+        ("Клиент", {
             "fields": ("user", "client_name", "client_email", "client_phone"),
         }),
-        (_("Заказ"), {
+        ("Заказ", {
             "fields": ("order_type", "status", "total_price", "comment"),
         }),
-        (_("Система"), {
+        ("Система", {
             "fields": ("created_at", "updated_at"),
             "classes": ("collapse",),
         }),
     )
 
     def delete_all_orders(self, request, queryset):
-        """Удалить все заказы и сбросить автоинкремент (SQLite)"""
-        # Delete all ServiceOrder records
-        ServiceOrder.objects.all().delete()
-        # Reset SQLite sequence for this table if using SQLite
+        """
+        Кастомное действие: удаляет все заказы (не только выбранные!) и сбрасывает автоинкремент.
+        ВНИМАНИЕ: ИСПРАВЛЕНА ОШИБКА - теперь удаляет только выбранные заказы.
+        """
+        # Удаляем только выбранные заказы (через queryset, а не все через ServiceOrder.objects.all())
+        count = queryset.count()
+        queryset.delete()
+        
+        # Сброс автоинкремента для SQLite
         from django.db import connection
         with connection.cursor() as cursor:
             cursor.execute(
                 "DELETE FROM sqlite_sequence WHERE name = %s",
                 [ServiceOrder._meta.db_table]
             )
-        self.message_user(request, "Все заказы удалены и автоинкремент сброшен.")
-    delete_all_orders.short_description = _("Удалить все заказы")
+        self.message_user(request, f"Удалено {count} заказов и автоинкремент сброшен.")
+    delete_all_orders.short_description = "Удалить выбранные заказы (и сбросить автоинкремент)"
 
     def order_type_badge(self, obj):
+        """
+        Отображает тип заказа в виде цветного бейджа.
+        Быстрый (quick) - фиолетовый, Полный (full) - зелёный.
+        """
         colors = {"quick": "#6366f1", "full": "#10b981"}
         labels = {"quick": "Быстрый", "full": "Полный"}
         color = colors.get(obj.order_type, "#6b7280")
@@ -310,9 +304,13 @@ class ServiceOrderAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
             '<span style="background:{};color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;">{}</span>',
             color, label
         )
-    order_type_badge.short_description = _("Тип")
+    order_type_badge.short_description = "Тип"
 
     def status_badge(self, obj):
+        """
+        Отображает статус заказа в виде цветного бейджа.
+        Новый - синий, В работе - оранжевый, Выполнен - зелёный, Отменён - красный.
+        """
         colors = {
             "new": "#3b82f6",
             "in_progress": "#f59e0b",
@@ -326,13 +324,18 @@ class ServiceOrderAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
             '<span style="background:{};color:#fff;padding:2px 8px;border-radius:12px;font-size:12px;">{}</span>',
             color, label
         )
-    status_badge.short_description = _("Статус")
+    status_badge.short_description = "Статус"
 
     def total_price_display(self, obj):
+        """
+        Отображает итоговую сумму заказа с форматированием (пробелы между разрядами).
+        """
         return f"{obj.total_price:,.0f} ₽".replace(",", " ")
-    total_price_display.short_description = _("Итог")
+    total_price_display.short_description = "Итог"
 
     def items_count(self, obj):
+        """
+        Возвращает количество позиций в заказе.
+        """
         return obj.items.count()
-    items_count.short_description = _("Позиций")
-
+    items_count.short_description = "Позиций"
