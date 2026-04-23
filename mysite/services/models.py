@@ -167,7 +167,7 @@ class Service(HeroMixin):
         """
         URL для просмотра детальной страницы услуги.
         """
-        return reverse("services:detail", kwargs={"slug": self.slug})
+        return reverse("services:detail", kwargs={"service_slug": self.slug})
 
     def get_price_display(self):
         """
