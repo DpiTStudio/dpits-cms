@@ -5,28 +5,35 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
+
 from .models import ServiceCategory, Service, ServiceOrder, ServiceOrderItem
-# from mysite.main.admin_utils import ResetAutoIncrementMixin
+# ResetAutoIncrementMixin provides a method to reset SQLite auto‑increment counters.
 from main.admin_utils import ResetAutoIncrementMixin
 
 
 @admin.register(ServiceCategory)
 class ServiceCategoryAdmin(admin.ModelAdmin):
-    """
+    """Admin panel for service categories.
+    Provides list view, filters, search and inline editing.
+    
     Админ-панель для категорий услуг.
     Определяет, какие поля отображать, фильтровать, искать и редактировать.
     """
 
     # Поля, отображаемые в списке категорий
     list_display = [
-        "name",          # Название категории
-        "slug",          # URL-идентификатор
-        "order",         # Порядок сортировки
-        "is_active",     # Активна ли категория
-        "services_count",# Количество услуг в категории (метод ниже)
-        "views",         # Количество просмотров
-        "created_at",    # Дата создания
+        "name",
+        "slug",
+        "order",
+        "is_active",
+        "services_count",
+        "views",
+        "created_at",
     ]
+    # Make the primary identifier clickable
+    list_display_links = ("name",)
+    # Default ordering by the explicit order field
+    ordering = ["order"]
     
     # Поля для фильтрации (сайдбар справа)
     list_filter = [
@@ -44,7 +51,7 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
     readonly_fields = [
         "created_at",
         "updated_at",
-        "services_count_display",  # Отображение количества услуг
+        "services_count_display",
     ]
     
     # Поля, которые можно редактировать прямо в списке (без открытия формы)
@@ -74,36 +81,41 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
         }),
     )
 
-    def services_count(self, obj):
-        """
-        Возвращает количество услуг в категории.
-        Используется в list_display для отображения в таблице.
+    def services_count(self, obj: ServiceCategory) -> int:
+        """Return the number of services in this category.
+        Used in ``list_display``.
         """
         return obj.service_set.count()
-    services_count.short_description = "Количество услуг"  # Подпись в админке
+    services_count.short_description = "Количество услуг"
 
-    def services_count_display(self, obj):
+    def services_count_display(self, obj: ServiceCategory) -> int:
+        """Display the number of services in the edit form (read‑only).
         """
-        Отображение количества услуг в форме редактирования (readonly поле).
-        """
-        return obj.services_count()
+        return obj.service_set.count()
     services_count_display.short_description = "Количество услуг"
 
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    """
-    Админ-панель для услуг.
-    Управление услугами: цены, изображения, SEO, статусы.
+    """Admin panel for services.
+    Handles pricing, images, SEO settings and status flags.
     """
 
-    # Поля в списке услуг
+    # Fields displayed in the service list view
     list_display = [
-        "id", "name", "icon_preview",      # ID, название, иконка
-        "category", "price_display",       # Категория, цена
-        "can_order", "is_displayed",       # Доступность заказа, отображение
-        "created_at",                      # Дата создания
+        "id",
+        "name",
+        "icon_preview",
+        "category",
+        "price_display",
+        "can_order",
+        "is_displayed",
+        "created_at",
     ]
+    # Make the name clickable and order by name by default
+    list_display_links = ("name",)
+    ordering = ["name"]
+    list_select_related = ("category",)
 
     # Фильтры
     list_filter = [
@@ -123,12 +135,18 @@ class ServiceAdmin(admin.ModelAdmin):
     
     # Только для чтения (системные поля и превью)
     readonly_fields = [
-        "views",                     # Просмотры
-        "created_at",                # Дата создания
-        "updated_at",                # Дата обновления
-        "icon_preview_large",        # Большое превью иконки
-        "background_preview_large",  # Большое превью фона
+        "views",
+        "created_at",
+        "updated_at",
+        "icon_preview_large",
+        "background_preview_large",
     ]
+    # Use raw ID widgets for foreign keys to speed up the admin UI
+    raw_id_fields = ("category",)
+    # Optimize query count by selecting related category
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.select_related("category")
     
     # Поля, редактируемые прямо в списке
     list_editable = ["can_order", "is_displayed"]
@@ -163,12 +181,11 @@ class ServiceAdmin(admin.ModelAdmin):
         }),
     )
 
-    def icon_preview(self, obj):
+    def icon_preview(self, obj: Service) -> str:
+        """Render a small thumbnail of the service icon for the list view.
+        Returns safe HTML or a placeholder text.
         """
-        Отображает миниатюру иконки в списке услуг.
-        Возвращает HTML-код с изображением.
-        """
-        if obj.icon and obj.icon.url:  # Проверка на существование URL
+        if obj.icon and getattr(obj.icon, "url", None):
             return format_html(
                 '<img src="{}" width="50" height="50" style="object-fit: cover; border-radius: 8px;" />',
                 obj.icon.url,
@@ -188,11 +205,11 @@ class ServiceAdmin(admin.ModelAdmin):
         return "Нет иконки"
     icon_preview_large.short_description = "Превью иконки"
 
-    def background_preview_large(self, obj):
+    def background_preview_large(self, obj: Service) -> str:
+        """Render a large preview of the background image in the edit form.
+        Returns safe HTML or a placeholder.
         """
-        Отображает превью фонового изображения в форме редактирования.
-        """
-        if obj.background and obj.background.url:
+        if obj.background and getattr(obj.background, "url", None):
             return format_html(
                 '<img src="{}" width="400" style="object-fit: cover; border-radius: 8px;" />',
                 obj.background.url,
@@ -210,15 +227,14 @@ class ServiceAdmin(admin.ModelAdmin):
 
 
 class ServiceOrderItemInline(admin.TabularInline):
+    """Inline admin for managing order items directly on a ServiceOrder.
+    Uses a tabular layout.
     """
-    Встроенная форма для управления позициями заказа прямо на странице заказа.
-    TabularInline отображает позиции в виде таблицы.
-    """
-    model = ServiceOrderItem          # Какая модель используется
-    extra = 0                         # Не показывать пустые строки для новых позиций
+    model = ServiceOrderItem
+    extra = 0
     readonly_fields = ("service", "service_name", "price", "quantity", "item_total")
     fields = ("service_name", "service", "price", "quantity", "item_total")
-    can_delete = False                # Запрещаем удаление позиций из админки
+    can_delete = False
 
     def item_total(self, obj):
         """
@@ -230,21 +246,34 @@ class ServiceOrderItemInline(admin.TabularInline):
 
 @admin.register(ServiceOrder)
 class ServiceOrderAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
-    """
-    Админ-панель для заказов услуг.
-    Управление заказами: просмотр, фильтрация, поиск, встроенные позиции.
-    Наследует ResetAutoIncrementMixin для сброса автоинкремента (SQLite).
+
+    """Admin panel for service orders.
+    Provides list, filter, search, and inline order items.
+    Inherits ``ResetAutoIncrementMixin`` to reset SQLite auto‑increment counters.
     """
 
-    # Поля в списке заказов
+    # Fields displayed in the order list view
     list_display = [
-        "id", "client_name", "client_email", "client_phone",
-        "order_type_badge", "status_badge", "total_price_display",
-        "items_count", "created_at",
+        "id",
+        "client_name",
+        "client_email",
+        "client_phone",
+        "order_type_badge",
+        "status_badge",
+        "total_price_display",
+        "items_count",
+        "created_at",
     ]
+    # Make the ID clickable
+    list_display_links = ("id",)
+    # Default ordering: newest first
+    ordering = ["-created_at"]
+    list_select_related = ("user",)
     
     # Фильтры
     list_filter = ["status", "order_type", "created_at"]
+    # Use raw ID widget for user foreign key for performance
+    raw_id_fields = ("user",)
     
     # Поиск по контактным данным и комментарию
     search_fields = ["client_name", "client_email", "client_phone", "comment"]
@@ -254,12 +283,12 @@ class ServiceOrderAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     
     list_per_page = 25
     date_hierarchy = "created_at"
-    inlines = [ServiceOrderItemInline]  # Встраиваем позиции заказа
+    inlines = [ServiceOrderItemInline]
 
-    # Дополнительные действия (выпадающий список в админке)
+    # Additional admin actions
     actions = ["delete_all_orders"]
 
-    # Группировка полей
+    # Group fields in the edit form
     fieldsets = (
         ("Клиент", {
             "fields": ("user", "client_name", "client_email", "client_phone"),
@@ -327,16 +356,14 @@ class ServiceOrderAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
         )
     status_badge.short_description = "Статус"
 
-    def total_price_display(self, obj):
-        """
-        Отображает итоговую сумму заказа с форматированием (пробелы между разрядами).
+    def total_price_display(self, obj) -> str:
+        """Display the total order price with thousand‑separator spaces.
         """
         return f"{obj.total_price:,.0f} ₽".replace(",", " ")
     total_price_display.short_description = "Итог"
 
-    def items_count(self, obj):
-        """
-        Возвращает количество позиций в заказе.
+    def items_count(self, obj) -> int:
+        """Return the number of items in the order.
         """
         return obj.items.count()
     items_count.short_description = "Позиций"
