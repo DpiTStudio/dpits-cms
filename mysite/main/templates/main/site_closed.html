@@ -3,11 +3,14 @@
 {% load static %}
 
 {% block title %}
-    {{ site_settings.company_name }} - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - Сайт на техническом обслуживании
+    {{ site_settings.company_name }} |
+    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} |
+    Сайт на техническом обслуживании
 {% endblock %}
 
 {% block meta_description %}
-    {{ site_settings.company_name }} - {{ site_settings.seo_description|default:"Сайт временно недоступен из-за технического обслуживания. Приносим извинения за неудобства." }}
+    {{ site_settings.company_name }} |
+    {{ site_settings.seo_description|default:"Сайт временно недоступен из-за технического обслуживания. Приносим извинения за неудобства." }}
 {% endblock %}
 
 {% block meta_keywords %}

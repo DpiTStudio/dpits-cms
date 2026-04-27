@@ -2,11 +2,15 @@
 {% load static %}
 
 {% block title %}
-    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - Профиль - {{ site_settings.company_name }}
+    {{ site_settings.company_name }} |
+    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} |
+    Профиль
 {% endblock %}
 
 {% block meta_description %}
-    {{ site_settings.company_name }} - Профиль пользователя
+    {{ site_settings.company_name }} |
+    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} |
+    Профиль пользователя
 {% endblock %}
 
 {% block meta_keywords %}

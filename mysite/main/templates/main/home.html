@@ -3,9 +3,12 @@
 
 {% block title %} 
   {% if site_settings.seo_title %} 
-    {{ site_settings.company_name }} | {{ site_settings.logo_text }} | {{ site_settings.seo_title }}
+    {{ site_settings.company_name }} |
+    {{ site_settings.logo_text }} |
+    {{ site_settings.seo_title }}
   {% else %} 
-    {{ site_settings.company_name }} | {{ site_settings.logo_text|default:"Главная страница" }}
+    {{ site_settings.company_name }} | 
+    {{ site_settings.logo_text|default:"Главная страница" }}
   {% endif %}
 {% endblock %}
 

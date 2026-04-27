@@ -2,11 +2,13 @@
 {% load static %}
 
 {% block title %}
-   {{ site_settings.company_name }} - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - О нас 
+   {{ site_settings.company_name }} |
+   {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} | О нас 
 {% endblock %}
 
 {% block meta_description %}
-    {{ site_settings.company_name }} - {{ site_settings.seo_description|default:"Информация о нашей компании и услугах" }}
+    {{ site_settings.company_name }} |
+    {{ site_settings.seo_description|default:"Информация о нашей компании и услугах" }}
 {% endblock %}
 
 {% block meta_keywords %}

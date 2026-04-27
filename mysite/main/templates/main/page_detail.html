@@ -5,17 +5,21 @@
 
 <!-- Заголовок страницы для браузера и SEO -->
 {% block title %}
-    {{ site_settings.company_name }} - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - {{ page.display_title }}
+    {{ site_settings.company_name }} |
+    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} |
+    {{ page.display_title }}
 {% endblock %}
 
 <!-- Мета-описание из SEO настроек или усеченный контент -->
 {% block meta_description %}
-    {{ site_settings.company_name }} - {{ site_settings.seo_description|default:page.content|striptags|truncatewords:20 }}
+    {{ site_settings.company_name }} |
+    {{ site_settings.seo_description|default:page.content|striptags|truncatewords:20 }}
 {% endblock %}
 
 <!-- Ключевые слова для SEO -->
 {% block meta_keywords %}
-    {{ site_settings.company_name }}, {{ site_settings.seo_keywords|default:page.seo_keywords }}
+    {{ site_settings.company_name }},
+    {{ site_settings.seo_keywords|default:page.seo_keywords }}
 {% endblock %}
 
 <!-- Подключение CSS стилей -->
