@@ -1,119 +1,57 @@
-# Приложение `news` — Новости
+# Документация приложения News
 
-Система управления новостями: публикация, категории, теги, RSS-ленты, поиск, пагинация, счётчик просмотров.
+Приложение `news` отвечает за публикацию новостей, статей и автоматическую генерацию событий на сайте.
 
----
-
-## 📁 Структура файлов
-
-```
-news/
-├── models.py           # Модели: NewsTag, NewsCategory, News
-├── views.py            # Представления
-├── urls.py             # URL-маршруты
-├── admin.py            # Конфигурация Django Admin
-├── apps.py             # Конфигурация приложения
-├── feeds.py            # RSS-ленты новостей
-├── context_processors.py  # Контекст-процессор
-├── utils.py            # Кэширование категорий и сайдбара
-├── migrations/         # Миграции базы данных
-├── static/             # CSS, JS
-└── templates/news/     # HTML-шаблоны
-```
+## Обзор
+Это приложение позволяет создавать новости вручную через админку, а также имеет мощную систему **сигналов**, которая автоматически генерирует новостные поводы при добавлении работ в портфолио, публикации отзывов или создании новых страниц. Поддерживает RSS-ленты, поиск и категоризацию.
 
 ---
 
-## 📦 Модели (`models.py`)
+## Описание файлов
 
-### `NewsTag` — Теги
+### 1. `admin.py`
+Настройка административной панели.
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| `name` | CharField(50) | Название тега, уникальное |
-| `slug` | SlugField(50) | URL-идентификатор, автогенерация |
+**Классы:**
+- `NewsCategoryAdmin`: Управление категориями.
+    - Особенности: Настройка SEO, изменение шапки (Header) для категории, сортировка.
+- `NewsAdmin`: Управление новостями.
+    - Особенности: Фильтрация по дате и категории, поиск по контенту, группировка полей (SEO, Дополнительно).
 
-- `save()` — автогенерация `slug` из `name`
-- `get_absolute_url()` → `/news/tag/<slug>/`
+### 2. `apps.py`
+Конфигурация приложения.
+- `ready()`: Метод переопределен для импорта модуля `news.signals`. Это критически важно для работы автоматической генерации новостей.
 
----
+### 3. `context_processors.py`
+Глобальные данные для шаблонов.
+- `latest_news(request)`: Возвращает 3 последние новости и список категорий (с подсчетом кол-ва новостей в каждой). Это позволяет отображать блок "Последние новости" в футере или сайдбаре на любой странице сайта.
 
-### `NewsCategory` — Категории
+### 4. `feeds.py`
+Генерация RSS-лент.
+- `LatestNewsFeed(Feed)`: Создает XML-ленту последних 20 новостей, доступную по адресу `/news/feed/`.
 
-Наследует `HeroMixin` (поля баннера).
+### 5. `forms.py`
+Формы для админки.
+- `NewsForm` и `NewsCategoryForm`: Подключают визуальный редактор **TinyMCE** для полей с контентом и описанием.
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| `name` | CharField(100) | Название категории |
-| `slug` | SlugField | Уникальный URL |
-| `image` | ImageField | Изображение категории |
-| `description` | CKEditor5Field | Описание (WYSIWYG) |
-| `seo_title/keywords/description` | CharField | SEO-поля |
-| `show_in_menu` | BooleanField | Показывать в меню |
-| `order` | IntegerField | Порядок сортировки |
-| `is_active` | BooleanField | Активность |
-| `views` | PositiveIntegerField | Счётчик просмотров |
+### 6. `models.py`
+Структура данных.
+- `NewsCategory(ActiveModel, SEOModel, HeaderModel)`: Категория новостей.
+- `News(ActiveModel, SEOModel, TimestampModel)`: Сама новость.
+- `Comment`: Модель комментариев к новостям.
 
-- `save()` — автогенерация уникального slug с суффиксом (`cat-1`, `cat-2`)
-- `get_absolute_url()` → `/news/category/<slug>/`
-- Сортировка: `["order", "name"]`
+### 7. `signals.py`
+**Ключевой файл автоматизации.** Содержит логику "реакции" на события в других приложениях.
 
----
+**Обработчик `auto_create_news`:**
+Подписан на сигнал `post_save`. Срабатывает при сохранении моделей из других приложений:
+1. **Portfolio**: Создает новость при добавлении/обновлении работы.
+2. **Review**: Создает новость при одобрении отзыва.
+3. **Page**: Создает новость при создании/обновлении страницы.
 
-### `News` — Новость
-
-Наследует `HeroMixin`.
-
-| Поле | Тип | Описание |
-|------|-----|----------|
-| `title` | CharField(200) | Заголовок |
-| `slug` | SlugField | Уникальный URL |
-| `category` | ForeignKey→NewsCategory | Категория (PROTECT) |
-| `image` | ImageField | Изображение (`news/`) |
-| `is_active` | BooleanField | Опубликована |
-| `short_description` | CKEditor5Field | Анонс (для списков) |
-| `content` | CKEditor5Field | Полное содержимое |
-| `tags` | ManyToManyField→NewsTag | Теги |
-| `views` | PositiveIntegerField | Счётчик просмотров |
-| `created_at` | DateTimeField | Дата создания (auto) |
-| `updated_at` | DateTimeField | Дата обновления (auto) |
-| `seo_*` | CharField | SEO-поля |
-
-- `save()` — автогенерация уникального slug
-- `get_absolute_url()` → `/news/<slug>/`
-- `increment_views()` — **атомарный** счётчик через `F("views") + 1` (защита от race condition)
-- Сортировка: `["-created_at"]`
-
----
-
-## 🌐 Представления (`views.py`)
-
-| Функция | URL | Шаблон | Описание |
-|---------|-----|--------|----------|
-| `news_list` | `/news/` | `news/list.html` | Все новости. GET: `q`, `sort`, `category`, `page`. Пагинация 20/стр |
-| `news_detail` | `/news/<slug>/` | `news/detail.html` | Статья. Счётчик просмотров, похожие новости, новости за ту же дату |
-| `news_by_category` | `/news/category/<slug>/` | `news/category.html` | Новости категории. GET: `q`, `sort`, `page` |
-| `news_search` | `/news/search/` | `news/search.html` | Поиск по title, short_description, content |
-| `news_by_tag` | `/news/tag/<slug>/` | `news/list.html` | Новости по тегу |
-
----
-
-## 📡 RSS-ленты (`feeds.py`)
-
-| Класс | URL | Описание |
-|-------|-----|----------|
-| `LatestNewsFeed` | `/news/feed/` | Последние активные новости |
-| `NewsByCategoryFeed` | `/news/feed/<slug>/` | Новости по категории |
-
----
-
-## 🗺 URL-маршруты
-
-Пространство имён: `news`
-
-| Имя | URL |
-|-----|-----|
-| `news:list` | `/news/` |
-| `news:detail` | `/news/<slug>/` |
-| `news:category` | `/news/category/<slug>/` |
-| `news:search` | `/news/search/` |
-| `news:by_tag` | `/news/tag/<slug>/` |
+### 8. `views.py`
+Логика отображения.
+- `news_list(request)`: Список всех новостей с пагинацией.
+- `news_by_category(request, category_slug)`: Фильтрация новостей по категории.
+- `news_search(request)`: Поиск по заголовку, описанию и контенту.
+- `news_detail(request, slug)`: Страница одной новости.
