@@ -5,6 +5,7 @@
 from django.contrib.syndication.views import Feed
 from django.urls import reverse
 from django.utils.feedgenerator import Rss201rev2Feed
+from django.utils import timezone
 from .models import News, NewsCategory
 
 
@@ -21,7 +22,10 @@ class LatestNewsFeed(Feed):
 
     def items(self):
         return (
-            News.objects.filter(is_active=True)
+            News.objects.filter(
+                is_active=True,
+                published_at__lte=timezone.now()
+            )
             .select_related("category")
             .order_by("-created_at")[:20]
         )
@@ -66,7 +70,11 @@ class NewsByCategoryFeed(Feed):
 
     def items(self, obj):
         return (
-            News.objects.filter(category=obj, is_active=True)
+            News.objects.filter(
+                category=obj, 
+                is_active=True,
+                published_at__lte=timezone.now()
+            )
             .select_related("category")
             .order_by("-created_at")[:20]
         )

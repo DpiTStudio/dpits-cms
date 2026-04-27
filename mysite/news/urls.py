@@ -2,6 +2,7 @@
 # Маршруты URL для приложения news (новости)
 from django.urls import path  # Импорт функции для создания маршрутов URL
 from . import views  # Импорт представлений (views) из текущего приложения
+from .feeds import LatestNewsFeed, NewsByCategoryFeed  # Импорт RSS-лент
 
 app_name = "news"  # Пространство имен приложения (используется для обратных ссылок)
 
@@ -31,4 +32,8 @@ urlpatterns = [
 
     # API для получения изображения категории
     path("api/category-image/<int:category_id>/", views.get_category_image, name="get_category_image"),
+
+    # RSS Фиды
+    path("feed/", LatestNewsFeed(), name="feed"),
+    path("category/<slug:slug>/feed/", NewsByCategoryFeed(), name="category_feed"),
 ]

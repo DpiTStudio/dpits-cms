@@ -23,7 +23,32 @@
 {% block twitter_description %}{{ news.content|striptags|truncatewords:30|default:site_settings.seo_description }}{% endblock %}
 {% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if news.image %}{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
 
-<!-- Дополнительные CSS файлы -->
+<!-- Дополнительные CSS файлы и SEO-скрипты -->
+{% block extra_head %}
+<!-- Указание канонического URL для избежания дубликатов в поиске -->
+<link rel="canonical" href="{{ request.build_absolute_uri }}" />
+
+<!-- Микроразметка Schema.org для новостной статьи -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "{{ news.title|escapejs }}",
+  "image": [
+    "{{ request.scheme }}://{{ request.get_host }}{% if news.image %}{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}"
+  ],
+  "datePublished": "{{ news.published_at|date:'c' }}",
+  "dateModified": "{{ news.updated_at|date:'c' }}",
+  "description": "{{ news.short_description|striptags|escapejs|default:site_settings.seo_description|escapejs }}",
+  "author": [{
+      "@type": "Organization",
+      "name": "{{ site_settings.company_name|escapejs }}",
+      "url": "{{ request.scheme }}://{{ request.get_host }}"
+  }]
+}
+</script>
+{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/news-common.css' %}">
 <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
@@ -64,10 +89,11 @@
                 <!-- Заголовок новости -->
                 <h1 class="mb-4 news-title-detail">{{ news.title }}</h1>
 
-                <!-- Мета-информация -->
-                <div class="d-flex gap-4 mb-4 text-muted">
-                    <span><i class="far fa-calendar-alt me-1"></i>{{ news.created_at|date:"d.m.Y" }}</span>
+                <!-- Мета-информация (Дата публикации, просмотры, время чтения, категория) -->
+                <div class="d-flex flex-wrap gap-4 mb-4 text-muted align-items-center">
+                    <span><i class="far fa-calendar-alt me-1"></i>{{ news.published_at|date:"d.m.Y H:i" }}</span>
                     <span><i class="far fa-eye me-1"></i>{{ news.views }} просмотров</span>
+                    <span><i class="far fa-clock me-1"></i>Время чтения: ~{{ news.get_reading_time }} мин.</span>
                     {% if news.category %}
                     <span class="badge bg-primary">{{ news.category.name }}</span>
                     {% endif %}
@@ -81,15 +107,36 @@
                     alt="{{ news.title }}">
                 {% endif %}
                 <!-- Содержание новости -->
-                <div class="news-content mb-5">
+                <div class="news-content mb-4">
                     {{ news.content|safe }}
                 </div>
 
-                <!-- Навигация по дню -->
+                <!-- Кнопки "Поделиться в социальных сетях" -->
+                <div class="share-buttons mt-4 mb-5 border-top border-bottom border-secondary border-opacity-25 py-3 d-flex align-items-center gap-3">
+                    <span class="fw-bold text-white-50">Поделиться:</span>
+                    <!-- Кнопка VK -->
+                    <a href="https://vk.com/share.php?url={{ request.build_absolute_uri }}&title={{ news.title|urlencode }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Поделиться ВКонтакте">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                    <!-- Кнопка Telegram -->
+                    <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text={{ news.title|urlencode }}" target="_blank" class="btn btn-outline-info btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Отправить в Telegram">
+                        <i class="fab fa-telegram-plane"></i>
+                    </a>
+                    <!-- Кнопка WhatsApp -->
+                    <a href="https://api.whatsapp.com/send?text={{ news.title|urlencode }}%20{{ request.build_absolute_uri }}" target="_blank" class="btn btn-outline-success btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Отправить в WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <!-- Кнопка Копировать ссылку -->
+                    <button onclick="navigator.clipboard.writeText('{{ request.build_absolute_uri }}'); alert('Ссылка скопирована!');" class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Копировать ссылку">
+                        <i class="fas fa-link"></i>
+                    </button>
+                </div>
+
+                <!-- Навигация по дню публикации -->
                 {% if daily_news %}
                 <div class="daily-news-navigation p-4 rounded-4 border border-light opacity-75 mb-5" style="background: rgba(255, 255, 255, 0.02);">
                     <h3 class="h5 fw-bold mb-4 text-primary">
-                        <i class="far fa-calendar-check me-2"></i>Лента событий за {{ news.created_at|date:"d.m.Y" }}
+                        <i class="far fa-calendar-check me-2"></i>Лента событий за {{ news.published_at|date:"d.m.Y" }}
                     </h3>
                     <div class="list-group list-group-flush gap-2">
                         {% for item in daily_news %}

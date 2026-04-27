@@ -54,6 +54,10 @@
   <!-- ========== CANONICAL URL ========== -->
   <link rel="canonical" href="{{ request.build_absolute_uri }}" />
 
+  <!-- ========== RSS AUTO-DISCOVERY ========== -->
+  <link rel="alternate" type="application/rss+xml" title="Лента новостей" href="{% url 'news:feed' %}" />
+
+
   <!-- ========== FAVICON И ИКОНКИ ========== -->
   <!-- Иконка сайта (favicon) -->
   <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />

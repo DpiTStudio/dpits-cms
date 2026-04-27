@@ -8,6 +8,7 @@ from django.shortcuts import (
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse
+from django.utils import timezone  # Импортируем timezone для работы с датами публикации
 from .models import News, NewsCategory, NewsTag
 from .utils import get_cached_news_categories, get_cached_sidebar_news
 from main.breadcrumbs import get_breadcrumbs
@@ -27,7 +28,11 @@ def news_list(request):
 
     category_slug = request.GET.get("category")
 
-    news_queryset = News.objects.filter(is_active=True).select_related("category")
+    # Фильтруем активные новости, дата публикации которых уже наступила
+    news_queryset = News.objects.filter(
+        is_active=True, 
+        published_at__lte=timezone.now()
+    ).select_related("category")
 
     if query:
         news_queryset = news_queryset.filter(
@@ -72,25 +77,65 @@ def news_detail(request, slug):
     Оптимизировано с использованием select_related и кэширования.
     """
     news = get_object_or_404(
-        News.objects.select_related("category"), slug=slug, is_active=True
+        News.objects.select_related("category"), 
+        slug=slug, 
+        is_active=True,
+        published_at__lte=timezone.now()
     )
 
     news.increment_views()
 
-    similar_news = (
-        News.objects.filter(category=news.category, is_active=True)
-        .select_related("category")
-        .exclude(id=news.id)
-        .order_by("-created_at")[:4]
-    )
+    # Умный алгоритм рекомендаций: сначала ищем по совпадению тегов
+    news_tags = news.tags.all()
+    if news_tags.exists():
+        # Находим новости с такими же тегами
+        similar_news = (
+            News.objects.filter(
+                tags__in=news_tags,
+                is_active=True,
+                published_at__lte=timezone.now()
+            )
+            .exclude(id=news.id)
+            .select_related("category")
+            .distinct()
+            .order_by("-created_at")[:4]
+        )
+        
+        # Если новостей по тегам меньше 4, дополняем из той же категории
+        if len(similar_news) < 4:
+            additional_news = (
+                News.objects.filter(
+                    category=news.category, 
+                    is_active=True,
+                    published_at__lte=timezone.now()
+                )
+                .exclude(id=news.id)
+                .exclude(id__in=[n.id for n in similar_news])
+                .select_related("category")
+                .order_by("-created_at")[:4 - len(similar_news)]
+            )
+            similar_news = list(similar_news) + list(additional_news)
+    else:
+        # Базовый алгоритм: просто новости из той же категории
+        similar_news = (
+            News.objects.filter(
+                category=news.category, 
+                is_active=True,
+                published_at__lte=timezone.now()
+            )
+            .exclude(id=news.id)
+            .select_related("category")
+            .order_by("-created_at")[:4]
+        )
 
-    # Получаем все новости за ту же дату
+    # Получаем все новости за ту же дату публикации
     daily_news = (
         News.objects.filter(
-            created_at__date=news.created_at.date(),
-            is_active=True
+            published_at__date=news.published_at.date(),
+            is_active=True,
+            published_at__lte=timezone.now()
         )
-        .order_by("created_at")
+        .order_by("published_at")
     )
 
     context = {
@@ -121,7 +166,11 @@ def news_by_category(request, slug):
         sort_by = "-created_at"
 
     news_queryset = (
-        News.objects.filter(category=category, is_active=True)
+        News.objects.filter(
+            category=category, 
+            is_active=True,
+            published_at__lte=timezone.now()
+        )
         .select_related("category")
     )
 
@@ -172,6 +221,7 @@ def news_search(request):
                 | Q(short_description__icontains=query)
                 | Q(content__icontains=query),
                 is_active=True,
+                published_at__lte=timezone.now()
             )
             .select_related("category")
             .distinct()
@@ -179,7 +229,10 @@ def news_search(request):
         )
     else:
         news_queryset = (
-            News.objects.filter(is_active=True)
+            News.objects.filter(
+                is_active=True,
+                published_at__lte=timezone.now()
+            )
             .select_related("category")
             .order_by("-created_at")
         )
@@ -209,7 +262,11 @@ def news_by_tag(request, slug):
     tag = get_object_or_404(NewsTag, slug=slug)
 
     news_queryset = (
-        News.objects.filter(tags=tag, is_active=True)
+        News.objects.filter(
+            tags=tag, 
+            is_active=True,
+            published_at__lte=timezone.now()
+        )
         .select_related("category")
         .order_by("-created_at")
     )

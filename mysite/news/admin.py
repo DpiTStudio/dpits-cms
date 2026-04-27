@@ -70,10 +70,11 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
         "category",
         "views",
         "is_active",
+        "published_at",
         "created_at",
         "clear_views_button",
     ]
-    list_filter = ["category", "is_active", "created_at", "tags"]
+    list_filter = ["category", "is_active", "published_at", "created_at", "tags"]
     list_editable = ["is_active"]
     prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ["views", "created_at", "updated_at"]
@@ -108,9 +109,9 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
             },
         ),
         (
-            "Статус",
+            "Статус и Публикация",
             {
-                "fields": ("is_active",),
+                "fields": ("is_active", "published_at"),
             },
         ),
         (

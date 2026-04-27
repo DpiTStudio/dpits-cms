@@ -10,6 +10,10 @@ from django_ckeditor_5.fields import (
     CKEditor5Field,
 )  # Поле для расширенного текстового редактора
 
+from django.utils import timezone  # Утилиты для работы с датой и временем (отложенная публикация)
+from django.utils.html import strip_tags  # Очистка HTML тегов для расчета времени чтения
+import math  # Математические функции (округление времени чтения)
+
 from main.models import HeroMixin
 
 
@@ -164,6 +168,13 @@ class News(HeroMixin):
     is_active = models.BooleanField(
         "Активно", default=True
     )  # Активна ли новость (по умолчанию да)
+    
+    # Отложенная публикация
+    published_at = models.DateTimeField(
+        "Дата публикации", 
+        default=timezone.now,
+        help_text="Новость будет видна на сайте только после наступления этой даты."
+    )  # Дата и время, начиная с которых новость отображается на сайте
 
     # SEO поля (для поисковой оптимизации)
     seo_title = models.CharField(
@@ -300,3 +311,25 @@ class News(HeroMixin):
         """
         News.objects.filter(pk=self.pk).update(views=F("views") + 1)
         self.refresh_from_db(fields=["views"])
+
+    @property
+    def get_reading_time(self):
+        """
+        Рассчитывает примерное время чтения новости в минутах.
+        Предполагается средняя скорость чтения 200 слов в минуту.
+        
+        Returns:
+            int: Время чтения в минутах (минимум 1 минута)
+        """
+        if not self.content:
+            return 1
+            
+        # Очищаем HTML теги, чтобы считать только чистый текст
+        plain_text = strip_tags(self.content)
+        # Считаем количество слов (разделяя по пробельным символам)
+        word_count = len(plain_text.split())
+        
+        # Средняя скорость чтения взрослого человека ~200 слов в минуту
+        reading_time = math.ceil(word_count / 200)
+        
+        return max(1, reading_time)  # Возвращаем минимум 1 минуту
