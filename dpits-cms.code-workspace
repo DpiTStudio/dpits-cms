@@ -6,6 +6,8 @@
 	],
 	"settings": {
 		"djlint.showInstallError": false,
-		"djangoTestManager.watchMode": true
+		"djangoTestManager.watchMode": true,
+		"explorer.compactFolders": true,
+		"workbench.editor.pinnedTabSizing": "compact"
 	}
 }
