@@ -5,7 +5,7 @@ Tigran1984!01!07
 cd /home/d/dpitstudio/dpits-cms.ru/public_html
 source venv/bin/activate
 cd mysite
-cd /home/d/dpitstudio/dpitscms.ru//public_html
+cd /home/d/dpitstudio/dpitscms.ru/public_html
 touch tmp/restart.txt
 
 
