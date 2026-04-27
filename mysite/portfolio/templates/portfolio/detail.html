@@ -5,6 +5,22 @@
 {{ site_settings.logo_text }} - Портфолио - {{ item.title }}
 {% endblock %}
 
+{% block meta_description %}
+    {{ item.short_description|default:item.content|striptags|truncatechars:150|default:site_settings.seo_description }}
+{% endblock %}
+
+{% block meta_keywords %}
+    {{ site_settings.company_name }}, портфолио, проект, {{ item.title }}
+{% endblock %}
+
+{% block og_title %}{{ item.title }}{% endblock %}
+{% block og_description %}{{ item.short_description|default:item.content|striptags|truncatechars:150|default:site_settings.seo_description }}{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% if item.image %}{{ item.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
+
+{% block twitter_title %}{{ item.title }}{% endblock %}
+{% block twitter_description %}{{ item.short_description|default:item.content|striptags|truncatechars:150|default:site_settings.seo_description }}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if item.image %}{{ item.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/portfolio_detail.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
@@ -213,7 +229,7 @@
                     <div class="col-md-4 mb-4">
                         <div class="card border-0 shadow-sm h-100 hover-lift">
                             <img src="{{ similar.image.url }}" class="card-img-top" alt="{{ similar.title }}" 
-                                 style="height: 200px; object-fit: cover;">
+                                 style="height: 200px; object-fit: cover;" loading="lazy">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ similar.title }}</h5>
                                 <p class="card-text text-muted flex-grow-1">{{ similar.short_description|truncatewords:15 }}</p>

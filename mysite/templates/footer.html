@@ -3,7 +3,9 @@
      ОПИСАНИЕ: Подвал (футер) сайта — Premium Dark 2026
      ============================================ -->
 
+{% load cache %}
 <footer class="py-5 py-md-6 mt-auto" role="contentinfo">
+    {% cache 600 footer_section %}
     <div class="container-fluid px-3 px-md-4 px-lg-5 position-relative" style="z-index:1;">
 
         <!-- ── Верхняя строка: лого + колонки ── -->
@@ -164,6 +166,7 @@
         </div>
 
     </div><!-- /container -->
+    {% endcache %}
 </footer>
 
 <!-- Stat banners body_end -->

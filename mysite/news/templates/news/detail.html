@@ -8,12 +8,20 @@
 {% endblock %}
 
 {% block meta_description %}
-    {{ site_settings.company_name }} - {{ site_settings.seo_description|default:"Страница просмотра новости" }}
+    {{ news.content|striptags|truncatewords:30|default:site_settings.seo_description }}
 {% endblock %}
 
 {% block meta_keywords %}
     {{ site_settings.company_name }}, {{ site_settings.seo_keywords|default:"новость, новости, просмотр, новость" }}
 {% endblock %}
+
+{% block og_title %}{{ news.title }}{% endblock %}
+{% block og_description %}{{ news.content|striptags|truncatewords:30|default:site_settings.seo_description }}{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% if news.image %}{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
+
+{% block twitter_title %}{{ news.title }}{% endblock %}
+{% block twitter_description %}{{ news.content|striptags|truncatewords:30|default:site_settings.seo_description }}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if news.image %}{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
 
 <!-- Дополнительные CSS файлы -->
 {% block extra_css %}
@@ -114,7 +122,7 @@
                             <div class="card h-100">
                                 {% if similar.image %}
                                 <img src="{{ similar.image.url }}" class="card-img-top" alt="{{ similar.title }}"
-                                    style="height: 150px; object-fit: cover;">
+                                    style="height: 150px; object-fit: cover;" loading="lazy">
                                 {% endif %}
                                 <div class="card-body">
                                     <h5 class="card-title">{{ similar.title }}</h5>

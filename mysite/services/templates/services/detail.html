@@ -6,12 +6,20 @@
 {% endblock %}
 
 {% block meta_description %}
-    {{ site_settings.company_name }} — {{ service.seo_description|default:service.short_description|striptags|truncatechars:150 }}
+    {{ service.seo_description|default:service.short_description|striptags|truncatechars:150 }}
 {% endblock %}
 
 {% block meta_keywords %}
     {{ site_settings.company_name }}, {{ service.seo_keywords|default:service.name }}
 {% endblock %}
+
+{% block og_title %}{{ service.name }}{% endblock %}
+{% block og_description %}{{ service.seo_description|default:service.short_description|striptags|truncatechars:150 }}{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% if service.icon %}{{ service.icon.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
+
+{% block twitter_title %}{{ service.name }}{% endblock %}
+{% block twitter_description %}{{ service.seo_description|default:service.short_description|striptags|truncatechars:150 }}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if service.icon %}{{ service.icon.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/service.css' %}">
@@ -224,7 +232,7 @@
                             {% if related.icon %}
                             <div class="service-icon-wrap mb-3">
                                 <img src="{{ related.icon.url }}" alt="{{ related.name }}"
-                                     style="height:36px; width:36px; object-fit:contain;">
+                                     style="height:36px; width:36px; object-fit:contain;" loading="lazy">
                             </div>
                             {% else %}
                             <div class="service-icon-wrap mb-3">

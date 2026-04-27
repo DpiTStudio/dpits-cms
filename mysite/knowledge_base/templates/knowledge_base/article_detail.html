@@ -5,6 +5,14 @@
 {% block meta_description %}{{ article.seo_description|default:article.title }}{% endblock %}
 {% block meta_keywords %}{{ article.seo_keywords }}{% endblock %}
 
+{% block og_title %}{{ article.title }}{% endblock %}
+{% block og_description %}{{ article.seo_description|default:article.title }}{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% if site_settings.logo %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
+
+{% block twitter_title %}{{ article.title }}{% endblock %}
+{% block twitter_description %}{{ article.seo_description|default:article.title }}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if site_settings.logo %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
+
 {% block content %}
 <div class="mb-4">
     <nav aria-label="breadcrumb">
