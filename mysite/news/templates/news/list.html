@@ -7,11 +7,13 @@
 
 {# Заголовок страницы в браузере #}
 {% block title %}
-    {{ site_settings.company_name }} - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} - Новости
+    {{ site_settings.company_name }} | 
+    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} | Новости
 {% endblock %} 
 
 {% block meta_description %}
-    {{ site_settings.company_name }} - {{ site_settings.seo_description|default:"Страница просмотра новостей" }}
+    {{ site_settings.company_name }} | 
+    {{ site_settings.seo_description|default:"Страница просмотра новостей" }}
 {% endblock %}
 
 {% block meta_keywords %}

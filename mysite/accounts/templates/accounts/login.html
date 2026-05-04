@@ -2,7 +2,10 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ site_settings.logo_text }} - Вход{% endblock %}
+{% block title %}
+    {{ site_settings.company_name }} |
+    {{ site_settings.logo_text }} | Вход
+{% endblock %}
 
 {% block header %}
 {% include "accounts/login_header.html" %}
