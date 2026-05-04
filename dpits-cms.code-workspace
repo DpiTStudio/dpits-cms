@@ -1,13 +1,14 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"djlint.showInstallError": false,
-		"djangoTestManager.watchMode": true,
-		"explorer.compactFolders": true,
-		"workbench.editor.pinnedTabSizing": "compact"
-	}
+  "folders": [
+    {
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "djlint.showInstallError": false,
+    "djangoTestManager.watchMode": true,
+    "explorer.compactFolders": true,
+    "workbench.editor.pinnedTabSizing": "compact",
+    "editor.tabSize": 2,
+  },
 }

@@ -141,10 +141,10 @@
         <!-- ── Социальные сети + платёжные методы ── -->
         <div class="row g-4 mb-4">
             <div class="col-md-6">
-                {% include 'includes/social_networks_section.html' %}
+                {% include "includes/sections/social_networks_section.html" %}
             </div>
             <div class="col-md-6">
-                {% include 'includes/we_accept.html' %}
+                {% include "includes/sections/we_accept.html" %}
             </div>
         </div>
 
@@ -154,7 +154,7 @@
         <!-- ── Нижняя строка: копирайт + доп ── -->
         <div class="row align-items-center g-3">
             <div class="col-12">
-                {% include 'includes/copywriter.html' %}
+                {% include "includes/sections/copywriter.html" %}
             </div>
             <div class="col-12">
                 {{ statistics_banners.footer|safe }}

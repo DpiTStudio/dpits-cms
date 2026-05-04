@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "_base.html" %}
 {% load static %}
 
 {% block title %}
@@ -481,7 +481,7 @@
     </div><!-- /service-sidebar-unified -->
 
     <!-- Стандартный сайдбар -->
-    {% include 'sidebar.html' %}
+    {% include "layout/sidebar.html" %}
 {% endblock %}
 
 {% block extra_js %}

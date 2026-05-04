@@ -8,19 +8,19 @@
 <!-- Контейнер сайдбара - 12 колонок на маленьких экранах, 3 на больших -->
 <div class="sidebar mb-4 mb-lg-0">
     <!-- Секция корзины (динамическая, не кэшируется) -->
-    {% include 'content_sidebar/cs_cart_sidebar.html' %}
+    {% include "includes/sidebars/cs_cart_sidebar.html" %}
     
     {% cache 300 sidebar_widgets %}
     <!-- Секция последних новостей -->
-    {% include 'content_sidebar/cs_news_sidebar.html' %}
+    {% include "includes/sidebars/cs_news_sidebar.html" %}
     <!-- Секция популярных услуг -->
-    {% include 'content_sidebar/cs_services_sidebar.html' %}
+    {% include "includes/sidebars/cs_services_sidebar.html" %}
     <!-- Секция последних работ из портфолио -->
-    {% include 'content_sidebar/cs_portfolio_sidebar.html' %}
+    {% include "includes/sidebars/cs_portfolio_sidebar.html" %}
     <!-- Секция последних отзывов -->
-    {% include 'content_sidebar/cs_reviews_sidebar.html' %}
+    {% include "includes/sidebars/cs_reviews_sidebar.html" %}
     <!-- Секция контактной информации -->
-    {% include 'content_sidebar/cs_contacts_sidebar.html' %}
+    {% include "includes/sidebars/cs_contacts_sidebar.html" %}
     {% endcache %}
 </div>
 

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "_base.html" %}
 {% load static %}
 
 {% block title %} 
@@ -106,10 +106,10 @@
     </div>
 
     <!-- Блок последних новостей -->
-    {% comment %}{% include "includes/home_news.html" %}{% endcomment %}
+    {% comment %}{% include "includes/sections/home_news.html" %}{% endcomment %}
 
     <!-- Блок последних работ -->
-    {% include "includes/home_portfolio.html" %}
+    {% include "includes/sections/home_portfolio.html" %}
   </div>
 </section>
 {% endblock %}

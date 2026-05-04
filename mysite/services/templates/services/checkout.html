@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "_base.html" %}
 {% load static %}
 {% load humanize %}
 
@@ -6,7 +6,7 @@
 
 {% block content_wrapper %}
 <div class="container my-5">
-    {% include "breadcrumbs.html" %}
+    {% include "components/breadcrumbs.html" %}
 
     {# ── Сообщения ── #}
     {% if messages %}

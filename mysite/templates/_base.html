@@ -79,7 +79,7 @@
   <!-- Подключение Font Awesome иконок из CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  {% include "css.html" %}
+  {% include "layout/css.html" %}
 
   <!-- Блок для дополнительных элементов в head (переопределяется в дочерних шаблонах) -->
   {% block extra_head %}{% endblock %}
@@ -101,18 +101,18 @@
   <!-- Блок шапки сайта (переопределяется в дочерних шаблонах) -->
   {% block header %}
   <!-- Подключение шаблона шапки -->
-  {% include "header.html" %}
+  {% include "layout/header.html" %}
   {% endblock %}
 
   {# ======= CART DRAWER (глобальная панель корзины) ======= #}
-  {% include 'cart_drawer.html' %}
+  {% include "components/cart_drawer.html" %}
 
   <!-- Основной контент страницы с растягиванием на всю доступную высоту -->
   <main class="flex-grow-1">
     <!-- Блок hero секции (переопределяется в дочерних шаблонах) -->
     {% block hero_section %}
     <!-- Подключение шаблона hero секции -->
-    {% include 'hero.html' %}
+    {% include "layout/hero.html" %}
     {% endblock %}
 
     <!-- Блок хлебных крошек (теперь внутри hero.html) -->
@@ -131,7 +131,7 @@
         <!-- Сайдбар -->
         <div class="col-12 col-lg-4">
           {% block sidebar %}
-          {% include 'sidebar.html' %}
+          {% include "layout/sidebar.html" %}
           {% endblock %}
         </div>
       </div>
@@ -141,17 +141,17 @@
     <!-- Блок контентной секции (переопределяется в дочерних шаблонах) -->
     {% block content_section %}
     <!-- Подключение шаблона контентной секции -->
-    {% include "content-section.html" %}
+    {% include "components/content-section.html" %}
     {% endblock %}
   </main>
 
   <!-- Блок футера (переопределяется в дочерних шаблонах) -->
   {% block footer %}
   <!-- Подключение шаблона футера -->
-  {% include "footer.html" %}
+  {% include "layout/footer.html" %}
   {% endblock %}
 
-  {% include "js.html" %}
+  {% include "layout/js.html" %}
 
   <!-- Блок для дополнительных JavaScript файлов (переопределяется в дочерних шаблонах) -->
   {% block extra_js %}{% endblock %}

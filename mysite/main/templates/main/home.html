@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "_base.html" %}
 {% load static %}
 
 {% block title %} 
@@ -72,7 +72,7 @@
 
           <!-- Рекомендуемые страницы -->
           {% comment "recommended_pages" %}
-            {% include "includes/recommended_pages.html" %}
+            {% include "includes/sections/recommended_pages.html" %}
           {% endcomment %}
 
         </div>
@@ -81,12 +81,12 @@
 
     {% comment %}
     <!-- Блок последних новостей -->
-    {% include "includes/home_news.html" %}
+    {% include "includes/sections/home_news.html" %}
     {% endcomment %}
 
     {% comment %}
     <!-- Блок последних работ -->
-    {% include "includes/home_portfolio.html" %}
+    {% include "includes/sections/home_portfolio.html" %}
     {% endcomment %}
   </div>
 </section>
