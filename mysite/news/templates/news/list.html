@@ -35,7 +35,13 @@
         <div class="row mb-5 text-left">
             <div class="col-lg-8">
                 <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">НОВОСТИ</span>
-                <h1 class="display-4 fw-bold mb-3">Актуальные события</h1>
+                <h1 class="display-4 fw-bold mb-3">
+                    {% if selected_date %}
+                        События за {{ selected_date|date:"d.m.Y"|default:selected_date }}
+                    {% else %}
+                        Актуальные события
+                    {% endif %}
+                </h1>
                 <p class="lead text-muted">Следите за последними новостями и обновлениями из мира технологий и разработки.</p>
             </div>
         </div>
@@ -48,7 +54,7 @@
                 <div class="filter-glass-box p-4">
                     <form id="news-filters" class="row g-3 align-items-center" novalidate>
                         <!-- А. Поле поиска -->
-                        <div class="col-lg-5">
+                        <div class="col-lg-4">
                             <div class="input-group">
                                 <span class="input-group-text bg-transparent border-end-0 rounded-start-4 ps-3">
                                     <i class="fas fa-search text-muted"></i>
@@ -65,7 +71,7 @@
                         </div>
                         
                         <!-- Б. Выбор категории -->
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <select class="form-select form-select-modern" name="category" id="categoryFilter" aria-label="Категория">
                                 <option value="">Все категории</option>
                                 {% for cat in categories %}
@@ -84,20 +90,33 @@
                                 <option value="-views" {% if current_sort == "-views" %}selected{% endif %}>🔥 Популярные</option>
                             </select>
                         </div>
+
+                        <!-- Г. Дата -->
+                        <div class="col-lg-2">
+                            <input type="date" class="form-control form-control-modern text-white bg-transparent" name="date" id="dateFilter" value="{{ selected_date }}" aria-label="Дата" style="border-color: var(--border-color); border-radius: 12px; padding: 0.6rem 1rem;">
+                        </div>
                     </form>
 
-                    <!-- Г. Быстрые ссылки категорий (Тэги) -->
-                    <div class="d-none d-md-flex flex-wrap gap-2 mt-4 pt-3 border-top border-light">
+                    <!-- Д. Быстрые ссылки категорий (Тэги) -->
+                    <div class="d-none d-md-flex flex-wrap gap-2 mt-4 pt-3 border-top border-light align-items-center">
                         <a href="?" 
                            class="category-pill {% if not selected_category %}active{% endif %}">
                             Все
                         </a>
                         {% for cat in categories %}
-                            <a href="?category={{ cat.slug }}"
+                            <a href="?category={{ cat.slug }}{% if selected_date %}&date={{ selected_date }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}"
                                class="category-pill {% if selected_category == cat.slug %}active{% endif %}">
                                 {{ cat.name }}
                             </a>
                         {% endfor %}
+
+                        {% if selected_date %}
+                        <div class="ms-auto">
+                            <a href="?{% if selected_category %}category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                <i class="fas fa-times me-1"></i> Сбросить дату
+                            </a>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -114,8 +133,10 @@
                         <div class="col-12">
                             <div class="date-group-header d-flex align-items-center gap-3">
                                 <div class="date-badge bg-primary text-white rounded-pill px-4 py-2 fw-bold shadow-sm">
-                                    <i class="far fa-calendar-alt me-2"></i>
-                                    {{ day.list.0.created_at|date:"d F Y" }}
+                                    <a href="?date={{ day.list.0.created_at|date:'Y-m-d' }}{% if selected_category %}&category={{ selected_category }}{% endif %}" class="text-white text-decoration-none" title="Показать события только за этот день">
+                                        <i class="far fa-calendar-alt me-2"></i>
+                                        {{ day.list.0.created_at|date:"d F Y" }}
+                                    </a>
                                 </div>
                                 <div class="flex-grow-1 border-bottom border-primary opacity-25"></div>
                             </div>
@@ -233,7 +254,7 @@
                 <ul class="pagination justify-content-center flex-wrap">
                     {% if news_list.has_previous %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ news_list.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}">&laquo;</a>
+                            <a class="page-link" href="?page={{ news_list.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if selected_date %}&date={{ selected_date }}{% endif %}">&laquo;</a>
                         </li>
                     {% endif %}
 
@@ -244,14 +265,14 @@
                             </li>
                         {% else %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ i }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}">{{ i }}</a>
+                                <a class="page-link" href="?page={{ i }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if selected_date %}&date={{ selected_date }}{% endif %}">{{ i }}</a>
                             </li>
                         {% endif %}
                     {% endfor %}
 
                     {% if news_list.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ news_list.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}">&raquo;</a>
+                            <a class="page-link" href="?page={{ news_list.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if selected_date %}&date={{ selected_date }}{% endif %}">&raquo;</a>
                         </li>
                     {% endif %}
                 </ul>

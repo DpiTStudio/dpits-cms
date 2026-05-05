@@ -27,6 +27,7 @@ def news_list(request):
         sort_by = "-created_at"
 
     category_slug = request.GET.get("category")
+    date_filter = request.GET.get("date")
 
     # Фильтруем активные новости, дата публикации которых уже наступила
     news_queryset = News.objects.filter(
@@ -43,6 +44,28 @@ def news_list(request):
 
     if category_slug:
         news_queryset = news_queryset.filter(category__slug=category_slug)
+
+    # Фильтрация по дате
+    if date_filter:
+        try:
+            parts = date_filter.split('-')
+            if len(parts) == 3:
+                news_queryset = news_queryset.filter(
+                    created_at__year=int(parts[0]),
+                    created_at__month=int(parts[1]),
+                    created_at__day=int(parts[2])
+                )
+            elif len(parts) == 2:
+                news_queryset = news_queryset.filter(
+                    created_at__year=int(parts[0]),
+                    created_at__month=int(parts[1])
+                )
+            elif len(parts) == 1:
+                news_queryset = news_queryset.filter(
+                    created_at__year=int(parts[0])
+                )
+        except ValueError:
+            pass
 
     # Уровневая сортировка для корректной группировки в шаблоне
     if sort_by == "category":
@@ -64,6 +87,7 @@ def news_list(request):
         "selected_category": category_slug or "",
         "current_sort": sort_by,
         "search_query": query,
+        "selected_date": date_filter or "",
         "breadcrumbs": get_breadcrumbs([
             ("Новости", reverse("news:list"), "fas fa-newspaper"),
         ]),
