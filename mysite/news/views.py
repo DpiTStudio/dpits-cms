@@ -1,6 +1,5 @@
 # news/views.py
 # Представления (контроллеры) для приложения news (новости)
-import datetime
 from django.shortcuts import (
     render,
     get_object_or_404,
@@ -132,23 +131,6 @@ def news_detail(request, slug):
             .order_by("-created_at")[:4]
         )
 
-        # Получаем все новости за ту же дату публикации (в локальном часовом поясе)
-        local_pub_date = timezone.localtime(news.published_at).date()
-
-        # Создаем временной диапазон от начала до конца дня (с учетом часового пояса)
-        start_of_day = timezone.make_aware(
-            datetime.datetime.combine(local_pub_date, datetime.time.min)
-        )
-        end_of_day = timezone.make_aware(
-            datetime.datetime.combine(local_pub_date, datetime.time.max)
-        )
-
-        daily_news = News.objects.filter(
-            published_at__range=(start_of_day, end_of_day),
-            is_active=True,
-            published_at__lte=timezone.now(),
-        ).order_by("published_at")
-
         # Если новостей по тегам меньше 4, дополняем из той же категории
         if len(similar_news) < 4:
             additional_news = (
@@ -177,6 +159,7 @@ def news_detail(request, slug):
     # Получаем все новости за ту же дату публикации (в локальном часовом поясе)
     local_pub_date = timezone.localtime(news.published_at).date()
 
+    # Единственный запрос daily_news — по дате публикации текущей новости
     daily_news = News.objects.filter(
         published_at__date=local_pub_date,
         is_active=True,
@@ -187,6 +170,7 @@ def news_detail(request, slug):
         "news": news,
         "similar_news": similar_news,
         "daily_news": daily_news,
+        "daily_news_date": local_pub_date,  # передаём дату отдельно для шаблона
         "categories": get_cached_news_categories(),
         "sidebar_news": get_cached_sidebar_news(),
         "breadcrumbs": get_breadcrumbs(

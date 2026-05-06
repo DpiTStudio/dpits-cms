@@ -4,7 +4,11 @@
     <!-- Заголовок -->
     <div class="card-header sidebar-premium-header-news">
         <h6>
-            <i class="far fa-calendar-check"></i> Лента за {{ news.published_at|date:"j E" }}
+            <i class="far fa-calendar-check"></i>
+            Лента за {{ daily_news_date|date:"j E Y" }}
+            <span class="badge bg-secondary ms-2" style="font-size: 0.65rem; vertical-align: middle;">
+                {{ daily_news|length }}
+            </span>
         </h6>
     </div>
 
