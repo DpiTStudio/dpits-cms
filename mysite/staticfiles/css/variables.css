@@ -63,7 +63,16 @@
     --border-color: rgba(255, 255, 255, 0.08);           /* Border color */
     --border-color-hover: rgba(255, 255, 255, 0.15);     /* Border color hover */
     --border-color-strong: rgba(255, 255, 255, 0.2);     /* Border color strong */
+    --border-glass: 1px solid rgba(255, 255, 255, 0.12); /* Glass border */
+    --border-glass-hover: 1px solid rgba(255, 255, 255, 0.2); /* Glass border hover */
     --border-cookie: 1px solid rgba(255, 255, 255, 0.1); /* Border color cookie */
+
+    /* ========== GLASS EFFECTS ========== */
+    --glass-blur: blur(12px);
+    --glass-blur-heavy: blur(25px);
+    --glass-bg: rgba(18, 22, 64, 0.6);
+    --glass-bg-hover: rgba(26, 31, 82, 0.8);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
     /* ========== SEMANTIC COLORS ========== */
     --success-color: #10b981;     /* Green */
