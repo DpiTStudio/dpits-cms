@@ -18,7 +18,7 @@
                     </a>
                 {% endif %}
             </h4>
-            <small class="text-muted ms-3">{{ item.published_at|date:"H:i" }}</small>
+            <small class="text-muted ms-3 text-end" style="white-space: nowrap;">{{ item.published_at|date:"d E Y H:i" }}</small>
         </div>
         {% endfor %}
     </div>

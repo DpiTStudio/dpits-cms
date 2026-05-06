@@ -155,7 +155,6 @@ def news_detail(request, slug):
     end_of_day = timezone.make_aware(datetime.datetime.combine(local_pub_date, datetime.time.max))
 
     daily_news = News.objects.filter(
-        category=news.category,
         published_at__range=(start_of_day, end_of_day),
         is_active=True,
         published_at__lte=timezone.now(),
