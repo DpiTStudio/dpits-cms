@@ -22,10 +22,20 @@ def news_list(request):
     """
     query = request.GET.get("q", "")
 
-    sort_by = request.GET.get("sort", "-created_at")
-    valid_sorts = {"created_at", "-created_at", "title", "-views", "category"}
-    if sort_by not in valid_sorts:
-        sort_by = "-created_at"
+    sort_by = request.GET.get("sort", "date_desc")
+    
+    # Маппинг сортировок (поддержка старых и новых форматов с сайта)
+    sort_mapping = {
+        "date_desc": "-created_at",
+        "views_desc": "-views",
+        "category": "category",
+        "-created_at": "-created_at",
+        "created_at": "created_at",
+        "-views": "-views",
+        "title": "title"
+    }
+    
+    db_sort = sort_mapping.get(sort_by, "-created_at")
 
     category_slug = request.GET.get("category")
     date_filter = request.GET.get("date")
@@ -64,14 +74,14 @@ def news_list(request):
         except ValueError:
             pass
 
-    # Уровневая сортировка для корректной группировки в шаблоне
-    if sort_by == "category":
+    # Сортировка
+    if db_sort == "category":
         news_queryset = news_queryset.order_by("category__name", "-created_at")
-    elif sort_by in ["-created_at", "created_at"]:
-        news_queryset = news_queryset.order_by(sort_by)
+    elif db_sort in ["-created_at", "created_at"]:
+        news_queryset = news_queryset.order_by(db_sort)
     else:
-        # Для сортировки по названию или просмотрам добавляем дату как второй ключ
-        news_queryset = news_queryset.order_by("-created_at", sort_by)
+        # Для сортировки по просмотрам и т.д. сначала сортируем по выбранному полю, затем по дате
+        news_queryset = news_queryset.order_by(db_sort, "-created_at")
 
     paginator = Paginator(news_queryset, 20)
     page_number = request.GET.get("page", 1)

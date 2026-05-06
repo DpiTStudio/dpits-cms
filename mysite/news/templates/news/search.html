@@ -1,98 +1,163 @@
-{# news/search.html - Страница с результатами поиска по новостям #}
 {% extends "_base.html" %}
-{# Расширяем базовый шаблон #}
 
 {% load static %}
-{# Загружаем статику #}
 
-{# Заголовок вкладки браузера #}
 {% block title %}
-    {% if query %}Поиск: {{ query }}{% else %}Поиск новостей{% endif %} - {{ site_settings.logo_text|default:"DpiTStudio" }}
+    {% if query %}Поиск: {{ query }}{% else %}Поиск новостей{% endif %} - {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
 {% endblock %}
 
-
-{# Дополнительные стили страницы #}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/news-cards.css' %}">
-{# Стили карточек #}
+<link rel="stylesheet" href="{% static 'css/list-common.css' %}">
+<link rel="stylesheet" href="{% static 'css/news-list.css' %}">
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
-{# Стили пагинации #}
 {% endblock %}
 
 {% block content %}
-{# Основное содержимое страницы поиска #}
-<section class="main-content py-4 py-md-5">
-    <div class="container-fluid px-3 px-md-4">
-        {# Заголовок и информация о результатах поиска #}
-        <div class="row mb-5 text-left">
-            <div class="col-lg-8">
-                <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">ПОИСК</span>
-                <h1 class="display-4 fw-bold mb-3">Результаты поиска</h1>
-                {# Выводим текст в зависимости от наличия поискового запроса #}
-                {% if query %}
-                    <p class="lead text-muted">По вашему запросу <strong>«{{ query }}»</strong> найдено публикаций: <strong>{{ news_list|length }}</strong></p>
-                {% else %}
-                    <p class="lead text-muted">Введите поисковый запрос для поиска по новостям.</p>
-                {% endif %}
+<div class="news-list-container">
+    <!-- Заголовок -->
+    <div class="news-header mb-5">
+        <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">ПОИСК</span>
+        <h1 class="display-4 fw-bold text-white mb-2">Результаты поиска</h1>
+        {% if query %}
+            <p class="lead text-muted">По вашему запросу <strong class="text-white">«{{ query }}»</strong> найдено публикаций: <strong class="text-primary">{{ news_list|length }}</strong></p>
+        {% else %}
+            <p class="lead text-muted">Введите поисковый запрос для поиска по новостям.</p>
+        {% endif %}
+    </div>
+
+    <!-- Форма поиска -->
+    <div class="search-form-container mb-5">
+        <form action="{% url 'news:search' %}" method="get" class="d-flex">
+            <input type="text" name="q" value="{{ query }}" class="form-control form-control-lg bg-dark text-white border-secondary border-opacity-25 me-2" placeholder="Поиск по новостям...">
+            <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+
+    <!-- Список новостей -->
+    {% regroup news_list by created_at|date:"Y-m-d" as news_by_day %}
+    <div class="news-timeline-container">
+        {% for day in news_by_day %}
+        <div class="day-group mb-5">
+            <!-- Заголовок дня (связка) -->
+            <div class="d-flex align-items-center mb-4">
+                <span class="badge bg-primary text-white rounded-pill px-4 py-2 fw-bold fs-6 shadow-sm me-3">
+                    <i class="far fa-calendar-alt me-2"></i> {{ day.list.0.created_at|date:"d F Y" }}
+                </span>
+                <div class="flex-grow-1 border-top border-secondary border-opacity-25 border-2"></div>
             </div>
-        </div>
-
-        {# Список найденных новостей #}
-        <div class="row g-4">
-            {% for news_item in news_list %}
-                {# Цикл по результатам поиска #}
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card h-100 news-card shadow-sm border-0 rounded-4 overflow-hidden">
-                        {# Картинка новости #}
-                        {% if news_item.image %}
-                            <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}"
-                                style="height: 220px; object-fit: cover;">
+            
+            <div class="row g-4 news-grid">
+                {% for news in day.list %}
+                <div class="col-12 col-md-6 d-flex">
+                    <article class="news-card-premium w-100 h-100" style="animation-delay: {{ forloop.counter0|add:1 }}00ms;">
+                        {% if news.image %}
+                        <div class="news-card-bg" style="background-image: url('{{ news.image.url }}');"></div>
                         {% endif %}
-                        
-                        <div class="card-body d-flex flex-column p-4">
-                            {# Категория новости #}
-                            {% if news_item.category %}
-                                <span class="badge bg-primary-subtle text-primary mb-2 align-self-start fw-bold">
-                                    {{ news_item.category.name }}
-                                </span>
-                            {% endif %}
-
-                            {# Заголовок и краткое описание #}
-                            <h5 class="card-title fw-bold mb-3">{{ news_item.title }}</h5>
-                            <p class="card-text flex-grow-1 text-muted">
-                                {{ news_item.short_description|striptags|truncatewords:20 }}
+                        <div class="news-card-overlay"></div>
+                        <div class="news-card-content">
+                            <div class="news-card-header d-flex justify-content-between align-items-center mb-3">
+                                {% if news.category %}
+                                <a href="{{ news.category.get_absolute_url }}" class="news-category-badge">
+                                    {{ news.category.name }}
+                                </a>
+                                {% endif %}
+                                <div class="news-meta text-muted small">
+                                    <i class="far fa-clock me-1"></i> {{ news.created_at|date:"H:i" }}
+                                </div>
+                            </div>
+                            
+                            <h3 class="news-title h5 fw-bold mb-3">
+                                <a href="{% url 'news:detail' news.slug %}" class="text-white text-decoration-none">
+                                    {{ news.title }}
+                                </a>
+                            </h3>
+                            
+                            <p class="news-description text-white-50 mb-4" style="font-size: 0.9rem;">
+                                {{ news.short_description|striptags|truncatewords:15 }}
                             </p>
                             
-                            {# Футер карточки с датой и ссылкой #}
-                            <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
-                                <small class="text-muted">
-                                    <i class="far fa-calendar-alt me-1"></i>{{ news_item.created_at|date:"d.m.Y" }}
-                                </small>
-                                <a href="{% url 'news:detail' news_item.slug %}"
-                                    class="btn btn-sm btn-link text-primary fw-bold text-decoration-none p-0">
-                                    Подробнее <i class="fas fa-arrow-right ms-1"></i>
+                            <div class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25">
+                                <a href="{% url 'news:detail' news.slug %}" class="btn-read-more" style="font-size: 0.85rem;">
+                                    Читать <i class="fas fa-arrow-right ms-2"></i>
                                 </a>
+                                <span class="news-views text-muted small">
+                                    <i class="far fa-eye me-1"></i> {{ news.views }}
+                                </span>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
-            {% empty %}
-                {# Если поиск не дал результатов #}
-                <div class="col-12 text-center py-5">
-                    <div class="py-5">
-                        <div class="mb-4">
-                            <i class="fas fa-search-minus fa-4x text-muted opacity-25"></i>
-                        </div>
-                        <h3 class="fw-bold">Ничего не найдено</h3>
-                        <p class="text-muted">К сожалению, по вашему запросу ничего не нашлось. Попробуйте использовать другие ключевые слова.</p>
-                        <a href="{% url 'news:list' %}" class="btn btn-primary rounded-pill px-4 mt-3">
-                            Вернуться к новостям
-                        </a>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
+        {% empty %}
+        <div class="col-12 text-center py-5 glass-empty-state rounded-4 border border-secondary border-opacity-25">
+            <i class="fas fa-search-minus fa-3x text-muted opacity-50 mb-3"></i>
+            <h4 class="text-white-50">Ничего не найдено</h4>
+            <p class="text-muted">Попробуйте использовать другие ключевые слова.</p>
+            <a href="{% url 'news:list' %}" class="btn btn-primary rounded-pill px-4 mt-3">
+                Вернуться к новостям
+            </a>
+        </div>
+        {% endfor %}
     </div>
-</section>
+
+    <!-- Пагинация -->
+    {% if news_list.has_other_pages %}
+    <nav aria-label="Навигация по страницам" class="mt-5">
+        <ul class="pagination justify-content-center flex-wrap glass-pagination">
+            {% if news_list.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ news_list.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for i in news_list.paginator.page_range %}
+                {% if news_list.number == i %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ i }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ i }}{% if query %}&q={{ query }}{% endif %}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if news_list.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ news_list.next_page_number }}{% if query %}&q={{ query }}{% endif %}">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
 {% endblock %}
 
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const cards = document.querySelectorAll('.news-card-premium');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        cards.forEach((card) => {
+            observer.observe(card);
+        });
+    });
+</script>
+{% endblock %}
