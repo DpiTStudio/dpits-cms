@@ -2,31 +2,44 @@
 {% if daily_news %}
 <div class="card sidebar-premium-card mb-4 glass-container border-opacity-25">
   <!-- Заголовок -->
-  <div class="card-header sidebar-premium-header-news bg-transparent border-secondary border-opacity-25 py-3">
+  <div
+    class="card-header sidebar-premium-header-news bg-transparent border-secondary border-opacity-25 py-3"
+  >
     <h5 class="mb-0 text-white fw-bold">
       <i class="far fa-calendar-check text-primary me-2"></i>
       Лента за {{ daily_news_date|date:"j E Y" }}
-      <span class="badge bg-primary bg-opacity-20 text-primary ms-2 fs-6" style="vertical-align: middle">
+      <span
+        class="badge bg-primary bg-opacity-20 text-primary ms-2 fs-6"
+        style="vertical-align: middle"
+      >
         {{ daily_news|length }}
       </span>
     </h5>
   </div>
-  
+
   <!-- Список новостей дня -->
   <div class="card-body p-0">
     <div class="list-group list-group-flush bg-transparent">
       {% for d_news in daily_news %}
-      <a href="{{ d_news.get_absolute_url }}" 
-         class="list-group-item list-group-item-action bg-transparent border-secondary border-opacity-10 py-3 px-4 transition-hover {% if d_news.id == news.id %}active-news-item{% endif %}">
+      <a
+        href="{{ d_news.get_absolute_url }}"
+        class="list-group-item list-group-item-action bg-transparent border-secondary border-opacity-10 py-3 px-4 transition-hover {% if d_news.id == news.id %}active-news-item{% endif %}"
+      >
         <div class="d-flex justify-content-between align-items-center mb-1">
           <span class="text-primary small fw-bold">
-            <i class="far fa-clock me-1"></i> {{ d_news.published_at|date:"H:i" }}
+            {{ d.news.id }}
+            <i class="far fa-clock me-1"></i>
+            {{ d_news.published_at|date:"H:i" }}
           </span>
           {% if d_news.id == news.id %}
-          <span class="badge bg-success bg-opacity-75 rounded-pill small">Читаете сейчас</span>
+          <span class="badge bg-success bg-opacity-75 rounded-pill small">
+            Читаете сейчас
+          </span>
           {% endif %}
         </div>
-        <h6 class="text-white mb-0 {% if d_news.id == news.id %}fw-black text-primary{% else %}fw-semibold{% endif %}">
+        <h6
+          class="text-white mb-0 {{ daily_news_date|date:"j E Y" }}1fw-black text-primary{{ daily_news_date|date:"j E Y" }}2fw-semibold{{ daily_news_date|date:"j E Y" }}3"
+        >
           {{ d_news.title }}
         </h6>
       </a>
@@ -36,16 +49,16 @@
 </div>
 
 <style>
-.active-news-item {
+  .active-news-item {
     background: rgba(var(--bs-primary-rgb), 0.05) !important;
     border-left: 4px solid var(--bs-primary) !important;
-}
-.transition-hover {
+  }
+  .transition-hover {
     transition: all 0.3s ease;
-}
-.transition-hover:hover {
+  }
+  .transition-hover:hover {
     background: rgba(255, 255, 255, 0.02) !important;
     transform: translateX(5px);
-}
+  }
 </style>
 {% endif %}
