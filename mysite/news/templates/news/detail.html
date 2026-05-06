@@ -30,21 +30,21 @@
 {% block twitter_description %}
 {{ news.content|striptags|truncatewords:30|default:site_settings.seo_description }}
 {% endblock %}
-{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if news.image %}{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
+{{ site_settings.company_name }}5{{ site_settings.company_name }}6://{{ site_settings.company_name }}7{{ site_settings.company_name }}8{{ site_settings.company_name }}9{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}0{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}1{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}2{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}3
 
 <!-- Дополнительные CSS файлы и SEO-скрипты -->
 {% block extra_head %}
 <!-- Указание канонического URL для избежания дубликатов в поиске -->
-<link rel="canonical" href="{{ request.build_absolute_uri }}" />
+<link rel="canonical" href="{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}5" />
 
 <!-- Микроразметка Schema.org для новостной статьи -->
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "headline": "{{ news.title|escapejs }}",
+    "headline": "{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}6",
     "image": [
-      "{{ request.scheme }}://{{ request.get_host }}{% if news.image %}{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}"
+      "{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}7://{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}8{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}9{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}"
     ],
     "datePublished": "{{ news.published_at|date:'c' }}",
     "dateModified": "{{ news.updated_at|date:'c' }}",
@@ -69,7 +69,46 @@
 <!-- Основное содержимое страницы -->
 {% block content %}
 <article class="news-detail-container">
-  <!-- Заголовок и мета-данные -->
+  <!-- Изображение + Заголовок над ним -->
+  {% if news.image %}
+  <!-- Заголовок и мета-данные — над картинкой -->
+  <header class="news-detail-header mb-4">
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <span
+        class="badge text-primary bg-primary-subtle rounded-pill px-3 py-2 fw-bold shadow-sm"
+      >
+        НОВОСТИ
+      </span>
+      {% if news.category %}
+      <a
+        href="{% url 'news:category' news.category.slug %}"
+        class="badge bg-secondary bg-opacity-25 text-white rounded-pill px-3 py-2 fw-bold text-decoration-none"
+      >
+        {{ news.category.name }}
+      </a>
+      {% endif %}
+    </div>
+
+    <h1 class="display-4 fw-bold text-white mb-4 news-title-detail">
+      {{ news.title }}
+    </h1>
+  </header>
+
+  <figure
+    class="news-detail-image-wrapper mb-5 position-relative rounded-4 overflow-hidden shadow-lg"
+  >
+    <img
+      src="{{ news.image.url }}"
+      class="img-fluid w-100 object-fit-cover"
+      style="max-height: 500px"
+      alt="{{ news.title }}"
+    />
+    <div
+      class="position-absolute bottom-0 start-0 w-100 h-50 bg-gradient-dark"
+    ></div>
+  </figure>
+  {% else %}
+  <!-- Если картинки нет — заголовок всё равно показываем -->
   <header class="news-detail-header mb-5">
     <div class="d-flex flex-wrap gap-2 mb-3">
       <span
@@ -90,40 +129,7 @@
     <h1 class="display-4 fw-bold text-white mb-4 news-title-detail">
       {{ news.title }}
     </h1>
-
-    <div
-      class="news-meta d-flex flex-wrap gap-4 text-white-50 align-items-center pb-4 border-bottom border-secondary border-opacity-25"
-    >
-      <span>
-        <i class="far fa-calendar-alt me-2"></i>
-        {{ news.published_at|date:"d.m.Y H:i" }}
-      </span>
-      <span>
-        <i class="far fa-eye me-2"></i>
-        {{ news.views }}
-      </span>
-      <span>
-        <i class="far fa-clock me-2"></i>
-        ~{{ news.get_reading_time }} мин.
-      </span>
-    </div>
   </header>
-
-  <!-- Изображение -->
-  {% if news.image %}
-  <figure
-    class="news-detail-image-wrapper mb-5 position-relative rounded-4 overflow-hidden shadow-lg"
-  >
-    <img
-      src="{{ news.image.url }}"
-      class="img-fluid w-100 object-fit-cover"
-      style="max-height: 500px"
-      alt="{{ news.title }}"
-    />
-    <div
-      class="position-absolute bottom-0 start-0 w-100 h-50 bg-gradient-dark"
-    ></div>
-  </figure>
   {% endif %}
 
   <!-- Содержание статьи -->
@@ -142,14 +148,13 @@
   <div class="daily-news-wrapper mb-5">
     {% include 'news/components/daily_news.html' %}
   </div>
-
 </article>
 {% endblock %}
 
 {% block sidebar %}
-  <!-- Похожие новости -->
-  {% include 'news/components/similar_news.html' %}
-  
-  <!-- Стандартный сайдбар -->
-  {{ block.super }}
+<!-- Похожие новости -->
+{% include 'news/components/similar_news.html' %}
+
+<!-- Стандартный сайдбар -->
+{{ block.super }}
 {% endblock %}
