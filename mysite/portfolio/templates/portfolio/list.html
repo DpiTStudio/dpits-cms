@@ -136,8 +136,8 @@
           </div>
         {% endifchanged %}
 
-        <div class="col-md-6 col-lg-4">
-          <article class="portfolio-card-modern" data-category="{{ item.category.id }}" data-title="{{ item.title }}">
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+          <article class="portfolio-card-modern glass-card-premium premium-shine h-100" data-category="{{ item.category.id }}" data-title="{{ item.title }}">
             <div class="card-img-wrapper">
               {% if item.image %}
                 <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">
@@ -155,16 +155,16 @@
                 </div>
               </div>
               <div class="position-absolute top-0 end-0 m-3">
-                <span class="badge badge-glass px-3 py-2 rounded-pill">{{ item.category.name }}</span>
+                <span class="badge bg-primary bg-opacity-75 backdrop-blur-sm rounded-pill px-3 py-2">{{ item.category.name }}</span>
               </div>
             </div>
             <div class="card-body d-flex flex-column p-4">
               <div class="mb-2">
                 <h5 class="card-title fw-bold mb-0">
-                  <a href="{% url 'portfolio:detail' item.slug %}" class="text-dark text-decoration-none stretch-link">{{ item.title }}</a>
+                  <a href="{% url 'portfolio:detail' item.slug %}" class="text-white text-decoration-none hover-primary">{{ item.title }}</a>
                 </h5>
               </div>
-              <p class="card-text text-muted small line-clamp-2 mb-3">{{ item.short_description|truncatechars:100 }}</p>
+              <p class="text-white-50 small line-clamp-2 mb-3">{{ item.short_description|truncatechars:100 }}</p>
               <div class="mt-auto">
                  {% if item.technologies %}
                   <div class="d-flex flex-wrap gap-2 mb-3">

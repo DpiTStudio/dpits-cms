@@ -34,9 +34,6 @@
 }
 
 /* Сетка новостей */
-.news-grid {
-    /* Bootstrap row takes care of the grid */
-}
 
 /* Карточка новости */
 .news-card-premium {
@@ -48,16 +45,10 @@
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    transform: translateY(20px);
     display: flex;
     flex-direction: column;
 }
 
-.news-card-premium.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 .news-card-premium:hover {
     transform: translateY(-5px);

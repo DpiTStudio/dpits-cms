@@ -3,33 +3,32 @@
 /* ОПИСАНИЕ: Специфичные стили для портфолио  */
 /* ========================================= */
 
-:root {
-  --card-hover-transform: translateY(-8px);
-  --shadow-hover: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
-}
-
 /* СТИЛИ КАРТОЧКИ ПОРТФОЛИО */
 .portfolio-card-modern {
-  background: var(--bg-card);
-  border: none;
-  border-radius: 12px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--border-glass);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   height: 100%;
   overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--glass-shadow);
   position: relative;
   display: flex;
   flex-direction: column;
 }
 
 .portfolio-card-modern:hover {
-  transform: var(--card-hover-transform);
-  box-shadow: var(--shadow-hover);
+  transform: translateY(-8px);
+  background: var(--glass-bg-hover);
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
 .card-img-wrapper {
   position: relative;
-  height: 240px;
+  height: 260px;
   overflow: hidden;
 }
 
@@ -41,14 +40,14 @@
 }
 
 .portfolio-card-modern:hover .card-img-wrapper img {
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
 .card-overlay {
-  background: rgba(15, 23, 42, 0.6);
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
   opacity: 0;
   transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
 }
 
 .portfolio-card-modern:hover .card-overlay {
@@ -56,27 +55,31 @@
 }
 
 .tech-badge {
-  font-size: 0.75rem;
-  padding: 0.35em 0.8em;
-  border-radius: 6px;
-  background-color: #eff6ff;
-  color: #4f46e5;
+  font-size: 0.7rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 100px;
+  background-color: rgba(99, 102, 241, 0.1);
+  color: #a5b4fc;
+  border: 1px solid rgba(99, 102, 241, 0.2);
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .card-meta {
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 /* Мини-карточка новости в сайдбаре (специфично для этой страницы) */
 .news-mini-card {
-  transition: transform 0.2s ease;
-  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .news-mini-card:hover {
   transform: translateX(5px);
-  border-left-color: #6366f1;
-  background-color: #f8fafc;
+  background: rgba(255, 255, 255, 0.08);
 }

@@ -24,7 +24,11 @@
 />
 {% if site_settings.logo %}
 <meta property="og:image" content="{{ site_settings.logo.url }}" />
-{% endif %} {% endblock %} {% block content %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="aurora-bg"></div>
 <section class="main-content">
   <div class="container-fluid px-3 px-md-4 px-lg-5 py-4 py-md-5">
     <!-- Заголовок секции -->
@@ -70,24 +74,17 @@
           </div>
           {% endif %}
 
-          <!-- Рекомендуемые страницы -->
-          {% comment "recommended_pages" %}
-            {% include "includes/sections/recommended_pages.html" %}
-          {% endcomment %}
+          {% include "includes/sections/recommended_pages.html" %}
 
         </div>
       </div>
     </div>
 
-    {% comment %}
     <!-- Блок последних новостей -->
     {% include "includes/sections/home_news.html" %}
-    {% endcomment %}
 
-    {% comment %}
     <!-- Блок последних работ -->
     {% include "includes/sections/home_portfolio.html" %}
-    {% endcomment %}
   </div>
 </section>
 {% endblock %}

@@ -1,93 +1,71 @@
-        {% load static %}
+{% load static %}
 <!-- Блок последних работ на главной странице -->
-        {% block home_portfolio_section %}
-        <!-- Условная проверка наличия списка последних работ -->
-        {% if recent_portfolio_list %}
-        <!-- Контейнер с полной шириной для секции портфолио -->
-        <div class="container-fluid">
-            <!-- Строка с центрированием контента -->
-            <div class="row justify-content-center">
-                <!-- Колонка на всю ширину на мобильных, 10 колонок на больших экранах -->
-                <div class="col-12 col-lg-10">
-                    <!-- Карточка с тенью и отступом сверху -->
-                    <div class="card card-premium shadow-sm mt-4">
-                        <!-- Заголовок карточки с зеленым цветом и белым текстом -->
-                        <div class="card-header border-0 bg-success text-white">
-                            <!-- Заголовок с иконкой портфеля -->
-                            <h4 class="mb-0"><i class="fas fa-briefcase me-2"></i>Последние работы</h4>
-                        </div>
-                        <!-- Тело карточки -->
-                        <div class="card-body">
-                            <!-- Строка для сетки карточек портфолио -->
-                            <div class="row">
-                                <!-- Цикл по списку последних работ -->
-                                {% for portfolio_item in recent_portfolio_list %}
-                                <!-- Колонка для карточки работы - 4 колонки на средних экранах -->
-                                <div class="col-md-4 mb-3">
-                                    <!-- Карточка работы с полной высотой -->
-                                    <div class="card h-100 news-card">
-                                        <!-- Условная проверка наличия изображения у работы -->
-                                        {% if portfolio_item.image %}
-                                        <!-- Изображение работы из базы данных -->
-                                        <img src="{{ portfolio_item.image.url }}" class="card-img-top"
-                                            alt="{{ portfolio_item.title }}">
-                                        {% else %}
-                                        <!-- Изображение по умолчанию, если у работы нет изображения -->
-                                        <img src="{% static 'images/default-portfolio.jpg' %}" class="card-img-top"
-                                            alt="{{ portfolio_item.title }}">
-                                        {% endif %}
-                                        <!-- Тело карточки с flexbox для выравнивания -->
-                                        <div class="card-body d-flex flex-column">
-                                            <!-- Условная проверка наличия категории у работы -->
-                                            {% if portfolio_item.category %}
-                                            <!-- Бейдж категории с выравниванием по левому краю -->
-                                            <span class="badge bg-secondary mb-2 align-self-start">
-                                                {{ portfolio_item.category.name }}
-                                            </span>
-                                            {% endif %}
-                                            <!-- Заголовок работы с ограничением количества слов -->
-                                            <h6 class="card-title d-flex align-items-center">
-                                                <span class="flex-grow-1">{{ portfolio_item.title|truncatewords:8 }}</span>
-                                            </h6>
-                                            <!-- Текст работы с растягиванием и ограничением количества слов -->
-                                            <p class="card-text flex-grow-1 small">
-                                                {{ portfolio_item.short_description|striptags|truncatewords:12 }}
-                                            </p>
-                                            <!-- Футер карточки с датой и кнопкой -->
-                                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                                <!-- Дата создания работы -->
-                                                <small
-                                                    class="text-muted">{{portfolio_item.project_date|date:"d.m.Y"}}</small>
-                                                <!-- Ссылка на детальную страницу работы -->
-                                                <a href="{% url 'portfolio:detail' portfolio_item.slug %}"
-                                                    class="btn btn-sm btn-outline-success">Подробнее</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Обработка случая, когда работ нет -->
-                                {% empty %}
-                                <!-- Сообщение об отсутствии работ с центрированием -->
-                                <div class="col-12 text-center py-4">
-                                    <p class="text-muted">Работ пока нет</p>
-                                </div>
-                                {% endfor %}
-                            </div>
+{% block home_portfolio_section %}
+{% if recent_portfolio_list %}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-11">
+            <!-- Секционный заголовок -->
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-badge"><i class="fas fa-briefcase"></i> Портфолио</span>
+                <h2 class="display-5 fw-bold text-white mb-3">Наши лучшие работы</h2>
+                <div class="mx-auto" style="width: 80px; height: 4px; background: var(--gradient-primary); border-radius: 2px;"></div>
+            </div>
 
-                            <!-- Ссылка на страницу со всеми работами -->
-                            {% if recent_portfolio_list %}
-                            <!-- Контейнер с центрированием и отступом сверху -->
-                            <div class="text-center mt-3">
-                                <!-- Кнопка-ссылка на список всех работ -->
-                                <a href="{% url 'portfolio:list' %}" class="btn btn-success">
-                                    Все работы <i class="fas fa-arrow-right ms-2"></i>
-                                </a>
-                            </div>
+            <div class="row g-4">
+                {% for portfolio_item in recent_portfolio_list %}
+                <div class="col-12 col-md-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                    <article class="glass-card-premium h-100 premium-shine rounded-4 overflow-hidden d-flex flex-column">
+                        <!-- Изображение с оверлеем -->
+                        <div class="position-relative" style="height: 240px; overflow: hidden;">
+                            {% if portfolio_item.image %}
+                            <img src="{{ portfolio_item.image.url }}" class="w-100 h-100 object-fit-cover transition-hover" alt="{{ portfolio_item.title }}">
+                            {% else %}
+                            <img src="{% static 'images/default-portfolio.jpg' %}" class="w-100 h-100 object-fit-cover transition-hover" alt="{{ portfolio_item.title }}">
                             {% endif %}
+                            <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-dark opacity-50"></div>
+                            
+                            <div class="position-absolute bottom-0 start-0 p-3 w-100">
+                                {% if portfolio_item.category %}
+                                <span class="badge bg-success bg-opacity-75 backdrop-blur-sm rounded-pill px-3 py-2 mb-2">
+                                    {{ portfolio_item.category.name }}
+                                </span>
+                                {% endif %}
+                                <h5 class="text-white fw-bold mb-0">{{ portfolio_item.title }}</h5>
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="card-body p-4 d-flex flex-column">
+                            <p class="text-white-50 small mb-4 flex-grow-1">
+                                {{ portfolio_item.short_description|striptags|truncatewords:15 }}
+                            </p>
+                            
+                            <div class="mt-auto pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
+                                <a href="{% url 'portfolio:detail' portfolio_item.slug %}" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                                    Подробнее <i class="fas fa-external-link-alt ms-1 small"></i>
+                                </a>
+                                <div class="d-flex gap-2">
+                                    {% if portfolio_item.project_date %}
+                                    <span class="text-white-50 small">
+                                        <i class="far fa-calendar-alt me-1"></i> {{ portfolio_item.project_date|date:"Y" }}
+                                    </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
                 </div>
+                {% endfor %}
+            </div>
+
+            <!-- Кнопка "Все работы" -->
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="{% url 'portfolio:list' %}" class="btn btn-gradient-primary btn-lg rounded-pill px-5 shine-effect">
+                    Смотреть всё <i class="fas fa-th-large ms-2"></i>
+                </a>
             </div>
         </div>
-        {% endif %}
-        {% endblock %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
