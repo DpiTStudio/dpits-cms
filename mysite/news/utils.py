@@ -3,6 +3,7 @@
 # Вынесены из views.py для устранения дублирования кода (принцип DRY)
 
 from django.core.cache import cache
+from django.utils import timezone
 from .models import News, NewsCategory
 
 
@@ -32,7 +33,7 @@ def get_cached_sidebar_news():
     recent_news = cache.get(cache_key)
     if not isinstance(recent_news, list):
         recent_news = list(
-            News.objects.filter(is_active=True)
+            News.objects.filter(is_active=True, published_at__lte=timezone.now())
             .select_related("category")
             .order_by("-created_at")[:5]
         )

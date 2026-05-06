@@ -8,6 +8,7 @@ from django.shortcuts import (
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse
+import datetime
 from django.utils import timezone  # Импортируем timezone для работы с датами публикации
 from .models import News, NewsCategory, NewsTag
 from .utils import get_cached_news_categories, get_cached_sidebar_news
@@ -31,8 +32,7 @@ def news_list(request):
 
     # Фильтруем активные новости, дата публикации которых уже наступила
     news_queryset = News.objects.filter(
-        is_active=True, 
-        published_at__lte=timezone.now()
+        is_active=True, published_at__lte=timezone.now()
     ).select_related("category")
 
     if query:
@@ -48,22 +48,19 @@ def news_list(request):
     # Фильтрация по дате
     if date_filter:
         try:
-            parts = date_filter.split('-')
+            parts = date_filter.split("-")
             if len(parts) == 3:
                 news_queryset = news_queryset.filter(
                     created_at__year=int(parts[0]),
                     created_at__month=int(parts[1]),
-                    created_at__day=int(parts[2])
+                    created_at__day=int(parts[2]),
                 )
             elif len(parts) == 2:
                 news_queryset = news_queryset.filter(
-                    created_at__year=int(parts[0]),
-                    created_at__month=int(parts[1])
+                    created_at__year=int(parts[0]), created_at__month=int(parts[1])
                 )
             elif len(parts) == 1:
-                news_queryset = news_queryset.filter(
-                    created_at__year=int(parts[0])
-                )
+                news_queryset = news_queryset.filter(created_at__year=int(parts[0]))
         except ValueError:
             pass
 
@@ -88,9 +85,11 @@ def news_list(request):
         "current_sort": sort_by,
         "search_query": query,
         "selected_date": date_filter or "",
-        "breadcrumbs": get_breadcrumbs([
-            ("Новости", reverse("news:list"), "fas fa-newspaper"),
-        ]),
+        "breadcrumbs": get_breadcrumbs(
+            [
+                ("Новости", reverse("news:list"), "fas fa-newspaper"),
+            ]
+        ),
     }
     return render(request, "news/list.html", context)
 
@@ -101,10 +100,10 @@ def news_detail(request, slug):
     Оптимизировано с использованием select_related и кэширования.
     """
     news = get_object_or_404(
-        News.objects.select_related("category"), 
-        slug=slug, 
+        News.objects.select_related("category"),
+        slug=slug,
         is_active=True,
-        published_at__lte=timezone.now()
+        published_at__lte=timezone.now(),
     )
 
     news.increment_views()
@@ -115,53 +114,52 @@ def news_detail(request, slug):
         # Находим новости с такими же тегами
         similar_news = (
             News.objects.filter(
-                tags__in=news_tags,
-                is_active=True,
-                published_at__lte=timezone.now()
+                tags__in=news_tags, is_active=True, published_at__lte=timezone.now()
             )
             .exclude(id=news.id)
             .select_related("category")
             .distinct()
             .order_by("-created_at")[:4]
         )
-        
+
         # Если новостей по тегам меньше 4, дополняем из той же категории
         if len(similar_news) < 4:
             additional_news = (
                 News.objects.filter(
-                    category=news.category, 
+                    category=news.category,
                     is_active=True,
-                    published_at__lte=timezone.now()
+                    published_at__lte=timezone.now(),
                 )
                 .exclude(id=news.id)
                 .exclude(id__in=[n.id for n in similar_news])
                 .select_related("category")
-                .order_by("-created_at")[:4 - len(similar_news)]
+                .order_by("-created_at")[: 4 - len(similar_news)]
             )
             similar_news = list(similar_news) + list(additional_news)
     else:
         # Базовый алгоритм: просто новости из той же категории
         similar_news = (
             News.objects.filter(
-                category=news.category, 
-                is_active=True,
-                published_at__lte=timezone.now()
+                category=news.category, is_active=True, published_at__lte=timezone.now()
             )
             .exclude(id=news.id)
             .select_related("category")
             .order_by("-created_at")[:4]
         )
 
-    # Получаем все новости за ту же дату публикации (в локальном часовом поясе)
+    # Получаем все новости за ту же дату публикации (в локальном часовом поясе) и ту же категорию
     local_pub_date = timezone.localtime(news.published_at).date()
-    daily_news = (
-        News.objects.filter(
-            published_at__date=local_pub_date,
-            is_active=True,
-            published_at__lte=timezone.now()
-        )
-        .order_by("published_at")
-    )
+    
+    # Создаем временной диапазон от начала до конца дня (с учетом часового пояса)
+    start_of_day = timezone.make_aware(datetime.datetime.combine(local_pub_date, datetime.time.min))
+    end_of_day = timezone.make_aware(datetime.datetime.combine(local_pub_date, datetime.time.max))
+
+    daily_news = News.objects.filter(
+        category=news.category,
+        published_at__range=(start_of_day, end_of_day),
+        is_active=True,
+        published_at__lte=timezone.now(),
+    ).order_by("published_at")
 
     context = {
         "news": news,
@@ -169,11 +167,13 @@ def news_detail(request, slug):
         "daily_news": daily_news,
         "categories": get_cached_news_categories(),
         "sidebar_news": get_cached_sidebar_news(),
-        "breadcrumbs": get_breadcrumbs([
-            ("Новости", reverse("news:list"), "fas fa-newspaper"),
-            (news.category.name, news.category.get_absolute_url()),
-            (news.title, reverse("news:detail", kwargs={"slug": news.slug})),
-        ]),
+        "breadcrumbs": get_breadcrumbs(
+            [
+                ("Новости", reverse("news:list"), "fas fa-newspaper"),
+                (news.category.name, news.category.get_absolute_url()),
+                (news.title, reverse("news:detail", kwargs={"slug": news.slug})),
+            ]
+        ),
     }
     return render(request, "news/detail.html", context)
 
@@ -190,14 +190,9 @@ def news_by_category(request, slug):
     if sort_by not in valid_sorts:
         sort_by = "-created_at"
 
-    news_queryset = (
-        News.objects.filter(
-            category=category, 
-            is_active=True,
-            published_at__lte=timezone.now()
-        )
-        .select_related("category")
-    )
+    news_queryset = News.objects.filter(
+        category=category, is_active=True, published_at__lte=timezone.now()
+    ).select_related("category")
 
     if query:
         news_queryset = news_queryset.filter(
@@ -210,6 +205,7 @@ def news_by_category(request, slug):
 
     # Защита: убеждаемся, что получили QuerySet, а не случайный объект из кэша
     from django.db.models import QuerySet
+
     if not isinstance(news_queryset, QuerySet):
         news_queryset = News.objects.none()
 
@@ -225,10 +221,12 @@ def news_by_category(request, slug):
         "sidebar_news": get_cached_sidebar_news(),
         "current_sort": sort_by,
         "search_query": query,
-        "breadcrumbs": get_breadcrumbs([
-            ("Новости", reverse("news:list"), "fas fa-newspaper"),
-            (category.name, category.get_absolute_url()),
-        ]),
+        "breadcrumbs": get_breadcrumbs(
+            [
+                ("Новости", reverse("news:list"), "fas fa-newspaper"),
+                (category.name, category.get_absolute_url()),
+            ]
+        ),
     }
     return render(request, "news/category.html", context)
 
@@ -246,7 +244,7 @@ def news_search(request):
                 | Q(short_description__icontains=query)
                 | Q(content__icontains=query),
                 is_active=True,
-                published_at__lte=timezone.now()
+                published_at__lte=timezone.now(),
             )
             .select_related("category")
             .distinct()
@@ -254,10 +252,7 @@ def news_search(request):
         )
     else:
         news_queryset = (
-            News.objects.filter(
-                is_active=True,
-                published_at__lte=timezone.now()
-            )
+            News.objects.filter(is_active=True, published_at__lte=timezone.now())
             .select_related("category")
             .order_by("-created_at")
         )
@@ -272,10 +267,12 @@ def news_search(request):
         "categories": get_cached_news_categories(),
         "sidebar_news": get_cached_sidebar_news(),
         "query": query,
-        "breadcrumbs": get_breadcrumbs([
-            ("Новости", reverse("news:list"), "fas fa-newspaper"),
-            (f"Поиск: {query}" if query else "Поиск", request.path),
-        ]),
+        "breadcrumbs": get_breadcrumbs(
+            [
+                ("Новости", reverse("news:list"), "fas fa-newspaper"),
+                (f"Поиск: {query}" if query else "Поиск", request.path),
+            ]
+        ),
     }
     return render(request, "news/search.html", context)
 
@@ -287,11 +284,7 @@ def news_by_tag(request, slug):
     tag = get_object_or_404(NewsTag, slug=slug)
 
     news_queryset = (
-        News.objects.filter(
-            tags=tag, 
-            is_active=True,
-            published_at__lte=timezone.now()
-        )
+        News.objects.filter(tags=tag, is_active=True, published_at__lte=timezone.now())
         .select_related("category")
         .order_by("-created_at")
     )
@@ -305,10 +298,12 @@ def news_by_tag(request, slug):
         "news_list": page_obj,
         "categories": get_cached_news_categories(),
         "sidebar_news": get_cached_sidebar_news(),
-        "breadcrumbs": get_breadcrumbs([
-            ("Новости", reverse("news:list"), "fas fa-newspaper"),
-            (f"Тег: {tag.name}", request.path),
-        ]),
+        "breadcrumbs": get_breadcrumbs(
+            [
+                ("Новости", reverse("news:list"), "fas fa-newspaper"),
+                (f"Тег: {tag.name}", request.path),
+            ]
+        ),
     }
     return render(request, "news/list.html", context)
 
@@ -319,7 +314,9 @@ def get_category_image(request, category_id):
     Используется в админке для автоматической подстановки картинки.
     """
     category = get_object_or_404(NewsCategory, pk=category_id)
-    return JsonResponse({
-        "image_url": category.image.url if category.image else None,
-        "hero_image_url": category.hero_image.url if category.hero_image else None
-    })
+    return JsonResponse(
+        {
+            "image_url": category.image.url if category.image else None,
+            "hero_image_url": category.hero_image.url if category.hero_image else None,
+        }
+    )
