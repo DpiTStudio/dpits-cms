@@ -152,10 +152,11 @@ def news_detail(request, slug):
             .order_by("-created_at")[:4]
         )
 
-    # Получаем все новости за ту же дату публикации
+    # Получаем все новости за ту же дату публикации (в локальном часовом поясе)
+    local_pub_date = timezone.localtime(news.published_at).date()
     daily_news = (
         News.objects.filter(
-            published_at__date=news.published_at.date(),
+            published_at__date=local_pub_date,
             is_active=True,
             published_at__lte=timezone.now()
         )

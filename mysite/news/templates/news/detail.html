@@ -138,7 +138,7 @@
                 {% if daily_news %}
                 <div class="daily-news-navigation p-4 rounded-4 border border-light opacity-75 mb-5" style="background: rgba(255, 255, 255, 0.02);">
                     <h3 class="h5 fw-bold mb-4 text-primary">
-                        <i class="far fa-calendar-check me-2"></i>Лента событий за {{ news.published_at|date:"d.m.Y" }}
+                        <i class="far fa-calendar-check me-2"></i>Лента событий за {{ news.published_at|date:"j E" }}
                     </h3>
                     <div class="list-group list-group-flush gap-2">
                         {% for item in daily_news %}
@@ -154,7 +154,7 @@
                                     </a>
                                 {% endif %}
                             </h4>
-                            <small class="text-muted ms-3">{{ item.created_at|date:"H:i" }}</small>
+                            <small class="text-muted ms-3">{{ item.published_at|date:"H:i" }}</small>
                         </div>
                         {% endfor %}
                     </div>
