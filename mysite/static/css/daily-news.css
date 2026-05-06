@@ -1,0 +1,20 @@
+/* daily-news.css */
+.active-news-item {
+    background: rgba(var(--bs-primary-rgb), 0.1) !important;
+    border-left: 4px solid var(--bs-primary) !important;
+}
+
+.transition-hover {
+    transition: all 0.3s ease;
+}
+
+.transition-hover:hover {
+    background: rgba(255, 255, 255, 0.03) !important;
+    transform: translateX(5px);
+}
+
+.sidebar-premium-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
