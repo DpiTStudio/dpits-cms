@@ -138,16 +138,15 @@
     {% include 'news/components/share_buttons.html' %}
   </div>
 
-  <!-- Навигация по дню публикации перемещена в боковую панель -->
+  <!-- Навигация по дню публикации (Лента событий) -->
+  <div class="daily-news-wrapper mb-5">
+    {% include 'news/components/daily_news.html' %}
+  </div>
 
-  <!-- Похожие новости перемещены в боковую панель -->
 </article>
 {% endblock %}
 
 {% block sidebar %}
-  <!-- Навигация по дню публикации (Лента событий) -->
-  {% include 'news/components/daily_news.html' %}
-  
   <!-- Похожие новости -->
   {% include 'news/components/similar_news.html' %}
   
