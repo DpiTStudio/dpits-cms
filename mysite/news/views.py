@@ -1,5 +1,6 @@
 # news/views.py
 # Представления (контроллеры) для приложения news (новости)
+import datetime
 from django.shortcuts import (
     render,
     get_object_or_404,
@@ -159,16 +160,32 @@ def news_detail(request, slug):
 
     # Получаем все новости за ту же дату публикации (в локальном часовом поясе)
     local_pub_date = timezone.localtime(news.published_at).date()
+    # --- ИСПРАВЛЕНИЕ: корректная фильтрация по локальной дате ---
+    # Преобразуем локальную дату в начало и конец дня в локальном часовом поясе,
+    # затем переводим эти границы в UTC для фильтрации в БД.
+    start_local = datetime.combine(local_pub_date, datetime.min.time())
+    end_local = datetime.combine(local_pub_date, datetime.max.time())
+    # Применяем текущий часовой пояс (из settings.TIME_ZONE)
+    start_utc = timezone.make_aware(start_local, timezone.get_current_timezone())
+    end_utc = timezone.make_aware(end_local, timezone.get_current_timezone())
 
     # Единственный запрос daily_news — по дате публикации текущей новости
+    # daily_news = News.objects.filter(
+    #     published_at__date=local_pub_date,
+    #     is_active=True,
+    #     published_at__lte=timezone.now(),
+    # ).order_by("published_at")
+
     daily_news = News.objects.filter(
-        published_at__date=local_pub_date,
+        published_at__range=(start_utc, end_utc),
         is_active=True,
         published_at__lte=timezone.now(),
     ).order_by("published_at")
 
     context = {
         "news": news,
+        "daily_news": daily_news,
+        "daily_news_date": local_pub_date,
         "similar_news": similar_news,
         "daily_news": daily_news,
         "daily_news_date": local_pub_date,  # передаём дату отдельно для шаблона

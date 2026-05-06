@@ -1,5 +1,6 @@
 # news/models.py
 # Модели для приложения news (новости)
+import datetime
 from django.db import models  # Импорт базовых моделей Django
 from django.db.models import F  # Атомарное обновление полей
 from django.urls import reverse  # Функция для генерации URL
@@ -10,8 +11,12 @@ from django_ckeditor_5.fields import (
     CKEditor5Field,
 )  # Поле для расширенного текстового редактора
 
-from django.utils import timezone  # Утилиты для работы с датой и временем (отложенная публикация)
-from django.utils.html import strip_tags  # Очистка HTML тегов для расчета времени чтения
+from django.utils import (
+    timezone,
+)  # Утилиты для работы с датой и временем (отложенная публикация)
+from django.utils.html import (
+    strip_tags,
+)  # Очистка HTML тегов для расчета времени чтения
 import math  # Математические функции (округление времени чтения)
 
 from main.models import HeroMixin
@@ -168,12 +173,12 @@ class News(HeroMixin):
     is_active = models.BooleanField(
         "Активно", default=True
     )  # Активна ли новость (по умолчанию да)
-    
+
     # Отложенная публикация
     published_at = models.DateTimeField(
-        "Дата публикации", 
+        "Дата публикации",
         default=timezone.now,
-        help_text="Новость будет видна на сайте только после наступления этой даты."
+        help_text="Новость будет видна на сайте только после наступления этой даты.",
     )  # Дата и время, начиная с которых новость отображается на сайте
 
     # SEO поля (для поисковой оптимизации)
@@ -238,10 +243,10 @@ class News(HeroMixin):
         """
         if self.category:
             # 1. Если изображение не задано или является основным дефолтным
-            if not self.image or self.image.name == 'news/default-category.png':
+            if not self.image or self.image.name == "news/default-category.png":
                 if self.category.image:
                     self.image = self.category.image
-            
+
             # 2. Если объект уже существует, проверяем, не сменилась ли категория
             elif self.pk:
                 try:
@@ -249,13 +254,16 @@ class News(HeroMixin):
                     # Если категория изменилась
                     if old_instance.category_id != self.category_id:
                         # Проверяем, было ли текущее изображение унаследовано от старой категории
-                        if old_instance.category and old_instance.category.image and \
-                           self.image.name == old_instance.category.image.name:
+                        if (
+                            old_instance.category
+                            and old_instance.category.image
+                            and self.image.name == old_instance.category.image.name
+                        ):
                             # Да, это было наследство. Обновляем его из новой категории (или ставим дефолт)
                             if self.category.image:
                                 self.image = self.category.image
                             else:
-                                self.image = 'news/default-category.png'
+                                self.image = "news/default-category.png"
                 except News.DoesNotExist:
                     pass
 
@@ -266,8 +274,12 @@ class News(HeroMixin):
                 try:
                     old_instance = News.objects.get(pk=self.pk)
                     if old_instance.category_id != self.category_id:
-                        if old_instance.category and old_instance.category.hero_image and \
-                           self.hero_image.name == old_instance.category.hero_image.name:
+                        if (
+                            old_instance.category
+                            and old_instance.category.hero_image
+                            and self.hero_image.name
+                            == old_instance.category.hero_image.name
+                        ):
                             if self.category.hero_image:
                                 self.hero_image = self.category.hero_image
                             else:
@@ -317,19 +329,19 @@ class News(HeroMixin):
         """
         Рассчитывает примерное время чтения новости в минутах.
         Предполагается средняя скорость чтения 200 слов в минуту.
-        
+
         Returns:
             int: Время чтения в минутах (минимум 1 минута)
         """
         if not self.content:
             return 1
-            
+
         # Очищаем HTML теги, чтобы считать только чистый текст
         plain_text = strip_tags(self.content)
         # Считаем количество слов (разделяя по пробельным символам)
         word_count = len(plain_text.split())
-        
+
         # Средняя скорость чтения взрослого человека ~200 слов в минуту
         reading_time = math.ceil(word_count / 200)
-        
+
         return max(1, reading_time)  # Возвращаем минимум 1 минуту
