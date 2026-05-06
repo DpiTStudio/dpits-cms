@@ -1,0 +1,24 @@
+<!-- Похожие новости -->
+{% if similar_news %}
+<div class="mt-5">
+    <h3 class="mb-4">Похожие новости</h3>
+    <div class="row">
+        {% for similar in similar_news %}
+        <div class="col-md-6 mb-3">
+            <div class="card h-100">
+                {% if similar.image %}
+                <img src="{{ similar.image.url }}" class="card-img-top" alt="{{ similar.title }}"
+                    style="height: 150px; object-fit: cover;" loading="lazy">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ similar.title }}</h5>
+                    <a href="{% url 'news:detail' similar.slug %}"
+                        class="btn btn-sm btn-outline-primary">Читать</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+            

@@ -114,76 +114,14 @@
                 </div>
 
                 <!-- Кнопки "Поделиться в социальных сетях" -->
-                <div class="share-buttons mt-4 mb-5 border-top border-bottom border-secondary border-opacity-25 py-3 d-flex align-items-center gap-3">
-                    <span class="fw-bold text-white-50">Поделиться:</span>
-                    <!-- Кнопка VK -->
-                    <a href="https://vk.com/share.php?url={{ request.build_absolute_uri }}&title={{ news.title|urlencode }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Поделиться ВКонтакте">
-                        <i class="fab fa-vk"></i>
-                    </a>
-                    <!-- Кнопка Telegram -->
-                    <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text={{ news.title|urlencode }}" target="_blank" class="btn btn-outline-info btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Отправить в Telegram">
-                        <i class="fab fa-telegram-plane"></i>
-                    </a>
-                    <!-- Кнопка WhatsApp -->
-                    <a href="https://api.whatsapp.com/send?text={{ news.title|urlencode }}%20{{ request.build_absolute_uri }}" target="_blank" class="btn btn-outline-success btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Отправить в WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <!-- Кнопка Копировать ссылку -->
-                    <button onclick="navigator.clipboard.writeText('{{ request.build_absolute_uri }}'); alert('Ссылка скопирована!');" class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Копировать ссылку">
-                        <i class="fas fa-link"></i>
-                    </button>
-                </div>
+                {% include 'news/components/share_buttons.html' %}
 
                 <!-- Навигация по дню публикации -->
-                {% if daily_news %}
-                <div class="daily-news-navigation p-4 rounded-4 border border-light opacity-75 mb-5" style="background: rgba(255, 255, 255, 0.02);">
-                    <h3 class="h5 fw-bold mb-4 text-primary">
-                        <i class="far fa-calendar-check me-2"></i>Лента событий за {{ news.published_at|date:"j E" }}
-                    </h3>
-                    <div class="list-group list-group-flush gap-2">
-                        {% for item in daily_news %}
-                        <div class="d-flex align-items-center py-2 px-3 rounded-3 {% if item.id == news.id %}bg-primary-subtle bg-opacity-10 border-start border-primary border-4{% else %}hover-bg-light{% endif %}" style="transition: all 0.2s;">
-                            <span class="text-muted small me-3" style="min-width: 40px;">#{{ item.id }}</span>
-                            <h4 class="h6 mb-0 flex-grow-1">
-                                {% if item.id == news.id %}
-                                    <span class="text-primary fw-bold">{{ item.title }}</span>
-                                    <span class="badge bg-primary ms-2 small" style="font-size: 0.6rem;">ЧИТАЕТЕ СЕЙЧАС</span>
-                                {% else %}
-                                    <a href="{% url 'news:detail' item.slug %}" class="text-decoration-none text-white-50 hover-primary">
-                                        {{ item.title }}
-                                    </a>
-                                {% endif %}
-                            </h4>
-                            <small class="text-muted ms-3">{{ item.published_at|date:"H:i" }}</small>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                {% endif %}
+                {% include 'news/components/daily_news.html' %}
 
                 <!-- Похожие новости -->
-                {% if similar_news %}
-                <div class="mt-5">
-                    <h3 class="mb-4">Похожие новости</h3>
-                    <div class="row">
-                        {% for similar in similar_news %}
-                        <div class="col-md-6 mb-3">
-                            <div class="card h-100">
-                                {% if similar.image %}
-                                <img src="{{ similar.image.url }}" class="card-img-top" alt="{{ similar.title }}"
-                                    style="height: 150px; object-fit: cover;" loading="lazy">
-                                {% endif %}
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ similar.title }}</h5>
-                                    <a href="{% url 'news:detail' similar.slug %}"
-                                        class="btn btn-sm btn-outline-primary">Читать</a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                {% endif %}
+                {% include 'news/components/similar_news.html' %}
+            
             </div>
         </div>
     </div>

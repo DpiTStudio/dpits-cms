@@ -1,0 +1,20 @@
+<!-- Кнопки "Поделиться в социальных сетях" -->
+<div class="share-buttons mt-4 mb-5 border-top border-bottom border-secondary border-opacity-25 py-3 d-flex align-items-center gap-3">
+    <span class="fw-bold text-white-50">Поделиться:</span>
+    <!-- Кнопка VK -->
+    <a href="https://vk.com/share.php?url={{ request.build_absolute_uri }}&title={{ news.title|urlencode }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Поделиться ВКонтакте">
+        <i class="fab fa-vk"></i>
+    </a>
+    <!-- Кнопка Telegram -->
+    <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text={{ news.title|urlencode }}" target="_blank" class="btn btn-outline-info btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Отправить в Telegram">
+        <i class="fab fa-telegram-plane"></i>
+    </a>
+    <!-- Кнопка WhatsApp -->
+    <a href="https://api.whatsapp.com/send?text={{ news.title|urlencode }}%20{{ request.build_absolute_uri }}" target="_blank" class="btn btn-outline-success btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Отправить в WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <!-- Кнопка Копировать ссылку -->
+    <button onclick="navigator.clipboard.writeText('{{ request.build_absolute_uri }}'); alert('Ссылка скопирована!');" class="btn btn-outline-secondary btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;" title="Копировать ссылку">
+        <i class="fas fa-link"></i>
+    </button>
+</div>
