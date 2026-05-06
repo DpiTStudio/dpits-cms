@@ -38,7 +38,7 @@
           {% endif %}
         </div>
         <h6
-          class="text-white mb-0 {{ daily_news_date|date:"j E Y" }}1fw-black text-primary{{ daily_news_date|date:"j E Y" }}2fw-semibold{{ daily_news_date|date:"j E Y" }}3"
+          class="mb-0 {% if d_news.id == news.id %}text-primary fw-bold{% else %}text-white fw-semibold{% endif %}"
         >
           {{ d_news.title }}
         </h6>

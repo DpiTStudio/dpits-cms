@@ -241,52 +241,6 @@ class News(HeroMixin):
         Умное наследование: если категория меняется и изображение было унаследовано от старой,
         оно обновится на изображение новой категории.
         """
-        if self.category:
-            # 1. Если изображение не задано или является основным дефолтным
-            if not self.image or self.image.name == "news/default-category.png":
-                if self.category.image:
-                    self.image = self.category.image
-
-            # 2. Если объект уже существует, проверяем, не сменилась ли категория
-            elif self.pk:
-                try:
-                    old_instance = News.objects.get(pk=self.pk)
-                    # Если категория изменилась
-                    if old_instance.category_id != self.category_id:
-                        # Проверяем, было ли текущее изображение унаследовано от старой категории
-                        if (
-                            old_instance.category
-                            and old_instance.category.image
-                            and self.image.name == old_instance.category.image.name
-                        ):
-                            # Да, это было наследство. Обновляем его из новой категории (или ставим дефолт)
-                            if self.category.image:
-                                self.image = self.category.image
-                            else:
-                                self.image = "news/default-category.png"
-                except News.DoesNotExist:
-                    pass
-
-            # Аналогичная логика для Hero-изображения
-            if not self.hero_image and self.category.hero_image:
-                self.hero_image = self.category.hero_image
-            elif self.pk:
-                try:
-                    old_instance = News.objects.get(pk=self.pk)
-                    if old_instance.category_id != self.category_id:
-                        if (
-                            old_instance.category
-                            and old_instance.category.hero_image
-                            and self.hero_image.name
-                            == old_instance.category.hero_image.name
-                        ):
-                            if self.category.hero_image:
-                                self.hero_image = self.category.hero_image
-                            else:
-                                self.hero_image = None
-                except News.DoesNotExist:
-                    pass
-
         if not self.slug:
             base_slug = slugify(self.title)  # Преобразуем заголовок в slug
             self.slug = base_slug  # Устанавливаем базовый slug
@@ -302,6 +256,48 @@ class News(HeroMixin):
                 if self.pk:  # Если объект уже существует
                     queryset = queryset.exclude(pk=self.pk)  # Исключаем текущий объект
                 counter += 1  # Увеличиваем счетчик
+
+        if self.category:
+            # Получаем старый экземпляр один раз, если он существует
+            old_instance = None
+            if self.pk:
+                try:
+                    old_instance = News.objects.get(pk=self.pk)
+                except News.DoesNotExist:
+                    pass
+
+            # 1. Если изображение не задано или является основным дефолтным
+            if not self.image or self.image.name == "news/default-category.png":
+                if self.category.image:
+                    self.image = self.category.image
+
+            # 2. Если категория изменилась, проверяем наследство изображений
+            elif old_instance and old_instance.category_id != self.category_id:
+                # Проверяем, было ли текущее изображение унаследовано от старой категории
+                if (
+                    old_instance.category
+                    and old_instance.category.image
+                    and self.image.name == old_instance.category.image.name
+                ):
+                    # Да, это было наследство. Обновляем его из новой категории (или ставим дефолт)
+                    if self.category.image:
+                        self.image = self.category.image
+                    else:
+                        self.image = "news/default-category.png"
+
+            # Аналогичная логика для Hero-изображения
+            if not self.hero_image and self.category.hero_image:
+                self.hero_image = self.category.hero_image
+            elif old_instance and old_instance.category_id != self.category_id:
+                if (
+                    old_instance.category
+                    and old_instance.category.hero_image
+                    and self.hero_image.name == old_instance.category.hero_image.name
+                ):
+                    if self.category.hero_image:
+                        self.hero_image = self.category.hero_image
+                    else:
+                        self.hero_image = None
         super().save(*args, **kwargs)  # Вызываем метод save родительского класса
 
     def get_absolute_url(self):

@@ -1,6 +1,6 @@
 # news/views.py
 # Представления (контроллеры) для приложения news (новости)
-import datetime
+from datetime import datetime, time
 from django.shortcuts import (
     render,
     get_object_or_404,
@@ -163,8 +163,8 @@ def news_detail(request, slug):
     # --- ИСПРАВЛЕНИЕ: корректная фильтрация по локальной дате ---
     # Преобразуем локальную дату в начало и конец дня в локальном часовом поясе,
     # затем переводим эти границы в UTC для фильтрации в БД.
-    start_local = datetime.combine(local_pub_date, datetime.min.time())
-    end_local = datetime.combine(local_pub_date, datetime.max.time())
+    start_local = datetime.combine(local_pub_date, time.min)
+    end_local = datetime.combine(local_pub_date, time.max)
     # Применяем текущий часовой пояс (из settings.TIME_ZONE)
     start_utc = timezone.make_aware(start_local, timezone.get_current_timezone())
     end_utc = timezone.make_aware(end_local, timezone.get_current_timezone())
@@ -187,8 +187,6 @@ def news_detail(request, slug):
         "daily_news": daily_news,
         "daily_news_date": local_pub_date,
         "similar_news": similar_news,
-        "daily_news": daily_news,
-        "daily_news_date": local_pub_date,  # передаём дату отдельно для шаблона
         "categories": get_cached_news_categories(),
         "sidebar_news": get_cached_sidebar_news(),
         "breadcrumbs": get_breadcrumbs(
