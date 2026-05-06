@@ -94,6 +94,7 @@ def news_list(request):
         "current_sort": sort_by,
         "search_query": query,
         "selected_date": date_filter or "",
+        "page_title": "Новости",
         "breadcrumbs": get_breadcrumbs(
             [
                 ("Новости", reverse("news:list"), "fas fa-newspaper"),

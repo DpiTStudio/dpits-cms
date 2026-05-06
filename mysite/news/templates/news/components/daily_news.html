@@ -1,54 +1,51 @@
 <!-- Навигация по дню публикации (Лента событий) -->
 {% if daily_news %}
-<div class="card sidebar-premium-card mb-4">
-    <!-- Заголовок -->
-    <div class="card-header sidebar-premium-header-news">
-        <h6>
-            <i class="far fa-calendar-check"></i>
-            Лента за {{ daily_news_date|date:"j E Y" }}
-            <span class="badge bg-secondary ms-2" style="font-size: 0.65rem; vertical-align: middle;">
-                {{ daily_news|length }}
-            </span>
-        </h6>
-    </div>
-
-    <!-- Тело карточки -->
-    <div class="card-body sidebar-premium-body">
-        <div class="sidebar-service-list">
-            {% for item in daily_news %}
-                {% if item.id == news.id %}
-                <!-- Активный элемент (Читаете сейчас) -->
-                <div class="sidebar-service-item" style="background: rgba(59, 130, 246, 0.15); border-left: 3px solid var(--sidebar-accent); animation-delay: {{ forloop.counter }}00ms; cursor: default;">
-                    <div class="d-flex flex-column w-100 gap-2">
-                        <div class="text-white fw-bold" style="font-size: 0.85rem; line-height: 1.3;">
-                            {{ item.title }}
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mt-1">
-                            <span class="badge bg-primary" style="font-size: 0.65rem; letter-spacing: 0.05em; padding: 4px 8px;">ЧИТАЕТЕ СЕЙЧАС</span>
-                            <span class="text-white-50 small fw-bold" style="font-size: 0.75rem;">
-                                <i class="far fa-clock me-1"></i>{{ item.published_at|date:"H:i" }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                {% else %}
-                <!-- Обычная новость в ленте -->
-                <a href="{% url 'news:detail' item.slug %}" class="sidebar-service-item" style="animation-delay: {{ forloop.counter }}00ms;">
-                    <div class="d-flex flex-column w-100 gap-1">
-                        <div class="text-white-50 sidebar-item-title" style="font-size: 0.85rem; line-height: 1.3; transition: color 0.2s ease;">
-                            {{ item.title }}
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mt-1">
-                            <span class="text-muted small" style="font-size: 0.7rem; opacity: 0.5;">#{{ item.id }}</span>
-                            <span class="text-muted small" style="font-size: 0.75rem; opacity: 0.8;">
-                                <i class="far fa-clock me-1"></i>{{ item.published_at|date:"H:i" }}
-                            </span>
-                        </div>
-                    </div>
-                </a>
-                {% endif %}
-            {% endfor %}
+<div class="card sidebar-premium-card mb-4 glass-container border-opacity-25">
+  <!-- Заголовок -->
+  <div class="card-header sidebar-premium-header-news bg-transparent border-secondary border-opacity-25 py-3">
+    <h5 class="mb-0 text-white fw-bold">
+      <i class="far fa-calendar-check text-primary me-2"></i>
+      Лента за {{ daily_news_date|date:"j E Y" }}
+      <span class="badge bg-primary bg-opacity-20 text-primary ms-2 fs-6" style="vertical-align: middle">
+        {{ daily_news|length }}
+      </span>
+    </h5>
+  </div>
+  
+  <!-- Список новостей дня -->
+  <div class="card-body p-0">
+    <div class="list-group list-group-flush bg-transparent">
+      {% for d_news in daily_news %}
+      <a href="{{ d_news.get_absolute_url }}" 
+         class="list-group-item list-group-item-action bg-transparent border-secondary border-opacity-10 py-3 px-4 transition-hover {% if d_news.id == news.id %}active-news-item{% endif %}">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <span class="text-primary small fw-bold">
+            <i class="far fa-clock me-1"></i> {{ d_news.published_at|date:"H:i" }}
+          </span>
+          {% if d_news.id == news.id %}
+          <span class="badge bg-success bg-opacity-75 rounded-pill small">Читаете сейчас</span>
+          {% endif %}
         </div>
+        <h6 class="text-white mb-0 {% if d_news.id == news.id %}fw-black text-primary{% else %}fw-semibold{% endif %}">
+          {{ d_news.title }}
+        </h6>
+      </a>
+      {% endfor %}
     </div>
+  </div>
 </div>
+
+<style>
+.active-news-item {
+    background: rgba(var(--bs-primary-rgb), 0.05) !important;
+    border-left: 4px solid var(--bs-primary) !important;
+}
+.transition-hover {
+    transition: all 0.3s ease;
+}
+.transition-hover:hover {
+    background: rgba(255, 255, 255, 0.02) !important;
+    transform: translateX(5px);
+}
+</style>
 {% endif %}

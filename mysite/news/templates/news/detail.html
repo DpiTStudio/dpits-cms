@@ -1,160 +1,148 @@
-<!-- news/detail.html -->
+{# news/detail.html - Детальная страница новости #}
 {% extends "_base.html" %}
+
 {% load static %}
 
-<!-- Заголовок страницы в браузере -->
 {% block title %}
-{{ site_settings.company_name }} | {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} |
-{{ news.title }}
+    {{ news.seo_title|default:news.title }} | {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
 {% endblock %}
 
 {% block meta_description %}
-{{ news.content|striptags|truncatewords:30|default:site_settings.seo_description }}
+    {{ news.seo_description|default:news.short_description|striptags|truncatewords:25 }}
 {% endblock %}
 
 {% block meta_keywords %}
-{{ site_settings.company_name }}, {{ site_settings.seo_keywords|default:"новость, новости, просмотр, новость" }}
-{% endblock %}
-
-{% block og_title %}
-{{ news.title }}
-{% endblock %}
-{% block og_description %}
-{{ news.content|striptags|truncatewords:30|default:site_settings.seo_description }}
-{% endblock %}
-{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% if news.image %}{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
-
-{% block twitter_title %}
-{{ news.title }}
-{% endblock %}
-{% block twitter_description %}
-{{ news.content|striptags|truncatewords:30|default:site_settings.seo_description }}
-{% endblock %}
-{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if news.image %}{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
-
-<!-- Дополнительные CSS файлы и SEO-скрипты -->
-{% block extra_head %}
-<!-- Указание канонического URL для избежания дубликатов в поиске -->
-<link rel="canonical" href="{{ request.build_absolute_uri }}" />
-
-<!-- Микроразметка Schema.org для новостной статьи -->
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
-    "headline": "{{ news.title|escapejs }}",
-    "image": [
-      "{{ request.scheme }}://{{ request.get_host }}{% if news.image %}{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}"
-    ],
-    "datePublished": "{{ news.published_at|date:'c' }}",
-    "dateModified": "{{ news.updated_at|date:'c' }}",
-    "description": "{{ news.short_description|striptags|escapejs|default:site_settings.seo_description|escapejs }}",
-    "author": [
-      {
-        "@type": "Organization",
-        "name": "{{ site_settings.company_name|escapejs }}",
-        "url": "{{ request.scheme }}://{{ request.get_host }}"
-      }
-    ]
-  }
-</script>
+    {{ news.seo_keywords|default:site_settings.seo_keywords }}
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/news-common.css' %}" />
-<link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
-<link rel="stylesheet" href="{% static 'css/news-detail.css' %}" />
+<link rel="stylesheet" href="{% static 'css/news-detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/daily-news.css' %}">
 {% endblock %}
 
-<!-- Основное содержимое страницы -->
 {% block content %}
-<article class="news-detail-container">
-  <!-- Изображение + Заголовок над ним -->
-  {% if news.image %}
-  <!-- Заголовок и мета-данные — над картинкой -->
-  <header class="news-detail-header mb-4">
-    <div class="d-flex flex-wrap gap-2 mb-3">
-      <span
-        class="badge text-primary bg-primary-subtle rounded-pill px-3 py-2 fw-bold shadow-sm"
-      >
-        НОВОСТИ
-      </span>
-      {% if news.category %}
-      <a
-        href="{% url 'news:category' news.category.slug %}"
-        class="badge bg-secondary bg-opacity-25 text-white rounded-pill px-3 py-2 fw-bold text-decoration-none"
-      >
-        {{ news.category.name }}
-      </a>
-      {% endif %}
+<article class="news-detail-container glass-container p-4 p-md-5 rounded-4 shadow-lg border border-secondary border-opacity-25" data-aos="fade-up">
+    <!-- Бейдж категории над заголовком (уже в Hero, но можем продублировать или оставить только там) -->
+    
+    <!-- Основной контент -->
+    <div class="news-content-body text-white-75 lead-sm mb-5">
+        {{ news.content|safe }}
     </div>
 
-    <h1 class="display-4 fw-bold text-white mb-4 news-title-detail">
-      {{ news.title }}
-    </h1>
-  </header>
+    <!-- Теги и Поделиться -->
+    <div class="news-footer-actions d-flex flex-wrap justify-content-between align-items-center gap-4 pt-4 border-top border-secondary border-opacity-25">
+        {% if news.tags.all %}
+        <div class="news-tags d-flex flex-wrap gap-2">
+            {% for tag in news.tags.all %}
+            <a href="{{ tag.get_absolute_url }}" class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 rounded-pill px-3 py-2 text-decoration-none transition-hover">
+                <i class="fas fa-hashtag me-1"></i> {{ tag.name }}
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
 
-  <figure
-    class="news-detail-image-wrapper mb-5 position-relative rounded-4 overflow-hidden shadow-lg"
-  >
-    <img
-      src="{{ news.image.url }}"
-      class="img-fluid w-100 object-fit-cover"
-      style="max-height: 500px"
-      alt="{{ news.title }}"
-    />
-    <div
-      class="position-absolute bottom-0 start-0 w-100 h-50 bg-gradient-dark"
-    ></div>
-  </figure>
-  {% else %}
-  <!-- Если картинки нет — заголовок всё равно показываем -->
-  <header class="news-detail-header mb-5">
-    <div class="d-flex flex-wrap gap-2 mb-3">
-      <span
-        class="badge text-primary bg-primary-subtle rounded-pill px-3 py-2 fw-bold shadow-sm"
-      >
-        НОВОСТИ
-      </span>
-      {% if news.category %}
-      <a
-        href="{% url 'news:category' news.category.slug %}"
-        class="badge bg-secondary bg-opacity-25 text-white rounded-pill px-3 py-2 fw-bold text-decoration-none"
-      >
-        {{ news.category.name }}
-      </a>
-      {% endif %}
+        <div class="news-share d-flex align-items-center gap-3">
+            <span class="text-muted small fw-bold text-uppercase">Поделиться:</span>
+            <div class="share-buttons d-flex gap-2">
+                <a href="https://vk.com/share.php?url={{ request.build_absolute_uri }}&title={{ news.title }}" target="_blank" class="share-btn vk" title="Поделиться в VK">
+                    <i class="fab fa-vk"></i>
+                </a>
+                <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text={{ news.title }}" target="_blank" class="share-btn telegram" title="Отправить в Telegram">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+                <a href="https://wa.me/?text={{ news.title }}%20{{ request.build_absolute_uri }}" target="_blank" class="share-btn whatsapp" title="Отправить в WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
     </div>
-
-    <h1 class="display-4 fw-bold text-white mb-4 news-title-detail">
-      {{ news.title }}
-    </h1>
-  </header>
-  {% endif %}
-
-  <!-- Содержание статьи -->
-  <div class="news-content fs-5 mb-5">
-    {{ news.content|safe }}
-  </div>
-
-  <!-- Кнопки "Поделиться" -->
-  <div
-    class="share-buttons-wrapper mb-5 pt-4 border-top border-secondary border-opacity-25"
-  >
-    {% include 'news/components/share_buttons.html' %}
-  </div>
-
-  <!-- Навигация по дню публикации (Лента событий) -->
-  <div class="daily-news-wrapper mb-5">
-    {% include 'news/components/daily_news.html' %}
-  </div>
 </article>
+
+<!-- Секция Ленты новостей того же дня (перенесена из сайдбара по просьбе из истории) -->
+<div class="mt-5" data-aos="fade-up">
+    {% include 'news/components/daily_news.html' %}
+</div>
+
+<!-- Похожие новости -->
+{% if similar_news %}
+<section class="similar-news-section mt-5 pt-5" data-aos="fade-up">
+    <div class="d-flex align-items-center mb-4">
+        <h3 class="text-white fw-bold mb-0">Похожие материалы</h3>
+        <div class="flex-grow-1 border-top border-secondary border-opacity-25 border-2 ms-4"></div>
+    </div>
+    
+    <div class="row g-4">
+        {% for s_news in similar_news %}
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="similar-news-card glass-card h-100 rounded-3 overflow-hidden border border-secondary border-opacity-10 transition-hover">
+                <a href="{{ s_news.get_absolute_url }}" class="text-decoration-none">
+                    {% if s_news.image %}
+                    <div class="ratio ratio-16x9">
+                        <img src="{{ s_news.image.url }}" class="object-fit-cover" alt="{{ s_news.title }}">
+                    </div>
+                    {% endif %}
+                    <div class="p-3">
+                        <span class="text-primary small fw-bold d-block mb-2">{{ s_news.category.name }}</span>
+                        <h4 class="h6 text-white mb-2 line-clamp-2">{{ s_news.title }}</h4>
+                        <div class="text-muted small">
+                            <i class="far fa-calendar-alt me-1"></i> {{ s_news.published_at|date:"d.m.Y" }}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 {% endblock %}
 
 {% block sidebar %}
-<!-- Похожие новости -->
-{% include 'news/components/similar_news.html' %}
+    <!-- Категории в сайдбаре -->
+    <div class="sidebar-widget mb-4 glass-container p-4 rounded-4 border border-secondary border-opacity-25">
+        <h5 class="text-white fw-bold mb-3 border-bottom border-secondary border-opacity-25 pb-2">Категории</h5>
+        <div class="category-list d-flex flex-column gap-2">
+            {% for cat in categories %}
+            <a href="{{ cat.get_absolute_url }}" class="category-item d-flex justify-content-between align-items-center text-decoration-none text-white-50 transition-hover">
+                <span>{{ cat.name }}</span>
+                <span class="badge bg-secondary bg-opacity-10 text-muted rounded-pill">{{ cat.news_set.count }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
 
-<!-- Стандартный сайдбар -->
-{{ block.super }}
+    <!-- Популярное (если есть в sidebar_news) -->
+    {% if sidebar_news %}
+    <div class="sidebar-widget mb-4 glass-container p-4 rounded-4 border border-secondary border-opacity-25">
+        <h5 class="text-white fw-bold mb-3 border-bottom border-secondary border-opacity-25 pb-2">Популярное</h5>
+        <div class="sidebar-news-list d-flex flex-column gap-3">
+            {% for sn in sidebar_news %}
+            <a href="{{ sn.get_absolute_url }}" class="sidebar-news-item d-flex gap-3 text-decoration-none transition-hover">
+                {% if sn.image %}
+                <img src="{{ sn.image.url }}" class="rounded-3" style="width: 70px; height: 70px; object-fit: cover;" alt="{{ sn.title }}">
+                {% endif %}
+                <div class="sn-content">
+                    <h6 class="text-white mb-1 small fw-bold line-clamp-2">{{ sn.title }}</h6>
+                    <span class="text-muted small">{{ sn.published_at|date:"d M Y" }}</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Инициализация AOS для анимаций
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
+            });
+        }
+    });
+</script>
 {% endblock %}
