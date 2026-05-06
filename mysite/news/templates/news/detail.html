@@ -30,21 +30,21 @@
 {% block twitter_description %}
 {{ news.content|striptags|truncatewords:30|default:site_settings.seo_description }}
 {% endblock %}
-{{ site_settings.company_name }}5{{ site_settings.company_name }}6://{{ site_settings.company_name }}7{{ site_settings.company_name }}8{{ site_settings.company_name }}9{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}0{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}1{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}2{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}3
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if news.image %}{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
 
 <!-- Дополнительные CSS файлы и SEO-скрипты -->
 {% block extra_head %}
 <!-- Указание канонического URL для избежания дубликатов в поиске -->
-<link rel="canonical" href="{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}5" />
+<link rel="canonical" href="{{ request.build_absolute_uri }}" />
 
 <!-- Микроразметка Schema.org для новостной статьи -->
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "headline": "{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}6",
+    "headline": "{{ news.title|escapejs }}",
     "image": [
-      "{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}7://{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}8{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}9{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}"
+      "{{ request.scheme }}://{{ request.get_host }}{% if news.image %}{{ news.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}"
     ],
     "datePublished": "{{ news.published_at|date:'c' }}",
     "dateModified": "{{ news.updated_at|date:'c' }}",
