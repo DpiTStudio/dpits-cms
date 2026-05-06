@@ -1,5 +1,6 @@
 # news/views.py
 # Представления (контроллеры) для приложения news (новости)
+import datetime
 from django.shortcuts import (
     render,
     get_object_or_404,
@@ -8,7 +9,6 @@ from django.shortcuts import (
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse
-import datetime
 from django.utils import timezone  # Импортируем timezone для работы с датами публикации
 from .models import News, NewsCategory, NewsTag
 from .utils import get_cached_news_categories, get_cached_sidebar_news
@@ -23,7 +23,7 @@ def news_list(request):
     query = request.GET.get("q", "")
 
     sort_by = request.GET.get("sort", "date_desc")
-    
+
     # Маппинг сортировок (поддержка старых и новых форматов с сайта)
     sort_mapping = {
         "date_desc": "-created_at",
@@ -32,9 +32,9 @@ def news_list(request):
         "-created_at": "-created_at",
         "created_at": "created_at",
         "-views": "-views",
-        "title": "title"
+        "title": "title",
     }
-    
+
     db_sort = sort_mapping.get(sort_by, "-created_at")
 
     category_slug = request.GET.get("category")
@@ -132,6 +132,23 @@ def news_detail(request, slug):
             .order_by("-created_at")[:4]
         )
 
+        # Получаем все новости за ту же дату публикации (в локальном часовом поясе)
+        local_pub_date = timezone.localtime(news.published_at).date()
+
+        # Создаем временной диапазон от начала до конца дня (с учетом часового пояса)
+        start_of_day = timezone.make_aware(
+            datetime.datetime.combine(local_pub_date, datetime.time.min)
+        )
+        end_of_day = timezone.make_aware(
+            datetime.datetime.combine(local_pub_date, datetime.time.max)
+        )
+
+        daily_news = News.objects.filter(
+            published_at__range=(start_of_day, end_of_day),
+            is_active=True,
+            published_at__lte=timezone.now(),
+        ).order_by("published_at")
+
         # Если новостей по тегам меньше 4, дополняем из той же категории
         if len(similar_news) < 4:
             additional_news = (
@@ -157,15 +174,11 @@ def news_detail(request, slug):
             .order_by("-created_at")[:4]
         )
 
-    # Получаем все новости за ту же дату публикации (в локальном часовом поясе) и ту же категорию
+    # Получаем все новости за ту же дату публикации (в локальном часовом поясе)
     local_pub_date = timezone.localtime(news.published_at).date()
-    
-    # Создаем временной диапазон от начала до конца дня (с учетом часового пояса)
-    start_of_day = timezone.make_aware(datetime.datetime.combine(local_pub_date, datetime.time.min))
-    end_of_day = timezone.make_aware(datetime.datetime.combine(local_pub_date, datetime.time.max))
 
     daily_news = News.objects.filter(
-        published_at__range=(start_of_day, end_of_day),
+        published_at__date=local_pub_date,
         is_active=True,
         published_at__lte=timezone.now(),
     ).order_by("published_at")
