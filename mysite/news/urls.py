@@ -21,6 +21,8 @@ urlpatterns = [
     # URL: /news/<slug>/
     # slug - URL-дружественный идентификатор новости
     path("<slug:slug>/", views.news_detail, name="detail"),
+    # Новости за конкретный день публикации (YYYY-MM-DD)
+    path("day/<str:date_str>/", views.news_by_day, name="by_day"),
     
     # Поиск новостей
     # URL: /news/search/
