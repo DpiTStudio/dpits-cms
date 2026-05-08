@@ -119,10 +119,9 @@ def news_detail(request, slug):
 
     news.increment_views()
 
-    # Умный алгоритм рекомендаций: сначала ищем по совпадению тегов
+    # Умный алгоритм рекомендаций (без изменений)
     news_tags = news.tags.all()
     if news_tags.exists():
-        # Находим новости с такими же тегами
         similar_news = (
             News.objects.filter(
                 tags__in=news_tags, is_active=True, published_at__lte=timezone.now()
@@ -133,7 +132,6 @@ def news_detail(request, slug):
             .order_by("-created_at")[:4]
         )
 
-        # Если новостей по тегам меньше 4, дополняем из той же категории
         if len(similar_news) < 4:
             additional_news = (
                 News.objects.filter(
@@ -148,7 +146,6 @@ def news_detail(request, slug):
             )
             similar_news = list(similar_news) + list(additional_news)
     else:
-        # Базовый алгоритм: просто новости из той же категории
         similar_news = (
             News.objects.filter(
                 category=news.category, is_active=True, published_at__lte=timezone.now()
@@ -158,29 +155,31 @@ def news_detail(request, slug):
             .order_by("-created_at")[:4]
         )
 
-    # Получаем все новости за ту же дату публикации (в локальном часовом поясе)
+    # ПРАВИЛЬНЫЙ способ получить все новости за ту же дату публикации
     local_pub_date = timezone.localtime(news.published_at).date()
-    # --- ИСПРАВЛЕНИЕ: корректная фильтрация по локальной дате ---
-    # Преобразуем локальную дату в начало и конец дня в локальном часовом поясе,
-    # затем переводим эти границы в UTC для фильтрации в БД.
-    start_local = datetime.combine(local_pub_date, time.min)
-    end_local = datetime.combine(local_pub_date, time.max)
-    # Применяем текущий часовой пояс (из settings.TIME_ZONE)
-    start_utc = timezone.make_aware(start_local, timezone.get_current_timezone())
-    end_utc = timezone.make_aware(end_local, timezone.get_current_timezone())
 
-    # Единственный запрос daily_news — по дате публикации текущей новости
-    # daily_news = News.objects.filter(
-    #     published_at__date=local_pub_date,
-    #     is_active=True,
-    #     published_at__lte=timezone.now(),
-    # ).order_by("published_at")
-
+    # Вариант 1: Через __date (проще и читаемее, но может быть медленнее на больших таблицах)
     daily_news = News.objects.filter(
-        published_at__range=(start_utc, end_utc),
+        published_at__date=local_pub_date,
         is_active=True,
         published_at__lte=timezone.now(),
     ).order_by("published_at")
+
+    # Вариант 2: Через диапазон (быстрее с правильно настроенным индексом)
+    # start_of_day = timezone.make_aware(
+    #     datetime.combine(local_pub_date, datetime.min.time()),
+    #     timezone.get_current_timezone()
+    # )
+    # end_of_day = timezone.make_aware(
+    #     datetime.combine(local_pub_date, datetime.max.time()),
+    #     timezone.get_current_timezone()
+    # )
+    # daily_news = News.objects.filter(
+    #     published_at__gte=start_of_day,
+    #     published_at__lte=end_of_day,
+    #     is_active=True,
+    #     published_at__lte=timezone.now(),
+    # ).order_by("published_at")
 
     context = {
         "news": news,
