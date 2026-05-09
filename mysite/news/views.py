@@ -1,5 +1,6 @@
 # news/views.py
 # Представления (контроллеры) для приложения news (новости)
+import datetime
 from django.shortcuts import (
     render,
     get_object_or_404,
@@ -54,33 +55,36 @@ def news_list(request):
     if category_slug:
         news_queryset = news_queryset.filter(category__slug=category_slug)
 
-    # Фильтрация по дате
+    # Фильтрация по дате публикации (используем published_at, а не created_at)
     if date_filter:
         try:
             parts = date_filter.split("-")
             if len(parts) == 3:
                 news_queryset = news_queryset.filter(
-                    created_at__year=int(parts[0]),
-                    created_at__month=int(parts[1]),
-                    created_at__day=int(parts[2]),
+                    published_at__year=int(parts[0]),
+                    published_at__month=int(parts[1]),
+                    published_at__day=int(parts[2]),
                 )
             elif len(parts) == 2:
                 news_queryset = news_queryset.filter(
-                    created_at__year=int(parts[0]), created_at__month=int(parts[1])
+                    published_at__year=int(parts[0]), published_at__month=int(parts[1])
                 )
             elif len(parts) == 1:
-                news_queryset = news_queryset.filter(created_at__year=int(parts[0]))
+                news_queryset = news_queryset.filter(published_at__year=int(parts[0]))
         except ValueError:
             pass
 
     # Сортировка
     if db_sort == "category":
-        news_queryset = news_queryset.order_by("category__name", "-created_at")
+        news_queryset = news_queryset.order_by("category__name", "-published_at")
     elif db_sort in ["-created_at", "created_at"]:
-        news_queryset = news_queryset.order_by(db_sort)
+        # Для совместимости: маппим сортировку по created_at на published_at
+        news_queryset = news_queryset.order_by(
+            db_sort.replace("created_at", "published_at")
+        )
     else:
         # Для сортировки по просмотрам и т.д. сначала сортируем по выбранному полю, затем по дате
-        news_queryset = news_queryset.order_by(db_sort, "-created_at")
+        news_queryset = news_queryset.order_by(db_sort, "-published_at")
 
     paginator = Paginator(news_queryset, 20)
     page_number = request.GET.get("page", 1)
@@ -154,24 +158,28 @@ def news_detail(request, slug):
             .order_by("-created_at")[:4]
         )
 
-    # ПРАВИЛЬНЫЙ способ получить все новости за ту же дату публикации
+    # Получаем локальную дату публикации текущей новости (с учётом TIME_ZONE = Europe/Moscow)
     local_pub_date = timezone.localtime(news.published_at).date()
-    current_date = timezone.localtime(timezone.now()).date()
 
-    # Лента за день выводится ИСКЛЮЧИТЕЛЬНО в день публикации новости (если новость опубликована сегодня)
-    # и содержит только новости, опубликованные именно в этот день.
-    daily_news = []
-    if local_pub_date == current_date:
-        daily_news = News.objects.filter(
-            published_at__date=local_pub_date,
-            is_active=True,
-            published_at__lte=timezone.now(),
-        ).order_by("published_at")
-        
-        # Если в этот день опубликована только 1 новость (текущая), ленту можно не показывать, 
-        # но по запросу мы просто выводим новости именно за этот день.
-        if daily_news.count() <= 1:
-            daily_news = [] # Не показываем ленту, если в ней только текущая новость
+    # Границы дня по локальному времени (начало и конец дня в UTC)
+    tz = timezone.get_current_timezone()
+    day_start = timezone.make_aware(
+        datetime.datetime.combine(local_pub_date, datetime.time.min), tz
+    )
+    day_end = timezone.make_aware(
+        datetime.datetime.combine(local_pub_date, datetime.time.max), tz
+    )
+
+    # Лента за день: все активные новости, опубликованные именно в этот локальный день
+    daily_news = News.objects.filter(
+        is_active=True,
+        published_at__gte=day_start,
+        published_at__lte=min(day_end, timezone.now()),
+    ).order_by("published_at")
+
+    # Не показываем ленту, если в ней только текущая новость
+    if daily_news.count() <= 1:
+        daily_news = []
 
     context = {
         "news": news,
