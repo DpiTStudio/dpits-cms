@@ -458,6 +458,8 @@ def hero_overrides(request):
         "service": None,
         "page": None,
         "news": None,
+        "category": None,
+        "page_title": None,
     }
 
 
