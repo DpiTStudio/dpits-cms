@@ -199,12 +199,6 @@
                     <i class="fas fa-list" aria-hidden="true"></i>Все новости
                 </a>
             </li>
-            {# Новости за день #}
-            <li role="none">
-                <a class="dropdown-item" href="{% url 'news:day' %}" role="menuitem">
-                    <i class="fas fa-calendar" aria-hidden="true"></i>Новости за день
-                </a>
-            </li>
             {# Новости по категориям #}
             {% if news_categories %}
             {% for category in news_categories|slice:":5" %}

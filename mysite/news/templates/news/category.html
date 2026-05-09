@@ -22,37 +22,6 @@
 
 {% block content %}
 <div class="news-list-container">
-    <!-- Категории -->
-    <div class="news-filters mb-4">
-        <h5 class="text-white mb-3 fw-bold">Категории:</h5>
-        <div class="d-flex flex-wrap gap-2">
-            <a href="{% url 'news:list' %}" class="btn-filter-pill">
-                Все
-            </a>
-            {% for cat in categories %}
-                <a href="{{ cat.get_absolute_url }}" class="btn-filter-pill {% if category.slug == cat.slug %}active{% endif %}">
-                    {{ cat.name }}
-                </a>
-            {% endfor %}
-        </div>
-    </div>
-
-    <!-- Сортировка -->
-    <div class="news-sort mb-5">
-        <h5 class="text-white mb-3 fw-bold">Сортировка:</h5>
-        <div class="d-flex flex-wrap gap-2">
-            <a href="?sort=date_desc{% if search_query %}&q={{ search_query }}{% endif %}" class="btn-sort-pill {% if current_sort == 'date_desc' or current_sort == '-created_at' or not current_sort %}active{% endif %}">
-                Новые
-            </a>
-            <a href="?sort=views_desc{% if search_query %}&q={{ search_query }}{% endif %}" class="btn-sort-pill {% if current_sort == 'views_desc' or current_sort == '-views' %}active{% endif %}">
-                Популярные
-            </a>
-            <a href="{% url 'news:category' slug='glavnye' %}" class="btn-sort-pill {% if category.slug == 'glavnye' %}active{% endif %}">
-                Главные
-            </a>
-        </div>
-    </div>
-
     <!-- Список новостей -->
     {% regroup news_list by created_at|date:"Y-m-d" as news_by_day %}
     <div class="news-timeline-container">
@@ -154,6 +123,42 @@
     </nav>
     {% endif %}
 </div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="sidebar-filters mb-4">
+    <!-- Категории -->
+    <div class="news-filters mb-4 p-4 rounded-4 border border-secondary border-opacity-25" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);">
+        <h5 class="text-white mb-3 fw-bold"><i class="fas fa-folder-open me-2 text-primary"></i>Категории</h5>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="{% url 'news:list' %}" class="btn-filter-pill">
+                Все
+            </a>
+            {% for cat in categories %}
+                <a href="{{ cat.get_absolute_url }}" class="btn-filter-pill {% if category.slug == cat.slug %}active{% endif %}">
+                    {{ cat.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Сортировка -->
+    <div class="news-sort mb-5 p-4 rounded-4 border border-secondary border-opacity-25" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);">
+        <h5 class="text-white mb-3 fw-bold"><i class="fas fa-sort-amount-down me-2 text-primary"></i>Сортировка</h5>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="?sort=date_desc{% if search_query %}&q={{ search_query }}{% endif %}" class="btn-sort-pill {% if current_sort == 'date_desc' or current_sort == '-created_at' or not current_sort %}active{% endif %}">
+                Новые
+            </a>
+            <a href="?sort=views_desc{% if search_query %}&q={{ search_query }}{% endif %}" class="btn-sort-pill {% if current_sort == 'views_desc' or current_sort == '-views' %}active{% endif %}">
+                Популярные
+            </a>
+            <a href="{% url 'news:category' slug='glavnye' %}" class="btn-sort-pill {% if category.slug == 'glavnye' %}active{% endif %}">
+                Главные
+            </a>
+        </div>
+    </div>
+</div>
+{{ block.super }}
 {% endblock %}
 
 {% block extra_js %}
