@@ -6,7 +6,7 @@
 {% load static hero_tags %}
 
 {# Безопасно получаем первый доступный объект со свойствами hero #}
-{% firstof news portfolio_item service page category app_hero site_settings as active_hero %}
+{% with active_hero=news|default:portfolio_item|default:service|default:page|default:category|default:app_hero|default:site_settings %}
 
 {# Проверяем, активен ли баннер #}
 {% if active_hero.hero_is_active|default:True %}
@@ -212,4 +212,5 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 {% endif %}
+{% endwith %}
 

@@ -1,6 +1,5 @@
 # news/views.py
 # Представления (контроллеры) для приложения news (новости)
-from datetime import datetime, time
 from django.shortcuts import (
     render,
     get_object_or_404,
@@ -157,29 +156,22 @@ def news_detail(request, slug):
 
     # ПРАВИЛЬНЫЙ способ получить все новости за ту же дату публикации
     local_pub_date = timezone.localtime(news.published_at).date()
+    current_date = timezone.localtime(timezone.now()).date()
 
-    # Вариант 1: Через __date (проще и читаемее, но может быть медленнее на больших таблицах)
-    daily_news = News.objects.filter(
-        published_at__date=local_pub_date,
-        is_active=True,
-        published_at__lte=timezone.now(),
-    ).order_by("published_at")
-
-    # Вариант 2: Через диапазон (быстрее с правильно настроенным индексом)
-    # start_of_day = timezone.make_aware(
-    #     datetime.combine(local_pub_date, datetime.min.time()),
-    #     timezone.get_current_timezone()
-    # )
-    # end_of_day = timezone.make_aware(
-    #     datetime.combine(local_pub_date, datetime.max.time()),
-    #     timezone.get_current_timezone()
-    # )
-    # daily_news = News.objects.filter(
-    #     published_at__gte=start_of_day,
-    #     published_at__lte=end_of_day,
-    #     is_active=True,
-    #     published_at__lte=timezone.now(),
-    # ).order_by("published_at")
+    # Лента за день выводится ИСКЛЮЧИТЕЛЬНО в день публикации новости (если новость опубликована сегодня)
+    # и содержит только новости, опубликованные именно в этот день.
+    daily_news = []
+    if local_pub_date == current_date:
+        daily_news = News.objects.filter(
+            published_at__date=local_pub_date,
+            is_active=True,
+            published_at__lte=timezone.now(),
+        ).order_by("published_at")
+        
+        # Если в этот день опубликована только 1 новость (текущая), ленту можно не показывать, 
+        # но по запросу мы просто выводим новости именно за этот день.
+        if daily_news.count() <= 1:
+            daily_news = [] # Не показываем ленту, если в ней только текущая новость
 
     context = {
         "news": news,
