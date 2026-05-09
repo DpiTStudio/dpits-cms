@@ -11,30 +11,26 @@ urlpatterns = [
     # Главная страница новостей - список всех активных новостей
     # URL: /news/
     path("", views.news_list, name="list"),
-    
     # Страница категории новостей - список новостей определенной категории
     # URL: /news/category/<slug>/
     # slug - URL-дружественный идентификатор категории
     path("category/<slug:slug>/", views.news_by_category, name="category"),
-    
     # Детальная страница новости - просмотр отдельной новости
     # URL: /news/<slug>/
     # slug - URL-дружественный идентификатор новости
     path("<slug:slug>/", views.news_detail, name="detail"),
-    # Новости за конкретный день публикации (YYYY-MM-DD)
-    path("day/<str:date_str>/", views.news_by_day, name="by_day"),
-    
     # Поиск новостей
     # URL: /news/search/
     path("search/", views.news_search, name="search"),
-
     # Новости по тегу
     # URL: /news/tag/<slug>/
     path("tag/<slug:slug>/", views.news_by_tag, name="by_tag"),
-
     # API для получения изображения категории
-    path("api/category-image/<int:category_id>/", views.get_category_image, name="get_category_image"),
-
+    path(
+        "api/category-image/<int:category_id>/",
+        views.get_category_image,
+        name="get_category_image",
+    ),
     # RSS Фиды
     path("feed/", LatestNewsFeed(), name="feed"),
     path("category/<slug:slug>/feed/", NewsByCategoryFeed(), name="category_feed"),
