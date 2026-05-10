@@ -16,7 +16,9 @@
       <h6 class="popular-news-title">{{ item.title|truncate_chars:60 }}</h6>
       <div class="popular-news-meta">
         <span><i class="far fa-eye me-1"></i>{{ item.views }}</span>
-        <span><i class="far fa-calendar me-1"></i>{{ item.published_at|ru_date:"short" }}</span>
+        <a href="{% url 'news:list' %}?date={{ item.published_at|date:'Y-m-d' }}" class="text-muted text-decoration-none" onclick="event.stopPropagation()">
+          <i class="far fa-calendar me-1"></i>{{ item.published_at|ru_date:"short" }}
+        </a>
       </div>
     </div>
   </a>

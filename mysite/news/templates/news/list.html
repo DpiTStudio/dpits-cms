@@ -82,10 +82,11 @@
     <div class="day-group mb-5">
       <!-- Разделитель дня -->
       <div class="day-separator d-flex align-items-center mb-4">
-        <div class="day-badge">
+        <a href="{% url 'news:list' %}?date={{ day.list.0.published_at|date:'Y-m-d' }}"
+           class="day-badge text-decoration-none">
           <i class="far fa-calendar-alt me-2"></i>
           {{ day.list.0.published_at|ru_date }}
-        </div>
+        </a>
         <div class="day-line flex-grow-1"></div>
         <span class="day-count">{{ day.list|length }} {{ day.list|length|plural_ru:"материал,материала,материалов" }}</span>
       </div>

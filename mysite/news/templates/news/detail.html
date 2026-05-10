@@ -41,9 +41,14 @@
 
     <span class="news-detail-meta-item">
       <i class="far fa-calendar-alt me-1 text-primary"></i>
-      <time itemprop="datePublished" datetime="{{ news.published_at|date:'c' }}">
-        {{ news.published_at|ru_date:"dt" }}
-      </time>
+      <a href="{% url 'news:list' %}?date={{ news.published_at|date:'Y-m-d' }}"
+         class="text-decoration-none"
+         style="color: inherit;"
+         title="Все новости за этот день">
+        <time itemprop="datePublished" datetime="{{ news.published_at|date:'c' }}">
+          {{ news.published_at|ru_date:"dt" }}
+        </time>
+      </a>
     </span>
 
     <span class="news-detail-meta-item">
@@ -73,6 +78,13 @@
       <div class="news-nav-btn-content">
         <span class="news-nav-label text-muted small">Предыдущая</span>
         <span class="news-nav-title">{{ next_news.title|truncate_chars:60 }}</span>
+        <span class="news-nav-date text-muted" style="font-size:0.78rem;">
+          <i class="far fa-calendar-alt me-1"></i>
+          <a href="{% url 'news:list' %}?date={{ next_news.published_at|date:'Y-m-d' }}"
+             class="text-muted text-decoration-none" onclick="event.preventDefault(); window.location.href=this.href;">
+            {{ next_news.published_at|ru_date:"short" }}
+          </a>
+        </span>
       </div>
     </a>
     {% else %}
@@ -84,6 +96,13 @@
       <div class="news-nav-btn-content">
         <span class="news-nav-label text-muted small">Следующая</span>
         <span class="news-nav-title">{{ prev_news.title|truncate_chars:60 }}</span>
+        <span class="news-nav-date text-muted" style="font-size:0.78rem;">
+          <a href="{% url 'news:list' %}?date={{ prev_news.published_at|date:'Y-m-d' }}"
+             class="text-muted text-decoration-none" onclick="event.preventDefault(); window.location.href=this.href;">
+            {{ prev_news.published_at|ru_date:"short" }}
+          </a>
+          <i class="far fa-calendar-alt ms-1"></i>
+        </span>
       </div>
       <i class="fas fa-chevron-right ms-2"></i>
     </a>
@@ -192,10 +211,11 @@
             </span>
             <h4 class="h6 text-white mb-2 line-clamp-2">{{ s_news.title }}</h4>
             <div class="d-flex align-items-center justify-content-between text-muted small">
-              <span>
+              <a href="{% url 'news:list' %}?date={{ s_news.published_at|date:'Y-m-d' }}"
+                 class="text-muted text-decoration-none" onclick="event.stopPropagation()">
                 <i class="far fa-calendar-alt me-1"></i>
                 {{ s_news.published_at|ru_date:"short" }}
-              </span>
+              </a>
               <span>
                 <i class="far fa-eye me-1"></i>
                 {{ s_news.views }}

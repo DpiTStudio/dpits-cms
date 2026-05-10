@@ -35,7 +35,10 @@
                         <div class="card-body p-4 d-flex flex-column">
                             <div class="d-flex align-items-center gap-2 mb-3 text-white-50 small">
                                 <i class="far fa-calendar-alt"></i>
-                                <span>{{ recent_news.published_at|default:recent_news.created_at|date:"d M Y" }}</span>
+                                <a href="{% url 'news:list' %}?date={{ recent_news.published_at|default:recent_news.created_at|date:'Y-m-d' }}"
+                                   class="text-white-50 text-decoration-none hover-primary">
+                                    {{ recent_news.published_at|default:recent_news.created_at|date:"d M Y" }}
+                                </a>
                             </div>
                             
                             <h5 class="card-title text-white fw-bold mb-3 line-clamp-2">
