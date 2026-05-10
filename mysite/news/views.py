@@ -161,20 +161,32 @@ def news_detail(request, slug):
     # Получаем локальную дату публикации текущей новости (с учётом TIME_ZONE = Europe/Moscow)
     local_pub_date = timezone.localtime(news.published_at).date()
 
-    # Границы дня по локальному времени (начало и конец дня в UTC)
+    # ПРАВИЛЬНО: Фильтруем по локальной дате, преобразуя в UTC диапазон
+    # Получаем часовой пояс (Europe/Moscow)
     tz = timezone.get_current_timezone()
-    day_start = timezone.make_aware(
-        datetime.datetime.combine(local_pub_date, datetime.time.min), tz
-    )
-    day_end = timezone.make_aware(
-        datetime.datetime.combine(local_pub_date, datetime.time.max), tz
-    )
+
+    # Создаем datetime объекты для начала и конца дня в локальном времени
+    local_day_start = datetime.datetime.combine(local_pub_date, datetime.time.min)
+    local_day_end = datetime.datetime.combine(local_pub_date, datetime.time.max)
+
+    # Делаем их timezone-aware (локальное время)
+    local_day_start_aware = timezone.make_aware(local_day_start, tz)
+    local_day_end_aware = timezone.make_aware(local_day_end, tz)
+
+    # Преобразуем в UTC для фильтрации в БД
+    utc_day_start = local_day_start_aware.astimezone(timezone.utc)
+    utc_day_end = local_day_end_aware.astimezone(timezone.utc)
+
+    # Ограничиваем конец дня текущим моментом (не показываем будущие новости)
+    current_utc = timezone.now()
+    if utc_day_end > current_utc:
+        utc_day_end = current_utc
 
     # Лента за день: все активные новости, опубликованные именно в этот локальный день
     daily_news = News.objects.filter(
         is_active=True,
-        published_at__gte=day_start,
-        published_at__lte=min(day_end, timezone.now()),
+        published_at__gte=utc_day_start,
+        published_at__lte=utc_day_end,
     ).order_by("published_at")
 
     # Не показываем ленту, если в ней только текущая новость
