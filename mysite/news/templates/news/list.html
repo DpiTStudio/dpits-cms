@@ -4,168 +4,241 @@
 {% load static %}
 
 {% block title %}
-    {{ site_settings.company_name }} | 
-    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} | Новости
-{% endblock %} 
+{{ site_settings.company_name }} | {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} | Новости
+{% endblock %}
 
 {% block meta_description %}
-    {{ site_settings.company_name }} | 
-    {{ site_settings.seo_description|default:"Страница просмотра новостей" }}
+{{ site_settings.company_name }} |
+{{ site_settings.seo_description|default:"Страница просмотра новостей" }}
 {% endblock %}
 
 {% block meta_keywords %}
-    {{ site_settings.company_name }}, {{ site_settings.seo_keywords|default:"новость, новости, просмотр, новость" }}
+{{ site_settings.company_name }}, {{ site_settings.seo_keywords|default:"новость, новости, просмотр, новость" }}
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/list-common.css' %}">
-<link rel="stylesheet" href="{% static 'css/news-list.css' %}">
-<link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+<link rel="stylesheet" href="{% static 'css/list-common.css' %}" />
+<link rel="stylesheet" href="{% static 'css/news-list.css' %}" />
+<link rel="stylesheet" href="{% static 'css/pagination.css' %}" />
 {% endblock %}
 
 {% block content %}
 <div class="news-list-container">
-    <!-- Список новостей -->
-    {% regroup news_list by published_at|date:"Y-m-d" as news_by_day %}
-    <div class="news-timeline-container">
-        {% for day in news_by_day %}
-        <div class="day-group mb-5">
-            <!-- Заголовок дня (связка) -->
-            <div class="d-flex align-items-center mb-4">
-                <span class="badge bg-primary text-white rounded-pill px-4 py-2 fw-bold fs-6 shadow-sm me-3">
-                    <i class="far fa-calendar-alt me-2"></i> {{ day.list.0.published_at|date:"d F Y" }}
-                </span>
-                <div class="flex-grow-1 border-top border-secondary border-opacity-25 border-2"></div>
-            </div>
-            
-            <div class="row g-4 news-grid">
-                {% for news in day.list %}
-                <div class="col-12 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
-                    <article class="news-card-premium w-100 h-100">
-                        {% if news.image %}
-                        <div class="news-card-bg" style="background-image: url('{{ news.image.url }}');"></div>
-                        {% endif %}
-                        <div class="news-card-overlay"></div>
-                        <div class="news-card-content">
-                            <div class="news-card-header d-flex justify-content-between align-items-center mb-3">
-                                {% if news.category %}
-                                <a href="{{ news.category.get_absolute_url }}" class="news-category-badge">
-                                    {{ news.category.name }}
-                                </a>
-                                {% endif %}
-                                <div class="news-meta text-muted small">
-                                    <i class="far fa-clock me-1"></i> {{ news.published_at|date:"H:i" }}
-                                </div>
-                            </div>
-                            
-                            <h3 class="news-title h5 fw-bold mb-3">
-                                <a href="{% url 'news:detail' news.slug %}" class="text-white text-decoration-none">
-                                    {{ news.title }}
-                                </a>
-                            </h3>
-                            
-                            <p class="news-description text-white-50 mb-4" style="font-size: 0.9rem;">
-                                {{ news.short_description|striptags|truncatewords:15 }}
-                            </p>
-                            
-                            <div class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25">
-                                <a href="{% url 'news:detail' news.slug %}" class="btn-read-more" style="font-size: 0.85rem;">
-                                    Читать <i class="fas fa-arrow-right ms-2"></i>
-                                </a>
-                                <span class="news-views text-muted small">
-                                    <i class="far fa-eye me-1"></i> {{ news.views }}
-                                </span>
-                            </div>
-                        </div>
-                    </article>
+  <!-- Список новостей -->
+  {% regroup news_list by published_at|date:"Y-m-d" as news_by_day %}
+  <div class="news-timeline-container">
+    {% for day in news_by_day %}
+    <div class="day-group mb-5">
+      <!-- Заголовок дня (связка) -->
+      <div class="d-flex align-items-center mb-4">
+        <span
+          class="badge bg-primary text-white rounded-pill px-4 py-2 fw-bold fs-6 shadow-sm me-3"
+        >
+          <i class="far fa-calendar-alt me-2"></i>
+          {{ day.list.0.published_at|date:"d F Y" }}
+        </span>
+        <div
+          class="flex-grow-1 border-top border-secondary border-opacity-25 border-2"
+        ></div>
+      </div>
+
+      <div class="row g-4 news-grid">
+        {% for news in day.list %}
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="{{ forloop.counter0|add:1 }}00"
+        >
+          <article class="news-card-premium w-100 h-100">
+            {% if news.image %}
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;{{ news.image.url }}&quot;)"
+            ></div>
+            {% endif %}
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                {% if news.category %}
+                <a href="{{ news.category.get_absolute_url }}" class="news-category-badge">
+                  {{ news.category.name }}
+                </a>
+                {% endif %}
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  {{ news.published_at|date:"H:i" }}
                 </div>
-                {% endfor %}
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="{% url 'news:detail' news.slug %}"
+                  class="text-white text-decoration-none"
+                >
+                  {{ news.title }}
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                {{ news.short_description|striptags|truncatewords:15 }}
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="{% url 'news:detail' news.slug %}"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  {{ news.views }}
+                </span>
+              </div>
             </div>
-        </div>
-        {% empty %}
-        <div class="col-12 text-center py-5 glass-empty-state rounded-4 border border-secondary border-opacity-25">
-            <i class="fas fa-newspaper fa-3x text-muted opacity-50 mb-3"></i>
-            <h4 class="text-white-50">Новостей пока нет</h4>
+          </article>
         </div>
         {% endfor %}
+      </div>
     </div>
+    {% empty %}
+    <div
+      class="col-12 text-center py-5 glass-empty-state rounded-4 border border-secondary border-opacity-25"
+    >
+      <i class="fas fa-newspaper fa-3x text-muted opacity-50 mb-3"></i>
+      <h4 class="text-white-50">Новостей пока нет</h4>
+      <div class="mt-4">
+        <a href="{% url 'news:list' %}" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+          <i class="fas fa-arrow-left me-2"></i> Вернуться ко всем новостям
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 
-    <!-- Пагинация -->
-    {% if news_list.has_other_pages %}
-    <nav aria-label="Навигация по страницам" class="mt-5">
-        <ul class="pagination justify-content-center flex-wrap glass-pagination">
-            {% if news_list.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ news_list.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}">
-                        <i class="fas fa-chevron-left"></i>
-                    </a>
-                </li>
-            {% endif %}
+  <!-- Пагинация -->
+  {% if news_list.has_other_pages %}
+  <nav aria-label="Навигация по страницам" class="mt-5">
+    <ul class="pagination justify-content-center flex-wrap glass-pagination">
+      {% if news_list.has_previous %}
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="?page={{ news_list.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+        >
+          <i class="fas fa-chevron-left"></i>
+        </a>
+      </li>
+      {% endif %}
 
-            {% for i in news_list.paginator.page_range %}
-                {% if news_list.number == i %}
-                    <li class="page-item active">
-                        <span class="page-link">{{ i }}</span>
-                    </li>
-                {% else %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ i }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}">{{ i }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
+      {% for i in news_list.paginator.page_range %}
+      {% if news_list.number == i %}
+      <li class="page-item active">
+        <span class="page-link">{{ i }}</span>
+      </li>
+      {% else %}
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="?page={{ i }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+        >
+          {{ i }}
+        </a>
+      </li>
+      {% endif %}
+      {% endfor %}
 
-            {% if news_list.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ news_list.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}">
-                        <i class="fas fa-chevron-right"></i>
-                    </a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
+      {% if news_list.has_next %}
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="?page={{ news_list.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+        >
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
 </div>
 {% endblock %}
 
 {% block sidebar %}
 <div class="sidebar-filters mb-4">
-    <!-- Категории -->
-    <div class="news-filters mb-4 p-4 rounded-4 border border-secondary border-opacity-25" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);">
-        <h5 class="text-white mb-3 fw-bold"><i class="fas fa-folder-open me-2 text-primary"></i>Категории</h5>
-        <div class="d-flex flex-wrap gap-2">
-            <a href="{% url 'news:list' %}" class="btn-filter-pill {% if not selected_category and not category %}active{% endif %}">
-                Все
-            </a>
-            {% for cat in categories %}
-                <a href="{{ cat.get_absolute_url }}" class="btn-filter-pill {% if selected_category == cat.slug or category.slug == cat.slug %}active{% endif %}">
-                    {{ cat.name }}
-                </a>
-            {% endfor %}
-        </div>
+  <!-- Категории -->
+  <div
+    class="news-filters mb-4 p-4 rounded-4 border border-secondary border-opacity-25"
+    style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px)"
+  >
+    <h5 class="text-white mb-3 fw-bold">
+      <i class="fas fa-folder-open me-2 text-primary"></i>
+      Категории
+    </h5>
+    <div class="d-flex flex-wrap gap-2">
+      <a
+        href="{% url 'news:list' %}"
+        class="btn-filter-pill {% if not selected_category and not category %}active{% endif %}"
+      >
+        Все
+      </a>
+      {% for cat in categories %}
+      <a
+        href="{{ cat.get_absolute_url }}"
+        class="btn-filter-pill {% if category.slug == cat.slug or selected_category == cat.slug %}active{% endif %}"
+      >
+        {{ cat.name }}
+      </a>
+      {% endfor %}
     </div>
+  </div>
 
-    <!-- Сортировка -->
-    <div class="news-sort mb-5 p-4 rounded-4 border border-secondary border-opacity-25" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);">
-        <h5 class="text-white mb-3 fw-bold"><i class="fas fa-sort-amount-down me-2 text-primary"></i>Сортировка</h5>
-        <div class="d-flex flex-wrap gap-2">
-            <a href="?sort=date_desc{% if search_query %}&q={{ search_query }}{% endif %}" class="btn-sort-pill {% if current_sort == 'date_desc' or current_sort == '-created_at' or not current_sort %}active{% endif %}">
-                Новые
-            </a>
-            <a href="?sort=views_desc{% if search_query %}&q={{ search_query }}{% endif %}" class="btn-sort-pill {% if current_sort == 'views_desc' or current_sort == '-views' %}active{% endif %}">
-                Популярные
-            </a>
-            <a href="{% url 'news:category' slug='glavnye' %}" class="btn-sort-pill {% if category.slug == 'glavnye' or selected_category == 'glavnye' %}active{% endif %}">
-                Главные
-            </a>
-        </div>
+  <!-- Сортировка -->
+  <div
+    class="news-sort mb-5 p-4 rounded-4 border border-secondary border-opacity-25"
+    style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px)"
+  >
+    <h5 class="text-white mb-3 fw-bold">
+      <i class="fas fa-sort-amount-down me-2 text-primary"></i>
+      Сортировка
+    </h5>
+    <div class="d-flex flex-wrap gap-2">
+      <a
+        href="?sort=date_desc{% if search_query %}&q={{ search_query }}{% endif %}"
+        class="btn-sort-pill {% if current_sort == 'date_desc' or current_sort == '-created_at' or not current_sort %}active{% endif %}"
+      >
+        Новые
+      </a>
+      <a
+        href="?sort=views_desc{% if search_query %}&q={{ search_query }}{% endif %}"
+        class="btn-sort-pill {% if current_sort == 'views_desc' or current_sort == '-views' %}active{% endif %}"
+      >
+        Популярные
+      </a>
+      <a
+        href="{% url 'news:category' slug='glavnye' %}"
+        class="btn-sort-pill {% if category.slug == 'glavnye' or selected_category == 'glavnye' %}active{% endif %}"
+      >
+        Главные
+      </a>
     </div>
+  </div>
 </div>
 {{ block.super }}
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    // Анимация появления карточек
-    // AOS is initialized globally in _base.html
+  // Анимация появления карточек
+  // AOS is initialized globally in _base.html
 </script>
 {% endblock %}

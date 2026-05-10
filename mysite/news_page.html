@@ -1,0 +1,3685 @@
+
+<!-- ============================================
+     ФАЙЛ: base.html
+     ОПИСАНИЕ: Базовый шаблон для всех страниц сайта
+     ============================================ -->
+
+<!-- Загрузка статических файлов -->
+
+
+<!-- Объявление типа документа HTML5 -->
+<!DOCTYPE html>
+<!-- Открывающий тег HTML с указанием языка интерфейса -->
+<html lang="ru">
+<!-- Секция заголовка документа -->
+
+<head>
+  <!-- Кодировка символов UTF-8 для поддержки всех языков -->
+  <meta charset="UTF-8" />
+  <!-- Мета-тег для адаптивности на мобильных устройствах -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ========== БАЗОВЫЕ МЕТАТЕГИ ========== -->
+  <!-- Динамический заголовок страницы с блоком для переопределения -->
+  <title>
+DPITS-CMS | DPITS-CMS.RU | Новости
+</title>
+
+  <!-- Мета-описание страницы для поисковых систем -->
+  <meta name="description"
+    content="
+DPITS-CMS |
+Главная страница проекта
+" />
+
+  <!-- Мета-ключевые слова для поисковых систем -->
+  <meta name="keywords" content="
+DPITS-CMS, домой, главная страница, главная, проект,
+" />
+
+  <!-- Автор сайта -->
+  <meta name="author" content="DPITS-CMS.RU" />
+
+  <!-- ========== OPEN GRAPH (для социальных сетей) ========== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DPITS-CMS.RU" />
+  <meta property="og:description"
+    content="Сайты, которые решают задачи бизнеса и нравятся клиентам&amp;nbsp;От стратегии и дизайна до запуска и поддержки. Полный цикл для вашего уверенного роста в digital.Наши преимущества:Проектирование для ваших клиентовИзучаем вашу целевую аудиторию, …" />
+  <meta property="og:image"
+    content="http://127.0.0.1:6678/media/logos/cms_logo.png" />
+  <meta property="og:url" content="http://127.0.0.1:6678/news/" />
+  <meta property="og:site_name" content="DPITS-CMS.RU" />
+  <meta property="og:locale" content="ru_RU" />
+
+  <!-- ========== TWITTER CARDS ========== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DPITS-CMS.RU" />
+  <meta name="twitter:description"
+    content="Сайты, которые решают задачи бизнеса и нравятся клиентам&amp;nbsp;От стратегии и дизайна до запуска и поддержки. Полный цикл для вашего уверенного роста в digital.Наши преимущества:Проектирование для ваших клиентовИзучаем вашу целевую аудиторию, …" />
+  <meta name="twitter:image"
+    content="http://127.0.0.1:6678/media/logos/cms_logo.png" />
+
+  <!-- ========== CANONICAL URL ========== -->
+  <link rel="canonical" href="http://127.0.0.1:6678/news/" />
+
+  <!-- ========== RSS AUTO-DISCOVERY ========== -->
+  <link rel="alternate" type="application/rss+xml" title="Лента новостей" href="/news/feed/" />
+
+
+  <!-- ========== FAVICON И ИКОНКИ ========== -->
+  <!-- Иконка сайта (favicon) -->
+  <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png" />
+  <meta name="theme-color" content="#6366f1" />
+
+  <!-- Подключение современных шрифтов Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Outfit:wght@400;500;600;700;900&display=swap"
+    rel="stylesheet" />
+
+  <!-- Подключение Bootstrap 5 CSS фреймворка из CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Подключение Font Awesome иконок из CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  
+<!-- ============================================
+     ФАЙЛ: css.html
+     ОПИСАНИЕ: Подключение всех CSS файлов проекта в правильном порядке
+     ВАЖНО: Порядок подключения критичен для корректной работы каскада стилей
+     ============================================ -->
+
+<!-- Подключение пользовательских CSS файлов в правильном порядке -->
+
+<!-- 1. CSS переменные (должен быть первым для использования в других файлах) -->
+<!-- Содержит глобальные переменные: цвета, отступы, размеры шрифтов и т.д. -->
+<link rel="stylesheet" href="/static/css/variables.css" />
+
+<!-- 2. Базовые стили для всех элементов -->
+<!-- Сброс стилей браузера и базовые стили для HTML элементов -->
+<link rel="stylesheet" href="/static/css/base.css" />
+
+<!-- 3. Оптимизации производительности -->
+<!-- Стили для улучшения производительности: will-change, contain и т.д. -->
+<link rel="stylesheet" href="/static/css/performance.css" />
+
+<!-- 4. Анимации для улучшения пользовательского опыта -->
+<!-- Определения @keyframes и классы анимаций -->
+<link rel="stylesheet" href="/static/css/animations.css" />
+
+<!-- 5. Стили макета (header, footer, навигация) -->
+<!-- Структура страницы: шапка, подвал, основной контейнер -->
+<link rel="stylesheet" href="/static/css/layout.css" />
+
+<!-- 5a. Стили меню навигации -->
+<!-- Стили для адаптивного меню и навигации -->
+<link rel="stylesheet" href="/static/css/header-menu.css" />
+
+<!-- 6. Стили компонентов (карточки, кнопки, формы) -->
+<!-- Переиспользуемые UI компоненты -->
+<link rel="stylesheet" href="/static/css/components.css" />
+
+<!-- 7. Современные стили для карточек -->
+<!-- Специализированные стили карточек с эффектами -->
+<link rel="stylesheet" href="/static/css/cards.css" />
+
+<!-- 8. Улучшенные стили бейджей -->
+<!-- Стили для меток и бейджей категорий -->
+<link rel="stylesheet" href="/static/css/badge.css" />
+
+<!-- 9. Стили для hero секции (главный баннер) -->
+<!-- Стили для главного баннера на всех страницах -->
+<link rel="stylesheet" href="/static/css/hero.css" />
+
+<!-- 10. Стили для боковой панели (сайдбара) -->
+<!-- Стили для правой боковой панели с виджетами -->
+<link rel="stylesheet" href="/static/css/sidebar.css" />
+<!-- 10a. Кастомные стили для новостного виджета сайдбара -->
+<link rel="stylesheet" href="/static/css/news_sidebar_custom.css" />
+
+<!-- 11. Стили для контентных секций -->
+<!-- Стили для основных контентных блоков -->
+<link rel="stylesheet" href="/static/css/content.css" />
+
+<!-- 12. Утилитарные классы для быстрой стилизации -->
+<!-- Вспомогательные классы: отступы, выравнивание, цвета -->
+<link rel="stylesheet" href="/static/css/utilities.css" />
+
+<!-- 13. UI улучшения и микроинтеракции -->
+<!-- Эффекты наведения, фокуса и другие интерактивные элементы -->
+<link rel="stylesheet" href="/static/css/ui-enhancements.css" />
+
+<!-- 14. Адаптивные стили (должен быть последним для переопределения) -->
+<!-- Media queries для планшетов и десктопов -->
+<link rel="stylesheet" href="/static/css/responsive.css" />
+
+<!-- 15. Мобильные стили (должен быть самым последним) -->
+<!-- Media queries специально для мобильных устройств -->
+<link rel="stylesheet" href="/static/css/mobile.css" />
+
+
+
+<!-- 17. Индикатор прогресса чтения -->
+<!-- Полоса прогресса прокрутки страницы -->
+<link rel="stylesheet" href="/static/css/reading-progress.css" />
+
+<!-- 18. Хлебные крошки -->
+<!-- Стили для навигационных хлебных крошек -->
+<link rel="stylesheet" href="/static/css/breadcrumbs.css" />
+
+<!-- 19. Социальный шаринг -->
+<!-- Кнопки для шаринга в социальных сетях -->
+<link rel="stylesheet" href="/static/css/social-share.css" />
+
+<!-- 20. Поиск -->
+<!-- Стили для формы поиска и результатов -->
+<link rel="stylesheet" href="/static/css/search.css" />
+
+<!-- 21. Улучшенные формы -->
+<!-- Современные стили для всех форм на сайте -->
+<link rel="stylesheet" href="/static/css/forms.css" />
+<link rel="stylesheet" href="/static/css/forms-enhanced.css" />
+
+<!-- 22. Баннер cookie -->
+<link rel="stylesheet" href="/static/css/cookie-consent.css" />
+
+<!-- 23. Корзина -->
+<!-- Стили для drawer, виджета, анимаций и иконки корзины -->
+<link rel="stylesheet" href="/static/css/cart.css?v=1.1" />
+
+<!-- 24. Стили, извлеченные из HTML шаблонов -->
+<link rel="stylesheet" href="/static/css/styles.css" />
+
+<!-- 25. Секция с преимуществами компании -->
+<link rel="stylesheet" href="/static/css/content-section.css" />
+
+<!-- 26. PREMIUM ENHANCEMENTS — финальный слой дизайна (должен быть последним!) -->
+<link rel="stylesheet" href="/static/css/premium-enhancements.css?v=2.0" />
+
+
+
+  <!-- Блок для дополнительных элементов в head (переопределяется в дочерних шаблонах) -->
+  
+  <!-- Блок для дополнительных CSS файлов (переопределяется в дочерних шаблонах) -->
+  
+<link rel="stylesheet" href="/static/css/list-common.css" />
+<link rel="stylesheet" href="/static/css/news-list.css" />
+<link rel="stylesheet" href="/static/css/pagination.css" />
+
+
+  <!-- Статистические баннеры в head -->
+  
+</head>
+
+<!-- Тело документа с flexbox макетом для прижатия футера к низу -->
+
+<body class="d-flex flex-column min-vh-100">
+  <!-- Статистические баннеры в начале body -->
+  
+  <!-- Индикатор прогресса чтения -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <!-- Блок шапки сайта (переопределяется в дочерних шаблонах) -->
+  
+  <!-- Подключение шаблона шапки -->
+  
+
+<header class="glass-header" role="banner">
+    <nav class="navbar navbar-expand-lg navbar-dark" aria-label="Главное меню">
+        <div class="container-fluid">
+
+            
+            <a class="navbar-brand navbar-brand-premium d-flex align-items-center gap-2"
+               href="/"
+               aria-label="DPITS-CMS.RU — на главную">
+                
+                <div class="brand-logo-container">
+                    <img src="/media/logos/cms_logo.png"
+                         alt="DPITS-CMS.RU"
+                         height="40"
+                         class="rounded brand-logo"
+                         loading="eager">
+                </div>
+                
+                <div class="brand-text-container text-gradient">
+                    <div class="brand-text-domain">DPITS-CMS.RU</div>
+                    <div class="brand-text-slogan">Разработка сайтов и веб-приложений</div>
+                </div>
+            </a>
+
+            <div class="d-flex align-items-center gap-2">
+                
+                <button class="cart-header-btn d-lg-none"
+                        data-cart-open
+                        aria-label="Открыть корзину">
+                    <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+                    <span class="cart-badge hidden"
+                        aria-live="polite">
+                        0
+                    </span>
+                </button>
+
+                
+                <button class="navbar-toggler border-0 p-2"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Открыть меню">
+                    <div class="animated-hamburger" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+            </div>
+
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                
+                
+
+<div class="d-lg-none my-3 px-2">
+    <form class="mobile-search-form" action="/search/" method="get" role="search">
+        <div class="input-group">
+            <label for="mobileSearchInput" class="visually-hidden">Поиск по сайту</label>
+            <input
+                id="mobileSearchInput"
+                type="search"
+                name="q"
+                class="form-control bg-dark border-secondary text-white"
+                placeholder="Поиск по сайту…"
+                aria-label="Поиск по сайту"
+                value=""
+                autocomplete="off"
+            >
+            <button class="btn" type="submit" aria-label="Найти">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center nav-responsive" role="menubar">
+
+    
+    <li class="nav-item dropdown" role="none">
+        <a class="nav-link nav-link-responsive dropdown-toggle "
+           href="/"
+           id="mainDropdown"
+           role="menuitem"
+           
+           data-bs-toggle="dropdown"
+           aria-haspopup="true"
+           aria-expanded="false"
+           onmouseover="showDropdown('mainDropdownMenu')"
+           onmouseleave="hideDropdown('mainDropdownMenu')"
+           >
+            <div class="nav-icon-wrapper">
+                <i class="fas fa-home nav-icon" aria-hidden="true"></i>
+                <span class="nav-text">Главная</span>
+            </div>
+            <span class="nav-indicator" aria-hidden="true"></span>
+        </a>
+
+        
+        <ul class="dropdown-menu animate-slide-in"
+            aria-labelledby="mainDropdown"
+            id="mainDropdownMenu"
+            role="menu"
+            onmouseover="keepDropdownOpen('mainDropdownMenu')"
+            onmouseleave="closeDropdown('mainDropdownMenu')">
+            <li role="none">
+                <a class="dropdown-item" href="/" role="menuitem">
+                    <i class="fas fa-home" aria-hidden="true"></i>На главную
+                </a>
+            </li>
+            <li role="none"><hr class="dropdown-divider"></li>
+            
+            <li role="none">
+                <a class="dropdown-item "
+                   href="/page/o-nas/"
+                   role="menuitem">
+                    <i class="fas fa-file-alt" aria-hidden="true"></i>О нас
+                </a>
+            </li>
+            
+            <li role="none">
+                <a class="dropdown-item "
+                   href="/page/politika-konfidencialnosti/"
+                   role="menuitem">
+                    <i class="fas fa-file-alt" aria-hidden="true"></i>ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ
+                </a>
+            </li>
+            
+            <li role="none"><hr class="dropdown-divider"></li>
+            <li role="none">
+                <a class="dropdown-item "
+                   href="/contacts/"
+                   role="menuitem">
+                    <i class="fas fa-phone" aria-hidden="true"></i>Контакты
+                </a>
+            </li>
+        </ul>
+        
+    </li>
+
+    
+    <li class="nav-item dropdown" role="none">
+        <a class="nav-link nav-link-responsive dropdown-toggle "
+           href="/services/"
+           id="servicesDropdown"
+           role="menuitem"
+           data-bs-toggle="dropdown"
+           aria-haspopup="true"
+           aria-expanded="false"
+           onmouseover="showDropdown('servicesDropdownMenu')"
+           onmouseleave="hideDropdown('servicesDropdownMenu')">
+            <div class="nav-icon-wrapper">
+                <i class="fas fa-concierge-bell nav-icon" aria-hidden="true"></i>
+                <span class="nav-text">Услуги</span>
+            </div>
+            <span class="nav-indicator" aria-hidden="true"></span>
+        </a>
+        <ul class="dropdown-menu animate-slide-in"
+            aria-labelledby="servicesDropdown"
+            id="servicesDropdownMenu"
+            role="menu"
+            onmouseover="keepDropdownOpen('servicesDropdownMenu')"
+            onmouseleave="closeDropdown('servicesDropdownMenu')">
+            <li role="none">
+                <a class="dropdown-item bold-item" href="/services/" role="menuitem">
+                    <i class="fas fa-th-list" aria-hidden="true"></i>Все услуги
+                </a>
+            </li>
+            
+            <li role="none"><hr class="dropdown-divider"></li>
+            <li role="none"><h6 class="dropdown-header">Категории</h6></li>
+            
+            <li role="none">
+                <a class="dropdown-item" href="/services/category/cms/" role="menuitem">
+                    <i class="fas fa-angle-right text-muted" aria-hidden="true"></i>CMS
+                </a>
+            </li>
+            
+            <li role="none">
+                <a class="dropdown-item" href="/services/category/logotipy-dlya-sajtov/" role="menuitem">
+                    <i class="fas fa-angle-right text-muted" aria-hidden="true"></i>Логотипы - для сайтов
+                </a>
+            </li>
+            
+            <li role="none">
+                <a class="dropdown-item" href="/services/category/makety-dlya-sajtov/" role="menuitem">
+                    <i class="fas fa-angle-right text-muted" aria-hidden="true"></i>Макеты - для сайтов
+                </a>
+            </li>
+            
+            
+        </ul>
+    </li>
+
+    
+    <li class="nav-item dropdown" role="none">
+        <a class="nav-link nav-link-responsive dropdown-toggle "
+           href="/portfolio/"
+           id="portfolioDropdown"
+           role="menuitem"
+           data-bs-toggle="dropdown"
+           aria-haspopup="true"
+           aria-expanded="false"
+           onmouseover="showDropdown('portfolioDropdownMenu')"
+           onmouseleave="hideDropdown('portfolioDropdownMenu')">
+            <div class="nav-icon-wrapper">
+                <i class="fas fa-briefcase nav-icon" aria-hidden="true"></i>
+                <span class="nav-text">Портфолио</span>
+            </div>
+            <span class="nav-indicator" aria-hidden="true"></span>
+        </a>
+        <ul class="dropdown-menu animate-slide-in"
+            aria-labelledby="portfolioDropdown"
+            id="portfolioDropdownMenu"
+            role="menu"
+            onmouseover="keepDropdownOpen('portfolioDropdownMenu')"
+            onmouseleave="closeDropdown('portfolioDropdownMenu')">
+            <li role="none">
+                <a class="dropdown-item bold-item" href="/portfolio/" role="menuitem">
+                    <i class="fas fa-th" aria-hidden="true"></i>Все работы
+                </a>
+            </li>
+            
+            <li role="none"><hr class="dropdown-divider"></li>
+            <li role="none"><h6 class="dropdown-header">Категории</h6></li>
+            
+            <li role="none">
+                <a class="dropdown-item" href="/portfolio/cms/" role="menuitem">
+                    <i class="fas fa-tag text-muted" aria-hidden="true"></i>CMS
+                </a>
+            </li>
+            
+            <li role="none">
+                <a class="dropdown-item" href="/portfolio/makety-dlya-sajtov/" role="menuitem">
+                    <i class="fas fa-tag text-muted" aria-hidden="true"></i>Макеты
+                </a>
+            </li>
+            
+            <li role="none">
+                <a class="dropdown-item" href="/portfolio/vizitki/" role="menuitem">
+                    <i class="fas fa-tag text-muted" aria-hidden="true"></i>Визитки
+                </a>
+            </li>
+            
+            <li role="none">
+                <a class="dropdown-item" href="/portfolio/buklety/" role="menuitem">
+                    <i class="fas fa-tag text-muted" aria-hidden="true"></i>Буклеты
+                </a>
+            </li>
+            
+            
+        </ul>
+    </li>
+
+    
+    <li class="nav-item dropdown" role="none">
+        <a class="nav-link nav-link-responsive dropdown-toggle active"
+           href="#"
+           id="infoDropdown"
+           role="menuitem"
+           data-bs-toggle="dropdown"
+           aria-haspopup="true"
+           aria-expanded="false"
+           onmouseover="showDropdown('infoDropdownMenu')"
+           onmouseleave="hideDropdown('infoDropdownMenu')">
+            <div class="nav-icon-wrapper">
+                <i class="fas fa-layer-group nav-icon" aria-hidden="true"></i>
+                <span class="nav-text">Информация</span>
+            </div>
+            <span class="nav-indicator" aria-hidden="true"></span>
+        </a>
+        <ul class="dropdown-menu animate-slide-in"
+            aria-labelledby="infoDropdown"
+            id="infoDropdownMenu"
+            role="menu"
+            onmouseover="keepDropdownOpen('infoDropdownMenu')"
+            onmouseleave="closeDropdown('infoDropdownMenu')">
+
+            
+            <li role="none"><h6 class="dropdown-header"><i class="fas fa-newspaper me-2" aria-hidden="true"></i>Новости</h6></li>
+            <li role="none">
+                <a class="dropdown-item" href="/news/" role="menuitem">
+                    <i class="fas fa-list" aria-hidden="true"></i>Все новости
+                </a>
+            </li>
+            
+            
+            
+            <li role="none">
+                <a class="dropdown-item ps-4" href="/news/category/glavnye-novosti/" role="menuitem">
+                    <i class="fas fa-angle-right text-muted" aria-hidden="true"></i>Главные новости
+                </a>
+            </li>
+            
+            <li role="none">
+                <a class="dropdown-item ps-4" href="/news/category/akcii/" role="menuitem">
+                    <i class="fas fa-angle-right text-muted" aria-hidden="true"></i>Акции
+                </a>
+            </li>
+            
+            <li role="none">
+                <a class="dropdown-item ps-4" href="/news/category/sozdannye-raboty/" role="menuitem">
+                    <i class="fas fa-angle-right text-muted" aria-hidden="true"></i>Созданные работы
+                </a>
+            </li>
+            
+            <li role="none">
+                <a class="dropdown-item ps-4" href="/news/category/sozdannye-sajty/" role="menuitem">
+                    <i class="fas fa-angle-right text-muted" aria-hidden="true"></i>Созданные сайты.
+                </a>
+            </li>
+            
+            <li role="none">
+                <a class="dropdown-item ps-4" href="/news/category/sozdannye-vizitki/" role="menuitem">
+                    <i class="fas fa-angle-right text-muted" aria-hidden="true"></i>Созданные визитки
+                </a>
+            </li>
+            
+            
+
+            <li role="none"><hr class="dropdown-divider"></li>
+
+            
+            <li role="none"><h6 class="dropdown-header"><i class="fas fa-book me-2" aria-hidden="true"></i>База Знаний</h6></li>
+            <li role="none">
+                <a class="dropdown-item" href="/knowledge-base/" role="menuitem">
+                    <i class="fas fa-home" aria-hidden="true"></i>Главная страница
+                </a>
+            </li>
+            
+
+            <li role="none"><hr class="dropdown-divider"></li>
+
+            
+            <li role="none">
+                <a class="dropdown-item" href="/reviews/" role="menuitem">
+                    <i class="fas fa-star" aria-hidden="true"></i>Отзывы клиентов
+                </a>
+            </li>
+        </ul>
+    </li>
+
+</ul>
+
+
+                
+                <div class="header-actions d-flex align-items-center gap-2 gap-lg-3
+                            flex-column flex-lg-row mt-3 mt-lg-0"
+                     role="group"
+                     aria-label="Действия пользователя">
+
+                    
+                    <div class="search-wrapper search-container d-none d-lg-block">
+                        <form class="search-form"
+                              action="/search/"
+                              method="get"
+                              role="search"
+                              aria-label="Поиск по сайту">
+                            <label for="headerSearchInput" class="visually-hidden">Поиск по сайту</label>
+                            <input id="headerSearchInput"
+                                   type="search"
+                                   name="q"
+                                   class="search-input"
+                                   placeholder="Поиск…"
+                                   aria-label="Поиск"
+                                   value=""
+                                   autocomplete="off">
+                            <button type="submit" class="search-button" aria-label="Найти">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    
+                    <div class="d-none d-lg-block">
+                        <button class="cart-header-btn"
+                                data-cart-open
+                                aria-label="Открыть корзину">
+                            <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+                            <span class="cart-badge hidden"
+                                aria-live="polite">
+                                0
+                            </span>
+                        </button>
+                    </div>
+
+
+
+
+                    
+
+                    
+                    <div class="auth-buttons d-flex gap-2 w-100 w-lg-auto">
+                        <a href="/accounts/login/"
+                           class="btn btn-glass-outline flex-grow-1 flex-lg-grow-0
+                                  d-flex align-items-center justify-content-center gap-1 text-white">
+                            <i class="fa-light fa-torii-gate"></i>
+                            <span>Войти</span>
+                        </a>
+                        <a href="/accounts/register/"
+                           class="btn btn-gradient-primary shine-effect flex-grow-1 flex-lg-grow-0
+                                  d-flex align-items-center justify-content-center gap-1 text-white">
+                            <i class="fa-solid fa-id-card"></i>
+                            <span>Регистрация</span>
+                        </a>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+
+  
+
+  
+  
+
+
+
+
+
+
+
+<div id="cartOverlay" class="cart-overlay" aria-hidden="true"></div>
+
+
+<div id="cartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Корзина заказов">
+
+    
+    <div class="cart-drawer-header">
+        <div class="cart-drawer-title">
+            <div class="cart-drawer-title-icon">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <h4>Ваш заказ</h4>
+            <span class="cart-drawer-count-badge">0 поз.</span>
+        </div>
+        <button id="cartDrawerClose" class="cart-drawer-close" aria-label="Закрыть корзину">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    
+    <div id="cartDrawerItems" class="cart-drawer-body">
+        
+            <div class="cart-auth-state">
+                <div class="cart-auth-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h5 class="mb-2 fw-bold">Требуется авторизация</h5>
+                <p class="text-muted mb-4 px-3">Для оформления заказа войдите или зарегистрируйтесь на сайте</p>
+                <div class="d-grid gap-2 w-100" style="max-width: 220px;">
+                    <a href="/accounts/login/" class="btn btn-primary rounded-pill">
+                        <i class="fas fa-sign-in-alt me-2"></i>Войти
+                    </a>
+                    <a href="/accounts/register/" class="btn btn-outline-primary rounded-pill">
+                        <i class="fas fa-user-plus me-2"></i>Регистрация
+                    </a>
+                </div>
+            </div>
+        
+    </div>
+
+    
+    <div class="cart-drawer-footer" id="cartDrawerFooterActions" style="display: none;">
+        
+
+    </div>
+</div>
+
+
+<div id="cartToast" class="cart-toast" role="alert" aria-live="polite">
+    <div class="cart-toast-icon">
+        <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="cart-toast-text">
+        <strong>Добавлено в корзину</strong>
+        <span></span>
+    </div>
+</div>
+
+
+<script>
+window.CART_URLS = {
+    add:         '/services/cart/add/0/',
+    remove:      '/services/cart/remove/0/',
+    clear:       '/services/cart/clear/',
+    detail:      '/services/cart/detail/',
+    servicesList:'/services/',
+};
+</script>
+
+
+  <!-- Основной контент страницы с растягиванием на всю доступную высоту -->
+  <main class="flex-grow-1">
+    <!-- Блок hero секции (переопределяется в дочерних шаблонах) -->
+    
+    <!-- Подключение шаблона hero секции -->
+    <!-- ============================================
+     ФАЙЛ: hero.html
+     ОПИСАНИЕ: Улучшенная Hero-секция (главный баннер) сайта с расширенной мета-информацией
+     ============================================ -->
+
+
+
+
+
+
+
+
+
+<section
+  class="hero-section text-white position-relative d-flex align-items-center"
+  style="min-height: 50vh; background: url('/media/hero_overrides/NEWS.jpg') center/cover no-repeat;"
+>
+  
+  <div
+    class="position-absolute w-100 h-100 top-0 start-0"
+    style="
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.85) 0%,
+        rgba(30, 41, 59, 0.6) 100%
+      );
+      backdrop-filter: blur(4px);
+      z-index: 0;
+    "
+  ></div>
+
+  <div class="container position-relative w-100 py-5" style="z-index: 1">
+    <div class="row align-items-center">
+      <div class="col-12 col-lg-8">
+        
+        <div
+          class="mb-4 d-flex flex-wrap align-items-center gap-2 fade-in-up"
+          style="animation-delay: 0.1s"
+        >
+          
+
+          
+        </div>
+
+        
+        <h1
+          class="display-3 fw-black mb-4 hero-title fade-in-up"
+          style="animation-delay: 0.2s; letter-spacing: -1px"
+        >
+          
+          Новости
+          
+        </h1>
+
+        
+        <div
+          class="lead mb-4 text-white-75 fw-normal fade-in-up"
+          id="hero-subtitle-container"
+          style="
+            animation-delay: 0.3s;
+            font-size: 1.25rem;
+            max-width: 90%;
+            min-height: 50px;
+          "
+        >
+          
+          Все новости в одном месте
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+        <div
+          class="mt-4 gap-3 d-flex flex-wrap fade-in-up"
+          style="animation-delay: 0.6s"
+        >
+          
+
+          
+
+          
+        </div>
+      </div>
+
+      
+      <div
+        class="col-12 col-lg-4 mt-5 mt-lg-0 text-center text-lg-end fade-in-up"
+        style="animation-delay: 0.4s"
+      >
+        
+        <div
+          class="logo-glass-container p-4 rounded-circle d-inline-flex justify-content-center align-items-center"
+          style="
+            background: radial-gradient(
+              circle,
+              rgba(255, 255, 255, 0.05) 0%,
+              rgba(255, 255, 255, 0) 70%
+            );
+            width: clamp(150px, 20vw, 220px);
+            height: clamp(150px, 20vw, 220px);
+          "
+        >
+          <img
+            src="/media/logos/cms_logo.png"
+            alt="Логотип"
+            class="img-fluid drop-shadow-lg"
+            style="
+              max-height: 120px;
+              filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.15));
+            "
+          />
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="mt-5 fade-in-up" style="animation-delay: 0.7s">
+      <!-- ============================================
+     ФАЙЛ: breadcrumbs.html
+     ОПИСАНИЕ: Компонент хлебных крошек для навигации
+     ============================================ -->
+
+
+
+
+<nav aria-label="breadcrumb" class="breadcrumbs py-2">
+    <div class="container-fluid px-0">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a href="/" class="text-decoration-none">
+                    <i class="fas fa-home me-1"></i>
+                    <span>Главная</span>
+                </a>
+            </li>
+            
+            <li class="breadcrumb-item active fw-bold">
+                
+                <i class="fas fa-newspaper me-1"></i>
+                <span>Новости</span>
+                
+            </li>
+            
+        </ol>
+    </div>
+</nav>
+
+
+
+
+    </div>
+  </div>
+
+  
+  <div
+    class="position-absolute bottom-0 start-50 translate-middle-x mb-4 z-3 fade-in-up"
+    style="animation-delay: 1s"
+  >
+    <a
+      href="#content"
+      class="text-white text-opacity-50 text-decoration-none hover-text-white d-flex flex-column align-items-center scroll-indicator"
+    >
+      <span
+        class="small text-uppercase mb-2"
+        style="letter-spacing: 2px; font-size: 0.7rem"
+      >
+        Листать вниз
+      </span>
+      <i class="fas fa-chevron-down bouncing-chevron"></i>
+    </a>
+  </div>
+</section>
+
+<style>
+  /* CSS для индикатора скролла */
+  .bouncing-chevron {
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+  .scroll-indicator:hover {
+    color: white !important;
+  }
+</style>
+
+
+
+
+    
+
+    <!-- Блок хлебных крошек (теперь внутри hero.html) -->
+    
+
+    
+    <div class="container-fluid my-5">
+      <div class="row g-4">
+        <!-- Основной контент -->
+        <div class="col-12 col-lg-8">
+          
+<div class="news-list-container">
+  <!-- Список новостей -->
+  
+  <div class="news-timeline-container">
+    
+    <div class="day-group mb-5">
+      <!-- Заголовок дня (связка) -->
+      <div class="d-flex align-items-center mb-4">
+        <span
+          class="badge bg-primary text-white rounded-pill px-4 py-2 fw-bold fs-6 shadow-sm me-3"
+        >
+          <i class="far fa-calendar-alt me-2"></i>
+          06 Май 2026
+        </span>
+        <div
+          class="flex-grow-1 border-top border-secondary border-opacity-25 border-2"
+        ></div>
+      </div>
+
+      <div class="row g-4 news-grid">
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/categories/fon_news_IWpgvGs.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/refaktoring-lenty-sobytij-s-filtraciej-po-datam/"
+                  class="text-white text-decoration-none"
+                >
+                  Рефакторинг ленты событий с фильтрацией по датам
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                # Рефакторинг ленты событий с фильтрацией по датамЭтот план описывает шаги по добавлению возможности фильтрации …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/refaktoring-lenty-sobytij-s-filtraciej-po-datam/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  23
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="day-group mb-5">
+      <!-- Заголовок дня (связка) -->
+      <div class="d-flex align-items-center mb-4">
+        <span
+          class="badge bg-primary text-white rounded-pill px-4 py-2 fw-bold fs-6 shadow-sm me-3"
+        >
+          <i class="far fa-calendar-alt me-2"></i>
+          28 Апрель 2026
+        </span>
+        <div
+          class="flex-grow-1 border-top border-secondary border-opacity-25 border-2"
+        ></div>
+      </div>
+
+      <div class="row g-4 news-grid">
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/cat_logo_1.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/pervaya-novost/"
+                  class="text-white text-decoration-none"
+                >
+                  Первая новость
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Первая новость
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/pervaya-novost/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  8
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/categories/fon_news_IWpgvGs.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/obnovil-verstku-sajta-i-funkcional/"
+                  class="text-white text-decoration-none"
+                >
+                  Обновил верстку сайта и функционал
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Обновил верстку сайта и функционал1. Исправлено выравнивание меню2. Добавлены комментарии на русском языке3. Улучшения кода4. …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/obnovil-verstku-sajta-i-funkcional/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  3
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/categories/fon_news_IWpgvGs.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/klyuchevye-uluchsheniya-1/"
+                  class="text-white text-decoration-none"
+                >
+                  Ключевые улучшения 1
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Ключевые улучшенияБезопасность: Добавлена проверка прав доступа, валидация данныхПроизводительность: Оптимизированы запросы к БД, добавлено кэшированиеМасштабируемость: Разделение …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/klyuchevye-uluchsheniya-1/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  9
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/categories/fon_news_IWpgvGs.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/klyuchevye-uluchsheniya-2/"
+                  class="text-white text-decoration-none"
+                >
+                  Ключевые улучшения 2
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                1. Исправление технических ошибок2. Улучшение стилистики и UX3. Оптимизация модульной структуры4. Этапы внедрения5. Инструменты для …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/klyuchevye-uluchsheniya-2/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  3
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="500"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/default-category_kswkSuL_EvbDl94.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/klyuchevye-uluchsheniya-3/"
+                  class="text-white text-decoration-none"
+                >
+                  Ключевые улучшения 3
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Реализованные возможности
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/klyuchevye-uluchsheniya-3/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  0
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="600"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/categories/fon_news_IWpgvGs.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/prilozhenie-services-sozdano-i-nastroeno/"
+                  class="text-white text-decoration-none"
+                >
+                  Приложение services создано и настроено.
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Приложение services создано и настроено. Реализовано:Выполненные требования:Название услуги — поле nameОписание услуги — поле description …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/prilozhenie-services-sozdano-i-nastroeno/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  0
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="700"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/obnovlennye-shablony-novosti-uslugi-portfolio-otzy/"
+                  class="text-white text-decoration-none"
+                >
+                  Обновленные шаблоны - Новости - Услуги - Портфолио - Отзывы - Обратная связь - Основные страницы
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Обновленные шаблоныNews (Новости)Services (Услуги)Portfolio (Портфолио)Reviews (Отзывы)Feedback (Обратная связь)Main (Основные страницы)
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/obnovlennye-shablony-novosti-uslugi-portfolio-otzy/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  3
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="800"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_zvDm0yt.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/ispravleniya-i-uluchsheniya-zaversheny-kriticheski/"
+                  class="text-white text-decoration-none"
+                >
+                  Исправления и улучшения завершены! Критические ошибки (исправлены): Ошибки дублирования (исправлены): Улучшения безопасности: Улучшения стилизации: Улучшения документации: Статистика: Создан отчет:
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Исправления и улучшения завершены!Критические ошибки (исправлены):Ошибки дублирования (исправлены):Улучшения безопасности:Улучшения стилизации:Улучшения документации:Статистика:Создан отчет:
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/ispravleniya-i-uluchsheniya-zaversheny-kriticheski/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  13
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="900"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_4c85gyH.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/obnovlenie-i-uluchshenie-adminpanel/"
+                  class="text-white text-decoration-none"
+                >
+                  Обновление и улучшение админпанель
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Теперь административная панель работает стабильно, предоставляет более полную информацию о бизнесе и полностью документирована для …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/obnovlenie-i-uluchshenie-adminpanel/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  14
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="1000"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_NCfGvto.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/ocherednoe-uluchshenie-i-ispravlenie/"
+                  class="text-white text-decoration-none"
+                >
+                  Очередное улучшение и исправление.
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Код header.html был значительно усовершенствован, исправлены логические ошибки и добавлены премиальные UI-эффекты. Также были внесены …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/ocherednoe-uluchshenie-i-ispravlenie/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  5
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="1100"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_0pc1PfJ.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/teper-glavnaya-stranica-dolzhna-zagruzhatsya-bez-o/"
+                  class="text-white text-decoration-none"
+                >
+                  Теперь главная страница должна загружаться без ошибок.
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Теперь главная страница должна загружаться без ошибок.
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/teper-glavnaya-stranica-dolzhna-zagruzhatsya-bez-o/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  36
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="1200"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_q1zydBY.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/sozdal-edinuyu-sistemu-filtracii-i-poiska/"
+                  class="text-white text-decoration-none"
+                >
+                  Создал  единую систему фильтрации и поиска
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Я успешно реализовал единую систему фильтрации и поиска для всех основных разделов сайта: Портфолио, Новости …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/sozdal-edinuyu-sistemu-filtracii-i-poiska/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  3
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="1300"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_GT86uUQ.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/ocherednye-obnovleniya-dlya-sajta-i-ego-struktury/"
+                  class="text-white text-decoration-none"
+                >
+                  Очередные обновления для сайта и его структуры
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Я внес все запрошенные изменения в навигационное меню, создав динамические выпадающие списки для разделов &quot;Услуги&quot;, …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/ocherednye-obnovleniya-dlya-sajta-i-ego-struktury/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  3
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="1400"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_OJWJpVL.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/sajt-stal-bolee-svezhim-sovremennym/"
+                  class="text-white text-decoration-none"
+                >
+                  Сайт стал более свежим, современным
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Сайт стал более свежим, современным (с WOW-эффектом) и максимально адаптивным. Корзина теперь удобно встроена в …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/sajt-stal-bolee-svezhim-sovremennym/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  3
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="1500"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_mVX1RVa.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/ya-polnostyu-reshil-etu-problemu-i-sdelal-sajt-vid/"
+                  class="text-white text-decoration-none"
+                >
+                  Я полностью решил эту проблему и сделал сайт видимым и читаемым, выполнив следующие шаги
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Сайт показывался исключительно в темных тонах, потому что он автоматически считывал системные настройки вашей операционной …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/ya-polnostyu-reshil-etu-problemu-i-sdelal-sajt-vid/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  2
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="1600"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_0mWyYhv.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/ya-vypolnil-vashu-dopolnitelnuyu-rabotu-vot-chto-b/"
+                  class="text-white text-decoration-none"
+                >
+                  Я выполнил вашу дополнительную работу. Вот что было сделано
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Все стилевые решения теперь вынесены в файлы CSS, а дублированные блоки объединены для более удобной …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/ya-vypolnil-vashu-dopolnitelnuyu-rabotu-vot-chto-b/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  4
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="1700"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_VuihYIB.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/obnovleniya-cvetovoj-gammy/"
+                  class="text-white text-decoration-none"
+                >
+                  Обновления цветовой гаммы
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Анализ сайта выявил значительные несоответствия в стилевых решениях: использование жестко заданных цветов (Hardcoded HEX), отсутствие …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/obnovleniya-cvetovoj-gammy/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  3
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="1800"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_E9cYYbn.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/vtoroj-etap-analiza-i-ispravlenij-uspeshno-zaversh/"
+                  class="text-white text-decoration-none"
+                >
+                  Второй этап анализа и исправлений успешно завершен.
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Второй этап анализа и исправлений успешно завершен. Я провел глубокий аудит функциональности и дизайна сайта, …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/vtoroj-etap-analiza-i-ispravlenij-uspeshno-zaversh/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  2
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="1900"
+        >
+          <article class="news-card-premium w-100 h-100">
+            
+            <div
+              class="news-card-bg"
+              style="background-image: url(&quot;/media/news/fon_news_RecUops.png&quot;)"
+            ></div>
+            
+            <div class="news-card-overlay"></div>
+            <div class="news-card-content">
+              <div
+                class="news-card-header d-flex justify-content-between align-items-center mb-3"
+              >
+                
+                <a href="/news/category/glavnye-novosti/" class="news-category-badge">
+                  Главные новости
+                </a>
+                
+                <div class="news-meta text-muted small">
+                  <i class="far fa-clock me-1"></i>
+                  21:09
+                </div>
+              </div>
+
+              <h3 class="news-title h5 fw-bold mb-3">
+                <a
+                  href="/news/ya-privel-vse-hedery-i-vypadayushie-menyu-k-edinom/"
+                  class="text-white text-decoration-none"
+                >
+                  Я привел все хедеры и выпадающие меню к единому премиальному стандарту, исправил видимость логотипа и унифицировал вертикальное выравнивание всех элементов навигации.
+                </a>
+              </h3>
+
+              <p
+                class="news-description text-white-50 mb-4"
+                style="font-size: 0.9rem"
+              >
+                Я привел все хедеры и выпадающие меню к единому премиальному стандарту, исправил видимость логотипа и …
+              </p>
+
+              <div
+                class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25"
+              >
+                <a
+                  href="/news/ya-privel-vse-hedery-i-vypadayushie-menyu-k-edinom/"
+                  class="btn-read-more"
+                  style="font-size: 0.85rem"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                <span class="news-views text-muted small">
+                  <i class="far fa-eye me-1"></i>
+                  1
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Пагинация -->
+  
+  <nav aria-label="Навигация по страницам" class="mt-5">
+    <ul class="pagination justify-content-center flex-wrap glass-pagination">
+      
+
+      
+      
+      <li class="page-item active">
+        <span class="page-link">1</span>
+      </li>
+      
+      
+      
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="?page=2&sort=date_desc"
+        >
+          2
+        </a>
+      </li>
+      
+      
+      
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="?page=3&sort=date_desc"
+        >
+          3
+        </a>
+      </li>
+      
+      
+
+      
+      <li class="page-item">
+        <a
+          class="page-link"
+          href="?page=2&sort=date_desc"
+        >
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+  
+</div>
+
+        </div>
+
+        <!-- Сайдбар -->
+        <div class="col-12 col-lg-4">
+          
+<div class="sidebar-filters mb-4">
+  <!-- Категории -->
+  <div
+    class="news-filters mb-4 p-4 rounded-4 border border-secondary border-opacity-25"
+    style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px)"
+  >
+    <h5 class="text-white mb-3 fw-bold">
+      <i class="fas fa-folder-open me-2 text-primary"></i>
+      Категории
+    </h5>
+    <div class="d-flex flex-wrap gap-2">
+      <a
+        href="/news/"
+        class="btn-filter-pill active"
+      >
+        Все
+      </a>
+      
+      <a
+        href="/news/category/glavnye-novosti/"
+        class="btn-filter-pill "
+      >
+        Главные новости
+      </a>
+      
+      <a
+        href="/news/category/akcii/"
+        class="btn-filter-pill "
+      >
+        Акции
+      </a>
+      
+      <a
+        href="/news/category/sozdannye-raboty/"
+        class="btn-filter-pill "
+      >
+        Созданные работы
+      </a>
+      
+      <a
+        href="/news/category/sozdannye-sajty/"
+        class="btn-filter-pill "
+      >
+        Созданные сайты.
+      </a>
+      
+      <a
+        href="/news/category/sozdannye-vizitki/"
+        class="btn-filter-pill "
+      >
+        Созданные визитки
+      </a>
+      
+      <a
+        href="/news/category/sozdannye-makety/"
+        class="btn-filter-pill "
+      >
+        Созданные макеты
+      </a>
+      
+      <a
+        href="/news/category/sozdannye-proekty/"
+        class="btn-filter-pill "
+      >
+        Созданные проекты
+      </a>
+      
+      <a
+        href="/news/category/portfolio/"
+        class="btn-filter-pill "
+      >
+        Портфолио
+      </a>
+      
+      <a
+        href="/news/category/services-cms/"
+        class="btn-filter-pill "
+      >
+        Услуги: CMS
+      </a>
+      
+    </div>
+  </div>
+
+  <!-- Сортировка -->
+  <div
+    class="news-sort mb-5 p-4 rounded-4 border border-secondary border-opacity-25"
+    style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px)"
+  >
+    <h5 class="text-white mb-3 fw-bold">
+      <i class="fas fa-sort-amount-down me-2 text-primary"></i>
+      Сортировка
+    </h5>
+    <div class="d-flex flex-wrap gap-2">
+      <a
+        href="?sort=date_desc"
+        class="btn-sort-pill active"
+      >
+        Новые
+      </a>
+      <a
+        href="?sort=views_desc"
+        class="btn-sort-pill "
+      >
+        Популярные
+      </a>
+      <a
+        href="/news/category/glavnye/"
+        class="btn-sort-pill "
+      >
+        Главные
+      </a>
+    </div>
+  </div>
+</div>
+
+          <!-- ============================================
+     ФАЙЛ: sidebar.html
+     ОПИСАНИЕ: Боковая панель (сайдбар) с дополнительной информацией
+     ============================================ -->
+
+<!-- Загрузка статических файлов CMS -->
+
+<!-- Контейнер сайдбара - 12 колонок на маленьких экранах, 3 на больших -->
+<div class="sidebar mb-4 mb-lg-0">
+    <!-- Секция корзины (динамическая, не кэшируется) -->
+    
+<div class="card mb-4 cart-widget-dynamic" id="sidebarCartWidget">
+    <div class="card-header sidebar-premium-header-services" style="display: flex; justify-content: space-between; align-items: center;">
+        <h6 class="mb-0">
+            <i class="fas fa-shopping-cart text-primary me-2"></i> Корзина заказов
+        </h6>
+        
+    </div>
+
+    <div class="card-body sidebar-premium-body">
+        
+            <div class="text-center py-2">
+                <div class="text-muted mb-3">
+                    <i class="fas fa-lock fa-2x opacity-25"></i>
+                </div>
+                <p class="small text-muted mb-3">Войдите, чтобы собрать заказ</p>
+                <a href="/accounts/login/" class="btn-sidebar-premium w-100 text-center text-decoration-none d-block">
+                    <span>Авторизоваться</span>
+                </a>
+            </div>
+        
+    </div>
+</div>
+
+<style>
+/* Микро-стили для элементов внутри динамического сайдбара корзины  */
+.cart-widget-items {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--bs-primary-rgb), 0.5) transparent;
+}
+.cart-widget-items::-webkit-scrollbar {
+    width: 4px;
+}
+.cart-widget-items::-webkit-scrollbar-thumb {
+    background: rgba(var(--bs-primary-rgb), 0.5);
+    border-radius: 4px;
+}
+.cart-widget-empty {
+    text-align: center;
+    padding: 1rem 0;
+}
+.cart-widget-empty-icon i {
+    font-size: 2rem;
+    opacity: 0.15;
+    margin-bottom: 0.5rem;
+}
+.cart-widget-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.cart-widget-item:last-child {
+    border-bottom: none;
+}
+.cart-widget-item-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.cart-widget-item-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.cart-widget-item-name {
+    flex-grow: 1;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--bs-body-color);
+}
+.cart-widget-item-price {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--bs-success);
+    white-space: nowrap;
+}
+.cart-widget-item-remove {
+    background: none;
+    border: none;
+    color: var(--bs-danger);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.2s, color 0.2s;
+    padding: 0 4px;
+    font-size: 0.9rem;
+}
+.cart-widget-item-remove:hover {
+    opacity: 1;
+    color: #ff4d4d;
+}
+</style>
+
+    
+    
+    <!-- Секция последних новостей -->
+    
+
+
+<div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header-news">
+        <h6>
+            <i class="fas fa-newspaper"></i> Последние новости
+        </h6>
+    </div>
+
+    <div class="card-body sidebar-premium-body">
+        
+        <a href="/news/refaktoring-lenty-sobytij-s-filtraciej-po-datam/" class="sidebar-premium-item has-bg" style="animation-delay: 100ms;">
+            <!-- Основное фоновое изображение -->
+            <div class="sidebar-premium-bg" 
+                 style="background-image: url('/media/news/categories/fon_news_IWpgvGs.png');">
+            </div>
+
+            <!-- Декоративная иконка на заднем плане -->
+            <div class="sidebar-premium-icon-bg">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            
+            <!-- Интеллектуальный градиентный оверлей для глубины -->
+            <div class="sidebar-premium-overlay vibrant"></div>
+            
+            <!-- Контентная часть с эффектом матового стекла (glassmorphism) -->
+            <div class="sidebar-premium-content glass-effect">
+                <h6 class="sidebar-premium-title">Рефакторинг ленты событий с фильтрацией по датам</h6>
+                <div class="sidebar-premium-meta">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>06.05.2026</span>
+                </div>
+            </div>
+        </a>
+        
+        <a href="/news/chto-bylo-ispravleno-osnovnaya-oshibka-noreversema/" class="sidebar-premium-item has-bg" style="animation-delay: 200ms;">
+            <!-- Основное фоновое изображение -->
+            <div class="sidebar-premium-bg" 
+                 style="background-image: url('/media/news/categories/fon_news_IWpgvGs.png');">
+            </div>
+
+            <!-- Декоративная иконка на заднем плане -->
+            <div class="sidebar-premium-icon-bg">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            
+            <!-- Интеллектуальный градиентный оверлей для глубины -->
+            <div class="sidebar-premium-overlay vibrant"></div>
+            
+            <!-- Контентная часть с эффектом матового стекла (glassmorphism) -->
+            <div class="sidebar-premium-content glass-effect">
+                <h6 class="sidebar-premium-title">Что было исправлено  Основная ошибка — NoReverseMatch: main_errorlog_edit</h6>
+                <div class="sidebar-premium-meta">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>20.04.2026</span>
+                </div>
+            </div>
+        </a>
+        
+        <a href="/news/ya-dobavil-vidzhet-korziny-v-sajdbar/" class="sidebar-premium-item has-bg" style="animation-delay: 300ms;">
+            <!-- Основное фоновое изображение -->
+            <div class="sidebar-premium-bg" 
+                 style="background-image: url('/media/news/categories/fon_news_IWpgvGs.png');">
+            </div>
+
+            <!-- Декоративная иконка на заднем плане -->
+            <div class="sidebar-premium-icon-bg">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            
+            <!-- Интеллектуальный градиентный оверлей для глубины -->
+            <div class="sidebar-premium-overlay vibrant"></div>
+            
+            <!-- Контентная часть с эффектом матового стекла (glassmorphism) -->
+            <div class="sidebar-premium-content glass-effect">
+                <h6 class="sidebar-premium-title">Я добавил виджет корзины в сайдбар</h6>
+                <div class="sidebar-premium-meta">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>16.04.2026</span>
+                </div>
+            </div>
+        </a>
+        
+        <a href="/news/ya-dobavil-polnocennyj-css-kod-v-shablon-server_in/" class="sidebar-premium-item has-bg" style="animation-delay: 400ms;">
+            <!-- Основное фоновое изображение -->
+            <div class="sidebar-premium-bg" 
+                 style="background-image: url('/media/news/categories/fon_news_IWpgvGs.png');">
+            </div>
+
+            <!-- Декоративная иконка на заднем плане -->
+            <div class="sidebar-premium-icon-bg">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            
+            <!-- Интеллектуальный градиентный оверлей для глубины -->
+            <div class="sidebar-premium-overlay vibrant"></div>
+            
+            <!-- Контентная часть с эффектом матового стекла (glassmorphism) -->
+            <div class="sidebar-premium-content glass-effect">
+                <h6 class="sidebar-premium-title">Я добавил полноценный CSS-код в шаблон server_info.html. Верстка страницы &quot;Информация о сервере&quot; значительно улучшилась и теперь выглядит профессионально</h6>
+                <div class="sidebar-premium-meta">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>16.04.2026</span>
+                </div>
+            </div>
+        </a>
+        
+        <a href="/news/ya-obnovil-klassy-setki-v-fajle-content-sectionhtm/" class="sidebar-premium-item has-bg" style="animation-delay: 500ms;">
+            <!-- Основное фоновое изображение -->
+            <div class="sidebar-premium-bg" 
+                 style="background-image: url('/media/news/categories/fon_news_IWpgvGs.png');">
+            </div>
+
+            <!-- Декоративная иконка на заднем плане -->
+            <div class="sidebar-premium-icon-bg">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            
+            <!-- Интеллектуальный градиентный оверлей для глубины -->
+            <div class="sidebar-premium-overlay vibrant"></div>
+            
+            <!-- Контентная часть с эффектом матового стекла (glassmorphism) -->
+            <div class="sidebar-premium-content glass-effect">
+                <h6 class="sidebar-premium-title">Я обновил классы сетки в файле content-section.html.</h6>
+                <div class="sidebar-premium-meta">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>15.04.2026</span>
+                </div>
+            </div>
+        </a>
+        
+        
+        <!-- Кнопка "Все новости" -->
+        <a href="/news/" class="btn-sidebar-premium">
+            <span>Посмотреть всё</span>
+            <i class="fas fa-chevron-right fa-xs"></i>
+        </a>
+    </div>
+</div>
+
+
+    <!-- Секция популярных услуг -->
+    
+
+
+
+
+
+
+<div class="card">
+    <!-- Заголовок -->
+    <div class="card-header sidebar-premium-header-services">
+        <h6>
+            <i class="fas fa-magic"></i> Популярные услуги
+        </h6>
+    </div>
+
+    <!-- Тело карточки -->
+    <div class="card-body sidebar-premium-body">
+        
+        <div class="sidebar-service-category">
+            <!-- Категория -->
+            <div class="sidebar-service-cat-title">
+                CMS
+            </div>
+            
+            <!-- Список услуг -->
+            <div class="sidebar-service-list">
+                
+                <a href="/services/internet-magazin-prostoj/" class="sidebar-service-item" style="animation-delay: 100ms;">
+                    
+                        <img src="/media/services/icons/ICONS_CMS_K62FmtA.jpg" alt="">
+                    
+                    <span class="text-truncate">Интернет-магазин - Простой</span>
+                </a>
+                
+                <a href="/services/lending-rasshirennyj/" class="sidebar-service-item" style="animation-delay: 200ms;">
+                    
+                        <img src="/media/services/icons/CMS.jpg" alt="">
+                    
+                    <span class="text-truncate">Лендинг - Расширенный</span>
+                </a>
+                
+                <a href="/services/lending-prostoj/" class="sidebar-service-item" style="animation-delay: 300ms;">
+                    
+                        <img src="/media/services/icons/CMS_peHkIvj.jpg" alt="">
+                    
+                    <span class="text-truncate">Лендинг - Простой</span>
+                </a>
+                
+            </div>
+        </div>
+        
+
+        <!-- Кнопка "Все услуги" -->
+        <a href="/services/" class="btn-sidebar-premium">
+            <span>Все услуги</span>
+            <i class="fas fa-arrow-right fa-xs"></i>
+        </a>
+    </div>
+</div>
+
+
+
+    <!-- Секция последних работ из портфолио -->
+    
+
+
+
+    <!-- Секция последних отзывов -->
+    
+
+
+<div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header-reviews">
+        <h6>
+            <i class="fas fa-star"></i> Последние отзывы
+        </h6>
+    </div>
+
+    <div class="card-body sidebar-premium-body">
+        
+        <div class="sidebar-premium-item" style="animation-delay: 100ms;">
+            <!-- Иконка на фоне (декоративная) -->
+            <div class="sidebar-premium-icon-bg">
+                <i class="fas fa-quote-right"></i>
+            </div>
+            
+            <div class="sidebar-premium-content" style="min-height: auto;">
+                <div class="sidebar-review-author">Алексей Федотов Ильин</div>
+                <div class="sidebar-review-text">
+                    "Первый отзыв"
+                </div>
+                <div class="sidebar-premium-meta">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>14.10.2025</span>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Кнопка "Оставить отзыв" (опционально, если есть урл) -->
+        
+    </div>
+</div>
+
+
+    <!-- Секция контактной информации -->
+    
+
+
+<div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header-contacts">
+        <h6>
+            <i class="fas fa-id-card"></i> Контакты
+        </h6>
+    </div>
+
+    <div class="card-body sidebar-premium-body">
+        <div class="sidebar-contact-info">
+            
+            <a href="tel:+7 909 661-79-95" class="sidebar-contact-link" style="animation-delay: 100ms;">
+                <i class="fas fa-phone-alt"></i>
+                <div class="flex-grow-1">
+                    <small class="d-block opacity-50 uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Телефон</small>
+                    <span class="d-block fw-bold">+7 909 661-79-95</span>
+                </div>
+            </a>
+            
+
+            
+            <a href="tel:+7 925 074-88-73" class="sidebar-contact-link" style="animation-delay: 100ms;">
+                <i class="fas fa-phone-alt"></i>
+                <div class="flex-grow-1">
+                    <small class="d-block opacity-50 uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Телефон</small>
+                    <span class="d-block fw-bold">+7 925 074-88-73</span>
+                </div>
+            </a>
+            
+
+            
+            <a href="mailto:admin@dpits-cms.ru" class="sidebar-contact-link" style="animation-delay: 200ms;">
+                <i class="fas fa-envelope"></i>
+                <div class="flex-grow-1">
+                    <small class="d-block opacity-50 uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Email</small>
+                    <span class="d-block fw-bold">admin@dpits-cms.ru</span>
+                </div>
+            </a>
+            
+        </div>
+        
+        <!-- Кнопка "Связаться с нами" (опционально) -->
+        <a href="/contacts/" class="btn-sidebar-premium">
+            <span>Написать нам</span>
+            <i class="fas fa-paper-plane fa-xs"></i>
+        </a>
+    </div>
+</div>
+
+
+    
+</div>
+
+
+          
+
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- Блок контентной секции (переопределяется в дочерних шаблонах) -->
+    
+    <!-- Подключение шаблона контентной секции -->
+    
+
+
+<section class="cs-advantages" aria-labelledby="cs-section-title">
+
+  
+  
+  
+  <div class="container-xl cs-advantages__container position-relative">
+
+    
+    <div class="row justify-content-left mb-5">
+      <div class="col-12 col-lg-8 text-left">
+        <div class="cs-advantages__badge mb-3" data-aos="fade-down">
+          <i class="fa-solid fa-star-of-life me-2"></i>Наши услуги
+        </div>
+        <h2 class="cs-advantages__title" id="cs-section-title" data-aos="fade-up">
+          Мы делаем для вас
+          <span class="cs-advantages__title-accent">лучшее</span>
+        </h2>
+        <p class="cs-advantages__subtitle text-left" data-aos="fade-up" data-aos-delay="100">
+          Комплексный подход к цифровому развитию вашего бизнеса — от создания сайтов
+          до автоматизации и технической поддержки
+        </p>
+      </div>
+    </div>
+
+    
+    <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="0">
+        <div class="cs-advantages__card h-100 cs-card--primary">
+          <div class="cs-advantages__icon-wrap">
+            <i class="fa-solid fa-globe"></i>
+          </div>
+          <h3 class="cs-advantages__card-title">Создание сайтов</h3>
+          <p class="cs-advantages__card-text">
+            Разрабатываем сайты любой сложности: от лендингов до полноценных маркетплейсов.
+          </p>
+          <ul class="cs-advantages__list">
+            <li><i class="fa-solid fa-check"></i> Лендинги и промо-сайты</li>
+            <li><i class="fa-solid fa-check"></i> Интернет-магазины</li>
+            <li><i class="fa-solid fa-check"></i> Корпоративные сайты</li>
+            <li><i class="fa-solid fa-check"></i> Порталы и каталоги</li>
+            <li><i class="fa-solid fa-check"></i> Маркетплейсы</li>
+          </ul>
+          <div class="cs-advantages__card-footer mt-auto">
+            <span class="cs-advantages__tag">
+              <i class="fa-solid fa-code me-1"></i>Веб-разработка
+            </span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="100">
+        <div class="cs-advantages__card h-100 cs-card--secondary">
+          <div class="cs-advantages__icon-wrap">
+            <i class="fa-solid fa-gears"></i>
+          </div>
+          <h3 class="cs-advantages__card-title">Автоматизация бизнеса</h3>
+          <p class="cs-advantages__card-text">
+            Освобождаем ваше время — автоматизируем рутинные задачи и бизнес-процессы.
+          </p>
+          <ul class="cs-advantages__list">
+            <li><i class="fa-solid fa-check"></i> Автоматизация рутины</li>
+            <li><i class="fa-solid fa-check"></i> Документооборот</li>
+            <li><i class="fa-solid fa-check"></i> Отчётность и аналитика</li>
+            <li><i class="fa-solid fa-check"></i> Email и смс рассылки</li>
+            <li><i class="fa-solid fa-check"></i> Уведомления и триггеры</li>
+          </ul>
+          <div class="cs-advantages__card-footer mt-auto">
+            <span class="cs-advantages__tag cs-advantages__tag--secondary">
+              <i class="fa-solid fa-robot me-1"></i>Автоматизация
+            </span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="cs-advantages__card h-100 cs-card--accent">
+          <div class="cs-advantages__icon-wrap">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <h3 class="cs-advantages__card-title">Продвижение сайтов</h3>
+          <p class="cs-advantages__card-text">
+            Приводим целевых посетителей и клиентов через эффективные каналы продвижения.
+          </p>
+          <ul class="cs-advantages__list">
+            <li><i class="fa-solid fa-check"></i> SEO-оптимизация</li>
+            <li><i class="fa-solid fa-check"></i> Контекстная реклама</li>
+            <li><i class="fa-solid fa-check"></i> SMM и социальные сети</li>
+            <li><i class="fa-solid fa-check"></i> Таргетированная реклама</li>
+            <li><i class="fa-solid fa-check"></i> Медийная реклама</li>
+          </ul>
+          <div class="cs-advantages__card-footer mt-auto">
+            <span class="cs-advantages__tag cs-advantages__tag--accent">
+              <i class="fa-solid fa-rocket me-1"></i>Маркетинг
+            </span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="300">
+        <div class="cs-advantages__card h-100 cs-card--success">
+          <div class="cs-advantages__icon-wrap">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+          <h3 class="cs-advantages__card-title">Техническая поддержка</h3>
+          <p class="cs-advantages__card-text">
+            Обеспечиваем стабильность и безопасность ваших ресурсов в режиме 24/7.
+          </p>
+          <ul class="cs-advantages__list">
+            <li><i class="fa-solid fa-check"></i> Поддержка сайтов</li>
+            <li><i class="fa-solid fa-check"></i> Интернет-магазины</li>
+            <li><i class="fa-solid fa-check"></i> Обновления и патчи</li>
+            <li><i class="fa-solid fa-check"></i> Резервное копирование</li>
+            <li><i class="fa-solid fa-check"></i> Мониторинг и безопасность</li>
+          </ul>
+          <div class="cs-advantages__card-footer mt-auto">
+            <span class="cs-advantages__tag cs-advantages__tag--success">
+              <i class="fa-solid fa-shield-halved me-1"></i>Поддержка 24/7
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div class="row g-3 mt-5" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-6 col-md-3">
+        <div class="cs-stat-card text-center">
+          <div class="cs-stat-card__number">
+            <span class="cs-counter" data-target="150">0</span>+
+          </div>
+          <div class="cs-stat-card__label">Завершённых проектов</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="cs-stat-card text-center">
+          <div class="cs-stat-card__number">
+            <span class="cs-counter" data-target="5">0</span>+
+          </div>
+          <div class="cs-stat-card__label">Лет опыта</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="cs-stat-card text-center">
+          <div class="cs-stat-card__number">
+            <span class="cs-counter" data-target="98">0</span>%
+          </div>
+          <div class="cs-stat-card__label">Довольных клиентов</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="cs-stat-card text-center">
+          <div class="cs-stat-card__number">
+            <span class="cs-counter" data-target="24">0</span>/7
+          </div>
+          <div class="cs-stat-card__label">Техническая поддержка</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="row mt-5">
+      <div class="col-12 text-left" data-aos="zoom-in" data-aos-delay="200">
+        <a href="/services/" class="cs-advantages__cta-btn">
+          <span>Все наши услуги</span>
+          <i class="fa-solid fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<script>
+(function () {
+  'use strict';
+  const counters = document.querySelectorAll('.cs-counter');
+  if (!counters.length) return;
+
+  const animateCounter = (el) => {
+    const target = +el.dataset.target;
+    const duration = 1800;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = Math.floor(current);
+    }, 16);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.counted) {
+        entry.target.dataset.counted = 'true';
+        animateCounter(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  counters.forEach(c => observer.observe(c));
+})();
+</script>
+
+    
+  </main>
+
+  <!-- Блок футера (переопределяется в дочерних шаблонах) -->
+  
+  <!-- Подключение шаблона футера -->
+  <!-- ============================================
+     ФАЙЛ: footer.html
+     ОПИСАНИЕ: Подвал (футер) сайта — Premium Dark 2026
+     ============================================ -->
+
+
+<footer class="py-5 py-md-6 mt-auto" role="contentinfo">
+  
+  <div
+    class="container-fluid px-3 px-md-4 px-lg-5 position-relative"
+    style="z-index: 1"
+  >
+    <!-- ── Верхняя строка: лого + колонки ── -->
+    <div class="row g-4 g-lg-5 mb-4">
+      <!-- Бренд и описание -->
+      <div class="col-lg-4 col-md-6 col-12">
+        <div class="footer-content-2 mb-2">DPITS-CMS.RU</div>
+        
+        <div class="mb-3">
+          <img
+            src="/media/logos/cms_logo.png"
+            alt="DPITS-CMS.RU"
+            style="height: 42px; filter: brightness(0.9) opacity(0.8)"
+          />
+        </div>
+        
+        <p class="footer-content-1 mb-4">
+          <blockquote><p><i>Сайты, которые решают задачи бизнеса и нравятся клиентам&nbsp;</i><br><i>От стратегии и дизайна до запуска и поддержки. Полный цикл для вашего уверенного роста в digital.</i></p></blockquote><p style="margin-left:0px;"><strong>Наши преимущества:</strong></p><ul><li><p style="margin-left:0px;"><strong>Проектирование для ваших клиентов</strong><br>Изучаем вашу целевую аудиторию, чтобы каждый элемент сайта был интуитивно понятен и вел к цели.</p></li><li><p style="margin-left:0px;"><strong>Скорость и адаптивность</strong><br>Быстрая загрузка и безупречное отображение на любом устройстве. Снижаем процент отказов и повышаем доверие.</p></li><li><p style="margin-left:0px;"><strong>Чистый код и SEO-фундамент</strong><br>Создаем сайты, которые любят поисковые системы. Закладываем основу для эффективного продвижения с первого дня.</p></li><li><p style="margin-left:0px;"><strong>Понятная аналитика и отчетность</strong><br>Вы всегда в курсе, как работает ваш сайт: от ключевых показателей посещаемости до конверсий.</p></li></ul>
+        </p>
+        <!-- Mini stats -->
+        <div class="d-flex gap-3">
+          <div
+            class="text-center px-3 py-2 rounded-3"
+            style="
+              background: rgba(99, 102, 241, 0.08);
+              border: 1px solid rgba(99, 102, 241, 0.15);
+            "
+          >
+            <div
+              class="fw-bold"
+              style="color: var(--primary-hover); font-size: 1.1rem"
+            >
+              5+
+            </div>
+            <div
+              style="
+                color: var(--text-muted);
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+              "
+            >
+              лет
+            </div>
+          </div>
+          <div
+            class="text-center px-3 py-2 rounded-3"
+            style="
+              background: rgba(6, 182, 212, 0.08);
+              border: 1px solid rgba(6, 182, 212, 0.15);
+            "
+          >
+            <div
+              class="fw-bold"
+              style="color: var(--secondary-hover); font-size: 1.1rem"
+            >
+              99%
+            </div>
+            <div
+              style="
+                color: var(--text-muted);
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+              "
+            >
+              клиентов
+            </div>
+          </div>
+          <div
+            class="text-center px-3 py-2 rounded-3"
+            style="
+              background: rgba(16, 185, 129, 0.08);
+              border: 1px solid rgba(16, 185, 129, 0.15);
+            "
+          >
+            <div class="fw-bold" style="color: #34d399; font-size: 1.1rem">
+              24/7
+            </div>
+            <div
+              style="
+                color: var(--text-muted);
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+              "
+            >
+              поддержка
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Контакты -->
+      <div class="col-lg-4 col-md-6 col-12">
+        <h5 class="fw-bold mb-3">Контакты</h5>
+        <div class="d-flex flex-column gap-3">
+          
+          <a
+            href="tel:+7 909 661-79-95"
+            class="d-flex align-items-center gap-3 text-decoration-none footer-contact-item"
+          >
+            <div class="footer-icon-box flex-shrink-0">
+              <i class="fas fa-phone" style="color: var(--primary-hover)"></i>
+            </div>
+            <div>
+              <div
+                style="
+                  color: var(--text-muted);
+                  font-size: 0.7rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.08em;
+                "
+              >
+                Телефон
+              </div>
+              <span style="color: var(--text-secondary)">+7 909 661-79-95</span>
+            </div>
+          </a>
+          
+          
+          <a
+            href="tel:+7 925 074-88-73"
+            class="d-flex align-items-center gap-3 text-decoration-none footer-contact-item"
+          >
+            <div class="footer-icon-box flex-shrink-0">
+              <i class="fas fa-phone" style="color: var(--primary-hover)"></i>
+            </div>
+            <div>
+              <div
+                style="
+                  color: var(--text-muted);
+                  font-size: 0.7rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.08em;
+                "
+              >
+                Телефон 2
+              </div>
+              <span style="color: var(--text-secondary)">+7 925 074-88-73</span>
+            </div>
+          </a>
+          
+          
+          <a
+            href="mailto:admin@dpits-cms.ru"
+            class="d-flex align-items-center gap-3 text-decoration-none footer-contact-item"
+          >
+            <div class="footer-icon-box flex-shrink-0">
+              <i
+                class="fas fa-envelope"
+                style="color: var(--secondary-color)"
+              ></i>
+            </div>
+            <div>
+              <div
+                style="
+                  color: var(--text-muted);
+                  font-size: 0.7rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.08em;
+                "
+              >
+                Email
+              </div>
+              <span style="color: var(--text-secondary)">admin@dpits-cms.ru</span>
+            </div>
+          </a>
+          
+          
+          <div class="d-flex align-items-start gap-3">
+            <div class="footer-icon-box flex-shrink-0">
+              <i class="fas fa-map-marker-alt" style="color: #f43f5e"></i>
+            </div>
+            <div>
+              <div
+                style="
+                  color: var(--text-muted);
+                  font-size: 0.7rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.08em;
+                "
+              >
+                Адрес
+              </div>
+              <span style="color: var(--text-secondary)">
+                г. Химки, ул. Энгельса
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Быстрые ссылки -->
+      <div class="col-lg-4 col-md-6 col-12">
+        <h5 class="fw-bold mb-3">Навигация</h5>
+        <ul class="list-unstyled footer-nav-list">
+          <li>
+            <a
+              href="/"
+              class="d-flex align-items-center gap-2"
+            >
+              <i
+                class="fas fa-home fa-xs"
+                style="color: var(--primary-hover); width: 14px"
+              ></i>
+              <span>Главная</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/services/"
+              class="d-flex align-items-center gap-2"
+            >
+              <i
+                class="fas fa-concierge-bell fa-xs"
+                style="color: var(--secondary-color); width: 14px"
+              ></i>
+              <span>Услуги</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/news/"
+              class="d-flex align-items-center gap-2"
+            >
+              <i
+                class="fas fa-newspaper fa-xs"
+                style="color: #f59e0b; width: 14px"
+              ></i>
+              <span>Новости</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/portfolio/"
+              class="d-flex align-items-center gap-2"
+            >
+              <i
+                class="fas fa-briefcase fa-xs"
+                style="color: #a78bfa; width: 14px"
+              ></i>
+              <span>Портфолио</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/reviews/"
+              class="d-flex align-items-center gap-2"
+            >
+              <i
+                class="fas fa-star fa-xs"
+                style="color: #fbbf24; width: 14px"
+              ></i>
+              <span>Отзывы</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="/contacts/"
+              class="d-flex align-items-center gap-2"
+            >
+              <i
+                class="fas fa-envelope fa-xs"
+                style="color: #34d399; width: 14px"
+              ></i>
+              <span>Обратная связь</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── Разделитель ── -->
+    <hr style="border-color: rgba(255, 255, 255, 0.06)" class="my-4" />
+
+    <!-- ── Социальные сети + платёжные методы ── -->
+    <div class="row g-4 mb-4">
+      <div class="col-md-6">
+        <!-- Секция социальных сетей -->
+<div class="row mt-4 footer-container-1">
+    <!-- Колонка на всю ширину -->
+    <div class="col-12 row">
+        <!-- Заголовок секции социальных сетей -->
+        <h5 class="fw-bold mb-3">Мы в соцсетях</h5>
+        <!-- Описание секции с приглушенным цветом и отступом снизу -->
+        <p class="footer-content-2 mb-3">Подписывайтесь на наши социальные сети, чтобы быть в курсе последних новостей и событий.</p>
+
+        <!-- Контейнер для социальных ссылок с flexbox и отступами -->
+        <div class="social-links d-flex flex-wrap gap-3 align-items-center">
+
+            
+            <!-- Ссылка на Facebook с белым текстом и большим размером шрифта -->
+            <a href="https://www.facebook.com/DpiTStudio" class="text-white fs-4 d-flex align-items-center justify-content-center" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="min-width: 36px; height: 36px;">
+              
+                <img src="/media/uploads/facebook_icon_2026-04-11_13-07-23.png" alt="Facebook" style="width: 28px; height: 28px; object-fit: contain;">
+              
+            </a>
+            
+            <!-- Ссылка на Telegram с белым текстом и большим размером шрифта -->
+            <a href="http://t.me/DpiTSCMS" class="text-white fs-4 d-flex align-items-center justify-content-center" target="_blank" rel="noopener noreferrer" aria-label="Telegram" style="min-width: 36px; height: 36px;">
+              
+                <img src="/media/uploads/telegram_icon_2026-04-11_13-07-23.png" alt="Telegram" style="width: 28px; height: 28px; object-fit: contain;">
+              
+            </a>
+            
+            <!-- Ссылка на ВКонтакте с белым текстом и большим размером шрифта -->
+            <a href="https://vk.com/dpits_cms_ru" class="text-white fs-4 d-flex align-items-center justify-content-center" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" style="min-width: 36px; height: 36px;">
+              
+                <img src="/media/uploads/vk_icon_2026-04-11_13-07-23.png" alt="ВКонтакте" style="width: 28px; height: 28px; object-fit: contain;">
+              
+            </a>
+            
+            <!-- Ссылка на Одноклассники с белым текстом и большим размером шрифта -->
+            <a href="https://ok.ru/group/70000051467531" class="text-white fs-4 d-flex align-items-center justify-content-center" target="_blank" rel="noopener noreferrer" aria-label="Одноклассники" style="min-width: 36px; height: 36px;">
+              
+                <img src="/media/uploads/ok_icon_2026-04-11_13-07-23.png" alt="Одноклассники" style="width: 28px; height: 28px; object-fit: contain;">
+              
+            </a>
+            
+        </div>
+    </div>
+</div>
+      </div>
+      <div class="col-md-6">
+        <!-- Секция способов оплаты -->
+<div class="row mt-4 footer-container-1">
+    <!-- Колонка на всю ширину -->
+    <div class="col-12 row">
+        <!-- Заголовок секции способов оплаты -->
+        <h5 class="fw-bold mb-3">Мы принимаем</h5>
+        <!-- Описание секции с приглушенным цветом и отступом снизу -->
+        <p class="footer-content-2 mb-3">Оплачивайте услуги удобным для вас способом.</p>
+
+        <!-- Контейнер для способов оплаты с flexbox и отступами -->
+        <div class="we-accept-cards d-flex flex-wrap gap-3 align-items-center">
+            <!-- Если нет активных способов оплаты то выведи информацию что нет способов оплаты -->
+            
+                <p class="footer-content-2 mb-0">Нет активных способов оплаты.</p>
+            
+        </div>
+    </div>
+</div>
+
+      </div>
+    </div>
+
+    <!-- ── Разделитель ── -->
+    <hr style="border-color: rgba(255, 255, 255, 0.06)" class="my-3" />
+
+    <div class="row g-4 mb-4">
+      <div class="col-md-12">
+        <a href="/page/politika-konfidencialnosti/">
+          Политика конфиденциальности
+        </a>
+        <a href="">Пользовательское соглашение</a>
+      </div>
+    </div>
+
+    <!-- ── Разделитель ── -->
+    <hr style="border-color: rgba(255, 255, 255, 0.06)" class="my-3" />
+
+    <!-- ── Нижняя строка: копирайт + доп ── -->
+    <div class="row align-items-center g-3">
+      <div class="col-12">
+        <!-- Контейнер для копирайта с выравниванием по центру на мобильных и по левому краю на больших экранах -->
+<div class="text-left text-md-start mt-4">
+    <!-- Текст копирайта с отступом снизу и специальным классом для стилизации -->
+    <p class="mb-2 footer-text-copy small">
+        <!-- Символ копирайта, текущий год и название бренда -->
+        &copy; 2026 DPITS-CMS.RU.
+        <!-- Курсивный текст о правах -->
+        <span class="d-block d-md-inline">Все права защищены.</span>
+    </p>
+</div>
+      </div>
+      <div class="col-12">
+        <!-- Yandex.Metrika counter -->
+            <script type="text/javascript">
+                (function(m,e,t,r,i,k,a){
+                    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                    m[i].l=1*new Date();
+                    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+                    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+                })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=105986204', 'ym');
+
+                ym(105986204, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+            </script>
+            <noscript><div><img src="https://mc.yandex.ru/watch/105986204" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+            <!-- /Yandex.Metrika counter -->
+      </div>
+    </div>
+
+    <div class="text-center mt-2">
+      
+      
+    </div>
+  </div>
+  <!-- /container -->
+  
+</footer>
+
+<!-- Stat banners body_end -->
+
+
+
+
+
+<style>
+  /* Footer icon boxes */
+  .footer-icon-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  .footer-contact-item:hover .footer-icon-box {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: scale(1.1);
+  }
+  .footer-contact-item:hover span {
+    color: var(--primary-hover) !important;
+  }
+
+  /* Footer nav list */
+  .footer-nav-list li {
+    margin-bottom: 0.6rem;
+  }
+  .footer-nav-list a {
+    color: var(--text-muted) !important;
+    text-decoration: none !important;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    padding: 0.2rem 0;
+  }
+  .footer-nav-list a:hover {
+    color: var(--primary-hover) !important;
+    padding-left: 0.4rem;
+  }
+
+  /* Section footer responsive */
+  .section-footer-1 {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 767.98px) {
+    .footer-content-2 {
+      font-size: 1.1rem !important;
+    }
+  }
+</style>
+
+  
+
+  
+<!-- ============================================
+     ФАЙЛ: js.html
+     ОПИСАНИЕ: Подключение всех JavaScript файлов проекта
+     ВАЖНО: Скрипты загружаются в конце body для оптимизации загрузки страницы
+     ============================================ -->
+
+<!-- Подключение JavaScript библиотек -->
+
+<!-- 1. Bootstrap 5 JavaScript bundle из CDN -->
+<!-- Включает Popper.js для всплывающих элементов и все компоненты Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<!-- 3. Индикатор прогресса чтения -->
+<!-- Отображение прогресса прокрутки страницы в верхней части экрана -->
+<script src="/static/js/reading-progress.js"></script>
+
+<!-- 4. Социальный шаринг -->
+<!-- Функционал для шаринга контента в социальных сетях -->
+<script src="/static/js/social-share.js"></script>
+
+<!-- 5. Поиск -->
+<!-- Функционал поиска по сайту с автодополнением -->
+<script src="/static/js/search.js"></script>
+
+<!-- 6. Ленивая загрузка изображений -->
+<!-- Оптимизация загрузки изображений при прокрутке страницы -->
+<script src="/static/js/lazy-loading.js"></script>
+
+<!-- 7. Мобильные улучшения -->
+<!-- Оптимизация интерфейса для мобильных устройств -->
+<script src="/static/js/mobile-enhancements.js"></script>
+
+<!-- 7a. Выпадающее меню в шапке -->
+<!-- Скрипт для управления поведением выпадающего меню при наведении -->
+<script src="/static/js/header_menu_dropdown.js"></script>
+
+<!-- 8. Пользовательский JavaScript файл -->
+<!-- Основной файл с кастомной логикой приложения -->
+<script src="/static/js/main.js"></script>
+
+<!-- 9. Согласие с cookie -->
+<script src="/static/js/cookie-consent.js"></script>
+
+<!-- 10. Корзина (AJAX drawer) -->
+<!-- AJAX-операции корзины, drawer, тосты, анимации -->
+<script src="/static/js/cart.js?v=1.1"></script>
+
+<!-- 11. PREMIUM UI: глобальные эффекты (scroll-reveal, progress, header) -->
+<script>
+(function() {
+    'use strict';
+
+    // ── Reading progress ──
+    const readingBar = document.getElementById('readingProgress');
+    if (readingBar) {
+        window.addEventListener('scroll', () => {
+            const d = document.documentElement;
+            const pct = (d.scrollTop / (d.scrollHeight - d.clientHeight)) * 100;
+            readingBar.style.width = Math.min(pct, 100) + '%';
+        }, { passive: true });
+    }
+
+    // ── Header scroll class ──
+    const header = document.querySelector('.glass-header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        }, { passive: true });
+    }
+
+    // ── Global scroll reveal ──
+    if ('IntersectionObserver' in window) {
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right').forEach(el => {
+            revealObs.observe(el);
+        });
+    } else {
+        // Fallback: reveal all immediately
+        document.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right').forEach(el => {
+            el.classList.add('revealed');
+        });
+    }
+
+    // ── Navbar active link ──
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        }
+    });
+})();
+</script>
+
+
+  <!-- Блок для дополнительных JavaScript файлов (переопределяется в дочерних шаблонах) -->
+  
+<script>
+  // Анимация появления карточек
+  // AOS is initialized globally in _base.html
+</script>
+
+</body>
+
+</html>
