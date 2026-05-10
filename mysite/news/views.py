@@ -13,6 +13,8 @@ from django.utils import timezone  # Импортируем timezone для ра
 from .models import News, NewsCategory, NewsTag
 from .utils import get_cached_news_categories, get_cached_sidebar_news
 from main.breadcrumbs import get_breadcrumbs
+from django.utils import timezone
+import datetime
 
 
 def news_list(request):
@@ -158,11 +160,10 @@ def news_detail(request, slug):
             .order_by("-created_at")[:4]
         )
 
-    # Получаем локальную дату публикации текущей новости (с учётом TIME_ZONE = Europe/Moscow)
+    # Получаем локальную дату публикации текущей новости
     local_pub_date = timezone.localtime(news.published_at).date()
 
-    # ПРАВИЛЬНО: Фильтруем по локальной дате, преобразуя в UTC диапазон
-    # Получаем часовой пояс (Europe/Moscow)
+    # Получаем часовой пояс
     tz = timezone.get_current_timezone()
 
     # Создаем datetime объекты для начала и конца дня в локальном времени
@@ -173,16 +174,20 @@ def news_detail(request, slug):
     local_day_start_aware = timezone.make_aware(local_day_start, tz)
     local_day_end_aware = timezone.make_aware(local_day_end, tz)
 
+    # ⬇️⬇️⬇️ ИСПРАВЛЕННЫЕ СТРОКИ ⬇️⬇️⬇️
     # Преобразуем в UTC для фильтрации в БД
-    utc_day_start = local_day_start_aware.astimezone(timezone.utc)
-    utc_day_end = local_day_end_aware.astimezone(timezone.utc)
+    utc_day_start = local_day_start_aware.astimezone(
+        datetime.timezone.utc
+    )  # ✅ Правильно
+    utc_day_end = local_day_end_aware.astimezone(datetime.timezone.utc)  # ✅ Правильно
+    # ⬆️⬆️⬆️ ИСПРАВЛЕННЫЕ СТРОКИ ⬆️⬆️⬆️
 
-    # Ограничиваем конец дня текущим моментом (не показываем будущие новости)
+    # Ограничиваем конец дня текущим моментом
     current_utc = timezone.now()
     if utc_day_end > current_utc:
         utc_day_end = current_utc
 
-    # Лента за день: все активные новости, опубликованные именно в этот локальный день
+    # Лента за день
     daily_news = News.objects.filter(
         is_active=True,
         published_at__gte=utc_day_start,
