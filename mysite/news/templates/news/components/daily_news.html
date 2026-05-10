@@ -18,7 +18,10 @@
   </div>
 
   <!-- Список новостей дня -->
-  <div class="card-body p-0 daily-news-scroll" style="max-height: 450px; overflow-y: auto;">
+  <div
+    class="card-body p-0 daily-news-scroll"
+    style="max-height: 450px; overflow-y: auto"
+  >
     <div class="list-group list-group-flush bg-transparent">
       {% for d_news in daily_news %}
       <a
@@ -29,7 +32,9 @@
           <span class="text-primary small fw-bold">
             {{ d_news.id }}
             <i class="far fa-clock me-1"></i>
+            {% comment "" %}
             {{ d_news.published_at|date:"H:i" }}
+            {% endcomment %}
           </span>
           {% if d_news.id == news.id %}
           <span class="badge bg-success bg-opacity-75 rounded-pill small">
@@ -38,7 +43,7 @@
           {% endif %}
         </div>
         <h6
-          class="mb-0 {% if d_news.id == news.id %}text-primary fw-bold{% else %}text-white fw-semibold{% endif %}"
+          class="mb-0 {{ daily_news_date|date:"j F Y" }}3text-primary fw-bold{{ daily_news_date|date:"j F Y" }}4text-white fw-semibold{{ daily_news_date|date:"j F Y" }}5"
         >
           {{ d_news.title }}
         </h6>

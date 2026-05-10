@@ -4,130 +4,174 @@
 {% load static %}
 
 {% block title %}
-    {{ news.seo_title|default:news.title }} | {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
+{{ news.seo_title|default:news.title }} | {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
 {% endblock %}
 
 {% block meta_description %}
-    {{ news.seo_description|default:news.short_description|striptags|truncatewords:25 }}
+{{ news.seo_description|default:news.short_description|striptags|truncatewords:25 }}
 {% endblock %}
 
 {% block meta_keywords %}
-    {{ news.seo_keywords|default:site_settings.seo_keywords }}
+{{ news.seo_keywords|default:site_settings.seo_keywords }}
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/news-detail.css' %}">
-<link rel="stylesheet" href="{% static 'css/daily-news.css' %}">
+<link rel="stylesheet" href="{% static 'css/news-detail.css' %}" />
+<link rel="stylesheet" href="{% static 'css/daily-news.css' %}" />
 {% endblock %}
 
 {% block content %}
-<article class="news-detail-container glass-container p-4 p-md-5 rounded-4 shadow-lg border border-secondary border-opacity-25" data-aos="fade-up">
-    <!-- Бейдж категории над заголовком (уже в Hero, но можем продублировать или оставить только там) -->
-    
-    <!-- Основной контент -->
-    <div class="news-content-body text-white-75 lead-sm mb-5">
-        {{ news.content|safe }}
-    </div>
+<article
+  class="news-detail-container glass-container p-4 p-md-5 rounded-4 shadow-lg border border-secondary border-opacity-25"
+  data-aos="fade-up"
+>
+  <!-- Бейдж категории над заголовком (уже в Hero, но можем продублировать или оставить только там) -->
 
-    <!-- Теги и Поделиться -->
-    <div class="news-footer-actions d-flex flex-wrap justify-content-between align-items-center gap-4 pt-4 border-top border-secondary border-opacity-25">
-        {% if news.tags.all %}
-        <div class="news-tags d-flex flex-wrap gap-2">
-            {% for tag in news.tags.all %}
-            <a href="{{ tag.get_absolute_url }}" class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 rounded-pill px-3 py-2 text-decoration-none transition-hover">
-                <i class="fas fa-hashtag me-1"></i> {{ tag.name }}
-            </a>
-            {% endfor %}
-        </div>
-        {% endif %}
+  <!-- Основной контент -->
+  <div class="news-content-body text-white-75 lead-sm mb-5">
+    {{ news.content|safe }}
+  </div>
 
-        <div class="news-share d-flex align-items-center gap-3">
-            <span class="text-muted small fw-bold text-uppercase">Поделиться:</span>
-            <div class="share-buttons d-flex gap-2">
-                <a href="https://vk.com/share.php?url={{ request.build_absolute_uri }}&title={{ news.title }}" target="_blank" class="share-btn vk" title="Поделиться в VK">
-                    <i class="fab fa-vk"></i>
-                </a>
-                <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text={{ news.title }}" target="_blank" class="share-btn telegram" title="Отправить в Telegram">
-                    <i class="fab fa-telegram-plane"></i>
-                </a>
-                <a href="https://wa.me/?text={{ news.title }}%20{{ request.build_absolute_uri }}" target="_blank" class="share-btn whatsapp" title="Отправить в WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-            </div>
-        </div>
+  <!-- Теги и Поделиться -->
+  <div
+    class="news-footer-actions d-flex flex-wrap justify-content-between align-items-center gap-4 pt-4 border-top border-secondary border-opacity-25"
+  >
+    {% if news.tags.all %}
+    <div class="news-tags d-flex flex-wrap gap-2">
+      {% for tag in news.tags.all %}
+      <a
+        href="{{ tag.get_absolute_url }}"
+        class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 rounded-pill px-3 py-2 text-decoration-none transition-hover"
+      >
+        <i class="fas fa-hashtag me-1"></i>
+        {{ tag.name }}
+      </a>
+      {% endfor %}
     </div>
+    {% endif %}
+
+    <div class="news-share d-flex align-items-center gap-3">
+      <span class="text-muted small fw-bold text-uppercase">Поделиться:</span>
+      <div class="share-buttons d-flex gap-2">
+        <a
+          href="https://vk.com/share.php?url={{ request.build_absolute_uri }}&title={{ news.title }}"
+          target="_blank"
+          class="share-btn vk"
+          title="Поделиться в VK"
+        >
+          <i class="fab fa-vk"></i>
+        </a>
+        <a
+          href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text={{ news.title }}"
+          target="_blank"
+          class="share-btn telegram"
+          title="Отправить в Telegram"
+        >
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a
+          href="https://wa.me/?text={{ news.title }}%20{{ request.build_absolute_uri }}"
+          target="_blank"
+          class="share-btn whatsapp"
+          title="Отправить в WhatsApp"
+        >
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </div>
 </article>
 
 <!-- Секция Ленты новостей того же дня (перенесена из сайдбара по просьбе из истории) -->
+{% comment "" %}
 <div class="mt-5" data-aos="fade-up">
-    {% include 'news/components/daily_news.html' %}
+  {% include 'news/components/daily_news.html' %}
 </div>
+{% endcomment %}
 
 <!-- Похожие новости -->
 {% if similar_news %}
 <section class="similar-news-section mt-5 pt-5" data-aos="fade-up">
-    <div class="d-flex align-items-center mb-4">
-        <h3 class="text-white fw-bold mb-0">Похожие материалы</h3>
-        <div class="flex-grow-1 border-top border-secondary border-opacity-25 border-2 ms-4"></div>
-    </div>
-    
-    <div class="row g-4">
-        {% for s_news in similar_news %}
-        <div class="col-12 col-md-6 col-lg-3">
-            <div class="similar-news-card glass-card h-100 rounded-3 overflow-hidden border border-secondary border-opacity-10 transition-hover">
-                <a href="{{ s_news.get_absolute_url }}" class="text-decoration-none">
-                    {% if s_news.image %}
-                    <div class="ratio ratio-16x9">
-                        <img src="{{ s_news.image.url }}" class="object-fit-cover" alt="{{ s_news.title }}">
-                    </div>
-                    {% endif %}
-                    <div class="p-3">
-                        <span class="text-primary small fw-bold d-block mb-2">{{ s_news.category.name }}</span>
-                        <h4 class="h6 text-white mb-2 line-clamp-2">{{ s_news.title }}</h4>
-                        <div class="text-muted small">
-                            <i class="far fa-calendar-alt me-1"></i> {{ s_news.published_at|date:"d.m.Y" }}
-                        </div>
-                    </div>
-                </a>
+  <div class="d-flex align-items-center mb-4">
+    <h3 class="text-white fw-bold mb-0">Похожие материалы</h3>
+    <div
+      class="flex-grow-1 border-top border-secondary border-opacity-25 border-2 ms-4"
+    ></div>
+  </div>
+
+  <div class="row g-4">
+    {% for s_news in similar_news %}
+    <div class="col-12 col-md-6 col-lg-3">
+      <div
+        class="similar-news-card glass-card h-100 rounded-3 overflow-hidden border border-secondary border-opacity-10 transition-hover"
+      >
+        <a href="{{ s_news.get_absolute_url }}" class="text-decoration-none">
+          {% if s_news.image %}
+          <div class="ratio ratio-16x9">
+            <img
+              src="{{ s_news.image.url }}"
+              class="object-fit-cover"
+              alt="{{ s_news.title }}"
+            />
+          </div>
+          {% endif %}
+          <div class="p-3">
+            <span class="text-primary small fw-bold d-block mb-2">
+              {{ news.seo_title|default:news.title }}1
+            </span>
+            <h4 class="h6 text-white mb-2 line-clamp-2">{{ news.seo_title|default:news.title }}2</h4>
+            <div class="text-muted small">
+              <i class="far fa-calendar-alt me-1"></i>
+              {{ news.seo_title|default:news.title }}3
             </div>
-        </div>
-        {% endfor %}
+          </div>
+        </a>
+      </div>
     </div>
+    {% endfor %}
+  </div>
 </section>
 {% endif %}
 {% endblock %}
 
 {% block sidebar %}
 <div class="sidebar-filters mb-4">
-    <!-- Категории -->
-    <div class="news-filters mb-4 p-4 rounded-4 border border-secondary border-opacity-25" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);">
-        <h5 class="text-white mb-3 fw-bold"><i class="fas fa-folder-open me-2 text-primary"></i>Категории</h5>
-        <div class="d-flex flex-wrap gap-2">
-            <a href="{% url 'news:list' %}" class="btn-filter-pill">
-                Все
-            </a>
-            {% for cat in categories %}
-                <a href="{{ cat.get_absolute_url }}" class="btn-filter-pill {% if news.category.slug == cat.slug %}active{% endif %}">
-                    {{ cat.name }}
-                </a>
-            {% endfor %}
-        </div>
+  <!-- Категории -->
+  <div
+    class="news-filters mb-4 p-4 rounded-4 border border-secondary border-opacity-25"
+    style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px)"
+  >
+    <h5 class="text-white mb-3 fw-bold">
+      <i class="fas fa-folder-open me-2 text-primary"></i>
+      Категории
+    </h5>
+    <div class="d-flex flex-wrap gap-2">
+      <a href="{{ news.seo_title|default:news.title }}8" class="btn-filter-pill">Все</a>
+      {% for cat in categories %}
+      <a
+        href="{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}0"
+        class="btn-filter-pill {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}1active{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}2"
+      >
+        {{ cat.name }}
+      </a>
+      {% endfor %}
     </div>
+  </div>
 </div>
 {{ block.super }}
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    // Инициализация AOS для анимаций
-    document.addEventListener('DOMContentLoaded', function() {
-        if (typeof AOS !== 'undefined') {
-            AOS.init({
-                duration: 800,
-                once: true,
-                offset: 100
-            });
-        }
-    });
+  // Инициализация AOS для анимаций
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof AOS !== "undefined") {
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100,
+      });
+    }
+  });
 </script>
 {% endblock %}
