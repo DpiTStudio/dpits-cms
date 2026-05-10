@@ -194,7 +194,7 @@
                 Адрес
               </div>
               <span style="color: var(--text-secondary)">
-                {{ site_settings.logo_text }}1111111
+                {{ site_settings.address }}
               </span>
             </div>
           </div>
@@ -208,7 +208,7 @@
         <ul class="list-unstyled footer-nav-list">
           <li>
             <a
-              href="{{ site_settings.logo_text }}3333333"
+              href="{% url 'main:index' %}"
               class="d-flex align-items-center gap-2"
             >
               <i
@@ -220,7 +220,7 @@
           </li>
           <li>
             <a
-              href="{{ site_settings.logo_text }}4444444"
+              href="{% url 'services:list' %}"
               class="d-flex align-items-center gap-2"
             >
               <i
@@ -232,7 +232,7 @@
           </li>
           <li>
             <a
-              href="{{ site_settings.logo_text }}5555555"
+              href="{% url 'news:list' %}"
               class="d-flex align-items-center gap-2"
             >
               <i
@@ -244,7 +244,7 @@
           </li>
           <li>
             <a
-              href="{{ site_settings.logo_text }}6666666"
+              href="{% url 'portfolio:list' %}"
               class="d-flex align-items-center gap-2"
             >
               <i
@@ -256,7 +256,7 @@
           </li>
           <li>
             <a
-              href="{{ site_settings.logo_text }}7777777"
+              href="{% url 'reviews:list' %}"
               class="d-flex align-items-center gap-2"
             >
               <i
@@ -268,7 +268,7 @@
           </li>
           <li>
             <a
-              href="{{ site_settings.logo_text }}8888888"
+              href="{% url 'main:contacts' %}"
               class="d-flex align-items-center gap-2"
             >
               <i

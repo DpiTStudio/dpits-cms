@@ -117,12 +117,12 @@
           {% endif %}
           <div class="p-3">
             <span class="text-primary small fw-bold d-block mb-2">
-              {{ news.seo_title|default:news.title }}1
+              {{ s_news.category.name|default:"Новости" }}
             </span>
-            <h4 class="h6 text-white mb-2 line-clamp-2">{{ news.seo_title|default:news.title }}2</h4>
+            <h4 class="h6 text-white mb-2 line-clamp-2">{{ s_news.title }}</h4>
             <div class="text-muted small">
               <i class="far fa-calendar-alt me-1"></i>
-              {{ news.seo_title|default:news.title }}3
+              {{ s_news.created_at|date:"d.m.Y" }}
             </div>
           </div>
         </a>
@@ -146,11 +146,11 @@
       Категории
     </h5>
     <div class="d-flex flex-wrap gap-2">
-      <a href="{{ news.seo_title|default:news.title }}8" class="btn-filter-pill">Все</a>
+      <a href="{% url 'news:list' %}" class="btn-filter-pill">Все</a>
       {% for cat in categories %}
       <a
-        href="{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}0"
-        class="btn-filter-pill {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}1active{{ site_settings.logo_text|default:"DPITS-CMS.RU" }}2"
+        href="{{ cat.get_absolute_url }}"
+        class="btn-filter-pill {% if current_category and current_category == cat %}active{% endif %}"
       >
         {{ cat.name }}
       </a>
