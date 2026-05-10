@@ -1,0 +1,25 @@
+{% load news_tags %}
+{% if popular_news %}
+<div class="popular-news-widget">
+  {% for item in popular_news %}
+  <a href="{{ item.get_absolute_url }}" class="popular-news-item text-decoration-none">
+    {% if item.image %}
+    <div class="popular-news-thumb">
+      <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">
+    </div>
+    {% else %}
+    <div class="popular-news-thumb popular-news-thumb--placeholder">
+      <i class="fas fa-newspaper"></i>
+    </div>
+    {% endif %}
+    <div class="popular-news-info">
+      <h6 class="popular-news-title">{{ item.title|truncate_chars:60 }}</h6>
+      <div class="popular-news-meta">
+        <span><i class="far fa-eye me-1"></i>{{ item.views }}</span>
+        <span><i class="far fa-calendar me-1"></i>{{ item.published_at|ru_date:"short" }}</span>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% endif %}

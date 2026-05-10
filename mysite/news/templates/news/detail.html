@@ -1,7 +1,7 @@
 {# news/detail.html - Детальная страница новости #}
 {% extends "_base.html" %}
 
-{% load static %}
+{% load static news_tags %}
 
 {% block title %}
 {{ news.seo_title|default:news.title }} | {{ site_settings.logo_text|default:"DPITS-CMS.RU" }}
@@ -18,93 +18,159 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/news-detail.css' %}" />
 <link rel="stylesheet" href="{% static 'css/daily-news.css' %}" />
+<link rel="stylesheet" href="{% static 'css/news-enhanced.css' %}" />
 {% endblock %}
 
 {% block content %}
+<!-- Прогресс-бар чтения -->
+<div class="reading-progress-bar" id="readingProgressBar"></div>
+
 <article
   class="news-detail-container glass-container p-4 p-md-5 rounded-4 shadow-lg border border-secondary border-opacity-25"
   data-aos="fade-up"
+  itemscope
+  itemtype="https://schema.org/NewsArticle"
 >
-  <!-- Бейдж категории над заголовком (уже в Hero, но можем продублировать или оставить только там) -->
+  <!-- Мета-строка над контентом -->
+  <div class="news-detail-meta d-flex flex-wrap align-items-center gap-3 mb-4 pb-4 border-bottom border-secondary border-opacity-25">
+    {% if news.category %}
+    <a href="{{ news.category.get_absolute_url }}" class="news-category-badge" itemprop="about">
+      {{ news.category.name }}
+    </a>
+    {% endif %}
+
+    <span class="news-detail-meta-item">
+      <i class="far fa-calendar-alt me-1 text-primary"></i>
+      <time itemprop="datePublished" datetime="{{ news.published_at|date:'c' }}">
+        {{ news.published_at|ru_date:"dt" }}
+      </time>
+    </span>
+
+    <span class="news-detail-meta-item">
+      <i class="far fa-eye me-1 text-primary"></i>
+      {{ news.views }} {{ news.views|plural_ru:"просмотр,просмотра,просмотров" }}
+    </span>
+
+    <span class="news-detail-meta-item">
+      <i class="far fa-clock me-1 text-primary"></i>
+      {{ news.get_reading_time }} {{ news.get_reading_time|plural_ru:"минута,минуты,минут" }} чтения
+    </span>
+
+    {% news_stats_badge news %}
+  </div>
 
   <!-- Основной контент -->
-  <div class="news-content-body text-white-75 lead-sm mb-5">
+  <div class="news-content-body text-white-75 lead-sm mb-5" id="newsContentBody" itemprop="articleBody">
     {{ news.content|safe }}
   </div>
 
-  <!-- Теги и Поделиться -->
-  <div
-    class="news-footer-actions d-flex flex-wrap justify-content-between align-items-center gap-4 pt-4 border-top border-secondary border-opacity-25"
-  >
-    {% if news.tags.all %}
-    <div class="news-tags d-flex flex-wrap gap-2">
-      {% for tag in news.tags.all %}
-      <a
-        href="{{ tag.get_absolute_url }}"
-        class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 rounded-pill px-3 py-2 text-decoration-none transition-hover"
-      >
-        <i class="fas fa-hashtag me-1"></i>
-        {{ tag.name }}
-      </a>
-      {% endfor %}
-    </div>
+  <!-- Блок навигации (предыдущая / следующая) -->
+  {% if prev_news or next_news %}
+  <div class="news-prev-next d-flex justify-content-between gap-3 mb-5">
+    {% if next_news %}
+    <a href="{{ next_news.get_absolute_url }}" class="news-nav-btn news-nav-btn--prev">
+      <i class="fas fa-chevron-left me-2"></i>
+      <div class="news-nav-btn-content">
+        <span class="news-nav-label text-muted small">Предыдущая</span>
+        <span class="news-nav-title">{{ next_news.title|truncate_chars:60 }}</span>
+      </div>
+    </a>
+    {% else %}
+    <div></div>
     {% endif %}
+
+    {% if prev_news %}
+    <a href="{{ prev_news.get_absolute_url }}" class="news-nav-btn news-nav-btn--next text-end">
+      <div class="news-nav-btn-content">
+        <span class="news-nav-label text-muted small">Следующая</span>
+        <span class="news-nav-title">{{ prev_news.title|truncate_chars:60 }}</span>
+      </div>
+      <i class="fas fa-chevron-right ms-2"></i>
+    </a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <!-- Теги и кнопки «Поделиться» -->
+  <div class="news-footer-actions d-flex flex-wrap justify-content-between align-items-center gap-4 pt-4 border-top border-secondary border-opacity-25">
+    <div class="news-tags-wrap">
+      {% if news.tags.all %}
+      <div class="news-tags d-flex flex-wrap gap-2">
+        {% for tag in news.tags.all %}
+        <a
+          href="{{ tag.get_absolute_url }}"
+          class="news-tag-link"
+          itemprop="keywords"
+        >
+          <i class="fas fa-hashtag me-1"></i>{{ tag.name }}
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
 
     <div class="news-share d-flex align-items-center gap-3">
       <span class="text-muted small fw-bold text-uppercase">Поделиться:</span>
       <div class="share-buttons d-flex gap-2">
         <a
-          href="https://vk.com/share.php?url={{ request.build_absolute_uri }}&title={{ news.title }}"
+          href="https://vk.com/share.php?url={{ request.build_absolute_uri }}&title={{ news.title|urlencode }}"
           target="_blank"
+          rel="noopener"
           class="share-btn vk"
           title="Поделиться в VK"
         >
           <i class="fab fa-vk"></i>
         </a>
         <a
-          href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text={{ news.title }}"
+          href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text={{ news.title|urlencode }}"
           target="_blank"
+          rel="noopener"
           class="share-btn telegram"
           title="Отправить в Telegram"
         >
           <i class="fab fa-telegram-plane"></i>
         </a>
         <a
-          href="https://wa.me/?text={{ news.title }}%20{{ request.build_absolute_uri }}"
+          href="https://wa.me/?text={{ news.title|urlencode }}%20{{ request.build_absolute_uri }}"
           target="_blank"
+          rel="noopener"
           class="share-btn whatsapp"
           title="Отправить в WhatsApp"
         >
           <i class="fab fa-whatsapp"></i>
         </a>
+        <button
+          class="share-btn copy-link"
+          title="Скопировать ссылку"
+          id="copyLinkBtn"
+          onclick="copyPageLink(this)"
+        >
+          <i class="fas fa-link"></i>
+        </button>
       </div>
     </div>
   </div>
 </article>
 
-<!-- Секция Ленты новостей того же дня (перенесена из сайдбара по просьбе из истории) -->
-{% comment "" %}
-<div class="mt-5" data-aos="fade-up">
+<!-- Лента новостей за день (Daily news) -->
+{% if daily_news %}
+<div class="mt-4" data-aos="fade-up">
   {% include 'news/components/daily_news.html' %}
 </div>
-{% endcomment %}
+{% endif %}
 
 <!-- Похожие новости -->
 {% if similar_news %}
-<section class="similar-news-section mt-5 pt-5" data-aos="fade-up">
+<section class="similar-news-section mt-5 pt-4" data-aos="fade-up">
   <div class="d-flex align-items-center mb-4">
     <h3 class="text-white fw-bold mb-0">Похожие материалы</h3>
-    <div
-      class="flex-grow-1 border-top border-secondary border-opacity-25 border-2 ms-4"
-    ></div>
+    <div class="flex-grow-1 border-top border-secondary border-opacity-25 border-2 ms-4"></div>
   </div>
 
   <div class="row g-4">
     {% for s_news in similar_news %}
     <div class="col-12 col-md-6 col-lg-3">
-      <div
-        class="similar-news-card glass-card h-100 rounded-3 overflow-hidden border border-secondary border-opacity-10 transition-hover"
-      >
+      <div class="similar-news-card glass-card h-100 rounded-3 overflow-hidden border border-secondary border-opacity-10 transition-hover">
         <a href="{{ s_news.get_absolute_url }}" class="text-decoration-none">
           {% if s_news.image %}
           <div class="ratio ratio-16x9">
@@ -112,7 +178,12 @@
               src="{{ s_news.image.url }}"
               class="object-fit-cover"
               alt="{{ s_news.title }}"
+              loading="lazy"
             />
+          </div>
+          {% else %}
+          <div class="ratio ratio-16x9 d-flex align-items-center justify-content-center" style="background:rgba(99,102,241,0.07)">
+            <i class="fas fa-newspaper fa-2x text-primary opacity-30"></i>
           </div>
           {% endif %}
           <div class="p-3">
@@ -120,9 +191,15 @@
               {{ s_news.category.name|default:"Новости" }}
             </span>
             <h4 class="h6 text-white mb-2 line-clamp-2">{{ s_news.title }}</h4>
-            <div class="text-muted small">
-              <i class="far fa-calendar-alt me-1"></i>
-              {{ s_news.published_at|date:"d.m.Y" }}
+            <div class="d-flex align-items-center justify-content-between text-muted small">
+              <span>
+                <i class="far fa-calendar-alt me-1"></i>
+                {{ s_news.published_at|ru_date:"short" }}
+              </span>
+              <span>
+                <i class="far fa-eye me-1"></i>
+                {{ s_news.views }}
+              </span>
             </div>
           </div>
         </a>
@@ -135,43 +212,96 @@
 {% endblock %}
 
 {% block sidebar %}
-<div class="sidebar-filters mb-4">
+<div class="sidebar-news-content">
+
   <!-- Категории -->
-  <div
-    class="news-filters mb-4 p-4 rounded-4 border border-secondary border-opacity-25"
-    style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px)"
-  >
-    <h5 class="text-white mb-3 fw-bold">
-      <i class="fas fa-folder-open me-2 text-primary"></i>
-      Категории
+  <div class="sidebar-widget mb-4">
+    <h5 class="sidebar-widget-title">
+      <i class="fas fa-folder-open me-2 text-primary"></i>Категории
     </h5>
     <div class="d-flex flex-wrap gap-2">
       <a href="{% url 'news:list' %}" class="btn-filter-pill">Все</a>
       {% for cat in categories %}
       <a
         href="{{ cat.get_absolute_url }}"
-        class="btn-filter-pill {% if current_category and current_category == cat %}active{% endif %}"
+        class="btn-filter-pill {% if news.category and news.category.slug == cat.slug %}active{% endif %}"
       >
         {{ cat.name }}
       </a>
       {% endfor %}
     </div>
   </div>
+
+  <!-- Популярные новости -->
+  {% if popular_news %}
+  <div class="sidebar-widget mb-4">
+    <h5 class="sidebar-widget-title">
+      <i class="fas fa-fire me-2 text-danger"></i>Популярное
+    </h5>
+    {% popular_news_widget 5 %}
+  </div>
+  {% endif %}
+
+  <!-- Облако тегов -->
+  <div class="sidebar-widget mb-4">
+    <h5 class="sidebar-widget-title">
+      <i class="fas fa-tags me-2 text-primary"></i>Теги
+    </h5>
+    {% tag_cloud 12 %}
+  </div>
+
+  <!-- RSS -->
+  <div class="sidebar-widget mb-4">
+    <a href="{% url 'news:feed' %}" class="rss-link" target="_blank">
+      <i class="fas fa-rss me-2"></i>RSS-лента
+    </a>
+  </div>
+
 </div>
 {{ block.super }}
 {% endblock %}
 
 {% block extra_js %}
 <script>
-  // Инициализация AOS для анимаций
-  document.addEventListener("DOMContentLoaded", function () {
-    if (typeof AOS !== "undefined") {
-      AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100,
-      });
-    }
+document.addEventListener("DOMContentLoaded", function () {
+  // === Прогресс-бар чтения ===
+  const progressBar = document.getElementById('readingProgressBar');
+  const content = document.getElementById('newsContentBody');
+  if (progressBar && content) {
+    window.addEventListener('scroll', function() {
+      const contentTop = content.getBoundingClientRect().top + window.scrollY;
+      const contentHeight = content.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const scrolled = window.scrollY;
+      const start = contentTop;
+      const end = contentTop + contentHeight - windowHeight;
+      let progress = 0;
+      if (scrolled > start) {
+        progress = Math.min(((scrolled - start) / (end - start)) * 100, 100);
+      }
+      progressBar.style.width = progress + '%';
+    }, { passive: true });
+  }
+
+  // === AOS ===
+  if (typeof AOS !== "undefined") {
+    AOS.init({ duration: 800, once: true, offset: 100 });
+  }
+});
+
+// === Копировать ссылку ===
+function copyPageLink(btn) {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const icon = btn.querySelector('i');
+    icon.className = 'fas fa-check';
+    btn.style.background = 'rgba(16,185,129,0.3)';
+    btn.style.borderColor = 'rgba(16,185,129,0.6)';
+    setTimeout(() => {
+      icon.className = 'fas fa-link';
+      btn.style.background = '';
+      btn.style.borderColor = '';
+    }, 2000);
   });
+}
 </script>
 {% endblock %}

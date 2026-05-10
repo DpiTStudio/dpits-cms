@@ -1,0 +1,14 @@
+{% load news_tags %}
+{% if tags %}
+<div class="tag-cloud-widget">
+  {% for tag in tags %}
+  <a href="{% url 'news:by_tag' tag.slug %}"
+     class="tag-cloud-item"
+     style="--tag-size: {{ tag.news_count }}"
+     title="{{ tag.news_count }} новостей">
+    <i class="fas fa-hashtag me-1 opacity-50"></i>{{ tag.name }}
+    <span class="tag-count">{{ tag.news_count }}</span>
+  </a>
+  {% endfor %}
+</div>
+{% endif %}

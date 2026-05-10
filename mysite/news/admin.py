@@ -5,14 +5,23 @@ from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from django.urls import path
 from django.utils.html import format_html
+from django.utils import timezone
 from .models import NewsCategory, News, NewsTag
 
 
 @admin.register(NewsTag)
 class NewsTagAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """Управление тегами новостей."""
-    list_display = ["name", "slug"]
+    list_display = ["name", "slug", "news_count_display"]
     prepopulated_fields = {"slug": ("name",)}
+    search_fields = ["name"]
+
+    def news_count_display(self, obj):
+        count = obj.news.filter(is_active=True).count()
+        return format_html(
+            '<span style="font-weight:bold;color:#6366f1">{}</span> новостей', count
+        )
+    news_count_display.short_description = "Новостей"
 
 
 @admin.register(NewsCategory)
@@ -22,9 +31,10 @@ class NewsCategoryAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     Поддержка SEO, сортировки, отображения в меню и управления активностью.
     """
 
-    list_display = ["name", "slug", "show_in_menu", "order", "is_active"]
+    list_display = ["name", "slug", "news_count_display", "show_in_menu", "order", "is_active", "views"]
     list_editable = ["show_in_menu", "order", "is_active"]
     prepopulated_fields = {"slug": ("name",)}
+    search_fields = ["name", "slug"]
 
     fieldsets = (
         ("Основная информация", {"fields": ("name", "slug", "image", "description")}),
@@ -57,18 +67,28 @@ class NewsCategoryAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
         ),
     )
 
+    def news_count_display(self, obj):
+        count = obj.news_set.filter(is_active=True).count()
+        return format_html(
+            '<span style="font-weight:bold;color:#6366f1">{}</span>', count
+        )
+    news_count_display.short_description = "Новостей"
+
 
 @admin.register(News)
 class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """
     Админ-панель для управления новостями.
-    Поддержка фильтрации, SEO, сброса просмотров (массово и для отдельных записей).
+    Поддержка фильтрации, SEO, сброса просмотров (массово и для отдельных записей),
+    дублирования новости и управления статусом публикации.
     """
 
     list_display = [
         "title",
         "category",
+        "status_display",
         "views",
+        "reading_time_display",
         "is_active",
         "published_at",
         "created_at",
@@ -77,8 +97,10 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     list_filter = ["category", "is_active", "published_at", "created_at", "tags"]
     list_editable = ["is_active"]
     prepopulated_fields = {"slug": ("title",)}
-    readonly_fields = ["views", "created_at", "updated_at"]
-    filter_horizontal = ["tags"]  # Удобный виджет для выбора тегов
+    readonly_fields = ["views", "created_at", "updated_at", "reading_time_display"]
+    filter_horizontal = ["tags"]
+    search_fields = ["title", "slug", "short_description"]
+    date_hierarchy = "published_at"
 
     fieldsets = (
         (
@@ -98,7 +120,7 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
         (
             "Статистика",
             {
-                "fields": ("views", "created_at", "updated_at"),
+                "fields": ("views", "reading_time_display", "created_at", "updated_at"),
             },
         ),
         (
@@ -125,13 +147,33 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
                 ),
                 "classes": ("collapse",),
             },
-        ),   
+        ),
     )
 
     class Media:
         js = ("news/js/category-image.js",)
 
-    actions = ["clear_views_action"]
+    actions = ["clear_views_action", "duplicate_news_action", "publish_action", "unpublish_action"]
+
+    def status_display(self, obj):
+        """Отображает статус публикации новости с цветовой индикацией."""
+        now = timezone.now()
+        if not obj.is_active:
+            return format_html('<span style="color:#ef4444">● Скрыта</span>')
+        if obj.published_at > now:
+            return format_html(
+                '<span style="color:#f59e0b">● Запланирована</span>'
+            )
+        return format_html('<span style="color:#10b981">● Активна</span>')
+    status_display.short_description = "Статус"
+
+    def reading_time_display(self, obj):
+        """Отображает время чтения новости."""
+        minutes = obj.get_reading_time
+        return format_html(
+            '<span style="color:#6366f1">⏱ {} мин.</span>', minutes
+        )
+    reading_time_display.short_description = "Время чтения"
 
     def clear_views_button(self, obj):
         """Отображает кнопку для сброса просмотров в списке новостей."""
@@ -140,12 +182,10 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
             'text-decoration: none; border-radius: 3px;">Очистить</a>',
             f"{obj.pk}/clear_views/",
         )
-
-    clear_views_button.short_description = "Очистить просмотры"
-    # Удалено allow_tags — больше не требуется, так как format_html безопасен по умолчанию
+    clear_views_button.short_description = "Просмотры"
 
     def get_urls(self):
-        """Добавляет кастомный URL для сброса просмотров."""
+        """Добавляет кастомные URL для сброса просмотров."""
         urls = super().get_urls()
         custom_urls = [
             path(
@@ -162,7 +202,6 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
         old_views = news.views
         news.views = 0
         news.save()
-
         messages.success(
             request,
             f'Количество просмотров для новости "{news.title}" сброшено с {old_views} до 0.',
@@ -176,3 +215,34 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
         self.message_user(
             request, f"Количество просмотров сброшено для {updated_count} новостей."
         )
+
+    @admin.action(description="Дублировать выбранные новости")
+    def duplicate_news_action(self, request, queryset):
+        """Создаёт копии выбранных новостей (черновики)."""
+        count = 0
+        for news in queryset:
+            # Создаём копию новости
+            tags = list(news.tags.all())
+            news.pk = None
+            news.title = f"[Копия] {news.title}"
+            news.slug = ""  # Slug будет сгенерирован автоматически
+            news.is_active = False  # Черновик
+            news.views = 0
+            news.save()
+            news.tags.set(tags)
+            count += 1
+        self.message_user(
+            request, f"Создано {count} копий новостей (как черновики)."
+        )
+
+    @admin.action(description="Опубликовать выбранные новости")
+    def publish_action(self, request, queryset):
+        """Публикует выбранные новости."""
+        updated = queryset.update(is_active=True, published_at=timezone.now())
+        self.message_user(request, f"Опубликовано {updated} новостей.")
+
+    @admin.action(description="Скрыть выбранные новости")
+    def unpublish_action(self, request, queryset):
+        """Скрывает выбранные новости."""
+        updated = queryset.update(is_active=False)
+        self.message_user(request, f"Скрыто {updated} новостей.")

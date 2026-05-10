@@ -1,27 +1,22 @@
 <!-- Навигация по дню публикации (Лента событий) -->
+{% load news_tags %}
 {% if daily_news %}
 <div class="card sidebar-premium-card mb-4 glass-container border-opacity-25">
   <!-- Заголовок -->
-  <div
-    class="card-header sidebar-premium-header-news bg-transparent border-secondary border-opacity-25 py-3"
-  >
-    <h5 class="mb-0 text-white fw-bold">
-      <i class="far fa-calendar-check text-primary me-2"></i>
-      Лента за {{ daily_news_date|date:"j F Y" }}
-      <span
-        class="badge bg-primary bg-opacity-20 text-primary ms-2 fs-6"
-        style="vertical-align: middle"
-      >
+  <div class="card-header sidebar-premium-header-news bg-transparent border-secondary border-opacity-25 py-3">
+    <div class="d-flex align-items-center justify-content-between">
+      <h5 class="mb-0 text-white fw-bold">
+        <i class="far fa-calendar-check text-primary me-2"></i>
+        Лента за {{ daily_news_date|ru_date }}
+      </h5>
+      <span class="badge bg-primary bg-opacity-20 text-primary fs-6" style="vertical-align: middle">
         {{ daily_news|length }}
       </span>
-    </h5>
+    </div>
   </div>
 
   <!-- Список новостей дня -->
-  <div
-    class="card-body p-0 daily-news-scroll"
-    style="max-height: 450px; overflow-y: auto"
-  >
+  <div class="card-body p-0 daily-news-scroll" style="max-height: 450px; overflow-y: auto">
     <div class="list-group list-group-flush bg-transparent">
       {% for d_news in daily_news %}
       <a
@@ -31,15 +26,18 @@
         <div class="d-flex justify-content-between align-items-center mb-1">
           <span class="text-primary small fw-bold">
             <i class="far fa-clock me-1"></i>
-            {{ d_news.published_at|date:"H:i" }}
+            {{ d_news.published_at|ru_date:"time" }}
           </span>
-          {% if d_news.id == news.id %}
-          <span class="badge bg-success bg-opacity-75 rounded-pill small">
-            Читаете сейчас
-          </span>
-          {% endif %}
+          <div class="d-flex align-items-center gap-2">
+            {% if d_news.id == news.id %}
+            <span class="badge bg-success bg-opacity-75 rounded-pill small">Читаете</span>
+            {% endif %}
+            <span class="text-muted" style="font-size:0.75rem;">
+              <i class="far fa-eye me-1"></i>{{ d_news.views }}
+            </span>
+          </div>
         </div>
-        <h6 class="mb-0 text-white fw-semibold">
+        <h6 class="mb-0 text-white fw-semibold" style="font-size:0.87rem; line-height:1.35;">
           {{ d_news.title }}
         </h6>
       </a>
@@ -51,30 +49,18 @@
 <style>
   .active-news-item {
     background: rgba(var(--bs-primary-rgb), 0.05) !important;
-    border-left: 4px solid var(--bs-primary) !important;
+    border-left: 3px solid var(--bs-primary) !important;
   }
   .transition-hover {
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
   }
   .transition-hover:hover {
-    background: rgba(255, 255, 255, 0.02) !important;
-    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.025) !important;
+    padding-left: 1.5rem !important;
   }
-  /* Custom scrollbar for daily news feed list */
-  .daily-news-scroll::-webkit-scrollbar {
-    width: 6px;
-    background-color: #0a0d1a;
-  }
-  .daily-news-scroll::-webkit-scrollbar-track {
-    background-color: #0a0d1a;
-    border-radius: 3px;
-  }
-  .daily-news-scroll::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 3px;
-  }
-  .daily-news-scroll::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(var(--bs-primary-rgb), 0.5);
-  }
+  .daily-news-scroll::-webkit-scrollbar { width: 5px; background: #0a0d1a; }
+  .daily-news-scroll::-webkit-scrollbar-track { background: #0a0d1a; border-radius: 3px; }
+  .daily-news-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+  .daily-news-scroll::-webkit-scrollbar-thumb:hover { background: rgba(var(--bs-primary-rgb),0.5); }
 </style>
 {% endif %}
