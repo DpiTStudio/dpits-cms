@@ -1,7 +1,7 @@
 {# news/list.html - Основной список всех новостей #}
 {% extends "_base.html" %}
 
-{% load static %}
+{% load static news_tags %}
 
 {% block title %}
 {{ site_settings.company_name }} | {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} | Новости
@@ -35,7 +35,7 @@
           class="badge bg-primary text-white rounded-pill px-4 py-2 fw-bold fs-6 shadow-sm me-3"
         >
           <i class="far fa-calendar-alt me-2"></i>
-          {{ day.list.0.published_at|date:"d F Y" }}
+          {{ day.list.0.published_at|ru_date }}
         </span>
         <div
           class="flex-grow-1 border-top border-secondary border-opacity-25 border-2"

@@ -1,13 +1,13 @@
 {% extends "_base.html" %}
 
-{% load static %}
+{% load static news_tags %}
 
 {% block title %}
-    {{ site_settings.company_name }} | Новости за {{ date|date:"d F Y" }}
+    {{ site_settings.company_name }} | Новости за {{ date|ru_date }}
 {% endblock %}
 
 {% block meta_description %}
-    Новости за {{ date|date:"d F Y" }} на сайте {{ site_settings.company_name }}.
+    Новости за {{ date|ru_date }} на сайте {{ site_settings.company_name }}.
 {% endblock %}
 
 {% block extra_css %}
@@ -18,7 +18,7 @@
 
 {% block content %}
 <div class="news-list-container">
-    <h2 class="text-white mb-4">Новости за {{ date|date:"d F Y" }}</h2>
+    <h2 class="text-white mb-4">Новости за {{ date|ru_date }}</h2>
     <div class="row g-4 news-grid">
         {% for news in news_list %}
         <div class="col-12 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
