@@ -1,0 +1,94 @@
+<!-- Связанные новости — из той же категории -->
+{% load news_tags %}
+{% if related_news %}
+<div class="related-news-block glass-container rounded-4 p-4 mb-4 border border-secondary border-opacity-25" data-aos="fade-up">
+  <!-- Заголовок -->
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h5 class="mb-0 text-white fw-bold">
+      <i class="fas fa-link text-primary me-2"></i>Связанные новости
+    </h5>
+    <span class="badge bg-primary bg-opacity-20 text-primary fs-6">
+      {{ related_news|length }}
+    </span>
+  </div>
+
+  <div class="related-news-divider mb-3"></div>
+
+  <!-- Список -->
+  <ul class="related-news-list list-unstyled mb-0">
+    {% for r_news in related_news %}
+    <li class="related-news-item {% if r_news.id == news.id %}related-news-item--current{% endif %}">
+      <span class="related-news-date">{{ r_news.published_at|date:"d.m.Y" }}</span>
+      <span class="related-news-sep">—</span>
+      <a href="{{ r_news.get_absolute_url }}"
+         class="related-news-link {% if r_news.id == news.id %}related-news-link--current{% endif %}">
+        {{ r_news.title }}
+      </a>
+      {% if r_news.id == news.id %}
+      <span class="badge bg-success bg-opacity-75 rounded-pill ms-2" style="font-size:0.7rem;">Читаете</span>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<style>
+  .related-news-block {
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .related-news-divider {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(var(--bs-primary-rgb), 0.5), transparent);
+    border-radius: 1px;
+  }
+  .related-news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .related-news-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    padding: 0.35rem 0.5rem;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+  }
+  .related-news-item:hover {
+    background: rgba(255, 255, 255, 0.035);
+  }
+  .related-news-item--current {
+    background: rgba(var(--bs-primary-rgb), 0.06);
+    border-left: 2px solid rgba(var(--bs-primary-rgb), 0.6);
+    padding-left: 0.75rem;
+  }
+  .related-news-date {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .related-news-sep {
+    color: rgba(255, 255, 255, 0.25);
+    flex-shrink: 0;
+  }
+  .related-news-link {
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .related-news-link:hover {
+    color: var(--bs-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .related-news-link--current {
+    color: #fff;
+    font-weight: 600;
+    pointer-events: none;
+  }
+</style>
+{% endif %}

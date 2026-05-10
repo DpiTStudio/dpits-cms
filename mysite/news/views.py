@@ -1,6 +1,5 @@
 # news/views.py
 # Представления (контроллеры) для приложения news (новости)
-import datetime
 from django.shortcuts import (
     render,
     get_object_or_404,
@@ -175,30 +174,16 @@ def news_detail(request, slug):
             .order_by("-published_at")[:4]
         )
 
-    # Получаем локальную дату публикации текущей новости
-    local_pub_date = timezone.localtime(news.published_at).date()
-    tz = timezone.get_current_timezone()
-
-    local_day_start = datetime.datetime.combine(local_pub_date, datetime.time.min)
-    local_day_end = datetime.datetime.combine(local_pub_date, datetime.time.max)
-    local_day_start_aware = timezone.make_aware(local_day_start, tz)
-    local_day_end_aware = timezone.make_aware(local_day_end, tz)
-    utc_day_start = local_day_start_aware.astimezone(datetime.timezone.utc)
-    utc_day_end = local_day_end_aware.astimezone(datetime.timezone.utc)
-
-    current_utc = timezone.now()
-    if utc_day_end > current_utc:
-        utc_day_end = current_utc
-
-    # Лента за день
-    daily_news = News.objects.filter(
-        is_active=True,
-        published_at__gte=utc_day_start,
-        published_at__lte=utc_day_end,
-    ).order_by("published_at")
-
-    if daily_news.count() <= 1:
-        daily_news = []
+    # Связанные новости — из той же категории (кроме текущей)
+    related_news = (
+        News.objects.filter(
+            category=news.category,
+            is_active=True,
+            published_at__lte=timezone.now(),
+        )
+        .exclude(id=news.id)
+        .order_by("-published_at")[:10]
+    )
 
     # Навигация prev/next по категории
     category_news = News.objects.filter(
@@ -224,8 +209,7 @@ def news_detail(request, slug):
 
     context = {
         "news": news,
-        "daily_news": daily_news,
-        "daily_news_date": local_pub_date,
+        "related_news": related_news,
         "similar_news": similar_news,
         "prev_news": prev_news,
         "next_news": next_news,

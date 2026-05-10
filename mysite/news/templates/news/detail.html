@@ -171,10 +171,10 @@
   </div>
 </article>
 
-<!-- Лента новостей за день (Daily news) -->
-{% if daily_news %}
+<!-- Связанные новости -->
+{% if related_news %}
 <div class="mt-4" data-aos="fade-up">
-  {% include 'news/components/daily_news.html' %}
+  {% include 'news/components/related_news.html' %}
 </div>
 {% endif %}
 
