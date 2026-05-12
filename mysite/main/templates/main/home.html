@@ -1,27 +1,23 @@
 {% extends "_base.html" %}
 {% load static %}
 
-{% block title %} 
-  {% if site_settings.seo_title %} 
-    {{ site_settings.company_name }} |
-    {{ site_settings.logo_text }} |
-    {{ site_settings.seo_title }}
-  {% else %} 
-    {{ site_settings.company_name }} | 
-    {{ site_settings.logo_text|default:"Главная страница" }}
-  {% endif %}
+{% block title %}
+{% if site_settings.seo_title %}
+{{ site_settings.company_name }} | {{ site_settings.logo_text }} |
+{{ site_settings.seo_title }}
+{% else %}
+{{ site_settings.company_name }} |
+{{ site_settings.logo_text|default:"Главная страница" }}
+{% endif %}
 {% endblock %}
 
 {% block meta_description %}
-  {{ site_settings.short_description|striptags|truncatewords:20 }} 
+{{ site_settings.short_description|striptags|truncatewords:20 }}
 {% endblock %}
 
 {% block extra_head %}
 <meta property="og:title" content="{{ site_settings.logo_text }}" />
-<meta
-  property="og:description"
-  content="{{ site_settings.short_description|striptags|truncatewords:20 }}"
-/>
+<meta property="og:description" content="{{ site_settings.short_description|striptags|truncatewords:20 }}" />
 {% if site_settings.logo %}
 <meta property="og:image" content="{{ site_settings.logo.url }}" />
 {% endif %}
@@ -33,18 +29,22 @@
   <div class="container-fluid px-3 px-md-4 px-lg-5 py-4 py-md-5">
     <!-- Заголовок секции -->
     <div class="row mb-5 text-left">
-        <div class="col-12">
-            <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">{{ site_settings.logo_text }}</span>
-            <h1 class="display-4 fw-bold mb-3">{{ site_settings.seo_title }}</h1>
-            <p class="lead text-muted">{{ site_settings.short_description|safe }}</p>
-        </div>
+      <div class="col-12">
+        <span
+          class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold"
+        >
+          {{ site_settings.logo_text }}
+        </span>
+        <h1 class="display-4 fw-bold mb-3">{{ site_settings.seo_title }}</h1>
+        <p class="lead text-muted">{{ site_settings.short_description|safe }}</p>
+      </div>
     </div>
-    <hr class="mb-5"> 
+    <hr class="mb-5" />
     <div class="row g-4">
       <!-- Основной контент -->
       <div class="col-12">
         <div class="row g-4">
-          {% comment %}  
+          {% comment %}
           <!-- Краткое описание -->
           {% if site_settings.short_description %}
           <div class="col-12">
@@ -60,7 +60,7 @@
               </div>
             </div>
           </div>
-          {% endif %} 
+          {% endif %}
           {% endcomment %}
 
           <!-- Основной контент -->
@@ -75,13 +75,14 @@
           {% endif %}
 
           {% include "includes/sections/recommended_pages.html" %}
-
         </div>
       </div>
     </div>
 
+    {% comment "home_news" %}
     <!-- Блок последних новостей -->
     {% include "includes/sections/home_news.html" %}
+    {% endcomment %}
 
     <!-- Блок последних работ -->
     {% include "includes/sections/home_portfolio.html" %}
