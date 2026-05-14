@@ -1,5 +1,6 @@
 {% extends "_base.html" %}
 {% load static %}
+{% load main_tags %}
 
 {% block title %}
 {% if site_settings.seo_title %}
@@ -20,6 +21,10 @@
 <meta property="og:description" content="{{ site_settings.short_description|striptags|truncatewords:20 }}" />
 {% if site_settings.logo %}
 <meta property="og:image" content="{{ site_settings.logo.url }}" />
+{% endif %}
+<meta property="og:type" content="website" />
+{% if site_settings.domain %}
+<meta property="og:url" content="https://{{ site_settings.domain }}/" />
 {% endif %}
 {% endblock %}
 
@@ -44,24 +49,6 @@
       <!-- Основной контент -->
       <div class="col-12">
         <div class="row g-4">
-          {% comment %}
-          <!-- Краткое описание -->
-          {% if site_settings.short_description %}
-          <div class="col-12">
-            <div class="card shadow-sm border-0 rounded-3">
-              <div class="card-body p-3 p-md-4 p-lg-5">
-                <h3 class="fw-bold mb-3">
-                  <i class="fas fa-info-circle me-2 text-primary"></i>
-                  О нас
-                </h3>
-                <div class="content-body">
-                  {{ site_settings.short_description|safe }}
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endif %}
-          {% endcomment %}
 
           <!-- Основной контент -->
           {% if site_settings.content %}
@@ -79,13 +66,18 @@
       </div>
     </div>
 
-    {% comment "home_news" %}
+    <!-- Блок публичной статистики -->
+    {% include "includes/sections/home_stats.html" %}
+
     <!-- Блок последних новостей -->
     {% include "includes/sections/home_news.html" %}
-    {% endcomment %}
 
     <!-- Блок последних работ -->
     {% include "includes/sections/home_portfolio.html" %}
+
+    <!-- Блок последних отзывов -->
+    {% include "includes/sections/home_reviews.html" %}
+
   </div>
 </section>
 {% endblock %}

@@ -114,6 +114,7 @@ def sidebar_data(request):
     """
     Контекстный процессор для данных сайдбара (боковой панели).
     Собирает последние новости, работы портфолио и отзывы.
+    Использует общие кэш-ключи с IndexView для исключения дублирующихся запросов к БД.
     """
     cache_key = "sidebar_data"
     sidebar_data = cache.get(cache_key)
@@ -124,35 +125,38 @@ def sidebar_data(request):
         # Используется try-except, чтобы сайт не падал, если какое-то приложение не установлено
         try:
             from news.models import News
-            # Получаем 3 последние активные новости
-            sidebar_data["sidebar_news"] = list(
-                News.objects.filter(is_active=True).order_by("-created_at")[:3]
-            )
+            # Общий кэш-ключ с IndexView — избегаем двойного запроса
+            latest_news = cache.get("latest_news_3")
+            if latest_news is None:
+                latest_news = list(News.objects.filter(is_active=True).order_by("-created_at")[:3])
+                cache.set("latest_news_3", latest_news, 300)
+            sidebar_data["sidebar_news"] = latest_news
         except (ImportError, AttributeError):
             sidebar_data["sidebar_news"] = []
 
         try:
             from portfolio.models import PortfolioItem
-            # Получаем 3 последние завершенные работы
-            sidebar_data["sidebar_portfolio"] = list(
-                PortfolioItem.objects.all().order_by("-created_at")[:3]
-            )
+            # Общий кэш-ключ с IndexView — избегаем двойного запроса
+            latest_portfolio = cache.get("latest_portfolio_3")
+            if latest_portfolio is None:
+                latest_portfolio = list(PortfolioItem.objects.all().order_by("-created_at")[:3])
+                cache.set("latest_portfolio_3", latest_portfolio, 300)
+            sidebar_data["sidebar_portfolio"] = latest_portfolio
         except (ImportError, AttributeError):
             sidebar_data["sidebar_portfolio"] = []
 
         try:
             from reviews.models import Review
             # Получаем 2 последних одобренных отзыва
-            # ИСПРАВЛЕНО: использование status='approved' вместо is_approved=True
             sidebar_data["sidebar_reviews"] = list(
                 Review.objects.filter(status='approved').order_by("-created_at")[:2]
             )
         except (ImportError, AttributeError):
             sidebar_data["sidebar_reviews"] = []
 
-        # Кэшируем собранные данные на 10 минут
-        cache.set(cache_key, sidebar_data, 600)
-    
+        # Кэшируем собранные данные на 5 минут
+        cache.set(cache_key, sidebar_data, 300)
+
     return sidebar_data
 
 

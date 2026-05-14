@@ -1,0 +1,70 @@
+{% load static %}
+{% load main_tags %}
+<!-- Блок публичной статистики на главной -->
+{% if stats %}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-11">
+            <div class="row g-4 justify-content-center">
+
+                {% if stats.news_count %}
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card-premium rounded-4 p-4 text-center h-100">
+                        <div class="mb-3">
+                            <i class="fas fa-newspaper fa-2x text-primary"></i>
+                        </div>
+                        <div class="display-6 fw-bold text-white mb-1">
+                            {{ stats.news_count|humanize_number }}
+                        </div>
+                        <div class="text-white-50 small">Публикаций</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if stats.portfolio_count %}
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card-premium rounded-4 p-4 text-center h-100">
+                        <div class="mb-3">
+                            <i class="fas fa-briefcase fa-2x text-success"></i>
+                        </div>
+                        <div class="display-6 fw-bold text-white mb-1">
+                            {{ stats.portfolio_count|humanize_number }}
+                        </div>
+                        <div class="text-white-50 small">Проектов</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if stats.reviews_count %}
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card-premium rounded-4 p-4 text-center h-100">
+                        <div class="mb-3">
+                            <i class="fas fa-star fa-2x text-warning"></i>
+                        </div>
+                        <div class="display-6 fw-bold text-white mb-1">
+                            {{ stats.reviews_count|humanize_number }}
+                        </div>
+                        <div class="text-white-50 small">Отзывов</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if stats.clients_count %}
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="glass-card-premium rounded-4 p-4 text-center h-100">
+                        <div class="mb-3">
+                            <i class="fas fa-users fa-2x text-info"></i>
+                        </div>
+                        <div class="display-6 fw-bold text-white mb-1">
+                            {{ stats.clients_count|humanize_number }}
+                        </div>
+                        <div class="text-white-50 small">Клиентов</div>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

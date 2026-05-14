@@ -1,0 +1,81 @@
+{% load static %}
+{% load main_tags %}
+<!-- Блок последних отзывов на главной странице -->
+{% if sidebar_reviews %}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-11">
+            <!-- Секционный заголовок -->
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-badge"><i class="fas fa-star"></i> Отзывы</span>
+                <h2 class="display-5 fw-bold text-white mb-3">Что говорят клиенты</h2>
+                <div class="mx-auto" style="width: 80px; height: 4px; background: var(--gradient-primary); border-radius: 2px;"></div>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                {% for review in sidebar_reviews %}
+                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                    <article class="glass-card-premium h-100 rounded-4 p-4 d-flex flex-column">
+                        <!-- Кавычка-декор -->
+                        <div class="mb-3">
+                            <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
+                        </div>
+
+                        <!-- Рейтинг -->
+                        {% if review.rating %}
+                        <div class="mb-3">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= review.rating %}
+                                <i class="fas fa-star text-warning small"></i>
+                                {% else %}
+                                <i class="far fa-star text-warning small"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Текст отзыва -->
+                        <p class="text-white-50 small flex-grow-1 mb-4">
+                            {{ review.text|striptags|truncatewords:25 }}
+                        </p>
+
+                        <!-- Автор -->
+                        <div class="d-flex align-items-center gap-3 pt-3 border-top border-white border-opacity-10 mt-auto">
+                            {% if review.avatar %}
+                            <img src="{{ review.avatar.url }}" alt="{{ review.author_name }}"
+                                 class="rounded-circle object-fit-cover"
+                                 style="width: 40px; height: 40px;">
+                            {% else %}
+                            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                                 style="width: 40px; height: 40px; min-width: 40px;">
+                                <i class="fas fa-user text-white small"></i>
+                            </div>
+                            {% endif %}
+                            <div>
+                                <div class="text-white fw-semibold small">
+                                    {{ review.author_name|default:"Аноним" }}
+                                </div>
+                                {% if review.company %}
+                                <div class="text-white-50" style="font-size: 0.75rem;">{{ review.company }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="ms-auto text-white-50" style="font-size: 0.75rem;">
+                                <i class="far fa-calendar-alt me-1"></i>
+                                {{ review.created_at|date:"d.m.Y" }}
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Кнопка "Все отзывы" -->
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="{% url 'reviews:list' %}" class="btn btn-gradient-primary btn-lg rounded-pill px-5 shine-effect">
+                    Все отзывы <i class="fas fa-comments ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

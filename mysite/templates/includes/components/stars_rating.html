@@ -1,0 +1,15 @@
+{% comment %}
+Компонент: Звёздный рейтинг
+Использование: {% star_rating review.rating %}
+{% endcomment %}
+<span class="stars-rating d-inline-flex align-items-center gap-1" aria-label="Рейтинг {{ value }} из {{ max_stars }}">
+    {% for s in full_stars %}
+    <i class="fas fa-star text-warning small"></i>
+    {% endfor %}
+    {% if half_star %}
+    <i class="fas fa-star-half-alt text-warning small"></i>
+    {% endif %}
+    {% for s in empty_stars %}
+    <i class="far fa-star text-warning small"></i>
+    {% endfor %}
+</span>

@@ -19,6 +19,9 @@
 {% block extra_head %}
     <meta property="og:title" content="Контакты - {{ site_settings.logo_text }}">
     <meta property="og:description" content="Контактная информация и способы связи">
+    {% if breadcrumbs_jsonld %}
+    <script type="application/ld+json">{{ breadcrumbs_jsonld }}</script>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -145,21 +148,54 @@
             <div class="card shadow-sm border-0 rounded-3 h-100">
                 <div class="card-body p-4 p-md-5">
                     <h3 class="fw-bold mb-4">Остались вопросы? <span class="text-primary">Напишите нам</span></h3>
-                    <form id="contactForm" action="#" method="POST">
+
+                    <!-- Сообщения после отправки -->
+                    {% if messages %}
+                    <div class="mb-4">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show rounded-3" role="alert">
+                            {% if message.tags == 'success' %}<i class="fas fa-check-circle me-2"></i>{% endif %}
+                            {% if message.tags == 'error' %}<i class="fas fa-exclamation-circle me-2"></i>{% endif %}
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form id="contactForm" action="{% url 'main:contacts' %}" method="POST">
                         {% csrf_token %}
+                        <!-- Поле Имя -->
                         <div class="mb-3">
-                            <label for="name" class="form-label text-muted small fw-bold text-uppercase">Ваше имя</label>
-                            <input type="text" class="form-control form-control-lg bg-light border-0" id="name" placeholder="Как к вам обращаться?" required>
+                            <label for="{{ contact_form.name.id_for_label }}" class="form-label text-muted small fw-bold text-uppercase">Ваше имя</label>
+                            {{ contact_form.name }}
+                            {% if contact_form.name.errors %}
+                            <div class="text-danger small mt-1">
+                                {% for error in contact_form.name.errors %}{{ error }}{% endfor %}
+                            </div>
+                            {% endif %}
                         </div>
+                        <!-- Поле Email/Телефон -->
                         <div class="mb-3">
-                            <label for="email" class="form-label text-muted small fw-bold text-uppercase">Email или Телефон</label>
-                            <input type="text" class="form-control form-control-lg bg-light border-0" id="email" placeholder="Для связи с вами" required>
+                            <label for="{{ contact_form.contact.id_for_label }}" class="form-label text-muted small fw-bold text-uppercase">Email или Телефон</label>
+                            {{ contact_form.contact }}
+                            {% if contact_form.contact.errors %}
+                            <div class="text-danger small mt-1">
+                                {% for error in contact_form.contact.errors %}{{ error }}{% endfor %}
+                            </div>
+                            {% endif %}
                         </div>
+                        <!-- Поле Сообщение -->
                         <div class="mb-4">
-                            <label for="message" class="form-label text-muted small fw-bold text-uppercase">Сообщение</label>
-                            <textarea class="form-control form-control-lg bg-light border-0" id="message" rows="4" placeholder="Напишите ваш вопрос..." required></textarea>
+                            <label for="{{ contact_form.message.id_for_label }}" class="form-label text-muted small fw-bold text-uppercase">Сообщение</label>
+                            {{ contact_form.message }}
+                            {% if contact_form.message.errors %}
+                            <div class="text-danger small mt-1">
+                                {% for error in contact_form.message.errors %}{{ error }}{% endfor %}
+                            </div>
+                            {% endif %}
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg w-100 rounded-3 btn-hover-lift shadow">Отправить сообщение <i class="fas fa-paper-plane ms-2"></i></button>
+                        <button type="submit" id="contactSubmitBtn" class="btn btn-primary btn-lg w-100 rounded-3 btn-hover-lift shadow">Отправить сообщение <i class="fas fa-paper-plane ms-2"></i></button>
                     </form>
                 </div>
             </div>

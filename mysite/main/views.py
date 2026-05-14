@@ -30,12 +30,12 @@ from django.views.generic import (
 )  # | Базовые классы представлений
 from django.utils.decorators import method_decorator  # | Декораторы для методов класса
 from django.views.decorators.cache import cache_page  # | Декоратор кэширования страниц
-from django.views.decorators.vary import (
-    vary_on_cookie,
-)  # | Декоратор для вариаций по кукам
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger  # | Пагинация
 from django.core.cache import cache  # | Система кэширования
+from django.contrib import messages  # | Сообщения пользователю
 from .models import SiteSettings, Page  # | Импорт моделей
-from .breadcrumbs import get_breadcrumbs
+from .breadcrumbs import get_breadcrumbs, get_breadcrumbs_jsonld
+from .forms import ContactForm  # | Форма обратной связи
 
 # Импорт модели новостей (если приложение news установлено)
 try:
@@ -284,6 +284,39 @@ class IndexView(MaintenanceMixin, BaseView):
             else:
                 recent_portfolio_list = list(PortfolioItem.objects.all().order_by("-created_at")[:3])
 
+        # Публичная статистика для главной страницы
+        stats = {}
+        if News:
+            stats["news_count"] = cache.get_or_set(
+                "home_stats_news",
+                lambda: News.objects.filter(is_active=True).count(),
+                300,
+            )
+        if PortfolioItem:
+            stats["portfolio_count"] = cache.get_or_set(
+                "home_stats_portfolio",
+                lambda: PortfolioItem.objects.filter(status="published").count() if 'status' in [f.name for f in PortfolioItem._meta.get_fields()] else PortfolioItem.objects.count(),
+                300,
+            )
+        try:
+            from reviews.models import Review
+            stats["reviews_count"] = cache.get_or_set(
+                "home_stats_reviews",
+                lambda: Review.objects.filter(status='approved').count(),
+                300,
+            )
+        except (ImportError, Exception):
+            pass
+        try:
+            from portfolio.models import Client
+            stats["clients_count"] = cache.get_or_set(
+                "home_stats_clients",
+                lambda: Client.objects.count(),
+                300,
+            )
+        except (ImportError, Exception):
+            pass
+
         context.update(
             {
                 "featured_pages": featured_pages,
@@ -291,6 +324,7 @@ class IndexView(MaintenanceMixin, BaseView):
                 "recent_portfolio_list": recent_portfolio_list,
                 "page_title": page_title,
                 "meta_description": meta_description,
+                "stats": stats,
                 # Эти переменные нужны для корректной работы hero.html
                 "portfolio_item": None,
                 "news": None,
@@ -302,10 +336,17 @@ class IndexView(MaintenanceMixin, BaseView):
 
         return context
 
-    @method_decorator(cache_page(60 * 15))  # | Кэшируем на 15 минут
-    @method_decorator(vary_on_cookie)  # | Учитываем куки пользователя
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Кэширование только для анонимных пользователей.
+        Авторизованные пользователи получают свежий контент без кэша.
+        """
+        if request.user.is_authenticated:
+            # Для авторизованных — без кэша страницы
+            return super(IndexView, self).dispatch(request, *args, **kwargs)
+        # Для анонимных — кэшируем на 15 минут
+        cached_dispatch = cache_page(60 * 15)(super(IndexView, self).dispatch)
+        return cached_dispatch(request, *args, **kwargs)
 
 
 class PageDetailView(MaintenanceMixin, DetailView):
@@ -366,6 +407,10 @@ class PageDetailView(MaintenanceMixin, DetailView):
                 else meta_description
             )
 
+        breadcrumbs = get_breadcrumbs([
+            (page.title, page.get_absolute_url()),
+        ])
+
         context.update(
             {
                 "site_settings": site_settings,
@@ -374,16 +419,24 @@ class PageDetailView(MaintenanceMixin, DetailView):
                 "meta_keywords": page.seo_keywords,
                 "prev_page": prev_page,
                 "next_page": next_page,
-                "breadcrumbs": get_breadcrumbs([
-                    (page.title, page.get_absolute_url()),
-                ]),
+                "breadcrumbs": breadcrumbs,
+                "breadcrumbs_jsonld": get_breadcrumbs_jsonld(breadcrumbs, self.request),
             }
         )
 
         return context
 
+    def get(self, request, *args, **kwargs):
+        """
+        Переопределяем GET для инкремента счётчика просмотров.
+        Используем update() для атомарного обновления без race condition.
+        """
+        response = super().get(request, *args, **kwargs)
+        # Атомарно увеличиваем счётчик просмотров
+        Page.objects.filter(pk=self.object.pk).update(views=self.object.views + 1)
+        return response
+
     @method_decorator(cache_page(60 * 10))  # | Кэшируем на 10 минут
-    @method_decorator(vary_on_cookie)  # | Учитываем куки пользователя
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
@@ -391,6 +444,7 @@ class PageDetailView(MaintenanceMixin, DetailView):
 class ContactView(MaintenanceMixin, TemplateView):
     """
     Представление для страницы контактов.
+    Обрабатывает GET (отображение формы) и POST (отправка формы).
     """
 
     template_name = "main/contacts.html"
@@ -402,6 +456,7 @@ class ContactView(MaintenanceMixin, TemplateView):
         Действия:
         1. Формирует заголовок страницы
         2. Добавляет описание
+        3. Добавляет форму обратной связи
 
         Параметры:
             **kwargs: Дополнительные аргументы контекста
@@ -420,17 +475,65 @@ class ContactView(MaintenanceMixin, TemplateView):
         if site_settings and site_settings.seo_description:
             meta_description = site_settings.seo_description
 
+        breadcrumbs = get_breadcrumbs([
+            ("Контакты", reverse("main:contacts"), "fas fa-phone"),
+        ])
+
         context.update(
             {
                 "site_settings": site_settings,
                 "page_title": page_title,
                 "meta_description": meta_description,
-                "breadcrumbs": get_breadcrumbs([
-                    ("Контакты", reverse("main:contacts"), "fas fa-phone"),
-                ]),
+                "breadcrumbs": breadcrumbs,
+                "breadcrumbs_jsonld": get_breadcrumbs_jsonld(breadcrumbs, self.request),
+                # Форма — берём из kwargs (если POST вернул ошибки) или создаём новую
+                "contact_form": kwargs.get("contact_form", ContactForm()),
             }
         )
         return context
+
+    def post(self, request, *args, **kwargs):
+        """
+        Обрабатывает отправку формы обратной связи.
+
+        Действия:
+        1. Валидирует данные формы
+        2. При успехе — отправляет email администратору
+        3. Показывает сообщение об успехе/ошибке
+        """
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            contact = form.cleaned_data["contact"]
+            message_text = form.cleaned_data["message"]
+
+            # Отправляем email администратору
+            try:
+                from django.core.mail import send_mail
+                from django.conf import settings as django_settings
+                site_settings = SiteSettings.load()
+                admin_email = site_settings.email if site_settings and site_settings.email else getattr(django_settings, 'DEFAULT_FROM_EMAIL', '')
+
+                if admin_email:
+                    send_mail(
+                        subject=f"[Обратная связь] Сообщение от {name}",
+                        message=f"От: {name}\nКонтакт: {contact}\n\nСообщение:\n{message_text}",
+                        from_email=getattr(django_settings, 'DEFAULT_FROM_EMAIL', admin_email),
+                        recipient_list=[admin_email],
+                        fail_silently=True,
+                    )
+            except Exception:
+                pass
+
+            messages.success(request, f"Спасибо, {name}! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.")
+            # Redirect-after-POST паттерн
+            from django.shortcuts import redirect
+            return redirect(reverse("main:contacts"))
+        else:
+            # Форма содержит ошибки — возвращаем её в контекст
+            messages.error(request, "Пожалуйста, исправьте ошибки в форме.")
+            context = self.get_context_data(contact_form=form)
+            return self.render_to_response(context)
 
 
 class AboutView(MaintenanceMixin, TemplateView):
@@ -498,60 +601,79 @@ class SearchView(MaintenanceMixin, BaseView):
 
     def get_context_data(self, **kwargs):
         """
-        Добавляет результаты поиска в контекст.
+        Добавляет результаты поиска в контекст с пагинацией.
         """
         context = super().get_context_data(**kwargs)
-        query = self.request.GET.get("q", "")
-        
+        query = self.request.GET.get("q", "").strip()
+        page_num = self.request.GET.get("page", 1)
+
         context["query"] = query
         context["page_title"] = f"Поиск: {query}" if query else "Поиск по сайту"
-        
-        # Хлебные крошки
-        context["breadcrumbs"] = get_breadcrumbs([
+
+        breadcrumbs = get_breadcrumbs([
             ("Поиск", reverse("main:search"), "fas fa-search"),
         ])
+        context["breadcrumbs"] = breadcrumbs
+        context["breadcrumbs_jsonld"] = get_breadcrumbs_jsonld(breadcrumbs, self.request)
 
         if query:
             # Поиск по новостям
             if News:
-                news_results = News.objects.filter(
-                    Q(title__icontains=query) | 
+                news_qs = News.objects.filter(
+                    Q(title__icontains=query) |
                     Q(short_description__icontains=query) |
                     Q(content__icontains=query),
                     is_active=True
                 ).distinct()
-                context["news_results"] = news_results
-            
+                news_paginator = Paginator(news_qs, 10)
+                try:
+                    context["news_results"] = news_paginator.page(page_num)
+                except (PageNotAnInteger, EmptyPage):
+                    context["news_results"] = news_paginator.page(1)
+                context["news_total"] = news_qs.count()
+
             # Поиск по портфолио
             if PortfolioItem:
-                portfolio_results = PortfolioItem.objects.filter(
-                    Q(title__icontains=query) | 
-                    Q(short_description__icontains=query) |
-                    Q(content__icontains=query) |
-                    Q(technologies__icontains=query),
-                    status="published"
-                ).distinct()
-                context["portfolio_results"] = portfolio_results
+                try:
+                    portfolio_qs = PortfolioItem.objects.filter(
+                        Q(title__icontains=query) |
+                        Q(short_description__icontains=query) |
+                        Q(content__icontains=query) |
+                        Q(technologies__icontains=query),
+                        status="published"
+                    ).distinct()
+                except Exception:
+                    portfolio_qs = PortfolioItem.objects.filter(
+                        Q(title__icontains=query) |
+                        Q(short_description__icontains=query),
+                    ).distinct()
+                portfolio_paginator = Paginator(portfolio_qs, 10)
+                try:
+                    context["portfolio_results"] = portfolio_paginator.page(page_num)
+                except (PageNotAnInteger, EmptyPage):
+                    context["portfolio_results"] = portfolio_paginator.page(1)
+                context["portfolio_total"] = portfolio_qs.count()
 
             # Поиск по страницам
-            page_results = Page.objects.filter(
-                Q(title__icontains=query) | 
+            page_qs = Page.objects.filter(
+                Q(title__icontains=query) |
                 Q(content__icontains=query),
                 show_on_site=True
             ).distinct()
-            context["page_results"] = page_results
+            page_paginator = Paginator(page_qs, 10)
+            try:
+                context["page_results"] = page_paginator.page(page_num)
+            except (PageNotAnInteger, EmptyPage):
+                context["page_results"] = page_paginator.page(1)
+            context["pages_total"] = page_qs.count()
 
             # Общее количество результатов
-            total_results = 0
-            if "news_results" in context:
-                total_results += context["news_results"].count()
-            if "portfolio_results" in context:
-                total_results += context["portfolio_results"].count()
-            if "page_results" in context:
-                total_results += context["page_results"].count()
-            
-            context["total_results"] = total_results
-            
+            context["total_results"] = (
+                context.get("news_total", 0) +
+                context.get("portfolio_total", 0) +
+                context.get("pages_total", 0)
+            )
+
         return context
 
 

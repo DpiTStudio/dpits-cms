@@ -404,7 +404,27 @@ class SiteSettings(SingletonModel):
         """
         Возвращает словарь активных ссылок на социальные сети.
         Удобно для итерации в шаблонах.
+        Если иконка не загружена — используется Font Awesome класс как fallback.
         """
+        # Font Awesome классы по умолчанию для каждой сети
+        FA_ICONS = {
+            'facebook': 'fab fa-facebook',
+            'instagram': 'fab fa-instagram',
+            'youtube': 'fab fa-youtube',
+            'rutube': 'fas fa-video',
+            'vk_video': 'fab fa-vk',
+            'telegram': 'fab fa-telegram',
+            'vk': 'fab fa-vk',
+            'ok': 'fab fa-odnoklassniki',
+            'twitter': 'fab fa-twitter',
+            'pinterest': 'fab fa-pinterest',
+            'linkedin': 'fab fa-linkedin',
+            'threads': 'fab fa-threads',
+            'whatsapp': 'fab fa-whatsapp',
+            'viber': 'fab fa-viber',
+            'skype': 'fab fa-skype',
+        }
+
         links = []
         social_fields = [
             ('facebook', 'icon_facebook', 'Facebook'),
@@ -420,7 +440,7 @@ class SiteSettings(SingletonModel):
             ('linkedin', 'icon_linkedin', 'LinkedIn'),
             ('threads', 'icon_threads', 'Threads'),
         ]
-        
+
         for field, icon_field, name in social_fields:
             val = getattr(self, field)
             if val:
@@ -432,9 +452,10 @@ class SiteSettings(SingletonModel):
                     'name': name,
                     'url': val,
                     'icon': icon,
+                    'fa_icon': FA_ICONS.get(field, 'fas fa-link'),  # fallback FA-иконка
                     'slug': field
                 })
-        
+
         # Обработка мессенджеров
         messengers = [
             ('whatsapp', 'WhatsApp', 'https://wa.me/'),
@@ -445,7 +466,7 @@ class SiteSettings(SingletonModel):
             val = getattr(self, field)
             if val:
                 url = val if val.startswith(('http', 'viber:', 'skype:')) else f"{base_url}{val}"
-                
+
                 icon = None
                 icon_field_name = f"icon_{field}"
                 if hasattr(self, icon_field_name):
@@ -456,9 +477,10 @@ class SiteSettings(SingletonModel):
                     'name': name,
                     'url': url,
                     'icon': icon,
+                    'fa_icon': FA_ICONS.get(field, 'fas fa-comment'),  # fallback FA-иконка
                     'slug': field
                 })
-                
+
         return links
 
     def clean(self):
@@ -501,8 +523,26 @@ class Page(HeroMixin):
     show_in_menu = models.BooleanField(_("Показывать в меню"), default=True)
     # Флаг, указывающий показывать ли страницу в навигационном меню
 
+    menu_icon = models.CharField(
+        _("Иконка меню (FA класс)"),
+        max_length=80,
+        blank=True,
+        default="",
+        help_text=_("Например: fas fa-home. Отображается в навигационном меню рядом с названием страницы")
+    )
+    # Font Awesome класс для иконки в навигации
+
+
     show_on_site = models.BooleanField(_("Показывать на сайте"), default=True)
     # Флаг, указывающий активна ли страница на сайте
+
+    views = models.PositiveIntegerField(
+        _("Просмотры"),
+        default=0,
+        editable=False,
+        help_text=_("Счётчик просмотров страницы")
+    )
+    # Автоматически инкрементируется при каждом просмотре страницы
 
     order = models.IntegerField(
         _("Порядок отображения"),
