@@ -26,12 +26,22 @@
 <div class="reading-progress-bar" id="readingProgressBar"></div>
 
 <article
-  class="news-detail-container glass-container p-4 p-md-5 rounded-4 shadow-lg border border-secondary border-opacity-25"
+  class="news-detail-container news-card-premium p-4 p-md-5 shadow-lg position-relative"
   data-aos="fade-up"
   itemscope
   itemtype="https://schema.org/NewsArticle"
+  style="min-height: 500px;"
 >
-  <!-- Мета-строка над контентом -->
+  {% if news.image %}
+  <div
+    class="news-card-bg"
+    style="background-image: url('{{ news.image.url }}'); opacity: 0.05;"
+  ></div>
+  {% endif %}
+  <div class="news-card-overlay" style="background: linear-gradient(135deg, rgba(20,20,25,0.9) 0%, rgba(20,20,25,0.7) 100%);"></div>
+
+  <div class="position-relative" style="z-index: 3;">
+    <!-- Мета-строка над контентом -->
   <div class="news-detail-meta d-flex flex-wrap align-items-center gap-3 mb-4 pb-4 border-bottom border-secondary border-opacity-25">
     {% if news.category %}
     <a href="{{ news.category.get_absolute_url }}" class="news-category-badge" itemprop="about">
@@ -168,6 +178,7 @@
         </button>
       </div>
     </div>
+  </div>
   </div>
 </article>
 

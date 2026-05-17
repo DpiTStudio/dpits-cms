@@ -33,7 +33,7 @@ from django.conf.urls.static import (
     static,
 )  # Импорт функции для обслуживания статических файлов
 from django.contrib.sitemaps.views import sitemap
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from mysite.sitemaps import sitemaps
 from news.feeds import LatestNewsFeed, NewsByCategoryFeed
 
@@ -56,7 +56,6 @@ urlpatterns = [
     path("feedback/", include("feedback.urls")),  # Обратная связь
     path("knowledge-base/", include("knowledge_base.urls")),  # База знаний
     # path("files/", include("files.urls")),  # Управление файлами
-
     # === SEO и индексация ===
     path(
         "sitemap.xml",
@@ -69,10 +68,16 @@ urlpatterns = [
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
         name="robots_txt",
     ),
-
     # === RSS ленты новостей ===
     path("news/feed/", LatestNewsFeed(), name="news_feed"),
     path("news/feed/<slug:slug>/", NewsByCategoryFeed(), name="news_feed_category"),
+    # === Favicon ===
+    path(
+        "favicon.ico",
+        RedirectView.as_view(
+            url=f"{settings.STATIC_URL}images/favicon.ico", permanent=True
+        ),
+    ),
 ]
 
 # В режиме отладки (DEBUG) добавляем обслуживание медиа файлов

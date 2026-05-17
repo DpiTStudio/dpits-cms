@@ -15,17 +15,15 @@ def get_user_statistics(user):
 
     try:
         from reviews.models import Review
-
         stats["reviews_count"] = Review.objects.filter(author=user).count()
     except ImportError:
-        logger.warning("Приложение reviews не найдено")
+        pass
 
     try:
         from comments.models import Comment
-
         stats["comments_count"] = Comment.objects.filter(author=user).count()
     except ImportError:
-        logger.warning("Приложение comments не найдено")
+        pass
 
     return stats
 
