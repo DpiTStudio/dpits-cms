@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.utils.translation import gettext_lazy as _
 from main.admin_utils import ResetAutoIncrementMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
@@ -12,6 +11,7 @@ from .models import NewsCategory, News, NewsTag
 @admin.register(NewsTag)
 class NewsTagAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """Управление тегами новостей."""
+
     list_display = ["name", "slug", "news_count_display"]
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ["name"]
@@ -21,6 +21,7 @@ class NewsTagAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
         return format_html(
             '<span style="font-weight:bold;color:#6366f1">{}</span> новостей', count
         )
+
     news_count_display.short_description = "Новостей"
 
 
@@ -31,7 +32,15 @@ class NewsCategoryAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     Поддержка SEO, сортировки, отображения в меню и управления активностью.
     """
 
-    list_display = ["name", "slug", "news_count_display", "show_in_menu", "order", "is_active", "views"]
+    list_display = [
+        "name",
+        "slug",
+        "news_count_display",
+        "show_in_menu",
+        "order",
+        "is_active",
+        "views",
+    ]
     list_editable = ["show_in_menu", "order", "is_active"]
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ["name", "slug"]
@@ -72,6 +81,7 @@ class NewsCategoryAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
         return format_html(
             '<span style="font-weight:bold;color:#6366f1">{}</span>', count
         )
+
     news_count_display.short_description = "Новостей"
 
 
@@ -84,18 +94,15 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     """
 
     list_display = [
-        "title",
-        "category",
-        "status_display",
-        "views",
-        "reading_time_display",
-        "is_active",
-        "published_at",
-        "created_at",
+        # Вся информация о новости в одной строке
+        "news_info_display",
+        # Действия
         "clear_views_button",
     ]
+
+    list_per_page = 20
     list_filter = ["category", "is_active", "published_at", "created_at", "tags"]
-    list_editable = ["is_active"]
+    list_editable = []
     prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ["views", "created_at", "updated_at", "reading_time_display"]
     filter_horizontal = ["tags"]
@@ -153,26 +160,61 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
     class Media:
         js = ("news/js/category-image.js",)
 
-    actions = ["clear_views_action", "duplicate_news_action", "publish_action", "unpublish_action"]
+    actions = [
+        "clear_views_action",
+        "duplicate_news_action",
+        "publish_action",
+        "unpublish_action",
+    ]
 
-    def status_display(self, obj):
-        """Отображает статус публикации новости с цветовой индикацией."""
+    def news_info_display(self, obj):
+        """
+        Одна строка в списке новостей:
+          Строка 1 — Название (жирный)
+          Строка 2 — 📁 Категория  ● Статус  ⏱️ Время  📅 Создана  🕒 Опубликована  👁️ Просмотры
+        """
         now = timezone.now()
+        category_name = obj.category.name if obj.category else "—"
+
+        # Статус
         if not obj.is_active:
-            return format_html('<span style="color:#ef4444">● Скрыта</span>')
-        if obj.published_at > now:
-            return format_html(
-                '<span style="color:#f59e0b">● Запланирована</span>'
-            )
-        return format_html('<span style="color:#10b981">● Активна</span>')
-    status_display.short_description = "Статус"
+            status_html = '<span style="color:#ef4444">● Скрыта</span>'
+        elif obj.published_at > now:
+            status_html = '<span style="color:#f59e0b">● Запланирована</span>'
+        else:
+            status_html = '<span style="color:#10b981">● Активна</span>'
+
+        minutes = obj.get_reading_time
+        created = obj.created_at.strftime("%d.%m.%Y") if obj.created_at else "—"
+        published = obj.published_at.strftime("%d.%m.%Y %H:%M") if obj.published_at else "—"
+
+        return format_html(
+            '<span style="font-weight:600;font-size:13px">{title}</span>'
+            '<br>'
+            '<span style="color:#888;font-size:11px">'
+            '📁 {cat}&nbsp;&nbsp;{status}&nbsp;&nbsp;'
+            '⏱️ {min}&nbsp;мин.&nbsp;&nbsp;'
+            '📅 {created}&nbsp;&nbsp;'
+            '🕒 {published}&nbsp;&nbsp;'
+            '👁️ {views}'
+            '</span>',
+            title=obj.title,
+            cat=category_name,
+            status=format_html(status_html),
+            min=minutes,
+            created=created,
+            published=published,
+            views=obj.views,
+        )
+
+    news_info_display.short_description = "Новость"
+    news_info_display.admin_order_field = "title"
 
     def reading_time_display(self, obj):
-        """Отображает время чтения новости."""
+        """Время чтения (используется в fieldsets)."""
         minutes = obj.get_reading_time
-        return format_html(
-            '<span style="color:#6366f1">⏱ {} мин.</span>', minutes
-        )
+        return format_html('<span style="color:#6366f1">⏱ {} мин.</span>', minutes)
+
     reading_time_display.short_description = "Время чтения"
 
     def clear_views_button(self, obj):
@@ -182,6 +224,7 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
             'text-decoration: none; border-radius: 3px;">Очистить</a>',
             f"{obj.pk}/clear_views/",
         )
+
     clear_views_button.short_description = "Просмотры"
 
     def get_urls(self):
@@ -221,7 +264,6 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
         """Создаёт копии выбранных новостей (черновики)."""
         count = 0
         for news in queryset:
-            # Создаём копию новости
             tags = list(news.tags.all())
             news.pk = None
             news.title = f"[Копия] {news.title}"
@@ -231,9 +273,7 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
             news.save()
             news.tags.set(tags)
             count += 1
-        self.message_user(
-            request, f"Создано {count} копий новостей (как черновики)."
-        )
+        self.message_user(request, f"Создано {count} копий новостей (как черновики).")
 
     @admin.action(description="Опубликовать выбранные новости")
     def publish_action(self, request, queryset):
