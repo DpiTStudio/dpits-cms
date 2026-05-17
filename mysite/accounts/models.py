@@ -3,12 +3,10 @@
 from django.db import models  # Импорт базовых моделей Django
 from django.contrib.auth.models import User  # Импорт модели пользователя Django
 from django.utils.translation import gettext_lazy as _  # Импорт функции для перевода строк
-from django.core.exceptions import ValidationError  # Импорт исключения для валидации (ИСПРАВЛЕНО: добавлен отсутствующий импорт)
-from django.db.models.signals import post_save  # Импорт сигнала сохранения модели
-from django.dispatch import receiver  # Декоратор для обработки сигналов
+from django.core.exceptions import ValidationError  # Импорт исключения для валидации
 from django.urls import reverse  # Функция для генерации URL
 import os  # Модуль для работы с путями файловой системы
-import logging  # Импорт модуля логирования (ИСПРАВЛЕНО: добавлен для замены print)
+import logging  # Импорт модуля логирования
 
 # Настройка логгера для этого модуля
 logger = logging.getLogger(__name__)
@@ -90,6 +88,44 @@ class UserProfile(models.Model):
             return self.avatar.url  # Возвращаем URL аватара
         return "/static/accounts/images/default-avatar.png"  # Возвращаем URL изображения по умолчанию
 
+    @property
+    def role_display(self):
+        """
+        Возвращает человекочитаемую роль пользователя на основе его прав и групп.
+
+        Returns:
+            str: Строка с названием роли пользователя
+        """
+        if self.user.is_superuser:
+            return "Администратор"
+        elif self.user.is_staff:
+            return "Сотрудник"
+        groups = self.user.groups.values_list("name", flat=True)
+        if "Модераторы" in groups:
+            return "Модератор"
+        return "Пользователь"
+
+    def save(self, *args, **kwargs):
+        """
+        Переопределение save() для автоматической обрезки и оптимизации аватара.
+        После сохранения обрезает аватар до квадрата 200×200 пикселей с помощью Pillow.
+        """
+        super().save(*args, **kwargs)  # Сначала сохраняем, чтобы файл существовал на диске
+        if self.avatar:
+            try:
+                from PIL import Image
+                img = Image.open(self.avatar.path)
+                # Обрезаем до квадрата по меньшей стороне
+                min_dim = min(img.size)
+                left = (img.width - min_dim) // 2
+                top = (img.height - min_dim) // 2
+                img = img.crop((left, top, left + min_dim, top + min_dim))
+                img = img.resize((200, 200), Image.LANCZOS)
+                img.save(self.avatar.path, optimize=True, quality=85)
+                logger.info(f"Аватар пользователя {self.user.username} обрезан до 200x200")
+            except Exception as e:
+                logger.warning(f"Не удалось обрезать аватар пользователя {self.user.username}: {e}")
+
     def clean(self):
         """
         Валидация данных профиля перед сохранением.
@@ -103,31 +139,6 @@ class UserProfile(models.Model):
             raise ValidationError(
                 {"phone": _("Номер телефона должен начинаться с '+'")}  # Вызываем ошибку валидации
             )
-
-
-@receiver(post_save, sender=User)  # Декоратор для подключения к сигналу post_save модели User
-def create_or_update_user_profile(sender, instance, created, **kwargs):
-    """
-    Сигнал для автоматического создания/обновления профиля пользователя.
-    Вызывается автоматически после сохранения объекта User.
-    
-    Args:
-        sender: Класс модели, отправившей сигнал (User)
-        instance: Экземпляр сохраненного объекта User
-        created: Булево значение, True если объект был создан, False если обновлен
-        **kwargs: Дополнительные аргументы
-    """
-    try:
-        if created:  # Если пользователь был создан
-            UserProfile.objects.create(user=instance)  # Создаем новый профиль для пользователя
-        else:  # Если пользователь был обновлен
-            # Используем get_or_create для избежания исключений при отсутствии профиля
-            profile, created = UserProfile.objects.get_or_create(user=instance)  # Получаем или создаем профиль
-            if not created:  # Если профиль уже существовал
-                profile.save()  # Сохраняем профиль (может обновить связанные данные)
-    except Exception as e:
-        # Логирование ошибки вместо print (ИСПРАВЛЕНО: заменен print на logger)
-        logger.error(f"Ошибка создания профиля пользователя {instance.username}: {e}")  # Записываем ошибку в лог
 
 
 class Ticket(models.Model):

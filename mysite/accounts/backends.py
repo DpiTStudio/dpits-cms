@@ -1,7 +1,11 @@
 # accounts/backends.py
+# Кастомный бэкенд аутентификации: вход по email ИЛИ username
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.models import User
 from django.db.models import Q
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class EmailOrUsernameModelBackend(ModelBackend):
@@ -19,4 +23,9 @@ class EmailOrUsernameModelBackend(ModelBackend):
         except User.DoesNotExist:
             return None
         except User.MultipleObjectsReturned:
+            # ИСПРАВЛЕНО: логируем коллизию вместо молчаливого возврата None
+            logger.warning(
+                f"Найдено несколько пользователей с одинаковым логином/email: {username!r}. "
+                f"Проверьте уникальность email в базе данных."
+            )
             return None

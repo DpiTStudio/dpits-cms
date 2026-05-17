@@ -58,11 +58,10 @@
             <div class="profile-hero-info">
                 <div class="profile-hero-name-row">
                     <h1 class="profile-hero-name hero-title">{{ user.get_full_name|default:user.username }}</h1>
-                    {% if user.is_staff %}
-                        <span class="role-badge role-admin"><i class="fas fa-shield-alt"></i> Администратор</span>
-                    {% elif user.is_active %}
-                        <span class="role-badge role-user"><i class="fas fa-user-check"></i> Пользователь</span>
-                    {% endif %}
+                    <span class="role-badge {% if user.is_superuser %}role-super{% elif user.is_staff %}role-admin{% else %}role-user{% endif %}">
+                        <i class="fas {% if user.is_superuser %}fa-crown{% elif user.is_staff %}fa-shield-alt{% else %}fa-user-check{% endif %}"></i>
+                        {{ user.profile.role_display }}
+                    </span>
                 </div>
 
                 <p class="profile-hero-username"><i class="fas fa-at"></i> {{ user.username }}</p>
@@ -102,6 +101,11 @@
             <div class="phsb-item">
                 <span class="phsb-num">{{ tickets_count }}</span>
                 <span class="phsb-lbl"><i class="fas fa-ticket-alt"></i> Обращений</span>
+            </div>
+            <div class="phsb-divider"></div>
+            <div class="phsb-item">
+                <span class="phsb-num" style="color: #fbbf24;">{{ open_tickets }}</span>
+                <span class="phsb-lbl"><i class="fas fa-envelope-open-text"></i> Открытых</span>
             </div>
             <div class="phsb-divider"></div>
             <div class="phsb-item">
@@ -337,6 +341,11 @@
                             <span class="qa-label">Выйти</span>
                             <span class="qa-desc">Завершить сессию</span>
                         </a>
+                        <a href="{% url 'accounts:delete_account' %}" class="qa-card" style="--qa-color: #dc3545;">
+                            <div class="qa-icon" style="background: rgba(220,53,69,.15); color: #dc3545;"><i class="fas fa-user-times"></i></div>
+                            <span class="qa-label" style="color: #dc3545;">Удалить аккаунт</span>
+                            <span class="qa-desc">Деактивация профиля</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -466,13 +475,9 @@
                     <div class="summary-row">
                         <span class="summary-key">Роль</span>
                         <span class="summary-val">
-                            {% if user.is_superuser %}
-                                <span class="role-pill role-pill-super">Суперпользователь</span>
-                            {% elif user.is_staff %}
-                                <span class="role-pill role-pill-admin">Администратор</span>
-                            {% else %}
-                                <span class="role-pill role-pill-user">Пользователь</span>
-                            {% endif %}
+                            <span class="role-pill {% if user.is_superuser %}role-pill-super{% elif user.is_staff %}role-pill-admin{% else %}role-pill-user{% endif %}">
+                                {{ user.profile.role_display }}
+                            </span>
                         </span>
                     </div>
                     <div class="summary-row">

@@ -1,6 +1,8 @@
 # accounts/utils.py
 import logging
 from django.db import transaction
+from django.contrib import messages       # ИСПРАВЛЕНО: добавлен отсутствующий импорт
+from django.shortcuts import redirect     # ИСПРАВЛЕНО: добавлен отсутствующий импорт
 
 logger = logging.getLogger(__name__)
 

@@ -12,6 +12,9 @@ from django.conf import settings
 from django.utils import timezone
 import logging
 
+# Утилиты из текущего приложения
+from .utils import get_user_statistics
+
 # Импорт моделей и форм
 from .models import Ticket, UserProfile
 from .forms import (
@@ -69,32 +72,6 @@ def register(request):
     }
     return render(request, "accounts/register.html", context)
 
-
-def get_reviews_count(user):
-    """
-    Вспомогательная функция для получения количества отзывов пользователя.
-    Использует ленивый импорт для избежания циклических зависимостей.
-    """
-    try:
-        from reviews.models import Review
-
-        return Review.objects.filter(author=user).count()
-    except (ImportError, Exception):
-        return 0
-
-
-def get_comments_count(user):
-    """
-    Вспомогательная функция для получения количества комментариев пользователя.
-    Использует ленивый импорт из гипотетического приложения комментариев.
-    """
-    try:
-        # Предполагаем наличие приложения comments
-        from comments.models import Comment
-
-        return Comment.objects.filter(author=user).count()
-    except (ImportError, Exception):
-        return 0
 
 
 @login_required
@@ -207,16 +184,27 @@ def password_change(request):
 def ticket_list(request):
     """
     Отображение списка всех обращений текущего пользователя.
+    Поддерживает фильтрацию по статусу и поиск по теме тикета.
     """
     try:
-        # Получаем тикеты пользователя с предзагрузкой связанных данных
-        tickets = (
-            Ticket.objects.filter(user=request.user)
-            .select_related("user")
-            .order_by("-created_at")
-        )
+        tickets = Ticket.objects.filter(user=request.user).select_related("user")
+
+        # Фильтрация по статусу
+        status_filter = request.GET.get("status", "").strip()
+        if status_filter in [Ticket.STATUS_OPEN, Ticket.STATUS_IN_PROGRESS, Ticket.STATUS_CLOSED]:
+            tickets = tickets.filter(status=status_filter)
+
+        # Поиск по теме тикета
+        search_query = request.GET.get("q", "").strip()
+        if search_query:
+            tickets = tickets.filter(subject__icontains=search_query)
+
+        tickets = tickets.order_by("-created_at")
+
         context = {
             "tickets": tickets,
+            "current_status": status_filter,
+            "search_query": search_query,
             "breadcrumbs": get_breadcrumbs([
                 ("Личный кабинет", reverse("accounts:profile"), "fas fa-user"),
                 ("Техподдержка", None, "fas fa-ticket-alt"),
@@ -365,6 +353,10 @@ def profile_view(request):
         # Считаем количество тикетов
         tickets_count = Ticket.objects.filter(user=user).count()
 
+        # Расширенная статистика: тикеты по статусам
+        open_tickets = Ticket.objects.filter(user=user, status=Ticket.STATUS_OPEN).count()
+        closed_tickets = Ticket.objects.filter(user=user, status=Ticket.STATUS_CLOSED).count()
+
         # Последние 5 тикетов для отображения на странице профиля
         recent_tickets = (
             Ticket.objects.filter(user=user)
@@ -376,16 +368,17 @@ def profile_view(request):
         # Количество дней с момента регистрации
         days_registered = (timezone.now() - user.date_joined).days
 
-        # Получаем статистику из других приложений
-        reviews_count = get_reviews_count(user)
-        comments_count = get_comments_count(user)
+        # Получаем статистику из других приложений через utils (убраны дублирующие helpers)
+        stats = get_user_statistics(user)
 
         context = {
             "tickets_count": tickets_count,
+            "open_tickets": open_tickets,
+            "closed_tickets": closed_tickets,
             "recent_tickets": recent_tickets,
             "days_registered": days_registered,
-            "reviews_count": reviews_count,
-            "comments_count": comments_count,
+            "reviews_count": stats["reviews_count"],
+            "comments_count": stats["comments_count"],
             "title": "Мой профиль",
             "breadcrumbs": get_breadcrumbs([
                 ("Личный кабинет", None, "fas fa-user"),
@@ -397,3 +390,40 @@ def profile_view(request):
         logger.error(f"Ошибка загрузки личного кабинета: {e}")
         messages.error(request, "❌ Не удалось загрузить данные профиля.")
         return redirect("main:index")
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def delete_account(request):
+    """
+    Мягкое удаление (деактивация) аккаунта пользователя.
+    Требует подтверждения паролем. Аккаунт переводится в is_active=False,
+    пользователь разлогиниватеся — данные не уничтожаются необратимо.
+    """
+    if request.method == "POST":
+        password = request.POST.get("password", "")
+        if request.user.check_password(password):
+            try:
+                user = request.user
+                user.is_active = False
+                user.save(update_fields=["is_active"])
+                logout(request)
+                logger.info(f"Аккаунт пользователя {user.username} деактивирован (мягкое удаление).")
+                messages.info(
+                    request,
+                    "Ваш аккаунт деактивирован. Для восстановления обратитесь к администратору."
+                )
+                return redirect("main:index")
+            except Exception as e:
+                logger.error(f"Ошибка деактивации аккаунта: {e}")
+                messages.error(request, "❌ Произошла ошибка. Попробуйте позже.")
+        else:
+            messages.error(request, "❌ Неверный пароль. Аккаунт не удалён.")
+
+    context = {
+        "breadcrumbs": get_breadcrumbs([
+            ("Личный кабинет", reverse("accounts:profile"), "fas fa-user"),
+            ("Удаление аккаунта", None, "fas fa-user-times"),
+        ])
+    }
+    return render(request, "accounts/delete_account.html", context)
