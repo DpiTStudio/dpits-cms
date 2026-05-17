@@ -2,126 +2,152 @@
 {% load static %}
 
 {% block title %}
-    {{ site_settings.company_name }} |
-    {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} |
-    {{ page_title }}
+    {{ site_settings.company_name }} | {{ site_settings.logo_text|default:"DPITS-CMS.RU" }} | {{ page_title }}
 {% endblock %}
 
 {% block meta_description %}
-    {{ site_settings.company_name }} |
-    {{ site_settings.seo_description|default:"Результаты поиска" }}
+    {{ site_settings.company_name }} | {{ site_settings.seo_description|default:"Результаты поиска" }}
 {% endblock %}
 
 {% block meta_keywords %}
     {{ site_settings.company_name }}, {{ site_settings.seo_keywords|default:"поиск, результаты, поисковый запрос" }}
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/list-common.css' %}">
+<link rel="stylesheet" href="{% static 'css/news-enhanced.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="container py-5">
-    <div class="row">
-        <div class="col-lg-12">
-            <!-- Заголовок -->
-            <h1 class="mb-4">
-                {% if query %}
-                    Результаты поиска: <span class="text-primary">"{{ query }}"</span>
-                {% else %}
-                    Поиск по сайту
-                {% endif %}
-            </h1>
-
-            <!-- Форма поиска (если результатов нет или пустой запрос) -->
-            <div class="card shadow-sm mb-5">
-                <div class="card-body p-4">
-                    <form action="{% url 'main:search' %}" method="get" class="row g-3">
-                        <div class="col-md-10">
-                            <input type="text" name="q" class="form-control form-control-lg" placeholder="Введите запрос..." value="{{ query }}">
-                        </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary btn-lg w-100">
-                                <i class="fas fa-search me-2"></i>Найти
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            {% if query %}
-                {% if total_results > 0 %}
-                    <p class="lead mb-4">Найдено результатов: <strong>{{ total_results }}</strong></p>
-
-                    <!-- Новости -->
-                    {% if news_results %}
-                        <h3 class="mt-4 mb-3 border-bottom pb-2">Новости <span class="badge bg-secondary rounded-pill fs-6 align-top">{{ news_results.count }}</span></h3>
-                        <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
-                            {% for item in news_results %}
-                            <div class="col">
-                                <div class="card h-100 shadow-sm hover-shadow transition-all">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><a href="{{ item.get_absolute_url }}" class="text-decoration-none text-dark">{{ item.title }}</a></h5>
-                                        <p class="card-text text-muted small mb-2">{{ item.created_at|date:"d.m.Y" }}</p>
-                                        <p class="card-text">{{ item.short_description|striptags|truncatewords:20 }}</p>
-                                        <a href="{{ item.get_absolute_url }}" class="btn btn-sm btn-outline-primary stretched-link">Читать далее</a>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
-                    <!-- Портфолио -->
-                    {% if portfolio_results %}
-                        <h3 class="mt-4 mb-3 border-bottom pb-2">Портфолио <span class="badge bg-secondary rounded-pill fs-6 align-top">{{ portfolio_results.count }}</span></h3>
-                        <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
-                            {% for item in portfolio_results %}
-                            <div class="col">
-                                <div class="card h-100 shadow-sm hover-shadow transition-all">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            {% if item.image %}
-                                            <img src="{{ item.image.url }}" class="img-fluid rounded-start h-100 object-fit-cover" alt="{{ item.title }}">
-                                            {% else %}
-                                            <div class="bg-light h-100 d-flex align-items-center justify-content-center text-muted">Нет фото</div>
-                                            {% endif %}
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title"><a href="{{ item.get_absolute_url }}" class="text-decoration-none text-dark">{{ item.title }}</a></h5>
-                                                <p class="card-text"><small class="text-muted">{{ item.category.name }}</small></p>
-                                                <p class="card-text">{{ item.short_description|striptags|truncatewords:15 }}</p>
-                                                <a href="{{ item.get_absolute_url }}" class="btn btn-sm btn-outline-primary stretched-link">Подробнее</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
-                    <!-- Страницы -->
-                    {% if page_results %}
-                        <h3 class="mt-4 mb-3 border-bottom pb-2">Страницы <span class="badge bg-secondary rounded-pill fs-6 align-top">{{ page_results.count }}</span></h3>
-                        <div class="list-group mb-5">
-                            {% for item in page_results %}
-                            <a href="{{ item.get_absolute_url }}" class="list-group-item list-group-item-action p-3">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">{{ item.title }}</h5>
-                                </div>
-                                <p class="mb-1 text-muted">{{ item.content|striptags|truncatewords:30 }}</p>
-                            </a>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
-                {% else %}
-                    <div class="alert alert-warning py-4 text-center" role="alert">
-                        <i class="fas fa-search fa-3x mb-3 text-warning"></i>
-                        <h4>Ничего не найдено</h4>
-                        <p class="mb-0">По вашему запросу "<strong>{{ query }}</strong>" ничего не найдено. Попробуйте изменить запрос.</p>
-                    </div>
-                {% endif %}
-            {% endif %}
+<div class="news-list-container">
+    
+    <!-- Заголовок страницы -->
+    <div class="category-hero-bar mb-5" data-aos="fade-up">
+      <div class="category-hero-inner d-flex align-items-center gap-4">
+        <div class="category-hero-text w-100">
+          <span class="category-eyebrow">ПОИСК ПО САЙТУ</span>
+          <h1 class="category-hero-title mb-1">
+              {% if query %}
+                  Результаты поиска: <span class="text-primary">«{{ query }}»</span>
+              {% else %}
+                  Поиск по сайту
+              {% endif %}
+          </h1>
+          {% if query %}
+            <p class="text-muted small mb-2">Найдено результатов: {{ total_results }}</p>
+          {% else %}
+            <p class="text-muted small mb-2">Введите запрос для поиска по новостям, портфолио и страницам.</p>
+          {% endif %}
         </div>
+      </div>
     </div>
+
+    <!-- Живой поиск -->
+    <div class="news-live-search-wrapper mb-5" id="mainSearchWrapper">
+      <div class="news-live-search-inner">
+        <i class="fas fa-search news-live-search-icon"></i>
+        <form action="{% url 'main:search' %}" method="get" class="w-100 m-0">
+          <input
+            type="text"
+            name="q"
+            id="mainSearchInput"
+            class="news-live-search-input"
+            placeholder="Введите запрос..."
+            autocomplete="off"
+            value="{{ query }}"
+          />
+        </form>
+      </div>
+    </div>
+
+    {% if query %}
+        {% if total_results > 0 %}
+            
+            <!-- Новости -->
+            {% if news_results %}
+                <h3 class="mb-4 text-white d-flex align-items-center">
+                    <i class="fas fa-newspaper me-2 text-primary"></i>Новости 
+                    <span class="badge bg-primary rounded-pill ms-3 fs-6">{{ news_results.count }}</span>
+                </h3>
+                <div class="row g-4 news-grid mb-5">
+                    {% for item in news_results %}
+                    <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                        <article class="news-card-premium w-100 h-100 p-4 border border-secondary border-opacity-25" style="background: rgba(255,255,255,0.02); border-radius: 1.5rem;">
+                            <div class="news-meta-row mb-3 text-muted small">
+                                <span class="news-meta-item"><i class="far fa-clock me-1"></i>{{ item.created_at|date:"d.m.Y" }}</span>
+                            </div>
+                            <h4 class="news-title h5 fw-bold mb-3">
+                                <a href="{{ item.get_absolute_url }}" class="text-white text-decoration-none hover-primary">{{ item.title }}</a>
+                            </h4>
+                            <p class="news-description text-white-50 mb-4">{{ item.short_description|striptags|truncatewords:20 }}</p>
+                            <div class="mt-auto pt-3 border-top border-secondary border-opacity-25">
+                                <a href="{{ item.get_absolute_url }}" class="btn-read-more text-primary text-decoration-none">Читать далее <i class="fas fa-arrow-right ms-2"></i></a>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Портфолио -->
+            {% if portfolio_results %}
+                <h3 class="mb-4 text-white d-flex align-items-center">
+                    <i class="fas fa-briefcase me-2 text-primary"></i>Портфолио 
+                    <span class="badge bg-primary rounded-pill ms-3 fs-6">{{ portfolio_results.count }}</span>
+                </h3>
+                <div class="row g-4 news-grid mb-5">
+                    {% for item in portfolio_results %}
+                    <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                        <article class="news-card-premium w-100 h-100 overflow-hidden" style="border-radius: 1.5rem;">
+                            {% if item.image %}
+                            <div class="news-card-bg" style="background-image: url('{{ item.image.url }}'); opacity: 0.4;"></div>
+                            {% endif %}
+                            <div class="news-card-overlay"></div>
+                            <div class="news-card-content position-relative z-1 p-4 d-flex flex-column h-100">
+                                <div class="mb-3">
+                                    <span class="badge bg-primary bg-opacity-75 rounded-pill">{{ item.category.name }}</span>
+                                </div>
+                                <h4 class="news-title h5 fw-bold mb-3">
+                                    <a href="{{ item.get_absolute_url }}" class="text-white text-decoration-none">{{ item.title }}</a>
+                                </h4>
+                                <p class="news-description text-white-50 mb-4 flex-grow-1">{{ item.short_description|striptags|truncatewords:15 }}</p>
+                                <div class="mt-auto pt-3 border-top border-secondary border-opacity-25">
+                                    <a href="{{ item.get_absolute_url }}" class="btn-read-more text-white text-decoration-none">Подробнее <i class="fas fa-arrow-right ms-2"></i></a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Страницы -->
+            {% if page_results %}
+                <h3 class="mb-4 text-white d-flex align-items-center">
+                    <i class="fas fa-file-alt me-2 text-primary"></i>Страницы 
+                    <span class="badge bg-primary rounded-pill ms-3 fs-6">{{ page_results.count }}</span>
+                </h3>
+                <div class="list-group mb-5 rounded-4 overflow-hidden border border-secondary border-opacity-25">
+                    {% for item in page_results %}
+                    <a href="{{ item.get_absolute_url }}" class="list-group-item list-group-item-action p-4 border-0 border-bottom border-secondary border-opacity-25 bg-transparent hover-bg-light-opacity">
+                        <h5 class="mb-2 text-white">{{ item.title }}</h5>
+                        <p class="mb-0 text-white-50 small">{{ item.content|striptags|truncatewords:30 }}</p>
+                    </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        {% else %}
+            <div class="col-12 text-center py-5 glass-empty-state rounded-4 border border-secondary border-opacity-25">
+                <div class="empty-state-icon mb-4">
+                    <i class="fas fa-search fa-3x text-muted"></i>
+                </div>
+                <h4 class="text-white mb-2">Ничего не найдено</h4>
+                <p class="text-muted mb-4">По вашему запросу "<strong>{{ query }}</strong>" ничего не найдено. Попробуйте изменить запрос.</p>
+                <a href="{% url 'main:search' %}" class="btn btn-primary rounded-pill px-4 mt-2">Очистить поиск</a>
+            </div>
+        {% endif %}
+    {% endif %}
+
 </div>
 {% endblock %}
