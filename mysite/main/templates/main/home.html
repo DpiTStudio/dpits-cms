@@ -49,7 +49,6 @@
       <!-- Основной контент -->
       <div class="col-12">
         <div class="row g-4">
-
           <!-- Основной контент -->
           {% if site_settings.content %}
           <div class="col-12">
@@ -61,23 +60,28 @@
           </div>
           {% endif %}
 
-          {% include "includes/sections/recommended_pages.html" %}
+          {% comment "Блок рекомендуемых страниц" %}
+          <!-- {% include "includes/sections/recommended_pages.html" %} -->
+          {% endcomment %}
         </div>
       </div>
     </div>
 
-    <!-- Блок публичной статистики -->
-    {% include "includes/sections/home_stats.html" %}
+    {% comment "Блок публичной статистики" %}
+    <!-- {% include "includes/sections/home_stats.html" %} -->
+    {% endcomment %}
 
-    <!-- Блок последних новостей -->
-    {% include "includes/sections/home_news.html" %}
+    {% comment "Блок последних новостей" %}
+    <!-- {% include "includes/sections/home_news.html" %} -->
+    {% endcomment %}
 
-    <!-- Блок последних работ -->
-    {% include "includes/sections/home_portfolio.html" %}
+    {% comment "Блок последних работ" %}
+    <!-- {% include "includes/sections/home_portfolio.html" %} -->
+    {% endcomment %}
 
-    <!-- Блок последних отзывов -->
-    {% include "includes/sections/home_reviews.html" %}
-
+    {% comment "Блок последних отзывов" %}
+    <!-- {% include "includes/sections/home_reviews.html" %} -->
+    {% endcomment %}
   </div>
 </section>
 {% endblock %}
