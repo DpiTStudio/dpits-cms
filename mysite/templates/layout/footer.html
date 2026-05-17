@@ -122,7 +122,7 @@
                   letter-spacing: 0.08em;
                 "
               >
-                Телефон
+                Телефон (Основной)
               </div>
               <span style="color: var(--text-secondary)">{{ site_settings.phone1 }}</span>
             </div>
@@ -145,7 +145,7 @@
                   letter-spacing: 0.08em;
                 "
               >
-                Телефон 2
+                Телефон (Дополнительный)
               </div>
               <span style="color: var(--text-secondary)">{{ site_settings.phone2 }}</span>
             </div>
@@ -208,7 +208,7 @@
         <ul class="list-unstyled footer-nav-list">
           <li>
             <a
-              href="{% url 'main:index' %}"
+              href="{{ site_settings.logo_text }}33333333"
               class="d-flex align-items-center gap-2"
             >
               <i
@@ -220,7 +220,7 @@
           </li>
           <li>
             <a
-              href="{% url 'services:list' %}"
+              href="{{ site_settings.logo_text }}44444444"
               class="d-flex align-items-center gap-2"
             >
               <i
@@ -232,7 +232,7 @@
           </li>
           <li>
             <a
-              href="{% url 'news:list' %}"
+              href="{{ site_settings.logo_text }}55555555"
               class="d-flex align-items-center gap-2"
             >
               <i
@@ -244,7 +244,7 @@
           </li>
           <li>
             <a
-              href="{% url 'portfolio:list' %}"
+              href="{{ site_settings.logo_text }}66666666"
               class="d-flex align-items-center gap-2"
             >
               <i
@@ -256,7 +256,7 @@
           </li>
           <li>
             <a
-              href="{% url 'reviews:list' %}"
+              href="{{ site_settings.logo_text }}77777777"
               class="d-flex align-items-center gap-2"
             >
               <i
@@ -268,7 +268,7 @@
           </li>
           <li>
             <a
-              href="{% url 'main:contacts' %}"
+              href="{{ site_settings.logo_text }}88888888"
               class="d-flex align-items-center gap-2"
             >
               <i
@@ -300,10 +300,9 @@
 
     <div class="row g-4 mb-4">
       <div class="col-md-12">
-        <a href="{% url 'main:page_detail' slug='politika-konfidencialnosti' %}">
-          Политика конфиденциальности
-        </a>
-        <a href="{{ site_settings.terms_of_service_url }}">Пользовательское соглашение</a>
+        <a href="{% url 'main:page_detail' slug='politika-konfidencialnosti' %}">Политика конфиденциальности</a>
+        <a href="{% url 'main:page_detail' slug='usloviya-ispolzovaniya' %}">Пользовательское соглашение</a>
+        {# /page/usloviya-ispolzovaniya-materialov-s-sajta/ #}
       </div>
     </div>
 
