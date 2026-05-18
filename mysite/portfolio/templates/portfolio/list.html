@@ -54,49 +54,70 @@
   <div class="row g-4 news-grid mb-5" id="portfolio-grid">
     {% for item in portfolio_items %}
       <div class="col-md-6 col-lg-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
-        <article class="portfolio-card-modern glass-card-premium premium-shine h-100 w-100">
-          <div class="card-img-wrapper" style="height: 250px;">
-            {% if item.image %}
-              <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy" class="w-100 h-100 object-fit-cover">
-            {% else %}
-              <img src="{% static 'images/default-portfolio.jpg' %}" alt="{{ item.title }}" loading="lazy" class="w-100 h-100 object-fit-cover">
-            {% endif %}
-            <div class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white">
-              <div class="d-flex gap-2">
-                <a href="{% url 'portfolio:detail' item.slug %}" class="btn btn-light rounded-pill px-4 fw-bold shadow-sm">Подробнее</a>
-                {% if user.is_authenticated %}
-                <a href="{% url 'portfolio:create_review' item.slug %}" class="btn btn-outline-light rounded-circle p-2" style="width: 38px; height: 38px;" title="Оставить отзыв">
-                  <i class="fas fa-star"></i>
-                </a>
-                {% endif %}
-              </div>
-            </div>
-            <div class="position-absolute top-0 end-0 m-3">
-              <span class="badge bg-primary bg-opacity-75 backdrop-blur-sm rounded-pill px-3 py-2">{{ item.category.name }}</span>
-            </div>
-          </div>
-          <div class="card-body d-flex flex-column p-4">
-            <div class="mb-2">
-              <h5 class="card-title fw-bold mb-0">
-                <a href="{% url 'portfolio:detail' item.slug %}" class="text-white text-decoration-none hover-primary">{{ item.title }}</a>
-              </h5>
-            </div>
-            <p class="text-white-50 small line-clamp-2 mb-3">{{ item.short_description|truncatechars:100 }}</p>
-            <div class="mt-auto">
-               {% if item.technologies %}
-                <div class="d-flex flex-wrap gap-2 mb-3">
-                  {% for tech in item.technologies|slice:":3" %}
-                    <span class="tech-badge">{{ tech }}</span>
-                  {% endfor %}
-                  {% if item.technologies|length > 3 %}
-                    <span class="tech-badge">+{{ item.technologies|length|add:"-3" }}</span>
-                  {% endif %}
-                </div>
+        <article class="news-card-premium w-100 h-100">
+          {% if item.image %}
+          <div
+            class="news-card-bg"
+            style="background-image: url(&quot;{{ item.image.url }}&quot;)"
+          ></div>
+          {% else %}
+          <div
+            class="news-card-bg"
+            style="background-image: url(&quot;{% static 'images/default-portfolio.jpg' %}&quot;)"
+          ></div>
+          {% endif %}
+          <div class="news-card-overlay"></div>
+
+          <div class="news-card-content">
+            <div class="news-card-header d-flex justify-content-between align-items-center mb-3">
+              {% if item.category %}
+              <a href="{{ item.category.get_absolute_url }}" class="news-category-badge">
+                {{ item.category.name }}
+              </a>
               {% endif %}
-              <div class="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-25">
-                <div class="card-meta text-muted small"><i class="far fa-calendar-alt me-1"></i> {{ item.project_date|date:"M Y" }}</div>
-                <div class="card-meta text-muted small"><i class="far fa-eye me-1"></i> {{ item.views }}</div>
+              <div class="news-meta-row">
+                <span class="news-meta-item">
+                  <i class="far fa-calendar-alt"></i>
+                  {{ item.project_date|date:"M Y" }}
+                </span>
+                <span class="news-meta-item">
+                  <i class="far fa-eye"></i>
+                  {{ item.views }}
+                </span>
               </div>
+            </div>
+
+            <h3 class="news-title h5 fw-bold mb-3">
+              <a href="{% url 'portfolio:detail' item.slug %}" class="text-white text-decoration-none">
+                {{ item.title }}
+              </a>
+            </h3>
+
+            <p class="news-description text-white-50 mb-4">
+              {{ item.short_description|truncatechars:100 }}
+            </p>
+
+            {% if item.technologies %}
+            <div class="news-card-tags mb-3">
+              {% for tech in item.technologies|slice:":3" %}
+                <span class="news-inline-tag">{{ tech }}</span>
+              {% endfor %}
+              {% if item.technologies|length > 3 %}
+                <span class="news-inline-tag">+{{ item.technologies|length|add:"-3" }}</span>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            <div class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25">
+              <a href="{% url 'portfolio:detail' item.slug %}" class="btn-read-more">
+                Подробнее
+                <i class="fas fa-arrow-right ms-2"></i>
+              </a>
+              {% if user.is_authenticated %}
+              <a href="{% url 'portfolio:create_review' item.slug %}" class="btn btn-outline-light rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; border-color: rgba(255,255,255,0.2); color: white;" title="Оставить отзыв">
+                <i class="fas fa-star" style="font-size: 12px;"></i>
+              </a>
+              {% endif %}
             </div>
           </div>
         </article>
