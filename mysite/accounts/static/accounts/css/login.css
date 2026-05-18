@@ -6,7 +6,7 @@
    FULLSCREEN WRAPPER
    ============================================= */
 .login-fullscreen-wrapper {
-    min-height: calc(100vh - var(--header-height, 70px));
+    min-height: 100vh;
     display: flex;
     width: 100%;
     background: var(--bg-dark);
@@ -20,6 +20,8 @@
 .login-visual-side {
     flex: 1;
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 27, 75, 0.95)), url('/static/images/login-bg.jpg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
     position: relative;
     padding: 4rem;
     color: white;
