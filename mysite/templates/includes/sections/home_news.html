@@ -12,16 +12,16 @@
                 <div class="mx-auto" style="width: 80px; height: 4px; background: var(--gradient-primary); border-radius: 2px;"></div>
             </div>
 
-            <div class="row g-4 flex-nowrap overflow-auto pb-2">
+            <div class="row g-4 justify-content-center">
                 {% for recent_news in recent_news_list %}
-                <div class="col-10 col-sm-7 col-md-5 col-lg-4 flex-shrink-0" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
-                    <article class="glass-card-premium h-100 premium-shine rounded-4 overflow-hidden d-flex flex-column">
+                <div class="col-12 col-xl-10" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                    <article class="glass-card-premium premium-shine rounded-4 overflow-hidden d-flex flex-column flex-md-row align-items-stretch">
                         <!-- Изображение с оверлеем -->
-                        <div class="position-relative" style="height: 200px; overflow: hidden;">
+                        <div class="position-relative col-12 col-md-4" style="min-height: 220px;">
                             {% if recent_news.image %}
-                            <img src="{{ recent_news.image.url }}" class="w-100 h-100 object-fit-cover transition-hover" alt="{{ recent_news.title }}">
+                            <img src="{{ recent_news.image.url }}" class="w-100 h-100 object-fit-cover transition-hover position-absolute top-0 start-0" alt="{{ recent_news.title }}">
                             {% else %}
-                            <img src="{% static 'images/default-news.jpg' %}" class="w-100 h-100 object-fit-cover transition-hover" alt="{{ recent_news.title }}">
+                            <img src="{% static 'images/default-news.jpg' %}" class="w-100 h-100 object-fit-cover transition-hover position-absolute top-0 start-0" alt="{{ recent_news.title }}">
                             {% endif %}
                             <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-dark opacity-50"></div>
                             
@@ -32,7 +32,7 @@
                             {% endif %}
                         </div>
 
-                        <div class="card-body p-4 d-flex flex-column">
+                        <div class="card-body p-4 p-md-5 d-flex flex-column justify-content-center col-12 col-md-8">
                             <div class="d-flex align-items-center gap-2 mb-3 text-white-50 small">
                                 <i class="far fa-calendar-alt"></i>
                                 <a href="{% url 'news:list' %}?date={{ recent_news.published_at|default:recent_news.created_at|date:'Y-m-d' }}"
