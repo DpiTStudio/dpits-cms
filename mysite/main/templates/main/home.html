@@ -31,57 +31,51 @@
 {% block content %}
 <div class="aurora-bg"></div>
 <section class="main-content">
-  <div class="container-fluid px-3 px-md-4 px-lg-5 py-4 py-md-5">
+  <div class="container-fluid px-2 px-md-3 py-4">
     <!-- Заголовок секции -->
-    <div class="row mb-5 text-left">
+    <div class="row mb-5 text-left" data-aos="fade-down">
       <div class="col-12">
-        <span
-          class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold"
-        >
-          {{ site_settings.logo_text }}
+        <span class="section-badge mb-3">
+          <i class="fas fa-rocket"></i> {{ site_settings.logo_text|default:"CMS" }}
         </span>
-        <h1 class="display-4 fw-bold mb-3">{{ site_settings.seo_title }}</h1>
-        <p class="lead text-muted">{{ site_settings.short_description|safe }}</p>
+        <h1 class="display-4 fw-bold mb-3 hero-title">{{ site_settings.seo_title }}</h1>
+        <div class="lead text-white-50">{{ site_settings.short_description|safe }}</div>
       </div>
     </div>
-    <hr class="mb-5" />
+    <hr class="border-white border-opacity-10 mb-5" />
+    
     <div class="row g-4">
       <!-- Основной контент -->
       <div class="col-12">
         <div class="row g-4">
           <!-- Основной контент -->
           {% if site_settings.content %}
-          <div class="col-12">
-            <div class="card shadow-sm border-0 rounded-3">
-              <div class="card-body p-3 p-md-4 p-lg-5">
-                <div class="content-body">{{ site_settings.content|safe }}</div>
+          <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="glass-card-premium rounded-4 border-0 mb-4 shadow-lg">
+              <div class="card-body p-4 p-md-5">
+                <div class="content-body text-white-50">{{ site_settings.content|safe }}</div>
               </div>
             </div>
           </div>
           {% endif %}
 
-          {% comment "Блок рекомендуемых страниц" %}
-          <!-- {% include "includes/sections/recommended_pages.html" %} -->
-          {% endcomment %}
+          <!-- Блок рекомендуемых страниц -->
+          {% include "includes/sections/recommended_pages.html" %}
         </div>
       </div>
     </div>
 
-    {% comment "Блок публичной статистики" %}
-    <!-- {% include "includes/sections/home_stats.html" %} -->
-    {% endcomment %}
+    <!-- Блок публичной статистики -->
+    {% include "includes/sections/home_stats.html" %}
 
-    {% comment "Блок последних новостей" %}
-    <!-- {% include "includes/sections/home_news.html" %} -->
-    {% endcomment %}
+    <!-- Блок последних новостей -->
+    {% include "includes/sections/home_news.html" %}
 
-    {% comment "Блок последних работ" %}
-    <!-- {% include "includes/sections/home_portfolio.html" %} -->
-    {% endcomment %}
+    <!-- Блок последних работ -->
+    {% include "includes/sections/home_portfolio.html" %}
 
-    {% comment "Блок последних отзывов" %}
-    <!-- {% include "includes/sections/home_reviews.html" %} -->
-    {% endcomment %}
+    <!-- Блок последних отзывов -->
+    {% include "includes/sections/home_reviews.html" %}
   </div>
 </section>
 {% endblock %}

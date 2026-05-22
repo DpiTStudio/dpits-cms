@@ -36,13 +36,13 @@
 
                         <!-- Текст отзыва -->
                         <p class="text-white-50 small flex-grow-1 mb-4">
-                            {{ review.text|striptags|truncatewords:25 }}
+                            {{ review.message|striptags|truncatewords:25 }}
                         </p>
 
                         <!-- Автор -->
                         <div class="d-flex align-items-center gap-3 pt-3 border-top border-white border-opacity-10 mt-auto">
                             {% if review.avatar %}
-                            <img src="{{ review.avatar.url }}" alt="{{ review.author_name }}"
+                            <img src="{{ review.avatar.url }}" alt="{{ review.full_name }}"
                                  class="rounded-circle object-fit-cover"
                                  style="width: 40px; height: 40px;">
                             {% else %}
@@ -53,7 +53,7 @@
                             {% endif %}
                             <div>
                                 <div class="text-white fw-semibold small">
-                                    {{ review.author_name|default:"Аноним" }}
+                                    {{ review.full_name|default:"Аноним" }}
                                 </div>
                                 {% if review.company %}
                                 <div class="text-white-50" style="font-size: 0.75rem;">{{ review.company }}</div>
