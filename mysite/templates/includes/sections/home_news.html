@@ -15,44 +15,46 @@
             <div class="row g-4 justify-content-center">
                 {% for recent_news in recent_news_list %}
                 <div class="col-12 col-xl-10" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
-                    <article class="glass-card-premium premium-shine rounded-4 overflow-hidden d-flex flex-column flex-md-row align-items-stretch">
-                        <!-- Изображение с оверлеем -->
-                        <div class="position-relative col-12 col-md-4" style="min-height: 220px;">
-                            {% if recent_news.image %}
-                            <img src="{{ recent_news.image.url }}" class="w-100 h-100 object-fit-cover transition-hover position-absolute top-0 start-0" alt="{{ recent_news.title }}">
-                            {% else %}
-                            <img src="{% static 'images/default-news.jpg' %}" class="w-100 h-100 object-fit-cover transition-hover position-absolute top-0 start-0" alt="{{ recent_news.title }}">
-                            {% endif %}
-                            <div class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-dark opacity-50"></div>
-                            
-                            {% if recent_news.category %}
-                            <span class="position-absolute top-0 end-0 m-3 badge bg-primary bg-opacity-75 backdrop-blur-sm rounded-pill px-3 py-2">
-                                {{ recent_news.category.name }}
-                            </span>
-                            {% endif %}
-                        </div>
+                    <article class="news-card-premium glass-card-premium premium-shine rounded-4 overflow-hidden position-relative d-flex flex-column" style="min-height: 280px;">
+                        <!-- Фоновое изображение -->
+                        {% if recent_news.image %}
+                        <img src="{{ recent_news.image.url }}" class="news-card-bg w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-1" style="opacity: 0.15;" alt="{{ recent_news.title }}">
+                        {% else %}
+                        <img src="{% static 'images/default-news.jpg' %}" class="news-card-bg w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-1" style="opacity: 0.15;" alt="{{ recent_news.title }}">
+                        {% endif %}
+                        
+                        <!-- Оверлей для читаемости текста -->
+                        <div class="news-card-overlay position-absolute top-0 start-0 w-100 h-100 z-2" style="background: linear-gradient(135deg, rgba(20,20,25,0.95) 0%, rgba(20,20,25,0.5) 100%); pointer-events: none;"></div>
 
-                        <div class="card-body p-4 p-md-5 d-flex flex-column justify-content-center col-12 col-md-8">
-                            <div class="d-flex align-items-center gap-2 mb-3 text-white-50 small">
-                                <i class="far fa-calendar-alt"></i>
-                                <a href="{% url 'news:list' %}?date={{ recent_news.published_at|default:recent_news.created_at|date:'Y-m-d' }}"
-                                   class="text-white-50 text-decoration-none hover-primary">
-                                    {{ recent_news.published_at|default:recent_news.created_at|date:"d M Y" }}
-                                </a>
+                        <!-- Контент новости -->
+                        <div class="news-card-content card-body p-4 p-md-5 d-flex flex-column justify-content-center position-relative z-3 w-100">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="d-flex align-items-center gap-2 text-white-50 small">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <a href="{% url 'news:list' %}?date={{ recent_news.published_at|default:recent_news.created_at|date:'Y-m-d' }}"
+                                       class="text-white-50 text-decoration-none hover-primary">
+                                        {{ recent_news.published_at|default:recent_news.created_at|date:"d M Y" }}
+                                    </a>
+                                </div>
+                                {% if recent_news.category %}
+                                <span class="badge bg-primary bg-opacity-75 backdrop-blur-sm rounded-pill px-3 py-2">
+                                    {{ recent_news.category.name }}
+                                </span>
+                                {% endif %}
                             </div>
                             
-                            <h5 class="card-title text-white fw-bold mb-3 line-clamp-2">
+                            <h5 class="news-title card-title text-white fw-bold mb-3 line-clamp-2">
                                 <a href="{% url 'news:detail' recent_news.slug %}" class="text-white text-decoration-none hover-primary">
                                     {{ recent_news.title }}
                                 </a>
                             </h5>
                             
-                            <p class="text-white-50 small mb-4 flex-grow-1">
+                            <p class="news-description text-white-50 small mb-4 flex-grow-1">
                                 {{ recent_news.short_description|striptags|truncatewords:15 }}
                             </p>
                             
                             <div class="mt-auto pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
-                                <a href="{% url 'news:detail' recent_news.slug %}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                <a href="{% url 'news:detail' recent_news.slug %}" class="btn-read-more btn btn-sm btn-outline-primary rounded-pill px-3">
                                     Читать <i class="fas fa-arrow-right ms-1 small"></i>
                                 </a>
                                 <span class="text-white-50 small">
