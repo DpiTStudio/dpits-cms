@@ -1,6 +1,11 @@
 # news/models.py
 # Модели для приложения news (новости)
 import datetime
+import os
+import io
+from PIL import Image
+from django.conf import settings
+from django.core.files.base import ContentFile
 from django.db import models  # Импорт базовых моделей Django
 from django.db.models import F  # Атомарное обновление полей
 from django.urls import reverse  # Функция для генерации URL
@@ -20,6 +25,48 @@ from django.utils.html import (
 import math  # Математические функции (округление времени чтения)
 
 from main.models import HeroMixin
+
+
+def convert_image_to_webp(image_field):
+    """
+    Конвертирует изображение в формат WebP и оптимизирует его размер.
+    """
+    if not image_field or not image_field.name:
+        return
+    
+    name = image_field.name
+    # Пропускаем, если уже WebP или стандартное изображение
+    if name.lower().endswith('.webp') or name == 'news/default-category.png':
+        return
+        
+    try:
+        # Открываем изображение
+        img = Image.open(image_field)
+        
+        # Конвертируем в RGB/RGBA
+        if img.mode not in ('RGB', 'RGBA'):
+            img = img.convert('RGB')
+            
+        # Уменьшаем разрешение, если оно слишком большое
+        max_size = 1200
+        if img.width > max_size or img.height > max_size:
+            img.thumbnail((max_size, max_size), Image.Resampling.LANCZOS)
+            
+        # Записываем в байтовый буфер
+        output = io.BytesIO()
+        img.save(output, format='WEBP', quality=85)
+        output.seek(0)
+        
+        # Формируем новое имя файла с расширением .webp
+        base_name = os.path.splitext(os.path.basename(name))[0]
+        new_name = f"{base_name}.webp"
+        
+        # Сохраняем в поле без записи в БД (save=False)
+        image_field.save(new_name, ContentFile(output.read()), save=False)
+    except Exception as e:
+        # В случае ошибки просто оставляем исходное изображение
+        pass
+
 
 
 # Теги
@@ -129,6 +176,8 @@ class NewsCategory(HeroMixin):
                 if self.pk:  # Если объект уже существует
                     queryset = queryset.exclude(pk=self.pk)  # Исключаем текущий объект
                 counter += 1  # Увеличиваем счетчик
+        if self.image:
+            convert_image_to_webp(self.image)
         super().save(*args, **kwargs)  # Вызываем метод save родительского класса
 
     def get_absolute_url(self):
@@ -298,6 +347,8 @@ class News(HeroMixin):
                         self.hero_image = self.category.hero_image
                     else:
                         self.hero_image = None
+        if self.image:
+            convert_image_to_webp(self.image)
         super().save(*args, **kwargs)  # Вызываем метод save родительского класса
 
     def get_absolute_url(self):
@@ -341,3 +392,68 @@ class News(HeroMixin):
         reading_time = math.ceil(word_count / 200)
 
         return max(1, reading_time)  # Возвращаем минимум 1 минуту
+
+
+class Comment(models.Model):
+    """
+    Модель древовидных комментариев к новостям.
+    """
+    news = models.ForeignKey(
+        News,
+        on_delete=models.CASCADE,
+        related_name="comments",
+        verbose_name="Новость"
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="news_comments",
+        verbose_name="Пользователь"
+    )
+    name = models.CharField("Имя", max_length=80, blank=True)
+    email = models.EmailField("E-mail", blank=True)
+    content = models.TextField("Комментарий")
+    created_at = models.DateTimeField("Создан", auto_now_add=True)
+    updated_at = models.DateTimeField("Обновлен", auto_now=True)
+    is_approved = models.BooleanField("Одобрен", default=True)
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="replies",
+        verbose_name="Родительский комментарий"
+    )
+
+    class Meta:
+        verbose_name = "Комментарий"
+        verbose_name_plural = "Комментарии"
+        ordering = ["created_at"]
+
+    def __str__(self):
+        author = self.user.username if self.user else self.name or "Аноним"
+        return f"Комментарий от {author} к новостной статье {self.news.title}"
+
+
+class NewsReaction(models.Model):
+    """
+    Модель реакций на новости (лайки, эмодзи).
+    """
+    news = models.ForeignKey(
+        News,
+        on_delete=models.CASCADE,
+        related_name="reactions",
+        verbose_name="Новость"
+    )
+    reaction_type = models.CharField("Тип реакции", max_length=20)  # e.g., "like", "love", "fire", "wow", "sad"
+    session_key = models.CharField("Ключ сессии", max_length=40, null=True, blank=True)
+    ip_address = models.GenericIPAddressField("IP адрес", null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Реакция"
+        verbose_name_plural = "Реакции"
+        unique_together = ("news", "reaction_type", "session_key")
+

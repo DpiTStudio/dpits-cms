@@ -1,0 +1,50 @@
+{% load news_tags %}
+<div class="comment-card-wrapper {% if comment.parent %}comment-reply-wrapper ms-3 ms-md-4 mt-3 border-start border-secondary border-opacity-25 ps-3 ps-md-4{% else %}mt-4{% endif %}" id="comment-{{ comment.id }}">
+  <div class="comment-card glass-card p-3 p-md-4 rounded-3 border border-secondary border-opacity-10 position-relative transition-hover">
+    <div class="d-flex align-items-start gap-3">
+      <img src="{% if comment.user %}{{ comment.user.profile.get_avatar_url }}{% else %}/static/accounts/images/default-avatar.png{% endif %}" 
+           alt="Avatar" class="comment-avatar rounded-circle border border-primary border-opacity-25" style="width: 48px; height: 48px; object-fit: cover;">
+      
+      <div class="flex-grow-1">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+          <div>
+            <span class="comment-author fw-bold text-white fs-6">
+              {% if comment.user %}{{ comment.user.username }}{% else %}{{ comment.name }}{% endif %}
+            </span>
+            {% if comment.user.is_staff %}
+              <span class="badge bg-primary bg-opacity-25 text-primary small ms-2" style="font-size: 0.7rem;">Администрация</span>
+            {% elif comment.user %}
+              <span class="badge bg-secondary bg-opacity-25 text-white-50 small ms-2" style="font-size: 0.7rem;">Пользователь</span>
+            {% else %}
+              <span class="badge bg-secondary bg-opacity-25 text-white-50 small ms-2" style="font-size: 0.7rem;">Гость</span>
+            {% endif %}
+            <span class="comment-date text-muted small ms-2" style="font-size:0.75rem;">
+              <i class="far fa-clock me-1"></i>{{ comment.created_at|ru_date:"dt" }}
+            </span>
+          </div>
+          
+          <!-- Кнопка ответа (только для корневых комментариев) -->
+          {% if not comment.parent %}
+            <button class="btn btn-sm btn-link text-primary text-decoration-none reply-comment-btn py-0 px-2" 
+                    data-id="{{ comment.id }}" data-author="{% if comment.user %}{{ comment.user.username }}{% else %}{{ comment.name }}{% endif %}">
+              <i class="fas fa-reply me-1"></i>Ответить
+            </button>
+          {% endif %}
+        </div>
+        
+        <div class="comment-text text-white-75" style="white-space: pre-wrap; font-size: 0.92rem;">
+          {{ comment.content }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Рекурсивный вывод ответов (replies) -->
+  {% if comment.replies.all %}
+    <div class="comment-replies">
+      {% for reply in comment.replies.all %}
+        {% include "news/components/comment_card.html" with comment=reply %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

@@ -6,10 +6,13 @@ from django.shortcuts import (
     reverse,
 )
 from django.core.paginator import Paginator
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Prefetch
 from django.http import JsonResponse
 from django.utils import timezone
-from .models import News, NewsCategory, NewsTag
+from django.views.decorators.http import require_POST
+from captcha.models import CaptchaStore
+from .models import News, NewsCategory, NewsTag, Comment, NewsReaction
+from .forms import CommentForm
 from .utils import (
     get_cached_news_categories,
     get_cached_sidebar_news,
@@ -207,6 +210,32 @@ def news_detail(request, slug):
         except IndexError:
             pass
 
+    # Комментарии: получаем все корневые комментарии и префетчим ответы к ним
+    replies_prefetch = Prefetch(
+        "replies",
+        queryset=Comment.objects.filter(is_approved=True).select_related("user", "user__profile").order_by("created_at")
+    )
+    approved_comments = (
+        news.comments.filter(is_approved=True, parent=None)
+        .select_related("user", "user__profile")
+        .prefetch_related(replies_prefetch)
+        .order_by("created_at")
+    )
+    comment_form = CommentForm(user=request.user)
+
+    # Реакции
+    reactions_data = news.reactions.values("reaction_type").annotate(count=Count("id"))
+    valid_types = ["like", "love", "fire", "wow", "sad"]
+    reactions = {r_type: 0 for r_type in valid_types}
+    for r in reactions_data:
+        if r["reaction_type"] in reactions:
+            reactions[r["reaction_type"]] = r["count"]
+
+    if not request.session.session_key:
+        request.session.create()
+    session_key = request.session.session_key
+    user_reaction = news.reactions.filter(session_key=session_key).values_list("reaction_type", flat=True).first()
+
     context = {
         "news": news,
         "related_news": related_news,
@@ -217,6 +246,10 @@ def news_detail(request, slug):
         "sidebar_news": get_cached_sidebar_news(),
         "popular_news": get_cached_popular_news(5),
         "popular_tags": get_cached_popular_tags(15),
+        "approved_comments": approved_comments,
+        "comment_form": comment_form,
+        "reactions": reactions,
+        "user_reaction": user_reaction,
         "breadcrumbs": get_breadcrumbs(
             [
                 ("Новости", reverse("news:list"), "fas fa-newspaper"),
@@ -436,3 +469,129 @@ def news_api_stats(request):
     """
     stats = get_cached_news_stats()
     return JsonResponse(stats)
+
+
+@require_POST
+def post_comment(request, news_id):
+    """
+    AJAX представление для добавления нового комментария (включая ответы).
+    """
+    news_obj = get_object_or_404(News, id=news_id, is_active=True, published_at__lte=timezone.now())
+    form = CommentForm(request.POST, user=request.user)
+
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.news = news_obj
+        if request.user.is_authenticated:
+            comment.user = request.user
+        
+        parent_id = request.POST.get("parent_id")
+        if parent_id:
+            try:
+                comment.parent = Comment.objects.get(id=parent_id, news=news_obj)
+            except Comment.DoesNotExist:
+                pass
+                
+        comment.save()
+
+        # Формируем ответ для AJAX
+        avatar_url = ""
+        author_name = ""
+        if comment.user:
+            author_name = comment.user.username
+            if hasattr(comment.user, "profile"):
+                avatar_url = comment.user.profile.get_avatar_url
+            else:
+                avatar_url = "/static/accounts/images/default-avatar.png"
+        else:
+            author_name = comment.name
+            avatar_url = "/static/accounts/images/default-avatar.png"
+
+        return JsonResponse({
+            "status": "success",
+            "comment": {
+                "id": comment.id,
+                "author": author_name,
+                "avatar_url": avatar_url,
+                "content": comment.content,
+                "created_at": timezone.localtime(comment.created_at).strftime("%d.%m.%Y %H:%M"),
+                "parent_id": comment.parent_id if comment.parent else None
+            }
+        })
+    else:
+        # Если форма невалидна (например, неверная капча для гостя)
+        # Генерируем новую капчу для обновления без перезагрузки
+        new_key = CaptchaStore.generate_key()
+        new_image = reverse("captcha-image", args=[new_key])
+        
+        errors = {field: errors_list[0] for field, errors_list in form.errors.items()}
+        return JsonResponse({
+            "status": "error",
+            "errors": errors,
+            "new_captcha_key": new_key,
+            "new_captcha_image": new_image
+        }, status=400)
+
+
+@require_POST
+def toggle_reaction(request, news_id):
+    """
+    AJAX представление для переключения эмодзи-реакции на новость.
+    """
+    news_obj = get_object_or_404(News, id=news_id, is_active=True, published_at__lte=timezone.now())
+    reaction_type = request.POST.get("reaction_type", "").strip()
+
+    valid_types = ["like", "love", "fire", "wow", "sad"]
+    if reaction_type not in valid_types:
+        return JsonResponse({"status": "error", "message": "Недопустимый тип реакции"}, status=400)
+
+    if not request.session.session_key:
+        request.session.create()
+    session_key = request.session.session_key
+
+    # Получаем IP-адрес клиента
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if x_forwarded_for:
+        ip_address = x_forwarded_for.split(",")[0]
+    else:
+        ip_address = request.META.get("REMOTE_ADDR")
+
+    # Проверяем, есть ли уже реакция этого пользователя на эту новость
+    existing_reaction = NewsReaction.objects.filter(
+        news=news_obj,
+        session_key=session_key
+    ).first()
+
+    active_type = None
+    if existing_reaction:
+        if existing_reaction.reaction_type == reaction_type:
+            # Если кликнули на ту же реакцию — удаляем её (toggle off)
+            existing_reaction.delete()
+        else:
+            # Меняем тип реакции
+            existing_reaction.reaction_type = reaction_type
+            existing_reaction.ip_address = ip_address
+            existing_reaction.save()
+            active_type = reaction_type
+    else:
+        # Создаем новую реакцию
+        NewsReaction.objects.create(
+            news=news_obj,
+            reaction_type=reaction_type,
+            session_key=session_key,
+            ip_address=ip_address
+        )
+        active_type = reaction_type
+
+    # Получаем обновленные счетчики для всех реакций
+    reactions_data = news_obj.reactions.values("reaction_type").annotate(count=Count("id"))
+    reactions = {r_type: 0 for r_type in valid_types}
+    for r in reactions_data:
+        if r["reaction_type"] in reactions:
+            reactions[r["reaction_type"]] = r["count"]
+
+    return JsonResponse({
+        "status": "success",
+        "reactions": reactions,
+        "user_reaction": active_type
+    })

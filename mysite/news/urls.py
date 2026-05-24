@@ -43,6 +43,12 @@ urlpatterns = [
     # URL: /news/api/stats/
     path("api/stats/", views.news_api_stats, name="api_stats"),
 
+    # AJAX добавление комментария
+    path("api/post-comment/<int:news_id>/", views.post_comment, name="post_comment"),
+
+    # AJAX переключение реакции
+    path("api/toggle-reaction/<int:news_id>/", views.toggle_reaction, name="toggle_reaction"),
+
     # RSS Фиды
     path("feed/", LatestNewsFeed(), name="feed"),
     path("category/<slug:slug>/feed/", NewsByCategoryFeed(), name="category_feed"),

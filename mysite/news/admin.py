@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.urls import path
 from django.utils.html import format_html
 from django.utils import timezone
-from .models import NewsCategory, News, NewsTag
+from .models import NewsCategory, News, NewsTag, Comment, NewsReaction
 
 
 @admin.register(NewsTag)
@@ -286,3 +286,64 @@ class NewsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
         """Скрывает выбранные новости."""
         updated = queryset.update(is_active=False)
         self.message_user(request, f"Скрыто {updated} новостей.")
+
+
+@admin.register(Comment)
+class CommentAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
+    """Админ-панель для управления комментариями к новостям."""
+
+    list_display = ["news_link", "author_display", "content_truncated", "is_approved", "created_at", "parent_display"]
+    list_filter = ["is_approved", "created_at"]
+    list_editable = ["is_approved"]
+    search_fields = ["content", "name", "email", "user__username", "news__title"]
+    actions = ["approve_comments", "disapprove_comments"]
+    readonly_fields = ["created_at", "updated_at"]
+
+    def news_link(self, obj):
+        return format_html(
+            '<a href="{}">{}</a>',
+            obj.news.get_absolute_url(),
+            obj.news.title[:30] + "..." if len(obj.news.title) > 30 else obj.news.title
+        )
+    news_link.short_description = "Новость"
+
+    def author_display(self, obj):
+        if obj.user:
+            return format_html('<span style="font-weight:bold;color:#4f46e5">{}</span>', obj.user.username)
+        return format_html('<span>{} (Гость)</span>', obj.name)
+    author_display.short_description = "Автор"
+
+    def content_truncated(self, obj):
+        return obj.content[:50] + "..." if len(obj.content) > 50 else obj.content
+    content_truncated.short_description = "Текст комментария"
+
+    def parent_display(self, obj):
+        if obj.parent:
+            return f"Ответ на #{obj.parent.id}"
+        return "—"
+    parent_display.short_description = "Родитель"
+
+    @admin.action(description="Одобрить выбранные комментарии")
+    def approve_comments(self, request, queryset):
+        updated = queryset.update(is_approved=True)
+        self.message_user(request, f"Одобрено {updated} комментариев.")
+
+    @admin.action(description="Скрыть выбранные комментарии")
+    def disapprove_comments(self, request, queryset):
+        updated = queryset.update(is_approved=False)
+        self.message_user(request, f"Скрыто {updated} комментариев.")
+
+
+@admin.register(NewsReaction)
+class NewsReactionAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
+    """Админ-панель для управления реакциями на новости."""
+
+    list_display = ["news_title", "reaction_type", "session_key", "ip_address", "created_at"]
+    list_filter = ["reaction_type", "created_at"]
+    search_fields = ["news__title", "ip_address", "session_key"]
+    readonly_fields = ["news", "reaction_type", "session_key", "ip_address", "created_at"]
+
+    def news_title(self, obj):
+        return obj.news.title
+    news_title.short_description = "Новость"
+

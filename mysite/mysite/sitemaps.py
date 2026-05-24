@@ -32,7 +32,8 @@ class NewsSitemap(Sitemap):
 
     def items(self):
         from news.models import News
-        return News.objects.filter(is_active=True).select_related("category")
+        from django.utils import timezone
+        return News.objects.filter(is_active=True, published_at__lte=timezone.now()).select_related("category")
 
     def lastmod(self, obj):
         return obj.updated_at

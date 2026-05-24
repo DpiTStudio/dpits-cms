@@ -19,6 +19,110 @@
 <link rel="stylesheet" href="{% static 'css/news-detail.css' %}" />
 <link rel="stylesheet" href="{% static 'css/daily-news.css' %}" />
 <link rel="stylesheet" href="{% static 'css/news-enhanced.css' %}" />
+<style>
+  /* Реакции */
+  .reaction-trigger-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 8px 18px;
+    color: rgba(255, 255, 255, 0.8);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.95rem;
+  }
+  .reaction-trigger-btn:hover {
+    background: rgba(99, 102, 241, 0.08);
+    border-color: rgba(99, 102, 241, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+  }
+  .reaction-trigger-btn.active {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.6);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.25);
+  }
+  .reaction-emoji {
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+  }
+  .reaction-trigger-btn:active .reaction-emoji {
+    transform: scale(1.3);
+  }
+  .reaction-count {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Комментарии */
+  .news-comment-textarea, .news-comment-input {
+    background: rgba(20, 20, 25, 0.7) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    padding: 10px 15px !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  }
+  .news-comment-textarea:focus, .news-comment-input:focus {
+    border-color: rgba(99, 102, 241, 0.6) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
+    outline: none !important;
+  }
+  .captcha-container-ajax img {
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .captcha-container-ajax input {
+    max-width: 180px;
+    display: inline-block;
+  }
+  .comment-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .comment-card:hover {
+    background: rgba(255, 255, 255, 0.035);
+  }
+  .comment-avatar {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .reply-comment-btn {
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+  }
+  .reply-comment-btn:hover {
+    opacity: 0.8;
+  }
+
+  /* Аудиоверсия */
+  .news-audio-player {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+  }
+  .audio-pulse-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .audio-pulse-icon.playing {
+    animation: audioPulse 1.5s infinite ease-in-out;
+  }
+  @keyframes audioPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(99, 102, 241, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -75,9 +179,72 @@
     {% news_stats_badge news %}
   </div>
 
+  <!-- Аудиоверсия статьи (Web Speech API) -->
+  <div class="news-audio-player glass-card p-3 rounded-3 mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3 border border-secondary border-opacity-10">
+    <div class="d-flex align-items-center gap-2">
+      <div class="audio-pulse-icon">
+        <i class="fas fa-volume-up text-primary fs-5" id="audioIcon"></i>
+      </div>
+      <div>
+        <span class="text-white fw-bold d-block" style="font-size:0.9rem;">Аудиоверсия статьи</span>
+        <span class="text-muted" style="font-size:0.75rem;" id="audioStatus">Слушать текст в один клик</span>
+      </div>
+    </div>
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+      <button class="btn btn-sm btn-outline-primary rounded-pill px-3" id="playAudioBtn">
+        <i class="fas fa-play me-1"></i> Воспроизвести
+      </button>
+      <button class="btn btn-sm btn-outline-secondary rounded-pill px-3" id="pauseAudioBtn" style="display:none;">
+        <i class="fas fa-pause me-1"></i> Пауза
+      </button>
+      <button class="btn btn-sm btn-outline-danger rounded-pill px-3" id="stopAudioBtn" style="display:none;">
+        <i class="fas fa-stop me-1"></i> Стоп
+      </button>
+      <div class="d-flex align-items-center gap-1 ms-2">
+        <span class="text-muted" style="font-size:0.75rem;">Скорость:</span>
+        <select class="form-select form-select-sm bg-dark text-white border-secondary border-opacity-25 rounded-pill" id="audioRate" style="width:70px; font-size:0.75rem;">
+          <option value="0.8">0.8x</option>
+          <option value="1" selected>1.0x</option>
+          <option value="1.2">1.2x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2.0x</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <!-- Основной контент -->
   <div class="news-content-body text-white-75 lead-sm mb-5" id="newsContentBody" itemprop="articleBody">
     {{ news.content|safe }}
+  </div>
+
+  <!-- Реакции читателей -->
+  <div class="news-reactions-container mb-5 p-4 glass-card rounded-4 border border-secondary border-opacity-10" data-aos="fade-up">
+    <h5 class="text-white fw-bold mb-3" style="font-size:1rem;">
+      <i class="far fa-smile text-primary me-2"></i>Как вам статья? Отправьте реакцию!
+    </h5>
+    <div class="d-flex flex-wrap gap-3 align-items-center">
+      <button class="reaction-trigger-btn {% if user_reaction == 'like' %}active{% endif %}" data-reaction="like" title="Нравится">
+        <span class="reaction-emoji">👍</span>
+        <span class="reaction-count" data-count="like">{{ reactions.like }}</span>
+      </button>
+      <button class="reaction-trigger-btn {% if user_reaction == 'love' %}active{% endif %}" data-reaction="love" title="Люблю">
+        <span class="reaction-emoji">❤️</span>
+        <span class="reaction-count" data-count="love">{{ reactions.love }}</span>
+      </button>
+      <button class="reaction-trigger-btn {% if user_reaction == 'fire' %}active{% endif %}" data-reaction="fire" title="Огонь">
+        <span class="reaction-emoji">🔥</span>
+        <span class="reaction-count" data-count="fire">{{ reactions.fire }}</span>
+      </button>
+      <button class="reaction-trigger-btn {% if user_reaction == 'wow' %}active{% endif %}" data-reaction="wow" title="Ух ты">
+        <span class="reaction-emoji">😮</span>
+        <span class="reaction-count" data-count="wow">{{ reactions.wow }}</span>
+      </button>
+      <button class="reaction-trigger-btn {% if user_reaction == 'sad' %}active{% endif %}" data-reaction="sad" title="Грустно">
+        <span class="reaction-emoji">😢</span>
+        <span class="reaction-count" data-count="sad">{{ reactions.sad }}</span>
+      </button>
+    </div>
   </div>
 
   <!-- Блок навигации (предыдущая / следующая) -->
@@ -182,6 +349,83 @@
   </div>
   </div>
 </article>
+
+<!-- Секция комментариев -->
+<section class="news-comments-section mt-5" data-aos="fade-up" id="commentsSection">
+  <div class="d-flex align-items-center mb-4">
+    <h3 class="text-white fw-bold mb-0">Обсуждение статьи</h3>
+    <div class="flex-grow-1 border-top border-secondary border-opacity-25 border-2 ms-4"></div>
+    <span class="badge bg-primary rounded-pill px-3 py-2 ms-3" id="commentsCountBadge">{{ approved_comments|length }}</span>
+  </div>
+
+  <!-- Список комментариев -->
+  <div class="news-comments-list mb-5" id="commentsContainer">
+    {% for comment in approved_comments %}
+      {% include "news/components/comment_card.html" with comment=comment %}
+    {% empty %}
+      <div class="text-center py-5 glass-card-premium rounded-4 border border-secondary border-opacity-10 w-100" id="noCommentsMessage">
+        <div class="text-muted mb-3"><i class="far fa-comments fa-3x"></i></div>
+        <p class="text-muted mb-0">К этой статье пока нет комментариев. Будьте первым, кто выразит свое мнение!</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Форма добавления комментария -->
+  <div class="news-comment-form-container glass-card-premium p-4 p-md-5 rounded-4 border border-secondary border-opacity-10" id="commentFormWrapper">
+    <h4 class="text-white fw-bold mb-4" id="commentFormTitle">Оставить комментарий</h4>
+    
+    <form id="commentPostForm" action="{% url 'news:post_comment' news.id %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="parent_id" id="commentParentId" value="">
+      
+      <div id="replyToIndicator" class="alert alert-info bg-primary bg-opacity-10 text-info border-info border-opacity-25 rounded-3 mb-4 d-flex align-items-center justify-content-between" style="display:none; padding:10px 15px;">
+        <div>
+          <i class="fas fa-reply me-2"></i>Вы отвечаете пользователю <strong id="replyToAuthor"></strong>
+        </div>
+        <button type="button" class="btn-close btn-close-white" id="cancelReplyBtn" aria-label="Отмена" style="font-size:0.8rem;"></button>
+      </div>
+
+      {% if not user.is_authenticated %}
+        <div class="row g-3 mb-3">
+          <div class="col-12 col-md-6">
+            <label for="{{ comment_form.name.id_for_label }}" class="form-label text-muted small fw-bold">Ваше имя *</label>
+            {{ comment_form.name }}
+            <div class="text-danger small mt-1" id="error_name"></div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label for="{{ comment_form.email.id_for_label }}" class="form-label text-muted small fw-bold">E-mail *</label>
+            {{ comment_form.email }}
+            <div class="text-danger small mt-1" id="error_email"></div>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="mb-4">
+        <label for="{{ comment_form.content.id_for_label }}" class="form-label text-muted small fw-bold">Ваш комментарий *</label>
+        {{ comment_form.content }}
+        <div class="text-danger small mt-1" id="error_content"></div>
+      </div>
+
+      {% if not user.is_authenticated %}
+        <div class="mb-4 captcha-container-ajax d-flex align-items-center gap-3 flex-wrap">
+          <div>
+            <label class="form-label text-muted small fw-bold">Защита от спама *</label>
+            <div class="captcha-img-wrapper mb-2 d-flex align-items-center gap-2">
+              {{ comment_form.captcha }}
+            </div>
+            <div class="text-danger small mt-1" id="error_captcha"></div>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill mt-3" id="refreshCaptchaBtn" title="Обновить капчу">
+            <i class="fas fa-sync-alt"></i> Обновить картинку
+          </button>
+        </div>
+      {% endif %}
+
+      <button type="submit" class="btn btn-primary rounded-pill px-4 py-2" id="submitCommentBtn">
+        Отправить комментарий <i class="far fa-paper-plane ms-2"></i>
+      </button>
+    </form>
+  </div>
 
 <!-- Связанные новости -->
 {% if related_news %}
@@ -318,6 +562,384 @@ document.addEventListener("DOMContentLoaded", function () {
   // === AOS ===
   if (typeof AOS !== "undefined") {
     AOS.init({ duration: 800, once: true, offset: 100 });
+  }
+
+  // === Синтез речи (Web Speech API) ===
+  const playBtn = document.getElementById('playAudioBtn');
+  const pauseBtn = document.getElementById('pauseAudioBtn');
+  const stopBtn = document.getElementById('stopAudioBtn');
+  const rateSelect = document.getElementById('audioRate');
+  const statusText = document.getElementById('audioStatus');
+  const audioIcon = document.getElementById('audioIcon');
+  const audioPulse = document.querySelector('.audio-pulse-icon');
+  
+  let synth = window.speechSynthesis;
+  let utterance = null;
+  let textToSpeak = '';
+  
+  if (synth) {
+    const bodyContent = document.getElementById('newsContentBody');
+    if (bodyContent) {
+      textToSpeak = bodyContent.innerText.trim();
+    }
+    
+    playBtn.addEventListener('click', () => {
+      if (synth.speaking && synth.paused) {
+        synth.resume();
+        updateAudioUi('playing');
+        return;
+      }
+      
+      if (!textToSpeak) return;
+      
+      synth.cancel(); // Очистить предыдущие очереди
+      
+      utterance = new SpeechSynthesisUtterance(textToSpeak);
+      utterance.rate = parseFloat(rateSelect.value || '1');
+      utterance.lang = 'ru-RU';
+      
+      utterance.onstart = () => {
+        updateAudioUi('playing');
+      };
+      
+      utterance.onend = () => {
+        updateAudioUi('stopped');
+      };
+      
+      utterance.onerror = (e) => {
+        console.error('SpeechSynthesis error:', e);
+        updateAudioUi('stopped');
+      };
+      
+      synth.speak(utterance);
+    });
+    
+    pauseBtn.addEventListener('click', () => {
+      if (synth.speaking && !synth.paused) {
+        synth.pause();
+        updateAudioUi('paused');
+      }
+    });
+    
+    stopBtn.addEventListener('click', () => {
+      synth.cancel();
+      updateAudioUi('stopped');
+    });
+    
+    rateSelect.addEventListener('change', () => {
+      if (synth.speaking) {
+        const wasSpeaking = !synth.paused;
+        synth.cancel();
+        if (wasSpeaking) {
+          // Воспроизводим заново с новой скоростью
+          setTimeout(() => { playBtn.click(); }, 50);
+        }
+      }
+    });
+    
+    window.addEventListener('beforeunload', () => {
+      synth.cancel();
+    });
+  } else {
+    // Скрываем блок, если SpeechSynthesis не поддерживается браузером
+    const audioPlayerBlock = document.querySelector('.news-audio-player');
+    if (audioPlayerBlock) {
+      audioPlayerBlock.style.display = 'none';
+    }
+  }
+  
+  function updateAudioUi(state) {
+    if (state === 'playing') {
+      playBtn.style.display = 'none';
+      pauseBtn.style.display = 'inline-block';
+      stopBtn.style.display = 'inline-block';
+      statusText.textContent = 'Воспроизведение статьи...';
+      audioIcon.className = 'fas fa-volume-up text-primary fs-5';
+      audioPulse.classList.add('playing');
+    } else if (state === 'paused') {
+      playBtn.style.display = 'inline-block';
+      pauseBtn.style.display = 'none';
+      stopBtn.style.display = 'inline-block';
+      statusText.textContent = 'Воспроизведение приостановлено';
+      audioIcon.className = 'fas fa-volume-mute text-muted fs-5';
+      audioPulse.classList.remove('playing');
+    } else { // stopped / ended
+      playBtn.style.display = 'inline-block';
+      pauseBtn.style.display = 'none';
+      stopBtn.style.display = 'none';
+      statusText.textContent = 'Слушать текст в один клик';
+      audioIcon.className = 'fas fa-volume-up text-primary fs-5';
+      audioPulse.classList.remove('playing');
+    }
+  }
+
+  // === Эмодзи-реакции (AJAX) ===
+  const reactionButtons = document.querySelectorAll('.reaction-trigger-btn');
+  reactionButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const reactionType = this.dataset.reaction;
+      const formData = new FormData();
+      formData.append('reaction_type', reactionType);
+      
+      // CSRF токен
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      
+      fetch('{% url "news:toggle_reaction" news.id %}', {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrftoken,
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          // Обновляем все счетчики на странице
+          Object.keys(data.reactions).forEach(rType => {
+            const countSpan = document.querySelector(`.reaction-count[data-count="${rType}"]`);
+            if (countSpan) {
+              countSpan.textContent = data.reactions[rType];
+            }
+          });
+          
+          // Обновляем активный класс
+          reactionButtons.forEach(b => {
+            if (b.dataset.reaction === data.user_reaction) {
+              b.classList.add('active');
+            } else {
+              b.classList.remove('active');
+            }
+          });
+        }
+      })
+      .catch(err => console.error('Ошибка при отправке реакции:', err));
+    });
+  });
+
+  // === Капча для гостей (Обновление) ===
+  const refreshCaptchaBtn = document.getElementById('refreshCaptchaBtn');
+  if (refreshCaptchaBtn) {
+    refreshCaptchaBtn.addEventListener('click', function() {
+      refreshCaptcha();
+    });
+  }
+
+  function refreshCaptcha() {
+    fetch('/captcha/refresh/', {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      const captchaImg = document.querySelector('.captcha-container-ajax img');
+      const captchaHidden = document.querySelector('input[name="captcha_0"]');
+      if (captchaImg && data.image_url) {
+        captchaImg.src = data.image_url;
+      }
+      if (captchaHidden && data.key) {
+        captchaHidden.value = data.key;
+      }
+    })
+    .catch(err => console.error('Ошибка обновления капчи:', err));
+  }
+
+  // === Ответ на комментарии ===
+  const commentsContainer = document.getElementById('commentsContainer');
+  const parentIdInput = document.getElementById('commentParentId');
+  const replyIndicator = document.getElementById('replyToIndicator');
+  const replyAuthorSpan = document.getElementById('replyToAuthor');
+  const cancelReplyBtn = document.getElementById('cancelReplyBtn');
+  const formTitle = document.getElementById('commentFormTitle');
+
+  if (commentsContainer) {
+    commentsContainer.addEventListener('click', function(e) {
+      const replyBtn = e.target.closest('.reply-comment-btn');
+      if (replyBtn) {
+        e.preventDefault();
+        const commentId = replyBtn.dataset.id;
+        const authorName = replyBtn.dataset.author;
+        
+        parentIdInput.value = commentId;
+        replyAuthorSpan.textContent = authorName;
+        replyIndicator.style.display = 'flex';
+        formTitle.textContent = 'Ответить на комментарий';
+        
+        // Скроллим к форме
+        document.getElementById('commentFormWrapper').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  if (cancelReplyBtn) {
+    cancelReplyBtn.addEventListener('click', function() {
+      parentIdInput.value = '';
+      replyIndicator.style.display = 'none';
+      formTitle.textContent = 'Оставить комментарий';
+    });
+  }
+
+  // === Отправка комментария через AJAX ===
+  const commentForm = document.getElementById('commentPostForm');
+  if (commentForm) {
+    commentForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Очистка старых ошибок
+      document.querySelectorAll('.text-danger.small').forEach(el => el.textContent = '');
+      
+      const formData = new FormData(this);
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      const submitBtn = document.getElementById('submitCommentBtn');
+      
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Отправка... <i class="fas fa-spinner fa-spin ms-2"></i>';
+      
+      fetch(this.action, {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrftoken,
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: formData
+      })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(errData => { throw errData; });
+        }
+        return res.json();
+      })
+      .then(data => {
+        if (data.status === 'success') {
+          // Очищаем текстовое поле комментария
+          const textarea = document.querySelector('.news-comment-textarea');
+          if (textarea) textarea.value = '';
+          
+          // Создаем HTML нового комментария
+          const isReply = !!data.comment.parent_id;
+          const commentHtml = createCommentHtml(data.comment, isReply);
+          
+          // Удаляем заглушку "Нет комментариев", если она есть
+          const emptyState = document.getElementById('noCommentsMessage');
+          if (emptyState) emptyState.remove();
+          
+          if (isReply) {
+            // Ищем блок ответов родителя
+            const parentWrapper = document.getElementById(`comment-${data.comment.parent_id}`);
+            if (parentWrapper) {
+              let repliesBlock = parentWrapper.querySelector('.comment-replies');
+              if (!repliesBlock) {
+                repliesBlock = document.createElement('div');
+                repliesBlock.className = 'comment-replies';
+                parentWrapper.appendChild(repliesBlock);
+              }
+              repliesBlock.insertAdjacentHTML('beforeend', commentHtml);
+            }
+          } else {
+            // Добавляем в общий список
+            const container = document.getElementById('commentsContainer');
+            container.insertAdjacentHTML('beforeend', commentHtml);
+          }
+          
+          // Обновляем счетчик
+          const countBadge = document.getElementById('commentsCountBadge');
+          if (countBadge) {
+            const currentCount = parseInt(countBadge.textContent) || 0;
+            countBadge.textContent = currentCount + 1;
+          }
+          
+          // Сбрасываем режим ответа
+          if (cancelReplyBtn) cancelReplyBtn.click();
+          
+          // Показываем сообщение об успешной отправке
+          alert('Комментарий успешно добавлен!');
+          
+          // Обновляем капчу для следующего раза (если гость)
+          if (document.getElementById('refreshCaptchaBtn')) {
+            refreshCaptcha();
+            const captchaInput = document.querySelector('input[name="captcha_1"]');
+            if (captchaInput) captchaInput.value = '';
+          }
+        }
+      })
+      .catch(errorData => {
+        if (errorData && errorData.errors) {
+          // Выводим ошибки полей
+          Object.keys(errorData.errors).forEach(field => {
+            const errorDiv = document.getElementById(`error_${field}`);
+            if (errorDiv) {
+              errorDiv.textContent = errorData.errors[field];
+            }
+          });
+          
+          // Если возвращена новая капча, обновляем ее
+          if (errorData.new_captcha_image && errorData.new_captcha_key) {
+            const captchaImg = document.querySelector('.captcha-container-ajax img');
+            const captchaHidden = document.querySelector('input[name="captcha_0"]');
+            if (captchaImg) captchaImg.src = errorData.new_captcha_image;
+            if (captchaHidden) captchaHidden.value = errorData.new_captcha_key;
+            
+            // Очищаем ввод капчи
+            const captchaInput = document.querySelector('input[name="captcha_1"]');
+            if (captchaInput) captchaInput.value = '';
+          }
+        } else {
+          console.error('Ошибка добавления комментария:', errorData);
+          alert('Произошла ошибка при отправке комментария. Пожалуйста, попробуйте еще раз.');
+        }
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Отправить комментарий <i class="far fa-paper-plane ms-2"></i>';
+      });
+    });
+  }
+
+  // === Хелпер сборки HTML комментария ===
+  function createCommentHtml(comment, isReply) {
+    const isReplyClass = isReply ? "comment-reply-wrapper ms-3 ms-md-4 mt-3 border-start border-secondary border-opacity-25 ps-3 ps-md-4" : "mt-4";
+    const parentReplyBtn = !isReply ? `
+        <button class="btn btn-sm btn-link text-primary text-decoration-none reply-comment-btn py-0 px-2" 
+                data-id="${comment.id}" data-author="${comment.author}">
+          <i class="fas fa-reply me-1"></i>Ответить
+        </button>
+    ` : '';
+    
+    return `
+    <div class="comment-card-wrapper ${isReplyClass}" id="comment-${comment.id}">
+      <div class="comment-card glass-card p-3 p-md-4 rounded-3 border border-secondary border-opacity-10 position-relative transition-hover">
+        <div class="d-flex align-items-start gap-3">
+          <img src="${comment.avatar_url}" alt="Avatar" class="comment-avatar rounded-circle border border-primary border-opacity-25" style="width: 48px; height: 48px; object-fit: cover;">
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+              <div>
+                <span class="comment-author fw-bold text-white fs-6">${comment.author}</span>
+                <span class="badge bg-secondary bg-opacity-25 text-white-50 small ms-2" style="font-size: 0.7rem;">Пользователь</span>
+                <span class="comment-date text-muted small ms-2" style="font-size:0.75rem;">
+                  <i class="far fa-clock me-1"></i>${comment.created_at}
+                </span>
+              </div>
+              ${parentReplyBtn}
+            </div>
+            <div class="comment-text text-white-75" style="white-space: pre-wrap; font-size: 0.92rem;">
+              ${escapeHtml(comment.content)}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="comment-replies"></div>
+    </div>
+    `;
+  }
+
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 });
 
