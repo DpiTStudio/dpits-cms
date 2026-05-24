@@ -27,29 +27,31 @@
 {% endblock %}
 
 {% block content %}
+<div class="aurora-bg"></div>
 <section class="main-content">
     <div class="container-fluid py-5">
         <!-- Блок категорий под шапкой -->
-        <div class="row mb-4">
+        <div class="row mb-4" data-aos="fade-down">
             <div class="col-12">
-                <div class="categories-header">
-                    <h6 class="mb-3">Категории работ:</h6>
+                <div class="filter-glass-box p-4">
+                    <h6 class="text-white-50 mb-3"><i class="fas fa-folder-open me-2 text-primary"></i>Категории работ:</h6>
                     <div class="d-flex flex-wrap gap-2">
                         {% for category in categories %}
                         <a href="{{ category.get_absolute_url }}" 
-                           class="btn btn-outline-primary btn-sm {% if selected_category == category.slug %}active{% endif %}">
+                           class="btn-filter-pill {% if selected_category == category.slug %}active{% endif %}">
                             {{ category.name }}
                         </a>
                         {% empty %}
-                        <i class="fas fa-folder-open fa-3x text-muted mb-3"></i><br>
-                        <span class="text-muted">Категорий пока нет</span>
+                        <div class="text-center py-2 w-100">
+                            <span class="text-white-50">Категорий пока нет</span>
+                        </div>
                         {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" data-aos="fade-down" data-aos-delay="100">
             <div class="col-12">
                 <nav aria-label="breadcrumb" class="mb-4">
                     <ol class="breadcrumb">
@@ -63,12 +65,12 @@
 
         <div class="row">
             <!-- Основной контент -->
-            <div class="col-lg-8">
+            <div class="col-lg-8" data-aos="fade-right" data-aos-delay="200">
                 <!-- Детали проекта -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <h1 class="card-title mb-4">{{ item.title }}</h1>
-                        <div class="portfolio-content">
+                <div class="glass-card-premium rounded-4 border-0 mb-4 shadow-lg">
+                    <div class="card-body p-4 p-md-5">
+                        <h1 class="card-title text-white fw-bold mb-4">{{ item.title }}</h1>
+                        <div class="portfolio-content text-white-50 lead-sm">
                             {{ item.content|safe }}
                         </div>
                     </div>
@@ -76,12 +78,12 @@
 
                 <!-- Технологии -->
                 {% if item.technologies %}
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <h4 class="card-title mb-3">Использованные технологии</h4>
-                        <div class="d-flex flex-wrap gap-2">
+                <div class="glass-card-premium rounded-4 border-0 mb-4">
+                    <div class="card-body p-4">
+                        <h4 class="card-title text-white mb-3"><i class="fas fa-microchip me-2 text-primary"></i>Использованные технологии</h4>
+                        <div class="d-flex flex-wrap gap-2 mt-3">
                             {% for tech in item.get_technologies_list %}
-                            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 py-2 px-3">
+                            <span class="badge bg-primary bg-opacity-15 text-primary border border-primary border-opacity-30 py-2 px-3 rounded-3">
                                 {{ tech }}
                             </span>
                             {% endfor %}
@@ -92,17 +94,17 @@
 
                 <!-- Ссылки -->
                 {% if item.project_url or item.github_url %}
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <h4 class="card-title mb-3">Ссылки</h4>
-                        <div class="d-flex gap-3 flex-wrap">
+                <div class="glass-card-premium rounded-4 border-0 mb-4 premium-shine">
+                    <div class="card-body p-4">
+                        <h4 class="card-title text-white mb-3"><i class="fas fa-link me-2 text-primary"></i>Ссылки</h4>
+                        <div class="d-flex gap-3 flex-wrap mt-3">
                             {% if item.project_url %}
-                            <a href="{{ item.project_url }}" target="_blank" class="btn btn-outline-primary">
+                            <a href="{{ item.project_url }}" target="_blank" class="btn btn-outline-primary rounded-pill px-4">
                                 <i class="fas fa-external-link-alt me-2"></i>Посмотреть проект
                             </a>
                             {% endif %}
                             {% if item.github_url %}
-                            <a href="{{ item.github_url }}" target="_blank" class="btn btn-outline-dark">
+                            <a href="{{ item.github_url }}" target="_blank" class="btn btn-outline-light rounded-pill px-4">
                                 <i class="fab fa-github me-2"></i>GitHub репозиторий
                             </a>
                             {% endif %}
@@ -113,22 +115,22 @@
             </div>
 
             <!-- Боковая панель -->
-            <div class="col-lg-4">
+            <div class="col-lg-4" data-aos="fade-left" data-aos-delay="200">
                 <!-- Действия -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Действия</h5>
+                <div class="glass-card-premium rounded-4 border-0 mb-4 shadow-sm">
+                    <div class="card-body p-4">
+                        <h5 class="card-title text-white mb-3">Действия</h5>
                         <div class="d-grid gap-2">
                             {% if user.is_authenticated %}
-                            <a href="{% url 'portfolio:create_review' item.slug %}" class="btn btn-warning">
+                            <a href="{% url 'portfolio:create_review' item.slug %}" class="btn btn-warning rounded-pill py-2 text-dark fw-bold">
                                 <i class="fas fa-star me-2"></i>Оставить отзыв
                             </a>
                             {% else %}
-                            <a href="{% url 'login' %}?next={% url 'portfolio:create_review' item.slug %}" class="btn btn-warning">
+                            <a href="{% url 'login' %}?next={% url 'portfolio:create_review' item.slug %}" class="btn btn-warning rounded-pill py-2 text-dark fw-bold">
                                 <i class="fas fa-star me-2"></i>Войти для отзыва
                             </a>
                             {% endif %}
-                            <a href="{% url 'portfolio:create_order' %}" class="btn btn-primary">
+                            <a href="{% url 'portfolio:create_order' %}" class="btn btn-gradient-primary rounded-pill py-2 shine-effect text-white fw-bold">
                                 <i class="fas fa-paper-plane me-2"></i>Заказать похожий проект
                             </a>
                         </div>
@@ -136,26 +138,26 @@
                 </div>
 
                 <!-- Информация о проекте -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Информация о проекте</h5>
-                        <ul class="list-unstyled">
-                            <li class="mb-2">
-                                <strong>Категория:</strong>
-                                <a href="{{ item.category.get_absolute_url }}" class="ms-1">{{ item.category.name }}</a>
+                <div class="glass-card-premium rounded-4 border-0 mb-4">
+                    <div class="card-body p-4">
+                        <h5 class="card-title text-white mb-3">Информация о проекте</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-3 d-flex justify-content-between border-bottom border-white border-opacity-10 pb-2">
+                                <span class="text-white-50">Категория:</span>
+                                <a href="{{ item.category.get_absolute_url }}" class="fw-semibold text-primary text-decoration-none">{{ item.category.name }}</a>
                             </li>
-                            <li class="mb-2">
-                                <strong>Дата:</strong>
-                                <span class="ms-1">{{ item.project_date|date:"d.m.Y" }}</span>
+                            <li class="mb-3 d-flex justify-content-between border-bottom border-white border-opacity-10 pb-2">
+                                <span class="text-white-50">Дата:</span>
+                                <span class="text-white">{{ item.project_date|date:"d.m.Y" }}</span>
                             </li>
-                            <li class="mb-2">
-                                <strong>Просмотры:</strong>
-                                <span class="ms-1">{{ item.views }}</span>
+                            <li class="mb-3 d-flex justify-content-between border-bottom border-white border-opacity-10 pb-2">
+                                <span class="text-white-50">Просмотры:</span>
+                                <span class="text-white"><i class="far fa-eye me-1 text-primary"></i>{{ item.views }}</span>
                             </li>
                             {% if item.client %}
-                            <li class="mb-2">
-                                <strong>Клиент:</strong>
-                                <span class="ms-1">{{ item.client }}</span>
+                            <li class="d-flex justify-content-between pb-1">
+                                <span class="text-white-50">Клиент:</span>
+                                <span class="text-white">{{ item.client }}</span>
                             </li>
                             {% endif %}
                         </ul>
@@ -163,18 +165,18 @@
                 </div>
 
                 <!-- Категория -->
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Категория</h5>
+                <div class="glass-card-premium rounded-4 border-0">
+                    <div class="card-body p-4">
+                        <h5 class="card-title text-white mb-3">Категория</h5>
                         <div class="d-flex align-items-center mb-3">
                             <img src="{{ item.category.image.url }}" alt="{{ item.category.name }}" 
-                                 class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                 class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover; border: 1px solid rgba(255,255,255,0.1);">
                             <div>
-                                <h6 class="mb-1">{{ item.category.name }}</h6>
-                                <small class="text-muted">{{ item.category.works_count }} работ</small>
+                                <h6 class="mb-1 text-white">{{ item.category.name }}</h6>
+                                <small class="text-white-50">{{ item.category.works_count }} работ</small>
                             </div>
                         </div>
-                        <a href="{{ item.category.get_absolute_url }}" class="btn btn-outline-primary btn-sm w-100">
+                        <a href="{{ item.category.get_absolute_url }}" class="btn btn-outline-primary btn-sm w-100 rounded-pill mt-2">
                             Все работы категории
                         </a>
                     </div>
@@ -184,31 +186,29 @@
 
         <!-- Отзывы -->
         {% if reviews %}
-        <div class="row mt-5">
+        <div class="row mt-5" data-aos="fade-up">
             <div class="col-12">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white">
-                        <h3 class="mb-0">Отзывы о проекте</h3>
-                        <p class="text-muted mb-0">Что говорят клиенты о нашей работе</p>
+                <div class="glass-card-premium rounded-4 border-0">
+                    <div class="card-header bg-transparent border-bottom border-white border-opacity-10 p-4">
+                        <h3 class="mb-1 text-white"><i class="fas fa-star me-2 text-warning"></i>Отзывы о проекте</h3>
+                        <p class="text-white-50 mb-0">Что говорят клиенты о нашей работе</p>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
+                    <div class="card-body p-4">
+                        <div class="row g-4">
                             {% for review in reviews %}
-                            <div class="col-md-6 mb-4">
-                                <div class="card border-0 h-100">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start mb-3">
-                                            <div>
-                                                <h5 class="card-title mb-1">{{ review.title }}</h5>
-                                                <p class="text-muted mb-0">от {{ review.client }}</p>
-                                            </div>
-                                            <div class="text-warning">
-                                                {{ review.get_star_rating|safe }}
-                                            </div>
+                            <div class="col-md-6">
+                                <div class="glass-card-premium border-0 rounded-4 h-100 p-4">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div>
+                                            <h5 class="card-title text-white mb-1">{{ review.title }}</h5>
+                                            <p class="text-white-50 small mb-0">от {{ review.client }}</p>
                                         </div>
-                                        <p class="card-text">{{ review.content }}</p>
-                                        <small class="text-muted">{{ review.created_at|date:"d.m.Y" }}</small>
+                                        <div class="text-warning">
+                                            {{ review.get_star_rating|safe }}
+                                        </div>
                                     </div>
+                                    <p class="card-text text-white-50 small">{{ review.content }}</p>
+                                    <small class="text-white-50 opacity-75 d-block mt-3 border-top border-white border-opacity-10 pt-2">{{ review.created_at|date:"d.m.Y" }}</small>
                                 </div>
                             </div>
                             {% endfor %}
@@ -221,19 +221,19 @@
 
         <!-- Похожие работы -->
         {% if similar_items %}
-        <div class="row mt-5">
+        <div class="row mt-5" data-aos="fade-up">
             <div class="col-12">
-                <h3 class="mb-4">Похожие работы</h3>
-                <div class="row">
+                <h3 class="mb-4 text-white"><i class="fas fa-briefcase me-2 text-primary"></i>Похожие работы</h3>
+                <div class="row g-4">
                     {% for similar in similar_items %}
-                    <div class="col-md-4 mb-4">
-                        <div class="card border-0 shadow-sm h-100 hover-lift">
-                            <img src="{{ similar.image.url }}" class="card-img-top" alt="{{ similar.title }}" 
+                    <div class="col-md-4">
+                        <div class="glass-card-premium border-0 rounded-4 h-100 hover-lift overflow-hidden">
+                            <img src="{{ similar.image.url }}" class="card-img-top w-100" alt="{{ similar.title }}" 
                                  style="height: 200px; object-fit: cover;" loading="lazy">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ similar.title }}</h5>
-                                <p class="card-text text-muted flex-grow-1">{{ similar.short_description|truncatewords:15 }}</p>
-                                <a href="{% url 'portfolio:detail' similar.slug %}" class="btn btn-outline-primary mt-auto">Подробнее</a>
+                            <div class="card-body p-4 d-flex flex-column">
+                                <h5 class="card-title text-white fw-bold mb-2">{{ similar.title }}</h5>
+                                <p class="card-text text-white-50 small flex-grow-1 mb-4">{{ similar.short_description|truncatewords:15 }}</p>
+                                <a href="{% url 'portfolio:detail' similar.slug %}" class="btn btn-outline-primary btn-sm rounded-pill px-3 mt-auto align-self-start">Подробнее</a>
                             </div>
                         </div>
                     </div>

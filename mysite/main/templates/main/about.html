@@ -22,11 +22,12 @@
 {% endblock %}
 
 {% block content %}
+<div class="aurora-bg"></div>
 <div class="container-fluid py-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <!-- Навигационная цепочка (хлебные крошки) -->
-            <nav aria-label="breadcrumb" class="mb-4">
+            <nav aria-label="breadcrumb" class="mb-4" data-aos="fade-down">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="{% url 'main:index' %}" class="text-decoration-none">
@@ -38,32 +39,30 @@
             </nav>
 
             <!-- Заголовок страницы -->
-            <header class="text-center mb-5">
-                <div class="row mb-5 text-left">
-                    <div class="col-lg-8 mx-auto">
-                        <span class="badge text-primary bg-primary-subtle rounded-pill px-3 py-1 mb-2 fw-bold">О НАС</span>
-                        <h1 class="display-4 fw-bold mb-3">Наша компания</h1>
-                        {% if site_settings.slogan %}
-                        <p class="lead text-muted">{{ site_settings.slogan }}</p>
-                        {% else %}
-                        <p class="lead text-muted">Узнайте больше о нашей команде, миссии и ценностях.</p>
-                        {% endif %}
-                    </div>
-                </div>
+            <header class="text-center mb-5" data-aos="fade-down">
+                <span class="section-badge mb-3">
+                    <i class="fas fa-info-circle"></i> О нас
+                </span>
+                <h1 class="display-4 fw-bold mb-3 hero-title">Наша компания</h1>
+                {% if site_settings.slogan %}
+                <p class="lead text-white-50">{{ site_settings.slogan }}</p>
+                {% else %}
+                <p class="lead text-white-50">Узнайте больше о нашей команде, миссии и ценностях.</p>
+                {% endif %}
             </header>
 
             <!-- Логотип и основная информация -->
             {% if site_settings.logo or site_settings.logo_text %}
-            <div class="row mb-5">
+            <div class="row mb-5" data-aos="fade-up">
                 <div class="col-12 text-center">
                     {% if site_settings.logo %}
                     <img src="{{ site_settings.logo.url }}" 
                          alt="{{ site_settings.logo_text|default:'Логотип' }}" 
-                         class="img-fluid mb-4"
-                         style="max-height: 150px;">
+                         class="img-fluid mb-4 brand-logo-large"
+                         style="max-height: 150px; filter: drop-shadow(0 0 20px rgba(99,102,241,0.35));">
                     {% endif %}
                     {% if site_settings.logo_text %}
-                    <h2 class="fw-bold text-primary">{{ site_settings.logo_text }}</h2>
+                    <h2 class="fw-bold text-gradient mb-0 fs-1" style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">{{ site_settings.logo_text }}</h2>
                     {% endif %}
                 </div>
             </div>
@@ -71,12 +70,12 @@
 
             <!-- Девиз сайта -->
             {% if site_settings.motto %}
-            <div class="row mb-5">
+            <div class="row mb-5" data-aos="fade-up" data-aos-delay="100">
                 <div class="col-12">
-                    <div class="card shadow-sm border-0 rounded-3 bg-primary text-white">
-                        <div class="card-body p-5 text-center">
-                            <i class="fas fa-quote-left fa-2x mb-3 opacity-75"></i>
-                            <div class="motto-content">
+                    <div class="glass-card-premium rounded-4 border-0 text-white premium-shine">
+                        <div class="card-body p-4 p-md-5 text-center">
+                            <i class="fas fa-quote-left fa-2x mb-3 text-primary opacity-50"></i>
+                            <div class="motto-content fs-5 text-white-75">
                                 {{ site_settings.motto|safe }}
                             </div>
                         </div>
@@ -87,15 +86,15 @@
 
             <!-- Краткое описание -->
             {% if site_settings.short_description %}
-            <div class="row mb-5">
+            <div class="row mb-5" data-aos="fade-up" data-aos-delay="200">
                 <div class="col-12">
-                    <div class="card shadow-sm border-0 rounded-3">
-                        <div class="card-body p-4">
-                            <h3 class="fw-bold mb-3">
+                    <div class="glass-card-premium rounded-4 border-0">
+                        <div class="card-body p-4 p-md-5">
+                            <h3 class="fw-bold text-white mb-4">
                                 <i class="fas fa-file-alt me-2 text-primary"></i>
                                 О компании
                             </h3>
-                            <div class="content-body">
+                            <div class="content-body text-white-50">
                                 {{ site_settings.short_description|safe }}
                             </div>
                         </div>
@@ -106,15 +105,15 @@
 
             <!-- Основной контент -->
             {% if site_settings.content %}
-            <div class="row mb-5">
+            <div class="row mb-5" data-aos="fade-up" data-aos-delay="300">
                 <div class="col-12">
-                    <div class="card shadow-sm border-0 rounded-3">
-                        <div class="card-body p-4">
-                            <h3 class="fw-bold mb-3">
+                    <div class="glass-card-premium rounded-4 border-0">
+                        <div class="card-body p-4 p-md-5">
+                            <h3 class="fw-bold text-white mb-4">
                                 <i class="fas fa-book me-2 text-primary"></i>
                                 Подробная информация
                             </h3>
-                            <div class="content-body">
+                            <div class="content-body text-white-50">
                                 {{ site_settings.content|safe }}
                             </div>
                         </div>
@@ -124,17 +123,19 @@
             {% endif %}
 
             <!-- Контактная информация -->
-            <div class="row g-4">
+            <div class="row g-4 mb-5" data-aos="fade-up" data-aos-delay="400">
                 {% if site_settings.phone1 or site_settings.email or site_settings.address %}
                 <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0 rounded-3">
+                    <div class="glass-card-premium h-100 border-0 rounded-4 premium-shine">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-phone fa-2x text-primary mb-3"></i>
-                            <h5 class="fw-bold mb-3">Свяжитесь с нами</h5>
+                            <div class="icon-box-sm mx-auto mb-3" style="width: 50px; height: 50px;">
+                                <i class="fas fa-phone fa-lg text-primary"></i>
+                            </div>
+                            <h5 class="fw-bold text-white mb-3">Свяжитесь с нами</h5>
                             {% if site_settings.phone1 %}
                             <p class="mb-2">
                                 <a href="tel:{{ site_settings.phone1 }}" 
-                                   class="text-decoration-none text-dark">
+                                   class="text-decoration-none text-white-50 hover-primary">
                                     {{ site_settings.phone1 }}
                                 </a>
                             </p>
@@ -142,7 +143,7 @@
                             {% if site_settings.email %}
                             <p class="mb-0">
                                 <a href="mailto:{{ site_settings.email }}" 
-                                   class="text-decoration-none text-dark">
+                                   class="text-decoration-none text-white-50 hover-primary">
                                     {{ site_settings.email }}
                                 </a>
                             </p>
@@ -154,23 +155,27 @@
 
                 {% if site_settings.address %}
                 <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0 rounded-3">
+                    <div class="glass-card-premium h-100 border-0 rounded-4 premium-shine">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
-                            <h5 class="fw-bold mb-3">Наш адрес</h5>
-                            <p class="text-muted mb-0">{{ site_settings.address }}</p>
+                            <div class="icon-box-sm mx-auto mb-3" style="width: 50px; height: 50px;">
+                                <i class="fas fa-map-marker-alt fa-lg text-primary"></i>
+                            </div>
+                            <h5 class="fw-bold text-white mb-3">Наш адрес</h5>
+                            <p class="text-white-50 mb-0">{{ site_settings.address }}</p>
                         </div>
                     </div>
                 </div>
                 {% endif %}
 
                 <div class="col-md-4">
-                    <div class="card h-100 shadow-sm border-0 rounded-3">
+                    <div class="glass-card-premium h-100 border-0 rounded-4 premium-shine">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-clock fa-2x text-primary mb-3"></i>
-                            <h5 class="fw-bold mb-3">Время работы</h5>
-                            <p class="text-muted mb-0">Пн-Пт: 9:00 - 18:00</p>
-                            <p class="text-muted mb-0">Сб-Вс: Выходной</p>
+                            <div class="icon-box-sm mx-auto mb-3" style="width: 50px; height: 50px;">
+                                <i class="fas fa-clock fa-lg text-primary"></i>
+                            </div>
+                            <h5 class="fw-bold text-white mb-3">Время работы</h5>
+                            <p class="text-white-50 mb-1">Пн-Пт: 9:00 - 18:00</p>
+                            <p class="text-white-50 opacity-75 mb-0">Сб-Вс: Выходной</p>
                         </div>
                     </div>
                 </div>

@@ -22,6 +22,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="aurora-bg"></div>
 <!-- Прогресс-бар чтения -->
 <div class="reading-progress-bar" id="readingProgressBar"></div>
 
@@ -200,7 +201,7 @@
   <div class="row g-4">
     {% for s_news in similar_news %}
     <div class="col-12 col-md-6 col-lg-3">
-      <div class="similar-news-card glass-card h-100 rounded-3 overflow-hidden border border-secondary border-opacity-10 transition-hover">
+      <div class="similar-news-card glass-card-premium h-100 rounded-3 overflow-hidden border border-secondary border-opacity-10 transition-hover">
         <a href="{{ s_news.get_absolute_url }}" class="text-decoration-none">
           {% if s_news.image %}
           <div class="ratio ratio-16x9">
