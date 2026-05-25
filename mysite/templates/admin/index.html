@@ -96,7 +96,16 @@
                 </div>
                 <div class="status-indicator-item">
                     <span class="text-muted small mr-2">{% trans "Кэш:" %}</span>
-                    <span class="badge badge-info"><i class="fas fa-memory mr-1"></i> {{ admin_stats.cache_backend }}</span>
+                    <span class="badge badge-info">
+                        <i class="fas fa-memory mr-1"></i> 
+                        {% if admin_stats.cache_backend == 'LocMemCache' %}
+                            {% trans "Локальный (LocMem)" %}
+                        {% elif admin_stats.cache_backend == 'RedisCache' %}
+                            {% trans "Redis кэш" %}
+                        {% else %}
+                            {{ admin_stats.cache_backend }}
+                        {% endif %}
+                    </span>
                 </div>
                 <div class="status-indicator-item">
                     <span class="text-muted small mr-2">{% trans "Резервные копии:" %}</span>
