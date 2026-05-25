@@ -6,6 +6,69 @@
 {% block extrastyle %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'admin/css/dashboard.css' %}">
+<style>
+    /* Premium Dashboard Enhancements */
+    .status-indicator-bar {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius);
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+    }
+    .status-indicator-bar:hover {
+        box-shadow: var(--card-shadow-hover);
+    }
+    .status-indicator-item {
+        display: inline-flex;
+        align-items: center;
+        background: #f8fafc;
+        padding: 6px 14px;
+        border-radius: var(--radius-sm);
+        border: 1px solid #e2e8f0;
+        transition: var(--transition);
+    }
+    .status-indicator-item:hover {
+        background: #f1f5f9;
+        transform: translateY(-1px);
+    }
+    [data-theme="dark"] .status-indicator-item,
+    body.theme-dark .status-indicator-item {
+        background: #1e293b;
+        border-color: #334155;
+    }
+    [data-theme="dark"] .status-indicator-item:hover,
+    body.theme-dark .status-indicator-item:hover {
+        background: #334155;
+    }
+    .gap-flex-custom {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .btn-xs {
+        padding: 0.25rem 0.5rem !important;
+        font-size: 0.75rem !important;
+        line-height: 1.5 !important;
+        border-radius: 4px !important;
+    }
+    .text-warning-dark {
+        color: #b45309 !important;
+    }
+    [data-theme="dark"] .text-warning-dark,
+    body.theme-dark .text-warning-dark {
+        color: #fbbf24 !important;
+    }
+    .border-left-warning {
+        border-left: 4px solid var(--warning) !important;
+    }
+    .table td, .table th {
+        vertical-align: middle !important;
+    }
+    .action-btn-group {
+        display: flex;
+        gap: 8px;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -14,7 +77,51 @@
     <div class="mb-4 d-flex justify-content-between align-items-center">
         <div>
             <h1 class="h3 mb-0 text-gray-800">{% trans "Рабочий стол администратора" %}</h1>
-            <p class="text-muted">{% trans "Общая статистика и состояние системы на" %} {{ now|date:"d.m.Y H:i" }}</p>
+            <p class="text-muted">{% trans "Управление проектом, статистика и состояние системы на" %} {{ now|date:"d.m.Y H:i" }}</p>
+        </div>
+    </div>
+
+    <!-- ПАНЕЛЬ БЫСТРЫХ ДЕЙСТВИЙ И СТАТУСА -->
+    <div class="card status-indicator-bar mb-4">
+        <div class="card-body p-3 d-flex flex-wrap align-items-center justify-content-between">
+            <!-- Индикаторы состояния -->
+            <div class="gap-flex-custom align-items-center">
+                <div class="status-indicator-item">
+                    <span class="text-muted small mr-2">{% trans "Статус сайта:" %}</span>
+                    {% if admin_stats.maintenance_mode %}
+                        <span class="badge badge-warning"><i class="fas fa-tools mr-1"></i> {% trans "Обслуживание" %}</span>
+                    {% else %}
+                        <span class="badge badge-success"><i class="fas fa-globe mr-1"></i> {% trans "Онлайн" %}</span>
+                    {% endif %}
+                </div>
+                <div class="status-indicator-item">
+                    <span class="text-muted small mr-2">{% trans "Кэш:" %}</span>
+                    <span class="badge badge-info"><i class="fas fa-memory mr-1"></i> {{ admin_stats.cache_backend }}</span>
+                </div>
+                <div class="status-indicator-item">
+                    <span class="text-muted small mr-2">{% trans "Резервные копии:" %}</span>
+                    <span class="badge badge-primary"><i class="fas fa-database mr-1"></i> {{ admin_stats.backup_count }} {% trans "файлов" %}</span>
+                </div>
+            </div>
+            
+            <!-- Кнопки быстрого управления -->
+            <div class="action-btn-group mt-3 mt-lg-0">
+                <a href="{% url 'admin:clear_cache' %}" class="btn btn-sm btn-info" onclick="return confirm('{% trans "Очистить кэш сайта?" %}');">
+                    <i class="fas fa-sync-alt"></i> {% trans "Очистить кэш" %}
+                </a>
+                <a href="{% url 'admin:backup_db' %}" class="btn btn-sm btn-success">
+                    <i class="fas fa-download"></i> {% trans "Резервная копия БД" %}
+                </a>
+                <a href="{% url 'admin:toggle_maintenance' %}" class="btn btn-sm {% if admin_stats.maintenance_mode %}btn-primary{% else %}btn-warning{% endif %}" 
+                   onclick="return confirm('{% trans "Вы действительно хотите изменить режим обслуживания сайта?" %}');">
+                    <i class="fas fa-power-off"></i> 
+                    {% if admin_stats.maintenance_mode %}
+                        {% trans "Включить сайт" %}
+                    {% else %}
+                        {% trans "Режим обслуживания" %}
+                    {% endif %}
+                </a>
+            </div>
         </div>
     </div>
 
@@ -107,6 +214,175 @@
             </div>
             <div class="stat-progress">
                 <div class="stat-progress-bar" style="background: var(--warning-gradient); width: 0%" data-progress="{% if admin_stats.feedback.total > 0 %}{{ admin_stats.feedback.new|get_percent:admin_stats.feedback.total }}{% else %}0{% endif %}"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ОЧЕРЕДЬ МОДЕРАЦИИ ОТЗЫВОВ -->
+    {% if admin_stats.pending_reviews %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-left-warning shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center" style="background: rgba(245, 158, 11, 0.03);">
+                    <h5 class="m-0 font-weight-bold text-warning-dark">
+                        <i class="fas fa-star mr-2 text-warning"></i>{% trans "Очередь модерации отзывов" %}
+                        <span class="badge badge-warning ml-2">{{ admin_stats.pending_reviews|length }}</span>
+                    </h5>
+                    <a href="/admin/reviews/review/" class="small">{% trans "Модерировать все" %}</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <tbody>
+                                {% for rev in admin_stats.pending_reviews %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ rev.full_name }}</strong> <span class="text-muted">({{ rev.email }})</span>
+                                        <div class="text-xs text-muted mt-1">{{ rev.created_at|date:"d.m.Y H:i" }}</div>
+                                    </td>
+                                    <td class="text-muted" style="max-width: 450px; font-style: italic;">
+                                        "{{ rev.message|truncatechars:150 }}"
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="{% url 'admin:reviews_review_change' rev.id_review %}" class="btn btn-xs btn-outline-warning">
+                                            <i class="fas fa-edit mr-1"></i>{% trans "Проверить" %}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- ДВУХКОЛОНОЧНЫЙ БЛОК: ЗАКАЗЫ И ОБРАЩЕНИЯ -->
+    <div class="row mb-4">
+        <!-- Левая колонка: Последние заказы -->
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-header d-flex justify-content-between align-items-center" style="background: rgba(128,128,128,0.02);">
+                    <h5 class="m-0 font-weight-bold"><i class="fas fa-shopping-cart text-primary mr-2"></i>{% trans "Последние заказы" %}</h5>
+                    <a href="/admin/portfolio/order/" class="small">{% trans "Все заказы" %}</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Проект" %}</th>
+                                    <th>{% trans "Бюджет" %}</th>
+                                    <th>{% trans "Статус" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if admin_stats.recent_orders %}
+                                    {% for order in admin_stats.recent_orders %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'admin:portfolio_order_change' order.id %}" class="font-weight-bold text-dark">
+                                                    #{{ order.id }} - {{ order.title }}
+                                                </a>
+                                                <div class="text-xs text-muted">
+                                                    {{ order.client.user.get_full_name|default:order.client.user.username }} | {{ order.created_at|date:"d.m.Y H:i" }}
+                                                </div>
+                                            </td>
+                                            <td class="text-nowrap">
+                                                {% if order.budget %}
+                                                    <span class="text-success font-weight-bold">{{ order.budget }} {% trans "руб." %}</span>
+                                                {% else %}
+                                                    <span class="text-muted">—</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if order.status == 'new' %}
+                                                    <span class="badge badge-info">{% trans "Новый" %}</span>
+                                                {% elif order.status == 'in_progress' %}
+                                                    <span class="badge badge-warning">{% trans "В работе" %}</span>
+                                                {% elif order.status == 'completed' %}
+                                                    <span class="badge badge-success">{% trans "Завершен" %}</span>
+                                                {% elif order.status == 'cancelled' %}
+                                                    <span class="badge badge-danger">{% trans "Отменен" %}</span>
+                                                {% else %}
+                                                    <span class="badge badge-secondary">{{ order.status }}</span>
+                                                {% endif %}
+                                                <!-- Прогресс -->
+                                                <div class="progress mt-1" style="height: 3px;">
+                                                    <div class="progress-bar {% if order.status == 'completed' %}bg-success{% elif order.status == 'cancelled' %}bg-danger{% elif order.status == 'in_progress' %}bg-warning{% else %}bg-info{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ order.get_progress_percentage }}%"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted p-4">{% trans "Нет активных заказов" %}</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Правая колонка: Последняя обратная связь -->
+        <div class="col-lg-6">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-header d-flex justify-content-between align-items-center" style="background: rgba(128,128,128,0.02);">
+                    <h5 class="m-0 font-weight-bold"><i class="fas fa-envelope text-info mr-2"></i>{% trans "Сообщения обратной связи" %}</h5>
+                    <a href="/admin/feedback/feedbackmessage/" class="small">{% trans "Все сообщения" %}</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Тема" %}</th>
+                                    <th>{% trans "Отправитель" %}</th>
+                                    <th>{% trans "Статус" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if admin_stats.recent_feedback %}
+                                    {% for fb in admin_stats.recent_feedback %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'admin:feedback_feedbackmessage_change' fb.id %}" class="font-weight-bold text-dark">
+                                                    {{ fb.subject }}
+                                                </a>
+                                                <div class="text-xs text-muted">{{ fb.created_at|date:"d.m.Y H:i" }}</div>
+                                            </td>
+                                            <td>
+                                                <strong>{{ fb.user.username }}</strong>
+                                                <div class="text-xs text-muted">{{ fb.email }}</div>
+                                            </td>
+                                            <td>
+                                                {% if fb.status == 'new' %}
+                                                    <span class="badge badge-danger">{% trans "Новое" %}</span>
+                                                {% elif fb.status == 'read' %}
+                                                    <span class="badge badge-warning">{% trans "Прочитано" %}</span>
+                                                {% elif fb.status == 'replied' %}
+                                                    <span class="badge badge-success">{% trans "Отвечено" %}</span>
+                                                {% elif fb.status == 'archived' %}
+                                                    <span class="badge badge-secondary">{% trans "Архив" %}</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted p-4">{% trans "Сообщений обратной связи нет" %}</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -208,6 +484,72 @@
                     <div class="small text-muted">
                         <div><i class="fab fa-python"></i> Python {{ admin_stats.system.python_version }}</div>
                         <div><i class="fas fa-clock"></i> Up: {{ admin_stats.system.uptime }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ЖУРНАЛ ДЕЙСТВИЙ АДМИНИСТРАТОРОВ -->
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header d-flex justify-content-between align-items-center" style="background: rgba(128,128,128,0.02);">
+                    <h5 class="m-0 font-weight-bold"><i class="fas fa-history text-secondary mr-2"></i>{% trans "Журнал последних действий в системе" %}</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Время" %}</th>
+                                    <th>{% trans "Администратор" %}</th>
+                                    <th>{% trans "Действие" %}</th>
+                                    <th>{% trans "Объект" %}</th>
+                                    <th>{% trans "Детали" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if admin_stats.recent_logs %}
+                                    {% for log in admin_stats.recent_logs %}
+                                        <tr>
+                                            <td class="text-nowrap small text-muted">
+                                                {{ log.action_time|date:"d.m.Y H:i:s" }}
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-light"><i class="fas fa-user mr-1"></i>{{ log.user.username }}</span>
+                                            </td>
+                                            <td>
+                                                {% if log.is_addition %}
+                                                    <span class="badge badge-success"><i class="fas fa-plus-circle mr-1"></i>{% trans "Добавление" %}</span>
+                                                {% elif log.is_change %}
+                                                    <span class="badge badge-warning"><i class="fas fa-edit mr-1"></i>{% trans "Изменение" %}</span>
+                                                {% elif log.is_deletion %}
+                                                    <span class="badge badge-danger"><i class="fas fa-trash-alt mr-1"></i>{% trans "Удаление" %}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if log.get_admin_url %}
+                                                    <a href="{{ log.get_admin_url }}" class="font-weight-bold text-dark">
+                                                        {{ log.object_repr }}
+                                                    </a>
+                                                {% else %}
+                                                    <span class="font-weight-bold text-muted">{{ log.object_repr }}</span>
+                                                {% endif %}
+                                                <div class="text-xs text-muted">{{ log.content_type.name }}</div>
+                                            </td>
+                                            <td class="small text-muted">
+                                                {{ log.get_change_message|default:"—" }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted p-4">{% trans "Действий еще не зарегистрировано" %}</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

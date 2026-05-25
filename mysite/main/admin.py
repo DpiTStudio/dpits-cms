@@ -66,6 +66,21 @@ class SiteSettingsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
                 self.admin_site.admin_view(self.server_info_view),
                 name="server_info",
             ),
+            path(
+                "clear-cache/",
+                self.admin_site.admin_view(self.clear_cache_view),
+                name="clear_cache",
+            ),
+            path(
+                "backup-db/",
+                self.admin_site.admin_view(self.backup_db_view),
+                name="backup_db",
+            ),
+            path(
+                "toggle-maintenance/",
+                self.admin_site.admin_view(self.toggle_maintenance_view),
+                name="toggle_maintenance",
+            ),
         ]
         return custom_urls + urls
 
@@ -79,6 +94,72 @@ class SiteSettingsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
             "site_url": get_site_url(),
         }
         return render(request, "admin/main/server_info.html", context)
+
+    def clear_cache_view(self, request):
+        """Очищает кэш сайта."""
+        from django.core.cache import cache
+        cache.clear()
+        messages.success(request, _("Кэш сайта успешно очищен!"))
+        return HttpResponseRedirect(reverse("admin:index"))
+
+    def backup_db_view(self, request):
+        """Создает резервную копию базы данных SQLite и отдает её для скачивания."""
+        from django.conf import settings
+        from django.http import FileResponse
+        from datetime import datetime
+        import shutil
+
+        db_path = settings.DATABASES["default"]["NAME"]
+        if os.path.exists(db_path):
+            try:
+                # Папка бэкапов в корне проекта
+                backup_dir = os.path.join(settings.BASE_DIR, "backups")
+                os.makedirs(backup_dir, exist_ok=True)
+
+                # Имя файла с датой и временем
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                backup_filename = f"db_backup_{timestamp}.sqlite3"
+                backup_path = os.path.join(backup_dir, backup_filename)
+
+                # Копируем файл бэкапа
+                shutil.copy2(db_path, backup_path)
+
+                # Сбрасываем кэш статистики дашборда для актуализации счетчика бэкапов
+                from django.core.cache import cache
+                cache.delete("admin_dashboard_stats")
+
+                # Возвращаем файл в ответе
+                response = FileResponse(open(backup_path, "rb"), content_type="application/x-sqlite3")
+                response["Content-Disposition"] = f'attachment; filename="{backup_filename}"'
+                return response
+            except Exception as e:
+                messages.error(request, _("Ошибка создания резервной копии: %(err)s") % {"err": e})
+        else:
+            messages.error(request, _("Файл базы данных не найден!"))
+
+        return HttpResponseRedirect(reverse("admin:index"))
+
+    def toggle_maintenance_view(self, request):
+        """Переключает статус режима обслуживания."""
+        settings_obj = SiteSettings.load()
+        settings_obj.site_closed = not settings_obj.site_closed
+
+        if settings_obj.site_closed and not settings_obj.closure_message:
+            settings_obj.closure_message = _("Сайт временно закрыт на техническое обслуживание. Пожалуйста, зайдите позже.")
+
+        settings_obj.save()
+
+        # Очищаем кэш настроек и статистики дашборда
+        from django.core.cache import cache
+        cache.delete("site_settings")
+        cache.delete("admin_dashboard_stats")
+
+        status = _("закрыт") if settings_obj.site_closed else _("открыт")
+        messages.success(
+            request,
+            _("Режим технического обслуживания переключен. Сайт теперь %(status)s.") % {"status": status}
+        )
+        return HttpResponseRedirect(reverse("admin:index"))
 
     # Группировка полей
     fieldsets = (

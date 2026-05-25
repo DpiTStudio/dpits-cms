@@ -246,7 +246,8 @@ def admin_dashboard_stats(request):
         try:
             from feedback.models import FeedbackMessage
             total_feedback = FeedbackMessage.objects.count()
-            new_feedback = FeedbackMessage.objects.filter(is_read=False).count()
+            # ИСПРАВЛЕНО: Запрос по статусу вместо свойства is_read
+            new_feedback = FeedbackMessage.objects.filter(status=FeedbackMessage.STATUS_NEW).count()
         except (ImportError, Exception):
             pass
 
@@ -262,7 +263,55 @@ def admin_dashboard_stats(request):
         except (ImportError, Exception):
             pass
 
-        # 7. Информация о логах приложений
+        # 7. Недавние записи для панелей управления
+        recent_orders = []
+        try:
+            from portfolio.models import Order
+            recent_orders = list(Order.objects.select_related('client__user').order_by('-created_at')[:5])
+        except (ImportError, Exception):
+            pass
+
+        recent_feedback = []
+        try:
+            from feedback.models import FeedbackMessage
+            recent_feedback = list(FeedbackMessage.objects.select_related('user').order_by('-created_at')[:5])
+        except (ImportError, Exception):
+            pass
+
+        pending_reviews = []
+        try:
+            from reviews.models import Review
+            pending_reviews = list(Review.objects.filter(status='pending').order_by('-created_at')[:5])
+        except (ImportError, Exception):
+            pass
+
+        recent_logs = []
+        try:
+            from django.contrib.admin.models import LogEntry
+            recent_logs = list(LogEntry.objects.select_related('user', 'content_type').order_by('-action_time')[:10])
+        except (ImportError, Exception):
+            pass
+
+        # 8. Управляющие параметры состояния
+        maintenance_mode = False
+        try:
+            maintenance_mode = SiteSettings.load().site_closed
+        except Exception:
+            pass
+
+        cache_backend = cache.__class__.__name__
+
+        import os
+        from django.conf import settings
+        backup_dir = os.path.join(settings.BASE_DIR, "backups")
+        backup_count = 0
+        if os.path.exists(backup_dir):
+            try:
+                backup_count = len([f for f in os.listdir(backup_dir) if f.endswith('.sqlite3')])
+            except Exception:
+                pass
+
+        # 9. Информация о логах приложений
         from .log_utils import get_log_file_info, get_error_log_file_info
         
         # Получаем данные о debug.log
@@ -273,7 +322,7 @@ def admin_dashboard_stats(request):
         # Получаем последнюю запись статистики из БД
         last_log_stats = LogStats.objects.first()
 
-        # 8. Системные характеристики сервера (CPU, Память, Версии)
+        # 10. Системные характеристики сервера (CPU, Память, Версии)
         import sys
         import platform
         try:
@@ -341,7 +390,14 @@ def admin_dashboard_stats(request):
                 "memory_used": memory_used,
                 "memory_total": memory_total,
                 "uptime": uptime,
-            }
+            },
+            "recent_orders": recent_orders,
+            "recent_feedback": recent_feedback,
+            "pending_reviews": pending_reviews,
+            "recent_logs": recent_logs,
+            "maintenance_mode": maintenance_mode,
+            "cache_backend": cache_backend,
+            "backup_count": backup_count,
         }
 
         # Кэшируем собранную статистику на 1 минуту, чтобы не пересчитывать при каждом обновлении админки

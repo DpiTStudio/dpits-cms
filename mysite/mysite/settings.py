@@ -695,3 +695,4 @@ CAPTCHA_NOISE_FUNCTIONS = (
 )
 CAPTCHA_FONT_SIZE = 40  # Размер шрифта капчи
 CAPTCHA_IMAGE_SIZE = (120, 50)  # Размер изображения капчи (ширина, высота)
+# Trigger reload: 2026-05-25 05:05
