@@ -72,7 +72,7 @@
 .hero-title {
     font-size: var(--font-size-xxl) !important;
     text-transform: uppercase;
-    background: linear-gradient(to bottom, #ffffff, #cbd5e1);
+    background: linear-gradient(to bottom, var(--text-white), #cbd5e1);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

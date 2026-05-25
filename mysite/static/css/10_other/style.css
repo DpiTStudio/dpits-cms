@@ -14,7 +14,7 @@ a:active {
 
 /* Hero Section Styles */
 .hero-section {
-    background: linear-gradient(135deg, #ffffff75 0%, #b16c0a 100%);
+    background: linear-gradient(135deg, var(--text-white)75 0%, #b16c0a 100%);
     padding: 3rem 0 !important;
 }
 
@@ -72,7 +72,7 @@ a:active {
 }
 
 .card-text {
-    color: #6c757d;
+    color: var(--neutral-500);
     line-height: 1.6;
 }
 
@@ -101,7 +101,7 @@ a:active {
 }
 
 .contact-item p {
-    color: #6c757d;
+    color: var(--neutral-500);
     margin-bottom: 0.5rem;
 }
 
@@ -131,15 +131,15 @@ a:active {
 }
 
 .text-primary {
-    color: #007bff !important;
+    color: var(--primary-color) !important;
 }
 
 .text-white {
-    color: #fff !important;
+    color: var(--text-white) !important;
 }
 
 .text-muted {
-    color: #6c757d !important;
+    color: var(--neutral-500) !important;
 }
 
 .shadow-sm {

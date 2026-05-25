@@ -14,7 +14,7 @@
 .category-icon {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    color: var(--primary-color, #0d6efd);
+    color: var(--primary-color, var(--primary-color));
 }
 
 .category-list-item {
@@ -26,5 +26,5 @@
 }
 
 .category-list-item:hover {
-    background-color: var(--hover-color, #f8f9fa);
+    background-color: var(--hover-color, var(--bg-card));
 }

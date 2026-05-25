@@ -36,7 +36,7 @@
     margin-bottom: 5px;
     background: #e9ecef;
     border-radius: 3px;
-    border-left: 3px solid #28a745;
+    border-left: 3px solid var(--success-color);
 }
 
 .backup-item:hover {
@@ -98,12 +98,12 @@
 
 .file-stat-label {
     font-size: 12px;
-    color: #6c757d;
+    color: var(--neutral-500);
     margin-bottom: 5px;
 }
 
 .file-stat-value {
     font-size: 18px;
     font-weight: bold;
-    color: #343a40;
+    color: var(--neutral-800);
 }

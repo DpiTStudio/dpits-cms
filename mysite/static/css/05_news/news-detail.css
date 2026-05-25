@@ -12,7 +12,7 @@
 }
 
 .news-content-body h1, .news-content-body h2, .news-content-body h3 {
-    color: #fff;
+    color: var(--text-white);
     margin-top: 2rem;
     margin-bottom: 1rem;
     font-weight: 700;
@@ -31,7 +31,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--text-white);
     text-decoration: none;
     transition: all 0.3s ease;
     background: rgba(255, 255, 255, 0.05);
@@ -40,7 +40,7 @@
 
 .share-btn:hover {
     transform: translateY(-3px);
-    color: #fff;
+    color: var(--text-white);
 }
 
 .share-btn.vk:hover { background: #4C75A3; }

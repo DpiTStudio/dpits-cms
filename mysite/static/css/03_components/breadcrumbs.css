@@ -63,11 +63,11 @@
 }
 
 .hero-section .breadcrumb-item a:hover {
-    color: #ffffff !important;
+    color: var(--text-white) !important;
 }
 
 .hero-section .breadcrumb-item.active {
-    color: #ffffff !important;
+    color: var(--text-white) !important;
 }
 
 /* Иконки в хлебных крошках */

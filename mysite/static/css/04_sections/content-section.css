@@ -209,13 +209,13 @@
 }
 
 .cs-card--success::before {
-    background: linear-gradient(135deg, #10b981, #059669);
+    background: linear-gradient(135deg, var(--success-color), #059669);
 }
 .cs-card--success:hover {
     box-shadow: var(--shadow-lg), 0 0 30px rgba(16, 185, 129, 0.2);
 }
 .cs-card--success:hover .cs-advantages__icon-wrap {
-    background: linear-gradient(135deg, #10b981, #059669);
+    background: linear-gradient(135deg, var(--success-color), #059669);
 }
 
 /* ==========================================================================
@@ -238,7 +238,7 @@
 }
 
 .cs-advantages__card:hover .cs-advantages__icon-wrap {
-    color: #fff;
+    color: var(--text-white);
     border-color: transparent;
     transform: scale(1.1) rotate(5deg);
     box-shadow: var(--shadow-glow-primary);
@@ -385,7 +385,7 @@
     align-items: center;
     gap: 0.5rem;
     background: var(--gradient-primary);
-    color: #fff !important;
+    color: var(--text-white) !important;
     font-weight: var(--font-weight-semibold);
     font-size: 1rem;
     padding: 0.85rem 2.5rem;
@@ -410,7 +410,7 @@
 .cs-advantages__cta-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
-    color: #fff;
+    color: var(--text-white);
 }
 
 .cs-advantages__cta-btn:hover::before {
