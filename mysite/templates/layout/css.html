@@ -1,114 +1,129 @@
 {% load static %}
-<!-- ============================================
+<!-- ============================================================
      ФАЙЛ: css.html
-     ОПИСАНИЕ: Подключение всех CSS файлов проекта в правильном порядке
-     ВАЖНО: Порядок подключения критичен для корректной работы каскада стилей
-     ============================================ -->
+     ОПИСАНИЕ: Подключение всех CSS файлов проекта
+     СТРУКТУРА: static/css/ разбита на 13 подпапок (00–99)
+     ВАЖНО: Порядок подключения критичен — каскадность CSS!
+     ============================================================ -->
 
-<!-- Подключение пользовательских CSS файлов в правильном порядке -->
+<!-- ══════════════════════════════════════════════
+     00_variables  —  CSS-переменные (ПЕРВЫЙ ВСЕГДА)
+     Все цвета, отступы, шрифты, тени, радиусы
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/00_variables/variables.css' %}" />
 
-<!-- 1. CSS переменные (должен быть первым для использования в других файлах) -->
-<!-- Содержит глобальные переменные: цвета, отступы, размеры шрифтов и т.д. -->
-<link rel="stylesheet" href="{% static 'css/variables.css' %}" />
+<!-- ══════════════════════════════════════════════
+     01_base  —  Базовый сброс и основа
+     Сброс стилей браузера, html/body, типографика,
+     скроллбар, Bootstrap переопределения
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/01_base/base.css' %}" />
+<link rel="stylesheet" href="{% static 'css/01_base/performance.css' %}" />
 
-<!-- 2. Базовые стили для всех элементов -->
-<!-- Сброс стилей браузера и базовые стили для HTML элементов -->
-<link rel="stylesheet" href="{% static 'css/base.css' %}" />
+<!-- ══════════════════════════════════════════════
+     02_layout  —  Макет страницы
+     Шапка (header), подвал (footer), навигация,
+     выпадающие меню, адаптивная сетка
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/02_layout/layout.css' %}" />
+<link rel="stylesheet" href="{% static 'css/02_layout/header-menu.css' %}" />
+<link rel="stylesheet" href="{% static 'css/02_layout/responsive.css' %}" />
 
-<!-- 3. Оптимизации производительности -->
-<!-- Стили для улучшения производительности: will-change, contain и т.д. -->
-<link rel="stylesheet" href="{% static 'css/performance.css' %}" />
+<!-- ══════════════════════════════════════════════
+     03_components  —  Переиспользуемые компоненты
+     Карточки, кнопки, формы, бейджи, сайдбар,
+     hero-секция, поиск, хлебные крошки, пагинация,
+     социальный шаринг
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/03_components/components.css' %}" />
+<link rel="stylesheet" href="{% static 'css/03_components/cards.css' %}" />
+<link rel="stylesheet" href="{% static 'css/03_components/badge.css' %}" />
+<link rel="stylesheet" href="{% static 'css/03_components/hero.css' %}" />
+<link rel="stylesheet" href="{% static 'css/03_components/sidebar.css' %}" />
+<link rel="stylesheet" href="{% static 'css/03_components/forms.css' %}" />
+<link rel="stylesheet" href="{% static 'css/03_components/forms-enhanced.css' %}" />
+<link rel="stylesheet" href="{% static 'css/03_components/search.css' %}" />
+<link rel="stylesheet" href="{% static 'css/03_components/pagination.css' %}" />
+<link rel="stylesheet" href="{% static 'css/03_components/breadcrumbs.css' %}" />
+<link rel="stylesheet" href="{% static 'css/03_components/social-share.css' %}" />
 
-<!-- 4. Анимации для улучшения пользовательского опыта -->
-<!-- Определения @keyframes и классы анимаций -->
-<link rel="stylesheet" href="{% static 'css/animations.css' %}" />
+<!-- ══════════════════════════════════════════════
+     04_sections  —  Секции страниц
+     Основной контент, секция преимуществ, страницы,
+     услуги, список услуг
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/04_sections/content.css' %}" />
+<link rel="stylesheet" href="{% static 'css/04_sections/content-section.css' %}" />
+<link rel="stylesheet" href="{% static 'css/04_sections/pages.css' %}" />
+<link rel="stylesheet" href="{% static 'css/04_sections/service.css' %}" />
+<link rel="stylesheet" href="{% static 'css/04_sections/services-list.css' %}" />
 
-<!-- 5. Стили макета (header, footer, навигация) -->
-<!-- Структура страницы: шапка, подвал, основной контейнер -->
-<link rel="stylesheet" href="{% static 'css/layout.css' %}" />
+<!-- ══════════════════════════════════════════════
+     05_news  —  Новостной раздел
+     Общие стили, список, детальная страница,
+     категории, расширенные стили, виджет сайдбара,
+     ежедневные новости
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/05_news/news-common.css' %}" />
+<link rel="stylesheet" href="{% static 'css/05_news/news-list.css' %}" />
+<link rel="stylesheet" href="{% static 'css/05_news/news-detail.css' %}" />
+<link rel="stylesheet" href="{% static 'css/05_news/news-category.css' %}" />
+<link rel="stylesheet" href="{% static 'css/05_news/news-enhanced.css' %}" />
+<link rel="stylesheet" href="{% static 'css/05_news/news_sidebar_custom.css' %}" />
+<link rel="stylesheet" href="{% static 'css/05_news/daily-news.css' %}" />
 
-<!-- 5a. Стили меню навигации -->
-<!-- Стили для адаптивного меню и навигации -->
-<link rel="stylesheet" href="{% static 'css/header-menu.css' %}" />
+<!-- ══════════════════════════════════════════════
+     06_portfolio  —  Портфолио
+     Список проектов и детальная страница проекта
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/06_portfolio/portfolio_list.css' %}" />
+<link rel="stylesheet" href="{% static 'css/06_portfolio/portfolio_detail.css' %}" />
 
-<!-- 6. Стили компонентов (карточки, кнопки, формы) -->
-<!-- Переиспользуемые UI компоненты -->
-<link rel="stylesheet" href="{% static 'css/components.css' %}" />
+<!-- ══════════════════════════════════════════════
+     07_effects  —  Анимации и визуальные эффекты
+     Keyframes анимации, UI улучшения, мобильные
+     улучшения, полоса прогресса чтения
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/07_effects/animations.css' %}" />
+<link rel="stylesheet" href="{% static 'css/07_effects/ui-enhancements.css' %}" />
+<link rel="stylesheet" href="{% static 'css/07_effects/mobile-enhancements.css' %}" />
+<link rel="stylesheet" href="{% static 'css/07_effects/reading-progress.css' %}" />
 
-<!-- 7. Современные стили для карточек -->
-<!-- Специализированные стили карточек с эффектами -->
-<link rel="stylesheet" href="{% static 'css/cards.css' %}" />
+<!-- ══════════════════════════════════════════════
+     08_utilities  —  Утилитарные классы
+     Цвета, тени, скругления, отступы, выравнивание,
+     flexbox помощники, обрезка текста
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/08_utilities/utilities.css' %}" />
+<link rel="stylesheet" href="{% static 'css/08_utilities/list-common.css' %}" />
 
-<!-- 8. Улучшенные стили бейджей -->
-<!-- Стили для меток и бейджей категорий -->
-<link rel="stylesheet" href="{% static 'css/badge.css' %}" />
+<!-- ══════════════════════════════════════════════
+     09_mobile  —  Специальные мобильные стили
+     Дополнительные media-query для телефонов
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/09_mobile/mobile.css' %}" />
 
-<!-- 9. Стили для hero секции (главный баннер) -->
-<!-- Стили для главного баннера на всех страницах -->
-<link rel="stylesheet" href="{% static 'css/hero.css' %}" />
+<!-- ══════════════════════════════════════════════
+     10_other  —  Прочие специфические стили
+     Корзина (drawer, виджет, анимации), cookie-баннер,
+     категории, разные доп. стили
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/10_other/cart.css' %}?v=1.1" />
+<link rel="stylesheet" href="{% static 'css/10_other/cookie-consent.css' %}" />
+<link rel="stylesheet" href="{% static 'css/10_other/categories.css' %}" />
+<link rel="stylesheet" href="{% static 'css/10_other/style.css' %}" />
 
-<!-- 10. Стили для боковой панели (сайдбара) -->
-<!-- Стили для правой боковой панели с виджетами -->
-<link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
-<!-- 10a. Кастомные стили для новостного виджета сайдбара -->
-<link rel="stylesheet" href="{% static 'css/news_sidebar_custom.css' %}" />
+<!-- ══════════════════════════════════════════════
+     11_admin  —  Стили административной панели
+     Кастомизация Django Admin, файловый менеджер
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/11_admin/admin_custom.css' %}" />
+<link rel="stylesheet" href="{% static 'css/11_admin/admin-file-manager.css' %}" />
 
-<!-- 11. Стили для контентных секций -->
-<!-- Стили для основных контентных блоков -->
-<link rel="stylesheet" href="{% static 'css/content.css' %}" />
-
-<!-- 12. Утилитарные классы для быстрой стилизации -->
-<!-- Вспомогательные классы: отступы, выравнивание, цвета -->
-<link rel="stylesheet" href="{% static 'css/utilities.css' %}" />
-
-<!-- 13. UI улучшения и микроинтеракции -->
-<!-- Эффекты наведения, фокуса и другие интерактивные элементы -->
-<link rel="stylesheet" href="{% static 'css/ui-enhancements.css' %}" />
-
-<!-- 14. Адаптивные стили (должен быть последним для переопределения) -->
-<!-- Media queries для планшетов и десктопов -->
-<link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
-
-<!-- 15. Мобильные стили (должен быть самым последним) -->
-<!-- Media queries специально для мобильных устройств -->
-<link rel="stylesheet" href="{% static 'css/mobile.css' %}" />
-
-
-
-<!-- 17. Индикатор прогресса чтения -->
-<!-- Полоса прогресса прокрутки страницы -->
-<link rel="stylesheet" href="{% static 'css/reading-progress.css' %}" />
-
-<!-- 18. Хлебные крошки -->
-<!-- Стили для навигационных хлебных крошек -->
-<link rel="stylesheet" href="{% static 'css/breadcrumbs.css' %}" />
-
-<!-- 19. Социальный шаринг -->
-<!-- Кнопки для шаринга в социальных сетях -->
-<link rel="stylesheet" href="{% static 'css/social-share.css' %}" />
-
-<!-- 20. Поиск -->
-<!-- Стили для формы поиска и результатов -->
-<link rel="stylesheet" href="{% static 'css/search.css' %}" />
-
-<!-- 21. Улучшенные формы -->
-<!-- Современные стили для всех форм на сайте -->
-<link rel="stylesheet" href="{% static 'css/forms.css' %}" />
-<link rel="stylesheet" href="{% static 'css/forms-enhanced.css' %}" />
-
-<!-- 22. Баннер cookie -->
-<link rel="stylesheet" href="{% static 'css/cookie-consent.css' %}" />
-
-<!-- 23. Корзина -->
-<!-- Стили для drawer, виджета, анимаций и иконки корзины -->
-<link rel="stylesheet" href="{% static 'css/cart.css' %}?v=1.1" />
-
-<!-- 24. Стили, извлеченные из HTML шаблонов -->
-<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
-
-<!-- 25. Секция с преимуществами компании -->
-<link rel="stylesheet" href="{% static 'css/content-section.css' %}" />
-
-<!-- 26. PREMIUM ENHANCEMENTS — финальный слой дизайна (должен быть последним!) -->
-<link rel="stylesheet" href="{% static 'css/premium-enhancements.css' %}?v=2.0" />
-
+<!-- ══════════════════════════════════════════════
+     99_premium  —  Финальный слой (ПОСЛЕДНИЙ ВСЕГДА)
+     Переопределяет всё выше. Premium-эффекты,
+     объединённые стили из HTML-шаблонов.
+     ══════════════════════════════════════════════ -->
+<link rel="stylesheet" href="{% static 'css/99_premium/styles.css' %}" />
+<link rel="stylesheet" href="{% static 'css/99_premium/premium-enhancements.css' %}?v=2.0" />

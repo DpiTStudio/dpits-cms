@@ -1,5 +1,39 @@
 /* static/css/news-list.css */
 
+/* ─── Line-clamp утилиты ────────────────────────────────────────────────── */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ─── Равная высота карточек в секции "Последние события" ───────────────── */
+/* col обёртка использует d-flex чтобы article тянулся на всю высоту ряда   */
+.home-news-grid .col-12.col-md-6 {
+    display: flex;
+}
+
+.home-news-grid .news-card-premium {
+    flex: 1 1 0;           /* растягивается на всю доступную высоту col */
+    min-height: 300px;     /* нижний порог высоты */
+}
+
+/* Описание растёт и занимает всё свободное пространство между */
+/* заголовком и футером — это и даёт симметрию нижней части    */
+.home-news-grid .news-description {
+    flex-grow: 1;
+}
+
 .news-list-container {
     padding-bottom: 2rem;
 }
