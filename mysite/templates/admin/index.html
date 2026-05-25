@@ -411,10 +411,10 @@
                     <div class="log-distribution">
                         {% with cats=admin_stats.logs.debug.categories total=admin_stats.logs.debug.total_lines %}
                             {% if total > 0 %}
-                                <div class="dist-error" style="width: {{ cats.ERROR|get_percent:total }}%" title="Errors: {{ cats.ERROR }}"></div>
-                                <div class="dist-warning" style="width: {{ cats.WARNING|get_percent:total }}%" title="Warnings: {{ cats.WARNING }}"></div>
-                                <div class="dist-info" style="width: {{ cats.INFO|get_percent:total }}%" title="Info: {{ cats.INFO }}"></div>
-                                <div class="dist-debug" style="width: {{ cats.DEBUG|get_percent:total }}%" title="Debug: {{ cats.DEBUG }}"></div>
+                                <div class="dist-error" style="width: {{ cats.ERROR|get_percent:total }}%" title="{% trans "Ошибки:" %} {{ cats.ERROR }}"></div>
+                                <div class="dist-warning" style="width: {{ cats.WARNING|get_percent:total }}%" title="{% trans "Предупреждения:" %} {{ cats.WARNING }}"></div>
+                                <div class="dist-info" style="width: {{ cats.INFO|get_percent:total }}%" title="{% trans "Инфо:" %} {{ cats.INFO }}"></div>
+                                <div class="dist-debug" style="width: {{ cats.DEBUG|get_percent:total }}%" title="{% trans "Отладка:" %} {{ cats.DEBUG }}"></div>
                             {% endif %}
                         {% endwith %}
                     </div>
@@ -492,7 +492,7 @@
                     </div>
                     <div class="small text-muted">
                         <div><i class="fab fa-python"></i> Python {{ admin_stats.system.python_version }}</div>
-                        <div><i class="fas fa-clock"></i> Up: {{ admin_stats.system.uptime }}</div>
+                        <div><i class="fas fa-clock"></i> {% trans "Работает:" %} {{ admin_stats.system.uptime }}</div>
                     </div>
                 </div>
             </div>
