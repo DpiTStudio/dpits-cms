@@ -274,6 +274,12 @@ JAZZMIN_SETTINGS = {
             "new_tab": True,
             "icon": "fas fa-bug",
         },
+        {
+            "name": "Бэкап",
+            "url": "/backups/",
+            "new_tab": True,
+            "icon": "fas fa-database",
+        },
     ],
     # === БОКОВОЕ МЕНЮ (Side Menu) ===
     "show_sidebar": True,

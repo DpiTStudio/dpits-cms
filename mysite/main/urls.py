@@ -64,4 +64,9 @@ urlpatterns = [
     # Лог ошибок
     path("error-log/", views.ErrorLogView.as_view(), name="error_log"),
     # Страница просмотра error.log (только для суперпользователей)
+    # Резервное копирование
+    path("backups/", views.BackupView.as_view(), name="backups"),
+    # Страница управления резервными копиями (только для суперпользователей)
+    path("backups/download/<str:filename>/", views.BackupDownloadView.as_view(), name="backup_download"),
+    # Скачивание файла резервной копии
 ]

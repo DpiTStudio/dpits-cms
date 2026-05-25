@@ -1070,3 +1070,163 @@ class ErrorLogView(MaintenanceMixin, BaseView):
                 messages.error(request, message)  # | Сообщение об ошибке
 
         return self.get(request, *args, **kwargs)  # | Возвращаем GET-ответ
+
+
+class BackupView(MaintenanceMixin, BaseView):
+    """
+    Представление для страницы управления резервными копиями.
+    Отображает список бэкапов, позволяет создавать новые и удалять старые.
+
+    Доступно только для суперпользователей (is_superuser).
+    """
+
+    template_name = "main/backups.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Проверяет права доступа.
+        Доступ только для суперпользователей.
+        """
+        if not request.user.is_authenticated or not request.user.is_superuser:
+            from django.contrib.auth.views import redirect_to_login
+            from django.shortcuts import resolve_url
+
+            return redirect_to_login(
+                request.get_full_path(), login_url=resolve_url("accounts:login")
+            )
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        """
+        Добавляет список бэкапов и статистику в контекст.
+        """
+        from .backup_utils import list_backups, get_backups_stats, get_backups_dir
+
+        context = super().get_context_data(**kwargs)
+
+        backups = list_backups()
+        stats = get_backups_stats()
+        backups_dir = get_backups_dir()
+
+        page_title = "Резервные копии"
+        site_settings = context.get("site_settings")
+        if site_settings and site_settings.logo_text:
+            page_title = f"Резервные копии - {site_settings.logo_text}"
+
+        context.update(
+            {
+                "backups": backups,
+                "stats": stats,
+                "backups_dir": str(backups_dir),
+                "page_title": page_title,
+                "meta_description": "Управление резервными копиями сайта. Создание, скачивание и удаление архивов.",
+                "breadcrumbs": get_breadcrumbs([
+                    ("Резервные копии", reverse("main:backups"), "fas fa-database"),
+                ]),
+            }
+        )
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """
+        Обрабатывает POST-запросы: создание нового бэкапа или удаление существующего.
+
+        Действия:
+        - action=create_backup : создаёт новый архив с параметрами из формы
+        - action=delete_backup : удаляет файл по имени
+        """
+        from .backup_utils import create_site_backup, delete_backup
+
+        action = request.POST.get("action")
+
+        if action == "create_backup":
+            # Получаем параметры из формы
+            include_media = request.POST.get("include_media") == "on"
+            include_static = request.POST.get("include_static") == "on"
+            include_code = request.POST.get("include_code") == "on"
+
+            try:
+                compress_level = int(request.POST.get("compress_level", 6))
+                compress_level = max(0, min(9, compress_level))
+            except (ValueError, TypeError):
+                compress_level = 6
+
+            success, message, filename = create_site_backup(
+                include_media=include_media,
+                include_static=include_static,
+                include_code=include_code,
+                compress_level=compress_level,
+            )
+
+            if success:
+                # Сбрасываем кэш статистики дашборда
+                from django.core.cache import cache
+                cache.delete("admin_dashboard_stats")
+                messages.success(request, f"✅ {message}" + (f": {filename}" if filename else ""))
+            else:
+                messages.error(request, f"❌ {message}")
+
+        elif action == "delete_backup":
+            filename = request.POST.get("filename", "").strip()
+            if filename:
+                success, message = delete_backup(filename)
+                if success:
+                    from django.core.cache import cache
+                    cache.delete("admin_dashboard_stats")
+                    messages.success(request, f"🗑️ {message}")
+                else:
+                    messages.error(request, f"❌ {message}")
+            else:
+                messages.error(request, "❌ Имя файла не указано")
+
+        from django.shortcuts import redirect
+        return redirect(reverse("main:backups"))
+
+
+class BackupDownloadView(MaintenanceMixin, BaseView):
+    """
+    Представление для скачивания файла резервной копии.
+    Отдаёт файл в виде HTTP-ответа с соответствующим заголовком.
+
+    Доступно только для суперпользователей.
+    """
+
+    def dispatch(self, request, *args, **kwargs):
+        """Проверяет права доступа (только суперпользователь)."""
+        if not request.user.is_authenticated or not request.user.is_superuser:
+            from django.contrib.auth.views import redirect_to_login
+            from django.shortcuts import resolve_url
+
+            return redirect_to_login(
+                request.get_full_path(), login_url=resolve_url("accounts:login")
+            )
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        """
+        Отдаёт файл бэкапа для скачивания.
+        Использует безопасный get_backup_path() для защиты от path traversal.
+        """
+        from django.http import FileResponse, Http404
+        from .backup_utils import get_backup_path
+        import mimetypes
+
+        filename = kwargs.get("filename", "")
+        filepath = get_backup_path(filename)
+
+        if filepath is None:
+            raise Http404(f"Файл резервной копии '{filename}' не найден")
+
+        # Определяем MIME-тип
+        mime_type, _ = mimetypes.guess_type(str(filepath))
+        if not mime_type:
+            mime_type = "application/octet-stream"
+
+        response = FileResponse(
+            open(filepath, "rb"),
+            content_type=mime_type,
+            as_attachment=True,
+            filename=filepath.name,
+        )
+        return response
