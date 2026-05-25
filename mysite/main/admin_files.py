@@ -64,10 +64,12 @@ class FileExistsFilter(SimpleListFilter):
         """
         if self.value() == "yes":
             # Фильтруем файлы, которые существуют на диске
-            return [obj for obj in queryset if obj.exists]
+            matching_ids = [obj.pk for obj in queryset if obj.exists]
+            return queryset.filter(pk__in=matching_ids)
         elif self.value() == "no":
             # Фильтруем файлы, которые не существуют на диске
-            return [obj for obj in queryset if not obj.exists]
+            matching_ids = [obj.pk for obj in queryset if not obj.exists]
+            return queryset.filter(pk__in=matching_ids)
         return queryset  # Если фильтр не выбран, возвращаем все
 
 

@@ -13,6 +13,12 @@
     {{ site_settings.company_name }}, {{ site_settings.seo_keywords|default:"поиск, результаты, поисковый запрос" }}
 {% endblock %}
 
+{% block extra_head %}
+    {% if breadcrumbs_jsonld %}
+    <script type="application/ld+json">{{ breadcrumbs_jsonld|safe }}</script>
+    {% endif %}
+{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/list-common.css' %}">
 <link rel="stylesheet" href="{% static 'css/news-enhanced.css' %}">

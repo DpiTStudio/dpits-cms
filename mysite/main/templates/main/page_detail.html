@@ -28,6 +28,9 @@
 {% comment %}
 <link rel="stylesheet" href="{% static 'css/page_detail.css' %}">
 {% endcomment %}
+{% if breadcrumbs_jsonld %}
+<script type="application/ld+json">{{ breadcrumbs_jsonld|safe }}</script>
+{% endif %}
 {% endblock %}
 
 <!-- Включение общих секций -->

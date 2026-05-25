@@ -20,7 +20,7 @@
     <meta property="og:title" content="Контакты - {{ site_settings.logo_text }}">
     <meta property="og:description" content="Контактная информация и способы связи">
     {% if breadcrumbs_jsonld %}
-    <script type="application/ld+json">{{ breadcrumbs_jsonld }}</script>
+    <script type="application/ld+json">{{ breadcrumbs_jsonld|safe }}</script>
     {% endif %}
 {% endblock %}
 
