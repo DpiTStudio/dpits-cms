@@ -269,32 +269,5 @@ document.querySelectorAll('[data-service-name]').forEach(btn => {
         document.getElementById('qv-link').href         = btn.dataset.serviceUrl   || '#';
     });
 });
-
-// ── Scroll Reveal ──
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
-
-// ── Header scroll class ──
-window.addEventListener('scroll', () => {
-    const h = document.querySelector('.glass-header');
-    if (h) h.classList.toggle('scrolled', window.scrollY > 50);
-}, { passive: true });
-
-// ── Reading progress bar ──
-window.addEventListener('scroll', () => {
-    const bar = document.getElementById('readingProgress');
-    if (!bar) return;
-    const d = document.documentElement;
-    const pct = (d.scrollTop / (d.scrollHeight - d.clientHeight)) * 100;
-    bar.style.width = Math.min(pct, 100) + '%';
-}, { passive: true });
 </script>
 {% endblock %}

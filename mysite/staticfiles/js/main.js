@@ -12,17 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========== SMOOTH SCROLL ==========
     initSmoothScroll();
     
-    // ========== LAZY LOADING IMAGES ==========
-    initLazyLoading();
-    
-    // ========== INTERSECTION OBSERVER ДЛЯ АНИМАЦИЙ ==========
-    initScrollAnimations();
-    
     // ========== МОБИЛЬНОЕ МЕНЮ ==========
     initMobileMenu();
-    
-    // ========== SCROLL TO TOP ==========
-    initScrollToTop();
     
     // ========== ФОРМА ОБРАТНОЙ СВЯЗИ ==========
     initFormValidation();
@@ -89,59 +80,7 @@ function initSmoothScroll() {
     });
 }
 
-// ========== LAZY LOADING ==========
-function initLazyLoading() {
-    // Проверяем поддержку Intersection Observer
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    
-                    // Загружаем изображение
-                    if (img.dataset.src) {
-                        img.src = img.dataset.src;
-                        img.classList.add('loaded');
-                        observer.unobserve(img);
-                    }
-                }
-            });
-        }, {
-            rootMargin: '50px' // Начинаем загрузку за 50px до появления
-        });
-        
-        // Наблюдаем за всеми изображениями с data-src
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            imageObserver.observe(img);
-        });
-    } else {
-        // Fallback для старых браузеров
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            img.src = img.dataset.src;
-            img.classList.add('loaded');
-        });
-    }
-}
 
-// ========== SCROLL ANIMATIONS ==========
-function initScrollAnimations() {
-    if ('IntersectionObserver' in window) {
-        const animationObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-        
-        // Наблюдаем за элементами с классом fade-in-on-scroll
-        document.querySelectorAll('.fade-in-on-scroll').forEach(el => {
-            animationObserver.observe(el);
-        });
-    }
-}
 
 // ========== МОБИЛЬНОЕ МЕНЮ ==========
 function initMobileMenu() {
@@ -175,32 +114,7 @@ function initMobileMenu() {
     }
 }
 
-// ========== SCROLL TO TOP ==========
-function initScrollToTop() {
-    // Создаем кнопку "Наверх"
-    const scrollBtn = document.createElement('button');
-    scrollBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-    scrollBtn.className = 'scroll-to-top';
-    scrollBtn.setAttribute('aria-label', 'Прокрутить наверх');
-    document.body.appendChild(scrollBtn);
-    
-    // Показываем/скрываем кнопку при прокрутке
-    window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
-            scrollBtn.classList.add('visible');
-        } else {
-            scrollBtn.classList.remove('visible');
-        }
-    });
-    
-    // Прокрутка наверх при клике
-    scrollBtn.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-}
+
 
 // ========== ВАЛИДАЦИЯ ФОРМ ==========
 function initFormValidation() {

@@ -487,31 +487,6 @@
 {% block extra_js %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // ── Scroll Reveal ──
-    const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('revealed');
-                obs.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal-on-scroll').forEach(el => obs.observe(el));
-
-    // ── Header scroll class ──
-    window.addEventListener('scroll', () => {
-        const h = document.querySelector('.glass-header');
-        if (h) h.classList.toggle('scrolled', window.scrollY > 50);
-    }, { passive: true });
-
-    // ── Reading progress ──
-    window.addEventListener('scroll', () => {
-        const bar = document.getElementById('readingProgress');
-        if (!bar) return;
-        const d = document.documentElement;
-        bar.style.width = Math.min((d.scrollTop / (d.scrollHeight - d.clientHeight)) * 100, 100) + '%';
-    }, { passive: true });
-
     // ── Copy price on click ──
     const priceEl = document.querySelector('.price-badge');
     if (priceEl) {
@@ -530,17 +505,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
-    // ── Animate cards on intersection ──
-    const cardObs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('revealed');
-                cardObs.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.05 });
-    document.querySelectorAll('.related-service-card').forEach(c => cardObs.observe(c));
 });
 </script>
 {% endblock %}
