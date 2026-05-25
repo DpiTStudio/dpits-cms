@@ -75,7 +75,7 @@ body {
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 1.1rem;
-    background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+    background: linear-gradient(135deg, var(--text-white) 0%, #a5b4fc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -112,7 +112,7 @@ body {
 }
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-    color: #fff !important;
+    color: var(--text-white) !important;
 }
 .navbar-nav .nav-link:hover::after,
 .navbar-nav .nav-link.active::after {
@@ -190,7 +190,7 @@ body {
 
 /* Hero title gradient */
 .hero-title {
-    background: linear-gradient(135deg, #fff 0%, #c7d2fe 40%, #a5b4fc 100%);
+    background: linear-gradient(135deg, var(--text-white) 0%, #c7d2fe 40%, #a5b4fc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -653,7 +653,7 @@ footer::after {
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 1.3rem;
-    background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+    background: linear-gradient(135deg, var(--text-white) 0%, #a5b4fc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -784,7 +784,7 @@ footer hr {
 }
 
 .badge.bg-success {
-    background: linear-gradient(135deg, #10b981, #059669) !important;
+    background: linear-gradient(135deg, var(--success-color), #059669) !important;
 }
 
 /* ── 16. MODAL ENHANCEMENTS ── */
@@ -1001,7 +1001,7 @@ footer hr {
     }
     .service-content {
         box-shadow: none !important;
-        border: 1px solid #ccc !important;
+        border: 1px solid var(--border-color) !important;
     }
 }
 

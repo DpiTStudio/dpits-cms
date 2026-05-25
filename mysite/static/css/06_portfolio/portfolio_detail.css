@@ -24,10 +24,10 @@
 }
 
 .categories-header {
-    background-color: var(--bg-surface, var(--text-white));
+    background-color: var(--bg-surface, var(--bg-card));
     padding: 1rem;
     border-radius: var(--border-radius-md, 8px);
-    border: 1px solid var(--border-color, #eee);
+    border: 1px solid var(--border-color, var(--border-color));
 }
 
 .related-work-card {

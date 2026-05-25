@@ -7,19 +7,19 @@
 
 /* ── CSS Variables ─────────────────────────────────────────── */
 :root {
-    --brand:          #6366f1;
+    --brand:          var(--primary-color);
     --brand-end:      #8b5cf6;
-    --brand-grad:     linear-gradient(135deg, #6366f1, #8b5cf6);
+    --brand-grad:     linear-gradient(135deg, var(--primary-color), #8b5cf6);
     --accent:         #06b6d4;
-    --success:        #10b981;
-    --warning:        #f59e0b;
+    --success:        var(--success-color);
+    --warning:        var(--warning-color);
     --danger:         #ef4444;
-    --info:           #3b82f6;
+    --info:           var(--primary-color);
 
-    --primary-gradient:  linear-gradient(135deg, #6366f1, #8b5cf6);
-    --success-gradient:  linear-gradient(135deg, #10b981, #059669);
-    --info-gradient:     linear-gradient(135deg, #3b82f6, #06b6d4);
-    --warning-gradient:  linear-gradient(135deg, #f59e0b, #f97316);
+    --primary-gradient:  linear-gradient(135deg, var(--primary-color), #8b5cf6);
+    --success-gradient:  linear-gradient(135deg, var(--success-color), #059669);
+    --info-gradient:     linear-gradient(135deg, var(--primary-color), #06b6d4);
+    --warning-gradient:  linear-gradient(135deg, var(--warning-color), #f97316);
     --danger-gradient:   linear-gradient(135deg, #ef4444, #dc2626);
 
     /* Sidebar */
@@ -28,12 +28,12 @@
     --sidebar-active: rgba(99,102,241,0.25);
     --sidebar-text:   #94a3b8;
     --sidebar-text-active: #e2e8f0;
-    --sidebar-accent: #6366f1;
+    --sidebar-accent: var(--primary-color);
     --sidebar-header-text: #475569;
 
     /* Content area */
     --content-bg:     #f1f5f9;
-    --card-bg:        #ffffff;
+    --card-bg:        var(--text-white);
     --card-border:    #e2e8f0;
     --card-shadow:    0 4px 24px rgba(15,23,42,0.08);
     --card-shadow-hover: 0 12px 40px rgba(15,23,42,0.14);
@@ -75,7 +75,7 @@ body {
     color: #e2e8f0 !important;
     letter-spacing: 0.02em;
     line-height: 1.2 !important;
-    background: linear-gradient(135deg, #e2e8f0, #6366f1);
+    background: linear-gradient(135deg, #e2e8f0, var(--primary-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -305,10 +305,10 @@ body {
     margin-bottom: 0.25rem;
 }
 
-.stat-users .stat-icon    { background: rgba(99,102,241,0.12); color: #6366f1; }
-.stat-clients .stat-icon  { background: rgba(16,185,129,0.12); color: #10b981; }
-.stat-news .stat-icon     { background: rgba(59,130,246,0.12); color: #3b82f6; }
-.stat-portfolio .stat-icon{ background: rgba(245,158,11,0.12); color: #f59e0b; }
+.stat-users .stat-icon    { background: rgba(99,102,241,0.12); color: var(--primary-color); }
+.stat-clients .stat-icon  { background: rgba(16,185,129,0.12); color: var(--success-color); }
+.stat-news .stat-icon     { background: rgba(59,130,246,0.12); color: var(--primary-color); }
+.stat-portfolio .stat-icon{ background: rgba(245,158,11,0.12); color: var(--warning-color); }
 .stat-orders .stat-icon   { background: rgba(239,68,68,0.12);  color: #ef4444; }
 .stat-feedback .stat-icon { background: rgba(139,92,246,0.12); color: #8b5cf6; }
 
@@ -441,7 +441,7 @@ body {
 
 .btn-log-view:hover {
     background: var(--brand);
-    color: #fff !important;
+    color: var(--text-white) !important;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(99,102,241,0.35);
 }
@@ -453,7 +453,7 @@ body {
 
 .btn-log-clear:hover {
     background: var(--danger);
-    color: #fff !important;
+    color: var(--text-white) !important;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(239,68,68,0.35);
 }
@@ -568,7 +568,7 @@ td img { border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
 .btn-primary {
     background: var(--brand-grad) !important;
     border-color: transparent !important;
-    color: #fff !important;
+    color: var(--text-white) !important;
     box-shadow: 0 2px 8px rgba(99,102,241,0.35) !important;
 }
 
@@ -580,7 +580,7 @@ td img { border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
 .btn-success {
     background: var(--success-gradient) !important;
     border-color: transparent !important;
-    color: #fff !important;
+    color: var(--text-white) !important;
     box-shadow: 0 2px 8px rgba(16,185,129,0.35) !important;
 }
 
@@ -591,19 +591,19 @@ td img { border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
 .btn-info {
     background: var(--info-gradient) !important;
     border-color: transparent !important;
-    color: #fff !important;
+    color: var(--text-white) !important;
 }
 
 .btn-warning {
     background: var(--warning-gradient) !important;
     border-color: transparent !important;
-    color: #fff !important;
+    color: var(--text-white) !important;
 }
 
 .btn-danger {
     background: var(--danger-gradient) !important;
     border-color: transparent !important;
-    color: #fff !important;
+    color: var(--text-white) !important;
     box-shadow: 0 2px 8px rgba(239,68,68,0.35) !important;
 }
 
@@ -626,7 +626,7 @@ td img { border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
 /* ── ADD BUTTON (top right of changelist) ──────────────────── */
 .object-tools a.addlink {
     background: var(--success-gradient) !important;
-    color: #fff !important;
+    color: var(--text-white) !important;
     border-radius: var(--radius-sm) !important;
     padding: 0.5rem 1.1rem !important;
     font-weight: 600 !important;
@@ -647,7 +647,7 @@ td img { border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
 /* ── DELETE BUTTON ─────────────────────────────────────────── */
 a.deletelink, .submit-row a.deletelink {
     background: var(--danger-gradient) !important;
-    color: #fff !important;
+    color: var(--text-white) !important;
     border: none !important;
     padding: 0.5rem 1rem !important;
     border-radius: var(--radius-sm) !important;
@@ -662,7 +662,7 @@ a.deletelink, .submit-row a.deletelink {
 a.deletelink:hover, .submit-row a.deletelink:hover {
     transform: translateY(-1px) !important;
     box-shadow: 0 6px 20px rgba(239,68,68,0.45) !important;
-    color: #fff !important;
+    color: var(--text-white) !important;
 }
 
 /* ── FORMS ─────────────────────────────────────────────────── */
@@ -743,7 +743,7 @@ select.form-control {
 
 .actions .button {
     background: var(--brand-grad) !important;
-    color: #fff !important;
+    color: var(--text-white) !important;
     border: none !important;
     border-radius: var(--radius-sm) !important;
     padding: 0.4rem 0.9rem !important;
@@ -862,7 +862,7 @@ select.form-control {
 .page-item.active .page-link {
     background: var(--brand-grad) !important;
     border-color: transparent !important;
-    color: #fff !important;
+    color: var(--text-white) !important;
     box-shadow: 0 2px 8px rgba(99,102,241,0.4) !important;
 }
 

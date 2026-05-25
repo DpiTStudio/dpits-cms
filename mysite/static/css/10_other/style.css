@@ -1,22 +1,4 @@
 /* styles.css - Основные стили для всего сайта */
-* {
-    color: var(--text-body) !important;
-}
-a {
-    color: var(--text-body) !important;
-}
-a:hover {
-    color: var(--text-body) !important;
-}
-a:active {
-    color: var(--text-body) !important;
-}
-
-/* Hero Section Styles */
-.hero-section {
-    background: linear-gradient(135deg, var(--text-white)75 0%, #b16c0a 100%);
-    padding: 3rem 0 !important;
-}
 
 .img_hero {
     width: 200px !important;
@@ -52,7 +34,7 @@ a:active {
 .content-article {
     line-height: 1.8;
     font-size: 1.1rem;
-    color: #333;
+    color: var(--text-secondary);
     padding: 2rem 0;
 }
 
@@ -91,7 +73,8 @@ a:active {
 
 .contact-item:hover {
     transform: translateY(-5px);
-    background: #e9ecef;
+    background: var(--bg-card-hover);
+    border-color: var(--primary-color);
 }
 
 .contact-item h5 {

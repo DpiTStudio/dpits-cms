@@ -18,16 +18,16 @@
 }
 
 .portfolio-meta {
-    background-color: var(--bg-surface, #f8f9fa);
+    background-color: var(--bg-surface, var(--bg-card));
     padding: 1.5rem;
     border-radius: var(--border-radius-lg, 12px);
 }
 
 .categories-header {
-    background-color: var(--bg-surface, #fff);
+    background-color: var(--bg-surface, var(--bg-card));
     padding: 1rem;
     border-radius: var(--border-radius-md, 8px);
-    border: 1px solid var(--border-color, #eee);
+    border: 1px solid var(--border-color, var(--border-color));
 }
 
 .related-work-card {

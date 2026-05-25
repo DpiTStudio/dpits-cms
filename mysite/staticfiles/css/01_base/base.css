@@ -194,8 +194,9 @@ li {
 .text-light { color: var(--text-primary) !important; }
 
 /* Адаптация светлых фонов под темную тему */
-.bg-light { background-color: var(--neutral-800) !important; color: var(--text-primary) !important; }
+.bg-light, .bg-light-subtle, .text-bg-light { background-color: var(--neutral-800) !important; color: var(--text-primary) !important; }
 .bg-white { background-color: var(--bg-card) !important; color: var(--text-primary) !important; border-color: var(--border-color) !important; }
+.bg-body-tertiary, .bg-body-secondary { background-color: var(--bg-secondary) !important; color: var(--text-primary) !important; }
 
 /* Адаптация карточек Bootstrap */
 .card {

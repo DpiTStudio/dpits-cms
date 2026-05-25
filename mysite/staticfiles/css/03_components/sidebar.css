@@ -6,9 +6,9 @@
 :root {
     --sidebar-bg: rgba(15, 23, 42, 0.8);
     --sidebar-item-bg: #0f172a;
-    --sidebar-accent: #3b82f6;
+    --sidebar-accent: var(--primary-color);
     --sidebar-accent-glow: rgba(59, 130, 246, 0.5);
-    --sidebar-text-primary: #ffffff;
+    --sidebar-text-primary: var(--text-white);
     --sidebar-text-secondary: rgba(255, 255, 255, 0.7);
     --sidebar-text-muted: rgba(255, 255, 255, 0.5);
     --sidebar-border: rgba(255, 255, 255, 0.1);
@@ -266,7 +266,7 @@
 
 .sidebar-contact-link:hover {
     background: rgba(255, 255, 255, 0.08);
-    color: #fff !important;
+    color: var(--text-white) !important;
     transform: translateX(4px);
 }
 
@@ -334,7 +334,7 @@
 
 .sidebar-service-item:hover {
     background: rgba(59, 130, 246, 0.1);
-    color: #fff !important;
+    color: var(--text-white) !important;
     transform: translateX(4px);
 }
 

@@ -30,7 +30,7 @@
 .service-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
-    border-color: #6366f1;
+    border-color: var(--primary-color);
     background: var(--bg-card-hover);
 }
 
@@ -58,7 +58,7 @@
 .service-price {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #6366f1;
+    color: var(--primary-color);
 }
 
 .btn-hover-lift {

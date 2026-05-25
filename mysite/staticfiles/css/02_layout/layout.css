@@ -220,7 +220,7 @@ header::after {
 
 /* Элемент выпадающего меню */
 .dropdown-item {
-    color: #ffffff;
+    color: var(--text-white);
     /* Белый цвет текста */
     padding: 2rem 1rem;
     /* Внутренние отступы */
@@ -238,7 +238,7 @@ header::after {
 
 /* Иконка в выпадающем меню */
 .dropdown-item i {
-    color: #ffffff;
+    color: var(--text-white);
     /* Белая иконка */
     transition: var(--transition);
 }
@@ -261,13 +261,13 @@ header::after {
 .dropdown-item:active {
     background-color: var(--primary-color);
     /* Основной цвет фона */
-    color: #ffffff;
+    color: var(--text-white);
     /* Белый текст */
 }
 
 .dropdown-item.active i,
 .dropdown-item:active i {
-    color: #ffffff;
+    color: var(--text-white);
     /* Белая иконка */
 }
 

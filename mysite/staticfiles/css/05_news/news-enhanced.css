@@ -12,10 +12,10 @@
     left: 0;
     height: 3px;
     width: 0%;
-    background: linear-gradient(90deg, var(--primary-color, #6366f1), var(--secondary-color, #06b6d4));
+    background: linear-gradient(90deg, var(--primary-color, var(--primary-color)), var(--secondary-color, #06b6d4));
     z-index: 9999;
     transition: width 0.1s linear;
-    box-shadow: 0 0 8px var(--primary-color, #6366f1);
+    box-shadow: 0 0 8px var(--primary-color, var(--primary-color));
 }
 
 /* ─────────────────────────────────────────────
@@ -29,8 +29,8 @@
     display: inline-flex;
     align-items: center;
     padding: 0.45rem 1.25rem;
-    background: linear-gradient(135deg, var(--primary-color, #6366f1), #a855f7);
-    color: #fff;
+    background: linear-gradient(135deg, var(--primary-color, var(--primary-color)), #a855f7);
+    color: var(--text-white);
     border-radius: 50px;
     font-weight: 700;
     font-size: 0.9rem;
@@ -69,8 +69,8 @@
     display: inline-flex;
     align-items: center;
     padding: 0.25rem 0.75rem;
-    background: linear-gradient(135deg, #6366f1, #a855f7);
-    color: #fff;
+    background: linear-gradient(135deg, var(--primary-color), #a855f7);
+    color: var(--text-white);
     border-radius: 50px;
     font-size: 0.72rem;
     font-weight: 700;
@@ -85,7 +85,7 @@
     align-items: center;
     padding: 0.25rem 0.75rem;
     background: linear-gradient(135deg, #f43f5e, #ef4444);
-    color: #fff;
+    color: var(--text-white);
     border-radius: 50px;
     font-size: 0.72rem;
     font-weight: 700;
@@ -144,7 +144,7 @@
 
 .news-inline-tag:hover {
     background: rgba(99, 102, 241, 0.25);
-    color: #fff;
+    color: var(--text-white);
     border-color: rgba(99, 102, 241, 0.4);
 }
 
@@ -187,7 +187,7 @@
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    color: #fff;
+    color: var(--text-white);
     font-size: 1rem;
     backdrop-filter: blur(12px);
     transition: all 0.3s ease;
@@ -206,7 +206,7 @@
 
 .news-live-search-input:focus ~ .news-live-search-icon,
 .news-live-search-wrapper:focus-within .news-live-search-icon {
-    color: var(--primary-color, #6366f1);
+    color: var(--primary-color, var(--primary-color));
 }
 
 .news-live-search-clear {
@@ -219,7 +219,7 @@
     z-index: 2;
 }
 
-.news-live-search-clear:hover { color: #fff; }
+.news-live-search-clear:hover { color: var(--text-white); }
 
 /* Dropdown */
 .news-live-search-dropdown {
@@ -227,7 +227,7 @@
     top: calc(100% + 8px);
     left: 0;
     right: 0;
-    background: #121640;
+    background: var(--bg-card);
     border: 1px solid rgba(99, 102, 241, 0.25);
     border-radius: 12px;
     overflow: hidden;
@@ -281,7 +281,7 @@
 
 .lsr-title {
     font-size: 0.9rem;
-    color: #fff;
+    color: var(--text-white);
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
@@ -316,7 +316,7 @@
     justify-content: center;
     padding: 0.75rem;
     background: rgba(99, 102, 241, 0.07);
-    color: var(--primary-color, #6366f1);
+    color: var(--primary-color, var(--primary-color));
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
@@ -324,7 +324,7 @@
     transition: background 0.2s ease;
 }
 
-.lsr-all:hover { background: rgba(99, 102, 241, 0.15); color: #fff; }
+.lsr-all:hover { background: rgba(99, 102, 241, 0.15); color: var(--text-white); }
 
 /* ─────────────────────────────────────────────
    8. FILTER STATUS BAR
@@ -394,7 +394,7 @@
 .sidebar-widget-title {
     font-size: 1rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-white);
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
@@ -412,7 +412,7 @@
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    color: #fff;
+    color: var(--text-white);
     font-size: 0.9rem;
     outline: none;
     transition: border-color 0.3s;
@@ -423,10 +423,10 @@
 
 .sidebar-search-btn {
     padding: 0.6rem 1rem;
-    background: var(--primary-color, #6366f1);
+    background: var(--primary-color, var(--primary-color));
     border: none;
     border-radius: 8px;
-    color: #fff;
+    color: var(--text-white);
     cursor: pointer;
     transition: background 0.2s;
 }
@@ -461,7 +461,7 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: linear-gradient(180deg, #6366f1, #a855f7);
+    background: linear-gradient(180deg, var(--primary-color), #a855f7);
     border-radius: 3px 0 0 3px;
     opacity: 0;
     transition: opacity 0.22s ease;
@@ -500,7 +500,7 @@
 /* Top-3 rank styling */
 .popular-news-item:nth-child(1) .popular-news-rank {
     background: linear-gradient(135deg, rgba(245,158,11,0.22), rgba(239,68,68,0.18));
-    color: #f59e0b;
+    color: var(--warning-color);
     border-color: rgba(245,158,11,0.35);
 }
 .popular-news-item:nth-child(2) .popular-news-rank {
@@ -535,7 +535,7 @@
     transition: color 0.2s;
 }
 
-.popular-news-item:hover .popular-news-title { color: #fff; }
+.popular-news-item:hover .popular-news-title { color: var(--text-white); }
 
 .popular-news-meta {
     display: flex;
@@ -583,7 +583,7 @@
 
 .tag-cloud-item:hover {
     background: rgba(99, 102, 241, 0.2);
-    color: #fff;
+    color: var(--text-white);
     border-color: rgba(99, 102, 241, 0.4);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
@@ -621,7 +621,7 @@
 
 .rss-link:hover {
     background: rgba(245, 158, 11, 0.2);
-    color: #f59e0b;
+    color: var(--warning-color);
 }
 
 .rss-link-sm {
@@ -638,7 +638,7 @@
     transition: all 0.2s ease;
 }
 
-.rss-link-sm:hover { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+.rss-link-sm:hover { background: rgba(245, 158, 11, 0.2); color: var(--warning-color); }
 
 /* ─────────────────────────────────────────────
    14. NEWS DETAIL — META & TAGS
@@ -670,7 +670,7 @@
 
 .news-tag-link:hover {
     background: rgba(99, 102, 241, 0.25);
-    color: #fff;
+    color: var(--text-white);
     border-color: rgba(99, 102, 241, 0.5);
     transform: translateY(-2px);
 }
@@ -704,7 +704,7 @@
 
 .news-nav-btn i {
     font-size: 1.1rem;
-    color: var(--primary-color, #6366f1);
+    color: var(--primary-color, var(--primary-color));
     flex-shrink: 0;
 }
 
@@ -732,7 +732,7 @@
     transition: color 0.2s;
 }
 
-.news-nav-btn:hover .news-nav-title { color: #fff; }
+.news-nav-btn:hover .news-nav-title { color: var(--text-white); }
 
 .news-nav-btn--next { justify-content: flex-end; }
 
@@ -773,7 +773,7 @@
 .category-hero-title {
     font-size: 1.75rem;
     font-weight: 800;
-    color: #fff;
+    color: var(--text-white);
     line-height: 1.2;
 }
 

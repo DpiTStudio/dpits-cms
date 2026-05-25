@@ -2,7 +2,7 @@
 
 .news-meta {
     font-size: 0.9rem;
-    color: var(--text-muted, #6c757d);
+    color: var(--text-muted, var(--neutral-500));
     margin-bottom: 0.5rem;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .hover-primary:hover {
-    color: var(--primary-color, #007bff) !important;
+    color: var(--primary-color, var(--primary-color)) !important;
 }
 
 .active-item-news {

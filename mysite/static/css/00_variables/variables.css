@@ -136,7 +136,7 @@
     
     /* Legacy Compat */
     --dark-color: var(--bg-body);
-    --light-color: var(--text-primary);
+    --light-color: var(--neutral-800);
     --text-color: var(--text-primary);
     --border-radius: var(--radius-md);
     --header-height: 80px;

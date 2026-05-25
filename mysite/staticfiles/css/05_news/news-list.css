@@ -55,15 +55,15 @@
 
 .btn-filter-pill:hover, .btn-sort-pill:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    color: var(--text-white);
     transform: translateY(-2px);
     border-color: rgba(255, 255, 255, 0.2);
 }
 
 .btn-filter-pill.active, .btn-sort-pill.active {
-    background: var(--bs-primary, #6366f1);
-    color: #fff;
-    border-color: var(--bs-primary, #6366f1);
+    background: var(--bs-primary, var(--primary-color));
+    color: var(--text-white);
+    border-color: var(--bs-primary, var(--primary-color));
     box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
 }
 
@@ -145,7 +145,7 @@
 
 .news-category-badge:hover {
     background: rgba(99, 102, 241, 0.3);
-    color: #fff;
+    color: var(--text-white);
     box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
 }
 
@@ -167,7 +167,7 @@
 }
 
 .btn-read-more {
-    color: #fff;
+    color: var(--text-white);
     text-decoration: none;
     font-weight: 500;
     font-size: 0.95rem;
@@ -199,8 +199,8 @@
 }
 
 .glass-pagination .page-item.active .page-link {
-    background: var(--bs-primary, #6366f1);
-    border-color: var(--bs-primary, #6366f1);
+    background: var(--bs-primary, var(--primary-color));
+    border-color: var(--bs-primary, var(--primary-color));
     color: white;
     box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
 }
