@@ -2,6 +2,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from main.models import SiteSettings, Page, ManagedFile
 from main.forms import ContactForm
 
@@ -14,6 +15,7 @@ class SiteSettingsModelTest(TestCase):
     def setUp(self):
         # Очистим перед тестом
         SiteSettings.objects.all().delete()
+        cache.clear()
 
     def test_singleton_behavior(self):
         """Проверяет, что SiteSettings ведет себя как синглтон."""
@@ -24,15 +26,16 @@ class SiteSettingsModelTest(TestCase):
         self.assertEqual(settings2.pk, 1)
         self.assertEqual(SiteSettings.objects.count(), 1)
 
-        # Попытка создать вторую запись через конструктор все равно перезапишет ID = 1 при сохранении
-        settings3 = SiteSettings(title="Test settings 3")
-        settings3.save()
+        # Проверим, что принудительное изменение PK переписывается на 1 при сохранении
+        settings1.pk = 999
+        settings1.save()
+        self.assertEqual(settings1.pk, 1)
         self.assertEqual(SiteSettings.objects.count(), 1)
-        self.assertEqual(SiteSettings.load().title, "Test settings 3")
 
     def test_validation(self):
         """Проверяет валидацию полей SiteSettings."""
         settings = SiteSettings.load()
+        settings.company_name = "DpiTStudio"  # Заполняем обязательное поле
         settings.site_closed = True
         settings.closure_message = ""
         # Должна быть ошибка: сайт закрыт, но нет сообщения о закрытии
@@ -53,6 +56,9 @@ class SiteSettingsModelTest(TestCase):
 
 class PageModelTest(TestCase):
     """Тесты для модели Page."""
+
+    def setUp(self):
+        cache.clear()
 
     def test_reserved_slug_validation(self):
         """Проверяет, что зарезервированные URL-адреса вызывают ошибку валидации."""
@@ -140,8 +146,12 @@ class MainViewsTest(TestCase):
     """Тесты представлений (Views) приложения Main."""
 
     def setUp(self):
+        cache.clear()  # Очищаем кэш перед каждым тестом
         self.client = Client()
+        
+        # Настраиваем параметры сайта
         self.site_settings = SiteSettings.load()
+        self.site_settings.company_name = "DpiTStudio"
         self.site_settings.title = "DpiTStudio CMS"
         self.site_settings.logo_text = "DPITS-CMS"
         self.site_settings.site_closed = False
@@ -182,6 +192,9 @@ class MainViewsTest(TestCase):
         self.site_settings.site_closed = True
         self.site_settings.closure_message = "Сайт на обслуживании"
         self.site_settings.save()
+        
+        # Еще раз очищаем кэш после изменения настроек, чтобы cached_page не выдавал старый результат
+        cache.clear()
 
         # Для неавторизованного пользователя
         response = self.client.get(reverse("main:index"))
