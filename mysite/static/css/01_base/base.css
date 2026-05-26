@@ -39,6 +39,7 @@ main {
     width: 100%;
     padding-left: var(--spacing-lg);
     padding-right: var(--spacing-lg);
+    background-color: var(--bg-body);
 }
 
 /* Заголовок страницы */

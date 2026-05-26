@@ -1,34 +1,58 @@
 <!-- Рекомендуемые страницы -->
 {% if featured_pages %}
 <div class="container-fluid py-5">
-    <!-- Секционный заголовок -->
-    <div class="text-center mb-5" data-aos="fade-up">
-        <span class="section-badge"><i class="fas fa-file-alt"></i> Разделы</span>
-        <h2 class="display-5 fw-bold text-white mb-3">Полезные материалы</h2>
-        <div class="mx-auto" style="width: 80px; height: 4px; background: var(--gradient-primary); border-radius: 2px;"></div>
-    </div>
+  <!-- Секционный заголовок -->
+  <div class="text-left mb-5" data-aos="fade-up">
+    <span class="section-badge">
+      <i class="fas fa-file-alt"></i>
+      Разделы
+    </span>
+    <h2 class="display-5 fw-bold text-white mb-3">Полезные материалы</h2>
+    <div
+      class="mx-auto"
+      style="
+        width: 80px;
+        height: 4px;
+        background: var(--gradient-primary);
+        border-radius: 2px;
+      "
+    ></div>
+  </div>
 
-    <div class="row g-4">
-        {% for page in featured_pages %}
-        <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
-            <article class="glass-card-premium h-100 premium-shine rounded-4 p-4 d-flex flex-column">
-                <h5 class="text-white fw-bold mb-3">
-                    <a href="{{ page.get_absolute_url }}" class="text-white text-decoration-none hover-primary">
-                        <i class="fas fa-file-alt me-2 text-primary"></i>
-                        {{ page.title }}
-                    </a>
-                </h5>
-                <p class="text-white-50 small mb-4 flex-grow-1">
-                    {{ page.content|striptags|truncatewords:15 }}
-                </p>
-                <div class="mt-auto">
-                    <a href="{{ page.get_absolute_url }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
-                        Читать далее <i class="fas fa-arrow-right ms-1 small"></i>
-                    </a>
-                </div>
-            </article>
+  <div class="row g-4">
+    {% for page in featured_pages %}
+    <div
+      class="col-12 col-md-6 col-lg-4"
+      data-aos="fade-up"
+      data-aos-delay="{{ forloop.counter }}00"
+    >
+      <article
+        class="glass-card-premium h-100 premium-shine rounded-4 p-4 d-flex flex-column"
+      >
+        <h5 class="text-white fw-bold mb-3">
+          <a
+            href="{{ page.get_absolute_url }}"
+            class="text-white text-decoration-none hover-primary"
+          >
+            <i class="fas fa-file-alt me-2 text-primary"></i>
+            {{ page.title }}
+          </a>
+        </h5>
+        <p class="text-white-50 small mb-4 flex-grow-1">
+          {{ page.content|striptags|truncatewords:15 }}
+        </p>
+        <div class="mt-auto">
+          <a
+            href="{{ page.get_absolute_url }}"
+            class="btn btn-sm btn-outline-primary rounded-pill px-3"
+          >
+            Читать далее
+            <i class="fas fa-arrow-right ms-1 small"></i>
+          </a>
         </div>
-        {% endfor %}
+      </article>
     </div>
+    {% endfor %}
+  </div>
 </div>
 {% endif %}

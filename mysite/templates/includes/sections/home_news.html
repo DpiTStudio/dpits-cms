@@ -3,95 +3,148 @@
 {% block home_news_section %}
 {% if recent_news_list %}
 <div class="container-fluid py-5">
-    <div class="row justify-content-center">
-        <div class="col-12 col-lg-11">
-            <!-- Секционный заголовок -->
-            <div class="text-center mb-5" data-aos="fade-up">
-                <span class="section-badge"><i class="fas fa-newspaper"></i> Новости</span>
-                <h2 class="display-5 fw-bold text-white mb-3">Последние события</h2>
-                <div class="mx-auto" style="width: 80px; height: 4px; background: var(--gradient-primary); border-radius: 2px;"></div>
-            </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-11">
+      <!-- Секционный заголовок -->
+      <div class="text-left mb-5" data-aos="fade-up">
+        <span class="section-badge">
+          <i class="fas fa-newspaper"></i>
+          Новости
+        </span>
+        <h2 class="display-5 fw-bold text-white mb-3">Последние события</h2>
+        <div
+          class="mx-auto"
+          style="
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+          "
+        ></div>
+      </div>
 
-            <!-- Сетка новостей: 2 колонки, равная высота через d-flex на колонке -->
-            <div class="row g-4">
-                {% for recent_news in recent_news_list %}
-                <div class="col-12 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
-                    <article class="news-card-premium glass-card-premium premium-shine rounded-4 overflow-hidden position-relative d-flex flex-column w-100">
+      <!-- Сетка новостей: 2 колонки, равная высота через d-flex на колонке -->
+      <div class="row g-4">
+        {% for recent_news in recent_news_list %}
+        <div
+          class="col-12 col-md-6 d-flex"
+          data-aos="fade-up"
+          data-aos-delay="{{ forloop.counter }}00"
+        >
+          <article
+            class="news-card-premium glass-card-premium premium-shine rounded-4 overflow-hidden position-relative d-flex flex-column w-100"
+          >
+            <!-- Фоновое изображение -->
+            {% if recent_news.image %}
+            <img
+              src="{{ recent_news.image.url }}"
+              class="news-card-bg w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-1"
+              style="opacity: 0.15"
+              alt="{{ recent_news.title }}"
+            />
+            {% else %}
+            <img
+              src="{% static 'images/default-news.jpg' %}"
+              class="news-card-bg w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-1"
+              style="opacity: 0.15"
+              alt="{{ recent_news.title }}"
+            />
+            {% endif %}
 
-                        <!-- Фоновое изображение -->
-                        {% if recent_news.image %}
-                        <img src="{{ recent_news.image.url }}"
-                             class="news-card-bg w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-1"
-                             style="opacity: 0.15;"
-                             alt="{{ recent_news.title }}">
-                        {% else %}
-                        <img src="{% static 'images/default-news.jpg' %}"
-                             class="news-card-bg w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-1"
-                             style="opacity: 0.15;"
-                             alt="{{ recent_news.title }}">
-                        {% endif %}
+            <!-- Оверлей -->
+            <div
+              class="news-card-overlay position-absolute top-0 start-0 w-100 h-100 z-2"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  rgba(20, 20, 25, 0.95) 0%,
+                  rgba(20, 20, 25, 0.5) 100%
+                );
+                pointer-events: none;
+              "
+            ></div>
 
-                        <!-- Оверлей -->
-                        <div class="news-card-overlay position-absolute top-0 start-0 w-100 h-100 z-2"
-                             style="background: linear-gradient(135deg, rgba(20,20,25,0.95) 0%, rgba(20,20,25,0.5) 100%); pointer-events: none;"></div>
-
-                        <!-- Контент новости: flex-column + flex-grow на описании -->
-                        <div class="news-card-content card-body p-4 p-md-5 d-flex flex-column position-relative z-3 w-100">
-
-                            <!-- Мета: дата + категория -->
-                            <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
-                                <div class="d-flex align-items-center gap-2 text-white-50 small">
-                                    <i class="far fa-calendar-alt"></i>
-                                    <a href="{% url 'news:list' %}?date={{ recent_news.published_at|default:recent_news.created_at|date:'Y-m-d' }}"
-                                       class="text-white-50 text-decoration-none hover-primary">
-                                        {{ recent_news.published_at|default:recent_news.created_at|date:"d M Y" }}
-                                    </a>
-                                </div>
-                                {% if recent_news.category %}
-                                <span class="badge bg-primary bg-opacity-75 backdrop-blur-sm rounded-pill px-3 py-2">
-                                    {{ recent_news.category.name }}
-                                </span>
-                                {% endif %}
-                            </div>
-
-                            <!-- Заголовок: 2 строки максимум -->
-                            <h5 class="news-title card-title text-white fw-bold mb-3 line-clamp-2">
-                                <a href="{% url 'news:detail' recent_news.slug %}"
-                                   class="text-white text-decoration-none hover-primary">
-                                    {{ recent_news.title }}
-                                </a>
-                            </h5>
-
-                            <!-- Описание: flex-grow-1 — занимает всё оставшееся пространство -->
-                            <p class="news-description text-white-50 small mb-0 flex-grow-1 line-clamp-3">
-                                {{ recent_news.short_description|striptags|truncatewords:20 }}
-                            </p>
-
-                            <!-- Футер: всегда прижат к низу карточки -->
-                            <div class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center">
-                                <a href="{% url 'news:detail' recent_news.slug %}"
-                                   class="btn-read-more btn btn-sm btn-outline-primary rounded-pill px-3">
-                                    Читать <i class="fas fa-arrow-right ms-1 small"></i>
-                                </a>
-                                <span class="text-white-50 small">
-                                    <i class="far fa-eye me-1"></i>{{ recent_news.views }}
-                                </span>
-                            </div>
-
-                        </div>
-                    </article>
+            <!-- Контент новости: flex-column + flex-grow на описании -->
+            <div
+              class="news-card-content card-body p-4 p-md-5 d-flex flex-column position-relative z-3 w-100"
+            >
+              <!-- Мета: дата + категория -->
+              <div
+                class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2"
+              >
+                <div
+                  class="d-flex align-items-center gap-2 text-white-50 small"
+                >
+                  <i class="far fa-calendar-alt"></i>
+                  <a
+                    href="{% url 'news:list' %}?date={{ recent_news.published_at|default:recent_news.created_at|date:'Y-m-d' }}"
+                    class="text-white-50 text-decoration-none hover-primary"
+                  >
+                    {{ recent_news.published_at|default:recent_news.created_at|date:"d M Y" }}
+                  </a>
                 </div>
-                {% endfor %}
-            </div>
+                {% if recent_news.category %}
+                <span
+                  class="badge bg-primary bg-opacity-75 backdrop-blur-sm rounded-pill px-3 py-2"
+                >
+                  {{ recent_news.category.name }}
+                </span>
+                {% endif %}
+              </div>
 
-            <!-- Кнопка "Все новости" -->
-            <div class="text-center mt-5" data-aos="fade-up">
-                <a href="{% url 'news:list' %}" class="btn btn-gradient-primary btn-lg rounded-pill px-5 shine-effect">
-                    Все новости <i class="fas fa-chevron-right ms-2"></i>
+              <!-- Заголовок: 2 строки максимум -->
+              <h5
+                class="news-title card-title text-white fw-bold mb-3 line-clamp-2"
+              >
+                <a
+                  href="{% url 'news:detail' recent_news.slug %}"
+                  class="text-white text-decoration-none hover-primary"
+                >
+                  {{ recent_news.title }}
                 </a>
+              </h5>
+
+              <!-- Описание: flex-grow-1 — занимает всё оставшееся пространство -->
+              <p
+                class="news-description text-white-50 small mb-0 flex-grow-1 line-clamp-3"
+              >
+                {{ recent_news.short_description|striptags|truncatewords:20 }}
+              </p>
+
+              <!-- Футер: всегда прижат к низу карточки -->
+              <div
+                class="mt-4 pt-3 border-top border-white border-opacity-10 d-flex justify-content-between align-items-center"
+              >
+                <a
+                  href="{% url 'news:detail' recent_news.slug %}"
+                  class="btn-read-more btn btn-sm btn-outline-primary rounded-pill px-3"
+                >
+                  Читать
+                  <i class="fas fa-arrow-right ms-1 small"></i>
+                </a>
+                <span class="text-white-50 small">
+                  <i class="far fa-eye me-1"></i>
+                  {{ recent_news.views }}
+                </span>
+              </div>
             </div>
+          </article>
         </div>
+        {% endfor %}
+      </div>
+
+      <!-- Кнопка "Все новости" -->
+      <div class="text-center mt-5" data-aos="fade-up">
+        <a
+          href="{% url 'news:list' %}"
+          class="btn btn-gradient-primary btn-lg rounded-pill px-5 shine-effect"
+        >
+          Все новости
+          <i class="fas fa-chevron-right ms-2"></i>
+        </a>
+      </div>
     </div>
+  </div>
 </div>
 {% endif %}
 {% endblock %}
