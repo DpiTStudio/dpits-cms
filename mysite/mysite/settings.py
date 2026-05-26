@@ -368,7 +368,7 @@ JAZZMIN_SETTINGS = {
         "dark_mode_theme": "darkly",
     },
     # === CUSTOM CSS & JS ===
-    "custom_css": "css/admin_custom.css",
+    "custom_css": "css/11_admin/admin_custom.css",
     "custom_js": "js/admin_font_size.js",
 }
 
