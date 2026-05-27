@@ -339,8 +339,9 @@ mysite/
 | Функция/Класс | URL | Описание |
 |---------------|-----|----------|
 | `CategoryListView` | `/knowledge-base/` | Главная страница со списком разделов |
-| `ArticleListView` | `/knowledge-base/<slug>/` | Список статей в категории |
-| `ArticleDetailView` | `/knowledge-base/<cat_slug>/<slug>/` | Чтение статьи |
+| `ArticleListView` | `/knowledge-base/category/<slug>/` | Список статей в категории |
+| `ArticleDetailView` | `/knowledge-base/article/<slug>/` | Чтение статьи |
+| `SearchResultsView` | `/knowledge-base/search/` | Полнотекстовый поиск по базе знаний |
 
 ---
 
@@ -455,12 +456,12 @@ run_dev.bat
 
 | Раздел | URL |
 |--------|-----|
-| Главная страница | `http://localhost:8000/` |
-| Панель администратора | `http://localhost:8000/admin/` |
-| Новости | `http://localhost:8000/news/` |
-| Услуги | `http://localhost:8000/services/` |
-| Портфолио | `http://localhost:8000/portfolio/` |
-| База знаний | `http://localhost:8000/knowledge-base/` |
+| Главная страница | `http://localhost:6678/` |
+| Панель администратора | `http://localhost:6678/admin/` |
+| Новости | `http://localhost:6678/news/` |
+| Услуги | `http://localhost:6678/services/` |
+| Портфолио | `http://localhost:6678/portfolio/` |
+| База знаний | `http://localhost:6678/knowledge-base/` |
 
 ---
 
