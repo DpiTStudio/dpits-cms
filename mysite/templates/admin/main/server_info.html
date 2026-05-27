@@ -536,14 +536,27 @@
         <div class="server-info-card-body">
             <table class="info-table">
                 <tr>
-                    <td>{% trans "Идентификатор (PID)" %}</td><td>{{ server_info.process.pid }}</td>
-                    <td>{% trans "Статус" %}</td><td>{{ server_info.process.status }}</td>
+                    <td>{% trans "Идентификатор (PID)" %}</td>
+                    <td>{{ server_info.process.pid }}</td>
                 </tr>
                 <tr>
-                    <td>{% trans "Потребление памяти" %}</td><td>{{ server_info.process.memory_info }}</td>
-                    <td>{% trans "Время запуска" %}</td><td>{{ server_info.process.create_time|date:"d.m.Y H:i:s" }}</td>
+                    <td>{% trans "Статус" %}</td>
+                    <td>{{ server_info.process.status }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "Потребление памяти" %}</td>
+                    <td>{{ server_info.process.memory_info }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "Время запуска" %}</td>
+                    <td>{{ server_info.process.create_time|date:"d.m.Y H:i:s" }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans "Загрузка CPU" %}</td>
+                    <td>{{ server_info.process.cpu_percent }}%</td>
                 </tr>
             </table>
+
         </div>
     </div>
 

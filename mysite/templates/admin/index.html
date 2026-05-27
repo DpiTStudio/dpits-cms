@@ -3,76 +3,8 @@
 
 {% block title %}{% trans "Панель управления" %}{% endblock %}
 
-{% block extrastyle %}
-{{ block.super }}
-<link rel="stylesheet" href="{% static 'admin/css/dashboard.css' %}">
-<style>
-    /* Premium Dashboard Enhancements */
-    .status-indicator-bar {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: var(--radius);
-        box-shadow: var(--card-shadow);
-        transition: var(--transition);
-    }
-    .status-indicator-bar:hover {
-        box-shadow: var(--card-shadow-hover);
-    }
-    .status-indicator-item {
-        display: inline-flex;
-        align-items: center;
-        background: #f8fafc;
-        padding: 6px 14px;
-        border-radius: var(--radius-sm);
-        border: 1px solid #e2e8f0;
-        transition: var(--transition);
-    }
-    .status-indicator-item:hover {
-        background: #f1f5f9;
-        transform: translateY(-1px);
-    }
-    [data-theme="dark"] .status-indicator-item,
-    body.theme-dark .status-indicator-item {
-        background: #1e293b;
-        border-color: #334155;
-    }
-    [data-theme="dark"] .status-indicator-item:hover,
-    body.theme-dark .status-indicator-item:hover {
-        background: #334155;
-    }
-    .gap-flex-custom {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-    .btn-xs {
-        padding: 0.25rem 0.5rem !important;
-        font-size: 0.75rem !important;
-        line-height: 1.5 !important;
-        border-radius: 4px !important;
-    }
-    .text-warning-dark {
-        color: #b45309 !important;
-    }
-    [data-theme="dark"] .text-warning-dark,
-    body.theme-dark .text-warning-dark {
-        color: #fbbf24 !important;
-    }
-    .border-left-warning {
-        border-left: 4px solid var(--warning) !important;
-    }
-    .table td, .table th {
-        vertical-align: middle !important;
-    }
-    .action-btn-group {
-        display: flex;
-        gap: 8px;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
-<div id="content-main container-fluid">
+<div id="content-main" class="container-fluid">
     <!-- ЗАГОЛОВОК ДАШБОРДА -->
     <div class="mb-4 d-flex justify-content-between align-items-center">
         <div>
@@ -147,7 +79,7 @@
                 <span class="text-success"><i class="fas fa-user-shield"></i> {{ admin_stats.users.staff|default:0 }}</span> {% trans "персонал" %}
             </div>
             <div class="stat-progress">
-                <div class="stat-progress-bar" style="background: var(--primary-gradient); width: 0%" data-progress="100"></div>
+                <div class="stat-progress-bar" style="background: var(--primary-gradient);" data-progress="100"></div>
             </div>
         </div>
 
@@ -162,7 +94,7 @@
                 <i class="fas fa-check-circle"></i> {% trans "Активные заказчики" %}
             </div>
             <div class="stat-progress">
-                <div class="stat-progress-bar" style="background: var(--primary-gradient); width: 0%" data-progress="80"></div>
+                <div class="stat-progress-bar" style="background: var(--success-gradient);" data-progress="80"></div>
             </div>
         </div>
 
@@ -177,7 +109,7 @@
                 <i class="fas fa-eye"></i> {{ admin_stats.news.views|default:0 }} {% trans "всего просмотров" %}
             </div>
             <div class="stat-progress">
-                <div class="stat-progress-bar" style="background: var(--info-gradient); width: 0%" data-progress="75"></div>
+                <div class="stat-progress-bar" style="background: var(--info-gradient);" data-progress="75"></div>
             </div>
         </div>
 
@@ -192,7 +124,7 @@
                 <i class="fas fa-star"></i> {{ admin_stats.reviews.site_approved|default:0 }} {% trans "отзывов" %}
             </div>
             <div class="stat-progress">
-                <div class="stat-progress-bar" style="background: var(--success-gradient); width: 0%" data-progress="60"></div>
+                <div class="stat-progress-bar" style="background: var(--success-gradient);" data-progress="60"></div>
             </div>
         </div>
 
@@ -207,7 +139,7 @@
                 <i class="fas fa-clock"></i> {% trans "История и текущие" %}
             </div>
             <div class="stat-progress">
-                <div class="stat-progress-bar" style="background: var(--danger-gradient); width: 0%" data-progress="90"></div>
+                <div class="stat-progress-bar" style="background: var(--danger-gradient);" data-progress="90"></div>
             </div>
         </div>
 
@@ -222,7 +154,22 @@
                 <i class="fas fa-bell"></i> {{ admin_stats.feedback.new|default:0 }} {% trans "новых" %}
             </div>
             <div class="stat-progress">
-                <div class="stat-progress-bar" style="background: var(--warning-gradient); width: 0%" data-progress="{% if admin_stats.feedback.total > 0 %}{{ admin_stats.feedback.new|get_percent:admin_stats.feedback.total }}{% else %}0{% endif %}"></div>
+                <div class="stat-progress-bar" style="background: linear-gradient(135deg, #8b5cf6, #d946ef);" data-progress="{% if admin_stats.feedback.total > 0 %}{{ admin_stats.feedback.new|get_percent:admin_stats.feedback.total }}{% else %}0{% endif %}"></div>
+            </div>
+        </div>
+
+        <!-- КАРТОЧКА: ТИКЕТЫ ПОДДЕРЖКИ -->
+        <div class="stat-card stat-tickets">
+            <div class="stat-icon"><i class="fas fa-headset"></i></div>
+            <div>
+                <div class="stat-label">{% trans "Тикеты поддержки" %}</div>
+                <div class="stat-value countup" data-count="{{ admin_stats.tickets.total|default:0 }}">0</div>
+            </div>
+            <div class="text-xs {% if admin_stats.tickets.open > 0 %}text-info{% else %}text-muted{% endif %}">
+                <i class="fas fa-exclamation-circle"></i> {{ admin_stats.tickets.open|default:0 }} {% trans "открытых" %}
+            </div>
+            <div class="stat-progress">
+                <div class="stat-progress-bar" style="background: linear-gradient(135deg, #0ea5e9, #6366f1);" data-progress="{% if admin_stats.tickets.total > 0 %}{{ admin_stats.tickets.open|get_percent:admin_stats.tickets.total }}{% else %}0{% endif %}"></div>
             </div>
         </div>
     </div>
@@ -499,16 +446,31 @@
         </div>
     </div>
 
-    <!-- ЖУРНАЛ ДЕЙСТВИЙ АДМИНИСТРАТОРОВ -->
+    <!-- Журнал действий администраторов -->
     <div class="row">
         <div class="col-12 mb-4">
             <div class="card shadow-sm border-0">
-                <div class="card-header d-flex justify-content-between align-items-center" style="background: rgba(128,128,128,0.02);">
+                <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2" style="background: rgba(128,128,128,0.02);">
                     <h5 class="m-0 font-weight-bold"><i class="fas fa-history text-secondary mr-2"></i>{% trans "Журнал последних действий в системе" %}</h5>
+                    <!-- Фильтры по типу действия -->
+                    <div class="log-filter-group" id="logFilterGroup">
+                        <button class="log-filter-btn active" data-filter="all" id="lf-all">
+                            <i class="fas fa-list"></i> {% trans "Все" %}
+                        </button>
+                        <button class="log-filter-btn" data-filter="add" id="lf-add">
+                            <i class="fas fa-plus-circle"></i> {% trans "Добавления" %}
+                        </button>
+                        <button class="log-filter-btn" data-filter="change" id="lf-change">
+                            <i class="fas fa-edit"></i> {% trans "Изменения" %}
+                        </button>
+                        <button class="log-filter-btn" data-filter="delete" id="lf-delete">
+                            <i class="fas fa-trash-alt"></i> {% trans "Удаления" %}
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-hover mb-0">
+                        <table class="table table-hover mb-0" id="adminActionLog">
                             <thead>
                                 <tr>
                                     <th>{% trans "Время" %}</th>
@@ -521,7 +483,7 @@
                             <tbody>
                                 {% if admin_stats.recent_logs %}
                                     {% for log in admin_stats.recent_logs %}
-                                        <tr>
+                                        <tr data-action-type="{% if log.is_addition %}add{% elif log.is_change %}change{% elif log.is_deletion %}delete{% endif %}">
                                             <td class="text-nowrap small text-muted">
                                                 {{ log.action_time|date:"d.m.Y H:i:s" }}
                                             </td>
@@ -569,27 +531,70 @@
 
 {% block extrajs %}
 {{ block.super }}
-<!-- СКРИПТ АНИМАЦИИ ЧИСЕЛ -->
+<!-- СКРИПТЫ ДАШБОРДА -->
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const counters = document.querySelectorAll('.countup');
-        counters.forEach(counter => {
-            const target = +counter.getAttribute('data-count');
-            const duration = 1500; // 1.5 сек
-            const stepSize = target / (duration / 16);
-            
-            let current = 0;
-            const updateCount = () => {
-                current += stepSize;
-                if (current < target) {
-                    counter.innerText = Math.ceil(current);
-                    requestAnimationFrame(updateCount);
-                } else {
-                    counter.innerText = target;
-                }
-            };
-            updateCount();
-        });
+document.addEventListener("DOMContentLoaded", function() {
+
+    // ── 1. Анимация числовых счётчиков (countup) ──────────────────
+    document.querySelectorAll('.countup').forEach(counter => {
+        const target = +counter.getAttribute('data-count');
+        // Оптимизация: пропускаем если target = 0
+        if (target === 0) { counter.innerText = 0; return; }
+        const duration = 1500;
+        const stepSize = target / (duration / 16);
+        let current = 0;
+        const updateCount = () => {
+            current += stepSize;
+            if (current < target) {
+                counter.innerText = Math.ceil(current);
+                requestAnimationFrame(updateCount);
+            } else {
+                counter.innerText = target;
+            }
+        };
+        requestAnimationFrame(updateCount);
     });
+
+    // ── 2. Анимация прогресс-баров: 0% → data-progress% ──────────
+    // Небольшая задержка для срабатывания CSS-анимации
+    setTimeout(() => {
+        document.querySelectorAll('.stat-progress-bar[data-progress]').forEach(bar => {
+            const target = bar.getAttribute('data-progress');
+            bar.style.width = target + '%';
+        });
+    }, 120);
+
+    // ── 3. Фильтр журнала действий ─────────────────────────────────
+    const filterBtns = document.querySelectorAll('.log-filter-btn');
+    const logRows = document.querySelectorAll('#adminActionLog tbody tr[data-action-type]');
+
+    if (filterBtns.length && logRows.length) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+
+                // Сбросить все кнопки
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'active-add', 'active-change', 'active-delete');
+                });
+
+                // Активировать нажатую кнопку
+                this.classList.add('active');
+                if (filter === 'add')    this.classList.add('active-add');
+                if (filter === 'change') this.classList.add('active-change');
+                if (filter === 'delete') this.classList.add('active-delete');
+
+                // Фильтровать строки
+                logRows.forEach(row => {
+                    if (filter === 'all' || row.getAttribute('data-action-type') === filter) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+});
 </script>
 {% endblock %}
