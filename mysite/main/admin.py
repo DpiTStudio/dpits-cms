@@ -24,6 +24,7 @@ from .models import (
     StatisticsBanner,   # Баннеры счетчиков
     AppHeroSettings,    # Настройки Hero
     PaymentMethod,      # Способы оплаты
+    ContactMessage,     # Сообщения обратной связи
 )
 
 # Импорт утилит
@@ -532,11 +533,64 @@ class StatisticsBannerAdmin(admin.ModelAdmin):
         }),
     )
 
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    """
+    Админка для просмотра сообщений из формы обратной связи.
+    Все поля только для чтения — редактирование сообщений не предусмотрено.
+    """
+
+    list_display = ("name", "contact", "short_message_preview", "ip_address", "is_read", "created_at")
+    list_filter = ("is_read", "created_at")
+    search_fields = ("name", "contact", "message")
+    readonly_fields = ("name", "contact", "message", "ip_address", "created_at")
+    list_editable = ("is_read",)
+    ordering = ("-created_at",)
+    date_hierarchy = "created_at"
+
+    fieldsets = (
+        (_("Отправитель"), {
+            "fields": ("name", "contact", "ip_address"),
+        }),
+        (_("Сообщение"), {
+            "fields": ("message",),
+        }),
+        (_("Статус"), {
+            "fields": ("is_read", "created_at"),
+        }),
+    )
+
+    actions = ["mark_as_read", "mark_as_unread"]
+
+    # Запрещаем создание новых записей через admin
+    def has_add_permission(self, request):
+        return False
+
+    @admin.display(description=_("Сообщение"), ordering="message")
+    def short_message_preview(self, obj):
+        """Первые 60 символов для отображения в списке."""
+        text = obj.message[:60]
+        if len(obj.message) > 60:
+            text += "…"
+        return text
+
+    @admin.action(description=_("Отметить как прочитанные"))
+    def mark_as_read(self, request, queryset):
+        count = queryset.update(is_read=True)
+        self.message_user(request, _(f"Отмечено как прочитанных: {count}"), messages.SUCCESS)
+
+    @admin.action(description=_("Отметить как непрочитанные"))
+    def mark_as_unread(self, request, queryset):
+        count = queryset.update(is_read=False)
+        self.message_user(request, _(f"Отмечено как непрочитанных: {count}"), messages.SUCCESS)
+
+
 # Импортируем админку файлов из отдельного модуля
 try:
     from . import admin_files
 except ImportError:
     pass
+
 
 @admin.register(PaymentMethod)
 class PaymentMethodAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):

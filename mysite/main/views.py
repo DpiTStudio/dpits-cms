@@ -18,7 +18,7 @@
 """
 
 import re  # Модуль для работы с регулярными выражениями
-from django.db.models import Q  # Объект Q для сложных запросов
+from django.db.models import Q, F  # Q — сложные запросы, F — атомарные операции с полями
 from django.shortcuts import (
     render,
     reverse,
@@ -28,7 +28,6 @@ from django.views.generic import (
     TemplateView,
     DetailView,
 )  # | Базовые классы представлений
-from django.utils.decorators import method_decorator  # | Декораторы для методов класса
 from django.views.decorators.cache import cache_page  # | Декоратор кэширования страниц
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger  # | Пагинация
 from django.core.cache import cache  # | Система кэширования
@@ -93,13 +92,28 @@ class BaseView(TemplateView):
     Содержит общую логику для наследования.
     """
 
+    def build_page_title(self, title: str, site_settings=None) -> str:
+        """
+        Формирует заголовок страницы вида: "<title> - <site_name>".
+        Вынесено из всех view, где этот паттерн повторялся 4+ раза.
+
+        Параметры:
+            title: Название конкретной страницы (например, "Контакты")
+            site_settings: Объект SiteSettings (берётся из контекста если None)
+
+        Возвращает:
+            str: Составной заголовок или только title, если logo_text не задан
+        """
+        logo = getattr(site_settings, "logo_text", "") if site_settings else ""
+        return f"{title} - {logo}" if logo else title
+
     def get_context_data(self, **kwargs):
         """
         Добавляет общие данные контекста для всех страниц.
         Включает настройки сайта и проверку статуса обслуживания.
 
         Действия:
-        1. Получает настройки сайта с кэшированием
+        1. Получает настройки сайта с кэшированием (5 минут)
         2. Добавляет базовые SEO-данные
         3. Возвращает расширенный контекст
 
@@ -429,33 +443,46 @@ class PageDetailView(MaintenanceMixin, DetailView):
     def get(self, request, *args, **kwargs):
         """
         Переопределяем GET для инкремента счётчика просмотров.
-        Используем update() для атомарного обновления без race condition.
+
+        Важно: @cache_page намеренно убран из dispatch(), потому что при
+        кэшированном ответе get() не вызывается и счётчик никогда не
+        инкрементируется. Вместо этого используем более гибкое кэширование
+        контекста на уровне отдельных данных (в get_context_data).
+
+        Используем F('views') + 1 для атомарного обновления без race condition
+        при параллельных запросах (в отличие от self.object.views + 1).
         """
         response = super().get(request, *args, **kwargs)
-        # Атомарно увеличиваем счётчик просмотров
-        Page.objects.filter(pk=self.object.pk).update(views=self.object.views + 1)
+        # Атомарный инкремент через F-выражение — безопасно при параллельных запросах
+        Page.objects.filter(pk=self.object.pk).update(views=F('views') + 1)
         return response
-
-    @method_decorator(cache_page(60 * 10))  # | Кэшируем на 10 минут
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
 
 
 class ContactView(MaintenanceMixin, TemplateView):
     """
     Представление для страницы контактов.
     Обрабатывает GET (отображение формы) и POST (отправка формы).
+
+    Улучшения по сравнению с исходной версией:
+    - Rate-limiting: не более 5 отправок в час с одного IP
+    - ContactMessage сохраняется в БД ДО отправки email (защита от потери данных)
+    - site_settings берётся из context processor, а не дополнительным запросом к БД
+    - build_page_title() устраняет дублирование кода
     """
 
     template_name = "main/contacts.html"
+
+    # Максимальное количество отправок формы с одного IP в час
+    RATE_LIMIT_MAX = 5
+    RATE_LIMIT_WINDOW = 3600  # секунд (1 час)
 
     def get_context_data(self, **kwargs):
         """
         Добавляет контекст для страницы контактов.
 
         Действия:
-        1. Формирует заголовок страницы
-        2. Добавляет описание
+        1. Получает site_settings из context (уже загружены context processor)
+        2. Формирует заголовок страницы через build_page_title()
         3. Добавляет форму обратной связи
 
         Параметры:
@@ -465,11 +492,8 @@ class ContactView(MaintenanceMixin, TemplateView):
             dict: Словарь с данными контекста контактов
         """
         context = super().get_context_data(**kwargs)
-        site_settings = SiteSettings.load()
-
-        page_title = "Контакты"
-        if site_settings and site_settings.logo_text:
-            page_title = f"Контакты - {site_settings.logo_text}"
+        # Берём из context (уже заполнено context processor), без лишнего запроса к БД
+        site_settings = context.get("site_settings") or SiteSettings.load()
 
         meta_description = "Контактная информация и способы связи"
         if site_settings and site_settings.seo_description:
@@ -482,7 +506,7 @@ class ContactView(MaintenanceMixin, TemplateView):
         context.update(
             {
                 "site_settings": site_settings,
-                "page_title": page_title,
+                "page_title": self.build_page_title("Контакты", site_settings),
                 "meta_description": meta_description,
                 "breadcrumbs": breadcrumbs,
                 "breadcrumbs_jsonld": get_breadcrumbs_jsonld(breadcrumbs, self.request),
@@ -492,32 +516,92 @@ class ContactView(MaintenanceMixin, TemplateView):
         )
         return context
 
+    def _check_rate_limit(self, request) -> bool:
+        """
+        Проверяет лимит отправок формы для данного IP-адреса.
+
+        Использует Django cache как хранилище счётчика.
+        Ключ: contact_form_<IP>, значение: количество отправок за окно времени.
+
+        Возвращает:
+            bool: True если лимит превышен (нужно заблокировать), False если всё ок
+        """
+        ip = (
+            request.META.get('HTTP_X_FORWARDED_FOR', '').split(',')[0].strip()
+            or request.META.get('REMOTE_ADDR', 'unknown')
+        )
+        cache_key = f'contact_rate_{ip}'
+        attempts = cache.get(cache_key, 0)
+        if attempts >= self.RATE_LIMIT_MAX:
+            return True  # лимит превышен
+        # Увеличиваем счётчик, сохраняем на время окна
+        cache.set(cache_key, attempts + 1, self.RATE_LIMIT_WINDOW)
+        return False
+
     def post(self, request, *args, **kwargs):
         """
         Обрабатывает отправку формы обратной связи.
 
         Действия:
-        1. Валидирует данные формы
-        2. При успехе — отправляет email администратору
-        3. Показывает сообщение об успехе/ошибке
+        1. Проверяет rate limit (5 отправок/час с одного IP)
+        2. Валидирует данные формы
+        3. Сохраняет ContactMessage в БД (защита от потери при сбое SMTP)
+        4. Отправляет email администратору
+        5. Показывает сообщение об успехе/ошибке
         """
+        from django.shortcuts import redirect
+
+        # --- Rate limiting ---
+        if self._check_rate_limit(request):
+            messages.warning(
+                request,
+                "Слишком много попыток. Пожалуйста, попробуйте снова через час."
+            )
+            return redirect(reverse("main:contacts"))
+
         form = ContactForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data["name"]
-            contact = form.cleaned_data["contact"]
+            contact_info = form.cleaned_data["contact"]
             message_text = form.cleaned_data["message"]
 
-            # Отправляем email администратору
+            # --- Сохраняем в БД до отправки email ---
+            # Это гарантирует, что данные не потеряются при сбое SMTP
+            try:
+                from .models import ContactMessage
+                ip = (
+                    request.META.get('HTTP_X_FORWARDED_FOR', '').split(',')[0].strip()
+                    or request.META.get('REMOTE_ADDR')
+                )
+                ContactMessage.objects.create(
+                    name=name,
+                    contact=contact_info,
+                    message=message_text,
+                    ip_address=ip or None,
+                )
+            except Exception:
+                # Не прерываем работу, если по какой-то причине БД недоступна
+                pass
+
+            # --- Отправляем email администратору ---
             try:
                 from django.core.mail import send_mail
                 from django.conf import settings as django_settings
-                site_settings = SiteSettings.load()
-                admin_email = site_settings.email if site_settings and site_settings.email else getattr(django_settings, 'DEFAULT_FROM_EMAIL', '')
+                site_settings = cache.get("site_settings") or SiteSettings.load()
+                admin_email = (
+                    site_settings.email
+                    if site_settings and site_settings.email
+                    else getattr(django_settings, 'DEFAULT_FROM_EMAIL', '')
+                )
 
                 if admin_email:
                     send_mail(
                         subject=f"[Обратная связь] Сообщение от {name}",
-                        message=f"От: {name}\nКонтакт: {contact}\n\nСообщение:\n{message_text}",
+                        message=(
+                            f"От: {name}\n"
+                            f"Контакт: {contact_info}\n\n"
+                            f"Сообщение:\n{message_text}"
+                        ),
                         from_email=getattr(django_settings, 'DEFAULT_FROM_EMAIL', admin_email),
                         recipient_list=[admin_email],
                         fail_silently=True,
@@ -525,9 +609,11 @@ class ContactView(MaintenanceMixin, TemplateView):
             except Exception:
                 pass
 
-            messages.success(request, f"Спасибо, {name}! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.")
-            # Redirect-after-POST паттерн
-            from django.shortcuts import redirect
+            messages.success(
+                request,
+                f"Спасибо, {name}! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время."
+            )
+            # Redirect-after-POST паттерн (предотвращает повторную отправку при F5)
             return redirect(reverse("main:contacts"))
         else:
             # Форма содержит ошибки — возвращаем её в контекст
@@ -539,6 +625,9 @@ class ContactView(MaintenanceMixin, TemplateView):
 class AboutView(MaintenanceMixin, TemplateView):
     """
     Представление для страницы "О нас".
+
+    Улучшение: site_settings берётся из context (уже загружен context processor),
+    page_title формируется через build_page_title() без дублирования кода.
     """
 
     template_name = "main/about.html"
@@ -548,8 +637,9 @@ class AboutView(MaintenanceMixin, TemplateView):
         Добавляет контекст для страницы "О нас".
 
         Действия:
-        1. Формирует заголовок страницы
-        2. Создает описание из краткого описания сайта
+        1. Получает site_settings из context processor (без лишнего запроса к БД)
+        2. Формирует заголовок через build_page_title()
+        3. Создаёт meta_description из краткого описания сайта
 
         Параметры:
             **kwargs: Дополнительные аргументы контекста
@@ -558,11 +648,8 @@ class AboutView(MaintenanceMixin, TemplateView):
             dict: Словарь с данными контекста "О нас"
         """
         context = super().get_context_data(**kwargs)
-        site_settings = SiteSettings.load()
-
-        page_title = "О нас"
-        if site_settings and site_settings.logo_text:
-            page_title = f"О нас - {site_settings.logo_text}"
+        # Берём из context (уже заполнено context processor), без лишнего запроса к БД
+        site_settings = context.get("site_settings") or SiteSettings.load()
 
         meta_description = "Информация о нашей компании и услугах"
         if site_settings:
@@ -581,7 +668,7 @@ class AboutView(MaintenanceMixin, TemplateView):
         context.update(
             {
                 "site_settings": site_settings,
-                "page_title": page_title,
+                "page_title": self.build_page_title("О нас", site_settings),
                 "meta_description": meta_description,
                 "breadcrumbs": get_breadcrumbs([
                     ("О нас", reverse("main:about"), "fas fa-info-circle"),
@@ -667,11 +754,29 @@ class SearchView(MaintenanceMixin, BaseView):
                 context["page_results"] = page_paginator.page(1)
             context["pages_total"] = page_qs.count()
 
+            # Поиск по отзывам (одобренные)
+            try:
+                from reviews.models import Review
+                reviews_qs = Review.objects.filter(
+                    Q(author_name__icontains=query) |
+                    Q(text__icontains=query),
+                    status='approved'
+                ).distinct()
+                reviews_paginator = Paginator(reviews_qs, 10)
+                try:
+                    context["reviews_results"] = reviews_paginator.page(page_num)
+                except (PageNotAnInteger, EmptyPage):
+                    context["reviews_results"] = reviews_paginator.page(1)
+                context["reviews_total"] = reviews_qs.count()
+            except (ImportError, Exception):
+                context["reviews_total"] = 0
+
             # Общее количество результатов
             context["total_results"] = (
                 context.get("news_total", 0) +
                 context.get("portfolio_total", 0) +
-                context.get("pages_total", 0)
+                context.get("pages_total", 0) +
+                context.get("reviews_total", 0)
             )
 
         return context

@@ -665,8 +665,60 @@ class Page(HeroMixin):
             raise ValidationError({"slug": _("Этот URL-адрес зарезервирован системой")})
 
 
+# Модель для хранения сообщений из формы обратной связи
+class ContactMessage(models.Model):
+    """
+    Хранит все сообщения, отправленные через форму обратной связи.
+
+    Назначение:
+    - Сохраняет данные до отправки email (защита от потери при сбое SMTP)
+    - Предоставляет историю обращений в admin-панели
+    - Позволяет отслеживать прочитанные/непрочитанные сообщения
+    - Хранит IP для возможной защиты от спама
+    """
+
+    name = models.CharField(
+        _("Имя"), max_length=100,
+        help_text=_("Имя отправителя"),
+    )
+    contact = models.CharField(
+        _("Email / Телефон"), max_length=150,
+        help_text=_("Контактные данные отправителя"),
+    )
+    message = models.TextField(
+        _("Сообщение"),
+        help_text=_("Текст сообщения"),
+    )
+    ip_address = models.GenericIPAddressField(
+        _("IP-адрес"), blank=True, null=True,
+        help_text=_("IP-адрес отправителя (заполняется автоматически)"),
+    )
+    is_read = models.BooleanField(
+        _("Прочитано"), default=False,
+        help_text=_("Отметьте, когда ознакомитесь с сообщением"),
+    )
+    created_at = models.DateTimeField(
+        _("Дата отправки"), auto_now_add=True,
+    )
+
+    class Meta:
+        verbose_name = _("Сообщение обратной связи")
+        verbose_name_plural = _("Сообщения обратной связи")
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        read_status = "✓" if self.is_read else "✉"
+        return f"{read_status} {self.name} ({self.contact}) — {self.created_at:%d.%m.%Y %H:%M}"
+
+    @property
+    def short_message(self):
+        """Возвращает первые 80 символов сообщения для превью в admin."""
+        return self.message[:80] + ("…" if len(self.message) > 80 else "")
+
+
 # Модель для управления файлами через админку Django
 class ManagedFile(models.Model):
+
     """
     Модель для управления файлами через админку Django.
     Позволяет отслеживать, редактировать и создавать резервные копии файлов на диске.
