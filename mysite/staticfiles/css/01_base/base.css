@@ -32,12 +32,14 @@ body {
 main {
     flex: 1;
     width: 100%;
+    background-color: var(--bg-body);
 }
 
 .container-fluid {
     width: 100%;
     padding-left: var(--spacing-lg);
     padding-right: var(--spacing-lg);
+    background-color: var(--bg-body);
 }
 
 /* Заголовок страницы */

@@ -159,11 +159,11 @@
 }
 
 .footer-container-1 {
-    height: auto;
+    height: 250px;
     padding: 1rem;
     margin: 1rem;
     border-radius: 12px;
-    background-color: var(--bg-body);
+    background-color: rgba(19, 33, 187, 0.301);
 }
 /* Responsive adjustments */
 @media (max-width: 768px) {

@@ -5,107 +5,107 @@
 
 :root {
     /* ========== ОСНОВНЫЕ ЦВЕТА ========== */
-    /* Primary Colors - Indigo */
+    /* Основные цвета - Индиго */
     --primary-color: #6366f1;                   
     --primary-hover: #818cf8;                   
     --primary-active: #4f46e5;                  
-    --primary-glow: rgba(99, 102, 241, 0.4);    
+    --primary-glow: rgba(99, 102, 241, 0.35);    
     
-    /* Secondary Colors - Blue */
-    --secondary-color: #3b82f6;                 
-    --secondary-hover: #60a5fa;                 
-    --secondary-active: #2563eb;                
+    /* Вторичные цвета - Циан / Синий */
+    --secondary-color: #06b6d4;                 
+    --secondary-hover: #22d3ee;                 
+    --secondary-active: #0891b2;                
     
-    /* Accent Colors - Rose */
-    --accent-color: #e11d48;                    
-    --accent-hover: #f43f5e;      
-    --accent-active: #be123c;     
+    /* Акцентные цвета - Розовый / Фуксия */
+    --accent-color: #f43f5e;                    
+    --accent-hover: #fda4af;      
+    --accent-active: #e11d48;     
     
-    /* Neutral Colors (Grays for Dark Theme) */
+    /* Нейтральные цвета (Сланцевые и глубокие космические синие вместо холодных серых) */
     --neutral-50: #f8fafc;          
-    --neutral-100: #f1f5f9;         
-    --neutral-200: #e2e8f0;         
-    --neutral-300: #cbd5e1;         
-    --neutral-400: #94a3b8;         
-    --neutral-500: #64748b;         
-    --neutral-600: #475569;         
-    --neutral-700: #334155;         
-    --neutral-800: #1e293b;         
-    --neutral-900: #0f172a;         
-    --neutral-950: #020617;         
-    --neutral-1000: #000000;        
+    --neutral-100: #cbd5e1;         
+    --neutral-200: #94a3b8;         
+    --neutral-300: #64748b;         
+    --neutral-400: #475569;         
+    --neutral-500: #334155;         
+    --neutral-600: #1e293b;         
+    --neutral-700: #172042;         
+    --neutral-800: #0d1333;         
+    --neutral-900: #080c24;         
+    --neutral-950: #05071a;         
+    --neutral-1000: #02030d;        
     
-    /* ========== BACKGROUNDS ========== */
-    --bg-body: #121212;                             /* Pure Dark Background */
-    --bg-card: #1e1e1e;                             /* Slightly lighter for cards */
-    --bg-card-hover: #2a2a2a;                       /* Card Hover */
-    --bg-secondary: #18181b;                        /* Secondary areas */
-    --bg-accent: #27272a;                           /* Accent areas */
-    --bg-glass: rgba(18, 18, 18, 0.85);             /* Glass dark */
-    --bg-glass-light: rgba(255, 255, 255, 0.05);    /* Glass Light */
-    --bg-cookie: #1e1e1e;                           
-    --bg-color-cs: rgba(255, 255, 255, 0.03);       
+    /* ========== ФОНЫ ========== */
+    --bg-body: hsla(233, 73%, 27%, 0.395);          /* Насыщенный глубокий космический темно-синий */
+    --bg-card: #0d1230;                             /* Красивый космический фон карточек */
+    --bg-card-hover: #141a44;                       /* Чуть более светлый темно-синий для эффекта наведения */
+    --bg-secondary: #090d26;                        /* Глубокий темно-синий для вложенных блоков */
+    --bg-accent: #11183c;                           /* Глубокий акцентный темно-синий */
+    --bg-glass: rgba(6, 8, 24, 0.85);               /* Матовое темно-синее стекло */
+    --bg-glass-light: rgba(255, 255, 255, 0.02);    /* Светлый слой стекла */
+    --bg-cookie: #0d1230;                           
+    --bg-color-cs: rgba(255, 255, 255, 0.02);       
 
-    /* ========== TEXT COLORS ========== */
-    --text-primary: #f8fafc;      /* Pure white-ish for max contrast */
-    --text-secondary: #cbd5e1;    /* Light gray for secondary text */
-    --text-muted: #94a3b8;        /* Muted gray */
-    --text-accent: #818cf8;       /* Indigo */
-    --text-inverse: #020617;      /* Dark text for light backgrounds */
-    --text-white: #ffffff;        /* Pure White */
+    /* ========== ЦВЕТА ТЕКСТА ========== */
+    --text-primary: #f8fafc;      /* Почти чисто-белый для максимального контраста */
+    --text-secondary: #cbd5e1;    /* Светлый сланцево-серый для вторичного текста */
+    --text-muted: #94a3b8;        /* Приглушенный сланцево-серый */
+    --text-accent: #818cf8;       /* Светящийся индиго-акцент */
+    --text-inverse: #05071a;      /* Темный текст для светлых фонов */
+    --text-white: #ffffff;        /* Чистый белый */
     --text-cookie: #f8fafc;       
     
-    /* ========== LINKS ========== */
-    --link-color: #60a5fa;        /* Light Blue */
-    --link-hover: #93c5fd;        /* Lighter Blue */
+    /* ========== ССЫЛКИ ========== */
+    --link-color: #38bdf8;        /* Яркий светло-синий */
+    --link-hover: #7dd3fc;        /* Светящийся мягкий синий */
     
-    /* ========== BORDERS ========== */
-    --border-color: rgba(255, 255, 255, 0.1);           
-    --border-color-hover: rgba(255, 255, 255, 0.2);     
-    --border-color-strong: rgba(255, 255, 255, 0.3);    
-    --border-glass: 1px solid rgba(255, 255, 255, 0.1); 
-    --border-glass-hover: 1px solid rgba(255, 255, 255, 0.2); 
-    --border-cookie: 1px solid rgba(255, 255, 255, 0.1); 
+    /* ========== ГРАНИЦЫ ========== */
+    --border-color: rgba(99, 102, 241, 0.12);           /* Граница с оттенком индиго */
+    --border-color-hover: rgba(99, 102, 241, 0.25);     
+    --border-color-strong: rgba(99, 102, 241, 0.4);    
+    --border-glass: 1px solid rgba(99, 102, 241, 0.15); 
+    --border-glass-hover: 1px solid rgba(99, 102, 241, 0.3); 
+    --border-cookie: 1px solid rgba(99, 102, 241, 0.15); 
 
-    /* ========== GLASS EFFECTS ========== */
+    /* ========== ЭФФЕКТЫ СТЕКЛА ========== */
     --glass-blur: blur(16px);
     --glass-blur-heavy: blur(32px);
-    --glass-bg: rgba(30, 30, 30, 0.6);
-    --glass-bg-hover: rgba(42, 42, 42, 0.8);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(13, 18, 48, 0.6);
+    --glass-bg-hover: rgba(20, 26, 68, 0.8);
+    --glass-shadow: 0 8px 32px 0 rgba(2, 3, 13, 0.5);
 
-    /* ========== SEMANTIC COLORS ========== */
+    /* ========== СЕМАНТИЧЕСКИЕ ЦВЕТА ========== */
     --success-color: #10b981;     
     --warning-color: #f59e0b;     
     --danger-color: #ef4444;      
-    --info-color: #3b82f6;        
+    --info-color: #06b6d4;        
 
-    /* ========== GRADIENTS ========== */
-    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); 
-    --gradient-secondary: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); 
-    --gradient-accent: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); 
-    --gradient-cosmic: linear-gradient(135deg, #4f46e5 0%, #e11d48 100%); 
-    --gradient-dark: linear-gradient(180deg, #1e1e1e 0%, #121212 100%);
-    --gradient-cs: linear-gradient(180deg, #1e1e1e 0%, #121212 100%);
-    --gradient-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    /* ========== ГРАДИЕНТЫ ========== */
+    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%); 
+    --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); 
+    --gradient-accent: linear-gradient(135deg, #f43f5e 0%, #d946ef 100%); 
+    --gradient-cosmic: linear-gradient(135deg, #6366f1 0%, #d946ef 50%, #06b6d4 100%); 
+    --gradient-dark: linear-gradient(180deg, #0d1230 0%, #060818 100%);
+    --gradient-cs: linear-gradient(180deg, #0d1230 0%, #060818 100%);
+    --gradient-surface: linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0) 100%);
 
-    /* ========== SHADOWS & GLOWS ========== */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.8), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.9), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
-    --shadow-glow-primary: 0 0 20px rgba(99, 102, 241, 0.2);
-    --shadow-glow-secondary: 0 0 20px rgba(59, 130, 246, 0.2);
-    --shadow-cookie: 0 10px 25px rgba(0, 0, 0, 0.5);
+    /* ========== ТЕНИ И СВЕЧЕНИЯ ========== */
+    --shadow-sm: 0 2px 4px rgba(2, 3, 13, 0.4);
+    --shadow: 0 4px 20px rgba(2, 3, 13, 0.5), 0 2px 4px rgba(2, 3, 13, 0.3);
+    --shadow-md: 0 10px 30px rgba(2, 3, 13, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    --shadow-lg: 0 20px 50px rgba(2, 3, 13, 0.8), 0 0 40px rgba(99, 102, 241, 0.15);
+    --shadow-glow-primary: 0 0 25px rgba(99, 102, 241, 0.25);
+    --shadow-glow-secondary: 0 0 25px rgba(6, 182, 212, 0.2);
+    --shadow-cookie: 0 10px 40px rgba(2, 3, 13, 0.6);
 
-    /* ========== BORDER RADIUS ========== */
+    /* ========== РАДИУСЫ СКРУГЛЕНИЯ ========== */
     --radius-sm: 6px;
     --radius-md: 10px;
     --radius-lg: 16px;
     --radius-xl: 24px;
     --radius-full: 9999px;
 
-    /* ========== SPACING ========== */
+    /* ========== ОТСТУПЫ ========== */
     --spacing-xs: 0.5rem;
     --spacing-sm: 0.75rem;
     --spacing-md: 1rem;
@@ -113,17 +113,17 @@
     --spacing-xl: 2rem;
     --spacing-xxl: 3rem;
 
-    /* ========== TRANSITIONS ========== */
+    /* ========== ПЕРЕХОДЫ ========== */
     --transition-fast: all 0.2s ease;
     --transition-base: all 0.3s ease;
     --transition-slow: all 0.5s ease;
 
-    /* ========== FONTS ========== */
+    /* ========== ШРИФТЫ ========== */
     --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-    /* ========== BOOTSTRAP OVERRIDES ========== */
+    /* ========== ПЕРЕОПРЕДЕЛЕНИЯ BOOTSTRAP ========== */
     --bs-body-bg: var(--bg-body);
     --bs-body-color: var(--text-primary);
     --bs-primary: var(--primary-color);
@@ -134,7 +134,7 @@
     --bs-danger: var(--danger-color);
     --bs-border-color: var(--border-color);
     
-    /* Legacy Compat */
+    /* Совместимость с устаревшими версиями */
     --dark-color: var(--bg-body);
     --light-color: var(--neutral-800);
     --text-color: var(--text-primary);
@@ -142,9 +142,18 @@
     --header-height: 80px;
     --z-index-sticky: 1030;
     
-    /* Custom Weights */
+    /* Пользовательская насыщенность шрифта */
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
+
+    /* ========== НОВЫЕ ПРЕМИАЛЬНЫЕ ЭФФЕКТЫ (НОВИНКА 2026) ========== */
+    --shadow-glow-accent: 0 0 25px rgba(244, 63, 94, 0.3);      /* Свечение акцентных элементов */
+    --text-glow-primary: 0 0 15px rgba(99, 102, 241, 0.4);      /* Свечение для индиго-заголовков */
+    --text-glow-accent: 0 0 15px rgba(244, 63, 94, 0.4);       /* Свечение для акцентных заголовков */
+    --border-premium: 1px solid rgba(99, 102, 241, 0.15);        /* Тонкая премиальная граница */
+    --border-premium-hover: 1px solid rgba(99, 102, 241, 0.4);  /* Премиальная граница при наведении */
+    --glass-blur-ultra: blur(40px);                             /* Ультра-глубокое размытие для стекла */
+    --gradient-mesh-cosmic: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(217, 70, 239, 0.1) 50%, rgba(6, 182, 212, 0.15) 100%); /* Сложный mesh-градиент для анимированных фонов */
 }

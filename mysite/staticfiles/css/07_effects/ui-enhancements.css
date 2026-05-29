@@ -3,7 +3,7 @@
    ОПИСАНИЕ: Дополнительные UI улучшения и микроинтеракции
    ============================================ */
 
-/* ========== RIPPLE EFFECT ========== */
+/* ========== ЭФФЕКТ ВОЛНЫ (RIPPLE EFFECT) ========== */
 
 .ripple-effect {
   position: absolute;
@@ -29,7 +29,7 @@
   overflow: hidden;
 }
 
-/* ========== SCROLL TO TOP BUTTON ========== */
+/* ========== КНОПКА НАВЕРХ (SCROLL TO TOP BUTTON) ========== */
 
 .scroll-to-top {
   position: fixed;
@@ -138,7 +138,7 @@
   }
 }
 
-/* ========== LOADING STATES ========== */
+/* ========== СОСТОЯНИЯ ЗАГРУЗКИ (LOADING STATES) ========== */
 
 /* Кнопка с загрузкой */
 .btn.loading {
@@ -172,7 +172,7 @@
   }
 }
 
-/* ========== TOOLTIPS ========== */
+/* ========== ПОДСКАЗКИ (TOOLTIPS) ========== */
 
 .tooltip-custom {
   position: relative;
@@ -235,7 +235,7 @@
   }
 }
 
-/* ========== PROGRESS BAR ========== */
+/* ========== ИНДИКАТОР ПРОГРЕССА (PROGRESS BAR) ========== */
 
 .progress-modern {
   height: 8px;
@@ -276,7 +276,7 @@
   }
 }
 
-/* ========== FOCUS STATES ========== */
+/* ========== СОСТОЯНИЯ ФОКУСА (FOCUS STATES) ========== */
 
 /* Улучшенные focus состояния для доступности */
 *:focus-visible {
@@ -293,7 +293,7 @@
   box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
-/* ========== SELECTION ========== */
+/* ========== ВЫДЕЛЕНИЕ ТЕКСТА (SELECTION) ========== */
 
 ::selection {
   background: var(--primary-color);
@@ -305,7 +305,7 @@
   color: white;
 }
 
-/* ========== CUSTOM SCROLLBAR ========== */
+/* ========== ПОЛЬЗОВАТЕЛЬСКИЙ СКРОЛЛБАР (CUSTOM SCROLLBAR) ========== */
 
 /* Для WebKit браузеров */
 ::-webkit-scrollbar {
@@ -334,7 +334,7 @@
   scrollbar-color: var(--primary-color) var(--neutral-100);
 }
 
-/* ========== SKELETON SCREENS ========== */
+/* ========== ЭКРАНЫ-ЗАГЛУШКИ (SKELETON SCREENS) ========== */
 
 .skeleton {
   background: linear-gradient(90deg,
@@ -356,7 +356,7 @@
   }
 }
 
-/* ========== EMPTY STATES ========== */
+/* ========== ПУСТЫЕ СОСТОЯНИЯ (EMPTY STATES) ========== */
 
 .empty-state {
   text-align: center;
@@ -381,7 +381,7 @@
   margin-bottom: 24px;
 }
 
-/* ========== LOADING SPINNER ========== */
+/* ========== ИНДИКАТОР ЗАГРУЗКИ (LOADING SPINNER) ========== */
 
 .spinner {
   width: 40px;
@@ -405,7 +405,7 @@
   padding: 48px;
 }
 
-/* ========== BACKDROP ========== */
+/* ========== ЗАДНИЙ ФОН / ЗАТЕМНЕНИЕ (BACKDROP) ========== */
 
 .backdrop {
   position: fixed;
@@ -419,14 +419,14 @@
   animation: fadeIn 0.3s ease;
 }
 
-/* ========== FLOATING LABELS ========== */
+/* ========== ПЛАВАЮЩИЕ МЕТКИ (FLOATING LABELS) ========== */
 
 .form-floating>.form-control:focus~label,
 .form-floating>.form-control:not(:placeholder-shown)~label {
   color: var(--primary-color);
 }
 
-/* ========== TRANSITIONS ========== */
+/* ========== ПЕРЕХОДЫ (TRANSITIONS) ========== */
 
 /* Плавные переходы для всех интерактивных элементов */
 a,
@@ -437,7 +437,7 @@ button,
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ========== PRINT STYLES ========== */
+/* ========== СТИЛИ ДЛЯ ПЕЧАТИ (PRINT STYLES) ========== */
 
 @media print {
 
@@ -460,7 +460,7 @@ button,
   }
 }
 
-/* ========== PREMIUM HEADER & NAV EFFECTS ========== */
+/* ========== ПРЕМИАЛЬНЫЕ ЭФФЕКТЫ ДЛЯ ШАПКИ И НАВИГАЦИИ (PREMIUM HEADER & NAV EFFECTS) ========== */
 
 /* Градиентный текст */
 .text-gradient {
@@ -613,4 +613,75 @@ button,
 .glass-header.scrolled {
   background: rgba(15, 23, 42, 0.9) !important;
   padding: 0.5rem 0;
+}
+
+/* ========== НОВЫЕ ПРЕМИАЛЬНЫЕ СТИЛЕВЫЕ РЕШЕНИЯ (НОВИНКА 2026) ========== */
+
+/* Ультра-тонкая светящаяся рамка с интерактивным изменением цвета при наведении */
+.premium-border-glow {
+  border: var(--border-premium);
+  transition: var(--transition-base);
+}
+
+.premium-border-glow:hover {
+  border: var(--border-premium-hover);
+  box-shadow: var(--shadow-glow-primary);
+  transform: translateY(-2px);
+}
+
+/* Классы для неонового свечения заголовков и текста */
+.text-glow-indigo {
+  text-shadow: var(--text-glow-primary);
+}
+
+.text-glow-rose {
+  text-shadow: var(--text-glow-accent);
+}
+
+/* Эффект переливания света (shimmer) на карточках при наведении */
+.premium-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.13) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  transition: 0.75s;
+  pointer-events: none;
+}
+
+.premium-shimmer:hover::before {
+  left: 150%;
+  transition: 0.75s;
+}
+
+/* Улучшенный анимированный космический mesh-фон */
+.mesh-bg-animated {
+  background: var(--gradient-mesh-cosmic);
+  background-size: 200% 200%;
+  animation: cosmicMeshMovement 10s ease infinite;
+}
+
+@keyframes cosmicMeshMovement {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
