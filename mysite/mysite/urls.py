@@ -38,8 +38,8 @@ from mysite.sitemaps import sitemaps
 from news.feeds import LatestNewsFeed, NewsByCategoryFeed
 
 # Настройка заголовков админ-панели
-admin.site.site_header = "DPITS CMS"
-admin.site.site_title = "CMS"
+admin.site.site_header = "DPITS Group CMS"
+admin.site.site_title = "DPITS Group CMS"
 admin.site.index_title = "Панель управления"
 
 # Основные маршруты URL проекта

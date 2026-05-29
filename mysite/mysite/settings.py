@@ -50,7 +50,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # РЕЖИМ ОТЛАДКИ: Загружается из .env файла (по умолчанию False)
-DEBUG = os.getenv("DEBUG")
+DEBUG = os.getenv("DEBUG", False)
 
 # РАЗРЕШЕННЫЕ ХОСТЫ: Список доменов/хостов, которые может обслуживать система
 if DEBUG:
@@ -102,13 +102,13 @@ INSTALLED_APPS = [
 # =============================================================================
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",            # Безопасность
-    "django.contrib.sessions.middleware.SessionMiddleware",     # Сессии
-    "django.middleware.common.CommonMiddleware",                # Общие функции
-    "django.middleware.csrf.CsrfViewMiddleware",                # Защита CSRF
+    "django.middleware.security.SecurityMiddleware",  # Безопасность
+    "django.contrib.sessions.middleware.SessionMiddleware",  # Сессии
+    "django.middleware.common.CommonMiddleware",  # Общие функции
+    "django.middleware.csrf.CsrfViewMiddleware",  # Защита CSRF
     "django.contrib.auth.middleware.AuthenticationMiddleware",  # Аутентификация
-    "django.contrib.messages.middleware.MessageMiddleware",     # Сообщения
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",   # Защита от кликджекинга
+    "django.contrib.messages.middleware.MessageMiddleware",  # Сообщения
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",  # Защита от кликджекинга
 ]
 
 # =============================================================================
@@ -140,7 +140,7 @@ TEMPLATES = [
                 "main.context_processors.admin_dashboard_stats",  # Статистика для админки
                 "main.context_processors.statistics_banners",  # Статистические баннеры
                 "main.context_processors.hero_overrides",  # Динамические баннеры разделов
-                "main.context_processors.payment_methods", # Способы оплаты (логотипы)
+                "main.context_processors.payment_methods",  # Способы оплаты (логотипы)
                 "news.context_processors.latest_news",  # Последние новости
                 "services.context_processors.cart",  # Корзина услуг
             ],
@@ -184,10 +184,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # МЕЖДУНАРОДНЫЕ НАСТРОЙКИ (I18N/L10N)
 # =============================================================================
 
-LANGUAGE_CODE = os.getenv('DJANGO_LANGUAGE_CODE', 'ru')
-TIME_ZONE = os.getenv('DJANGO_TIME_ZONE', 'Europe/Moscow')
-USE_I18N = os.getenv('DJANGO_USE_I18N', 'True') == 'True'
-USE_TZ = os.getenv('DJANGO_USE_TZ', 'True') == 'True'
+LANGUAGE_CODE = os.getenv("DJANGO_LANGUAGE_CODE", "ru")
+TIME_ZONE = os.getenv("DJANGO_TIME_ZONE", "Europe/Moscow")
+USE_I18N = os.getenv("DJANGO_USE_I18N", "True") == "True"
+USE_TZ = os.getenv("DJANGO_USE_TZ", "True") == "True"
 
 # =============================================================================
 # НАСТРОЙКИ АУТЕНТИФИКАЦИИ И СЕССИЙ
@@ -291,7 +291,6 @@ JAZZMIN_SETTINGS = {
         "services",
         "reviews",
         "accounts",
-
         "feedback",
         "knowledge_base",
         "auth",
@@ -388,7 +387,7 @@ JAZZMIN_UI_TWEAKS = {
     "sidebar_nav_child_indent": True,
     "sidebar_nav_compact_style": True,
     "sidebar_nav_legacy_style": False,  # Отключить устаревший стиль
-    "sidebar_nav_flat_style": False,   # Отключить плоский стиль (лучше выглядит кастомный)
+    "sidebar_nav_flat_style": False,  # Отключить плоский стиль (лучше выглядит кастомный)
     # === НАСТРОЙКИ ТЕМЫ ===
     "theme": "default",  # Используем custom CSS для полного контроля
     # === НАСТРОЙКИ КНОПОК ===
@@ -557,12 +556,14 @@ CKEDITOR_5_FILE_UPLOAD_PERMISSIONS = 0o644  # Права для загружае
 # НАСТРОЙКИ КЕШИРОВАНИЯ
 # =============================================================================
 
+
 # Redis как кэш-бэкенд (redis уже есть в requirements.txt)
 # При недоступности Redis — используется LocMemCache (fallback)
 def _check_redis_available(url: str) -> bool:
     """Проверяет доступность Redis по URL. Возвращает True если Redis запущен."""
     try:
         import redis as _redis
+
         _client = _redis.from_url(url, socket_connect_timeout=1)
         _client.ping()
         return True
@@ -572,7 +573,9 @@ def _check_redis_available(url: str) -> bool:
 
 _REDIS_URL = os.getenv("REDIS_URL", "redis://127.0.0.1:6379/1")
 
-if _importlib_util.find_spec("redis") is not None and _check_redis_available(_REDIS_URL):
+if _importlib_util.find_spec("redis") is not None and _check_redis_available(
+    _REDIS_URL
+):
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
