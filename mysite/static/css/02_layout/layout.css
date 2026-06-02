@@ -94,7 +94,7 @@ header::after {
 
 /* Состояние наведения на бренд */
 .navbar-brand:hover {
-    color: var(--primary-color) !important;
+    /* color: var(--primary-color) !important; */
     /* Основной цвет при наведении */
     transform: scale(1.05);
     /* Небольшое увеличение */
