@@ -139,7 +139,7 @@ header::after {
 
 /* Состояние наведения на ссылку навигации */
 .nav-link:hover {
-    color: var(--primary-color) !important;
+    /* color: var(--primary-color) !important; */
     /* Основной цвет при наведении */
     transform: translateY(-2px);
     /* Небольшое смещение вверх */
@@ -147,7 +147,7 @@ header::after {
 
 /* Активная ссылка навигации */
 .nav-link.active {
-    color: var(--primary-color) !important;
+    /* color: var(--primary-color) !important; */
     /* Основной цвет для активной ссылки */
     font-weight: var(--font-weight-bold);
     /* Жирный шрифт */
