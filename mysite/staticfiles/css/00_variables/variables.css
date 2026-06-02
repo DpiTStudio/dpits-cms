@@ -26,25 +26,25 @@
     --neutral-100: #cbd5e1;         
     --neutral-200: #94a3b8;         
     --neutral-300: #64748b;         
-    --neutral-400: #475569;         
-    --neutral-500: #334155;         
-    --neutral-600: #1e293b;         
-    --neutral-700: #172042;         
-    --neutral-800: #0d1333;         
-    --neutral-900: #080c24;         
-    --neutral-950: #05071a;         
-    --neutral-1000: #02030d;        
+    --neutral-400: #3d4a63;         
+    --neutral-500: #263044;         
+    --neutral-600: #171e38;         
+    --neutral-700: #0e1430;         
+    --neutral-800: #090d22;         
+    --neutral-900: #060915;         
+    --neutral-950: #03050f;         
+    --neutral-1000: #01020a;        
     
     /* ========== ФОНЫ ========== */
-    --bg-body: hsla(233, 73%, 27%, 0.395);          /* Насыщенный глубокий космический темно-синий */
-    --bg-card: #0d1230;                             /* Красивый космический фон карточек */
-    --bg-card-hover: #141a44;                       /* Чуть более светлый темно-синий для эффекта наведения */
-    --bg-secondary: #090d26;                        /* Глубокий темно-синий для вложенных блоков */
-    --bg-accent: #11183c;                           /* Глубокий акцентный темно-синий */
-    --bg-glass: rgba(6, 8, 24, 0.85);               /* Матовое темно-синее стекло */
-    --bg-glass-light: rgba(255, 255, 255, 0.02);    /* Светлый слой стекла */
-    --bg-cookie: #0d1230;                           
-    --bg-color-cs: rgba(255, 255, 255, 0.02);       
+    --bg-body: hsla(233, 78%, 14%, 0.98);           /* Насыщенный глубокий космический темно-синий */
+    --bg-card: #080d20;                             /* Красивый космический фон карточек */
+    --bg-card-hover: #0d1430;                       /* Чуть более светлый темно-синий для эффекта наведения */
+    --bg-secondary: #050818;                        /* Глубокий темно-синий для вложенных блоков */
+    --bg-accent: #0a1128;                           /* Глубокий акцентный темно-синий */
+    --bg-glass: rgba(4, 6, 18, 0.92);               /* Матовое темно-синее стекло */
+    --bg-glass-light: rgba(255, 255, 255, 0.015);   /* Светлый слой стекла */
+    --bg-cookie: #080d20;                           
+    --bg-color-cs: rgba(255, 255, 255, 0.015);      
 
     /* ========== ЦВЕТА ТЕКСТА ========== */
     --text-primary: #f8fafc;      /* Почти чисто-белый для максимального контраста */
@@ -70,9 +70,9 @@
     /* ========== ЭФФЕКТЫ СТЕКЛА ========== */
     --glass-blur: blur(16px);
     --glass-blur-heavy: blur(32px);
-    --glass-bg: rgba(13, 18, 48, 0.6);
-    --glass-bg-hover: rgba(20, 26, 68, 0.8);
-    --glass-shadow: 0 8px 32px 0 rgba(2, 3, 13, 0.5);
+    --glass-bg: rgba(7, 10, 28, 0.75);
+    --glass-bg-hover: rgba(12, 17, 42, 0.9);
+    --glass-shadow: 0 8px 32px 0 rgba(1, 2, 10, 0.65);
 
     /* ========== СЕМАНТИЧЕСКИЕ ЦВЕТА ========== */
     --success-color: #10b981;     
@@ -85,18 +85,18 @@
     --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); 
     --gradient-accent: linear-gradient(135deg, #f43f5e 0%, #d946ef 100%); 
     --gradient-cosmic: linear-gradient(135deg, #6366f1 0%, #d946ef 50%, #06b6d4 100%); 
-    --gradient-dark: linear-gradient(180deg, #0d1230 0%, #060818 100%);
-    --gradient-cs: linear-gradient(180deg, #0d1230 0%, #060818 100%);
+    --gradient-dark: linear-gradient(180deg, #080d20 0%, #030510 100%);
+    --gradient-cs: linear-gradient(180deg, #080d20 0%, #030510 100%);
     --gradient-surface: linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0) 100%);
 
     /* ========== ТЕНИ И СВЕЧЕНИЯ ========== */
-    --shadow-sm: 0 2px 4px rgba(2, 3, 13, 0.4);
-    --shadow: 0 4px 20px rgba(2, 3, 13, 0.5), 0 2px 4px rgba(2, 3, 13, 0.3);
-    --shadow-md: 0 10px 30px rgba(2, 3, 13, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    --shadow-lg: 0 20px 50px rgba(2, 3, 13, 0.8), 0 0 40px rgba(99, 102, 241, 0.15);
-    --shadow-glow-primary: 0 0 25px rgba(99, 102, 241, 0.25);
-    --shadow-glow-secondary: 0 0 25px rgba(6, 182, 212, 0.2);
-    --shadow-cookie: 0 10px 40px rgba(2, 3, 13, 0.6);
+    --shadow-sm: 0 2px 4px rgba(1, 2, 8, 0.55);
+    --shadow: 0 4px 20px rgba(1, 2, 8, 0.65), 0 2px 4px rgba(1, 2, 8, 0.45);
+    --shadow-md: 0 10px 30px rgba(1, 2, 8, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    --shadow-lg: 0 20px 50px rgba(1, 2, 8, 0.9), 0 0 40px rgba(99, 102, 241, 0.12);
+    --shadow-glow-primary: 0 0 25px rgba(99, 102, 241, 0.2);
+    --shadow-glow-secondary: 0 0 25px rgba(6, 182, 212, 0.15);
+    --shadow-cookie: 0 10px 40px rgba(1, 2, 8, 0.75);
 
     /* ========== РАДИУСЫ СКРУГЛЕНИЯ ========== */
     --radius-sm: 6px;

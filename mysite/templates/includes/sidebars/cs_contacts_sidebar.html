@@ -2,7 +2,7 @@
 
 {% if site_settings.phone1 or site_settings.email %}
 <div class="card sidebar-premium-card">
-    <div class="card-header sidebar-premium-header-contacts">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-contacts">
         <h6>
             <i class="fas fa-id-card"></i> Контакты
         </h6>
@@ -14,7 +14,7 @@
             <a href="tel:{{ site_settings.phone1 }}" class="sidebar-contact-link" style="animation-delay: 100ms;">
                 <i class="fas fa-phone-alt"></i>
                 <div class="flex-grow-1">
-                    <small class="d-block opacity-50 uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Телефон</small>
+                    <small class="d-block opacity-50 text-uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Телефон</small>
                     <span class="d-block fw-bold">{{ site_settings.phone1 }}</span>
                 </div>
             </a>
@@ -24,7 +24,7 @@
             <a href="tel:{{ site_settings.phone2 }}" class="sidebar-contact-link" style="animation-delay: 100ms;">
                 <i class="fas fa-phone-alt"></i>
                 <div class="flex-grow-1">
-                    <small class="d-block opacity-50 uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Телефон</small>
+                    <small class="d-block opacity-50 text-uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Телефон</small>
                     <span class="d-block fw-bold">{{ site_settings.phone2 }}</span>
                 </div>
             </a>
@@ -34,7 +34,7 @@
             <a href="mailto:{{ site_settings.email }}" class="sidebar-contact-link" style="animation-delay: 200ms;">
                 <i class="fas fa-envelope"></i>
                 <div class="flex-grow-1">
-                    <small class="d-block opacity-50 uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Email</small>
+                    <small class="d-block opacity-50 text-uppercase fw-bold" style="font-size: 0.6rem; letter-spacing: 0.05em;">Email</small>
                     <span class="d-block fw-bold">{{ site_settings.email }}</span>
                 </div>
             </a>

@@ -1,11 +1,11 @@
 {% load humanize %}
-<div class="card mb-4 cart-widget-dynamic" id="sidebarCartWidget">
-    <div class="card-header sidebar-premium-header-services" style="display: flex; justify-content: space-between; align-items: center;">
-        <h6 class="mb-0">
-            <i class="fas fa-shopping-cart text-primary me-2"></i> Корзина заказов
+<div class="card sidebar-premium-card cart-widget-dynamic" id="sidebarCartWidget">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-cart d-flex justify-content-between align-items-center">
+        <h6>
+            <i class="fas fa-shopping-cart"></i> Корзина заказов
         </h6>
         {% if user.is_authenticated %}
-            <span class="badge bg-primary rounded-pill cart-widget-badge" style="transition: all 0.3s ease;">
+            <span class="badge bg-primary rounded-pill cart-widget-badge">
                 {{ cart|length|default:0 }}
             </span>
         {% endif %}
@@ -46,10 +46,9 @@
                 <span class="fw-bold text-success cart-widget-total-price">{{ cart.get_total_price|default:0|intcomma }} ₽</span>
             </div>
             
-            <button class="btn-sidebar-premium w-100 text-decoration-none" data-cart-open style="border: none; background: transparent; padding: 0; outline: none; cursor: pointer;">
-                <span class="w-100 d-flex justify-content-center align-items-center py-2" style="background: rgba(var(--bs-primary-rgb), 0.1); border: 1px solid rgba(var(--bs-primary-rgb), 0.3); color: var(--bs-primary); border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
-                    <i class="fas fa-shopping-bag me-2"></i> Оформить заказ
-                </span>
+            <button type="button" class="btn-sidebar-premium" data-cart-open>
+                <span>Оформить заказ</span>
+                <i class="fas fa-shopping-bag fa-xs"></i>
             </button>
         {% else %}
             <div class="text-center py-2">

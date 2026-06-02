@@ -2,7 +2,7 @@
 
 {% if sidebar_portfolio %}
 <div class="card sidebar-premium-card">
-    <div class="card-header sidebar-premium-header-portfolio">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-portfolio">
         <h6>
             <i class="fas fa-briefcase"></i> Последние работы
         </h6>
@@ -21,14 +21,14 @@
                 <i class="fas fa-briefcase"></i>
             </div>
             
-            <!-- Оверлей для читаемости -->
-            <div class="sidebar-premium-overlay"></div>
+            <!-- Оверлей для читаемости (вибрант градиент) -->
+            <div class="sidebar-premium-overlay vibrant"></div>
             
-            <!-- Контент работы -->
-            <div class="sidebar-premium-content">
+            <!-- Контент работы с эффектом матового стекла -->
+            <div class="sidebar-premium-content glass-effect">
                 <h6 class="sidebar-premium-title">{{ project.title|truncatewords:8 }}</h6>
                 <div class="sidebar-premium-meta">
-                    <i class="fas fa-calendar"></i>
+                    <i class="far fa-calendar-alt"></i>
                     <span>{{ project.created_at|date:"d.m.Y" }}</span>
                 </div>
             </div>

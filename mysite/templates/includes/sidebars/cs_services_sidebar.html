@@ -5,9 +5,9 @@
 
 {# Показываем только если мы НЕ в приложении services и есть категории #}
 {% if request.resolver_match.app_name != 'services' and popular_categories %}
-<div class="card">
+<div class="card sidebar-premium-card">
     <!-- Заголовок -->
-    <div class="card-header sidebar-premium-header-services">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-services">
         <h6>
             <i class="fas fa-magic"></i> Популярные услуги
         </h6>
@@ -29,7 +29,7 @@
                     {% if service.icon %}
                         <img src="{{ service.icon.url }}" alt="">
                     {% else %}
-                        <i class="fas fa-check-circle text-primary"></i>
+                        <i class="fas fa-check-circle"></i>
                     {% endif %}
                     <span class="text-truncate">{{ service.name }}</span>
                 </a>

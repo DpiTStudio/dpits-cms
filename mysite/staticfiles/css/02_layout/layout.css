@@ -139,7 +139,7 @@ header::after {
 
 /* Состояние наведения на ссылку навигации */
 .nav-link:hover {
-    color: var(--primary-color) !important;
+    /* color: var(--primary-color) !important; */
     /* Основной цвет при наведении */
     transform: translateY(-2px);
     /* Небольшое смещение вверх */
@@ -147,7 +147,7 @@ header::after {
 
 /* Активная ссылка навигации */
 .nav-link.active {
-    color: var(--primary-color) !important;
+    /* color: var(--primary-color) !important; */
     /* Основной цвет для активной ссылки */
     font-weight: var(--font-weight-bold);
     /* Жирный шрифт */
@@ -222,7 +222,7 @@ header::after {
 .dropdown-item {
     color: var(--text-white);
     /* Белый цвет текста */
-    padding: 2rem 1rem;
+    padding: 0.65rem 1rem;
     /* Внутренние отступы */
     border-radius: var(--border-radius-sm);
     /* Скругление углов */
@@ -245,15 +245,15 @@ header::after {
 
 /* Состояние наведения на элемент меню */
 .dropdown-item:hover {
-    background-color: var(--bg-card);
+    background-color: rgba(99, 102, 241, 0.15);
     /* Светлый фон при наведении */
-    color: #1a1a1a;
-    /* Темный текст */
+    color: var(--primary-hover);
+    /* Акцентный цвет текста */
 }
 
 .dropdown-item:hover i {
-    color: #d3d1d1;
-    /* Темная иконка при наведении */
+    color: var(--primary-hover);
+    /* Акцентная иконка при наведении */
 }
 
 /* Активный элемент меню (текущая страница) */
