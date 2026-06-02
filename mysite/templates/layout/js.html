@@ -61,4 +61,192 @@
         }
     });
 })();
-</script>
+</script>
+
+<!-- 12. VISUAL UPGRADE 2026 — Scroll Reveal + Canvas Particles + Counter + Tilt -->
+<script>
+(function () {
+    'use strict';
+
+    /* ── SCROLL REVEAL ── */
+    function initScrollReveal() {
+        const els = document.querySelectorAll(
+            '.reveal-on-scroll, .reveal-on-scroll-left, .reveal-on-scroll-right,' +
+            '.cs-advantages__card, .news-card, .portfolio-card, .review-card, .cs-stat-card'
+        );
+        if (!els.length) return;
+        const obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var delay = entry.target.dataset.revealDelay || 0;
+                    setTimeout(function() {
+                        entry.target.classList.add('revealed');
+                    }, +delay);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        els.forEach(function(el, idx) {
+            if (!el.classList.contains('reveal-on-scroll') &&
+                !el.classList.contains('reveal-on-scroll-left') &&
+                !el.classList.contains('reveal-on-scroll-right')) {
+                el.classList.add('reveal-on-scroll');
+            }
+            var siblings = el.parentElement
+                ? Array.from(el.parentElement.children).filter(function(c) {
+                    return c.classList.contains('news-card') ||
+                           c.classList.contains('portfolio-card') ||
+                           c.classList.contains('cs-advantages__card') ||
+                           c.classList.contains('cs-stat-card');
+                  })
+                : [];
+            var si = siblings.indexOf(el);
+            if (si > 0) el.dataset.revealDelay = si * 90;
+            obs.observe(el);
+        });
+    }
+
+    /* ── CANVAS PARTICLES IN HERO ── */
+    function initHeroParticles() {
+        var hero = document.querySelector('.hero-section');
+        if (!hero || window.matchMedia('(max-width: 768px)').matches) return;
+
+        var canvas = document.createElement('canvas');
+        canvas.setAttribute('aria-hidden', 'true');
+        canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.45;';
+        hero.appendChild(canvas);
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var animId;
+
+        function resize() {
+            canvas.width = hero.offsetWidth;
+            canvas.height = hero.offsetHeight;
+        }
+
+        function mkP() {
+            return {
+                x: Math.random() * canvas.width,
+                y: canvas.height + 5,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: -(Math.random() * 1.2 + 0.4),
+                r: Math.random() * 2.5 + 0.5,
+                life: 0,
+                max: Math.random() * 180 + 80,
+                peak: Math.random() * 0.35 + 0.08,
+                clr: Math.random() > 0.5 ? '99,102,241' : '6,182,212'
+            };
+        }
+
+        function tick() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (particles.length < 35 && Math.random() > 0.93) particles.push(mkP());
+            for (var i = particles.length - 1; i >= 0; i--) {
+                var p = particles[i];
+                p.life++;
+                p.x += p.vx;
+                p.y += p.vy;
+                var lr = p.life / p.max;
+                var op = lr < 0.2 ? (lr / 0.2) * p.peak
+                       : lr > 0.75 ? ((1 - lr) / 0.25) * p.peak
+                       : p.peak;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + p.clr + ',' + op.toFixed(2) + ')';
+                ctx.fill();
+                if (p.life >= p.max || p.y < -8) particles.splice(i, 1);
+            }
+            animId = requestAnimationFrame(tick);
+        }
+
+        resize();
+        window.addEventListener('resize', resize, { passive: true });
+        tick();
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) { cancelAnimationFrame(animId); }
+            else { tick(); }
+        });
+    }
+
+    /* ── HEADER GLASS ON SCROLL ── */
+    function initHeaderScroll() {
+        var hdr = document.querySelector('.glass-header, header');
+        if (!hdr) return;
+        var ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    hdr.classList.toggle('scrolled', window.scrollY > 50);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+    }
+
+    /* ── COUNTER ANIMATION ── */
+    function animateCount(el) {
+        var txt = el.textContent;
+        var m = txt.match(/^(\d+)/);
+        if (!m) return;
+        var target = parseInt(m[1]);
+        var suffix = txt.slice(m[1].length);
+        var t0 = performance.now();
+        (function step(now) {
+            var p = Math.min((now - t0) / 1400, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(eased * target) + suffix;
+            if (p < 1) requestAnimationFrame(step);
+        })(t0);
+    }
+
+    function initCounters() {
+        var els = document.querySelectorAll('.cs-stat-card__number, .stat-number');
+        if (!els.length) return;
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    animateCount(entry.target);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        els.forEach(function(el) { obs.observe(el); });
+    }
+
+    /* ── SUBTLE TILT ON CARDS ── */
+    function initCardTilt() {
+        if ('ontouchstart' in window) return;
+        document.querySelectorAll('.cs-advantages__card').forEach(function(card) {
+            card.style.transformStyle = 'preserve-3d';
+            card.style.perspective = '800px';
+            card.addEventListener('mousemove', function(e) {
+                var r = card.getBoundingClientRect();
+                var dx = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+                var dy = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+                card.style.transform = 'translateY(-8px) rotateX(' + (-dy * 3) + 'deg) rotateY(' + (dx * 3) + 'deg)';
+            }, { passive: true });
+            card.addEventListener('mouseleave', function() {
+                card.style.transform = '';
+            });
+        });
+    }
+
+    /* ── INIT ── */
+    function init() {
+        initScrollReveal();
+        initHeroParticles();
+        initHeaderScroll();
+        initCounters();
+        initCardTilt();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
+
