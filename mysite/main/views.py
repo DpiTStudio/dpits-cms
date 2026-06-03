@@ -458,7 +458,7 @@ class PageDetailView(MaintenanceMixin, DetailView):
         return response
 
 
-class ContactView(MaintenanceMixin, TemplateView):
+class ContactView(MaintenanceMixin, BaseView):
     """
     Представление для страницы контактов.
     Обрабатывает GET (отображение формы) и POST (отправка формы).
@@ -622,7 +622,7 @@ class ContactView(MaintenanceMixin, TemplateView):
             return self.render_to_response(context)
 
 
-class AboutView(MaintenanceMixin, TemplateView):
+class AboutView(MaintenanceMixin, BaseView):
     """
     Представление для страницы "О нас".
 

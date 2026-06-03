@@ -140,6 +140,20 @@ class HeroMixin(models.Model):
     Позволяет индивидуально настраивать заголовок, подзаголовок и фон для каждой страницы или категории.
     """
 
+    BG_TYPE_CHOICES = [
+        ("global", _("Как на всем сайте")),
+        ("image", _("Изображение")),
+        ("gradient", _("Градиент")),
+        ("cosmic", _("Космический mesh-градиент")),
+        ("solid", _("Однотонный цвет")),
+    ]
+
+    PARTICLE_CHOICES = [
+        ("global", _("Как на всем сайте")),
+        ("yes", _("Показывать")),
+        ("no", _("Скрывать")),
+    ]
+
     hero_title = models.CharField(
         _("Заголовок Hero"),
         max_length=255,
@@ -156,6 +170,32 @@ class HeroMixin(models.Model):
         upload_to="hero_overrides/",
         blank=True,
         help_text=_("Переопределяет фоновое изображение для этой конкретной страницы"),
+    )
+    hero_bg_type = models.CharField(
+        _("Тип фона Hero"),
+        max_length=20,
+        choices=BG_TYPE_CHOICES,
+        default="global",
+        help_text=_("Выберите тип заднего плана для Hero-секции этой страницы"),
+    )
+    hero_bg_color = models.CharField(
+        _("Цвет фона Hero"),
+        max_length=50,
+        blank=True,
+        help_text=_("Цвет в формате HEX, RGB или HTML имя (например, #1f2937). Применяется для типа 'Однотонный цвет'"),
+    )
+    hero_bg_gradient = models.CharField(
+        _("Градиент фона Hero"),
+        max_length=255,
+        blank=True,
+        help_text=_("Кастомный CSS градиент (например, linear-gradient(135deg, #1e293b 0%, #0f172a 100%)). Применяется для типа 'Градиент'"),
+    )
+    hero_show_particles = models.CharField(
+        _("Показывать сетку и блики"),
+        max_length=10,
+        choices=PARTICLE_CHOICES,
+        default="global",
+        help_text=_("Показывать ли анимированные орбы и точечную сетку на заднем плане"),
     )
     hero_is_active = models.BooleanField(
         _("Показывать Hero"),
@@ -219,11 +259,58 @@ class SiteSettings(SingletonModel):
         help_text=_("Название компании для отображения в заголовках страниц")
     )
 
+    BG_TYPE_CHOICES = [
+        ("image", _("Изображение")),
+        ("gradient", _("Градиент")),
+        ("cosmic", _("Космический mesh-градиент")),
+        ("solid", _("Однотонный цвет")),
+    ]
+
     hero_background = models.ImageField(
         _("Фон Hero-секции"),
         upload_to=upload_to_hero_bg,
         blank=True,
         help_text=_("Изображение для фонового баннера на главной странице"),
+    )
+
+    hero_bg_type = models.CharField(
+        _("Глобальный тип фона Hero"),
+        max_length=20,
+        choices=BG_TYPE_CHOICES,
+        default="image",
+        help_text=_("Выберите тип заднего плана по умолчанию для Hero-секции"),
+    )
+
+    hero_bg_color = models.CharField(
+        _("Глобальный цвет фона Hero"),
+        max_length=50,
+        default="#0e1430",
+        help_text=_("Цвет по умолчанию (например, #0e1430). Используется при типе 'Однотонный цвет'"),
+    )
+
+    hero_bg_gradient = models.CharField(
+        _("Глобальный градиент фона Hero"),
+        max_length=255,
+        default="linear-gradient(135deg, #6366f1 0%, #1e3c72 100%)",
+        help_text=_("Кастомный CSS градиент по умолчанию. Используется при типе 'Градиент'"),
+    )
+
+    hero_show_particles = models.BooleanField(
+        _("Глобально показывать сетку и блики"),
+        default=True,
+        help_text=_("Показывать ли по умолчанию декоративные блики и точечную сетку"),
+    )
+
+    hero_overlay_opacity = models.FloatField(
+        _("Прозрачность затемнения Hero"),
+        default=0.85,
+        help_text=_("Прозрачность затемняющего слоя поверх фона (от 0.0 до 1.0)"),
+    )
+
+    hero_blur_amount = models.PositiveIntegerField(
+        _("Сила размытия Hero фона"),
+        default=4,
+        help_text=_("Размытие заднего фона в пикселях (0 - выключить)"),
     )
 
     # Социальные сети

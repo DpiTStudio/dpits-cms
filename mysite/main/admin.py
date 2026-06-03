@@ -167,6 +167,17 @@ class SiteSettingsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
         (_("Основные данные"), {
             "fields": ("title", "logo", "company_name", "hero_background", "logo_text", "slogan", "motto"),
         }),
+        (_("Оформление Hero-секции"), {
+            "fields": (
+                "hero_bg_type",
+                "hero_bg_color",
+                "hero_bg_gradient",
+                "hero_show_particles",
+                "hero_overlay_opacity",
+                "hero_blur_amount",
+            ),
+            "description": _("Настройки фонового оформления и эффектов для верхней Hero-секции сайта по умолчанию."),
+        }),
         (_("Домен"), {
             "fields": ("domain", "slogan_domain"),
         }),
@@ -239,10 +250,14 @@ class PageAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
             _("Hero-секция"),
             {
                 "fields": (
+                    "hero_is_active",
                     "hero_title",
                     "hero_subtitle",
                     "hero_image",
-                    "hero_is_active",
+                    "hero_bg_type",
+                    "hero_bg_color",
+                    "hero_bg_gradient",
+                    "hero_show_particles",
                 ),
                 "classes": ("collapse",),
             },
@@ -271,10 +286,14 @@ class AppHeroSettingsAdmin(ResetAutoIncrementMixin, admin.ModelAdmin):
             {
                 "fields": (
                     "app_name",
+                    "hero_is_active",
                     "hero_title",
                     "hero_subtitle",
                     "hero_image",
-                    "hero_is_active",
+                    "hero_bg_type",
+                    "hero_bg_color",
+                    "hero_bg_gradient",
+                    "hero_show_particles",
                 )
             },
         ),

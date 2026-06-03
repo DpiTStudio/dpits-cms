@@ -1100,3 +1100,45 @@ main {
 .premium-shine:hover::after {
  left: 120%;
 }
+
+/* ── 19. COSMIC MESH BACKGROUND FOR HERO ── */
+.cosmic-mesh-bg {
+    position: relative;
+    background: #03050f !important;
+    overflow: hidden;
+}
+
+.cosmic-mesh-bg::before {
+    display: none !important; /* Отключаем стандартный before-градиент */
+}
+
+.cosmic-mesh-bg::after {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(244, 63, 94, 0.2) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.22) 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(217, 70, 239, 0.18) 0%, transparent 40%);
+    z-index: 0;
+    animation: cosmicMeshShift 30s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes cosmicMeshShift {
+    0% {
+        transform: rotate(0deg) scale(1);
+        filter: hue-rotate(0deg) saturate(1);
+    }
+    50% {
+        transform: rotate(10deg) scale(1.1);
+        filter: hue-rotate(30deg) saturate(1.15);
+    }
+    100% {
+        transform: rotate(-10deg) scale(1.05);
+        filter: hue-rotate(-30deg) saturate(1.3);
+    }
+}

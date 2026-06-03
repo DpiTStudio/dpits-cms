@@ -10,25 +10,22 @@
 
 {# Проверяем, активен ли баннер #}
 {% if active_hero.hero_is_active|default:True %}
-{% get_hero_bg_url active_hero category app_hero site_settings as hero_bg %}
+{% get_hero_settings active_hero category app_hero site_settings as hs %}
 <section
-  class="hero-section text-white position-relative d-flex align-items-center"
-  style="min-height: 50vh; {% if hero_bg %}background: url('{{ hero_bg }}') center/cover no-repeat;{% else %}background: linear-gradient(135deg, var(--primary-color) 0%, #1e3c72 100%);{% endif %}"
+  class="hero-section text-white position-relative d-flex align-items-center {% if hs.bg_type == 'cosmic' %}cosmic-mesh-bg{% endif %}"
+  style="min-height: 50vh; {{ hs.bg_style }}"
 >
   {# Современный градиентный затемняющий слой с блюром #}
   <div
     class="position-absolute w-100 h-100 top-0 start-0"
     style="
-      background: linear-gradient(
-        135deg,
-        rgba(15, 23, 42, 0.85) 0%,
-        rgba(30, 41, 59, 0.6) 100%
-      );
-      backdrop-filter: blur(4px);
+      background: {{ hs.overlay_gradient }};
+      {% if hs.blur_amount > 0 %}backdrop-filter: blur({{ hs.blur_amount }}px); -webkit-backdrop-filter: blur({{ hs.blur_amount }}px);{% endif %}
       z-index: 0;
     "
   ></div>
 
+  {% if hs.show_particles %}
   {# Декоративная точечная сетка (dot grid) #}
   <svg
     class="position-absolute w-100 h-100 top-0 start-0"
@@ -75,6 +72,7 @@
       z-index: 1;
     "
   ></div>
+  {% endif %}
 
   <div class="container position-relative w-100 py-5" style="z-index: 10">
     <div class="row align-items-center">

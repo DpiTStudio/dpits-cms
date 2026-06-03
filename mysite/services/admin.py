@@ -72,7 +72,16 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
             "fields": ("show_in_menu", "order", "is_active"),
         }),
         ("Настройки Hero-секции", {
-            "fields": ("hero_title", "hero_subtitle", "hero_image", "hero_is_active"),
+            "fields": (
+                "hero_is_active",
+                "hero_title",
+                "hero_subtitle",
+                "hero_image",
+                "hero_bg_type",
+                "hero_bg_color",
+                "hero_bg_gradient",
+                "hero_show_particles",
+            ),
             "classes": ("collapse",),  # Сворачиваемая секция
         }),
         ("Системная информация", {
@@ -172,7 +181,16 @@ class ServiceAdmin(admin.ModelAdmin):
             "fields": ("seo_title", "seo_keywords", "seo_description"),
         }),
         ("Настройки Hero-секции", {
-            "fields": ("hero_title", "hero_subtitle", "hero_image", "hero_is_active"),
+            "fields": (
+                "hero_is_active",
+                "hero_title",
+                "hero_subtitle",
+                "hero_image",
+                "hero_bg_type",
+                "hero_bg_color",
+                "hero_bg_gradient",
+                "hero_show_particles",
+            ),
             "classes": ("collapse",),
         }),
         ("Системная информация", {

@@ -70,10 +70,14 @@ class PortfolioCategoryAdmin(admin.ModelAdmin):
             _("Настройки Hero-секции"),
             {
                 "fields": (
+                    "hero_is_active",
                     "hero_title",
                     "hero_subtitle",
                     "hero_image",
-                    "hero_is_active",
+                    "hero_bg_type",
+                    "hero_bg_color",
+                    "hero_bg_gradient",
+                    "hero_show_particles",
                 ),
                 "classes": ("collapse",),
             },
@@ -191,10 +195,14 @@ class PortfolioItemAdmin(admin.ModelAdmin):
             _("Настройки Hero-секции"),
             {
                 "fields": (
+                    "hero_is_active",
                     "hero_title",
                     "hero_subtitle",
                     "hero_image",
-                    "hero_is_active",
+                    "hero_bg_type",
+                    "hero_bg_color",
+                    "hero_bg_gradient",
+                    "hero_show_particles",
                 ),
                 "classes": ("collapse",),
             },
