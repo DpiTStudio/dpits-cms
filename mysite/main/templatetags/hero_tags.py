@@ -5,48 +5,41 @@ register = template.Library()
 @register.simple_tag
 def get_hero_bg_url(active_hero=None, category=None, app_hero=None, site_settings=None):
     """
-    Определяет фоновое изображение для hero-секции.
-    Возвращает URL изображения или пустую строку, если нужно использовать градиент.
+    Определяет фоновое изображение для hero-секции с поддержкой иерархии:
+    active_hero -> category -> app_hero -> site_settings.
     """
-    if active_hero:
-        if getattr(active_hero, 'hero_image', None):
-            return active_hero.hero_image.url
-        if getattr(active_hero, 'image', None):
-            return active_hero.image.url
-        if getattr(active_hero, 'background', None):
-            return active_hero.background.url
-            
-    if category:
-        if getattr(category, 'hero_image', None):
-            return category.hero_image.url
-        if getattr(category, 'image', None):
-            return category.image.url
-        if getattr(category, 'background', None):
-            return category.background.url
-            
-    if app_hero:
-        if getattr(app_hero, 'hero_image', None):
-            return app_hero.hero_image.url
-        if getattr(app_hero, 'image', None):
-            return app_hero.image.url
-        if getattr(app_hero, 'background', None):
-            return app_hero.background.url
-            
+    chain = []
+    for obj in [active_hero, category, app_hero]:
+        if obj and hasattr(obj, 'hero_is_active') and obj not in chain:
+            chain.append(obj)
+
+    for obj in chain:
+        if getattr(obj, 'hero_image', None):
+            return obj.hero_image.url
+        if getattr(obj, 'image', None):
+            name = obj.image.name
+            if name and 'default-category' not in name:
+                return obj.image.url
+        if getattr(obj, 'background', None):
+            return obj.background.url
+
     if site_settings and getattr(site_settings, 'hero_background', None):
         return site_settings.hero_background.url
-        
+
     return ""
 
 @register.simple_tag
 def get_hero_settings(active_hero=None, category=None, app_hero=None, site_settings=None):
     """
-    Разрешает настройки фонового оформления для Hero-секции.
+    Разрешает настройки фонового оформления для Hero-секции с поддержкой
+    иерархического наследования: active_hero -> category -> app_hero -> site_settings.
     Возвращает словарь с параметрами:
     - bg_type: 'image', 'gradient', 'cosmic', 'solid'
     - bg_style: готовый CSS-стиль для background/background-color
     - show_particles: True / False
     - overlay_gradient: градиент для оверлея
     - blur_amount: размытие в px
+    - hero_is_active: True / False
     """
     # 1. Глобальные значения по умолчанию
     resolved = {
@@ -55,7 +48,8 @@ def get_hero_settings(active_hero=None, category=None, app_hero=None, site_setti
         'show_particles': True,
         'overlay_opacity': 0.85,
         'blur_amount': 4,
-        'image_url': None
+        'image_url': None,
+        'hero_is_active': True,
     }
 
     # Сначала считываем глобальные настройки из site_settings
@@ -74,65 +68,109 @@ def get_hero_settings(active_hero=None, category=None, app_hero=None, site_setti
                 resolved['bg_type'] = 'gradient'
                 resolved['bg_value'] = 'linear-gradient(135deg, var(--primary-color) 0%, #1e3c72 100%)'
 
-    # 2. Ищем переопределяющие объекты в порядке приоритета: active_hero, category, app_hero
-    override_obj = None
-    if active_hero and hasattr(active_hero, 'hero_is_active'):
-        override_obj = active_hero
-    elif category and hasattr(category, 'hero_is_active'):
-        override_obj = category
-    elif app_hero and hasattr(app_hero, 'hero_is_active'):
-        override_obj = app_hero
+    # Строим цепочку наследования по приоритету
+    chain = []
+    for obj in [active_hero, category, app_hero]:
+        if obj and hasattr(obj, 'hero_is_active') and obj not in chain:
+            chain.append(obj)
 
-    if override_obj:
-        # Проверяем тип фона страницы
-        bg_type = getattr(override_obj, 'hero_bg_type', 'global')
+    # Разрешаем активность Hero (если хоть один уровень отключает - отключаем)
+    hero_is_active = True
+    for obj in chain:
+        if getattr(obj, 'hero_is_active', True) is False:
+            hero_is_active = False
+            break
+    resolved['hero_is_active'] = hero_is_active
+
+    if chain:
+        # Разрешаем bg_type по иерархии
+        bg_type = 'global'
+        for obj in chain:
+            val = getattr(obj, 'hero_bg_type', 'global')
+            if val != 'global':
+                bg_type = val
+                break
         if bg_type != 'global':
             resolved['bg_type'] = bg_type
 
-        # Проверяем отображение бликов/частиц
-        show_particles = getattr(override_obj, 'hero_show_particles', 'global')
+        # Разрешаем show_particles по иерархии
+        show_particles = 'global'
+        for obj in chain:
+            val = getattr(obj, 'hero_show_particles', 'global')
+            if val != 'global':
+                show_particles = val
+                break
         if show_particles == 'yes':
             resolved['show_particles'] = True
         elif show_particles == 'no':
             resolved['show_particles'] = False
 
-        # Разрешаем значение фона в зависимости от типа
-        if resolved['bg_type'] == 'image':
+        # Разрешаем значение фона (bg_value) в зависимости от разрешенного bg_type
+        if resolved['bg_type'] == 'solid':
+            # Ищем цвет фона в иерархии
+            bg_color = None
+            for obj in chain:
+                val = getattr(obj, 'hero_bg_color', None)
+                if val:
+                    bg_color = val
+                    break
+            if bg_color:
+                resolved['bg_value'] = bg_color
+            else:
+                if site_settings and getattr(site_settings, 'hero_bg_color', None):
+                    resolved['bg_value'] = site_settings.hero_bg_color
+
+        elif resolved['bg_type'] == 'gradient':
+            # Ищем градиент в иерархии
+            bg_gradient = None
+            for obj in chain:
+                val = getattr(obj, 'hero_bg_gradient', None)
+                if val:
+                    bg_gradient = val
+                    break
+            if bg_gradient:
+                resolved['bg_value'] = bg_gradient
+            else:
+                if site_settings and getattr(site_settings, 'hero_bg_gradient', None):
+                    resolved['bg_value'] = site_settings.hero_bg_gradient
+
+        elif resolved['bg_type'] == 'image':
+            # Ищем изображение в иерархии
             img_url = None
-            if getattr(override_obj, 'hero_image', None):
-                img_url = override_obj.hero_image.url
-            elif getattr(override_obj, 'image', None):
-                img_url = override_obj.image.url
-            elif getattr(override_obj, 'background', None):
-                img_url = override_obj.background.url
+            for obj in chain:
+                if getattr(obj, 'hero_image', None):
+                    img_url = obj.hero_image.url
+                    break
+                elif getattr(obj, 'image', None):
+                    name = obj.image.name
+                    if name and 'default-category' not in name:
+                        img_url = obj.image.url
+                        break
+                elif getattr(obj, 'background', None):
+                    img_url = obj.background.url
+                    break
 
             if img_url:
                 resolved['image_url'] = img_url
                 resolved['bg_value'] = f"url('{img_url}') center/cover no-repeat"
             else:
-                # Если на странице нет картинки, используем картинку из site_settings
-                if resolved.get('image_url'):
-                    resolved['bg_value'] = f"url('{resolved['image_url']}') center/cover no-repeat"
+                # Если изображение не найдено, пытаемся использовать глобальное
+                if site_settings and getattr(site_settings, 'hero_background', None):
+                    img_url = site_settings.hero_background.url
+                    resolved['image_url'] = img_url
+                    resolved['bg_value'] = f"url('{img_url}') center/cover no-repeat"
                 else:
                     # Если вообще нет картинок, падаем в градиент
                     resolved['bg_type'] = 'gradient'
-                    resolved['bg_value'] = 'linear-gradient(135deg, var(--primary-color) 0%, #1e3c72 100%)'
-
-        elif resolved['bg_type'] == 'gradient':
-            grad = getattr(override_obj, 'hero_bg_gradient', None)
-            if grad:
-                resolved['bg_value'] = grad
-            else:
-                if site_settings and getattr(site_settings, 'hero_bg_gradient', None):
-                    resolved['bg_value'] = site_settings.hero_bg_gradient
-
-        elif resolved['bg_type'] == 'solid':
-            color = getattr(override_obj, 'hero_bg_color', None)
-            if color:
-                resolved['bg_value'] = color
-            else:
-                if site_settings and getattr(site_settings, 'hero_bg_color', None):
-                    resolved['bg_value'] = site_settings.hero_bg_color
+                    # Ищем первый доступный градиент в иерархии
+                    grad_val = None
+                    for obj in chain:
+                        if getattr(obj, 'hero_bg_gradient', None):
+                            grad_val = obj.hero_bg_gradient
+                            break
+                    if not grad_val and site_settings:
+                        grad_val = getattr(site_settings, 'hero_bg_gradient', None)
+                    resolved['bg_value'] = grad_val or 'linear-gradient(135deg, var(--primary-color) 0%, #1e3c72 100%)'
 
         elif resolved['bg_type'] == 'cosmic':
             resolved['bg_value'] = 'var(--gradient-mesh-cosmic)'

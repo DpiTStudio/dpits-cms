@@ -8,9 +8,10 @@
 {# Безопасно получаем первый доступный объект со свойствами hero #}
 {% with active_hero=news|default:portfolio_item|default:service|default:page|default:category|default:app_hero|default:site_settings %}
 
-{# Проверяем, активен ли баннер #}
-{% if active_hero.hero_is_active|default:True %}
 {% get_hero_settings active_hero category app_hero site_settings as hs %}
+
+{# Проверяем, активен ли баннер #}
+{% if hs.hero_is_active %}
 <section
   class="hero-section text-white position-relative d-flex align-items-center {% if hs.bg_type == 'cosmic' %}cosmic-mesh-bg{% endif %}"
   style="min-height: 50vh; {{ hs.bg_style }}"
@@ -292,6 +293,28 @@
         >
           <img
             src="{{ active_hero.image.url }}"
+            alt="{{ active_hero.title|default:'Фото' }}"
+            class="img-fluid hero-side-image"
+            style="max-height: 350px; object-fit: cover"
+          />
+          <div
+            class="position-absolute w-100 h-100 top-0 start-0"
+            style="
+              background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.5),
+                transparent
+              );
+              pointer-events: none;
+            "
+          ></div>
+        </div>
+        {% elif active_hero.hero_image and hs.bg_type != 'image' %}
+        <div
+          class="hero-image-wrapper rounded-4 overflow-hidden shadow-lg border border-light border-opacity-10 d-inline-block position-relative"
+        >
+          <img
+            src="{{ active_hero.hero_image.url }}"
             alt="{{ active_hero.title|default:'Фото' }}"
             class="img-fluid hero-side-image"
             style="max-height: 350px; object-fit: cover"
