@@ -22,7 +22,7 @@
 {% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if service.icon %}{{ service.icon.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/service.css' %}">
+<link rel="stylesheet" href="{% static 'css/04_sections/service.css' %}">
 {% endblock %}
 
 {% block content %}

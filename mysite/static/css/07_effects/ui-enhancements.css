@@ -329,7 +329,7 @@
 }
 
 /* Для Firefox */
-* {
+html {
   scrollbar-width: thin;
   scrollbar-color: var(--primary-color) var(--neutral-100);
 }

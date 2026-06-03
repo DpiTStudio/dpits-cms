@@ -24,10 +24,7 @@
 
 <!-- Подключение CSS стилей -->
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-{% comment %}
-<link rel="stylesheet" href="{% static 'css/page_detail.css' %}">
-{% endcomment %}
+<link rel="stylesheet" href="{% static 'css/99_premium/styles.css' %}">
 {% if breadcrumbs_jsonld %}
 <script type="application/ld+json">{{ breadcrumbs_jsonld|safe }}</script>
 {% endif %}

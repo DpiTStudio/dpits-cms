@@ -22,8 +22,8 @@
 {% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% if item.image %}{{ item.image.url }}{% else %}{{ site_settings.logo.url }}{% endif %}{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/portfolio_detail.css' %}">
-<link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+<link rel="stylesheet" href="{% static 'css/06_portfolio/portfolio_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/03_components/pagination.css' %}">
 {% endblock %}
 
 {% block content %}

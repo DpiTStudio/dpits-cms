@@ -350,7 +350,7 @@ img {
 /* Плавная прокрутка на всех устройствах */
 @media (prefers-reduced-motion: no-preference) {
     html {
-        scroll-behavior: smooth;             /* Плавная прокрутка */
+        scroll-behavior: auto;             /* Плавная прокрутка отключена */
     }
 }
 
