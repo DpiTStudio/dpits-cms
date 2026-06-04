@@ -22,6 +22,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="aurora-bg"></div>
 <div class="news-list-container">
 
   <!-- Шапка категории -->
@@ -85,7 +86,7 @@
       <div class="row g-4 news-grid">
         {% for news in day.list %}
         <div class="col-12 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
-          <article class="news-card-premium w-100 h-100" itemscope itemtype="https://schema.org/NewsArticle">
+          <article class="news-card-premium glass-card-premium premium-shine rounded-4 overflow-hidden position-relative d-flex flex-column w-100 h-100" itemscope itemtype="https://schema.org/NewsArticle">
             {% if news.image %}
             <div class="news-card-bg" style="background-image: url('{{ news.image.url }}');"></div>
             {% endif %}
@@ -134,7 +135,7 @@
               {% endif %}
 
               <div class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25">
-                <a href="{% url 'news:detail' news.slug %}" class="btn-read-more">
+                <a href="{% url 'news:detail' news.slug %}" class="btn-read-more btn btn-sm btn-outline-primary rounded-pill px-3">
                   Читать <i class="fas fa-arrow-right ms-2"></i>
                 </a>
                 <span class="reading-time-badge">
@@ -205,80 +206,105 @@
 <div class="sidebar-news-content">
 
   <!-- Поиск -->
-  <div class="sidebar-widget mb-4">
-    <form action="{% url 'news:search' %}" method="get">
-      <div class="sidebar-search-box">
-        <input type="text" name="q" value="{{ search_query }}"
-               class="sidebar-search-input" placeholder="Поиск новостей...">
-        <button type="submit" class="sidebar-search-btn">
-          <i class="fas fa-search"></i>
-        </button>
-      </div>
-    </form>
+  <div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-news">
+      <h6>
+        <i class="fas fa-search"></i> Поиск новостей
+      </h6>
+    </div>
+    <div class="card-body sidebar-premium-body">
+      <form action="{% url 'news:search' %}" method="get">
+        <div class="sidebar-search-box">
+          <input type="text" name="q" value="{{ search_query }}"
+                 class="sidebar-search-input" placeholder="Поиск новостей...">
+          <button type="submit" class="sidebar-search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- Категории -->
-  <div class="sidebar-widget mb-4">
-    <h5 class="sidebar-widget-title">
-      <i class="fas fa-folder-open me-2 text-primary"></i>Категории
-    </h5>
-    <div class="d-flex flex-wrap gap-2">
-      <a href="{% url 'news:list' %}" class="btn-filter-pill">Все</a>
-      {% for cat in categories %}
-      <a
-        href="{{ cat.get_absolute_url }}"
-        class="btn-filter-pill {% if category.slug == cat.slug %}active{% endif %}"
-      >
-        {{ cat.name }}
-      </a>
-      {% endfor %}
+  <div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-news">
+      <h6>
+        <i class="fas fa-folder-open"></i> Категории
+      </h6>
+    </div>
+    <div class="card-body sidebar-premium-body">
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{% url 'news:list' %}" class="btn-filter-pill">Все</a>
+        {% for cat in categories %}
+        <a
+          href="{{ cat.get_absolute_url }}"
+          class="btn-filter-pill {% if category.slug == cat.slug %}active{% endif %}"
+        >
+          {{ cat.name }}
+        </a>
+        {% endfor %}
+      </div>
     </div>
   </div>
 
   <!-- Сортировка -->
-  <div class="sidebar-widget mb-4">
-    <h5 class="sidebar-widget-title">
-      <i class="fas fa-sort-amount-down me-2 text-primary"></i>Сортировка
-    </h5>
-    <div class="d-flex flex-wrap gap-2">
-      <a href="?sort=-published_at{% if search_query %}&q={{ search_query }}{% endif %}"
-         class="btn-sort-pill {% if current_sort == '-published_at' or current_sort == '-created_at' or not current_sort %}active{% endif %}">
-        <i class="fas fa-calendar me-1"></i>Новые
-      </a>
-      <a href="?sort=-views{% if search_query %}&q={{ search_query }}{% endif %}"
-         class="btn-sort-pill {% if current_sort == '-views' %}active{% endif %}">
-        <i class="fas fa-fire me-1"></i>Популярные
-      </a>
-      <a href="?sort=title{% if search_query %}&q={{ search_query }}{% endif %}"
-         class="btn-sort-pill {% if current_sort == 'title' %}active{% endif %}">
-        <i class="fas fa-sort-alpha-down me-1"></i>А–Я
-      </a>
+  <div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-news">
+      <h6>
+        <i class="fas fa-sort-amount-down"></i> Сортировка
+      </h6>
+    </div>
+    <div class="card-body sidebar-premium-body">
+      <div class="d-flex flex-wrap gap-2">
+        <a href="?sort=-published_at{% if search_query %}&q={{ search_query }}{% endif %}"
+           class="btn-sort-pill {% if current_sort == '-published_at' or current_sort == '-created_at' or not current_sort %}active{% endif %}">
+          <i class="fas fa-calendar me-1"></i>Новые
+        </a>
+        <a href="?sort=-views{% if search_query %}&q={{ search_query }}{% endif %}"
+           class="btn-sort-pill {% if current_sort == '-views' %}active{% endif %}">
+          <i class="fas fa-fire me-1"></i>Популярные
+        </a>
+        <a href="?sort=title{% if search_query %}&q={{ search_query }}{% endif %}"
+           class="btn-sort-pill {% if current_sort == 'title' %}active{% endif %}">
+          <i class="fas fa-sort-alpha-down me-1"></i>А–Я
+        </a>
+      </div>
     </div>
   </div>
 
   <!-- Популярные новости -->
   {% if popular_news %}
-  <div class="sidebar-widget mb-4">
-    <h5 class="sidebar-widget-title">
-      <i class="fas fa-fire me-2 text-danger"></i>Популярное
-    </h5>
-    {% popular_news_widget 5 %}
+  <div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-news">
+      <h6>
+        <i class="fas fa-fire text-danger"></i> Популярное
+      </h6>
+    </div>
+    <div class="card-body sidebar-premium-body">
+      {% popular_news_widget 5 %}
+    </div>
   </div>
   {% endif %}
 
   <!-- Теги -->
-  <div class="sidebar-widget mb-4">
-    <h5 class="sidebar-widget-title">
-      <i class="fas fa-tags me-2 text-primary"></i>Теги
-    </h5>
-    {% tag_cloud 12 %}
+  <div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-news">
+      <h6>
+        <i class="fas fa-tags"></i> Теги
+      </h6>
+    </div>
+    <div class="card-body sidebar-premium-body">
+      {% tag_cloud 12 %}
+    </div>
   </div>
 
   <!-- RSS -->
-  <div class="sidebar-widget mb-4">
-    <a href="{% url 'news:feed' %}" class="rss-link" target="_blank">
-      <i class="fas fa-rss me-2"></i>RSS-лента
-    </a>
+  <div class="card sidebar-premium-card">
+    <div class="card-body sidebar-premium-body">
+      <a href="{% url 'news:feed' %}" class="rss-link" target="_blank">
+        <i class="fas fa-rss me-2"></i>RSS-лента
+      </a>
+    </div>
   </div>
 
 </div>

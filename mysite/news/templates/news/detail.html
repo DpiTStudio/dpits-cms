@@ -491,46 +491,60 @@
 <div class="sidebar-news-content">
 
   <!-- Категории -->
-  <div class="sidebar-widget mb-4">
-    <h5 class="sidebar-widget-title">
-      <i class="fas fa-folder-open me-2 text-primary"></i>Категории
-    </h5>
-    <div class="d-flex flex-wrap gap-2">
-      <a href="{% url 'news:list' %}" class="btn-filter-pill">Все</a>
-      {% for cat in categories %}
-      <a
-        href="{{ cat.get_absolute_url }}"
-        class="btn-filter-pill {% if news.category and news.category.slug == cat.slug %}active{% endif %}"
-      >
-        {{ cat.name }}
-      </a>
-      {% endfor %}
+  <div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-news">
+      <h6>
+        <i class="fas fa-folder-open"></i> Категории
+      </h6>
+    </div>
+    <div class="card-body sidebar-premium-body">
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{% url 'news:list' %}" class="btn-filter-pill">Все</a>
+        {% for cat in categories %}
+        <a
+          href="{{ cat.get_absolute_url }}"
+          class="btn-filter-pill {% if news.category and news.category.slug == cat.slug %}active{% endif %}"
+        >
+          {{ cat.name }}
+        </a>
+        {% endfor %}
+      </div>
     </div>
   </div>
 
   <!-- Популярные новости -->
   {% if popular_news %}
-  <div class="sidebar-widget mb-4">
-    <h5 class="sidebar-widget-title">
-      <i class="fas fa-fire me-2 text-danger"></i>Популярное
-    </h5>
-    {% popular_news_widget 5 %}
+  <div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-news">
+      <h6>
+        <i class="fas fa-fire text-danger"></i> Популярное
+      </h6>
+    </div>
+    <div class="card-body sidebar-premium-body">
+      {% popular_news_widget 5 %}
+    </div>
   </div>
   {% endif %}
 
   <!-- Облако тегов -->
-  <div class="sidebar-widget mb-4">
-    <h5 class="sidebar-widget-title">
-      <i class="fas fa-tags me-2 text-primary"></i>Теги
-    </h5>
-    {% tag_cloud 12 %}
+  <div class="card sidebar-premium-card">
+    <div class="card-header sidebar-premium-header sidebar-premium-header-news">
+      <h6>
+        <i class="fas fa-tags"></i> Теги
+      </h6>
+    </div>
+    <div class="card-body sidebar-premium-body">
+      {% tag_cloud 12 %}
+    </div>
   </div>
 
   <!-- RSS -->
-  <div class="sidebar-widget mb-4">
-    <a href="{% url 'news:feed' %}" class="rss-link" target="_blank">
-      <i class="fas fa-rss me-2"></i>RSS-лента
-    </a>
+  <div class="card sidebar-premium-card">
+    <div class="card-body sidebar-premium-body">
+      <a href="{% url 'news:feed' %}" class="rss-link" target="_blank">
+        <i class="fas fa-rss me-2"></i>RSS-лента
+      </a>
+    </div>
   </div>
 
 </div>

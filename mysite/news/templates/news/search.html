@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="aurora-bg"></div>
 <div class="news-list-container">
     <!-- Заголовок -->
     <div class="news-header mb-5">
@@ -38,18 +39,19 @@
     <div class="news-timeline-container">
         {% for day in news_by_day %}
         <div class="day-group mb-5">
-            <!-- Заголовок дня (связка) -->
-            <div class="d-flex align-items-center mb-4">
-                <span class="badge bg-primary text-white rounded-pill px-4 py-2 fw-bold fs-6 shadow-sm me-3">
+            <!-- Разделитель дня -->
+            <div class="day-separator d-flex align-items-center mb-4">
+                <div class="day-badge">
                     <i class="far fa-calendar-alt me-2"></i> {{ day.list.0.published_at|ru_date }}
-                </span>
-                <div class="flex-grow-1 border-top border-secondary border-opacity-25 border-2"></div>
+                </div>
+                <div class="day-line flex-grow-1"></div>
+                <span class="day-count">{{ day.list|length }} {{ day.list|length|plural_ru:"материал,материала,материалов" }}</span>
             </div>
             
             <div class="row g-4 news-grid">
                 {% for news in day.list %}
                 <div class="col-12 col-md-6 d-flex">
-                    <article class="news-card-premium w-100 h-100" style="animation-delay: {{ forloop.counter0|add:1 }}00ms;">
+                    <article class="news-card-premium glass-card-premium premium-shine rounded-4 overflow-hidden position-relative d-flex flex-column w-100 h-100" style="animation-delay: {{ forloop.counter0|add:1 }}00ms;" itemscope itemtype="https://schema.org/NewsArticle">
                         {% if news.image %}
                         <div class="news-card-bg" style="background-image: url('{{ news.image.url }}');"></div>
                         {% endif %}
@@ -77,7 +79,7 @@
                             </p>
                             
                             <div class="news-card-footer d-flex justify-content-between align-items-center mt-auto pt-3 border-top border-secondary border-opacity-25">
-                                <a href="{% url 'news:detail' news.slug %}" class="btn-read-more" style="font-size: 0.85rem;">
+                                <a href="{% url 'news:detail' news.slug %}" class="btn-read-more btn btn-sm btn-outline-primary rounded-pill px-3" style="font-size: 0.85rem;">
                                     Читать <i class="fas fa-arrow-right ms-2"></i>
                                 </a>
                                 <span class="news-views text-muted small">
