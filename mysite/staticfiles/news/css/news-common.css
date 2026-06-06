@@ -30,7 +30,7 @@
 
 /* Стили для хлебных крошек */
 .breadcrumb {
-    background-color: transparent;
+    /* background-color: transparent; */
     padding: 0.75rem 0;
 }
 
