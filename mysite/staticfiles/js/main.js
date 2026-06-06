@@ -3,15 +3,15 @@
 // ОПИСАНИЕ: Основной JavaScript файл с улучшениями UX
 // ============================================
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('🚀 DPITS-CMS загружен');
-    
+
     // ========== RIPPLE EFFECT ДЛЯ КНОПОК ==========
     initRippleEffect();
-    
+
     // ========== SMOOTH SCROLL ==========
-    initSmoothScroll();
-    
+    //initSmoothScroll();
+
     // ========== МОБИЛЬНОЕ МЕНЮ ==========
     initMobileMenu();
     
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initToasts();
     
     // ========== HEADER SCROLL EFFECT ==========
-    initHeaderScroll();
+    // initHeaderScroll(); // Disabled scroll effect
 });
 
 // ========== RIPPLE EFFECT ==========
