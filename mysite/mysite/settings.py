@@ -29,6 +29,7 @@
 
 from pathlib import Path
 import os
+import sys
 import importlib.util as _importlib_util
 from dotenv import load_dotenv
 
@@ -50,7 +51,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # РЕЖИМ ОТЛАДКИ: Загружается из .env файла (по умолчанию False)
-DEBUG = os.getenv("DEBUG", False)
+DEBUG = os.getenv("DEBUG", "False").lower() in ("true", "1", "yes")
 
 # РАЗРЕШЕННЫЕ ХОСТЫ: Список доменов/хостов, которые может обслуживать система
 if DEBUG:
@@ -83,9 +84,21 @@ else:
         "https://www.dpits-cms.ru",
     ]
 
-# Кастомные имена кук, чтобы избежать коллизий при запуске нескольких Django-проектов на одном домене/localhost
-CSRF_COOKIE_NAME = "dpits_csrftoken"
-SESSION_COOKIE_NAME = "dpits_sessionid"
+# Проверяем, запущен ли сервер в режиме HTTPS (в продакшене или локально через runserver_plus)
+IS_HTTPS = not DEBUG or "runserver_plus" in sys.argv or any("cert" in arg for arg in sys.argv)
+
+if IS_HTTPS:
+    # Имена кук для HTTPS режима
+    CSRF_COOKIE_NAME = "dpits_csrftoken_secure"
+    SESSION_COOKIE_NAME = "dpits_sessionid_secure"
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+else:
+    # Имена кук для HTTP режима (локальная разработка)
+    CSRF_COOKIE_NAME = "dpits_csrftoken"
+    SESSION_COOKIE_NAME = "dpits_sessionid"
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
 
 # =============================================================================
 # ОПРЕДЕЛЕНИЕ ПРИЛОЖЕНИЙ

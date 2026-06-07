@@ -6,9 +6,13 @@ django.setup()
 
 from django.template.loader import render_to_string
 from django.test import RequestFactory
+from django.contrib.auth.models import AnonymousUser
+from django.contrib.sessions.backends.db import SessionStore
 
 rf = RequestFactory()
 request = rf.get('/')
+request.user = AnonymousUser()
+request.session = SessionStore()
 
 # Mock some context variables that are expected by base.html
 context = {
@@ -28,7 +32,7 @@ templates_to_test = [
 errors = 0
 for tpl in templates_to_test:
     try:
-        render_to_string(tpl, context)
+        render_to_string(tpl, context, request=request)
         print(f"[OK] {tpl}")
     except Exception as e:
         print(f"[FAIL] {tpl}: {e}")
