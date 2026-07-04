@@ -17,7 +17,7 @@ class UserProfileInline(admin.StackedInline):
     model = UserProfile
     can_delete = False  # Запрет удаления профиля отдельно от пользователя
     verbose_name_plural = "Профили"
-    fields = ["phone", "avatar_preview", "avatar", "bio", "created_at", "updated_at"]
+    fields = ["phone", "avatar_preview", "avatar", "bio", "totp_secret", "created_at", "updated_at"]
     readonly_fields = ["avatar_preview", "created_at", "updated_at"]
 
     def avatar_preview(self, obj):
