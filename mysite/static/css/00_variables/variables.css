@@ -7,76 +7,85 @@
     /* ========== ОСНОВНЫЕ ЦВЕТА ========== */
     /* Основные цвета - Индиго */
     --primary-color: #6366f1;                   
-    --primary-hover: #818cf8;                   
-    --primary-active: #4f46e5;                  
-    --primary-glow: rgba(99, 102, 241, 0.35);    
+    --primary-hover: #4f46e5;                   
+    --primary-active: #3730a3;                  
+    --primary-glow: rgba(99, 102, 241, 0.25);    
     
-    /* Вторичные цвета - Циан / Синий */
-    --secondary-color: #06b6d4;                 
-    --secondary-hover: #22d3ee;                 
-    --secondary-active: #0891b2;                
+    /* Вторичные цвета - Синий */
+    --secondary-color: #3b82f6;                 
+    --secondary-hover: #2563eb;                 
+    --secondary-active: #1d4ed8;                
     
     /* Акцентные цвета - Розовый / Фуксия */
     --accent-color: #f43f5e;                    
-    --accent-hover: #fda4af;      
+    --accent-hover: #fb7185;      
     --accent-active: #e11d48;     
     
-    /* Нейтральные цвета (Сланцевые и глубокие космические синие вместо холодных серых) */
+    /* Нейтральные цвета (Сланцевые и графитовые для премиального темного интерфейса) */
     --neutral-50: #f8fafc;          
     --neutral-100: #cbd5e1;         
     --neutral-200: #94a3b8;         
     --neutral-300: #64748b;         
-    --neutral-400: #3d4a63;         
-    --neutral-500: #263044;         
-    --neutral-600: #171e38;         
-    --neutral-700: #0e1430;         
-    --neutral-800: #090d22;         
-    --neutral-900: #060915;         
-    --neutral-950: #03050f;         
-    --neutral-1000: #01020a;        
+    --neutral-400: #475569;         
+    --neutral-500: #334155;         
+    --neutral-600: #1e293b;         
+    --neutral-700: #0f172a;         
+    --neutral-800: #0b0f19;         
+    --neutral-900: #080b11;         
+    --neutral-950: #040508;         
+    --neutral-1000: #010203;        
     
     /* ========== ФОНЫ ========== */
-    --bg-body: hsla(233, 78%, 14%, 0.98);           /* Насыщенный глубокий космический темно-синий */
-    --bg-card: #080d20;                             /* Красивый космический фон карточек */
-    --bg-card-hover: #0d1430;                       /* Чуть более светлый темно-синий для эффекта наведения */
-    --bg-secondary: #050818;                        /* Глубокий темно-синий для вложенных блоков */
-    --bg-accent: #0a1128;                           /* Глубокий акцентный темно-синий */
-    --bg-glass: rgba(4, 6, 18, 0.92);               /* Матовое темно-синее стекло */
-    --bg-glass-light: rgba(255, 255, 255, 0.015);   /* Светлый слой стекла */
-    --bg-cookie: #080d20;                           
-    --bg-color-cs: rgba(255, 255, 255, 0.015);      
-
+    --bg-body: #0b0f19;                             /* Глубокий премиальный темно-сланцевый */
+    --bg-card: #151f32;                             /* Темный графит для карточек */
+    --bg-card-hover: #1c2841;                       /* Мягкий оттенок для эффекта наведения */
+    --bg-secondary: #070a12;                        /* Более темный фон для вложенных блоков */
+    --bg-accent: #111827;                           /* Акцентный нейтральный фон */
+    --bg-glass: rgba(11, 15, 25, 0.88);             /* Матовое стекло сланцевого оттенка */
+    --bg-glass-light: rgba(255, 255, 255, 0.015);   
+    --bg-cookie: #151f32;                           
+    --bg-color-cs: rgba(255, 255, 255, 0.01);      
+ 
     /* ========== ЦВЕТА ТЕКСТА ========== */
-    --text-primary: #f8fafc;      /* Почти чисто-белый для максимального контраста */
-    --text-secondary: #cbd5e1;    /* Светлый сланцево-серый для вторичного текста */
-    --text-muted: #94a3b8;        /* Приглушенный сланцево-серый */
-    --text-accent: #818cf8;       /* Светящийся индиго-акцент */
-    --text-inverse: #05071a;      /* Темный текст для светлых фонов */
-    --text-white: #ffffff;        /* Чистый белый */
+    --text-primary: #f8fafc;      /* Чистый контрастный белый */
+    --text-secondary: #cbd5e1;    /* Светло-серый для вторичного текста */
+    --text-muted: #94a3b8;        /* Мягкий серый */
+    --text-accent: #818cf8;       /* Мягкий индиго-акцент */
+    --text-inverse: #0b0f19;      
+    --text-white: #ffffff;        
     --text-cookie: #f8fafc;       
     
     /* ========== ССЫЛКИ ========== */
-    --link-color: #38bdf8;        /* Яркий светло-синий */
-    --link-hover: #7dd3fc;        /* Светящийся мягкий синий */
-    
-    /* ========== ГРАНИЦЫ ========== */
-    --border-color: rgba(99, 102, 241, 0.12);           /* Граница с оттенком индиго */
-    --border-color-hover: rgba(99, 102, 241, 0.25);     
-    --border-color-strong: rgba(99, 102, 241, 0.4);    
-    --border-glass: 1px solid rgba(99, 102, 241, 0.15); 
-    --border-glass-hover: 1px solid rgba(99, 102, 241, 0.3); 
-    --border-cookie: 1px solid rgba(99, 102, 241, 0.15); 
-
+    --link-color: #38bdf8;        
+    --link-hover: #7dd3fc;        
+    --border-color: rgba(148, 163, 184, 0.12);          /* Деликатная граница */
+    --border-color-hover: rgba(148, 163, 184, 0.25);     
+    --border-color-strong: rgba(148, 163, 184, 0.4);    
+    --border-glass: 1px solid rgba(148, 163, 184, 0.12); 
+    --border-glass-hover: 1px solid rgba(148, 163, 184, 0.25); 
+    --border-cookie: 1px solid rgba(148, 163, 184, 0.12); 
+ 
     /* ========== ЭФФЕКТЫ СТЕКЛА ========== */
     --glass-blur: blur(16px);
     --glass-blur-heavy: blur(32px);
-    --glass-bg: rgba(7, 10, 28, 0.75);
-    --glass-bg-hover: rgba(12, 17, 42, 0.9);
-    --glass-shadow: 0 8px 32px 0 rgba(1, 2, 10, 0.65);
-
+    --glass-bg: rgba(11, 15, 25, 0.75);
+    --glass-bg-hover: rgba(21, 31, 50, 0.9);
+    --glass-shadow: 0 8px 32px 0 rgba(1, 2, 6, 0.65);
+ 
     /* ========== СЕМАНТИЧЕСКИЕ ЦВЕТА ========== */
     --success-color: #10b981;     
     --warning-color: #f59e0b;     
+    --danger-color: #ef4444;      
+    --info-color: #3b82f6;        
+ 
+    /* ========== ГРАДИЕНТЫ ========== */
+    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%); 
+    --gradient-secondary: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); 
+    --gradient-accent: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%); 
+    --gradient-cosmic: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #3b82f6 100%); 
+    --gradient-dark: linear-gradient(180deg, #151f32 0%, #0b0f19 100%);
+    --gradient-cs: linear-gradient(180deg, #151f32 0%, #0b0f19 100%);
+    --gradient-surface: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, rgba(99, 102, 241, 0) 100%);;     
     --danger-color: #ef4444;      
     --info-color: #06b6d4;        
 

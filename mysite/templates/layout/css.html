@@ -6,10 +6,11 @@
      ВАЖНО: Порядок подключения критичен — каскадность CSS!
      ============================================================ -->
 
-<!-- ══════════════════════════════════════════════
-     00_variables  —  CSS-переменные (ПЕРВЫЙ ВСЕГДА)
-     Все цвета, отступы, шрифты, тени, радиусы
-     ══════════════════════════════════════════════ -->
+<!-- Подключение единого скомпилированного CSS файла для максимальной производительности -->
+<link rel="stylesheet" href="{% static 'css/bundle.min.css' %}" />
+
+{# Исходные CSS файлы для справки и работы сборщика bundle_css.py #}
+{% comment %}
 <link rel="stylesheet" href="{% static 'css/00_variables/variables.css' %}" />
 
 <!-- ══════════════════════════════════════════════
@@ -128,3 +129,4 @@
 <link rel="stylesheet" href="{% static 'css/99_premium/styles.css' %}" />
 <link rel="stylesheet" href="{% static 'css/99_premium/premium-enhancements.css' %}?v=2.0" />
 <link rel="stylesheet" href="{% static 'css/99_premium/visual-upgrade-2026.css' %}?v=1.1" />
+{% endcomment %}
