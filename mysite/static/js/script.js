@@ -44,7 +44,8 @@ function previewImage(input, previewId) {
     }
 }
 
-// Smooth scrolling
+// Smooth scrolling (Отключено для использования нативного поведения браузера)
+/*
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -53,6 +54,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+*/
 
 
 // Основной JavaScript файл
@@ -72,7 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
     
-    // Плавная прокрутка для якорей
+    // Плавная прокрутка для якорей (Отключено для использования нативного поведения браузера)
+    /*
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -85,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    */
     
     // Валидация форм
     const forms = document.querySelectorAll('form[novalidate]');

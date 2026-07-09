@@ -506,44 +506,41 @@ h3 {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   19. ANIMATED ENTRY — SCROLL-TRIGGERED ЭФФЕКТЫ
+   19. ANIMATED ENTRY — SCROLL-TRIGGERED ЭФФЕКТЫ (ОТКЛЮЧЕНО)
    ══════════════════════════════════════════════════════════════ */
 
-/* Класс для элементов, которые будут анимироваться при появлении в viewport */
+/* Изменено для немедленного отображения контента без эффектов появления */
 .reveal-on-scroll {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
 }
 
 .reveal-on-scroll.revealed {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 .reveal-on-scroll-left {
-    opacity: 0;
-    transform: translateX(-40px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
 }
 
 .reveal-on-scroll-left.revealed {
-    opacity: 1;
-    transform: translateX(0);
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 .reveal-on-scroll-right {
-    opacity: 0;
-    transform: translateX(40px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
 }
 
 .reveal-on-scroll-right.revealed {
-    opacity: 1;
-    transform: translateX(0);
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 /* Задержки для последовательного появления */
