@@ -10,7 +10,7 @@
 
 ### Корневые файлы
 * **[manage.py](file:///b:/PYTHON/PROJECTS/dpits-cms/mysite/manage.py)**: Стандартный скрипт командной строки Django для управления проектом (запуск сервера разработки, создание миграций, выполнение консольных команд и т.д.).
-* **[.env](file:///b:/PYTHON/PROJECTS/dpits-cms/mysite/.env)**: Конфигурационный файл для хранения чувствительных переменных окружения (секретный ключ Django, настройки базы данных, параметры отладки, ключи API).
+* **[.env](file:///b:/PYTHON/PROJECTS/dpits-cms/mysite/.venv)**: Конфигурационный файл для хранения чувствительных переменных окружения (секретный ключ Django, настройки базы данных, параметры отладки, ключи API).
 * **[.env.example](file:///b:/PYTHON/PROJECTS/dpits-cms/mysite/.env.example)**: Шаблон для файла `.env` с указанием необходимых переменных для настройки проекта на других машинах.
 * **[.htaccess](file:///b:/PYTHON/PROJECTS/dpits-cms/mysite/.htaccess)**: Конфигурационный файл для веб-сервера Apache (используется при развертывании на некоторых хостингах для перенаправления запросов).
 * **[requirements.txt](file:///b:/PYTHON/PROJECTS/dpits-cms/mysite/requirements.txt)**: Список внешних Python-зависимостей проекта с указанием точных версий (включая Django, ckeditor-5, django-cleanup, pillow, django-simple-captcha и др.).
